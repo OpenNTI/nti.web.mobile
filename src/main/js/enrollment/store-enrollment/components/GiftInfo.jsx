@@ -2,7 +2,7 @@ import React from 'react';
 
 import {edit} from '../Actions';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT.CONFIRMATION');
 

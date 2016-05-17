@@ -2,7 +2,7 @@ import React from 'react';
 
 import Err from 'common/components/Error';
 import ContextSender from 'common/mixins/ContextSender';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import EnrollmentOptions from '../mixins/EnrollmentMixin';
 

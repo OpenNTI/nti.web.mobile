@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import {Editor} from 'modeled-content';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('PROFILE.EDIT.EVENT_ITEM');
 

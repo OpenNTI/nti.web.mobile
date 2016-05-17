@@ -7,7 +7,7 @@ import DisplayName from 'common/components/DisplayName';
 import GotoItem from 'common/components/GotoItem';
 import Report from 'common/components/Report';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 import TopicHeadline from 'forums/components/TopicHeadline';
 // import ActionsComp from 'forums/components/Actions';

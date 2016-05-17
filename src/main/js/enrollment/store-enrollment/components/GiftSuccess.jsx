@@ -8,7 +8,7 @@ import {resetProcess} from '../Actions';
 
 import Button from 'common/forms/components/Button';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT.GIFT.SUCCESS');
 const siteString = scoped('COURSE.CONTACTINFO');

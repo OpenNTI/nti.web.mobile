@@ -2,7 +2,7 @@ import React from 'react';
 
 import ForumItem from '../list-items/ForumItem';
 import keyFor from '../../utils/key-for-item';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('FORUMS.groupTitles');
 

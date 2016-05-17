@@ -6,7 +6,7 @@ import Select from 'common/forms/components/Select';
 import Checkbox from 'common/forms/components/Checkbox';
 import ToggleFieldset from '../components/ToggleFieldset';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 import {RENDERED_FORM_EVENT_HANDLERS as Events} from '../Constants';
 
 const prefix = 'RenderFormConfig:';

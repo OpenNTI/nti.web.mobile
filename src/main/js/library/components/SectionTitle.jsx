@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-component';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 export default function SectionTitle (props) {
 	const {section, href} = props;

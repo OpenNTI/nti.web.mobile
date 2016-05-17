@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import ObjectLink from 'common/mixins/ObjectLink';
 import Ellipsed from 'common/components/Ellipsed';
 

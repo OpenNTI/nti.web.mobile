@@ -2,7 +2,7 @@ import React from 'react';
 import PanelButton from 'common/components/PanelButton';
 import OkCancelButtons from 'common/components/OkCancelButtons';
 import {Editor} from 'modeled-content';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('FORUMS');
 

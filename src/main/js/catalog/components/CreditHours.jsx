@@ -1,6 +1,6 @@
 import React from 'react';
 
-import locale, {scoped} from 'common/locale';
+import locale, {scoped} from 'nti-lib-locale';
 
 const t = scoped('COURSE.INFO');
 

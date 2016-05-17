@@ -12,7 +12,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import Err from 'common/components/Error';
 
 import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';

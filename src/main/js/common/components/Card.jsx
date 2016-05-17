@@ -31,7 +31,7 @@ import {toAnalyticsPath} from 'analytics/utils';
 import ContextAccessor from '../mixins/ContextAccessor';
 import NavigatableMixin from '../mixins/NavigatableMixin';
 
-import {scoped} from '../locale';
+import {scoped} from 'nti-lib-locale';
 import {rawContent} from '../utils/jsx';
 
 import {BLANK_IMAGE} from '../constants/DataURIs';

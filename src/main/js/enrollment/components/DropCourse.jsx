@@ -8,7 +8,7 @@ import Loading from 'common/components/Loading';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import Actions from '../Actions';
 import {DROP_COURSE} from '../Constants';

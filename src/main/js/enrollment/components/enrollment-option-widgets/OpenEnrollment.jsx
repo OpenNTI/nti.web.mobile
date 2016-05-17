@@ -1,7 +1,7 @@
 import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import Loading from 'common/components/Loading';
 
 import BasePath from 'common/mixins/BasePath';

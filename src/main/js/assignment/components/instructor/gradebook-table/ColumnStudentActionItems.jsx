@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import {rawContent} from 'common/utils/jsx';
 
 import StudentLink from './StudentLink';

@@ -10,7 +10,7 @@ import {isMimeType} from 'common/utils/mimetype';
 import Mixin from './Mixin';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import {StoreEventsMixin} from 'nti-lib-store';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import LuckyCharms from 'common/components/LuckyCharms';
 
 const t = scoped('FORUMS');

@@ -13,7 +13,7 @@ import Interests from './edit/Interests';
 import Card from '../Card';
 import RedirectToProfile from '../../mixins/RedirectToProfile';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 let t = scoped('ERROR_MESSAGES');
 

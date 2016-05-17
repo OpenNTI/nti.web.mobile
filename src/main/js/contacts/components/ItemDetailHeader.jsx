@@ -1,6 +1,6 @@
 import React from 'react';
 import {areYouSure} from 'prompts';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import Navigatable from 'common/mixins/NavigatableMixin';
 import cx from 'classnames';
 

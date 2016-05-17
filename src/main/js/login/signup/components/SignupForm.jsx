@@ -7,7 +7,7 @@ import {NavigatableMixin} from 'react-router-component';
 
 import BasePathAware from 'common/mixins/BasePath';
 import {StoreEventsMixin} from 'nti-lib-store';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 let t = scoped('LOGIN.CREATE_ACCOUNT');
 
 

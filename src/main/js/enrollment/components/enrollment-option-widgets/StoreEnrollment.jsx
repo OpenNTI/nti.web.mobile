@@ -3,7 +3,7 @@ import React from 'react';
 import Notice from 'common/components/Notice';
 import Err from 'common/components/Error';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
 import BasePathAware from 'common/mixins/BasePath';

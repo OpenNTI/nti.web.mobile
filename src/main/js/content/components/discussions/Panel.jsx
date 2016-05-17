@@ -4,7 +4,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 
 import DateTime from 'common/components/DateTime';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Panel as Body} from 'modeled-content';

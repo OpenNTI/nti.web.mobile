@@ -3,7 +3,7 @@ import React from 'react';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 import {getModel} from 'nti-lib-interfaces';
 import {HISTORY_LINK} from 'nti-lib-interfaces/lib/models/assessment/Constants';

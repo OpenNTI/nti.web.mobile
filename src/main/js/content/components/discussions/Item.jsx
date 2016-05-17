@@ -5,7 +5,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import DisplayName from 'common/components/DisplayName';
 import DateTime from 'common/components/DateTime';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {Panel} from 'modeled-content';
 

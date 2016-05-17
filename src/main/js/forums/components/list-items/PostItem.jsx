@@ -27,7 +27,7 @@ import LuckyCharms from 'common/components/LuckyCharms';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-const t = require('common/locale').scoped('FORUMS');
+const t = require('nti-lib-locale').scoped('FORUMS');
 const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';

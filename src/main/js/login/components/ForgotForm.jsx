@@ -4,7 +4,7 @@ import Url from 'url';
 
 import Conditional from 'common/components/Conditional';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {getServer} from 'nti-web-client';
 

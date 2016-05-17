@@ -6,7 +6,7 @@ import Busy from 'common/components/TinyLoader';
 
 import {Editor} from 'modeled-content';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 const PUBLISH = {publish: true};
 

@@ -4,7 +4,7 @@ import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Panel as Body} from 'modeled-content';
 
-// import {scoped} from 'common/locale';
+// import {scoped} from 'nti-lib-locale';
 // const t = scoped('DISCUSSIONS');
 
 import AuthorInfo from './AuthorInfo';

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Logger from 'nti-util-logger';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import ContextSender from 'common/mixins/ContextSender';
 import EmptyList from 'common/components/EmptyList';
 import Err from 'common/components/Error';

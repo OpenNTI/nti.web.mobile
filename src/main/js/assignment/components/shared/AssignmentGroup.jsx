@@ -4,7 +4,7 @@ import cx from 'classnames';
 import DateTime from 'common/components/DateTime';
 import EmptyList from 'common/components/EmptyList';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ASSESSMENT.ASSIGNMENTS.GROUP_LABELS');
 

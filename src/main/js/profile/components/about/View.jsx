@@ -3,7 +3,7 @@ import {PROFILE_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes'
 
 import Loading from 'common/components/TinyLoader';
 import ActiveState from 'common/components/ActiveState';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 import Card from '../Card';

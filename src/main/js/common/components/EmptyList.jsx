@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import Notice from './Notice';
 
-import {scoped} from '../locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('LISTS');
 

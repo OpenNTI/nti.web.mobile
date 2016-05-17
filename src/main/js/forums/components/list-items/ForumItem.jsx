@@ -6,7 +6,7 @@ import TinyLoader from 'common/components/TinyLoader';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {mimeTypes, FORUM} from '../../Constants';
 

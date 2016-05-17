@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 
 import Loading from 'common/components/Loading';
 import ContextAccessor from 'common/mixins/ContextAccessor';
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 import {Editor} from 'modeled-content';
 

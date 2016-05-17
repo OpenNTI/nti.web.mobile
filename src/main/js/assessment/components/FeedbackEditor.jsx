@@ -7,7 +7,7 @@ import {Editor} from 'modeled-content';
 
 import Loading from 'common/components/Loading';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 const logger = Logger.get('assessment:components:FeedbackEditor');
 

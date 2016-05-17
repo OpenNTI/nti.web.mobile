@@ -4,7 +4,7 @@ import Collapsible from '../Collapsible';
 import List from '../List';
 import Avatar from 'common/components/Avatar';
 import {mimeTypes, DELETED_ITEM_GROUP} from '../../Constants';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 const t = scoped('FORUMS');
 
 export default React.createClass({

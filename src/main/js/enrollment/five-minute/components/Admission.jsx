@@ -25,7 +25,7 @@ import {
 	RECEIVED_PAY_AND_ENROLL_LINK
 } from '../Constants';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const logger = Logger.get('enrollment:five-minute:components:Admission');
 const t = scoped('ENROLLMENT');

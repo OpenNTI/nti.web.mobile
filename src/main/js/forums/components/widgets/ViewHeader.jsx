@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {DISCUSSIONS, FORUM, TOPIC, POST} from '../../Constants';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 let t = scoped('FORUMS.viewHeaders');
 
 // map symbols to the corresponding lookup keys in locale/forums

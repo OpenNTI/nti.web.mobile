@@ -1,5 +1,5 @@
 import Logger from 'nti-util-logger';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 export const CURRENT = 'current';
 export const UPCOMING = 'upcoming';

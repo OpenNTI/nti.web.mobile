@@ -1,5 +1,5 @@
 import React from 'react';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.GIFT.PRICING');
 import DateTime from 'common/components/DateTime';
 

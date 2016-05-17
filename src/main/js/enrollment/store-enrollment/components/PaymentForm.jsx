@@ -4,7 +4,7 @@
 // in this file.
 
 import React from 'react';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';

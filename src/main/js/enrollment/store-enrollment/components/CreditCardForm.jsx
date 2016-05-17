@@ -6,7 +6,7 @@ import Loading from 'common/components/TinyLoader';
 
 import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
 import {clearLoadingFlag} from 'common/utils/react-state';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 //These strings should probably move into a more generic place in the strings.
 const t = scoped('ENROLLMENT.forms.storeenrollment');

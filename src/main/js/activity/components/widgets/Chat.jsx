@@ -6,7 +6,7 @@ import Loading from 'common/components/TinyLoader';
 
 import Transcript from 'chat/components/Transcript';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 let t = scoped('UNITS');
 
 import Mixin from './Mixin';

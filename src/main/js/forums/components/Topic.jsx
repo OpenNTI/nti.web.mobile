@@ -32,7 +32,7 @@ import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import {StoreEventsMixin} from 'nti-lib-store';
 import ToggleState from '../mixins/ToggleState';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 let t = scoped('FORUMS');
 
 

@@ -4,7 +4,7 @@ import CourseContentLink from 'library/mixins/CourseContentLink';
 import Banner from 'common/components/Banner';
 import Loading from 'common/components/Loading';
 import ContextSender from 'common/mixins/ContextSender';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import SendForm from './SendForm';
 

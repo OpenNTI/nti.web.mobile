@@ -8,7 +8,7 @@ import Transition from 'react-addons-css-transition-group';
 
 import Loading from 'common/components/Loading';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import {StoreEventsMixin} from 'nti-lib-store';

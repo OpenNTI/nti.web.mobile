@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {edit} from '../Actions';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.CONFIRMATION');
 
 const rowIfNotEmpty = 'BillingInfo:rowIfNotEmpty';

@@ -11,7 +11,7 @@ import * as Actions from '../Actions';
 import Store from '../Store';
 import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 let t = scoped('FORUMS');
 

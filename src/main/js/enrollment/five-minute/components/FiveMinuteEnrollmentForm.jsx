@@ -11,7 +11,7 @@ import FormErrors from 'common/forms/components/FormErrors';
 import RelatedFormPanel from 'common/forms/components/RelatedFormPanel';
 
 import Loading from 'common/components/Loading';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import _formConfig from '../configs/FiveMinuteEnrollmentForm';
 import Autopopulator from '../Autopopulator';

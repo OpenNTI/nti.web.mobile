@@ -2,7 +2,7 @@ import React from 'react';
 
 import {resolve} from 'nti-web-client/lib/user';
 
-import t from '../locale';
+import t from 'nti-lib-locale';
 
 import DisplayName from './DisplayName';
 import Loading from './TinyLoader';

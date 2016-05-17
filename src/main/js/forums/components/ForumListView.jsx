@@ -10,7 +10,7 @@ import Loading from 'common/components/Loading';
 import {StoreEventsMixin} from 'nti-lib-store';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {clearLoadingFlag} from 'common/utils/react-state';
 

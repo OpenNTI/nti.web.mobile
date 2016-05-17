@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import {resolve, getDebugUsernameString} from 'nti-web-client/lib/user';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 import {getAppUsername} from 'nti-web-client';
 import ProfileLink from 'profile/mixins/ProfileLink';

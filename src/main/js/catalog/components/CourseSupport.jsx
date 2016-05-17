@@ -2,7 +2,7 @@ import React from 'react';
 
 import {BLANK_IMAGE} from 'common/constants/DataURIs';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const MISSING = '~~missing~~';
 

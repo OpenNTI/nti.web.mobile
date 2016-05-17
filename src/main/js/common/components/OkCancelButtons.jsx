@@ -1,5 +1,5 @@
 import React from 'react';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('BUTTONS');
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Logger from 'nti-util-logger';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import {submitFeedback, deleteFeedbackItem, updateFeedbackItem} from '../Api';

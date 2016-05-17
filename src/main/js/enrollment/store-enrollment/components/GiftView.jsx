@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import {getAppUser, getUserAgreementURI} from 'nti-web-client';
 import {clearLoadingFlag} from 'common/utils/react-state';
 

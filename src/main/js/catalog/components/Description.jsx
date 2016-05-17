@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import isEmpty from 'isempty';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import OpenEnrolledMessage from './OpenEnrolledMessage';
 import CreditHours from './CreditHours';

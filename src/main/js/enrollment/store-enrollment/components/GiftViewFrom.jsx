@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import isEmail from 'nti-lib-interfaces/lib/utils/isemail';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 let t = scoped('ENROLLMENT.forms.storeenrollment');
 let t2 = scoped('ENROLLMENT');

@@ -6,7 +6,7 @@ import Notice from 'common/components/Notice';
 import FormPanel from 'common/forms/components/FormPanel';
 import FormErrors from 'common/forms/components/FormErrors';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {send, canSend} from '../Api';
 

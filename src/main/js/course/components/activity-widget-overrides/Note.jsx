@@ -3,7 +3,7 @@ import React from 'react';
 import Breadcrumb from 'common/components/BreadcrumbPath';
 import GotoItem from 'common/components/GotoItem';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 import Context from 'content/components/discussions/Context';
 import Detail from 'content/components/discussions/Detail';

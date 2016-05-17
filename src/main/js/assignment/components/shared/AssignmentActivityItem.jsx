@@ -6,7 +6,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import DateTime from 'common/components/DateTime';
 import DisplayName from 'common/components/DisplayName';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {join} from 'path';
 

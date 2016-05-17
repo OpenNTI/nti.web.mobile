@@ -7,7 +7,7 @@ import {getModel} from 'nti-lib-interfaces';
 
 import DateTime from 'common/components/DateTime';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {getEventTarget} from 'nti-lib-dom';
 

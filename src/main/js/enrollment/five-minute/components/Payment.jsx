@@ -6,7 +6,7 @@ import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {doExternalPayment} from '../Actions';
 import Store from '../Store';

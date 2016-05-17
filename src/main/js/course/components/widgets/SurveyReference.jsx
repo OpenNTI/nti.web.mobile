@@ -4,7 +4,7 @@ import path from 'path';
 import Link from 'common/components/NestableLink';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 import {getModel} from 'nti-lib-interfaces';
 import {encodeForURI} from 'nti-lib-ntiids';

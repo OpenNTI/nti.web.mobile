@@ -4,7 +4,7 @@ import cx from 'classnames';
 import BasePathAware from 'common/mixins/BasePath';
 
 import {encodeForURI} from 'nti-lib-ntiids';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT.BUTTONS');
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Editor from './FeedbackEditor';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 

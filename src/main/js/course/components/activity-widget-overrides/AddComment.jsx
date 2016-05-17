@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ObjectLink from 'common/mixins/ObjectLink';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 const t = scoped('ACTIVITY.REPLYABLE');
 
 export default React.createClass({

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 import Report from 'common/components/Report';

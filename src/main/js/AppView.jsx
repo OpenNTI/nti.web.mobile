@@ -5,7 +5,8 @@ import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 import {
 	addChangeListener as addLocaleChangeListener,
 	removeChangeListener as removeLocaleChangeListener
-} from 'common/locale';
+} from 'nti-lib-locale';
+import './locale';
 
 import Router from './Router';
 import Loading from 'common/components/Loading';

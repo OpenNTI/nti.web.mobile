@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-const t = require('common/locale').scoped('ENROLLMENT.forms.fiveminute');
+const t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
 const concurrentForm = require('./ConcurrentEnrollmentForm');
 const admissionForm = require('./AdmissionForm');
 const Constants = require('common/forms/Constants');

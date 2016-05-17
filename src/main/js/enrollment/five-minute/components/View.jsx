@@ -6,7 +6,7 @@ import path from 'path';
 import PanelButton from 'common/components/PanelButton';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT');
 

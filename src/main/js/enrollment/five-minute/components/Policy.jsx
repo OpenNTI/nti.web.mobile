@@ -6,7 +6,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.forms.fiveminute');
 
 export default React.createClass({

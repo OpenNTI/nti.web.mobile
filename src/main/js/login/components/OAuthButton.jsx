@@ -6,7 +6,7 @@ import QueryString from 'query-string';
 
 import Button from 'common/forms/components/Button';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import {getReturnURL} from 'nti-web-client';
 
 import BasePathAware from 'common/mixins/BasePath';

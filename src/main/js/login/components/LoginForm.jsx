@@ -10,7 +10,7 @@ import Loading from 'common/components/Loading';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import OAuthButtons from './OAuthButtons';
 import RecoveryLinks from './RecoveryLinks';

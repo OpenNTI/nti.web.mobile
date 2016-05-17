@@ -27,7 +27,7 @@ import {Summary} from 'nti-lib-interfaces';
 
 import Card from 'common/components/Card';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 export default React.createClass({
 	displayName: 'CourseOverviewRelatedWorkRef',

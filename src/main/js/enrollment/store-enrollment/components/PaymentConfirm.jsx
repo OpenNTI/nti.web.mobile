@@ -13,7 +13,7 @@ import {resetProcess, submitPayment} from '../Actions';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.CONFIRMATION');
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
 

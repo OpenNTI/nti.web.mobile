@@ -1,6 +1,6 @@
 import React from 'react';
 import Notice from 'common/components/Notice';
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 export default function NoOptions () {
 	return (

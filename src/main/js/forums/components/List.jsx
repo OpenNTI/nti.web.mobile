@@ -4,7 +4,7 @@ import hash from 'object-hash';
 
 import Notice from 'common/components/Notice';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 import ListItem from './list-items';
 import groupDeletedItems from '../utils/group-deleted-items';

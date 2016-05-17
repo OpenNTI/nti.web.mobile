@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import {getUserAgreementURI} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';
 

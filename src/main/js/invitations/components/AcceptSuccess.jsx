@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 import BasePathAware from 'common/mixins/BasePath';
 
 import CourseInfo from './CourseInfo';

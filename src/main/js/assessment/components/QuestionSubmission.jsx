@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import Loading from 'common/components/TinyLoader';
 
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 const t = scoped('ASSESSMENT');
 
 import Store from '../Store';

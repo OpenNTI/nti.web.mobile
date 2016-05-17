@@ -3,7 +3,7 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
-import {scoped} from 'common/locale';
+import {scoped} from 'nti-lib-locale';
 
 const t = scoped('COURSE.INFO.CATALOG_ENTRY');
 

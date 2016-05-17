@@ -8,7 +8,7 @@ import HideNavigation from 'common/components/HideNavigation';
 
 import ShareWith from 'common/components/ShareWith';
 
-import t from 'common/locale';
+import t from 'nti-lib-locale';
 
 export default React.createClass({
 	displayName: 'NoteEditor',
