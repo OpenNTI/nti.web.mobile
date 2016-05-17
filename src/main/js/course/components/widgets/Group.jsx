@@ -1,12 +1,10 @@
 import React from 'react';
 
-import {IllegalStateException} from 'common/exceptions';
-
 import ErrorWidget from 'common/components/Error';
 
 // This is an exmaple of a widget needing the mixin because it has children,
 // only components within this package can(and should) import the mixin this way.
-import Mixin from './Mixin';
+import Mixin, {IllegalStateException} from './Mixin';
 
 export default React.createClass({
 	displayName: 'CourseOverviewGroup',

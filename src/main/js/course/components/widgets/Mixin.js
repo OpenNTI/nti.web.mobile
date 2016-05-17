@@ -1,5 +1,12 @@
 import React from 'react';
-import {IllegalStateException} from 'common/exceptions';
+
+export class IllegalStateException {
+	constructor (message) {
+		let {stack} = new Error(message);
+		Object.assign(this, {message, stack});
+	}
+}
+
 
 /**
  * Do NOT directly import this from any other package. If you want to mix
