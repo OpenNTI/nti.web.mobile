@@ -71,10 +71,19 @@ export default React.createClass({
 	},
 
 	onError (error) {
+		function getMessage () {
+			let message = error.statusText || error.message || 'Unknown Error';
+			if(error.code) {
+				message = t(error.code, {fallback: message});
+			}
+			return message;
+		}
+
 		this.setState({
 			loading: false,
 			error: {
-				message: error.statusText || error.message || 'Unknown Error'
+				message: getMessage(),
+				raw: error
 			}
 		});
 	},
