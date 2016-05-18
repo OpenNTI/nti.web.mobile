@@ -20,12 +20,13 @@ export default React.createClass({
 	render () {
 		let {course} = this.props;
 		let entry = course && course.CatalogEntry;
+		let isAdmin = course && course.isAdministrative;
 
 		return (
 			<div className="course-info">
 				<Detail {...this.props} entry={entry}/>
-				<EnrollmentStatus catalogEntry={entry} />
-				<GiftOptions catalogEntry={entry} />
+				{!isAdmin && <EnrollmentStatus catalogEntry={entry} />}
+				{!isAdmin && <GiftOptions catalogEntry={entry} />}
 				<InviteButton course={course} />
 			</div>
 		);
