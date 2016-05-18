@@ -1,5 +1,4 @@
 import React from 'react';
-import nullRender from 'fbjs/lib/emptyFunction';
 
 import {getHTMLSnippet, filterContent, processContent} from 'nti-lib-content-processing';
 
@@ -10,7 +9,9 @@ import hash from 'object-hash';
 
 import SYSTEM_WIDGETS from '../SystemWidgetRegistry';
 
-let SYSTEM_WIDGET_STRATEGIES = {};
+const SYSTEM_WIDGET_STRATEGIES = {};
+
+const nullRender = () => {};
 
 
 function getPacket (content, strategies, previewMode, maxPreviewLength) {
