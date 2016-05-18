@@ -4,7 +4,7 @@ import {rawContent} from 'common/utils/jsx';
 
 import Mixin from './Mixin';
 
-import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
+import ensureArray from 'nti-commons/lib/ensure-array';
 
 /**
  * This solution type represents Muliple Choice (with multiple answers--aka Checkboxes)

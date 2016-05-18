@@ -5,7 +5,7 @@ import path from 'path';
 import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
-import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
+import buffer from 'nti-commons/lib/function-buffer';
 
 import Pager from 'common/components/Pager';
 

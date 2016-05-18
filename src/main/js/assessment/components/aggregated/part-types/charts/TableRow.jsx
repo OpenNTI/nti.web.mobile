@@ -2,7 +2,7 @@ import React from 'react';
 
 import TableCell from './TableCell';
 
-import unique from 'nti-lib-interfaces/lib/utils/array-unique';
+import unique from 'nti-commons/lib/array-unique';
 
 const RANK = ['first', 'second'];
 

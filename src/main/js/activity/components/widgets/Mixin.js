@@ -1,4 +1,4 @@
-import escape from 'nti-lib-interfaces/lib/utils/regexp-escape';
+import escape from 'nti-commons/lib/regexp-escape';
 
 const inputTypeCleaned = Symbol();
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
+import ensureArray from 'nti-commons/lib/ensure-array';
 
 import {isPointWithIn} from 'nti-lib-dom';
 import Base, {TYPE_SHAPE} from './Base';

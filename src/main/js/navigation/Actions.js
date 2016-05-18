@@ -1,4 +1,4 @@
-import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
+import buffer from 'nti-commons/lib/function-buffer';
 import AppDispatcher from 'nti-lib-dispatcher';
 
 import {

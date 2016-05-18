@@ -1,4 +1,4 @@
-import getLink from 'nti-lib-interfaces/lib/utils/getlink';
+import getLink from 'nti-lib-interfaces/lib/utils/getlink';//Accessing interfaces/lib directly is taboo
 
 import {getService} from 'nti-web-client';
 import AppDispatcher from 'nti-lib-dispatcher';
@@ -11,6 +11,8 @@ export function accept (code) {
 	return getService().then(service => {
 		const collection = service.getCollection('Invitations', 'Invitations');
 		const href = getLink(collection, ACCEPT_LINK);
+		//This should be:
+		//const href = collection.getLink(ACCEPT_LINK);
 		return service.postParseResponse(href, {'invitation_codes': code})
 			.then(response => response && response.waitForPending ? response.waitForPending() : response)
 			.then(response => {

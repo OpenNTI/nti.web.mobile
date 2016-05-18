@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {resolve} from 'nti-web-client/lib/user';
-import ensureArray from 'nti-lib-interfaces/lib/utils/ensure-array';
+import ensureArray from 'nti-commons/lib/ensure-array';
 
 import Loader from 'common/components/TinyLoader';
 import SocialLinks from './SocialLinks';

@@ -4,7 +4,7 @@ import Logger from 'nti-util-logger';
 import * as Anchors from 'nti-lib-anchorjs';
 import * as RangeUtils from 'nti-lib-ranges';
 
-import mixin from 'nti-lib-interfaces/lib/utils/mixin';
+import mixin from 'nti-commons/lib/mixin';
 
 import Annotation, {RENDERED} from './Annotation';
 

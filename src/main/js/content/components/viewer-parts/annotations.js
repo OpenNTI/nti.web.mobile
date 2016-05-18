@@ -1,5 +1,5 @@
 import Logger from 'nti-util-logger';
-import buffer from 'nti-lib-interfaces/lib/utils/function-buffer';
+import buffer from 'nti-commons/lib/function-buffer';
 
 import {createRangeDescriptionFromRange, preresolveLocatorInfo} from 'nti-lib-anchorjs';
 import {getEventTarget, parent} from 'nti-lib-dom';
