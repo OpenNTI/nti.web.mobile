@@ -1,4 +1,10 @@
+@import 'utils/variables';
+@import 'utils/placeholders';
+
 .panel-button {
+
+	$alert-color: #f04124;
+
 	&.error {
 		.panel {
 			border-color: $alert-color;

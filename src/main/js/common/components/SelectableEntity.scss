@@ -1,7 +1,4 @@
-.selectable-entities {
-	list-style: none;
-	margin: 0;
-}
+@import 'utils/variables';
 
 .selectable-entity {
 	$avatarsize: 2.5rem;
@@ -109,7 +106,7 @@
 		// opacity: .4;
 	}
 
-	//we need specificity here... 
+	//we need specificity here...
 	.avatar-spacer .avatar {
 		width: $avatarsize;
 		height: $avatarsize;

@@ -1,0 +1,19 @@
+@import 'utils/variables';
+
+.notice {
+	/*text-align: center;*/
+	margin: 1rem;
+	padding: 2rem 1rem;
+	background: $panel-background;
+	color: $secondary-grey;
+	border: 1px solid $border-grey;
+	border-radius: 2px;
+	&.small {
+		font-size: .6875rem;
+		padding: .25rem;
+	}
+
+	&.empty-list {
+		text-align: center;
+	}
+}
