@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import isEmail from 'nti-lib-interfaces/lib/utils/isemail';
+import {validate as isEmail} from 'email-validator';
 
 import {scoped} from 'nti-lib-locale';
 

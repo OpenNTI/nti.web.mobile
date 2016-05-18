@@ -1,5 +1,5 @@
 import React from 'react';
-import isEmail from 'nti-lib-interfaces/lib/utils/isemail';
+import {validate as isEmail} from 'email-validator';
 
 import Loading from 'common/components/Loading';
 import Notice from 'common/components/Notice';
