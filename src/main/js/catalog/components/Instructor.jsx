@@ -46,14 +46,12 @@ export default React.createClass({
 		let background = {backgroundImage: `url(${photo})`};
 
 		return (
-			<div className="row instructor">
-				<div className="small-12 columns">
-					<img style={background} src={BLANK_IMAGE} alt="Instructor Photo"/>
-					<div className="meta">
-						<div className="label">{t('Instructor')}</div>
-						<div className="name">{Name}</div>
-						<div className="job-title">{JobTitle}</div>
-					</div>
+			<div className="instructor">
+				<img style={background} src={BLANK_IMAGE} alt="Instructor Photo"/>
+				<div className="meta">
+					<div className="label">{t('Instructor')}</div>
+					<div className="name">{Name}</div>
+					<div className="job-title">{JobTitle}</div>
 				</div>
 			</div>
 		);

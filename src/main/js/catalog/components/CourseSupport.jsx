@@ -31,13 +31,11 @@ export default React.createClass({
 		return this.shouldRender() && (
 			<div className="course-detail-view">
 
-				<div className="row support">
-					<div className="small-12 columns">
-						<img src={BLANK_IMAGE} alt="Support"/>
-						<div className="meta">
-							<div className="label">{t('label')}</div>
-							{[0,1,2].map(x => this.renderLink(x))}
-						</div>
+				<div className="support">
+					<img src={BLANK_IMAGE} alt="Support"/>
+					<div className="meta">
+						<div className="label">{t('label')}</div>
+						{[0,1,2].map(x => this.renderLink(x))}
 					</div>
 				</div>
 

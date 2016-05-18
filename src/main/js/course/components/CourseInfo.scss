@@ -2,6 +2,7 @@
 
 .course-info {
 	background: #fff;
-
+	max-width: 1000px;
+	margin: 0 auto;
 	@include clearfix;
 }

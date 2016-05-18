@@ -3,6 +3,7 @@
 	.video-wrap {padding:0; .flex-video{ margin-bottom: 0;}}
 	.title {
 		background: rgba(0,0,0,0.8);
+		padding: 0 .9375rem;
 
 		.text {
 			color: #fff;
@@ -12,8 +13,17 @@
 		}
 	}
 
+	& > * {
+		padding: 0 .9375rem;
+	}
+
+	.course-description {
+		margin-bottom: .5rem;
+	}
+
 	.header {
 		margin-bottom: 0.5rem;
+		padding: 0;
 	}
 
 	.cell {
@@ -37,7 +47,7 @@
 
 	.support,
 	.instructor {
-		padding: 0.25rem 0.5rem 0.375rem;
+		padding: 0.25rem 0.5rem 0.375rem 0;
 		position: relative;
 		overflow: hidden;
 

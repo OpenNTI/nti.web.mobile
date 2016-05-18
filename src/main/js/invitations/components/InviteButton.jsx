@@ -27,6 +27,6 @@ export default React.createClass({
 
 		const {course} = this.props;
 
-		return canSend(course) ? <div className="row"><a className="invite-button" href={this.href()}>{t('inviteButton')}</a></div> : null;
+		return canSend(course) ? <a className="invite-button" href={this.href()}>{t('inviteButton')}</a> : null;
 	}
 });

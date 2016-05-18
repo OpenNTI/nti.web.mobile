@@ -33,10 +33,8 @@ export default React.createClass({
 			<div className={cls}>
 				{video ? (
 
-					<div className="row">
-						<div className="columns video-wrap">
-							<Video src={video} context={context}/>
-						</div>
+					<div className="video-wrap">
+						<Video src={video} context={context}/>
 					</div>
 
 				) : promo ? (
@@ -48,9 +46,7 @@ export default React.createClass({
 				}
 
 				<div className="title">
-					<div className="row">
-						<div className="columns text">{entry.Title}</div>
-					</div>
+					<div className="text">{entry.Title}</div>
 				</div>
 			</div>
 		);

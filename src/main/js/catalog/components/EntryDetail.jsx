@@ -115,7 +115,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div>
+			<div className="course-info">
 				<Detail {...this.props} entry={entry}/>
 				<EnrollmentStatus catalogEntry={entry} />
 				<GiftOptions catalogEntry={entry} />

@@ -7,7 +7,7 @@ export default function EnrollmentStatus (props) {
 	const Widget = getWidget(catalogEntry);
 
 	return (
-		<div className="enrollment-status row">
+		<div className="enrollment-status">
 			<Widget catalogEntry={catalogEntry} />
 		</div>
 	);
