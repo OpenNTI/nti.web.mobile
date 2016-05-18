@@ -267,7 +267,7 @@
 			&.sorted {
 				$arrowsize: .5em; // sort arrow size
 				position: relative;
-				color: $body-font-color;
+				color: $primary-grey;
 				.sort-arrow {
 					margin-left: .25em;
 					&::after { // sort arrow

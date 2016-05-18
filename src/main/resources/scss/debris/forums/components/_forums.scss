@@ -82,7 +82,7 @@ $indent: 0.9375rem;
 		margin-top: 1rem;
 		input {
 			font-size: 1rem;
-			color: $body-font-color;
+			color: $primary-grey;
 			border: 1px solid black;
 			padding: .6rem;
 			width: 100%;
@@ -241,7 +241,7 @@ $indent: 0.9375rem;
 			.title {
 				display: block;
 				font-size: 1rem;
-				color: $body-font-color;
+				color: $primary-grey;
 				font-family: $header-font-family;
 				font-weight: 600;
 			}
