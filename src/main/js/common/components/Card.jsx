@@ -229,7 +229,7 @@ export default React.createClass({
 			const {icon = ''} = item;
 			const u = Url.parse(icon);
 			if (u && (u.host || u.path[0] === '/')) {
-				done(icon);
+				return done(icon);
 			}
 			bail();
 		})
@@ -325,7 +325,20 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {href, icon, iconCls, iconLabel}, props: {item, contentPackage, commentCount, disableLink}} = this;
+		const {
+			state: {
+				href,
+				icon,
+				iconCls,
+				iconLabel
+			},
+			props: {
+				item,
+				contentPackage,
+				commentCount,
+				disableLink
+			}
+		} = this;
 
 		const external = this.isExternal();
 		const seen = this.isSeen();
