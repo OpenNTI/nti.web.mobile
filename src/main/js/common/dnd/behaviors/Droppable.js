@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import ensureArray from 'nti-commons/lib/ensure-array';
 
-import {isPointWithIn} from 'nti-lib-dom';
+import {isPointWithin} from 'nti-lib-dom';
 import Base, {TYPE_SHAPE} from './Base';
 
 const getWrapperElementClassName = 'droppable:getWrapperElementClassName';
@@ -109,7 +109,7 @@ export default {
 		let {x, y} = dragData;
 		if (!this.context.currentDragItem) { return; }
 
-		if (isPointWithIn(ReactDOM.findDOMNode(this), x, y)) {
+		if (isPointWithin(ReactDOM.findDOMNode(this), x, y)) {
 			if (!this.state.over) {
 				this[onDragEnteredDropTarget]();
 			}
