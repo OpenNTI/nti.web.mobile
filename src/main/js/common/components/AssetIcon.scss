@@ -1,0 +1,80 @@
+@import "~nti-style-common";
+
+%icon-fallback-reading {background-image: url(./assets/file-types/required-reading.png) !important;}
+%icon-fallback-link {background-image: url(./assets/file-types/view-link-www.png) !important;}
+%icon-fallback-unknown {background-image: url(./assets/file-types/view-link-www.png) !important;}
+%icon-fallback-download {background-image: url(./assets/file-types/blank-download.png) !important;}
+
+.file-type.icon {
+	$grey: $tertiary-grey;
+	$blue: #15a2e0;
+	$green: #4aaf37;
+	$orange: #f65b24;
+	$yellow: #ffaf44;
+	$red: #da251c;
+
+	$icon-width: 80px;
+
+	color: $grey;
+	width: $icon-width;
+	height: $icon-width * 1.25;
+	margin: 0;
+	display: block;
+	background-size: cover;
+	background-position: center center;
+	position: relative;
+
+	&.fallback {
+		@extend %icon-fallback-download;
+		&.www {
+			@extend %icon-fallback-link;
+			label {display: none;}
+		}
+		&.unknown {
+			@extend %icon-fallback-unknown;
+			label {display: none;}
+		}
+		&.content-link {
+			@extend %icon-fallback-reading;
+			label {display: none;}
+		}
+
+		label {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			padding: 0 0.3rem;
+			text-transform: uppercase;
+			text-align: center;
+			font-weight: bold;
+			font-size: 1.3125rem;
+			font-family: $header-font-family;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			color: inherit;
+		}
+
+		//Blue=Docs
+		&.doc, &.docx, &.pages {
+			color: $blue;
+		}
+		//Orange=Presentations
+		&.ppt, &.pptx, &.key {
+			color: $orange;
+		}
+		//Green=Sheets
+		&.xls, &.xlsx, &.numbers {
+			color: $green;
+		}
+		//Red=PDF
+		&.pdf {
+			color: $red;
+		}
+		//Yellow=Archive
+		&.zip, &.gz, &.tar, &.z, &.\7z, &.rar, &.jpeg {
+			color: $yellow;
+		}
+	}
+}
