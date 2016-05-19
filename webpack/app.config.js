@@ -97,7 +97,14 @@ exports = module.exports = [
 			loaders: [
 				{ test: /\.async\.jsx$/i, loader: 'react-proxy!exports?exports.default' },
 
-				{ test: /\.js(x?)$/i, loader: 'babel', exclude: /node_modules/ },
+				{
+					test: /\.js(x?)$/i,
+					exclude: /node_modules/,
+					loader: 'babel',
+					query: {
+						sourceMaps: true
+					}
+				},
 
 				{ test: /\.json$/, loader: 'json' },
 				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=1&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
@@ -222,7 +229,14 @@ exports = module.exports = [
 
 		module: {
 			loaders: [
-				{ test: /\.js(x?)$/i, loader: 'babel', exclude: /node_modules/ },
+				{
+					test: /\.js(x?)$/i,
+					exclude: /node_modules/,
+					loader: 'babel',
+					query: {
+						sourceMaps: true
+					}
+				},
 				{ test: /\.json$/, loader: 'json' },
 				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url' },
 				{ test: /\.(s?)css$/, loader: 'null' }
