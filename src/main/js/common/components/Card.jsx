@@ -36,7 +36,7 @@ import {rawContent} from '../utils/jsx';
 
 import {BLANK_IMAGE} from '../constants/DataURIs';
 
-import AssetIcon from './AssetIcon';
+import {AssetIcon} from 'nti-web-commons';
 
 import {getModel} from 'nti-lib-interfaces';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
