@@ -1,5 +1,5 @@
 import React from 'react';
-import Ellipsed from 'common/components/Ellipsed';
+import {Ellipsed} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'Group:Description',

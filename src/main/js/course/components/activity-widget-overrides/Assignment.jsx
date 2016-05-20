@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {scoped} from 'nti-lib-locale';
 import ObjectLink from 'common/mixins/ObjectLink';
-import Ellipsed from 'common/components/Ellipsed';
+import {Ellipsed} from 'nti-web-commons';
 
 import Footer from './AssignmentFooter';
 

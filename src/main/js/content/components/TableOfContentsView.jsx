@@ -4,7 +4,7 @@ import cx from 'classnames';
 
 import ActiveState from 'common/components/ActiveState';
 import Banner from 'common/components/Banner';
-import Ellipsed from 'common/components/Ellipsed';
+import {Ellipsed} from 'nti-web-commons';
 import Err from 'common/components/Error';
 import Loading from 'common/components/Loading';
 import Search from 'common/components/Search';

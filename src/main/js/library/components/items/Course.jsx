@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Ellipsed from 'common/components/Ellipsed';
+import {Ellipsed} from 'nti-web-commons';
 
 import * as COURSE_SECTIONS from 'course/Sections';
 

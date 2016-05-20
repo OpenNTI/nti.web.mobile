@@ -6,7 +6,7 @@ import Logger from 'nti-util-logger';
 import ActiveState from 'common/components/ActiveState';
 import Banner from 'common/components/Banner';
 import CalendarCard from 'common/components/CalendarCard';
-import Ellipsed from 'common/components/Ellipsed';
+import {Ellipsed} from 'nti-web-commons';
 import Header from 'common/components/TopicHeader';
 
 import ContextSender from 'common/mixins/ContextSender';

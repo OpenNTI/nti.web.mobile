@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import Ellipsed from 'common/components/Ellipsed';
+import {Ellipsed} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 
