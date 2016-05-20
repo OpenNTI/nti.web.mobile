@@ -5,13 +5,13 @@ import {encodeForURI} from 'nti-lib-ntiids';
 
 import {DateTime} from 'nti-web-commons';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 const DATE_FORMAT = 'MM/DD';
 
 export default React.createClass({
 	displayName: 'PerformanceItem',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,

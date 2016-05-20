@@ -1,7 +1,7 @@
 import {PropTypes} from 'react';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
 
@@ -11,7 +11,7 @@ const getAssignmentID = props => props.assignmentId
 
 
 export default {
-	mixins: [AssignmentsAccessor, ItemChanges],
+	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 
 	propTypes: {
 		//At least one of these props must be given:

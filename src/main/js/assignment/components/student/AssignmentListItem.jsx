@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
@@ -11,7 +11,7 @@ import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 export default React.createClass({
 	displayName: 'AssignmentItem',
-	mixins: [AssignmentsAccessor, ItemChanges],
+	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 
 	propTypes: {
 		assignment: React.PropTypes.object.isRequired

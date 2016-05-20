@@ -1,9 +1,9 @@
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 import CollectionAccessor from './AssignmentCollectionAccessor';
 
 export default {
-	mixins: [CollectionAccessor, ItemChanges],
+	mixins: [CollectionAccessor, Mixins.ItemChanges],
 
 
 	//Ignore this... its for the ItemChanges mixin.

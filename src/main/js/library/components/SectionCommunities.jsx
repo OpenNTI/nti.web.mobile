@@ -4,7 +4,7 @@ import {Link} from 'react-router-component';
 
 import NavigationBar from 'navigation/components/Bar';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 import {getService} from 'nti-web-client';
 import EmptyList from 'common/components/EmptyList';
 
@@ -15,7 +15,7 @@ import AddButton from './AddButton';
 export default React.createClass({
 	displayName: 'SectionCommunities',
 
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	componentDidMount () {
 		getService()

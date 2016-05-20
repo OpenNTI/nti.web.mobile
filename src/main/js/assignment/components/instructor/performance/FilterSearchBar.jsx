@@ -1,7 +1,7 @@
 import React from 'react';
 
 import BufferedInput from 'common/components/BufferedInput';
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 import PageControls from '../PageControls';
 
@@ -10,7 +10,7 @@ import CategorySelect from './CategorySelect';
 
 export default React.createClass({
 	displayName: 'SearchSortBar',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		summary: React.PropTypes.object.isRequired // GradeBookSummary object

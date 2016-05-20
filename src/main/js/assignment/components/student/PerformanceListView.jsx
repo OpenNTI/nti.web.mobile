@@ -5,7 +5,7 @@ import {SortOrder} from 'nti-lib-interfaces';
 
 import EmptyList from 'common/components/EmptyList';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 import PerformanceHeader from './PerformanceHeader';
 import PerformanceItem from './PerformanceItem';
@@ -43,7 +43,7 @@ const columns = [
 
 export default React.createClass({
 	displayName: 'PerformanceListView',
-	mixins: [AssignmentsAccessor, ItemChanges],
+	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 
 	componentWillMount () {
 		this.setState({ summary: this.getAssignments().getStudentSummary() });

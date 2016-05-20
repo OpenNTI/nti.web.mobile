@@ -1,14 +1,14 @@
 import React from 'react';
 import cx from 'classnames';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 import {DateTime} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'AssignmentStatus',
 
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		assignment: React.PropTypes.object.isRequired,

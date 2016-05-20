@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 import {getService} from 'nti-web-client';
 
 import cx from 'classnames';
@@ -23,7 +23,7 @@ const CanShare = (caps, item) =>
 
 export default React.createClass({
 	displayName: 'ItemActions',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,

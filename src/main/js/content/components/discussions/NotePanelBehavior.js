@@ -3,7 +3,7 @@ import React from 'react';
 import Err from 'common/components/Error';
 import Loading from 'common/components/LoadingInline';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 function ReplyComparator (a, b) {
 	a = a.getCreatedTime();
@@ -12,7 +12,7 @@ function ReplyComparator (a, b) {
 }
 
 export default {
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	getInitialState () {
 		return {loading: false};

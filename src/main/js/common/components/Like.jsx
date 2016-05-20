@@ -1,12 +1,12 @@
 import React from 'react';
 
-import ItemChanges from '../mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 import cx from 'classnames';
 
 export default React.createClass({
 	displayName: 'Like',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired

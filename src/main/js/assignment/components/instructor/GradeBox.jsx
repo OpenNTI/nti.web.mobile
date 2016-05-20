@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {PropType as NTIID} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
@@ -12,7 +12,7 @@ const logger = Logger.get('assignment:components:instructor:GradeBox');
 
 export default React.createClass({
 	displayName: 'GradeBox',
-	mixins: [AssignmentsAccessor, ItemChanges],
+	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 
 	propTypes: {
 		grade: React.PropTypes.object,

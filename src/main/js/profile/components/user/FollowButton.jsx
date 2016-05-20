@@ -4,12 +4,12 @@ import cx from 'classnames';
 import {resolve} from 'nti-web-client/lib/user';
 
 import PromiseButton from 'common/components/PromiseButton';
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 
 export default React.createClass({
 	displayName: 'FollowButton',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		entity: React.PropTypes.any.isRequired

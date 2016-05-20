@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 
 import cx from 'classnames';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 import {areYouSure} from 'prompts';
@@ -16,7 +16,7 @@ const logger = Logger.get('assignment:components:instructor:ActionsMenu');
 
 export default React.createClass({
 	displayName: 'instructor:ActionsMenu',
-	mixins: [AssignmentsAccessor, ItemChanges],
+	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 
 	propTypes: {
 		userId: React.PropTypes.string.isRequired,

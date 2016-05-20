@@ -3,11 +3,11 @@ import React from 'react';
 import Container from './Container';
 
 import {getService} from 'nti-web-client';
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'Community',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	componentDidMount () {
 		getService()

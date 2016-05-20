@@ -2,12 +2,12 @@ import React from 'react';
 import cx from 'classnames';
 import {Component as Video} from 'video';
 
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 
 export default React.createClass({
 	displayName: 'Title',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		entry: React.PropTypes.object

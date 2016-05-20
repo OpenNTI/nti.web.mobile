@@ -1,14 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
 import {Constants} from 'nti-web-commons';
-
-import ItemChanges from '../mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 const {DataURIs: {BLANK_IMAGE}} = Constants;
 
 export default React.createClass({
 	displayName: 'Content:Banner',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		children: React.PropTypes.node,

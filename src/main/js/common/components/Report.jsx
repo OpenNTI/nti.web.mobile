@@ -3,13 +3,13 @@ import cx from 'classnames';
 import {areYouSure} from 'prompts';
 
 import {scoped} from 'nti-lib-locale';
-import ItemChanges from 'common/mixins/ItemChanges';
+import {Mixins} from 'nti-web-commons';
 
 const t = scoped('DISCUSSIONS.ACTIONS');
 
 export default React.createClass({
 	displayName: 'ReportLink',
-	mixins: [ItemChanges],
+	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
 		icon: React.PropTypes.bool,
