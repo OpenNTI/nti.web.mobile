@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import BasePath from 'common/mixins/BasePath';
 
 import Mixin from './mixin';

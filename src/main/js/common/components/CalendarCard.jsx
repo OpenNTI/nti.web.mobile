@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DateTime from './DateTime';
+import {DateTime} from 'nti-web-commons';
 
 export default function CalendarCard (props) {
 	const {date} = props;

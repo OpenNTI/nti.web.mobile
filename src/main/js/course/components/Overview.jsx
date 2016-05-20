@@ -2,7 +2,7 @@ import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import React from 'react';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import Loading from 'common/components/Loading';
 import ErrorWidget from 'common/components/Error';
@@ -102,7 +102,7 @@ export default React.createClass({
 
 	onError (error) {
 		logger.error('Error loading Overview: ', error.stack || error.message || error);
-		
+
 		this.setState({
 			error,
 			loading: false,

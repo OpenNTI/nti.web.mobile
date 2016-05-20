@@ -1,7 +1,7 @@
 import React from 'react';
 
 import LocalizedHTML from 'common/components/LocalizedHTML';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import Pricing from './Pricing';
 import {resetProcess} from '../Actions';

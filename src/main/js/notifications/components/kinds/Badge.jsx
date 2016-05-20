@@ -1,6 +1,6 @@
 import React from 'react';
 import NoteableMixin from '../mixins/Noteable';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'ForumCommentType',

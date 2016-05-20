@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 

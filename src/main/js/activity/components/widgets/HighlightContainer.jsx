@@ -1,6 +1,6 @@
 import React from 'react';
 import DisplayName from 'common/components/DisplayName';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import HighlightGroup from './HighlightGroup';
 import Mixin from './Mixin';

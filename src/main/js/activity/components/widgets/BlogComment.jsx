@@ -4,7 +4,7 @@ import {Panel as ModeledContent} from 'modeled-content';
 
 import Avatar from 'common/components/Avatar';
 import Breadcrumb from 'common/components/BreadcrumbPath';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 import LuckyCharms from 'common/components/LuckyCharms';
 

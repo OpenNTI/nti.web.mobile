@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import ItemChanges from 'common/mixins/ItemChanges';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'AssignmentStatus',

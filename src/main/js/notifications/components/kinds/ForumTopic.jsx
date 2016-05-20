@@ -3,7 +3,7 @@ import React from 'react';
 import NoteableMixin from '../mixins/Noteable';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'ForumTopic',

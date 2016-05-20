@@ -3,7 +3,7 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import DisplayName from 'common/components/DisplayName';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 

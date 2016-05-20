@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Logger from 'nti-util-logger';
 
 import Avatar from 'common/components/Avatar';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 
 import {Panel as Body} from 'modeled-content';

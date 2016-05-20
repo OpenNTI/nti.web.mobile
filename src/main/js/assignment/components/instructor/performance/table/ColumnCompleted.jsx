@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'performance:ColumnCompleted',

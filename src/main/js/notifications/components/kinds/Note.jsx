@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 import NoteableMixin from '../mixins/Noteable';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 const logger = Logger.get('notifications:kinds:Note');
 

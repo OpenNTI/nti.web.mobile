@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Score from 'common/components/charts/Score';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import {getEventTarget} from 'nti-lib-dom';
 

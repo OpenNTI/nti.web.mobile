@@ -1,7 +1,7 @@
 import React from 'react';
 import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.GIFT.PRICING');
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import Store from '../Store';
 import {updateCoupon} from '../Actions';

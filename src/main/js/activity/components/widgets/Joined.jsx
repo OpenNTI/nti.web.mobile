@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 
 export default function Joined ({entity}) {

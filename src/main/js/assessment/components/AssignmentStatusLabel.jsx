@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import {getModel} from 'nti-lib-interfaces';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 

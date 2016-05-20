@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 
 import {scoped} from 'nti-lib-locale';

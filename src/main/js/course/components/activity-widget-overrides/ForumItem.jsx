@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from 'common/components/Avatar';
 import Breadcrumb from 'common/components/BreadcrumbPath';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 import GotoItem from 'common/components/GotoItem';
 import Report from 'common/components/Report';

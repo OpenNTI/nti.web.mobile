@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import ItemChanges from 'common/mixins/ItemChanges';
 

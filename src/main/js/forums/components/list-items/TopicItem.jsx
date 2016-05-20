@@ -3,7 +3,7 @@ import {mimeTypes, TOPIC, POST} from '../../Constants';
 import Store from '../../Store';
 import DisplayName from 'common/components/DisplayName';
 import Avatar from 'common/components/Avatar';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {Link} from 'react-router-component';
 import {isMimeType} from 'common/utils/mimetype';

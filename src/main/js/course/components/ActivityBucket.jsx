@@ -3,7 +3,7 @@ import Logger from 'nti-util-logger';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
 
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 
 import selectWidgetOverride from './activity-widget-overrides';
 

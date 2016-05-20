@@ -5,7 +5,7 @@ import * as Actions from '../../Actions';
 import Store from '../../Store';
 
 import Avatar from 'common/components/Avatar';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 import Loading from 'common/components/TinyLoader';
 

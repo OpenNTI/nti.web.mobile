@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import Avatar from 'common/components/Avatar';
-import DateTime from 'common/components/DateTime';
+import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 import Loading from 'common/components/LoadingInline';
 import LuckyCharms from 'common/components/LuckyCharms';
