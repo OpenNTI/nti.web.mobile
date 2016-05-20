@@ -1,8 +1,10 @@
 import React from 'react';
 import cx from 'classnames';
+import {Constants} from 'nti-web-commons';
 
-import {BLANK_IMAGE} from '../constants/DataURIs';
 import ItemChanges from '../mixins/ItemChanges';
+
+const {DataURIs: {BLANK_IMAGE}} = Constants;
 
 export default React.createClass({
 	displayName: 'Content:Banner',

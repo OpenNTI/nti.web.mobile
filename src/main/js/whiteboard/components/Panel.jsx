@@ -1,9 +1,10 @@
 import React from 'react';
+
 import WhiteboardRenderer from 'nti-lib-whiteboardjs/lib/Canvas';
+import {URL} from 'nti-lib-dom';
+import {Constants} from 'nti-web-commons';
 
-import {URL} from 'nti-lib-whiteboardjs/lib/utils';
-
-import {BLANK_IMAGE} from 'common/constants/DataURIs';
+const {DataURIs: {BLANK_IMAGE}} = Constants;
 
 
 export default React.createClass({

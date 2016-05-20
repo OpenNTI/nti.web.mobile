@@ -34,9 +34,7 @@ import NavigatableMixin from '../mixins/NavigatableMixin';
 import {scoped} from 'nti-lib-locale';
 import {rawContent} from '../utils/jsx';
 
-import {BLANK_IMAGE} from '../constants/DataURIs';
-
-import {AssetIcon} from 'nti-web-commons';
+import {AssetIcon, Constants} from 'nti-web-commons';
 
 import {getModel} from 'nti-lib-interfaces';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
@@ -45,6 +43,7 @@ import Logger from 'nti-util-logger';
 
 import {emitEventStarted} from 'analytics/Actions';
 
+const {DataURIs: {BLANK_IMAGE}} = Constants;
 const ExternalResourceEvent = getModel('analytics.externalresourceevent');
 
 const logger = Logger.get('common:components:card');

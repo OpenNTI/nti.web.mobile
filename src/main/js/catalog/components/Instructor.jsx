@@ -1,7 +1,8 @@
 import React from 'react';
 import pad from 'zpad';
+import {Constants} from 'nti-web-commons';
+const {DataURIs: {BLANK_AVATAR, BLANK_IMAGE}} = Constants;
 
-import {BLANK_AVATAR, BLANK_IMAGE} from 'common/constants/DataURIs';
 
 import {scoped} from 'nti-lib-locale';
 

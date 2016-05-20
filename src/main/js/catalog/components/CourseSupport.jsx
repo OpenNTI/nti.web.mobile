@@ -1,8 +1,10 @@
 import React from 'react';
 
-import {BLANK_IMAGE} from 'common/constants/DataURIs';
+import {Constants} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
+
+const {DataURIs: {BLANK_IMAGE}} = Constants;
 
 const MISSING = '~~missing~~';
 
