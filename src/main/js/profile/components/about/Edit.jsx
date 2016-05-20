@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Link} from 'react-router-component';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import NavigationGuard from 'navigation/components/NavigationGuard';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {SortOrder} from 'nti-lib-interfaces';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import Table from '../gradebook-table/Table';
 import ColumnStudentActionItems from '../gradebook-table/ColumnStudentActionItems';

@@ -4,7 +4,7 @@ import Transition from 'react-addons-css-transition-group';
 import {scoped} from 'nti-lib-locale';
 const t = scoped('ASSESSMENT');
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import Saving from './Saving';
 

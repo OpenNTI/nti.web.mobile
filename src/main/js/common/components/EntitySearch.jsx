@@ -1,10 +1,10 @@
 import React from 'react';
+import {getService} from 'nti-web-client';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import Err from './Error';
-import Loading from './TinyLoader';
 import Empty from './EmptyList';
 
-import {getService} from 'nti-web-client';
 import SelectionModel from '../utils/ListSelectionModel';
 
 import EntitySearchResultItem from './EntitySearchResultItem';

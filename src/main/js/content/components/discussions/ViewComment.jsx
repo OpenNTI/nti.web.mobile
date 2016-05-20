@@ -3,7 +3,7 @@ import React from 'react';
 import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
 
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

@@ -6,7 +6,7 @@ import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 
 import {getService} from 'nti-web-client';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import ErrorComponent from 'common/components/Error';
 
 import * as Constants from 'enrollment/store-enrollment/Constants';

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 import Button from 'forms/components/Button';
 import EmptyList from 'common/components/EmptyList';
 import ScrollTrigger from 'common/components/ScrollTrigger';

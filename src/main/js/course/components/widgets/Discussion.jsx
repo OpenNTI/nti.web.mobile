@@ -7,7 +7,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import {getService} from 'nti-web-client';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import LoadingMask from 'common/components/Loading';
+import {Loading as LoadingMask} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'CourseOverviewDiscussion',

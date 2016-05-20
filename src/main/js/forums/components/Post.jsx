@@ -2,7 +2,7 @@ import React from 'react';
 
 import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Notice from 'common/components/Notice';
 import Err from 'common/components/Error';
 

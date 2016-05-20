@@ -11,7 +11,7 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import Background from 'common/components/Background';
 import Link from 'common/components/ActiveLink';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Page from 'common/components/Page';
 
 export default React.createClass({

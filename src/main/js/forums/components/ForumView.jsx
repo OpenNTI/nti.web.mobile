@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'react-router-component';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

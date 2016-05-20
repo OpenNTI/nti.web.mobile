@@ -4,7 +4,7 @@ import {resolve} from 'nti-web-client/lib/user';
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import NotFound from 'notfound/components/View';
 

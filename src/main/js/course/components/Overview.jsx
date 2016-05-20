@@ -4,7 +4,7 @@ import React from 'react';
 
 import {DateTime} from 'nti-web-commons';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import ErrorWidget from 'common/components/Error';
 import EmptyList from 'common/components/EmptyList';
 

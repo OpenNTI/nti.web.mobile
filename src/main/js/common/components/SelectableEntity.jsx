@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 import ProfileLink from 'profile/components/ProfileLink';
 
 export default React.createClass({

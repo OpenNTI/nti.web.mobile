@@ -2,7 +2,7 @@ import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
 import EmptyList from 'common/components/EmptyList';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Err from 'common/components/Error';
 
 import Selectables from './Selectables';

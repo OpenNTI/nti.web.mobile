@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Err from 'common/components/Error';
-import Loading from 'common/components/LoadingInline';
+import {LoadingInline as Loading} from 'nti-web-commons';
 
 import {Mixins} from 'nti-web-commons';
 

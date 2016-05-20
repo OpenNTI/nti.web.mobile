@@ -4,7 +4,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import AvatarGrid from '../AvatarGrid';
 import {profileHref} from '../../mixins/ProfileLink';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import ProfileBodyContainer from '../ProfileBodyContainer';
 import PromiseButton from 'common/components/PromiseButton';
 

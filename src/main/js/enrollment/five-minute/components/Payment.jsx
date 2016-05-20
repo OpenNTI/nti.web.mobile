@@ -3,7 +3,7 @@ import React from 'react';
 import Logger from 'nti-util-logger';
 
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {scoped} from 'nti-lib-locale';

@@ -12,7 +12,7 @@ import {getWidget} from '../components/enrollment-option-widgets';
 import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import GiftableUtils from './GiftableUtils';
 

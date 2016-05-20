@@ -8,7 +8,7 @@ import PageSource from 'nti-lib-interfaces/lib/models/ListBackedPageSource';
 // import {decodeFromURI} from 'nti-lib-ntiids';
 
 import ContextMixin from 'common/mixins/ContextSender';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import List from './List';
 import View from './View';

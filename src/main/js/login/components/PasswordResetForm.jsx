@@ -3,7 +3,7 @@ import {Link} from 'react-router-component';
 import cx from 'classnames';
 
 import Conditional from 'common/components/Conditional';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import {getServer} from 'nti-web-client';
 import {scoped} from 'nti-lib-locale';

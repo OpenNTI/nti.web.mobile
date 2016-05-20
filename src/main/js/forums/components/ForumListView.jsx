@@ -5,7 +5,7 @@ import Transition from 'react-addons-css-transition-group';
 import Logger from 'nti-util-logger';
 
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

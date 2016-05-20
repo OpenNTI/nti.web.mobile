@@ -1,11 +1,11 @@
 import React from 'react';
 
 import {resolve} from 'nti-web-client/lib/user';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import t from 'nti-lib-locale';
 
 import DisplayName from './DisplayName';
-import Loading from './TinyLoader';
 
 
 const isEmpty = x => !Array.isArray(x) || x.length === 0;

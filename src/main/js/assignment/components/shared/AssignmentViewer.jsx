@@ -7,7 +7,7 @@ import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import ContentViewer from 'content/components/Viewer';
 

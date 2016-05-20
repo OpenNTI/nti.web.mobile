@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import ShareWith from 'common/components/ShareWith';
-import Busy from 'common/components/TinyLoader';
+import {TinyLoader as Busy} from 'nti-web-commons';
 
 import {Editor} from 'modeled-content';
 

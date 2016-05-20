@@ -4,7 +4,7 @@ import {getServer} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';
 
 import ErrorWidget from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import BasePath from 'common/mixins/BasePath';
 
 export default React.createClass({

@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import Card from 'common/components/Card';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

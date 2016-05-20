@@ -2,7 +2,7 @@ import React from 'react';
 import {loadSelectOptionsFromUserLinkRel} from '../Actions';
 import Store from '../Store';
 import * as Constants from '../Constants';
-import Loading from 'common/components/LoadingInline';
+import {LoadingInline as Loading} from 'nti-web-commons';
 
 export default React.createClass({
 

@@ -8,7 +8,7 @@ let {Location} = Router;
 
 import Topic from './Topic';
 import Post from './Post';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Err from 'common/components/Error';
 
 // mixins

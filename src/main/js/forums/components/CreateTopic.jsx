@@ -2,7 +2,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Notice from 'common/components/Notice';
 
 import ContextSender from 'common/mixins/ContextSender';

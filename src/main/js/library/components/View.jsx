@@ -3,7 +3,7 @@ import React from 'react';
 import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
 
 import DarkMode from 'common/components/DarkMode';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import Root from './Root';
 import Section from './Section';

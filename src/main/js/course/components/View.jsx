@@ -8,7 +8,7 @@ import NotFound from 'notfound/components/View';
 import Redirect from 'navigation/components/Redirect';
 
 import Background from 'common/components/Background';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import ErrorWidget from 'common/components/Error';
 
 import BasePathAware from 'common/mixins/BasePath';

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Loading from 'common/components/Loading';
-import LoadingInline from 'common/components/TinyLoader';
+import {Loading, TinyLoader} from 'nti-web-commons';
 import EmptyList from 'common/components/EmptyList';
 import ScrollTrigger from 'common/components/ScrollTrigger';
 
@@ -96,7 +95,7 @@ export default React.createClass({
 					<AssignmentActivityItem key={`activity-item-${index}`} event={event} />
 				)}
 				{activity.loading && (
-					<LoadingInline />
+					<TinyLoader />
 				)}
 				{activity.more && !activity.loading && (
 					<a className="more" href="#" onClick={this.loadMore}>More</a>

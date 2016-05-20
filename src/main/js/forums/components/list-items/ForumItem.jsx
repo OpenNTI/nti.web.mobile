@@ -2,7 +2,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import TinyLoader from 'common/components/TinyLoader';
+import {TinyLoader} from 'nti-web-commons';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
 import {clearLoadingFlag} from 'common/utils/react-state';

@@ -7,7 +7,7 @@ import {TOPIC_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Notice from 'common/components/Notice';
 
 import {areYouSure} from 'prompts';

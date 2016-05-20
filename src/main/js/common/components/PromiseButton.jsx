@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import wait from 'nti-commons/lib/wait';
 
-import TinyLoader from 'common/components/TinyLoader';
+import {TinyLoader} from 'nti-web-commons';
 
 const NORMAL = 'normal';
 const PROCESSING = 'processing';

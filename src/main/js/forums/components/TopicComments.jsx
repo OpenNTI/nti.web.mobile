@@ -4,7 +4,7 @@ import {Link} from 'react-router-component';
 import Transition from 'react-addons-css-transition-group';
 
 import Err from 'common/components/Error';
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 import Notice from 'common/components/Notice';
 import {StoreEventsMixin} from 'nti-lib-store';
 

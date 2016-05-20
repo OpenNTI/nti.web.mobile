@@ -2,7 +2,7 @@ import React from 'react';
 import Logger from 'nti-util-logger';
 
 import {rawContent} from 'common/utils/jsx';
-import Loading from 'common/components/LoadingInline';
+import {LoadingInline as Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 import BasePathAware from 'common/mixins/BasePath';
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Notice from 'common/components/Notice';
 import Button from 'forms/components/Button';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import {dropCourse} from '../../Actions';
 

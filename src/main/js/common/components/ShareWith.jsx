@@ -7,7 +7,7 @@ import ShareTarget from './TokenEntity';
 import SelectableEntities from './SelectableEntities';
 import Search from './EntitySearch';
 
-import Loading from './TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import ListSelection from '../utils/ListSelectionModel';
 

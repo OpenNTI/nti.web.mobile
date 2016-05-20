@@ -1,7 +1,7 @@
 import path from 'path';
 import React from 'react';
 
-import LoadingMask from 'common/components/Loading';
+import {Loading as LoadingMask} from 'nti-web-commons';
 import Err from 'common/components/Error';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextAccessor from 'common/mixins/ContextAccessor';

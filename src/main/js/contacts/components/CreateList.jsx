@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Page from 'common/components/Page';
 
 import Navigatable from 'common/mixins/NavigatableMixin';

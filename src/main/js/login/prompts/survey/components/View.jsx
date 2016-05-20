@@ -2,7 +2,7 @@ import React from 'react';
 import Url from 'url';
 
 import Error from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Messages from 'common/utils/WindowMessageListener';
 import BasePathAware from 'common/mixins/BasePath';
 

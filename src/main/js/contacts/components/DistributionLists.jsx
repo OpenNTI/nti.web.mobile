@@ -5,7 +5,7 @@ import {Link} from 'react-router-component';
 //intra-app module imports (ordered LocalName)
 import EmptyList from 'common/components/EmptyList';
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 //local-relative modules (grouped by depth)
 import mixin from '../mixins/Mixin';

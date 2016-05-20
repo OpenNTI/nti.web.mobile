@@ -6,7 +6,7 @@ import {decodeFromURI} from 'nti-lib-ntiids';
 
 import BasePathAware from 'common/mixins/BasePath';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 import Detail from 'catalog/components/Detail';

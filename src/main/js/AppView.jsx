@@ -9,7 +9,7 @@ import {
 import './locale';
 
 import Router from './Router';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Navigatable from 'common/mixins/NavigatableMixin';
 
 import * as NavigationActions from 'navigation/Actions';

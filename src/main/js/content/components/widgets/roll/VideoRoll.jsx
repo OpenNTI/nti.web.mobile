@@ -3,7 +3,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import Error from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 

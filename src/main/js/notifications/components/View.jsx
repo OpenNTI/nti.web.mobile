@@ -1,5 +1,5 @@
 import React from 'react';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 

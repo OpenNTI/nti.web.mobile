@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
 import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
-import Loading from 'common/components/LoadingInline';
+import {LoadingInline as Loading} from 'nti-web-commons';
 import LuckyCharms from 'common/components/LuckyCharms';
 
 import {Panel as ModeledContentPanel} from 'modeled-content';

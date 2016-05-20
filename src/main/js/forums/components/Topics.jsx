@@ -6,7 +6,7 @@ import AnalyticsStore from 'analytics/Store';
 
 import Transition from 'react-addons-css-transition-group';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 

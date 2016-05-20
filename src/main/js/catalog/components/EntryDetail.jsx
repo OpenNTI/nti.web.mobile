@@ -4,7 +4,7 @@ import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import NotFound from 'notfound/components/View';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigationAware from 'common/mixins/NavigationAware';

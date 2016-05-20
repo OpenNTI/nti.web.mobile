@@ -2,7 +2,7 @@ import React from 'react';
 
 import DisplayName from 'common/components/DisplayName';
 import {DateTime} from 'nti-web-commons';
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import Transcript from 'chat/components/Transcript';
 

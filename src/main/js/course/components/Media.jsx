@@ -4,7 +4,7 @@ import Router from 'react-router-component';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import EmptyList from 'common/components/EmptyList';
 
 import ContextContributor from 'common/mixins/ContextContributor';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Localized from 'common/components/LocalizedHTML';
 import PanelButton from 'common/components/PanelButton';
 

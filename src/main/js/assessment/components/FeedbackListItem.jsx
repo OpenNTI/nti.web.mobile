@@ -3,9 +3,9 @@ import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import Avatar from 'common/components/Avatar';
 import {DateTime} from 'nti-web-commons';
-import DisplayName from 'common/components/DisplayName';
+import {LoadingInline} from 'nti-web-commons';
 
-import LoadingInline from 'common/components/LoadingInline';
+import DisplayName from 'common/components/DisplayName';
 
 import {getAppUsername} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';

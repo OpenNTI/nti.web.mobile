@@ -5,7 +5,7 @@ import scrollparent from 'scrollparent';
 import {Progress} from 'nti-lib-interfaces';
 import {getScreenHeight} from 'nti-lib-dom';
 
-import LoadingMask from 'common/components/Loading';
+import {Loading as LoadingMask} from 'nti-web-commons';
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import {Component as Video} from 'video';

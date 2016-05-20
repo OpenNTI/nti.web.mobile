@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import Panel from 'content/components/discussions/Panel';
 

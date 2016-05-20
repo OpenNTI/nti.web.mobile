@@ -10,7 +10,7 @@ import * as FormConstants from 'forms/Constants';
 import FormErrors from 'forms/components/FormErrors';
 import RelatedFormPanel from 'forms/components/RelatedFormPanel';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 import _formConfig from '../configs/FiveMinuteEnrollmentForm';

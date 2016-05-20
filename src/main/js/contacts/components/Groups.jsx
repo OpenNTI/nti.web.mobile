@@ -6,7 +6,7 @@ import {scoped} from 'nti-lib-locale';
 import ContextSender from 'common/mixins/ContextSender';
 import EmptyList from 'common/components/EmptyList';
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import mixin from '../mixins/Mixin';
 import {GROUPS} from '../Constants';

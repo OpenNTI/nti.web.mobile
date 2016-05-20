@@ -6,7 +6,7 @@ import Logger from 'nti-util-logger';
 import BasePath from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Page from 'common/components/Page';
 
 import AddPeopleButton from './AddPeopleButton';

@@ -3,7 +3,7 @@ import {Editor} from 'modeled-content';
 
 import Notice from 'common/components/Notice';
 import OkCancelButtons from 'common/components/OkCancelButtons';
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 

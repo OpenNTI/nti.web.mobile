@@ -3,7 +3,7 @@ import React from 'react';
 import Logger from 'nti-util-logger';
 import getLinkFn from 'nti-lib-interfaces/lib/utils/getlink'; //Accessing interfaces/lib directly is taboo
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Err from 'common/components/Error';
 
 import {StoreEventsMixin} from 'nti-lib-store';

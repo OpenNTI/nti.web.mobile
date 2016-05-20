@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 
 import {Editor} from 'modeled-content';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import t from 'nti-lib-locale';
 

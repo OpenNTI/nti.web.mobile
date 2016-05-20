@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import BasePathAware from 'common/mixins/BasePath';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';

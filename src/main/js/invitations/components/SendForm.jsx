@@ -1,7 +1,7 @@
 import React from 'react';
 import {validate as isEmail} from 'email-validator';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Notice from 'common/components/Notice';
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';

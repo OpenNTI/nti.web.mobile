@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

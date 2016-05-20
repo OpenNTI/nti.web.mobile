@@ -8,7 +8,7 @@ let t = scoped('ENROLLMENT');
 let tGift = scoped('ENROLLMENT.GIFT');
 
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Localized from 'common/components/LocalizedHTML';
 
 import FormPanel from 'forms/components/FormPanel';

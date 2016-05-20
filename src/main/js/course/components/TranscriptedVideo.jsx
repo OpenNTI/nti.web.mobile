@@ -18,7 +18,7 @@ import Gutter from 'content/components/Gutter';
 
 import DarkMode from 'common/components/DarkMode';
 import Error from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

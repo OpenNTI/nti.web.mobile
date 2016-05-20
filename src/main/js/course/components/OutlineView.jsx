@@ -2,16 +2,16 @@ import React from 'react';
 import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
+import {Ellipsed, CalendarCard} from 'nti-web-commons';
 
 import ActiveState from 'common/components/ActiveState';
 import Banner from 'common/components/Banner';
-import CalendarCard from 'common/components/CalendarCard';
-import {Ellipsed} from 'nti-web-commons';
+
 import Header from 'common/components/TopicHeader';
 
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import isEmpty from 'isempty';
 import CourseLinker from 'library/mixins/CourseContentLink';

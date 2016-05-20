@@ -10,7 +10,7 @@ import CatalogAccessor from '../mixins/CatalogAccessor';
 import ContextMixin from 'common/mixins/ContextContributor';
 import BasePathAware from 'common/mixins/BasePath';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';

@@ -6,7 +6,7 @@ import {Link} from 'react-router-component';
 import Logger from 'nti-util-logger';
 
 import Conditional from 'common/components/Conditional';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 

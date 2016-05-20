@@ -3,7 +3,7 @@ import SelectableEntity from 'common/components/SelectableEntity';
 import {getStore, getSuggestedContacts} from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 function listContainsEntity (list, entity) {
 	return (list || []).findIndex((user) => user.getID && user.getID() === entity.getID()) > -1;

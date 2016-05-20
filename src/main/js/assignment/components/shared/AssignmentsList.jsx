@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import EmptyList from 'common/components/EmptyList';
 
 import AssignmentGroup from './AssignmentGroup';

@@ -6,7 +6,7 @@ import ActiveState from 'common/components/ActiveState';
 import Banner from 'common/components/Banner';
 import {Ellipsed} from 'nti-web-commons';
 import Err from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Search from 'common/components/Search';
 
 import BasePathAware from 'common/mixins/BasePath';

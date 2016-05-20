@@ -7,7 +7,7 @@ import Store from '../../Store';
 import Avatar from 'common/components/Avatar';
 import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import {Panel as ModeledContentPanel} from 'modeled-content';
 

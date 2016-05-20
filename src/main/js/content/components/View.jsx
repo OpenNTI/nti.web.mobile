@@ -4,7 +4,7 @@ import Router from 'react-router-component';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import ErrorWidget from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';

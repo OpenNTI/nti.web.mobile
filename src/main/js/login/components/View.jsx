@@ -8,7 +8,7 @@ import Logger from 'nti-util-logger';
 import BasePathAware from 'common/mixins/BasePath';
 
 import ErrorMessage from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import LoginForm from './LoginForm';
 import ForgotForm from './ForgotForm';

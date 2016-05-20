@@ -7,7 +7,7 @@ import Logger from 'nti-util-logger';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import NotFound from 'notfound/components/View';
 

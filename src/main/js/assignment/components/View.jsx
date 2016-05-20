@@ -1,7 +1,7 @@
 import React from 'react';
 import Student from './student/View';
 import Instructor from './instructor/View';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import Navigatable from 'common/mixins/NavigatableMixin';
 import ContextContributor from 'common/mixins/ContextContributor';
 

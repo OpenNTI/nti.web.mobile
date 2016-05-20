@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 import WidgetsMixin from './Mixin';
 
 import ErrorWidget from 'common/components/Error';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 const logger = Logger.get('course:components:widgets:Videos');
 

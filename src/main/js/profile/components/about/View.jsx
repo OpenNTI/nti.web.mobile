@@ -1,7 +1,7 @@
 import React from 'react';
 import {PROFILE_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 import ActiveState from 'common/components/ActiveState';
 import {scoped} from 'nti-lib-locale';
 

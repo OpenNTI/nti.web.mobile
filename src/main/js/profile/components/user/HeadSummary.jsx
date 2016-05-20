@@ -1,9 +1,9 @@
 import React from 'react';
 
 import {resolve} from 'nti-web-client/lib/user';
+import {TinyLoader as Loader} from 'nti-web-commons';
 import ensureArray from 'nti-commons/lib/ensure-array';
 
-import Loader from 'common/components/TinyLoader';
 import SocialLinks from './SocialLinks';
 
 import {default as DisplayName} from 'common/components/DisplayName';

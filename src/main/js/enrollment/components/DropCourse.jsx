@@ -3,7 +3,7 @@ import React from 'react';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';

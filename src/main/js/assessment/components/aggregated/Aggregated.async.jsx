@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Error from 'common/components/Error';
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import Content from '../Content';
 

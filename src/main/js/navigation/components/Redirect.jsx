@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'react-router-component';
 import Logger from 'nti-util-logger';
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 
 const logger = Logger.get('navigation:components:Redirect');
 

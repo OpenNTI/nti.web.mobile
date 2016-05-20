@@ -9,8 +9,7 @@ import {scoped} from 'nti-lib-locale';
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
 
-import Loading from 'common/components/Loading';
-import LoadingInline from 'common/components/TinyLoader';
+import {Loading, TinyLoader} from 'nti-web-commons';
 
 import {getAppUser} from 'nti-web-client';
 import {clearLoadingFlag} from 'common/utils/react-state';
@@ -163,7 +162,7 @@ export default React.createClass({
 				{errors && ( <FormErrors errors={errors} /> )}
 				<TermsCheckbox onChange={this.termsCheckboxChange}/>
 				{busy ? (
-					<div><LoadingInline/></div>
+					<div><TinyLoader/></div>
 				) : (
 					<input type="submit"
 						id="storeenroll:submit"

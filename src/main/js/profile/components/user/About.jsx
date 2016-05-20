@@ -3,7 +3,7 @@ import React from 'react';
 import Router from 'react-router-component';
 import Redirect from 'navigation/components/Redirect';
 
-import Loading from 'common/components/TinyLoader';
+import {TinyLoader as Loading} from 'nti-web-commons';
 
 import Memberships from '../about/Memberships';
 import ProfileBodyContainer from '../ProfileBodyContainer';

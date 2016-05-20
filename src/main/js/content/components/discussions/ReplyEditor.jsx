@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
 
-import Loading from 'common/components/Loading';
+import {Loading} from 'nti-web-commons';
 import ContextAccessor from 'common/mixins/ContextAccessor';
 import t from 'nti-lib-locale';
 
