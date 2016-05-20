@@ -36,6 +36,8 @@ import {rawContent} from '../utils/jsx';
 
 import {BLANK_IMAGE} from '../constants/DataURIs';
 
+import {AssetIcon} from 'nti-web-commons';
+
 import {getModel} from 'nti-lib-interfaces';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 import {Progress} from 'nti-lib-interfaces';
@@ -234,7 +236,6 @@ export default React.createClass({
 			bail();
 		})
 			.catch(()=> item.icon ? contentPackage.resolveContentURL(item.icon) : Promise.reject())
-			.catch(()=> this.resolveIconFallback(item))
 			.catch(()=> null)
 			.then(icon => {
 				try {
@@ -244,19 +245,6 @@ export default React.createClass({
 				}
 				catch (e) { logger.warn(e.message || e); }
 			});
-	},
-
-
-	resolveIconFallback (item) {
-		const ext = item.isContent ? '' : item.getFileExtentionFor();
-		const iconLabel = ext && !/^(www|bin)$/i.test(ext) ? ext : null;
-		const iconCls = cx('fallback', ext, {
-			'content-link': item.isContent,
-			'unknown': ext === 'bin'
-		});
-
-		this.setState({iconCls, iconLabel});
-		return BLANK_IMAGE;
 	},
 
 
@@ -324,13 +312,16 @@ export default React.createClass({
 	},
 
 
+	getType () {
+		return [this.type, this.targetMimeType].filter(x => x);
+	},
+
+
 	render () {
 		const {
 			state: {
 				href,
-				icon,
-				iconCls,
-				iconLabel
+				icon
 			},
 			props: {
 				item,
@@ -357,12 +348,9 @@ export default React.createClass({
 				href={ref} target={external ? '_blank' : null}
 				onClick={this.onClick} ref={x => this.anchor = x}>
 
-				{!iconSrc ? null :
-					<div className={cx('icon', iconCls)} style={{backgroundImage: `url(${iconSrc})`}}>
-						{external && <div className="external"/>}
-						{iconLabel && (<label>{iconLabel}</label>)}
-					</div>
-				}
+				<AssetIcon src={iconSrc} mimeType={this.getType()} href={href}>
+					{external && <div className="external"/>}
+				</AssetIcon>
 
 				<h5 {...rawContent(label || title)}/>
 				{by && by.trim().length > 0 && <div className="label" {...rawContent('By ' + by)/*TODO: localize*/}/>}

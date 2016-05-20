@@ -1,5 +1,5 @@
-import React from 'react';
-import nullRender from 'fbjs/lib/emptyFunction';
+import React, {PropTypes} from 'react';
+import cx from 'classnames';
 
 import {getHTMLSnippet, filterContent, processContent} from 'nti-lib-content-processing';
 
@@ -10,7 +10,9 @@ import hash from 'object-hash';
 
 import SYSTEM_WIDGETS from '../SystemWidgetRegistry';
 
-let SYSTEM_WIDGET_STRATEGIES = {};
+const SYSTEM_WIDGET_STRATEGIES = {};
+
+const nullRender = () => {};
 
 
 function getPacket (content, strategies, previewMode, maxPreviewLength) {
@@ -47,14 +49,15 @@ export default React.createClass({
 	displayName: 'ModeledBodyContent',
 
 	propTypes: {
-		body: React.PropTypes.array,
+		className: PropTypes.string,
+		body: PropTypes.array,
 
-		previewMode: React.PropTypes.bool,
-		previewLength: React.PropTypes.number,
+		previewMode: PropTypes.bool,
+		previewLength: PropTypes.number,
 
-		strategies: React.PropTypes.object,
-		widgets: React.PropTypes.object,
-		renderCustomWidget: React.PropTypes.func
+		strategies: PropTypes.object,
+		widgets: PropTypes.object,
+		renderCustomWidget: PropTypes.func
 	},
 
 
@@ -152,12 +155,17 @@ export default React.createClass({
 
 
 	render () {
-		let props = Object.assign({}, this.props, {body: undefined});
-		let {body} = this.state;
+		const {
+			props: {className, previewMode},
+			state: {body}
+		} = this;
+
+		const props = Object.assign({}, this.props, {
+			body: undefined,
+			className: cx('modeled-content', className, {preview: previewMode})
+		});
+
 		let dynamicRenderers = [];
-
-		props.className = (props.className || '') + ' modeled-content';
-
 		if (Array.isArray(body)) {
 			dynamicRenderers = body;
 		}
