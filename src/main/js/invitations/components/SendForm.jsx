@@ -97,7 +97,7 @@ export default React.createClass({
 					<input type="submit"
 						key="submit"
 						disabled={disabled}
-						id="redeem:submit"
+						id="redeem-submit"
 						className="button"
 						value={t('sendButton')} />
 				</div>
