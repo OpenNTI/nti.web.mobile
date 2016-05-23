@@ -206,13 +206,13 @@ class Store extends StorePrototype {
 			return;
 		}
 
-		let schedual = (buffer) ?
-			fn=>setTimeout(fn, buffer) :	//schedual a task in the future
+		let schedule = (buffer) ?
+			fn=>setTimeout(fn, buffer) :	//schedule a task in the future
 			busyState ?
 				()=>0 :						//drop on the floor
 				fn=>(fn() && 0);			//execute task immediately
 
-		this.savepointDelay = schedual(() => {
+		this.savepointDelay = schedule(() => {
 			this.markBusy(part, BUSY_SAVEPOINT);
 			this.emitChange({type: BUSY_SAVEPOINT});
 
