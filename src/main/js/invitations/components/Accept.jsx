@@ -1,6 +1,5 @@
 import React from 'react';
 
-import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
 import {Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
@@ -91,7 +90,7 @@ export default React.createClass({
 
 		return (
 			<div>
-				<div className="invitation-accept-form">
+				<form onSubmit={this.onSubmit} className="invitation-accept-form">
 					<input onChange={this.onChange} value={code} placeholder={t('acceptInputPlaceholder')} />
 					<div className="button-row">
 						<input type="submit"
@@ -101,7 +100,7 @@ export default React.createClass({
 							className="button tiny"
 							value={t('acceptButton')} />
 					</div>
-				</div>
+				</form>
 				{error && <FormErrors errors={{'code': error}} />}
 			</div>
 		);
@@ -118,9 +117,10 @@ export default React.createClass({
 		const heading = success ? t('successMessage') : t('formHeading');
 
 		return (
-			<FormPanel title={heading} onSubmit={this.onSubmit} className="invitation-accept">
+			<div className="invitation-accept">
+				<h3>{heading}</h3>
 				{success ? <Success instance={instance} /> : this.form()}
-			</FormPanel>
+			</div>
 		);
 	}
 });
