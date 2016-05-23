@@ -1,118 +1,89 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import Logger from 'nti-util-logger';
 
 const logger = Logger.get('prompts:components:Dialog');
 const emptyFunction = () => {};
 
-let Dialog = React.createClass({
-	displayName: 'Dialog',
+export default class Dialog extends React.Component {
 
-	statics: {
-		active: null,
+	static getMountPoint () {
+		return document.getElementById('modals');
+	}
 
-		getMountPoint () {
-			return document.getElementById('modals');
-		},
 
-		clear () {
-			let res = ReactDOM.unmountComponentAtNode(this.getMountPoint());
-			if (res) {//only clear active if React unmounted the component at the mount point.
-				this.active = null;
-			}
-			return res;
-		},
-
-		show (props) {
-			if (this.active) {
-				this.active.dismiss();
-			}
-
-			try {
-				this.active = ReactDOM.render(
-					React.createElement(Dialog, props),
-					this.getMountPoint());
-			}
-			catch (e) {
-				logger.error(e.stack || e.message || e);
-			}
-
+	static clear () {
+		let res = ReactDOM.unmountComponentAtNode(this.getMountPoint());
+		if (res) {//only clear active if React unmounted the component at the mount point.
+			this.active = null;
 		}
-	},
-
-	propTypes: {
-		iconClass: React.PropTypes.string,
-		title: React.PropTypes.string,
-		message: React.PropTypes.string,
-
-		confirmButtonLabel: React.PropTypes.string,
-		confirmButtonClass: React.PropTypes.string,
-
-		cancelButtonLabel: React.PropTypes.string,
-		cancelButtonClass: React.PropTypes.string,
+		return res;
+	}
 
 
+	static show (props) {
+		if (this.active) {
+			this.active.dismiss();
+		}
 
-		onCancel: React.PropTypes.func,
-		onConfirm: React.PropTypes.func,
-		onDismiss: React.PropTypes.func
-	},
+		try {
+			this.active = ReactDOM.render(
+				React.createElement(Dialog, props),
+				this.getMountPoint());
+		}
+		catch (e) {
+			logger.error(e.stack || e.message || e);
+		}
 
-	getInitialState () {
-		return {
+	}
+
+
+	static propTypes = {
+		iconClass: PropTypes.string,
+		title: PropTypes.string,
+		message: PropTypes.string,
+
+		confirmButtonLabel: PropTypes.string,
+		confirmButtonClass: PropTypes.string,
+
+		cancelButtonLabel: PropTypes.string,
+		cancelButtonClass: PropTypes.string,
+
+		onCancel: PropTypes.func,
+		onConfirm: PropTypes.func,
+		onDismiss: PropTypes.func
+	}
+
+
+	static defaultProps = {
+		iconClass: 'alert',
+		message: '...',
+		confirmButtonClass: '',
+		cancelButtonClass: '',
+		onCancel: emptyFunction,
+		onConfirm: emptyFunction,
+		onDismiss: emptyFunction
+	}
+
+
+	constructor (props) {
+		super(props);
+		this.state = {
 			dismissing: false,
 			dismissCalled: false
 		};
-	},
 
-	getDefaultProps () {
-		return {
-			iconClass: 'alert',
-			message: '...',
-			confirmButtonClass: '',
-			cancelButtonClass: '',
-			onCancel: emptyFunction,
-			onConfirm: emptyFunction,
-			onDismiss: emptyFunction
-		};
-	},
+
+		this.handleEscapeKey = this.handleEscapeKey.bind(this);
+		this.confirmClicked = this.confirmClicked.bind(this);
+		this.dismiss = this.dismiss.bind(this);
+	}
 
 
 	componentDidMount () {
 		this.mounted = true;
 		window.addEventListener('popstate', this.dismiss);
-	},
-
-	componentWillUnmount () {
-		this.mounted = false;
-		window.removeEventListener('popstate', this.dismiss);
-	},
-
-
-	handleEscapeKey (e) {
-		if (e.key === 'Escape') {
-			this.dismiss();
-		}
-	},
-
-
-	confirmClicked (e) {
-		if (e) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
-		dismiss(this);
-		this.props.onConfirm.call();
-	},
-
-	dismiss (e) {
-		if (e) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
-		dismiss(this);
-		this.props.onCancel.call();
-	},
+	}
 
 
 	componentDidUpdate () {
@@ -123,7 +94,40 @@ let Dialog = React.createClass({
 
 			focusNode.focus();
 		}
-	},
+	}
+
+
+	componentWillUnmount () {
+		this.mounted = false;
+		window.removeEventListener('popstate', this.dismiss);
+	}
+
+
+	handleEscapeKey (e) {
+		if (e.key === 'Escape') {
+			this.dismiss();
+		}
+	}
+
+
+	confirmClicked (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		dismiss(this);
+		this.props.onConfirm.call();
+	}
+
+
+	dismiss (e) {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		dismiss(this);
+		this.props.onCancel.call();
+	}
 
 
 	render () {
@@ -154,7 +158,7 @@ let Dialog = React.createClass({
 
 			</div>
 		);
-	},
+	}
 
 
 	renderCancelButton () {
@@ -171,7 +175,7 @@ let Dialog = React.createClass({
 				{cancelButtonLabel}
 			</a>
 		);
-	},
+	}
 
 
 	renderConfirmButton () {
@@ -189,7 +193,7 @@ let Dialog = React.createClass({
 				{confirmButtonLabel}
 			</a>
 		);
-	},
+	}
 
 
 	renderDismissControl () {
@@ -202,9 +206,8 @@ let Dialog = React.createClass({
 		);
 	}
 
-});
+}
 
-export default Dialog;
 
 
 function dismiss (dialog) {
@@ -214,7 +217,7 @@ function dismiss (dialog) {
 	//Wait for animation before we remove it.
 	setTimeout(
 		()=> {
-			if (!Dialog.clear() && dialog.isMounted()) {
+			if (!Dialog.clear()) {
 				logger.warn('React did not unmount %o', dialog);
 			}
 		},
