@@ -19,7 +19,7 @@ import Enroll from 'enrollment/components/Enroll';
 import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchaseView';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import GiftRedeem from './GiftRedeem';
-import AcceptInvitation from 'invitations/components/Accept';
+import AcceptInvitation from 'invitations/components/View';
 
 const CatalogBody = React.createClass({
 	displayName: 'CatalogBody',

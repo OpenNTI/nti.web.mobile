@@ -1,7 +1,5 @@
 import React from 'react';
 
-import BasePathAware from 'common/mixins/BasePath';
-import ContextSender from 'common/mixins/ContextSender';
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
 import {Loading} from 'nti-web-commons';
@@ -16,8 +14,6 @@ let t = scoped('INVITATIONS');
 export default React.createClass({
 	displayName: 'Invitations:Accept',
 
-	mixins: [BasePathAware, ContextSender],
-
 	propTypes: {
 		code: React.PropTypes.string
 	},
@@ -26,19 +22,6 @@ export default React.createClass({
 		return {
 			code: ''
 		};
-	},
-
-	getContext () {
-		const path = this.getBasePath();
-		const href = '/accept/';
-		return Promise.resolve([
-			{
-				href: path, label: 'Home'
-			}, {
-				href,
-				label: t('title')
-			}
-		]);
 	},
 
 	componentDidMount () {
