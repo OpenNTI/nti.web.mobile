@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Locations, Location} from 'react-router-component';
 
-import Collection from './Collection';
+import CatalogListView from './CatalogListView';
 import EntryDetail from './EntryDetail';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
@@ -86,7 +86,7 @@ const CatalogBody = React.createClass({
 				/>
 				<Location
 					path="*"
-					handler={Collection}
+					handler={CatalogListView}
 					list={catalog}
 					section="catalog"
 				/>

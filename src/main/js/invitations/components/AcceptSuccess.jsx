@@ -1,11 +1,9 @@
 import React from 'react';
+import {join} from 'path';
+import {encodeForURI} from 'nti-lib-ntiids';
 
-import {scoped} from 'nti-lib-locale';
 import BasePathAware from 'common/mixins/BasePath';
-
-import CourseInfo from './CourseInfo';
-
-let t = scoped('INVITATIONS');
+import Redirect from 'navigation/components/Redirect';
 
 export default React.createClass({
 	displayName: 'Invitations:Success',
@@ -19,15 +17,10 @@ export default React.createClass({
 	render () {
 
 		const {instance} = this.props;
+		let href = join('/', 'item', encodeForURI(instance.CatalogEntryNTIID), '/');
 
-		let library = this.getBasePath() + 'library/';
 		return (
-			<div className="invitation-success">
-				<CourseInfo instance={instance} />
-				<div className="button-row">
-					<a href={library} className="button">{t('successLinkText')}</a>
-				</div>
-			</div>
+			<Redirect location={href} />
 		);
 	}
 });

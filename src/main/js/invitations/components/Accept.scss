@@ -1,0 +1,22 @@
+.invitation-accept-form {
+    display: flex;
+    align-items: baseline;
+}
+
+input#redeem-submit {
+    font-size: .875rem;
+    margin-left: 0.5rem;
+    border-radius: 2px;
+    font-weight: 600;
+}
+
+.invitation-accept h2 {
+    font-size: 1.6875rem;
+}
+
+.catalog {
+	.invitation-accept {
+	    padding: 0;
+	    margin-top: 2rem;
+	}
+}

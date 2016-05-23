@@ -108,16 +108,18 @@ export default React.createClass({
 
 		return (
 			<div>
-				<input onChange={this.onChange} value={code} placeholder={t('acceptInputPlaceholder')} />
-				{error && <FormErrors errors={{'code': error}} />}
-				<div className="button-row">
-					<input type="submit"
-						key="submit"
-						disabled={disabled}
-						id="redeem:submit"
-						className="button"
-						value={t('acceptButton')} />
+				<div className="invitation-accept-form">
+					<input onChange={this.onChange} value={code} placeholder={t('acceptInputPlaceholder')} />
+					<div className="button-row">
+						<input type="submit"
+							key="submit"
+							disabled={disabled}
+							id="redeem-submit"
+							className="button tiny"
+							value={t('acceptButton')} />
+					</div>
 				</div>
+				{error && <FormErrors errors={{'code': error}} />}
 			</div>
 		);
 	},
@@ -133,7 +135,7 @@ export default React.createClass({
 		const heading = success ? t('successMessage') : t('formHeading');
 
 		return (
-			<FormPanel title={heading} onSubmit={this.onSubmit}>
+			<FormPanel title={heading} onSubmit={this.onSubmit} className="invitation-accept">
 				{success ? <Success instance={instance} /> : this.form()}
 			</FormPanel>
 		);
