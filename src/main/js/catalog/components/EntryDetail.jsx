@@ -11,7 +11,6 @@ import NavigationAware from 'common/mixins/NavigationAware';
 
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
-import AcceptInvitationLink from 'invitations/components/AcceptInvitationLink';
 
 import Store from '../Store';
 
@@ -119,7 +118,6 @@ export default React.createClass({
 				<Detail {...this.props} entry={entry}/>
 				<EnrollmentStatus catalogEntry={entry} />
 				<GiftOptions catalogEntry={entry} />
-				<AcceptInvitationLink />
 			</div>
 		);
 	}
