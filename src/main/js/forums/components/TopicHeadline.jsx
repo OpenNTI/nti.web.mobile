@@ -5,7 +5,7 @@ import Avatar from 'common/components/Avatar';
 import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 import {LoadingInline as Loading} from 'nti-web-commons';
-import LuckyCharms from 'common/components/LuckyCharms';
+import {LuckyCharms} from 'nti-web-commons';
 
 import {Panel as ModeledContentPanel} from 'modeled-content';
 

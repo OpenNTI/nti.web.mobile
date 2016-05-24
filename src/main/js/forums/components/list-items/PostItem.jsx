@@ -23,7 +23,7 @@ import Mixin from './Mixin';
 import {StoreEventsMixin} from 'nti-lib-store';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
-import LuckyCharms from 'common/components/LuckyCharms';
+import {LuckyCharms} from 'nti-web-commons';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 

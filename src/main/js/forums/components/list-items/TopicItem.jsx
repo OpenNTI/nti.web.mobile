@@ -11,7 +11,7 @@ import Mixin from './Mixin';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import {StoreEventsMixin} from 'nti-lib-store';
 import {scoped} from 'nti-lib-locale';
-import LuckyCharms from 'common/components/LuckyCharms';
+import {LuckyCharms} from 'nti-web-commons';
 
 const t = scoped('FORUMS');
 

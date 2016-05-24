@@ -3,7 +3,7 @@ import React from 'react';
 import Avatar from 'common/components/Avatar';
 import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
-import LuckyCharms from 'common/components/LuckyCharms';
+import {LuckyCharms} from 'nti-web-commons';
 import RepliedTo from 'common/components/RepliedTo';
 import SharedWithList from 'common/components/SharedWithList';
 
