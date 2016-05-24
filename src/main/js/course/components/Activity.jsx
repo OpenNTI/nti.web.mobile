@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Banner from 'common/components/Banner';
-import ScrollTrigger from 'common/components/ScrollTrigger';
+import {ScrollTrigger} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
 import ActivityBucket from './ActivityBucket';

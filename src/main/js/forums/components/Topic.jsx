@@ -8,7 +8,7 @@ import {decodeFromURI} from 'nti-lib-ntiids';
 
 import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
-import Notice from 'common/components/Notice';
+import {Notice} from 'nti-web-commons';
 
 import {areYouSure} from 'prompts';
 

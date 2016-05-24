@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Notice from 'common/components/Notice';
+import {Notice} from 'nti-web-commons';
 import {Error as Err} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';

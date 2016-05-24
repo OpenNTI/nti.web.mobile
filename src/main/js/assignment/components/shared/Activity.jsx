@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Loading, TinyLoader} from 'nti-web-commons';
 import EmptyList from 'common/components/EmptyList';
-import ScrollTrigger from 'common/components/ScrollTrigger';
+import {ScrollTrigger} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -10,7 +10,7 @@ import AssignmentActivityItem from './AssignmentActivityItem';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-import Notice from 'common/components/Notice';
+import {Notice} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'Activity',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Notice from 'common/components/Notice';
+import {Notice} from 'nti-web-commons';
 import Button from 'forms/components/Button';
 
 export default React.createClass({

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PanelButton from 'common/components/PanelButton';
+import {PanelButton} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

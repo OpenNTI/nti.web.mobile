@@ -2,7 +2,7 @@ import React from 'react';
 
 import hash from 'object-hash';
 
-import Notice from 'common/components/Notice';
+import {Notice} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 

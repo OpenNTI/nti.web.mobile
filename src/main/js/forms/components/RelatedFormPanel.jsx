@@ -12,7 +12,7 @@ import Select from 'forms/components/Select';
 import Checkbox from 'forms/components/Checkbox';
 import DateField from './DateField';
 
-import Notice from 'common/components/Notice';
+import {Notice} from 'nti-web-commons';
 import LocalizedHTML from 'common/components/LocalizedHTML';
 
 import hash from 'object-hash';

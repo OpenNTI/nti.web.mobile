@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Loading} from 'nti-web-commons';
 import Localized from 'common/components/LocalizedHTML';
-import PanelButton from 'common/components/PanelButton';
+import {PanelButton} from 'nti-web-commons';
 
 import BillingInfo from './BillingInfo';
 import GiftInfo from './GiftInfo';
