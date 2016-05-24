@@ -4,7 +4,7 @@ import FollowButton from './FollowButton';
 
 import ActiveState from 'common/components/ActiveState';
 import DisplayName from 'common/components/DisplayName';
-import Background from 'common/components/Background';
+import {Background} from 'nti-web-commons';
 
 import Page from 'common/components/Page';
 

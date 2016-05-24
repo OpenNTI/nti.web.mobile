@@ -3,7 +3,7 @@ import React from 'react';
 import GroupControls from './Controls';
 
 import ActiveLink from 'common/components/ActiveLink';
-import Background from 'common/components/Background';
+import {Background} from 'nti-web-commons';
 import Page from 'common/components/Page';
 import Breadcrumb from './Breadcrumb';
 

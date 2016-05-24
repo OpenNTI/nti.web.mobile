@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CourseContentLink from 'library/mixins/CourseContentLink';
-import Banner from 'common/components/Banner';
+import {Banner} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import {scoped} from 'nti-lib-locale';

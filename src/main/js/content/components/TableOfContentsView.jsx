@@ -3,7 +3,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import ActiveState from 'common/components/ActiveState';
-import Banner from 'common/components/Banner';
+import {Banner} from 'nti-web-commons';
 import {Ellipsed} from 'nti-web-commons';
 import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';

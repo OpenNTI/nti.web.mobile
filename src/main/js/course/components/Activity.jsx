@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Banner from 'common/components/Banner';
+import {Banner} from 'nti-web-commons';
 import {ScrollTrigger} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 

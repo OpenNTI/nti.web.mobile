@@ -7,7 +7,7 @@ import NotFound from 'notfound/components/View';
 
 import Redirect from 'navigation/components/Redirect';
 
-import Background from 'common/components/Background';
+import {Background} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import {Error as ErrorWidget} from 'nti-web-commons';
 
