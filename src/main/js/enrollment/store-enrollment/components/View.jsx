@@ -6,7 +6,7 @@ import Store from '../Store';
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
 
 import {Loading} from 'nti-web-commons';
-import ErrorComponent from 'common/components/Error';
+import {Error as ErrorComponent} from 'nti-web-commons';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import Form from './PaymentForm';
 

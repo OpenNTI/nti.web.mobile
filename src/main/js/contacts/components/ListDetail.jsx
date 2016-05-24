@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 
 import BasePath from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import Page from 'common/components/Page';
 

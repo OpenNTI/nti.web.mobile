@@ -4,7 +4,7 @@ import {getService} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';
 
 import {Loading} from 'nti-web-commons';
-import Error from 'common/components/Error';
+import {Error} from 'nti-web-commons';
 
 import {parseHTML} from 'nti-lib-content-processing';
 

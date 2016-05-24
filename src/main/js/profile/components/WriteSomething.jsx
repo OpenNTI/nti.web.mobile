@@ -2,7 +2,7 @@ import React from 'react';
 
 import PostEditor from 'activity/components/PostEditor';
 
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 
 import {Editor} from 'modeled-content';
 

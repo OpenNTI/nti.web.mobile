@@ -3,7 +3,7 @@ import React from 'react';
 import {getServer} from 'nti-web-client';
 import {rawContent} from 'common/utils/jsx';
 
-import ErrorWidget from 'common/components/Error';
+import {Error as ErrorWidget} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import BasePath from 'common/mixins/BasePath';
 

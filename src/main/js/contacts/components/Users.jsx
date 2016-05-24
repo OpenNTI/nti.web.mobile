@@ -3,7 +3,7 @@ import React from 'react';
 import ContextSender from 'common/mixins/ContextSender';
 import EmptyList from 'common/components/EmptyList';
 import {Loading} from 'nti-web-commons';
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 
 import Selectables from './Selectables';
 import UserSearchField from './UserSearchField';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ErrorWidget from 'common/components/Error';
+import {Error as ErrorWidget} from 'nti-web-commons';
 
 // This is an exmaple of a widget needing the mixin because it has children,
 // only components within this package can(and should) import the mixin this way.

@@ -4,7 +4,7 @@ import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
 
 import {Loading} from 'nti-web-commons';
 import Notice from 'common/components/Notice';
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import ContextSender from 'common/mixins/ContextSender';

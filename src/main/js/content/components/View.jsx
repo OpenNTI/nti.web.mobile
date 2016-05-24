@@ -3,7 +3,7 @@ import Router from 'react-router-component';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import ErrorWidget from 'common/components/Error';
+import {Error as ErrorWidget} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
 import BasePathAware from 'common/mixins/BasePath';

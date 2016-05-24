@@ -2,7 +2,7 @@ import path from 'path';
 import React from 'react';
 
 import {Loading as LoadingMask} from 'nti-web-commons';
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextAccessor from 'common/mixins/ContextAccessor';
 

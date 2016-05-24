@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import {scoped} from 'nti-lib-locale';
 

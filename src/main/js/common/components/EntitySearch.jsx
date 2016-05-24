@@ -2,7 +2,7 @@ import React from 'react';
 import {getService} from 'nti-web-client';
 import {TinyLoader as Loading} from 'nti-web-commons';
 
-import Err from './Error';
+import {Error as Err} from 'nti-web-commons';
 import Empty from './EmptyList';
 
 import SelectionModel from '../utils/ListSelectionModel';

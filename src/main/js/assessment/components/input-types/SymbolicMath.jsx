@@ -6,7 +6,7 @@ import {getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 
 import {TinyLoader as Loading} from 'nti-web-commons';
-import Error from 'common/components/Error';
+import {Error} from 'nti-web-commons';
 import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
 import {clearLoadingFlag, setError} from 'common/utils/react-state';
 

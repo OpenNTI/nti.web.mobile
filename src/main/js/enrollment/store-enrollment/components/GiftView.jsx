@@ -7,7 +7,7 @@ import {clearLoadingFlag} from 'common/utils/react-state';
 let t = scoped('ENROLLMENT');
 let tGift = scoped('ENROLLMENT.GIFT');
 
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import Localized from 'common/components/LocalizedHTML';
 

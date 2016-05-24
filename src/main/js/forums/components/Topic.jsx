@@ -6,7 +6,7 @@ import AnalyticsStore from 'analytics/Store';
 import {TOPIC_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import Notice from 'common/components/Notice';
 

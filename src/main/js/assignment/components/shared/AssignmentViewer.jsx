@@ -6,7 +6,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
 import ContentViewer from 'content/components/Viewer';

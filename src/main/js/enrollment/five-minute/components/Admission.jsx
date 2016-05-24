@@ -4,7 +4,7 @@ import Logger from 'nti-util-logger';
 import getLinkFn from 'nti-lib-interfaces/lib/utils/getlink'; //Accessing interfaces/lib directly is taboo
 
 import {Loading} from 'nti-web-commons';
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 

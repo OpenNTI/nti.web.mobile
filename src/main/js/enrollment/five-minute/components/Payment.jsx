@@ -2,7 +2,7 @@ import React from 'react';
 
 import Logger from 'nti-util-logger';
 
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 

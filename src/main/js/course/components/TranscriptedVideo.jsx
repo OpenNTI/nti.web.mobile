@@ -17,7 +17,7 @@ import Discussions from 'content/components/discussions';
 import Gutter from 'content/components/Gutter';
 
 import DarkMode from 'common/components/DarkMode';
-import Error from 'common/components/Error';
+import {Error} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';

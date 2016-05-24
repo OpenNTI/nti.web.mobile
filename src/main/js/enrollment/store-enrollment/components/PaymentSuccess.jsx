@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ErrorWidget from 'common/components/Error';
+import {Error as ErrorWidget} from 'nti-web-commons';
 
 import CourseContentLink from 'library/components/CourseContentLink';
 

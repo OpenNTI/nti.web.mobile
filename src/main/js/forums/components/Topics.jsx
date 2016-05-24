@@ -23,7 +23,7 @@ import Store from '../Store';
 import TopicList from './TopicList';
 import ViewHeader from './widgets/ViewHeader';
 import {FORUM} from '../Constants';
-import Err from 'common/components/Error';
+import {Error as Err} from 'nti-web-commons';
 
 
 const t = scoped('FORUMS');

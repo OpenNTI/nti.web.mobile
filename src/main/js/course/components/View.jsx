@@ -9,7 +9,7 @@ import Redirect from 'navigation/components/Redirect';
 
 import Background from 'common/components/Background';
 import {Loading} from 'nti-web-commons';
-import ErrorWidget from 'common/components/Error';
+import {Error as ErrorWidget} from 'nti-web-commons';
 
 import BasePathAware from 'common/mixins/BasePath';
 import ContextContributor from 'common/mixins/ContextContributor';
