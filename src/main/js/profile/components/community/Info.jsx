@@ -6,7 +6,7 @@ import {Link} from 'react-router-component';
 import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 import {profileHref} from '../../mixins/ProfileLink';
 

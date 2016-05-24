@@ -6,7 +6,7 @@ import isEmpty from 'isempty';
 
 import Mixin from './Mixin';
 
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 import Zoomable from 'common/components/zoomable';
 

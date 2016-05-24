@@ -5,7 +5,7 @@ import {getEventTarget} from 'nti-lib-dom';
 
 import emptyFunction from 'fbjs/lib/emptyFunction';
 
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 const isTruthy = emptyFunction.thatReturnsArgument;
 

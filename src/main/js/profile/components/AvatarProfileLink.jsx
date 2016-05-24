@@ -3,7 +3,7 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import FollowButton from 'common/components/FollowButton';
 
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 import ProfileLink from './ProfileLink';
 

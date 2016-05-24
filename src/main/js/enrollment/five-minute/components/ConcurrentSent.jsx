@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {scoped} from 'nti-lib-locale';
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 const t = scoped('ENROLLMENT');
 

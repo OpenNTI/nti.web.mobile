@@ -11,7 +11,7 @@ import EmptyList from 'common/components/EmptyList';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 import AnalyticsStore from 'analytics/Store';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 import Mixin from './Mixin';
 

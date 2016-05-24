@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 export default React.createClass({
 	displayName: 'Transcript',

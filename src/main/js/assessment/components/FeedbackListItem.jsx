@@ -8,7 +8,7 @@ import {LoadingInline} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 
 import {getAppUsername} from 'nti-web-client';
-import {rawContent} from 'common/utils/jsx';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 import Editor from './FeedbackEditor';
 
