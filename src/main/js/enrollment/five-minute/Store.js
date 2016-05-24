@@ -28,11 +28,7 @@ const Store = Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getAdmissionStatus () {
-		let me = this.getAdmissionStatus;
-		if(!me.promise) {
-			me.promise = getFiveMinuteService().then(service => service.getAdmissionStatus());
-		}
-		return me.promise;
+		return getFiveMinuteService().then(service => service.getAdmissionStatus());
 	}
 
 });
