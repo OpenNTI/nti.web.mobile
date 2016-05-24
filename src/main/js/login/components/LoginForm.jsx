@@ -5,7 +5,6 @@ import {Link} from 'react-router-component';
 
 import Logger from 'nti-util-logger';
 
-import Conditional from 'common/components/Conditional';
 import {Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -100,7 +99,9 @@ export default React.createClass({
 					{busy ? ( <Loading/> ) : (
 						<div>
 							<div className="header">next thought</div>
-							<Conditional condition={!!error} className="message">{this.formatError(error)}</Conditional>
+							{!!error &&
+								<div className="message">{this.formatError(error)}</div>
+							}
 							<fieldset>
 								<div className="field-container" data-title="Username">
 									<input ref={el => this.username = el}
@@ -135,9 +136,11 @@ export default React.createClass({
 
 								<OAuthButtons />
 
-								<Conditional className="account-creation" condition={!!Store.getLink(LINK_ACCOUNT_CREATE)}>
-									<Link id="login:signup" href={signupLink()}>{t('signup.link')}</Link>
-								</Conditional>
+								{!!Store.getLink(LINK_ACCOUNT_CREATE) &&
+									<div className="account-creation">
+										<Link id="login:signup" href={signupLink()}>{t('signup.link')}</Link>
+									</div>
+								}
 							</fieldset>
 						</div>)}
 					<RecoveryLinks />

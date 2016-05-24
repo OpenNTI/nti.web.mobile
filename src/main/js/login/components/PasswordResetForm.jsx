@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-component';
 import cx from 'classnames';
 
-import Conditional from 'common/components/Conditional';
 import {Loading} from 'nti-web-commons';
 
 import {getServer} from 'nti-web-client';
@@ -84,39 +83,43 @@ export default React.createClass({
 			<div className="login-wrapper">
 				<form ref={el => this.form = el} className={cx('login-form', {'remove-animation': success})} onSubmit={this.handleSubmit}>
 					<div className="header">next thought</div>
-					<Conditional condition={!busy && !success}>
-						<Conditional condition={!!error} className="message">{error}</Conditional>
-						<Conditional condition={!error} className="message recover green">Create your new password.</Conditional>
-					</Conditional>
-
-					<Conditional condition={!!success && !busy} tag="fieldset" className="success">
-						Your password has been reset.
-						<Link id="login:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
-					</Conditional>
-
-					<Conditional condition={busy}>
-						<Loading/>
-					</Conditional>
-
-					<Conditional condition={!success && !busy} tag="fieldset">
-						<div className="field-container">
-							<input type="password" name="password" placeholder="New Password"
-								onChange={this.onInput} />
+					{!busy && !success &&
+						<div>
+							{!!error && <div className="error">{error}</div>}
+							{!error && <div className="message recover green">Create your new password.</div>}
 						</div>
-						<div className="field-container">
-							<input type="password" name="password2" placeholder="Verify Password"
-								onChange={this.onInput} className={cx({error: !valid})} />
-							<Conditional condition={!valid} tag="small" className="error">
-								Passwords do not match.
-							</Conditional>
-						</div>
-						<div className="submit-row">
-							<button type="submit" disabled={!submitEnabled}>
-								{t('RESET_PW', {fallback: 'Reset Password'})}
-							</button>
-						</div>
-						<Link id="login:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
-					</Conditional>
+					}
+
+					{!!success && !busy &&
+						<fieldset className="success">
+							Your password has been reset.
+							<Link id="login:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
+						</fieldset>
+					}
+
+					{busy && <Loading/>}
+
+					{!success && !busy &&
+						<fieldset>
+							<div className="field-container">
+								<input type="password" name="password" placeholder="New Password"
+									onChange={this.onInput} />
+							</div>
+							<div className="field-container">
+								<input type="password" name="password2" placeholder="Verify Password"
+									onChange={this.onInput} className={cx({error: !valid})} />
+								{!valid &&
+									<small className="error">Passwords do not match.</small>
+								}
+							</div>
+							<div className="submit-row">
+								<button type="submit" disabled={!submitEnabled}>
+									{t('RESET_PW', {fallback: 'Reset Password'})}
+								</button>
+							</div>
+							<Link id="login:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
+						</fieldset>
+					}
 				</form>
 			</div>
 		);

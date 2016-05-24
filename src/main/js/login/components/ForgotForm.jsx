@@ -2,8 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-component';
 import Url from 'url';
 
-import Conditional from 'common/components/Conditional';
-
 import {scoped} from 'nti-lib-locale';
 
 import {getServer} from 'nti-web-client';
@@ -77,32 +75,38 @@ export default React.createClass({
 			<div className="login-wrapper">
 				<form ref={el => this.form = el} className="login-form no-zoom" onSubmit={this.handleSubmit}>
 					<div className="header">next thought</div>
-					<Conditional condition={!!error} className="message">{error}</Conditional>
+					{!!error && <div className="message">{error}</div>}
 
-					<Conditional condition={!!success} tag="fieldset" className="success">
-						{success}
-						<Link id="login:forgot:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
-					</Conditional>
-					<Conditional condition={!success} tag="fieldset">
+					{!!success &&
+						<fieldset className="success">
+							{success}
+							<Link id="login:forgot:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
+						</fieldset>
+					}
 
-						<Conditional condition={param === 'password'} className="field-container">
-							<input type="text" name="username" placeholder="Username"
-								onChange={this.onInput} />
-						</Conditional>
+					{!success &&
+						<fieldset>
+							{param === 'password' &&
+								<div className="field-container">
+									<input type="text" name="username" placeholder="Username"
+										onChange={this.onInput} />
+								</div>
+							}
 
-						<div className="field-container">
-							<input type="email" name="email" placeholder="E-mail"
-								onChange={this.onInput} />
-						</div>
+							<div className="field-container">
+								<input type="email" name="email" placeholder="E-mail"
+									onChange={this.onInput} />
+							</div>
 
-						<div className="submit-row">
-							<button id="login:forgot:submit" type="submit" disabled={!submitEnabled} >
-								{buttonLabel}
-							</button>
-						</div>
+							<div className="submit-row">
+								<button id="login:forgot:submit" type="submit" disabled={!submitEnabled} >
+									{buttonLabel}
+								</button>
+							</div>
 
-						<Link id="login:forgot:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
-					</Conditional>
+							<Link id="login:forgot:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
+						</fieldset>
+					}
 				</form>
 
 			</div>
