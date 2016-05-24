@@ -1,5 +1,5 @@
 import React from 'react';
-import SelectBox from 'common/components/SelectBox';
+import {SelectBox} from 'nti-web-commons';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
