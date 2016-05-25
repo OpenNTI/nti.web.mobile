@@ -86,7 +86,7 @@ export default React.createClass({
 			break;
 
 		case Constants.BILLING_INFO_VERIFIED:
-			router.navigate('confirm/');
+			router.navigate('confirm/', {replace: true});
 			break;
 
 		case Constants.STRIPE_PAYMENT_SUCCESS:
