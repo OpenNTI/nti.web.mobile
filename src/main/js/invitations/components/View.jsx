@@ -28,7 +28,7 @@ export default React.createClass({
 
 	render () {
 		return (
-			<AcceptInvitation />
+			<AcceptInvitation {...this.props}/>
 		);
 	}
 });
