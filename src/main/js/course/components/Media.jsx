@@ -5,7 +5,7 @@ import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
 import {Loading} from 'nti-web-commons';
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

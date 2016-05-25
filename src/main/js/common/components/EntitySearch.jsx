@@ -3,7 +3,7 @@ import {getService} from 'nti-web-client';
 import {TinyLoader as Loading} from 'nti-web-commons';
 
 import {Error as Err} from 'nti-web-commons';
-import Empty from './EmptyList';
+import {EmtpyList as Empty} from 'nti-web-commons';
 
 import SelectionModel from '../utils/ListSelectionModel';
 

@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {SortOrder} from 'nti-lib-interfaces';
 
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 
 import {Mixins} from 'nti-web-commons';
 

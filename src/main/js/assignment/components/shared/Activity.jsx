@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Loading, TinyLoader} from 'nti-web-commons';
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 import {ScrollTrigger} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';

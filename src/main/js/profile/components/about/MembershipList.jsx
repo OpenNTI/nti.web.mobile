@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-component';
 
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 

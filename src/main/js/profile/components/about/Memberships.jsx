@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MembershipList from './MembershipList';
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 

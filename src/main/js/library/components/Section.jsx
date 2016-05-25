@@ -5,7 +5,7 @@ import {Link} from 'react-router-component';
 
 import NavigationBar from 'navigation/components/Bar';
 
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 
 import SectionMixin from '../mixins/SectionAware';
 

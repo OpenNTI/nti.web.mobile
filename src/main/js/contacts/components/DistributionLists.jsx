@@ -3,7 +3,7 @@ import React from 'react';
 import {Link} from 'react-router-component';
 
 //intra-app module imports (ordered LocalName)
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 

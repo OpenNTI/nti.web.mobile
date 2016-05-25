@@ -1,6 +1,6 @@
 import React from 'react';
 
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 
 import Collection from './Collection';
 import AddButton from '../AddButton';

@@ -6,7 +6,7 @@ import NavigationBar from 'navigation/components/Bar';
 
 import {Mixins} from 'nti-web-commons';
 import {getService} from 'nti-web-client';
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 
 import Collection from './containers/Collection';
 import SectionTitle from './SectionTitle';

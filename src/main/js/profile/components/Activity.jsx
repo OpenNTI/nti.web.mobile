@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import {TinyLoader as Loading} from 'nti-web-commons';
 import Button from 'forms/components/Button';
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 import {ScrollTrigger} from 'nti-web-commons';
 
 import ItemsMixin from 'activity/RenderItemsMixin';

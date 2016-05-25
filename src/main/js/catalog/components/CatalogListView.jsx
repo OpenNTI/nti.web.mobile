@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AcceptInvitation from 'invitations/components/Accept';
-import Filter from 'common/components/CollectionFilter';
+import {CollectionFilter as Filter} from 'nti-web-commons';
 
 import filters from 'library/Filters';
 

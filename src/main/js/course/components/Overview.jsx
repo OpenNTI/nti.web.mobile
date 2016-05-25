@@ -6,7 +6,7 @@ import {DateTime} from 'nti-web-commons';
 
 import {Loading} from 'nti-web-commons';
 import {Error as ErrorWidget} from 'nti-web-commons';
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';

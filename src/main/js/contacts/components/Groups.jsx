@@ -4,7 +4,7 @@ import Logger from 'nti-util-logger';
 
 import {scoped} from 'nti-lib-locale';
 import ContextSender from 'common/mixins/ContextSender';
-import EmptyList from 'common/components/EmptyList';
+import {EmptyList} from 'nti-web-commons';
 import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
