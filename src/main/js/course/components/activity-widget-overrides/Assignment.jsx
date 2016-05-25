@@ -17,7 +17,7 @@ export default React.createClass({
 
 	statics: {
 		handles (item) {
-			return /assessment\.(?:timed)*assignment/i.test(item.MimeType);
+			return /assessment\.(timed)?assignment/i.test(item.MimeType);
 		}
 	},
 
