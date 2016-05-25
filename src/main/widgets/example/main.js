@@ -5,7 +5,7 @@ import '../../resources/scss/app.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './locale';
+import 'locale';
 
 import isTouch from 'nti-util-detection-touch';
 import CSS from 'fbjs/lib/CSSCore';

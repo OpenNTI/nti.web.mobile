@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import QueryString from 'query-string';
 import isTouch from 'nti-util-detection-touch';
 import CSS from 'fbjs/lib/CSSCore';
-import './locale';
+import 'locale';
 
 const RootNode = document.querySelector('html');
 CSS.removeClass(RootNode, 'no-js');
