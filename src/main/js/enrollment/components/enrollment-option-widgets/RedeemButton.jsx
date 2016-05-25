@@ -19,7 +19,7 @@ export default React.createClass({
 	},
 
 	urlForEntry () {
-		return this.getBasePath() + 'catalog/redeem/' + encodeForURI(this.props.catalogId) + '/';
+		return this.getBasePath() + 'catalog/item/' + encodeForURI(this.props.catalogId) + '/redeem/';
 	},
 
 	render () {
