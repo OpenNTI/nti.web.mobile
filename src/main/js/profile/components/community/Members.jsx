@@ -6,7 +6,7 @@ import AvatarGrid from '../AvatarGrid';
 import {profileHref} from '../../mixins/ProfileLink';
 import {Loading} from 'nti-web-commons';
 import ProfileBodyContainer from '../ProfileBodyContainer';
-import PromiseButton from 'common/components/PromiseButton';
+import {PromiseButton} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'Community:Members',

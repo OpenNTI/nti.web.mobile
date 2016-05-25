@@ -16,7 +16,7 @@ import {toAnalyticsPath} from 'analytics/utils';
 import Discussions from 'content/components/discussions';
 import Gutter from 'content/components/Gutter';
 
-import DarkMode from 'common/components/DarkMode';
+import {DarkMode} from 'nti-web-commons';
 import {Error} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 

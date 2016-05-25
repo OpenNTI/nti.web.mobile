@@ -1,6 +1,6 @@
 import React from 'react';
 import {PanelButton} from 'nti-web-commons';
-import OkCancelButtons from 'common/components/OkCancelButtons';
+import {OkCancelButtons} from 'nti-web-commons';
 import {Editor} from 'modeled-content';
 import {scoped} from 'nti-lib-locale';
 

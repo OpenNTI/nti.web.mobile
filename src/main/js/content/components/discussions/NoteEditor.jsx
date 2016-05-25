@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {Editor} from 'modeled-content';
 
 import {Loading} from 'nti-web-commons';
-import HideNavigation from 'common/components/HideNavigation';
+import {HideNavigation} from 'nti-web-commons';
 
 import ShareWith from 'common/components/ShareWith';
 

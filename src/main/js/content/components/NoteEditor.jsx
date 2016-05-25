@@ -1,7 +1,7 @@
 import React from 'react';
 import CSS from 'fbjs/lib/CSSCore';
 
-import DarkMode from 'common/components/DarkMode';
+import {DarkMode} from 'nti-web-commons';
 
 import Editor from './discussions/NoteEditor';
 

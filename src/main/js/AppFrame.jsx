@@ -2,10 +2,10 @@ import React from 'react';
 import CSS from 'fbjs/lib/CSSCore';
 
 import Session from 'common/components/Session';
-import Footer from 'common/components/Footer';
+import {Footer} from 'nti-web-commons';
 
 import RouteAware from 'common/mixins/NavigatableMixin';
-import LockScroll from 'common/components/LockScroll';
+import {LockScroll} from 'nti-web-commons';
 
 import Notifications from 'notifications/components/View';
 

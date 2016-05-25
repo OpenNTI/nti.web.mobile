@@ -1,5 +1,5 @@
 import React from 'react';
-import PromiseButton from 'common/components/PromiseButton';
+import {PromiseButton} from 'nti-web-commons';
 import RedirectToProfile from '../../mixins/RedirectToProfile';
 
 export default React.createClass({

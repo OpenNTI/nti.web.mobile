@@ -1,7 +1,7 @@
 import React from 'react';
 import path from 'path';
 
-import Link from 'common/components/NestableLink';
+import {NestableLink as Link} from 'nti-web-commons';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import t from 'nti-lib-locale';
