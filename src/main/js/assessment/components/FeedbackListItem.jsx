@@ -9,7 +9,6 @@ import {Panel} from 'modeled-content';
 import DisplayName from 'common/components/DisplayName';
 
 import {getAppUsername} from 'nti-web-client';
-import {rawContent} from 'nti-commons/lib/jsx';
 
 import Editor from './FeedbackEditor';
 
