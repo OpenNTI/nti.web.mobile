@@ -2,7 +2,7 @@ import React from 'react';
 import path from 'path';
 
 import {NestableLink as Link} from 'nti-web-commons';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import t from 'nti-lib-locale';
 
@@ -15,7 +15,7 @@ const OutlineNode = getModel('courses.courseoutlinenode');
 
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 
 	statics: {
 		mimeTest: /surveyref$/i,

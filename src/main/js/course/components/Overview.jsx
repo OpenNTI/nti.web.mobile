@@ -9,7 +9,7 @@ import {Error as ErrorWidget} from 'nti-web-commons';
 import {EmptyList} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {rawContent} from 'nti-commons/lib/jsx';
 
@@ -24,7 +24,7 @@ const logger = Logger.get('course:components:Overview');
 
 export default React.createClass({
 	displayName: 'CourseOverview',
-	mixins: [Mixin, NavigatableMixin, ContextSender],
+	mixins: [Mixin, Mixins.NavigatableMixin, ContextSender],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired,

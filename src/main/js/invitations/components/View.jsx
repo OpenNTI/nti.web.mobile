@@ -1,7 +1,7 @@
 import React from 'react';
 import {scoped} from 'nti-lib-locale';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 
 import AcceptInvitation from './Accept';
@@ -11,7 +11,7 @@ let t = scoped('INVITATIONS');
 export default React.createClass({
 	displayName: 'InvitationsView',
 
-	mixins: [BasePathAware, ContextSender],
+	mixins: [Mixins.BasePath, ContextSender],
 
 	getContext () {
 		const path = this.getBasePath();

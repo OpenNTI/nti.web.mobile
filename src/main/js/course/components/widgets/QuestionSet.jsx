@@ -6,7 +6,7 @@ import cx from 'classnames';
 
 import {getModel} from 'nti-lib-interfaces';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 // import {DateTime} from 'nti-web-commons';
 import Score from 'common/components/charts/Score';
 
@@ -28,7 +28,7 @@ const getQuestionCount = o => o.getQuestionCount ? o.getQuestionCount() : o['que
 
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 
 	statics: {
 		mimeTest: /(questionset|questionbank|assignment)/i,

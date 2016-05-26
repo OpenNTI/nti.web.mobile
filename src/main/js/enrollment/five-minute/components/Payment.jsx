@@ -4,7 +4,7 @@ import Logger from 'nti-util-logger';
 
 import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 
@@ -18,7 +18,7 @@ const t = scoped('ENROLLMENT');
 export default React.createClass({
 	displayName: 'Payment',
 
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
 		paymentLink: React.PropTypes.string.isRequired, // dataserver pay and enroll link ('fmaep.pay.and.enroll')

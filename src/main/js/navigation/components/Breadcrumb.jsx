@@ -2,7 +2,7 @@ import React from 'react';
 
 import buffer from 'nti-commons/lib/function-buffer';
 
-import ActiveState from 'common/components/ActiveState';
+import {ActiveState} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 

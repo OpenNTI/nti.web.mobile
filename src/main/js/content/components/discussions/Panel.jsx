@@ -5,7 +5,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import {DateTime} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {Panel as Body} from 'modeled-content';
 
@@ -20,7 +20,7 @@ const t = scoped('UNITS');
 const Panel = React.createClass({
 	displayName: 'content:discussions:Panel',
 	mixins: [
-		NavigatableMixin,
+	Mixins.NavigatableMixin,
 		NotePanelBehavior
 	],
 

@@ -5,7 +5,7 @@ import {Locations, Location, NotFound as Default} from 'react-router-component';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import NotFound from 'notfound/components/View';
 
@@ -17,7 +17,7 @@ export default React.createClass({
 	displayName: 'content:discussions:View',
 	mixins: [
 		ContextSender,
-		NavigatableMixin
+	Mixins.NavigatableMixin
 	],
 
 	propTypes: {

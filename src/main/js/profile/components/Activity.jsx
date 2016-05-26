@@ -9,7 +9,7 @@ import {ScrollTrigger} from 'nti-web-commons';
 import ItemsMixin from 'activity/RenderItemsMixin';
 import Joined from 'activity/components/widgets/Joined';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
 
 import WriteSomething from './WriteSomething';
@@ -19,7 +19,7 @@ import {PROFILE_ACTIVITY_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/M
 export default React.createClass({
 	displayName: 'Activity',
 
-	mixins: [ItemsMixin, BasePathAware, ProfileAnalytics],
+	mixins: [ItemsMixin, Mixins.BasePath, ProfileAnalytics],
 
 	propTypes: {
 		entity: React.PropTypes.object,

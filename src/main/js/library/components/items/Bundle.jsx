@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
@@ -8,7 +8,7 @@ import Icon from './shared/Icon';
 
 export default React.createClass({
 	displayName: 'Bundle',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	statics: {
 		handles (item) {

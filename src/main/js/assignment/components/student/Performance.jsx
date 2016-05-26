@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import PageFrame from '../shared/PageFrame';
 import Assignment from '../shared/AssignmentViewer';
@@ -13,7 +13,7 @@ import PerformanceListView from './PerformanceListView';
 export default React.createClass({
 	displayName: 'Performance',
 
-	mixins: [AssignmentsAccessor, ContextSender, Navigatable],
+	mixins: [AssignmentsAccessor, ContextSender, Mixins.NavigatableMixin],
 
 	getContext () {
 		return Promise.resolve({

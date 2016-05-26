@@ -7,7 +7,7 @@ import {Loading} from 'nti-web-commons';
 import ActivityBucket from './ActivityBucket';
 import {ACTIVITY} from '../Sections';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import ContextParent from '../mixins/AssignmentHistoryContextParent';
 
@@ -15,7 +15,7 @@ import ContextParent from '../mixins/AssignmentHistoryContextParent';
 export default React.createClass({
 	displayName: 'Course:Activity',
 
-	mixins: [ContextSender, NavigatableMixin, ContextParent],
+	mixins: [ContextSender, Mixins.NavigatableMixin, ContextParent],
 
 	propTypes: {
 		filterParams: React.PropTypes.object,

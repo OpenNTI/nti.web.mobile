@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Logger from 'nti-util-logger';
 import {Ellipsed, CalendarCard} from 'nti-web-commons';
 
-import ActiveState from 'common/components/ActiveState';
+import {ActiveState} from 'nti-web-commons';
 import {Banner} from 'nti-web-commons';
 
 import Header from 'common/components/TopicHeader';

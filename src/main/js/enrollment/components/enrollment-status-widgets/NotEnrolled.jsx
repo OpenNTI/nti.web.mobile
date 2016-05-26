@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import Mixin from './mixin';
 
@@ -8,7 +8,7 @@ import Mixin from './mixin';
 export default React.createClass({
 	displayName: 'NotEnrolled',
 
-	mixins: [BasePath, Mixin],
+	mixins: [Mixins.BasePath, Mixin],
 
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired

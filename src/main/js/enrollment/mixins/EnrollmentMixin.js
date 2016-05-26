@@ -11,7 +11,7 @@ import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 import {getWidget} from '../components/enrollment-option-widgets';
 import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
 import GiftableUtils from './GiftableUtils';
@@ -19,7 +19,7 @@ import GiftableUtils from './GiftableUtils';
 const logger = Logger.get('enrollment:mixnis:EnrollmentMixin');
 
 export default {
-	mixins: [NavigatableMixin, GiftableUtils],
+	mixins: [Mixins.NavigatableMixin, GiftableUtils],
 
 	getInitialState () {
 		return {

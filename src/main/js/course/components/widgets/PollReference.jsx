@@ -1,7 +1,7 @@
 import path from 'path';
 import React from 'react';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import t from 'nti-lib-locale';
 
@@ -19,7 +19,7 @@ function isSubmitted (item) {
 
 export default React.createClass( {
 	displayName: 'CourseOverviewDiscussion',
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 
 	statics: {
 		mimeTest: /pollref$/i,

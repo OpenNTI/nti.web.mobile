@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import AvatarGrid from '../AvatarGrid';
 import {profileHref} from '../../mixins/ProfileLink';
@@ -10,7 +10,7 @@ import {PromiseButton} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'Community:Members',
-	mixins: [BasePathAware, ContextSender],
+	mixins: [Mixins.BasePath, ContextSender],
 
 	propTypes: {
 		entity: React.PropTypes.object,

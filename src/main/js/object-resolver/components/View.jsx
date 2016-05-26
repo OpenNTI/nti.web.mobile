@@ -11,7 +11,7 @@ import {Loading} from 'nti-web-commons';
 
 import NotFound from 'notfound/components/View';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import Redirect from 'navigation/components/Redirect';
 
@@ -27,7 +27,7 @@ const filter = o => (o && o.MimeType === 'application/vnd.nextthought.change' &&
 
 export default React.createClass({
 	displayName: 'ObjectResolver',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	propTypes: {
 		objectId: React.PropTypes.string.isRequired

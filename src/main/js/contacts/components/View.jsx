@@ -9,7 +9,7 @@ import ListsView from './ListsView';
 import ListDetail from './ListDetail';
 import CreateList from './CreateList';
 import ContextContributor from 'common/mixins/ContextContributor';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 const ROUTES = [
 	{path: '/users(/*)', handler: Page, pageContent: Users},
@@ -22,7 +22,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'Contacts:View',
-	mixins: [ContextContributor, BasePathAware],
+	mixins: [ContextContributor, Mixins.BasePath],
 
 	getContext () {
 		return Promise.resolve({

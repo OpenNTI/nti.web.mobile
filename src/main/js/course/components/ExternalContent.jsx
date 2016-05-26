@@ -8,7 +8,7 @@ import Card from 'common/components/Card';
 import {Loading} from 'nti-web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {getService} from 'nti-web-client';
 
@@ -23,7 +23,7 @@ const RelatedWorkReference = getModel('relatedworkref');
 
 export default React.createClass({
 	displayName: 'ExternalContent',
-	mixins: [CourseLinker, ContextContributor, NavigatableMixin],
+	mixins: [CourseLinker, ContextContributor, Mixins.NavigatableMixin],
 
 	propTypes: {
 		contentPackage: React.PropTypes.object.isRequired,

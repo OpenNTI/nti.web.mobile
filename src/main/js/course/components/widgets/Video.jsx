@@ -3,7 +3,7 @@ import React from 'react';
 
 import {Loading as LoadingMask} from 'nti-web-commons';
 import {Error as Err} from 'nti-web-commons';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import {Component as Video} from 'video';
@@ -12,7 +12,7 @@ import {Progress} from 'nti-lib-interfaces';
 
 export default React.createClass({
 	displayName: 'CourseOverviewVideo',
-	mixins: [BasePathAware, ContextAccessor],
+	mixins: [Mixins.BasePath, ContextAccessor],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,

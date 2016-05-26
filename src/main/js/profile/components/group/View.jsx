@@ -2,7 +2,7 @@ import React from 'react';
 
 import Router from 'react-router-component';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 
 import Page from './PageFrame';
@@ -23,7 +23,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'Group:View',
-	mixins: [BasePathAware, ContextSender],
+	mixins: [Mixins.BasePath, ContextSender],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired

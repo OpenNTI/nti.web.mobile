@@ -6,7 +6,7 @@ import {Error as Err} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import GiftOptions from './GiftOptions';
 
 const t = scoped('ENROLLMENT');
@@ -15,7 +15,7 @@ const getPurchasable = 'StoreEnrollment:getPurchasable';
 export default React.createClass({
 	displayName: 'StoreEnrollment',
 
-	mixins: [FormattedPriceMixin, BasePathAware],
+	mixins: [FormattedPriceMixin, Mixins.BasePath],
 
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired,

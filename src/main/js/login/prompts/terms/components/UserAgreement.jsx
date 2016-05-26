@@ -5,12 +5,12 @@ import {rawContent} from 'nti-commons/lib/jsx';
 
 import {Error as ErrorWidget} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'UserAgreement',
 
-	mixins: [BasePath],
+	mixins: [Mixins.BasePath],
 
 	getInitialState () {
 		return {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import StudentHeader from './StudentHeader';
 import StudentAssignmentsTable from './table/StudentAssignmentsTable';
@@ -10,7 +10,7 @@ import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
 
 export default React.createClass({
 	displayName: 'Performance:Student',
-	mixins: [AssignmentsAccessor, ContextSender, Navigatable],
+	mixins: [AssignmentsAccessor, ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		userId: React.PropTypes.string

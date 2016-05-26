@@ -26,7 +26,7 @@ import Store from '../Store';
 
 // mixins
 import KeepItemInState from '../mixins/KeepItemInState';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import Paging from '../mixins/Paging';
 import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -42,7 +42,7 @@ export default React.createClass({
 	mixins: [
 		StoreEventsMixin,
 		ResourceLoaded,
-		NavigatableMixin,
+	Mixins.NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
 		Paging

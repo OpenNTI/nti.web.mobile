@@ -3,7 +3,7 @@ import React from 'react';
 import {Loading} from 'nti-web-commons';
 import Page from 'common/components/Page';
 
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 
 import ContactsCommon from '../mixins/Mixin';
@@ -13,7 +13,7 @@ import UserSearchField from './UserSearchField';
 
 export default React.createClass({
 	displayName: 'CreateList',
-	mixins: [ContextSender, ContactsCommon, Navigatable],
+	mixins: [ContextSender, ContactsCommon, Mixins.NavigatableMixin],
 
 	storeType: LISTS,
 

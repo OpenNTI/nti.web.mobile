@@ -13,7 +13,7 @@ import {Error as Err} from 'nti-web-commons';
 
 // mixins
 import {StoreEventsMixin} from 'nti-lib-store';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
 import ContextSender from 'common/mixins/ContextSender';
@@ -24,7 +24,7 @@ export default React.createClass({
 
 	mixins: [
 		StoreEventsMixin,
-		NavigatableMixin,
+	Mixins.NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
 		ContextSender,

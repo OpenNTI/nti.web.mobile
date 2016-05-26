@@ -5,7 +5,7 @@ import path from 'path';
 
 import {PanelButton} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT');
@@ -24,7 +24,7 @@ import {CONCURRENT_ENROLLMENT_SUCCESS} from '../Constants';
 export default React.createClass({
 	displayName: 'View',
 
-	mixins: [NavigatableMixin, CourseContentLink, ContextSender],
+	mixins: [Mixins.NavigatableMixin, CourseContentLink, ContextSender],
 
 	propTypes: {
 		courseId: React.PropTypes.string.isRequired,

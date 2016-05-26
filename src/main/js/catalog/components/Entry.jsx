@@ -2,7 +2,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 const t = scoped('COURSE.INFO.CATALOG_ENTRY');
@@ -39,7 +39,7 @@ ES_CREDIT_NONDEGREE = "ForCreditNonDegree"
 
 export default React.createClass({
 	displayName: 'Entry',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired

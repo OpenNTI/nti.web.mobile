@@ -8,7 +8,7 @@ import {Loading} from 'nti-web-commons';
 import {EmptyList} from 'nti-web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import CourseLinker from 'library/mixins/CourseContentLink';
 
 import TranscriptedVideo from './TranscriptedVideo';
@@ -20,7 +20,7 @@ const logger = Logger.get('course:components:Media');
 
 export default React.createClass({
 	displayName: 'MediaView',
-	mixins: [CourseLinker, NavigatableMixin, ContextContributor],
+	mixins: [CourseLinker, Mixins.NavigatableMixin, ContextContributor],
 
 	propTypes: {
 		outlineId: React.PropTypes.string,

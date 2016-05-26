@@ -3,7 +3,7 @@ import React from 'react';
 import {PanelButton} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 
 import {scoped} from 'nti-lib-locale';
@@ -11,7 +11,7 @@ let t = scoped('ENROLLMENT.forms.fiveminute');
 
 export default React.createClass({
 	displayName: 'Policy',
-	mixins: [NavigatableMixin, ContextSender],
+	mixins: [Mixins.NavigatableMixin, ContextSender],
 
 
 	getContext () {

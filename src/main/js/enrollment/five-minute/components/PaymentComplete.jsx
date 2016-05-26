@@ -4,7 +4,7 @@ import QueryString from 'query-string';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import {Loading} from 'nti-web-commons';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
@@ -32,7 +32,7 @@ const Wrapper = React.createClass({
 
 export default React.createClass({
 	displayName: 'PaymentComplete',
-	mixins: [BasePathAware, CatalogAccessor],
+	mixins: [Mixins.BasePath, CatalogAccessor],
 
 	getInitialState () {
 		return {};

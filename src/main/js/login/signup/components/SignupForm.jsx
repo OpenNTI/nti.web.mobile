@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import {NavigatableMixin} from 'react-router-component';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 import {scoped} from 'nti-lib-locale';
 let t = scoped('LOGIN.CREATE_ACCOUNT');
@@ -34,7 +34,7 @@ const FIELDS = [
 
 export default React.createClass({
 	displayName: 'SignupForm',
-	mixins: [StoreEventsMixin, NavigatableMixin, BasePathAware],
+	mixins: [StoreEventsMixin, Mixins.NavigatableMixin, Mixins.BasePath],
 
 	propTypes: {
 		privacyUrl: React.PropTypes.string

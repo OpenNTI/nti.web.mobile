@@ -1,7 +1,7 @@
 import React from 'react';
 import {areYouSure} from 'prompts';
 import {scoped} from 'nti-lib-locale';
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import cx from 'classnames';
 
 let t = scoped('CONTACTS');
@@ -9,7 +9,7 @@ let t = scoped('CONTACTS');
 export default React.createClass({
 	displayName: 'ItemDetailHeader',
 
-	mixins: [Navigatable],
+	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
 		list: React.PropTypes.object.isRequired

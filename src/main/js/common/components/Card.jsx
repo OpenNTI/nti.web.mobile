@@ -29,7 +29,7 @@ import cx from 'classnames';
 import {toAnalyticsPath} from 'analytics/utils';
 
 import ContextAccessor from '../mixins/ContextAccessor';
-import NavigatableMixin from '../mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 import {rawContent} from 'nti-commons/lib/jsx';
@@ -66,7 +66,7 @@ function canSetState (cmp) {
 }
 
 export default React.createClass({
-	mixins: [ContextAccessor, NavigatableMixin],
+	mixins: [ContextAccessor, Mixins.NavigatableMixin],
 	displayName: 'RelatedWorkRef',
 
 	statics: {

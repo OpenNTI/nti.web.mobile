@@ -2,8 +2,7 @@ import React from 'react';
 
 import {join} from 'path';
 
-import BasePath from 'common/mixins/BasePath';
-import Navigable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import Button from 'forms/components/Button';
 
@@ -13,7 +12,7 @@ import {makeHref as profileLink} from 'profile/components/ProfileLink';
 export default React.createClass({
 	displayName: 'GroupLeaveButton',
 
-	mixins: [BasePath, Navigable],
+	mixins: [Mixins.BasePath, Mixins.NavigatableMixin],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired

@@ -1,6 +1,6 @@
 import Logger from 'nti-util-logger';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import Path from 'path';
 
 const ROUTES = Symbol('Routes');
@@ -10,7 +10,7 @@ const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path
 const logger = Logger.get('content:viewer-parts:router');
 
 export default {
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	getInitialState  () {
 		this.getRoutes().push(makeRoute('/:pageId(/)'));

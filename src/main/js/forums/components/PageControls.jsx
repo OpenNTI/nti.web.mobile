@@ -1,13 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-component';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 const goToPage = 'PageControls:goToPage';
 
 export default React.createClass({
 	displayName: 'forums:PageControls',
 
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
 		// available from Paging mixin

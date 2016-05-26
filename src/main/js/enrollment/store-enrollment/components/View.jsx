@@ -7,15 +7,13 @@ import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
 
 import {Loading} from 'nti-web-commons';
 import {Error as ErrorComponent} from 'nti-web-commons';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import Form from './PaymentForm';
-
-import BasePathAware from 'common/mixins/BasePath';
 
 export default React.createClass({
 	displayName: 'StoreEnrollmentView',
 
-	mixins: [NavigatableMixin, BasePathAware], // needed for getPath() call we're using for the router's key.
+	mixins: [Mixins.NavigatableMixin, Mixins.BasePath], // needed for getPath() call we're using for the router's key.
 
 	propTypes: {
 		courseId: React.PropTypes.string,

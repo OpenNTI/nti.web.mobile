@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {DateTime} from 'nti-web-commons';
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import Mixin from './mixin';
 
@@ -9,7 +9,7 @@ import Mixin from './mixin';
 export default React.createClass({
 	displayName: 'EnrolledForCredit',
 
-	mixins: [BasePath, Mixin],
+	mixins: [Mixins.BasePath, Mixin],
 
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired

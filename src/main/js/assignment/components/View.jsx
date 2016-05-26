@@ -2,7 +2,7 @@ import React from 'react';
 import Student from './student/View';
 import Instructor from './instructor/View';
 import {Loading} from 'nti-web-commons';
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import ContextContributor from 'common/mixins/ContextContributor';
 
 import AssignmentsHolder from '../mixins/AssignmentCollectionHolder';
@@ -10,7 +10,7 @@ import AssignmentsHolder from '../mixins/AssignmentCollectionHolder';
 export default React.createClass({
 	displayName: 'Assignments:View',
 
-	mixins: [AssignmentsHolder, Navigatable, ContextContributor],
+	mixins: [AssignmentsHolder, Mixins.NavigatableMixin, ContextContributor],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired

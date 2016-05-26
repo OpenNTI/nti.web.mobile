@@ -8,7 +8,7 @@ import FormErrors from 'forms/components/FormErrors';
 import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
@@ -24,7 +24,7 @@ const t = scoped('ENROLLMENT.GIFT.REDEEM');
 
 export default React.createClass({
 	displayName: 'GiftRedeem',
-	mixins: [CatalogAccessor, ContextSender, NavigatableMixin],
+	mixins: [CatalogAccessor, ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		entryId: React.PropTypes.string.isRequired,

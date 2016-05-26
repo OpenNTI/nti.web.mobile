@@ -4,7 +4,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 
 import {TinyLoader} from 'nti-web-commons';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 
@@ -22,7 +22,7 @@ export default React.createClass({
 	displayName: 'list-items:ForumItem',
 	mixins: [
 		ForumMixin,
-		NavigatableMixin,
+	Mixins.NavigatableMixin,
 		ToggleStateMixin
 	],
 

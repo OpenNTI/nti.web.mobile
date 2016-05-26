@@ -5,7 +5,7 @@ import {NavigatableMixin, Locations, Location, NotFound as DefaultRoute} from 'r
 
 import Logger from 'nti-util-logger';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import {Error as ErrorMessage} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
@@ -24,7 +24,7 @@ const logger = Logger.get('login:components:View');
 
 export default React.createClass({
 	displayName: 'LoginView',
-	mixins: [BasePathAware, NavigatableMixin],
+	mixins: [Mixins.BasePath, Mixins.NavigatableMixin],
 
 	componentDidMount () {
 		begin().then(()=> this.forceUpdate(), this.setError);

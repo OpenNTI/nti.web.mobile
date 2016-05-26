@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import FilterSearchBar from './FilterSearchBar';
 import SummaryTable from './SummaryTable';
@@ -10,7 +10,7 @@ import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
 
 export default React.createClass({
 	displayName: 'Performance',
-	mixins: [AssignmentsAccessor, ContextSender, Navigatable],
+	mixins: [AssignmentsAccessor, ContextSender, Mixins.NavigatableMixin],
 
 
 	componentReceivedAssignments (assignments = this.getAssignments()) {

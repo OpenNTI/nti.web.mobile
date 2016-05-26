@@ -1,10 +1,10 @@
 import React from 'react';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import Redirect from 'navigation/components/Redirect';
 
 export default React.createClass({
 	displayName: 'HomeView',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	render () {
 		return (<Redirect location={this.getBasePath() + 'library/'} />);

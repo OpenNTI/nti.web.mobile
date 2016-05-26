@@ -10,11 +10,11 @@ import Section from './Section';
 import SectionCommunities from './SectionCommunities';
 
 import Library from '../mixins/LibraryAccessor';
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'Library:View',
-	mixins: [BasePath, Library],
+	mixins: [Mixins.BasePath, Library],
 
 	getInitialState () {
 		return {};

@@ -2,9 +2,8 @@ import React from 'react';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextContributor from 'common/mixins/ContextContributor';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
@@ -15,7 +14,7 @@ import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 export default React.createClass({
 	displayName: 'AssignmentViewer',
-	mixins: [AssignmentsAccessor, BasePathAware, ContextContributor, NavigatableMixin],
+	mixins: [AssignmentsAccessor, Mixins.BasePath, ContextContributor, Mixins.NavigatableMixin],
 
 	propTypes: {
 		explicitContext: React.PropTypes.object,

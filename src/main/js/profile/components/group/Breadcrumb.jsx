@@ -1,9 +1,9 @@
 import React from 'react';
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'Breadcrumb',
-	mixins: [BasePath],
+	mixins: [Mixins.BasePath],
 
 	propTypes: {
 		entity: React.PropTypes.object.isRequired
