@@ -6,6 +6,7 @@ import BasePathAware from 'common/mixins/BasePath';
 import ContextSender from 'common/mixins/ContextSender';
 import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
+import Redirect from 'navigation/components/Redirect';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 
 import NotFound from 'notfound/components/View';
@@ -85,7 +86,7 @@ export default React.createClass({
 
 	render () {
 
-		let {enrollmentType} = this.props;
+		let {enrollmentType, entryId} = this.props;
 		let courseId = this.getCourseId();
 
 		if (!this.state.catalogLoading && !courseId) {
@@ -99,6 +100,11 @@ export default React.createClass({
 		let enrollment = type
 			? this.getEnrollmentOptionFor(type)
 			: null;
+
+		if (!enrollment || enrollment.enrolled) {
+			const href = `/item/${entryId}/enrollment/`;
+			return <Redirect location={href} />;
+		}
 
 		return (
 			<Comp {...this.props}
