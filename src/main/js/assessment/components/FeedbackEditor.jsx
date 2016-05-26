@@ -63,8 +63,10 @@ export default React.createClass({
 
 
 	onChange () {
-		let value = this.editor.getValue();
-		this.updateDisabled(value);
+		if (this.editor) {
+			let value = this.editor.getValue();
+			this.updateDisabled(value);
+		}
 	},
 
 
