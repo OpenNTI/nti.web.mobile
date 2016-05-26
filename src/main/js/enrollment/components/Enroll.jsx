@@ -1,8 +1,9 @@
 import React from 'react';
 
-import {Error as Err} from 'nti-web-commons';
-import ContextSender from 'common/mixins/ContextSender';
 import {scoped} from 'nti-lib-locale';
+
+import ContextSender from 'common/mixins/ContextSender';
+import Redirect from 'navigation/components/Redirect';
 
 import EnrollmentOptions from '../mixins/EnrollmentMixin';
 
@@ -30,7 +31,7 @@ export default React.createClass({
 	render () {
 
 		if (this.state.error) {
-			return <Err error={this.state.error} />;
+			return (<Redirect location="/" />);
 		}
 
 		const {icon} = this.getEntry() || {};
