@@ -5,6 +5,7 @@ import Avatar from 'common/components/Avatar';
 import {DateTime} from 'nti-web-commons';
 import {LoadingInline} from 'nti-web-commons';
 
+import {Panel} from 'modeled-content';
 import DisplayName from 'common/components/DisplayName';
 
 import {getAppUsername} from 'nti-web-client';
@@ -44,7 +45,7 @@ export default React.createClass({
 		let createdBy = item.creator;
 		let createdOn = item.getCreatedTime();
 		let modifiedOn = item.getLastModified();
-		let message = item.body.join('');
+		let {body} = item;
 
 		let edited = (Math.abs(modifiedOn - createdOn) > 0);
 		let canEdit = item.hasLink('edit') && item.creator === getAppUsername();
@@ -65,7 +66,7 @@ export default React.createClass({
 						<Editor value={item.body} onSubmit={this.onEdit} onCancel={this.onToggleEditor}/>
 						:
 						<div className="message">
-							<div {...rawContent(message)}/>
+							<Panel body={body}/>
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
 					}
