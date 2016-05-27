@@ -33,7 +33,7 @@ export default React.createClass({
 	childContextTypes: {
 		basePath: PropTypes.string,
 		defaultEnvironment: PropTypes.object,
-		routerLinkComponent: PropTypes.object,
+		routerLinkComponent: PropTypes.func,
 		[SET_PAGESOURCE]: PropTypes.func,
 		[SET_CONTEXT]: PropTypes.func
 	},
