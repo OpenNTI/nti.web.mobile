@@ -86,34 +86,54 @@ exports = module.exports = [
 				// },
 				{
 					test: /src.main.js.+jsx?$/,
-					loader: 'baggage?[file].scss'
+					loader: 'baggage-loader?[file].scss'
 				},
 				{
 					test: /\.js(x?)$/,
 					// include: /node_modules.+nti\-/,
-					loader: 'source-map'
+					loader: 'source-map-loader'
 				}
 			],
 			loaders: [
-				{ test: /\.async\.jsx$/i, loader: 'react-proxy!exports?exports.default' },
+				{ test: /\.async\.jsx$/i, loader: 'react-proxy-loader!exports-loader?exports.default' },
 
 				{
 					test: /\.js(x?)$/i,
 					exclude: /node_modules/,
-					loader: 'babel',
+					loader: 'babel-loader',
 					query: {
 						sourceMaps: true
 					}
 				},
 
-				{ test: /\.json$/, loader: 'json' },
-				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url?limit=1&name=resources/images/[name].[ext]&mimeType=image/[ext]' },
+				{
+					test: /\.json$/,
+					loader: 'json-loader'
+				},
 
-				{ test: /\.(eot|ttf|woff)$/, loader: 'file?name=resources/fonts/[name].[ext]' },
+				{
+					test: /\.(ico|gif|png|jpg|svg)$/,
+					loader: 'url-loader',
+					query: {
+						limit: 1,
+						name: 'resources/images/[name].[ext]',
+						mimeType: 'image/[ext]'
+					}
+				},
 
-				{ test: /\.(s?)css$/, loader: ExtractTextPlugin.extract(
-					'style-loader',
-					'css?-minimize!postcss!resolve-url!sass'
+				{
+					test: /\.(eot|ttf|woff)$/,
+					loader: 'file-loader',
+					query: {
+						name: 'resources/fonts/[name].[ext]'
+					}
+				},
+
+				{
+					test: /\.(s?)css$/,
+					loader: ExtractTextPlugin.extract(
+						'style-loader',
+						'css?-minimize!postcss!resolve-url!sass'
 					)
 				}
 			]
