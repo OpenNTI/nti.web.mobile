@@ -113,6 +113,7 @@ export default {
 			},
 			GROUP_LABELS: {
 				Unknown: 'Other Assignments',
+				'no-due-date': 'Other',
 				unset: ''
 			}
 		}
