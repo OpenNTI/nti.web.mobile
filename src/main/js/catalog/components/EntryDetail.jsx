@@ -50,7 +50,7 @@ export default React.createClass({
 	getDataIfNeeded (props) {
 		const entryId = decodeFromURI(props.entryId);
 		let entry = Store.getEntry(entryId);
-		let loading = !entry || entry.loading;
+		let loading = Store.isLoaded ? (entry && entry.loading) : true;
 
 		entry = loading ? null : entry;
 
