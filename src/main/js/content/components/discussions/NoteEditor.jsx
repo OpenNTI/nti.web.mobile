@@ -24,9 +24,15 @@ export default class NoteEditor extends React.Component {
 
 	constructor (props) {
 		super(props);
-		const disabled = Editor.isEmpty((props.item || {}).body);
+		const body = (props.item || {}).body || [];
+		const disabled = Editor.isEmpty(body);
 
-		this.state = {disabled};
+		// we put body on state so that for the case of a new note
+		// and body doesn't have a value, the defaulted empty body
+		// doesn't keep triggering a editor reset. (If Editor's
+		// initialValue prop changes, it resets the editor-- and
+		// this is by design, don't try to "fix it.)
+		this.state = {body, disabled};
 
 		this.attachTitleRef = ref => this.title = ref;
 		this.attachShareWithRef = ref => this.shareWith = ref;
@@ -45,7 +51,12 @@ export default class NoteEditor extends React.Component {
 
 
 	detectContent () {
-		//set save button enabled or disabled.
+		const {body} = this;
+		let disabled = body && Editor.isEmpty(body.getValue());
+		//they may not be booleans... compare casted booleans
+		if (Boolean(disabled) !== Boolean(this.state.disabled)) {
+			this.setState({disabled});
+		}
 	}
 
 
@@ -56,9 +67,20 @@ export default class NoteEditor extends React.Component {
 
 
 	render () {
-		const {scope, item} = this.props;
-		const {error, busy, disabled} = this.state || {};
-		const {sharedWith, title, body} = item;
+		const {
+			props: {
+				scope,
+				item
+			},
+			state: {
+				error,
+				busy,
+				disabled,
+				body
+			}
+		} = this;
+
+		const {sharedWith, title} = item;
 
 		const errorMessage = error && (error.message || 'There was an errror saving');
 
@@ -76,7 +98,7 @@ export default class NoteEditor extends React.Component {
 							onChange={this.detectContent} />
 					</div>
 
-					<Editor ref={this.attachEditorBodyRef} onChange={this.detectContent} initialValue={body || []}>
+					<Editor ref={this.attachEditorBodyRef} onChange={this.detectContent} initialValue={body}>
 						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss"/>{t('BUTTONS.post')}</button>
 					</Editor>
