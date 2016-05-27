@@ -1,6 +1,6 @@
 /*globals BUILD_SOURCE*/
 import React, {PropTypes} from 'react';
-import {environment, CaptureClicks} from 'react-router-component';
+import {environment, CaptureClicks, Link} from 'react-router-component';
 
 import {
 	addChangeListener as addLocaleChangeListener,
@@ -33,6 +33,7 @@ export default React.createClass({
 	childContextTypes: {
 		basePath: PropTypes.string,
 		defaultEnvironment: PropTypes.object,
+		routerLinkComponent: PropTypes.object,
 		[SET_PAGESOURCE]: PropTypes.func,
 		[SET_CONTEXT]: PropTypes.func
 	},
@@ -40,6 +41,7 @@ export default React.createClass({
 	getChildContext () {
 		return {
 			basePath: this.props.basePath,
+			routerLinkComponent: Link,
 			defaultEnvironment: environment.defaultEnvironment,
 			[SET_PAGESOURCE]: NavigationActions.setPageSource,
 			[SET_CONTEXT]: NavigationActions.setContext
