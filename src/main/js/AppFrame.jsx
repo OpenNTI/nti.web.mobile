@@ -2,10 +2,7 @@ import React from 'react';
 import CSS from 'fbjs/lib/CSSCore';
 
 import Session from 'common/components/Session';
-import {Footer} from 'nti-web-commons';
-
-import {Mixins} from 'nti-web-commons';
-import {LockScroll} from 'nti-web-commons';
+import {Footer, LockScroll} from 'nti-web-commons';
 
 import Notifications from 'notifications/components/View';
 
@@ -19,7 +16,6 @@ const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
 
 export default React.createClass({
 	displayName: 'AppContainer',
-	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
 		children: React.PropTypes.element
@@ -31,11 +27,17 @@ export default React.createClass({
 		triggerRightMenu: React.PropTypes.func
 	},
 
+
 	getChildContext () {
 		return {
 			triggerLeftMenu: this.onLeftMenuClick,
 			triggerRightMenu: this.onRightMenuClick
 		};
+	},
+
+
+	attachRightMenuRef (ref) {
+		this.rightMenu = ref;
 	},
 
 
@@ -58,8 +60,9 @@ export default React.createClass({
 
 
 	render () {
-		let height = {height: getViewportHeight()};
-		let state = this.getOverlayState() || '';
+		const height = {height: getViewportHeight()};
+		const state = this.getOverlayState() || '';
+		const {children} = this.props;
 
 		return (
 			<div className="app-container">
@@ -71,14 +74,14 @@ export default React.createClass({
 					<div className="inner-wrap">
 
 
-							<aside className="right-off-canvas-menu" style={height} ref={x => this.rightMenu = x}>
+							<aside className="right-off-canvas-menu" style={height} ref={this.attachRightMenuRef}>
 								{this.getOverlayState() != null && ( <Session /> )}
 								{this.getOverlayState() != null && ( <Notifications/> )}
 							</aside>
 
 
 						<section className="main-section">
-							{this.renderView()}
+							{children}
 							<Footer />
 						</section>
 						<a className="exit-off-canvas" onClick={this.onCloseMenus}></a>
@@ -86,15 +89,6 @@ export default React.createClass({
 				</div>
 			</div>
 		);
-	},
-
-
-	renderView () {
-		let child = React.Children.only(this.props.children);
-		//Until React Switches to Parent-Based-Context passing, we have to "re-owner" the child.
-		//Once React makes the switch, we can replace the next two lines with "return React.cloneElement(child);"
-		let {type, props} = child;
-		return React.createElement(type, props);
 	},
 
 

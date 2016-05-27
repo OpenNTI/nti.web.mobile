@@ -10,7 +10,7 @@ import './locale';
 
 import Router from './Router';
 import {Loading} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+
 
 import * as NavigationActions from 'navigation/Actions';
 
@@ -23,7 +23,6 @@ export const revision = typeof BUILD_SOURCE === 'undefined' ? 'nah' : BUILD_SOUR
 
 export default React.createClass({
 	displayName: 'App',
-	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
 		path: PropTypes.string,
