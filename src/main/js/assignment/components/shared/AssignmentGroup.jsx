@@ -30,7 +30,10 @@ export default React.createClass({
 		return (
 			<div className={classes}>
 				<h2>
-					<span>{isDate(group.label) ? <DateTime date={group.label}/> : t(group.label, {fallback: group.label})}</span>
+					<span>{
+						isDate(group.label)
+							? ( <DateTime date={group.label}/> )
+							: t(group.label || 'unset', {fallback: group.label})}</span>
 					{admin && <span className="column-heading">Completion</span>}
 				</h2>
 				<ul>
