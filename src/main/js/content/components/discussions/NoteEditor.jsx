@@ -126,7 +126,17 @@ export default class NoteEditor extends React.Component {
 			e.stopPropagation();
 		}
 
-		const {props: {item, onSubmit, onSave}, body, shareWith, title: {value: title}} = this;
+		const {
+			props: {item, onSubmit, onSave},
+			state: {disabled},
+			body,
+			shareWith,
+			title: {value: title}
+		} = this;
+
+		if (disabled) {
+			return;
+		}
 
 		if (typeof onSubmit === 'function') {
 			onSubmit(e);
