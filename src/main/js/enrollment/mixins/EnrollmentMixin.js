@@ -113,7 +113,7 @@ export default {
 				enrollmentOption: option,
 				isGiftable: this.isGiftable(option),
 				className: 'enrollment-panel',
-				key: 'eno_' + index
+				key: 'eno_' + (option.MimeType || index)
 			}) : null;
 		});
 

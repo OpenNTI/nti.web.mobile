@@ -36,7 +36,9 @@ export default React.createClass({
 	},
 
 	componentWillReceiveProps (nextProps) {
-		this.setUp(nextProps);
+		if (this.props.catalogEntry !== nextProps.catalogEntry) {
+			this.setUp(nextProps);
+		}
 	},
 
 	setUp (props = this.props) {
