@@ -101,7 +101,7 @@ export default React.createClass({
 			? this.getEnrollmentOptionFor(type)
 			: null;
 
-		if (!enrollment || enrollment.enrolled) {
+		if (enrollmentType !== 'drop' && (!enrollment || enrollment.enrolled)) {
 			const href = `/item/${entryId}/enrollment/`;
 			return <Redirect location={href} />;
 		}
