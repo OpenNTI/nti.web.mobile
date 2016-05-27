@@ -10,27 +10,50 @@ import ShareWith from 'common/components/ShareWith';
 
 import t from 'nti-lib-locale';
 
-export default React.createClass({
-	displayName: 'NoteEditor',
+export default class NoteEditor extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		item: React.PropTypes.object,
 		scope: React.PropTypes.object,
 
 		onCancel: React.PropTypes.func,
 		onSubmit: React.PropTypes.func,
 		onSave: React.PropTypes.func
-	},
+	}
+
+
+	constructor (props) {
+		super(props);
+		const disabled = Editor.isEmpty((props.item || {}).body);
+
+		this.state = {disabled};
+
+		this.attachTitleRef = ref => this.title = ref;
+		this.attachShareWithRef = ref => this.shareWith = ref;
+		this.attachEditorBodyRef = ref => this.body = ref;
+
+		const autoBind = [
+			'detectContent',
+			'onCancel',
+			'onSubmit'
+		];
+
+		for (let fn of autoBind) {
+			this[fn] = this[fn].bind(this);
+		}
+	}
 
 
 	detectContent () {
 		//set save button enabled or disabled.
-	},
+	}
+
 
 	stopFormSubmit (e) {
 		e.preventDefault();
 		return false;
-	},
+	}
+
 
 	render () {
 		const {scope, item} = this.props;
@@ -44,16 +67,16 @@ export default React.createClass({
 				<HideNavigation/>
 
 				<form onSubmit={this.stopFormSubmit}>
-					<ShareWith scope={scope} defaultValue={sharedWith} ref={x => this.shareWith = x} onBlur={this.ensureVisible}/>
+					<ShareWith scope={scope} defaultValue={sharedWith} ref={this.attachShareWithRef} onBlur={this.ensureVisible}/>
 
 					<div className={cx('title', {error})} data-error-message={errorMessage}>
-						<input type="text" name="title" ref={x => this.title = x} placeholder="Title"
+						<input type="text" name="title" ref={this.attachTitleRef} placeholder="Title"
 							defaultValue={title || ''}
 							onFocus={this.ensureVisible}
 							onChange={this.detectContent} />
 					</div>
 
-					<Editor ref={x => this.body = x} onChange={this.detectContent} initialValue={body || []}>
+					<Editor ref={this.attachEditorBodyRef} onChange={this.detectContent} initialValue={body || []}>
 						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss"/>{t('BUTTONS.post')}</button>
 					</Editor>
@@ -61,7 +84,7 @@ export default React.createClass({
 				{busy ? ( <Loading message="Saving..."/> ) : null}
 			</div>
 		);
-	},
+	}
 
 
 	onCancel (e) {
@@ -73,7 +96,7 @@ export default React.createClass({
 		const {onCancel} = this.props;
 
 		onCancel(e);
-	},
+	}
 
 
 	onSubmit (e) {
@@ -99,4 +122,4 @@ export default React.createClass({
 				.then(() => this.setState({busy: false}))
 				.catch(error => this.setState({busy: false, error})));
 	}
-});
+}
