@@ -3,7 +3,7 @@ import React from 'react';
 import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import ShowAvatars from './mixins/ShowAvatarsContainer';
 import Accessor from './mixins/AssignmentSummaryAccessor';
@@ -14,7 +14,7 @@ import GradebookTable from './gradebook-table/GradebookTable';
 export default React.createClass({
 	displayName: 'instructor:AssignmentView',
 
-	mixins: [Accessor, ContextSender, Navigatable, ShowAvatars],
+	mixins: [Accessor, ContextSender, Mixins.Navigatable, ShowAvatars],
 
 	propTypes: {
 		rootId: React.PropTypes.string.isRequired

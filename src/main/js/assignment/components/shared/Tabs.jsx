@@ -1,14 +1,14 @@
 import React from 'react';
 
-import ActiveState from 'common/components/ActiveState';
-import ActiveStateSelector from 'common/mixins/ActiveStateSelector';
+import {ActiveState} from 'nti-web-commons';
+import {Mixins} from 'nti-web-commons';
 import Header from 'common/components/TopicHeader';
 
 import Accessor from '../../mixins/AssignmentCollectionAccessor';
 
 export default React.createClass({
 	displayName: 'Tabs',
-	mixins: [Accessor, ActiveStateSelector],
+	mixins: [Accessor, Mixins.ActiveStateSelector],
 
 	render () {
 		const course = this.getCourse();

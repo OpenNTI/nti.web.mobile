@@ -1,14 +1,14 @@
 import React from 'react';
 
 import {PanelButton} from 'nti-web-commons';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import Store from '../Store';
 import {resetProcess} from '../Actions';
 
 export default React.createClass({
 	displayName: 'PaymentError',
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
 		courseTitle: React.PropTypes.string,

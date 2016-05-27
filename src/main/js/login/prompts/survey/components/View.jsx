@@ -4,7 +4,7 @@ import Url from 'url';
 import {Error} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import Messages from 'common/utils/WindowMessageListener';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import {getAppUser, getReturnURL} from 'nti-web-client';
 
@@ -21,7 +21,7 @@ function getData ({data}) {
 
 export default React.createClass({
 	displayName: 'RegistrationSurveyView',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	componentWillMount () { //constructor
 		this.METHODS = {

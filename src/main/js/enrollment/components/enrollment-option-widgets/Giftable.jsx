@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 import {scoped} from 'nti-lib-locale';
@@ -10,7 +10,7 @@ const t = scoped('ENROLLMENT.BUTTONS');
 
 export default React.createClass({
 	displayName: 'Giftable',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	propTypes: {
 		className: React.PropTypes.string,

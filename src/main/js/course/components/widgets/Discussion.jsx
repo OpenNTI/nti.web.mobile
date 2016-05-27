@@ -6,13 +6,13 @@ import {encodeForURI} from 'nti-lib-ntiids';
 
 import {getService} from 'nti-web-client';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import {Loading as LoadingMask} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'CourseOverviewDiscussion',
 
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 
 	statics: {
 		mimeTest: /^application\/vnd\.nextthought\.discussion/i,

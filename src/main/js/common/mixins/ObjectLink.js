@@ -2,11 +2,11 @@ import path from 'path';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import BasePathAware from './BasePath';
+import {Mixins} from 'nti-web-commons';
 
 export default {
 
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	objectLink (o) {
 		let oid = objectId(o);

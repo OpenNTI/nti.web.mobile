@@ -1,7 +1,7 @@
 import React from 'react';
 import invariant from 'invariant';
 
-import NavigatableMixin from '../mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 function buildHref (page, props, scope) {
 	let ctx = props.navigatableContext;
@@ -17,7 +17,7 @@ function buildHref (page, props, scope) {
 
 
 export default React.createClass({
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 	displayName: 'Pager',
 
 	propTypes: {
@@ -64,7 +64,7 @@ export default React.createClass({
 
 		/**
 		 * Sometimes this Pager component will be rendered inside a higher-level component.
-		 * So the NavigatableMixin#makeHref() method will produce the incorrect url. This
+		 * So theMixins.NavigatableMixin#makeHref() method will produce the incorrect url. This
 		 * allows for specifying whom should make the href.
 		 *
 		 * @type {ReactElement}

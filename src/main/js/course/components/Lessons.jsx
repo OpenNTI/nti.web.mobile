@@ -11,7 +11,7 @@ import Overview from './Overview';
 import {LESSONS} from '../Sections';
 
 import ContextContributor from 'common/mixins/ContextContributor';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 const ROUTES = [
 	{path: '/:outlineId/content/:rootId(/*)',	handler: Content },
@@ -23,7 +23,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'Lessons',
-	mixins: [ContextContributor, NavigatableMixin],
+	mixins: [ContextContributor, Mixins.NavigatableMixin],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired

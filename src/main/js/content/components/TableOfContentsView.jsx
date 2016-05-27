@@ -2,16 +2,15 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import ActiveState from 'common/components/ActiveState';
+import {ActiveState} from 'nti-web-commons';
 import {Banner} from 'nti-web-commons';
 import {Ellipsed} from 'nti-web-commons';
 import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 import Search from 'common/components/Search';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import isEmpty from 'isempty';
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -25,9 +24,9 @@ const TYPE_TAG_MAP = {
 export default React.createClass({
 	displayName: 'TableOfContentsView',
 	mixins: [
-		BasePathAware,
+		Mixins.BasePath,
 		ContextSender,
-		NavigatableMixin
+		Mixins.NavigatableMixin
 	],
 
 	propTypes: {

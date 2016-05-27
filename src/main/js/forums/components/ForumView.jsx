@@ -4,7 +4,7 @@ import Router from 'react-router-component';
 import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import CreateTopic from './CreateTopic';
@@ -21,7 +21,7 @@ export default React.createClass({
 	displayName: 'ForumView',
 
 	mixins: [
-		NavigatableMixin,
+	Mixins.NavigatableMixin,
 		StoreEventsMixin,
 		LoadForum,
 		ContextSender

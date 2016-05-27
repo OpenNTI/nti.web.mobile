@@ -7,7 +7,7 @@ import NotFound from 'notfound/components/View';
 import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigationAware from 'common/mixins/NavigationAware';
+import {Mixins} from 'nti-web-commons';
 
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
@@ -20,7 +20,7 @@ const logger = Logger.get('catalog:EntryDetail');
 
 export default React.createClass({
 	displayName: 'EntryDetail',
-	mixins: [ContextSender, NavigationAware],
+	mixins: [ContextSender, Mixins.NavigationAware],
 
 	propTypes: {
 		entryId: React.PropTypes.string

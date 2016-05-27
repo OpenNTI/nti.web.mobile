@@ -18,7 +18,7 @@ import ActionsComp from '../Actions';
 
 import {areYouSure} from 'prompts';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import Mixin from './Mixin';
 import {StoreEventsMixin} from 'nti-lib-store';
 import KeepItemInState from '../../mixins/KeepItemInState';
@@ -44,7 +44,7 @@ export default React.createClass({
 	displayName: 'list-items:PostItem',
 
 	mixins: [
-		NavigatableMixin,
+	Mixins.NavigatableMixin,
 		Mixin,
 		StoreEventsMixin,
 		KeepItemInState,

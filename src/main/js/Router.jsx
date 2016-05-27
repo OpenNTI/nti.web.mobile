@@ -28,7 +28,7 @@ import Welcome from 'login/prompts/View';
 import NavStore from 'navigation/Store';
 import {areYouSure} from 'prompts';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import RouteMap from './routes';
 
@@ -55,7 +55,7 @@ const SetPath = '_original:SetPath';
 
 export default React.createClass({
 	displayName: 'Router',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	propTypes: {
 		onBeforeNavigation: React.PropTypes.func,

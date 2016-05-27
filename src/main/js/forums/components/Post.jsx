@@ -6,7 +6,7 @@ import {Loading} from 'nti-web-commons';
 import {Notice} from 'nti-web-commons';
 import {Error as Err} from 'nti-web-commons';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import {StoreEventsMixin} from 'nti-lib-store';
 
@@ -29,7 +29,7 @@ export default React.createClass({
 	displayName: 'forums:Post',
 
 	mixins: [
-		NavigatableMixin,
+	Mixins.NavigatableMixin,
 		StoreEventsMixin,
 		KeepItemInState,
 		ContextSender

@@ -1,11 +1,11 @@
 import React from 'react';
 
 // import Page from 'common/components/Page';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'NotFound',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 
 	propTypes: {

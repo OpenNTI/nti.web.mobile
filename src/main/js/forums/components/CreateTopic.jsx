@@ -6,7 +6,7 @@ import {Loading} from 'nti-web-commons';
 import {Notice} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import Breadcrumb from 'navigation/components/Breadcrumb';
 
@@ -18,7 +18,7 @@ import Store from '../Store';
 
 export default React.createClass({
 	displayName: 'CreateTopic',
-	mixins: [ContextSender, NavigatableMixin],
+	mixins: [ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		forum: React.PropTypes.object.isRequired

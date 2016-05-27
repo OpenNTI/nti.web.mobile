@@ -3,7 +3,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 
 /**
@@ -14,7 +14,7 @@ import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 
 export default React.createClass({
 	displayName: 'CourseOverviewTopic',
-	mixins: [NavigatableMixin, ResourceLoaded],
+	mixins: [Mixins.NavigatableMixin, ResourceLoaded],
 
 	statics: {
 		mimeTest: /topic$/i,

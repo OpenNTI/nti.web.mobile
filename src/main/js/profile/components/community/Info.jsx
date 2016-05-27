@@ -3,7 +3,7 @@ import React from 'react';
 
 import {Link} from 'react-router-component';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 
 import {rawContent} from 'nti-commons/lib/jsx';
@@ -41,7 +41,7 @@ Breakdown.propTypes = {
 
 export default React.createClass({
 	displayName: 'Community:Info',
-	mixins: [BasePathAware, ContextSender],
+	mixins: [Mixins.BasePath, ContextSender],
 
 	statics: {
 		removePageWrapping: true

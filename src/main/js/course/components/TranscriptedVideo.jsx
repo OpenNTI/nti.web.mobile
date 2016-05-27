@@ -21,7 +21,7 @@ import {Error} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {Component as Video} from 'video';
 
@@ -72,7 +72,7 @@ class Annotation {
 
 export default React.createClass({
 	displayName: 'TranscriptedVideo',
-	mixins: [ContextSender, NavigatableMixin],
+	mixins: [ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		MediaIndex: React.PropTypes.object.isRequired,

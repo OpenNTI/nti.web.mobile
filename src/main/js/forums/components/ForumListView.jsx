@@ -8,7 +8,7 @@ import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 
@@ -33,7 +33,7 @@ export default React.createClass({
 	displayName: 'ForumListView',
 
 	mixins: [
-		StoreEventsMixin, NavigatableMixin
+		StoreEventsMixin, Mixins.NavigatableMixin
 	],
 
 	propTypes: {

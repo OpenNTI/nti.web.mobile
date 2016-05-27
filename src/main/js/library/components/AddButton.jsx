@@ -1,12 +1,12 @@
 import React from 'react';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import Store from '../Store';
 
 export default React.createClass({
 	displayName: 'AddButton',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	statics : {
 		canSectionBeAddedTo (section) {

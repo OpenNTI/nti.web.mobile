@@ -4,7 +4,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 
 import {LoadingInline as Loading} from 'nti-web-commons';
 import Button from 'forms/components/Button';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';
@@ -19,7 +19,7 @@ let t = scoped('ENROLLMENT');
  */
 export default React.createClass({
 	displayName: 'EnrollButton',
-	mixins: [EnrollmentOptions, BasePathAware],
+	mixins: [EnrollmentOptions, Mixins.BasePath],
 
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired,

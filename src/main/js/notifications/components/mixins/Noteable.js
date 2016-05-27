@@ -1,11 +1,11 @@
 import Logger from 'nti-util-logger';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 const logger = Logger.get('notifications:mixin');
 
 export default {
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	statics: {
 		handles (item) {

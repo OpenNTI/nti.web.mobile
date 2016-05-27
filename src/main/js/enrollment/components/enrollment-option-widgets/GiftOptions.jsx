@@ -2,7 +2,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import GiftableUtils from '../../mixins/GiftableUtils';
 
@@ -12,7 +12,7 @@ import RedeemButton from './RedeemButton';
 export default React.createClass({
 	displayName: 'GiftOptions',
 
-	mixins: [BasePathAware, GiftableUtils],
+	mixins: [Mixins.BasePath, GiftableUtils],
 
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired

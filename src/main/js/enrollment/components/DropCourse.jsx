@@ -5,9 +5,8 @@ import Logger from 'nti-util-logger';
 
 import {Loading} from 'nti-web-commons';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 import {scoped} from 'nti-lib-locale';
 
 import Actions from '../Actions';
@@ -24,7 +23,7 @@ const t = scoped('ENROLLMENT.BUTTONS');
 
 export default React.createClass({
 	displayName: 'DropCourseDialog',
-	mixins: [NavigatableMixin, BasePathAware, ContextSender],
+	mixins: [Mixins.NavigatableMixin, Mixins.BasePath, ContextSender],
 
 	propTypes: {
 		courseId: React.PropTypes.string.isRequired,

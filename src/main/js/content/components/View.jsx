@@ -6,7 +6,7 @@ import {decodeFromURI} from 'nti-lib-ntiids';
 import {Error as ErrorWidget} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextContributor from 'common/mixins/ContextContributor';
 
 import Redirect from 'navigation/components/Redirect';
@@ -30,7 +30,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'ContentView',
-	mixins: [BasePathAware, ContextContributor],
+	mixins: [Mixins.BasePath, ContextContributor],
 
 	propTypes: {
 		/**

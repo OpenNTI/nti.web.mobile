@@ -3,14 +3,14 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {getModel} from 'nti-lib-interfaces';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import Icon from './shared/Icon';
 const PackageClass = getModel('ContentPackage');
 
 export default React.createClass({
 	displayName: 'Package',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	statics: {
 		handles (item) {

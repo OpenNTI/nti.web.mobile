@@ -4,7 +4,7 @@ import CSS from 'fbjs/lib/CSSCore';
 import Session from 'common/components/Session';
 import {Footer} from 'nti-web-commons';
 
-import RouteAware from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import {LockScroll} from 'nti-web-commons';
 
 import Notifications from 'notifications/components/View';
@@ -19,7 +19,7 @@ const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
 
 export default React.createClass({
 	displayName: 'AppContainer',
-	mixins: [RouteAware],
+	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
 		children: React.PropTypes.element

@@ -2,7 +2,7 @@ import React from 'react';
 import {PROFILE_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 import {TinyLoader as Loading} from 'nti-web-commons';
-import ActiveState from 'common/components/ActiveState';
+import {ActiveState} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';

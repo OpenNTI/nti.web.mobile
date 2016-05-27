@@ -9,7 +9,7 @@ import Button from 'forms/components/Button';
 import {scoped} from 'nti-lib-locale';
 import {getReturnURL} from 'nti-web-client';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 const t = scoped('LOGIN.oauth');
 
@@ -19,7 +19,7 @@ function getServiceName (k) {
 
 export default React.createClass({
 	displayName: 'OAuthButton',
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	propTypes: {
 		rel: React.PropTypes.string,

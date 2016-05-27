@@ -6,7 +6,7 @@ import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import Edit from './EditComment';
 import Panel from './Panel';
@@ -15,7 +15,7 @@ export default React.createClass({
 	displayName: 'ViewComment',
 	mixins: [
 		ContextSender,
-		NavigatableMixin
+	Mixins.NavigatableMixin
 	],
 
 	propTypes: {

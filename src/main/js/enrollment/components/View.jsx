@@ -2,9 +2,8 @@ import React from 'react';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import Redirect from 'navigation/components/Redirect';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
@@ -33,7 +32,7 @@ const ENROLLMENT_SUFFIXES = {
 
 export default React.createClass({
 	displayName: 'enrollment:View',
-	mixins: [BasePathAware, CatalogAccessor, ContextSender, NavigatableMixin],
+	mixins: [Mixins.BasePath, CatalogAccessor, ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		entryId: React.PropTypes.string.isRequired,

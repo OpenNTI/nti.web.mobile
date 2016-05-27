@@ -9,9 +9,8 @@ import Store from '../Store';
 import PaymentSuccess from './PaymentSuccess';
 import PaymentError from './PaymentError';
 import PaymentConfirm from './PaymentConfirm';
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import {scoped} from 'nti-lib-locale';
 
@@ -22,7 +21,7 @@ let t = scoped('ENROLLMENT');
 export default React.createClass({
 	displayName: 'StoreEnrollmentRoutes',
 
-	mixins: [BasePath, ContextSender, NavigatableMixin],
+	mixins: [Mixins.BasePath, ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		entryId: React.PropTypes.string.isRequired,

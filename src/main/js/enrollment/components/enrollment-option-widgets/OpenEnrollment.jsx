@@ -4,7 +4,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import {scoped} from 'nti-lib-locale';
 import {Loading} from 'nti-web-commons';
 
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import {enrollOpen} from '../../Api';
 
@@ -13,7 +13,7 @@ const t = scoped('ENROLLMENT.BUTTONS');
 export default React.createClass({
 	displayName: 'OpenEnrollmentWidget',
 
-	mixins: [BasePath],
+	mixins: [Mixins.BasePath],
 
 	propTypes: {
 		catalogEntry: React.PropTypes.object.isRequired,

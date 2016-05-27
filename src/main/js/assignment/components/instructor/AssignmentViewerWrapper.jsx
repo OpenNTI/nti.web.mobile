@@ -3,9 +3,8 @@ import {join} from 'path';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextMixin from 'common/mixins/ContextContributor';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
 
 import ContentViewer from '../shared/AssignmentViewer';
 
@@ -13,7 +12,7 @@ import Header from './AssignmentViewStudentHeader';
 
 export default React.createClass({
 	displayName: 'AssignmentViewStudent',
-	mixins: [BasePathAware, ContextMixin, NavigatableMixin],
+	mixins: [Mixins.BasePath, ContextMixin, Mixins.NavigatableMixin],
 
 	propTypes: {
 		userId: React.PropTypes.string.isRequired,

@@ -2,7 +2,7 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {scoped} from 'nti-lib-locale';
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import {canSend} from '../Api';
 
@@ -11,7 +11,7 @@ const t = scoped('INVITATIONS');
 export default React.createClass({
 	displayName: 'Invitations:InviteButton',
 
-	mixins: [BasePath],
+	mixins: [Mixins.BasePath],
 
 	propTypes: {
 		course: React.PropTypes.object.isRequired

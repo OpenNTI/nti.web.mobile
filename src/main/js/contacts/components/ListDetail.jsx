@@ -3,7 +3,7 @@ import {join} from 'path';
 
 import Logger from 'nti-util-logger';
 
-import BasePath from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import {Error as Err} from 'nti-web-commons';
 import {Loading} from 'nti-web-commons';
@@ -20,7 +20,7 @@ const logger = Logger.get('contacts:components:ListDetail');
 
 export default React.createClass({
 	displayName: 'ListDetail',
-	mixins: [ContextSender, BasePath],
+	mixins: [ContextSender, Mixins.BasePath],
 	propTypes: {
 		id: React.PropTypes.string.isRequired
 	},

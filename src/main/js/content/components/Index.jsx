@@ -3,7 +3,7 @@ import React from 'react';
 import Router from 'react-router-component';
 
 import ContextContributor from 'common/mixins/ContextContributor';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import Content from './Viewer';
 import TableOfContents from './TableOfContentsView';
@@ -15,7 +15,7 @@ const ROUTES = [
 
 export default React.createClass({
 	displayName: 'Content:OutlineView',
-	mixins: [ContextContributor, NavigatableMixin],
+	mixins: [ContextContributor, Mixins.NavigatableMixin],
 
 	propTypes: {
 		contentPackage: React.PropTypes.object.isRequired

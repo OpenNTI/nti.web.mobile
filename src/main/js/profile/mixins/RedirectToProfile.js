@@ -1,12 +1,11 @@
-import BasePath from 'common/mixins/BasePath';
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 import {profileHref} from './ProfileLink';
 import {join} from 'path';
 
 
 export default {
 
-	mixins: [BasePath, Navigatable],
+	mixins: [Mixins.BasePath, Mixins.NavigatableMixin],
 
 	redirectToProfile (extraPath) {
 		let link = profileHref();

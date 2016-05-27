@@ -1,8 +1,8 @@
 import {encodeForURI} from 'nti-lib-ntiids';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 export default {
-	mixins: [BasePathAware],
+	mixins: [Mixins.BasePath],
 
 	courseHref (courseId, section) {
 		let courseUrl = encodeForURI(courseId);

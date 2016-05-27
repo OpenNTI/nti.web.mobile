@@ -6,7 +6,7 @@ import {join} from 'path';
 
 import {getEventTarget} from 'nti-lib-dom';
 
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import {RETRY_AFTER_DOM_SETTLES} from './annotations/Annotation';
 
@@ -15,7 +15,7 @@ const pluck = (a, k) => a && a.map(x=> x[k]);
 
 export default React.createClass({
 	displayName: 'content:AnnotationGutter',
-	mixins: [NavigatableMixin],
+	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
 		items: React.PropTypes.object, //annotation dictionary {[obj.id]: obj}

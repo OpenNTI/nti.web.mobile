@@ -3,7 +3,7 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import ContextSender from 'common/mixins/ContextSender';
-import NavigatableMixin from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import Editor from './NoteEditor';
 
@@ -11,7 +11,7 @@ export default React.createClass({
 	displayName: 'TopLevelNoteEditView',
 	mixins: [
 		ContextSender,
-		NavigatableMixin
+	Mixins.NavigatableMixin
 	],
 
 	propTypes: {

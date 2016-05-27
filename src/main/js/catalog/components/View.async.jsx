@@ -8,7 +8,7 @@ import EntryDetail from './EntryDetail';
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
 import ContextMixin from 'common/mixins/ContextContributor';
-import BasePathAware from 'common/mixins/BasePath';
+import {Mixins} from 'nti-web-commons';
 
 import {Loading} from 'nti-web-commons';
 import Page from 'common/components/Page';
@@ -23,7 +23,7 @@ import AcceptInvitation from 'invitations/components/View';
 
 const CatalogBody = React.createClass({
 	displayName: 'CatalogBody',
-	mixins: [BasePathAware, ContextMixin],
+	mixins: [Mixins.BasePath, ContextMixin],
 
 
 	propTypes: {

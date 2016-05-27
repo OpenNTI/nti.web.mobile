@@ -4,7 +4,7 @@ import Router from 'react-router-component';
 import {Banner} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import Navigatable from 'common/mixins/NavigatableMixin';
+import {Mixins} from 'nti-web-commons';
 
 import ForumListView from './ForumListView';
 import ForumView from './ForumView';
@@ -12,7 +12,7 @@ import ForumView from './ForumView';
 export default React.createClass({
 	displayName: 'ForumsView',
 
-	mixins: [Navigatable, ContextSender],
+	mixins: [Mixins.NavigatableMixin, ContextSender],
 
 	propTypes: {
 		contentPackage: React.PropTypes.object
