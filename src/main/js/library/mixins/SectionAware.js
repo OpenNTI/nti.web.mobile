@@ -11,7 +11,7 @@ const SECTION_NAMES = { admin: 'admin', courses: 'courses', books: 'books' };
 const SECTION_PROPERTY_MAP = {
 	[SECTION_NAMES.admin]: 'administeredCourses',
 	[SECTION_NAMES.courses]: 'courses',
-	[SECTION_NAMES.books]: ['bundles', 'packages']
+	[SECTION_NAMES.books]: 'bundles'
 };
 
 
