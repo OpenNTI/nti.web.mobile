@@ -17,7 +17,7 @@ export default React.createClass({
 	displayName: 'content:discussions:View',
 	mixins: [
 		ContextSender,
-	Mixins.NavigatableMixin
+		Mixins.NavigatableMixin
 	],
 
 	propTypes: {

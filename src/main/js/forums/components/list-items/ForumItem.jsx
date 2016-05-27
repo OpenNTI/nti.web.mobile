@@ -22,7 +22,7 @@ export default React.createClass({
 	displayName: 'list-items:ForumItem',
 	mixins: [
 		ForumMixin,
-	Mixins.NavigatableMixin,
+		Mixins.NavigatableMixin,
 		ToggleStateMixin
 	],
 

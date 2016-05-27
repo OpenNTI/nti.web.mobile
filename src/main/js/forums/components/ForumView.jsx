@@ -21,7 +21,7 @@ export default React.createClass({
 	displayName: 'ForumView',
 
 	mixins: [
-	Mixins.NavigatableMixin,
+		Mixins.NavigatableMixin,
 		StoreEventsMixin,
 		LoadForum,
 		ContextSender

@@ -15,7 +15,7 @@ export default React.createClass({
 	displayName: 'ViewComment',
 	mixins: [
 		ContextSender,
-	Mixins.NavigatableMixin
+		Mixins.NavigatableMixin
 	],
 
 	propTypes: {

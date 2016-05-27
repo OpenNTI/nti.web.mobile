@@ -42,7 +42,7 @@ export default React.createClass({
 	mixins: [
 		StoreEventsMixin,
 		ResourceLoaded,
-	Mixins.NavigatableMixin,
+		Mixins.NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
 		Paging

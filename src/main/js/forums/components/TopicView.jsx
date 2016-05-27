@@ -24,7 +24,7 @@ export default React.createClass({
 
 	mixins: [
 		StoreEventsMixin,
-	Mixins.NavigatableMixin,
+		Mixins.NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
 		ContextSender,

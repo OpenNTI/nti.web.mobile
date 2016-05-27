@@ -29,7 +29,7 @@ export default React.createClass({
 	displayName: 'forums:Post',
 
 	mixins: [
-	Mixins.NavigatableMixin,
+		Mixins.NavigatableMixin,
 		StoreEventsMixin,
 		KeepItemInState,
 		ContextSender

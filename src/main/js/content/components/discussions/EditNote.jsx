@@ -11,7 +11,7 @@ export default React.createClass({
 	displayName: 'TopLevelNoteEditView',
 	mixins: [
 		ContextSender,
-	Mixins.NavigatableMixin
+		Mixins.NavigatableMixin
 	],
 
 	propTypes: {

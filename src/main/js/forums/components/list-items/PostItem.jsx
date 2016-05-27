@@ -44,7 +44,7 @@ export default React.createClass({
 	displayName: 'list-items:PostItem',
 
 	mixins: [
-	Mixins.NavigatableMixin,
+		Mixins.NavigatableMixin,
 		Mixin,
 		StoreEventsMixin,
 		KeepItemInState,

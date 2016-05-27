@@ -20,7 +20,7 @@ const t = scoped('UNITS');
 const Panel = React.createClass({
 	displayName: 'content:discussions:Panel',
 	mixins: [
-	Mixins.NavigatableMixin,
+		Mixins.NavigatableMixin,
 		NotePanelBehavior
 	],
 

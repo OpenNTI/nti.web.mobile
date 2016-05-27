@@ -3,8 +3,6 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import cx from 'classnames';
 
-import {NavigatableMixin} from 'react-router-component';
-
 import {Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 import {scoped} from 'nti-lib-locale';
