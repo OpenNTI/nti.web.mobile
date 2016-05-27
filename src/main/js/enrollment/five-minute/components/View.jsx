@@ -3,9 +3,9 @@ import Router from 'react-router-component';
 
 import path from 'path';
 
-import {PanelButton} from 'nti-web-commons';
+import {Mixins, PanelButton} from 'nti-web-commons';
+
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT');

@@ -7,7 +7,7 @@ import cx from 'classnames';
 import {getModel} from 'nti-lib-interfaces';
 
 import {Mixins} from 'nti-web-commons';
-// import {DateTime} from 'nti-web-commons';
+
 import Score from 'common/components/charts/Score';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';

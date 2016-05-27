@@ -1,12 +1,9 @@
 import React from 'react';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
-
-import {Mixins} from 'nti-web-commons';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 import ContextContributor from 'common/mixins/ContextContributor';
 
-import {Error as Err} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
 
 import ContentViewer from 'content/components/Viewer';
 

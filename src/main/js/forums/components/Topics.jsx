@@ -6,11 +6,10 @@ import AnalyticsStore from 'analytics/Store';
 
 import Transition from 'react-addons-css-transition-group';
 
-import {Loading} from 'nti-web-commons';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 
-import {Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -23,7 +22,6 @@ import Store from '../Store';
 import TopicList from './TopicList';
 import ViewHeader from './widgets/ViewHeader';
 import {FORUM} from '../Constants';
-import {Error as Err} from 'nti-web-commons';
 
 
 const t = scoped('FORUMS');

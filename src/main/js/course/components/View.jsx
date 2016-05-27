@@ -7,11 +7,8 @@ import NotFound from 'notfound/components/View';
 
 import Redirect from 'navigation/components/Redirect';
 
-import {Background} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
-import {Error as ErrorWidget} from 'nti-web-commons';
+import {Background, Error as ErrorWidget, Loading, Mixins} from 'nti-web-commons';
 
-import {Mixins} from 'nti-web-commons';
 import ContextContributor from 'common/mixins/ContextContributor';
 import {StoreEventsMixin} from 'nti-lib-store';
 

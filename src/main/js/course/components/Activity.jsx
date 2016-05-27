@@ -1,13 +1,10 @@
 import React from 'react';
 
-import {Banner} from 'nti-web-commons';
-import {ScrollTrigger} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {Banner, ScrollTrigger, Loading, Mixins} from 'nti-web-commons';
 
 import ActivityBucket from './ActivityBucket';
 import {ACTIVITY} from '../Sections';
 
-import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import ContextParent from '../mixins/AssignmentHistoryContextParent';
 

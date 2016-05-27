@@ -2,11 +2,9 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import {Loading} from 'nti-web-commons';
-import {Notice} from 'nti-web-commons';
+import {Loading, Mixins, Notice} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import Breadcrumb from 'navigation/components/Breadcrumb';
 

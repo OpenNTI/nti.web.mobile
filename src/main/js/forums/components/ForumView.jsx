@@ -1,10 +1,9 @@
 import React from 'react';
 import Router from 'react-router-component';
 
-import {Loading} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import CreateTopic from './CreateTopic';

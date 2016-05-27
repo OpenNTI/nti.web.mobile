@@ -2,14 +2,15 @@ import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import React from 'react';
 
-import {DateTime} from 'nti-web-commons';
-
-import {Loading} from 'nti-web-commons';
-import {Error as ErrorWidget} from 'nti-web-commons';
-import {EmptyList} from 'nti-web-commons';
+import {
+	DateTime,
+	Loading,
+	Error as ErrorWidget,
+	EmptyList,
+	Mixins
+} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import {rawContent} from 'nti-commons/lib/jsx';
 

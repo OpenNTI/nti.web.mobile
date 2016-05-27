@@ -3,7 +3,7 @@ import {mimeTypes, TOPIC, POST} from '../../Constants';
 import Store from '../../Store';
 import DisplayName from 'common/components/DisplayName';
 import Avatar from 'common/components/Avatar';
-import {DateTime} from 'nti-web-commons';
+import {DateTime, LuckyCharms} from 'nti-web-commons';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {Link} from 'react-router-component';
 import {isMimeType} from 'common/utils/mimetype';
@@ -11,7 +11,6 @@ import Mixin from './Mixin';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import {StoreEventsMixin} from 'nti-lib-store';
 import {scoped} from 'nti-lib-locale';
-import {LuckyCharms} from 'nti-web-commons';
 
 const t = scoped('FORUMS');
 

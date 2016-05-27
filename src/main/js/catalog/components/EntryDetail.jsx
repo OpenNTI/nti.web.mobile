@@ -2,12 +2,10 @@ import React from 'react';
 
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
+import {Loading, Mixins} from 'nti-web-commons';
 
 import NotFound from 'notfound/components/View';
-import {Loading} from 'nti-web-commons';
-
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';

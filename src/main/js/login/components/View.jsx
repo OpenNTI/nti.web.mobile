@@ -5,10 +5,8 @@ import {Locations, Location, NotFound as DefaultRoute} from 'react-router-compon
 
 import Logger from 'nti-util-logger';
 
-import {Mixins} from 'nti-web-commons';
+import {Error as ErrorMessage, Loading, Mixins} from 'nti-web-commons';
 
-import {Error as ErrorMessage} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
 
 import LoginForm from './LoginForm';
 import ForgotForm from './ForgotForm';

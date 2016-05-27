@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {PanelButton} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+import {PanelButton, Mixins} from 'nti-web-commons';
 
 import Store from '../Store';
 import {resetProcess} from '../Actions';

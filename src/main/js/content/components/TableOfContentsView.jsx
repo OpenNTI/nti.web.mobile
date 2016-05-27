@@ -2,14 +2,17 @@ import React from 'react';
 
 import cx from 'classnames';
 
-import {ActiveState} from 'nti-web-commons';
-import {Banner} from 'nti-web-commons';
-import {Ellipsed} from 'nti-web-commons';
-import {Error as Err} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {
+	ActiveState,
+	Banner,
+	Ellipsed,
+	Error as Err,
+	Loading,
+	Mixins
+} from 'nti-web-commons';
+
 import Search from 'common/components/Search';
 
-import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 
 import isEmpty from 'isempty';

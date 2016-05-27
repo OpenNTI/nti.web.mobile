@@ -2,8 +2,8 @@ import React from 'react';
 
 import GroupControls from './Controls';
 
-import {ActiveLink} from 'nti-web-commons';
-import {Background} from 'nti-web-commons';
+import {ActiveLink, Background} from 'nti-web-commons';
+
 import Page from 'common/components/Page';
 import Breadcrumb from './Breadcrumb';
 

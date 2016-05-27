@@ -1,10 +1,9 @@
 import React from 'react';
 import Url from 'url';
 
-import {Error} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {Error, Loading, Mixins} from 'nti-web-commons';
+
 import Messages from 'common/utils/WindowMessageListener';
-import {Mixins} from 'nti-web-commons';
 
 import {getAppUser, getReturnURL} from 'nti-web-client';
 

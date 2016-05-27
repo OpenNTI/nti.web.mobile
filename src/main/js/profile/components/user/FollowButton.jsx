@@ -3,8 +3,7 @@ import cx from 'classnames';
 
 import {resolve} from 'nti-web-client/lib/user';
 
-import {PromiseButton} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+import {PromiseButton, Mixins} from 'nti-web-commons';
 
 
 export default React.createClass({

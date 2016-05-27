@@ -2,9 +2,7 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {scoped} from 'nti-lib-locale';
-import {Loading} from 'nti-web-commons';
-
-import {Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
 import {enrollOpen} from '../../Api';
 
@@ -82,7 +80,7 @@ export default React.createClass({
 				<div className="enrollment open-enrollment">
 					<h2 className="title">Enroll for Free</h2>
 					<p className="description">Get complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once class is in session.</p>
-					
+
 					{enrolled
 						?
 						(

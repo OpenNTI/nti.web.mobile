@@ -1,9 +1,8 @@
 import React from 'react';
 
-import {Loading} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import ShowAvatars from './mixins/ShowAvatarsContainer';
 import Accessor from './mixins/AssignmentSummaryAccessor';

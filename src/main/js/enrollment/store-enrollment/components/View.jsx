@@ -5,9 +5,8 @@ import Store from '../Store';
 
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
 
-import {Loading} from 'nti-web-commons';
-import {Error as ErrorComponent} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+import {Error as ErrorComponent, Loading, Mixins} from 'nti-web-commons';
+
 import Form from './PaymentForm';
 
 export default React.createClass({

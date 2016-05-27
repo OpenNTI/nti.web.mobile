@@ -1,12 +1,10 @@
 import React from 'react';
 
-import {Notice} from 'nti-web-commons';
-import {Error as Err} from 'nti-web-commons';
+import {Notice, Error as Err, Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 
 import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
-import {Mixins} from 'nti-web-commons';
 import GiftOptions from './GiftOptions';
 
 const t = scoped('ENROLLMENT');

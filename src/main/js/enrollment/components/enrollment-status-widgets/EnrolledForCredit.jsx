@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {DateTime} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+import {DateTime, Mixins} from 'nti-web-commons';
 
 import Mixin from './mixin';
 

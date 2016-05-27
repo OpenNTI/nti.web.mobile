@@ -16,12 +16,14 @@ import {toAnalyticsPath} from 'analytics/utils';
 import Discussions from 'content/components/discussions';
 import Gutter from 'content/components/Gutter';
 
-import {DarkMode} from 'nti-web-commons';
-import {Error} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {
+	DarkMode,
+	Error,
+	Loading,
+	Mixins
+} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import {Component as Video} from 'video';
 

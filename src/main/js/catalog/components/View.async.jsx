@@ -8,9 +8,8 @@ import EntryDetail from './EntryDetail';
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
 import ContextMixin from 'common/mixins/ContextContributor';
-import {Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
-import {Loading} from 'nti-web-commons';
 import Page from 'common/components/Page';
 
 import Enrollment from 'enrollment/components/View';

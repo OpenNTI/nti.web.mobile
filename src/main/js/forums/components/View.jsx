@@ -1,10 +1,9 @@
 import React from 'react';
 import Router from 'react-router-component';
 
-import {Banner} from 'nti-web-commons';
+import {Banner, Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import ForumListView from './ForumListView';
 import ForumView from './ForumView';

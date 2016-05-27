@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {Loading} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 

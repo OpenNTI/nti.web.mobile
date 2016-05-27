@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {Loading} from 'nti-web-commons';
-import {EmptyList} from 'nti-web-commons';
+import {Loading, EmptyList} from 'nti-web-commons';
 
 import AssignmentGroup from './AssignmentGroup';
 import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';

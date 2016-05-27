@@ -2,11 +2,13 @@ import React from 'react';
 
 import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
 
-import {Error as Err} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {
+	Error as Err,
+	Loading,
+	Mixins
+} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import Edit from './EditComment';
 import Panel from './Panel';

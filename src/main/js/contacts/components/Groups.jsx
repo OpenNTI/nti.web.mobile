@@ -4,9 +4,11 @@ import Logger from 'nti-util-logger';
 
 import {scoped} from 'nti-lib-locale';
 import ContextSender from 'common/mixins/ContextSender';
-import {EmptyList} from 'nti-web-commons';
-import {Error as Err} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {
+	EmptyList,
+	Error as Err,
+	Loading
+} from 'nti-web-commons';
 
 import mixin from '../mixins/Mixin';
 import {GROUPS} from '../Constants';

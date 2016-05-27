@@ -2,10 +2,8 @@ import React from 'react';
 import cx from 'classnames';
 
 import Avatar from 'common/components/Avatar';
-import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
-import {LoadingInline as Loading} from 'nti-web-commons';
-import {LuckyCharms} from 'nti-web-commons';
+import {DateTime, LoadingInline as Loading, LuckyCharms} from 'nti-web-commons';
 
 import {Panel as ModeledContentPanel} from 'modeled-content';
 

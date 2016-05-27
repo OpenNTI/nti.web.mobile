@@ -3,8 +3,7 @@ import React from 'react';
 import {getService} from 'nti-web-client';
 import {rawContent} from 'nti-commons/lib/jsx';
 
-import {Loading} from 'nti-web-commons';
-import {Error} from 'nti-web-commons';
+import {Loading, Error} from 'nti-web-commons';
 
 import {parseHTML} from 'nti-lib-content-processing';
 

@@ -2,9 +2,8 @@ import React from 'react';
 import Logger from 'nti-util-logger';
 
 import {rawContent} from 'nti-commons/lib/jsx';
-import {LoadingInline as Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
-import {Mixins} from 'nti-web-commons';
+import {LoadingInline as Loading, Mixins} from 'nti-web-commons';
 
 const logger = Logger.get('enrollment:components:enrollment-option-widgets:FiveMinuteEnrollment');
 const t = scoped('ENROLLMENT');

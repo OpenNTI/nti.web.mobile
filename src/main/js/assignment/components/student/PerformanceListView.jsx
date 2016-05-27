@@ -3,9 +3,7 @@ import cx from 'classnames';
 
 import {SortOrder} from 'nti-lib-interfaces';
 
-import {EmptyList} from 'nti-web-commons';
-
-import {Mixins} from 'nti-web-commons';
+import {EmptyList, Mixins} from 'nti-web-commons';
 
 import PerformanceHeader from './PerformanceHeader';
 import PerformanceItem from './PerformanceItem';

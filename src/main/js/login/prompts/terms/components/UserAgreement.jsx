@@ -3,9 +3,7 @@ import React from 'react';
 import {getServer} from 'nti-web-client';
 import {rawContent} from 'nti-commons/lib/jsx';
 
-import {Error as ErrorWidget} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+import {Error as ErrorWidget, Loading, Mixins} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'UserAgreement',

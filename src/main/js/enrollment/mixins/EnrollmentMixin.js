@@ -11,8 +11,7 @@ import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 import {getWidget} from '../components/enrollment-option-widgets';
 import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 
-import {Mixins} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
 import GiftableUtils from './GiftableUtils';
 

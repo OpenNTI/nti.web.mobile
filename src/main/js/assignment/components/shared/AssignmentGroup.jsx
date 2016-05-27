@@ -1,8 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {DateTime} from 'nti-web-commons';
-import {EmptyList} from 'nti-web-commons';
+import {DateTime, EmptyList} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 

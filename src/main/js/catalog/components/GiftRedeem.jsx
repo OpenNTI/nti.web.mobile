@@ -5,15 +5,13 @@ import Logger from 'nti-util-logger';
 
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
-import {Loading} from 'nti-web-commons';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
 
 import {scoped} from 'nti-lib-locale';
-import {Error as Err} from 'nti-web-commons';
 
 import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
 

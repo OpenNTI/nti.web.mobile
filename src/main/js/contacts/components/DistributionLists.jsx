@@ -3,9 +3,11 @@ import React from 'react';
 import {Link} from 'react-router-component';
 
 //intra-app module imports (ordered LocalName)
-import {EmptyList} from 'nti-web-commons';
-import {Error as Err} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {
+	EmptyList,
+	Error as Err,
+	Loading
+} from 'nti-web-commons';
 
 //local-relative modules (grouped by depth)
 import mixin from '../mixins/Mixin';

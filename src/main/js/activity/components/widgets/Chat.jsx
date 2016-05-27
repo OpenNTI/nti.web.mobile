@@ -1,8 +1,7 @@
 import React from 'react';
 
 import DisplayName from 'common/components/DisplayName';
-import {DateTime} from 'nti-web-commons';
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {DateTime, TinyLoader as Loading} from 'nti-web-commons';
 
 import Transcript from 'chat/components/Transcript';
 

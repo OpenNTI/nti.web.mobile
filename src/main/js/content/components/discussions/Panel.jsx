@@ -2,10 +2,12 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import {DateTime} from 'nti-web-commons';
+import {
+	DateTime,
+	Mixins
+} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
-import {Mixins} from 'nti-web-commons';
 
 import {Panel as Body} from 'modeled-content';
 

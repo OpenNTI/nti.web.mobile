@@ -5,9 +5,10 @@ import * as Actions from '../../Actions';
 import Store from '../../Store';
 
 import Avatar from 'common/components/Avatar';
-import {DateTime} from 'nti-web-commons';
+
+import {DateTime, TinyLoader as Loading, LuckyCharms, Mixins} from 'nti-web-commons';
+
 import DisplayName from 'common/components/DisplayName';
-import {TinyLoader as Loading} from 'nti-web-commons';
 
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
@@ -18,12 +19,10 @@ import ActionsComp from '../Actions';
 
 import {areYouSure} from 'prompts';
 
-import {Mixins} from 'nti-web-commons';
 import Mixin from './Mixin';
 import {StoreEventsMixin} from 'nti-lib-store';
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
-import {LuckyCharms} from 'nti-web-commons';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 

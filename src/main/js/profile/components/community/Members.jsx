@@ -1,12 +1,11 @@
 import React from 'react';
 
-import {Mixins} from 'nti-web-commons';
+import {Loading, Mixins, PromiseButton} from 'nti-web-commons';
+
 import ContextSender from 'common/mixins/ContextSender';
 import AvatarGrid from '../AvatarGrid';
 import {profileHref} from '../../mixins/ProfileLink';
-import {Loading} from 'nti-web-commons';
 import ProfileBodyContainer from '../ProfileBodyContainer';
-import {PromiseButton} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'Community:Members',

@@ -8,12 +8,11 @@ let {Location} = Router;
 
 import Topic from './Topic';
 import Post from './Post';
-import {Loading} from 'nti-web-commons';
-import {Error as Err} from 'nti-web-commons';
+
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 // mixins
 import {StoreEventsMixin} from 'nti-lib-store';
-import {Mixins} from 'nti-web-commons';
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';
 import ContextSender from 'common/mixins/ContextSender';

@@ -29,12 +29,11 @@ import cx from 'classnames';
 import {toAnalyticsPath} from 'analytics/utils';
 
 import ContextAccessor from '../mixins/ContextAccessor';
-import {Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 import {rawContent} from 'nti-commons/lib/jsx';
 
-import {AssetIcon, Constants} from 'nti-web-commons';
+import {AssetIcon, Constants, Mixins} from 'nti-web-commons';
 
 import {getModel} from 'nti-lib-interfaces';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';

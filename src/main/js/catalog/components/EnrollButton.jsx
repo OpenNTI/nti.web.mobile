@@ -1,11 +1,9 @@
 import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
-
-import {LoadingInline as Loading} from 'nti-web-commons';
-import Button from 'forms/components/Button';
-import {Mixins} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
+import {LoadingInline as Loading, Mixins} from 'nti-web-commons';
+import Button from 'forms/components/Button';
 
 import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';

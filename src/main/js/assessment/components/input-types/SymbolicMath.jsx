@@ -5,8 +5,7 @@ import isEmpty from 'isempty';
 import {getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 
-import {TinyLoader as Loading} from 'nti-web-commons';
-import {Error} from 'nti-web-commons';
+import {Error, TinyLoader as Loading} from 'nti-web-commons';
 import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
 import {clearLoadingFlag, setError} from 'common/utils/react-state';
 

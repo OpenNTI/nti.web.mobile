@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {EmptyList as Empty} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {EmptyList as Empty, Loading} from 'nti-web-commons';
 
 import Item from './Item';
 

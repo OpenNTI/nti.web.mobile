@@ -2,9 +2,7 @@ import React from 'react';
 
 import Logger from 'nti-util-logger';
 
-import {Error as Err} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 

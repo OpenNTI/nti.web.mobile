@@ -7,8 +7,7 @@ import {RouterMixin} from 'react-router-component';
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import {Loading} from 'nti-web-commons';
-import {Error as Err} from 'nti-web-commons';
+import {Loading, Error as Err} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 import ContextSender from 'common/mixins/ContextSender';

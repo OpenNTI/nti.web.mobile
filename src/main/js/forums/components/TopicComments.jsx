@@ -3,9 +3,7 @@ import {Link} from 'react-router-component';
 
 import Transition from 'react-addons-css-transition-group';
 
-import {Error as Err} from 'nti-web-commons';
-import {TinyLoader as Loading} from 'nti-web-commons';
-import {Notice} from 'nti-web-commons';
+import {Error as Err, TinyLoader as Loading, Notice} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import Paging from '../mixins/Paging';

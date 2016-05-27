@@ -7,11 +7,10 @@ import Logger from 'nti-util-logger';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
-import {Loading} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
 import NotFound from 'notfound/components/View';
 
-import {Mixins} from 'nti-web-commons';
 
 import Redirect from 'navigation/components/Redirect';
 

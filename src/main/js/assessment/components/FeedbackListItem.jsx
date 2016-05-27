@@ -2,8 +2,7 @@ import React from 'react';
 import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import Avatar from 'common/components/Avatar';
-import {DateTime} from 'nti-web-commons';
-import {LoadingInline} from 'nti-web-commons';
+import {DateTime, LoadingInline} from 'nti-web-commons';
 
 import {Panel} from 'modeled-content';
 import DisplayName from 'common/components/DisplayName';

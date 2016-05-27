@@ -9,8 +9,8 @@ import Invite from './Invite';
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import {Background, ActiveLink as Link} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {Background, ActiveLink as Link, Loading} from 'nti-web-commons';
+
 import Page from 'common/components/Page';
 
 export default React.createClass({

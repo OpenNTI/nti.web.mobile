@@ -4,9 +4,8 @@ import QueryString from 'query-string';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import {Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
-import {Loading} from 'nti-web-commons';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 import Detail from 'catalog/components/Detail';

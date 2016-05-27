@@ -2,9 +2,8 @@ import React from 'react';
 import FollowButton from './FollowButton';
 // import EditButton from './EditButton';
 
-import {ActiveState} from 'nti-web-commons';
+import {ActiveState, Background} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
-import {Background} from 'nti-web-commons';
 
 import Page from 'common/components/Page';
 

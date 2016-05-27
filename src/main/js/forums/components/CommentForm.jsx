@@ -1,9 +1,7 @@
 import React from 'react';
 import {Editor} from 'modeled-content';
 
-import {Notice} from 'nti-web-commons';
-import {OkCancelButtons} from 'nti-web-commons';
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Notice, OkCancelButtons, TinyLoader as Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 

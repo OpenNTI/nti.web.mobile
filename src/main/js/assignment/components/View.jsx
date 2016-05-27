@@ -1,8 +1,7 @@
 import React from 'react';
 import Student from './student/View';
 import Instructor from './instructor/View';
-import {Loading} from 'nti-web-commons';
-import {Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 import ContextContributor from 'common/mixins/ContextContributor';
 
 import AssignmentsHolder from '../mixins/AssignmentCollectionHolder';

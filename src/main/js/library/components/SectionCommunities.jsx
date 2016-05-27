@@ -4,9 +4,8 @@ import {Link} from 'react-router-component';
 
 import NavigationBar from 'navigation/components/Bar';
 
-import {Mixins} from 'nti-web-commons';
+import {EmptyList, Mixins} from 'nti-web-commons';
 import {getService} from 'nti-web-client';
-import {EmptyList} from 'nti-web-commons';
 
 import Collection from './containers/Collection';
 import SectionTitle from './SectionTitle';

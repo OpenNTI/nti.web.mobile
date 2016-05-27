@@ -1,9 +1,10 @@
 import React from 'react';
 
-import {Error as Err} from 'nti-web-commons';
-import {LoadingInline as Loading} from 'nti-web-commons';
-
-import {Mixins} from 'nti-web-commons';
+import {
+	Error as Err,
+	LoadingInline as Loading,
+	Mixins
+} from 'nti-web-commons';
 
 function ReplyComparator (a, b) {
 	a = a.getCreatedTime();

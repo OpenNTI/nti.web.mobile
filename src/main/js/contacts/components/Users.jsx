@@ -1,9 +1,11 @@
 import React from 'react';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {EmptyList} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
-import {Error as Err} from 'nti-web-commons';
+import {
+	EmptyList,
+	Error as Err,
+	Loading
+} from 'nti-web-commons';
 
 import Selectables from './Selectables';
 import UserSearchField from './UserSearchField';

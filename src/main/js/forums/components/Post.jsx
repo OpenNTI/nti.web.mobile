@@ -2,11 +2,8 @@ import React from 'react';
 
 import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
 
-import {Loading} from 'nti-web-commons';
-import {Notice} from 'nti-web-commons';
-import {Error as Err} from 'nti-web-commons';
+import {Error as Err, Loading, Mixins, Notice} from 'nti-web-commons';
 
-import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import {StoreEventsMixin} from 'nti-lib-store';
 

@@ -3,9 +3,8 @@ import React from 'react';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
-import {Loading} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
-import {Mixins} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
 import {scoped} from 'nti-lib-locale';
 

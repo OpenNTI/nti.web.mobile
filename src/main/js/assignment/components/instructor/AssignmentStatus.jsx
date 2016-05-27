@@ -1,9 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {Mixins} from 'nti-web-commons';
+import {DateTime, Mixins} from 'nti-web-commons';
 
-import {DateTime} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'AssignmentStatus',

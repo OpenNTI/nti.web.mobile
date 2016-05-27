@@ -4,8 +4,7 @@ import Logger from 'nti-util-logger';
 
 import WidgetsMixin from './Mixin';
 
-import {Error as ErrorWidget} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {Error as ErrorWidget, Loading} from 'nti-web-commons';
 
 const logger = Logger.get('course:components:widgets:Videos');
 

@@ -6,9 +6,7 @@ import AnalyticsStore from 'analytics/Store';
 import {TOPIC_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
-import {Error as Err} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
-import {Notice} from 'nti-web-commons';
+import {Error as Err, Loading, Mixins, Notice} from 'nti-web-commons';
 
 import {areYouSure} from 'prompts';
 
@@ -26,7 +24,6 @@ import Store from '../Store';
 
 // mixins
 import KeepItemInState from '../mixins/KeepItemInState';
-import {Mixins} from 'nti-web-commons';
 import Paging from '../mixins/Paging';
 import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
 import {StoreEventsMixin} from 'nti-lib-store';

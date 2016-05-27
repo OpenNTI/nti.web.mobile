@@ -4,11 +4,9 @@ import Transition from 'react-addons-css-transition-group';
 
 import Logger from 'nti-util-logger';
 
-import {Error as Err} from 'nti-web-commons';
-import {Loading} from 'nti-web-commons';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
-import {Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 

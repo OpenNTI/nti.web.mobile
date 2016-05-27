@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {Notice} from 'nti-web-commons';
+import {Loading, Notice} from 'nti-web-commons';
+
 import Button from 'forms/components/Button';
-import {Loading} from 'nti-web-commons';
 
 import {dropCourse} from '../../Actions';
 

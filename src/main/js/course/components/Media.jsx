@@ -4,11 +4,9 @@ import Router from 'react-router-component';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
-import {Loading} from 'nti-web-commons';
-import {EmptyList} from 'nti-web-commons';
+import {EmptyList, Loading, Mixins} from 'nti-web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
-import {Mixins} from 'nti-web-commons';
 import CourseLinker from 'library/mixins/CourseContentLink';
 
 import TranscriptedVideo from './TranscriptedVideo';

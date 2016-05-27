@@ -1,9 +1,11 @@
 import React from 'react';
 import {getService} from 'nti-web-client';
-import {TinyLoader as Loading} from 'nti-web-commons';
 
-import {Error as Err} from 'nti-web-commons';
-import {EmptyList as Empty} from 'nti-web-commons';
+import {
+	EmptyList as Empty,
+	Error as Err,
+	TinyLoader as Loading
+} from 'nti-web-commons';
 
 import SelectionModel from '../utils/ListSelectionModel';
 

@@ -1,15 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {EmptyList, TinyLoader as Loading, Mixins, ScrollTrigger} from 'nti-web-commons';
+
 import Button from 'forms/components/Button';
-import {EmptyList} from 'nti-web-commons';
-import {ScrollTrigger} from 'nti-web-commons';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
 import Joined from 'activity/components/widgets/Joined';
 
-import {Mixins} from 'nti-web-commons';
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
 
 import WriteSomething from './WriteSomething';
