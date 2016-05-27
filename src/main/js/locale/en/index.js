@@ -112,7 +112,8 @@ export default {
 				entryPlaceholder: 'Add a comment'
 			},
 			GROUP_LABELS: {
-				'Unknown': 'Other Assignments'
+				Unknown: 'Other Assignments',
+				unset: ''
 			}
 		}
 	}
