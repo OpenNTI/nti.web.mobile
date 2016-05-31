@@ -222,7 +222,7 @@ export default React.createClass({
 		const complete = this.isSubmitted();
 		const available =  this.isAssigned();
 
-		const submittable = assignment.canBeSubmitted();
+		const submittable = assignment.canBeSubmitted(); //aka !isNonSubmit()
 
 		const date = this.getCompletedDateTime() || (available ? assignment.getDueDate() : assignment.getAvailableForSubmissionBeginning());
 
@@ -232,14 +232,14 @@ export default React.createClass({
 				? 'Due'
 				: 'Available on';
 
-		const showOverdue = this.isOverDue() && submittable;
-		const showOvertime = this.isOverTime() && submittable;
+		const showOverdue = complete && submittable && this.isOverDue();
+		const showOvertime = complete && submittable && this.isOverTime();
 
 		const infoClasses = cx('info-part', text.toLowerCase(), {
 			'non-submit': assignment.isNonSubmit(),
 			'due-today': !complete && this.isDueToday(),
 			'overdue': showOverdue,
-			'late': this.isOverDue() && !assignment.isNonSubmit() && !submittable,
+			'late': this.isOverDue() && submittable,
 			'overtime': showOvertime,
 			'not-available': !available
 		});
