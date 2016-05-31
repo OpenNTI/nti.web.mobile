@@ -27,7 +27,7 @@ export default React.createClass({
 			return null;
 		}
 
-		const due = assignment.getAvailableForSubmissionEnding();
+		const due = assignment.getDueDate();
 		const submitted = history && history.getCreatedTime();
 		const isExcused = history && history.isGradeExcused();
 		const isLate = due && submitted > due;

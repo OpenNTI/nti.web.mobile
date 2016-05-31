@@ -19,6 +19,29 @@ const toUnitSingularString = scoped('UNITS.SINGULARS');
 const Assignment = getModel('assessment.assignment');
 const HistoryItem = getModel('assessment.assignmenthistoryitem');
 
+const isToday = (d) => moment(d).isSame(new Date(), 'day');
+
+function selectValue (values, context) {
+	const isNotted = selectValue.isNotted = (selectValue.isNotted || RegExp.prototype.test.bind(/^!/));
+
+	let max = 1;
+	let result = void 0;
+
+	const evaluate = (key) => isNotted(key) ? !context[key.substring(1)] : context[key];
+
+	for (let selector of Object.keys(values)) {
+		let criteria = selector.split(/\s+/);
+		let matched = criteria.reduce((a, k) => (a + (evaluate(k) ? 1 : 0)), 0);
+		if (criteria.length === matched && matched >= max) {
+			max = matched;
+			result = values[selector];
+		}
+	}
+
+	// console.log(result, context);
+	return result;
+}
+
 export default React.createClass({
 	displayName: 'AssignmentStatusLabel',
 
@@ -36,10 +59,11 @@ export default React.createClass({
 	},
 
 
-	isAssigned () {
+	isAvailable () {
 		const now = new Date();
 		const {props: {assignment: a}} = this;
-		return a.getAssignedDate() <= now;
+		const date = a.getAssignedDate();
+		return !date || (date <= now);
 	},
 
 
@@ -58,7 +82,7 @@ export default React.createClass({
 
 	isDueToday () {
 		const {props: {assignment: a}} = this;
-		return moment(a.getDueDate()).isSame(new Date(), 'day');
+		return isToday(a.getDueDate())
 	},
 
 
@@ -220,24 +244,37 @@ export default React.createClass({
 		const {props: {showTimeWithDate, assignment}} = this;
 
 		const complete = this.isSubmitted();
-		const available =  this.isAssigned();
-
+		const available =  this.isAvailable(); //no start date, or start date is in past.
 		const submittable = assignment.canBeSubmitted(); //aka !isNonSubmit()
 
-		const date = this.getCompletedDateTime() || (available ? assignment.getDueDate() : assignment.getAvailableForSubmissionBeginning());
+		const dateOpen = assignment.getAvailableForSubmissionBeginning();
+		const dateClose = assignment.getDueDate();
+		const dueToday = !complete && this.isDueToday();
 
-		const text = complete
-			? (assignment.isNonSubmit() ? 'Graded' : 'Completed')
-			: available
-				? 'Due'
-				: 'Available on';
+		let date = this.getCompletedDateTime() || (available ? dateClose : dateOpen);
+
+		const map = {
+			'available dateClose': 'Due',
+			'complete submittable': 'Completed',
+			'complete !submittable': 'Graded',
+			'submittable !complete !available': 'Available',//"!available" implise dateOpen is set.
+			'submittable !complete !dateOpen': 'Available Now'
+		};
+
+		const text = selectValue(map, {
+			available,
+			complete,
+			dateOpen,
+			dateClose,
+			submittable
+		}) || '';
 
 		const showOverdue = complete && submittable && this.isOverDue();
 		const showOvertime = complete && submittable && this.isOverTime();
 
 		const infoClasses = cx('info-part', text.toLowerCase(), {
-			'non-submit': assignment.isNonSubmit(),
-			'due-today': !complete && this.isDueToday(),
+			'non-submit': !submittable,
+			'due-today': dueToday,
 			'overdue': showOverdue,
 			'late': this.isOverDue() && submittable,
 			'overtime': showOvertime,
@@ -248,8 +285,8 @@ export default React.createClass({
 			? 'dddd, MMMM D h:mm A z'
 			: 'dddd, MMMM D';
 
-		if (!date) {
-			return null;//no date? we have nothing to show
+		if (!text) {
+			return null;
 		}
 
 		return (
@@ -259,17 +296,21 @@ export default React.createClass({
 					<span className={infoClasses}>
 						<span className="state" onClick={this.onShowStatusDetail}>{text}</span>
 						<span className="over">
-							(
+							<span>(</span>
 							{showOvertime && <span className="overtime" onClick={this.onShowOvertimeDetail}>Overtime</span>}
 							{showOverdue && <span className="overdue" onClick={this.onShowOverdueDetail}>Overdue</span>}
-							)
+							<span>)</span>
 						</span>
-						<DateTime
-							onClick={this.onShowStatusDetail}
-							date={date}
-							showToday={!complete/*only show today if we aren't submitted*/}
-							format={dateFormat}
-							todayText="Today!"/>
+
+						{date && (
+							<DateTime
+								onClick={this.onShowStatusDetail}
+								date={date}
+								showToday={!complete/*only show today if we aren't submitted*/}
+								format={isToday(date) ? 'h:mm A z' : dateFormat}
+								todayText="Today at {time}"/>
+						)}
+
 						{this.isExcused() && (
 							<span className="excused">Excused Grade</span>
 						)}
