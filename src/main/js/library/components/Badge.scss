@@ -1,3 +1,5 @@
+@import "utils/variables";
+
 .badge {
 	position: absolute;
 	// top: 0.625rem;
@@ -28,7 +30,7 @@
 			height: 0.8125rem;
 			width: 0.875rem;
 			background: {
-				image: url(../images/icons/placeholder-for-svg-version-archived.png);
+				image: url(./assets/placeholder-for-svg-version-archived.png);
 				size: contain;
 				repeat: no-repeat;
 				position: center;

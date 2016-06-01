@@ -1,0 +1,11 @@
+.library-section-heading {
+	display: flex;
+	align-items: center;
+	margin: 0.625rem;
+	margin-bottom: 1rem;
+	margin-left: 0;
+
+	.spacer {
+		flex: 10 1 auto;
+	}
+}

@@ -1,0 +1,10 @@
+@import "utils/variables";
+.button.library-add {
+	padding: .3125rem 1rem;
+	border-radius: 5px;
+	background: $secondary-green;
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: none;
+	margin: 0;
+}

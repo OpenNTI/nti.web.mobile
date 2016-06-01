@@ -5,6 +5,10 @@ import {DateTime} from 'nti-web-commons';
 
 import Filters, {ARCHIVED, UPCOMING} from '../Filters';
 
+Badge.propTypes = {
+	item: React.PropTypes.object.isRequired
+};
+
 export default function Badge ({item}) {
 
 	let type, label;
@@ -34,7 +38,3 @@ export default function Badge ({item}) {
 	);
 
 }
-
-Badge.propTypes = {
-	item: React.PropTypes.object.isRequired
-};
