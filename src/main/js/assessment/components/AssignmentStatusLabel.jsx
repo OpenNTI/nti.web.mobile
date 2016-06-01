@@ -251,14 +251,12 @@ export default React.createClass({
 		const dateClose = assignment.getDueDate();
 		const dueToday = !complete && this.isDueToday();
 
-		let date = this.getCompletedDateTime() || (available ? dateClose : dateOpen);
-
 		const map = {
-			'available dateClose': 'Due',
 			'complete submittable': 'Completed',
 			'complete !submittable': 'Graded',
-			'submittable !complete !available': 'Available',//"!available" implise dateOpen is set.
-			'submittable !complete !dateOpen': 'Available Now'
+			'submittable !complete dateOpen': 'Available',
+			'submittable !complete !dateOpen': 'Available Now',
+			'submittable !complete available dateClose': 'Due'
 		};
 
 		const text = selectValue(map, {
@@ -268,6 +266,13 @@ export default React.createClass({
 			dateClose,
 			submittable
 		}) || '';
+
+		const date = this.getCompletedDateTime()
+			|| (
+				/due/i.test(text)
+					? dateClose
+					: dateOpen
+			);
 
 		const showOverdue = complete && submittable && this.isOverDue();
 		const showOvertime = complete && submittable && this.isOverTime();

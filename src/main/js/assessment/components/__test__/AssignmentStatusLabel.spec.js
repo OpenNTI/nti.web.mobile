@@ -118,13 +118,13 @@ describe('AssignmentStatusLabel', () => {
 
 			//past assignment, no due
 			assignment = MockAssignment({ [START]: yesterday, [END]: void 0 });
-			// time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
+			time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
 
 			test({assignment})
 				.map(getText)
-				.forEach(text => expect(text).toEqual(void 0));
+				.forEach(text => expect(text).toEqual(`Available()${time}`));
 
-			//past assignment
+			//past assignment with due
 			assignment = MockAssignment({ [START]: yesterday, [END]: tomorrow });
 			let past = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAY_FORMAT);
 
