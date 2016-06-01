@@ -82,7 +82,7 @@ export default React.createClass({
 
 	isDueToday () {
 		const {props: {assignment: a}} = this;
-		return isToday(a.getDueDate())
+		return isToday(a.getDueDate());
 	},
 
 
