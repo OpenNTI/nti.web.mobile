@@ -1,0 +1,19 @@
+@import "utils/variables";
+
+.helptext {
+	font-size: .6875rem;
+	color: $secondary-grey;
+}
+
+.form-render {
+	clear: both;
+	.panel-button {
+		padding: 2rem;
+		background-color: $tertiary-grey;
+		background-color: $quad-grey;
+		margin: 1rem 0;
+	}
+	.notice {
+		margin: 1rem 0;
+	}
+}

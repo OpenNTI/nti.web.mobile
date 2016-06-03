@@ -39,39 +39,8 @@ select.error {
 	margin-bottom: 1rem;
 }
 
-.errors {
-	small.error {
-		border-radius: 2px;
-	}
-}
 
-.helptext {
-	font-size: .6875rem;
-	color: $secondary-grey;
-}
 
-.radiogroup, .multiplechoice {
-	margin-bottom: 1rem;
-	label {
-		input {
-			margin-right: .5rem;
-		}
-	}
-	&.required > p {
-		box-shadow: inset 4px 0 0 0 $border-grey;
-		padding-left: 1rem;
-	}
-	&.error {
-		& > p {
-			border-color: $border-red;
-			box-shadow: inset 4px 0 0 0 $primary-red !important;
-			padding-left: 1rem;
-		}
-		label {
-			color: inherit;
-		}
-	}
-}
 
 %labelspan {
 	//iOS tab bug fix.
@@ -136,26 +105,5 @@ label:not(.css3unsupported) {
 	& > #{$checkbox}:focus,
 	& > #{$checkbox}:active {
 		&:not(:checked):not(.disabled) + span::before { @extend %checkbox-image-hover; }
-	}
-}
-
-
-.form-panel {
-	margin-left: auto;
-	margin-right: auto;
-	padding: 0.625rem;
-	max-width: 750px;
-}
-
-.form-render {
-	clear: both;
-	.panel-button {
-		padding: 2rem;
-		background-color: $tertiary-grey;
-		background-color: $quad-grey;
-		margin: 1rem 0;
-	}
-	.notice {
-		margin: 1rem 0;
 	}
 }
