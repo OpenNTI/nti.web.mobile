@@ -1,9 +1,0 @@
-@font-face {
-  font-family: Symbola;
-  src: url(Symbola.eot);
-  src: local("Symbola Regular"),
-  	local("Symbola"),
-  	url(Symbola.eot?#iefix) format("embedded-opentype"),
-	url(Symbola.ttf) format("truetype"),
-	url(Symbola.woff) format("woff");
-}
