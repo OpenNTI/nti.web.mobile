@@ -1,14 +1,21 @@
 import React from 'react';
 
+import ensureArray from 'nti-commons/lib/ensure-array';
 import {getService} from 'nti-web-client';
 
 const getID = (x) => x && x.getID && x.getID();
 
 function getThumbnail (item) {
 
-	const getIcon = x => (x.getPresentationProperties
-						? x.getPresentationProperties()
-						: x).thumb;
+	// walk up from the deep end of the path looking for an icon
+	const getIcon = x => {
+		const p = ensureArray(x).slice();
+		let part, result;
+		while(!result && (part = p.pop())) {
+			result = (part.getPresentationProperties && part.getPresentationProperties().thumb) || part.icon;
+		}
+		return result;
+	};
 
 	try {
 
@@ -19,7 +26,7 @@ function getThumbnail (item) {
 						? service.getObject(e.Items)
 						: Promise.reject(e)))
 
-			.then(path => getIcon(path[0][0]))
+			.then(path => getIcon(path[0]))
 
 			//If there is an error, resolve with null
 			.catch(() => null);
