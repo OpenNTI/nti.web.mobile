@@ -1,0 +1,23 @@
+@import "utils/variables";
+
+.badge-earned {
+	$icon-size: 100px;
+	position: relative;
+	padding-left: $icon-size + 10px;
+	min-height: $icon-size;
+	img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: $icon-size;
+	}
+	.badge-name {
+		color: $primary-blue;
+	}
+	time {
+		color: #b8b8b8;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 0.625rem;
+	}
+}
