@@ -139,7 +139,7 @@ export default React.createClass({
 			path: this.props.path,
 			onBeforeNavigation: this.onBeforeNavigation,
 			onNavigation: this.onNavigation,
-			urlPatternOptions: {segmentValueCharset: 'a-zA-Z0-9-_ %.:()'}
+			urlPatternOptions: {segmentValueCharset: 'a-zA-Z0-9-_ %.:(),'}
 		},
 		...this.getRoutes());
 	},
