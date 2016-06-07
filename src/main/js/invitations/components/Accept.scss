@@ -1,6 +1,10 @@
 .invitation-accept-form {
     display: flex;
     align-items: baseline;
+    input:not([type]) { // fixes an issue in mobile safari where the accept button is clipped on the right edge of the screen (NTI-1182)
+        width: initial;
+        flex: 1 1 auto;
+    }
 }
 
 input#redeem-submit {
