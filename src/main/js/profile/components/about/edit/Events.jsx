@@ -1,5 +1,5 @@
 import React from 'react';
-
+import uuid from 'node-uuid';
 import AddEntryButton from './AddEntryButton';
 import EventItem from './EventItem';
 import Mixin from './Mixin';
@@ -51,7 +51,7 @@ export default React.createClass({
 			<div>
 				{(items || []).map((item, index) => {
 					return (
-						<div className="entry" key={`item-${index}`}>
+						<div className="entry" key={`item-${item.NTIID || uuid.v4()}`}>
 							<RemoveIcon onClick={this.remove} index={index} />
 							<EventItem schema={itemSchema} item={item} ref={x => this.eventItems[`item-${index}`] = x} mimeType={mimeType} fieldNames={fieldNames}/>
 						</div>
