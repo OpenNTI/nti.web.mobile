@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'node-uuid';
 
 export default {
 	propTypes: {
@@ -35,7 +36,9 @@ export default {
 		let {items} = this.state || {};
 		items = items ? items.slice() : [];
 
-		items.push({});
+		items.push({
+			id: uuid.v4()
+		});
 
 		this.setState({items});
 	},
