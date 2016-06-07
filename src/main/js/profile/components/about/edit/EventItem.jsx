@@ -127,12 +127,13 @@ export default React.createClass({
 				</div>
 
 				<label>Description</label>
-				<Editor className={cx('description', {required: isRequired(schema, 'startYear')})}
+				<textarea
 					ref={c => this.description = c}
-					required={isRequired(schema, 'startYear')}
-					allowInsertImage={false}
-					initialValue={description}
-					onChange={this.editorChange} />
+					defaultValue={description}
+					onChange={this.onChange}
+					name="description"
+					className={cx('description', {required: isRequired(schema, 'startYear')})}
+				/>
 			</fieldset>
 		);
 	},
@@ -143,7 +144,6 @@ export default React.createClass({
 		let {state} = this;
 		let value = {};
 		let input = Object.assign({}, item);
-		input.description = this.description.getValue();
 
 		for (let field of Object.keys(state)) {
 			let v = state[field];
