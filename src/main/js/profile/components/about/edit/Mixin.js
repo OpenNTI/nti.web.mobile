@@ -58,7 +58,7 @@ export default {
 		}
 		else {
 			for (let item of Object.values(this.eventItems)) {
-				if (item.getValue) {
+				if ((item || {}).getValue) {
 					value.push(item.getValue());
 				}
 			}
