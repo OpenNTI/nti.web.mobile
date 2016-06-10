@@ -8,7 +8,7 @@ import CSS from 'fbjs/lib/CSSCore';
 import isTouch from 'nti-util-detection-touch';
 import OrientationHandler from 'common/utils/orientation';
 import {ensureTopFrame} from 'common/utils/iframe-buster';
-import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL} from 'nti-web-client';
+import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfigFor} from 'nti-web-client';
 
 import AppView from './AppView';
 //webpack magic
@@ -32,7 +32,7 @@ overrideConfigAndForceCurrentHost();
 
 console.debug('Client is using host: %s', getServerURI()); //eslint-disable-line
 
-const basePath = (global.$AppConfig || {}).basepath || '/';
+const basePath = (x => (x = getConfigFor(x), typeof x === 'string' ? x : '/'))('basepath');
 
 
 const APP = ReactDOM.render(
