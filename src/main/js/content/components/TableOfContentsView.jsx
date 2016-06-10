@@ -8,10 +8,9 @@ import {
 	Ellipsed,
 	Error as Err,
 	Loading,
-	Mixins
+	Mixins,
+	Search
 } from 'nti-web-commons';
-
-import Search from 'common/components/Search';
 
 import ContextSender from 'common/mixins/ContextSender';
 
