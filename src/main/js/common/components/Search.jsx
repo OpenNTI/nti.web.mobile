@@ -3,7 +3,7 @@ import React from 'react';
 const stop = e => e.preventDefault();
 
 export default React.createClass({
-	displayName: 'Saerch',
+	displayName: 'Search',
 
 	propTypes: {
 		onChange: React.PropTypes.func,
