@@ -129,7 +129,7 @@
 						}
 
 						&::before {
-							@extend %radiobox-image;
+							background-image: url(./input-types/assets/radio-button-16.png);
 							position: absolute;
 							content: '';
 							top: 10px;
