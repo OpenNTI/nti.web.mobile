@@ -97,7 +97,7 @@ export default React.createClass({
 						<p>Notify me when</p>
 						<ul>
 							<li>
-								<label><input type="radio"/><span> Any activity</span></label>
+								<Radio label="Any activity"/>
 							</li>
 						</ul>
 					</form>

@@ -54,7 +54,6 @@ select.error {
 // so this block of style will not apply at all in IE8. (or android 2.x)
 // so the system default checkbox will be left as is.
 label:not(.css3unsupported) {
-	$radiobox: 'input[type="radio"]';
 
 	&.radio {
 		span {
@@ -67,8 +66,7 @@ label:not(.css3unsupported) {
 		}
 	}
 
-	& > input[type="checkbox"],
-	& > input[type="radio"] {
+	& > input[type="checkbox"] {
 		position: absolute !important;
 		opacity: 0 !important;//Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
 
@@ -113,16 +111,5 @@ label:not(.css3unsupported) {
 		&:not(:checked):not(.disabled) + span::before {
 			background-image: url(../images/icons/checkbox-14_hover.png);
 		}
-	}
-
-
-	& > input[type="radio"] {
-		&:checked + span::before { background-image: url(../images/icons/radio-button-16_active.png); }
-	}
-
-	html:not(.touch) &:hover > input[type="radio"],
-	& > input[type="radio"]:focus,
-	& > input[type="radio"]:active {
-		&:not(:checked):not(.disabled) + span::before { background-image: url(../images/icons/radio-button-16_hover.png); }
 	}
 }
