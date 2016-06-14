@@ -4,18 +4,18 @@
 .enrollment-status {
 	padding: 1rem;
 	font-size: .875rem;
-    line-height: 1.95;
+	line-height: 1.95;
 
 	& > div {
 		padding: 1rem;
-	    padding-bottom: 0;
-	    box-shadow: inset 0 1px 0 0 #f1f1f1;
+		padding-bottom: 0;
+		box-shadow: inset 0 1px 0 0 #f1f1f1;
 	}
 
 	.heading {
 		font-size: .7em;
-	    text-transform: uppercase;
-	    font-weight: 700;
+		text-transform: uppercase;
+		font-weight: 700;
 		color: $tertiary-grey;
 	}
 
