@@ -1,25 +1,4 @@
 
-%scroll-style {
-	html:not(.touch) &::-webkit-scrollbar {
-		width: 8px;
-		height: 8px;
-		// &:window-inactive {
-		// 	display: none;
-		// }
-
-		&-track {
-			border-radius: 8px;
-			background: rgba(255,255,255,0.1);
-		}
-
-		&-thumb {
-			border-radius: 4px;
-			background: rgba(0,0,0,0.2);
-		}
-	}
-}
-
-
 %profile-social-twitter { background-image: url(../images/icons/social/twitter.png); }
 %profile-social-facebook { background-image: url(../images/icons/social/facebook.png); }
 %profile-social-googleplus { background-image: url(../images/icons/social/google.png); }
