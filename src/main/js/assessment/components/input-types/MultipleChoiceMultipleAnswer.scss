@@ -11,7 +11,7 @@
 	input[type=checkbox]:focus,
 	input[type=checkbox]:active {
 		&:not(:checked):not(.disabled) + div::before {
-			background-image: url(./assets/checkbox-14_hover.png_);
+			background-image: url(./assets/checkbox-14_hover.png);
 		}
 	}
 }
