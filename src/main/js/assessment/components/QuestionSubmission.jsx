@@ -6,6 +6,8 @@ import {TinyLoader as Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 const t = scoped('ASSESSMENT');
 
+import SubmissionError from './SubmissionError';
+
 import Store from '../Store';
 import {areAssessmentsSupported} from '../utils';
 import {submit, clearAssessmentAnswers} from '../Actions';
@@ -108,9 +110,7 @@ export default React.createClass({
 		return (
 			<div className={wrapperClass}>
 				{!error ? null : (
-					<div className="error">
-						<a href="#" onClick={this.dismissAssessmentError}>x</a>{error}
-					</div>
+					<SubmissionError onClick={this.dismissAssessmentError} error={error}/>
 				)}
 
 				<a href="#" className={buttonClass} onClick={submitted ? this.onReset : this.onSubmit}>

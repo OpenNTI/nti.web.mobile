@@ -7,6 +7,7 @@ const t = scoped('ASSESSMENT');
 import {Loading} from 'nti-web-commons';
 
 import Saving from './Saving';
+import SubmissionError from './SubmissionError';
 
 import Store from '../Store';
 import {areAssessmentsSupported, getMainSubmittable} from '../utils';
@@ -114,9 +115,7 @@ export default React.createClass({
 				</Transition>
 				<div className={'set-submission ' + status}>
 					{!error ? null : (
-						<div className="error">
-							<a href="#" onClick={this.dismissAssessmentError}>x</a>{error}
-						</div>
+						<SubmissionError onClick={this.dismissAssessmentError} error={error}/>
 					)}
 					<a href={disabled ? '#' : null} className={'button ' + (disabled ? 'disabled' : '')} onClick={this.onSubmit}>{t('submit')}</a>
 					{cannotReset ? null : (<a href="#" className="reset button link" onClick={this.onReset}>{t('reset')}</a>)}

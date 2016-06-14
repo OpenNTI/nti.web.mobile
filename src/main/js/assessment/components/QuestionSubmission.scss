@@ -31,8 +31,8 @@
 		}
 	}
 
-	.error {
-		@extend %submission-error;
-		left: 0; right: 0;
+	.submission-error {
+		left: 0;
+		right: 0;
 	}
 }
