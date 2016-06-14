@@ -1,21 +1,4 @@
 @import "utils/variables";
-@import "utils/placeholders";
-
-@mixin choice-icon($type, $selector) {
-	input[type=#{$type}] + div::before {
-		@extend #{$selector};
-		@if ($type== checkbox) {
-			background-size: 14px;
-		}
-	}
-	input[type=#{$type}]:checked + div::before { @extend #{$selector}-active; }
-
-	html:not(.touch) &:hover input[type=#{$type}],
-	input[type=#{$type}]:focus,
-	input[type=#{$type}]:active {
-		&:not(:checked):not(.disabled) + div::before { @extend #{$selector}-hover; }
-	}
-}
 
 .question-part .multiple-choice {
 	border: 1px solid $tertiary-grey;
@@ -58,12 +41,23 @@
 		&.incorrect input:checked + div { box-shadow: inset 4px 0 0 0 $incorrect; }
 
 
-		@include choice-icon(radio, '%radiobox-image');
-		@include choice-icon(checkbox, '%checkbox-image');
+		input[type=radio] + div::before {
+			background-image: url(./assets/radio-button-16.png);
+		}
+		input[type=radio]:checked + div::before {
+			background-image: url(./assets/radio-button-16_active.png);
+		}
+		html:not(.touch) &:hover input[type=radio],
+		input[type=radio]:focus,
+		input[type=radio]:active {
+			&:not(:checked):not(.disabled) + div::before {
+				background-image: url(./assets/radio-button-16_hover.png);
+			}
+		}
 
 
-		&.correct input[type]:checked + div::before { @extend %circle-green-check; }
-		&.incorrect input[type]:checked + div::before { @extend %circle-red-x; }
+		&.correct input[type]:checked + div::before { background-image: url(./assets/circle-check-green-18.png); }
+		&.incorrect input[type]:checked + div::before { background-image: url(./assets/circle-x-red-18.png); }
 
 		.numeral {
 			position: relative;

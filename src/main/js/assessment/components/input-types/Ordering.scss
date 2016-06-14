@@ -97,7 +97,7 @@
 				// background: $correct;
 				// border-color: $correct;
 				&::before {
-					@extend %circle-green-check;
+					background-image: url(./assets/circle-check-green-18.png);
 				}
 			}
 
@@ -105,7 +105,7 @@
 				// background: $incorrect;
 				// border-color: $incorrect;
 				&::before {
-					@extend %circle-red-x;
+					background-image: url(./assets/circle-x-red-18.png);
 				}
 			}
 		}

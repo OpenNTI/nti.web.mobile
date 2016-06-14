@@ -1,0 +1,17 @@
+.question-part .multiple-choice .choice {
+	input[type=checkbox] + div::before {
+		background-size: 14px;
+		background-image: url(./assets/checkbox-14.png);
+	}
+	input[type=checkbox]:checked + div::before {
+		background-image: url(./assets/checkbox-14_active.png);
+	}
+
+	html:not(.touch) &:hover input[type=checkbox],
+	input[type=checkbox]:focus,
+	input[type=checkbox]:active {
+		&:not(:checked):not(.disabled) + div::before {
+			background-image: url(./assets/checkbox-14_hover.png_);
+		}
+	}
+}
