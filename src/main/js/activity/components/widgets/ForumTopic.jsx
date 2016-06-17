@@ -7,7 +7,7 @@ import Breadcrumb from 'common/components/BreadcrumbPath';
 import TopicHeadline from 'forums/components/TopicHeadline';
 import ActionsComp from 'forums/components/Actions';
 
-import {areYouSure} from 'prompts';
+import {areYouSure} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 

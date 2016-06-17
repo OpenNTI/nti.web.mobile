@@ -18,7 +18,7 @@ import {
 	BUSY_LOADING
 } from '../Constants';
 
-import {areYouSure} from 'prompts';
+import {areYouSure} from 'nti-web-commons';
 
 const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSubmit();
 

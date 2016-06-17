@@ -17,7 +17,7 @@ import {Placeholder as Video} from 'video';
 import CommentForm from '../CommentForm';
 import ActionsComp from '../Actions';
 
-import {areYouSure} from 'prompts';
+import {areYouSure} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 import {StoreEventsMixin} from 'nti-lib-store';

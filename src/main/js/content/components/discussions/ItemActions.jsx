@@ -5,7 +5,7 @@ import {getService} from 'nti-web-client';
 
 import cx from 'classnames';
 
-import {areYouSure} from 'prompts';
+import {areYouSure} from 'nti-web-commons';
 
 import Action from './ItemAction';
 

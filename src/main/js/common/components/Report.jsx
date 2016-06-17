@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import {areYouSure} from 'prompts';
+import {areYouSure} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 import {Mixins} from 'nti-web-commons';

@@ -26,7 +26,7 @@ import ObjectResolver from 'object-resolver/components/View';
 import Welcome from 'login/prompts/View';
 
 import NavStore from 'navigation/Store';
-import {areYouSure} from 'prompts';
+import {areYouSure} from 'nti-web-commons';
 
 import {Mixins} from 'nti-web-commons';
 

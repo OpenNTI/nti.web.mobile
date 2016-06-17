@@ -8,7 +8,7 @@ import cx from 'classnames';
 import {Mixins} from 'nti-web-commons';
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-import {areYouSure} from 'prompts';
+import {areYouSure} from 'nti-web-commons';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 
