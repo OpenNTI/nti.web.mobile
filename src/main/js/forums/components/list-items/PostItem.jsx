@@ -17,7 +17,7 @@ import {Placeholder as Video} from 'video';
 import CommentForm from '../CommentForm';
 import ActionsComp from '../Actions';
 
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -107,7 +107,7 @@ export default React.createClass({
 	},
 
 	onDeleteComment () {
-		areYouSure(t('deleteCommentPrompt')).then(
+		Prompt.areYouSure(t('deleteCommentPrompt')).then(
 			()=> {
 				this.setState({
 					busy: true

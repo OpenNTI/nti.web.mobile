@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 import {Mixins} from 'nti-web-commons';
@@ -31,7 +31,7 @@ export default React.createClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		areYouSure('Report this as inappropriate?').then(
+		Prompt.areYouSure('Report this as inappropriate?').then(
 			()=> {
 				this.props.item.flag();
 			},

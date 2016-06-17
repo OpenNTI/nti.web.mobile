@@ -1,5 +1,5 @@
 import React from 'react';
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 import {Mixins} from 'nti-web-commons';
 import cx from 'classnames';
@@ -23,7 +23,7 @@ export default React.createClass({
 
 	deleteList () {
 		let {list} = this.props;
-		areYouSure(t('deleteListPrompt')).then(() => {
+		Prompt.areYouSure(t('deleteListPrompt')).then(() => {
 			this.setState({
 				loading: true
 			});

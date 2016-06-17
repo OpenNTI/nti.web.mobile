@@ -18,7 +18,7 @@ import {
 	BUSY_LOADING
 } from '../Constants';
 
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 
 const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSubmit();
 
@@ -56,7 +56,7 @@ export default React.createClass({
 			e.stopPropagation();
 		}
 
-		areYouSure('This will reset this assignment.')
+		Prompt.areYouSure('This will reset this assignment.')
 			.then(
 				()=> resetAssessment(this.props.assessment),
 				()=> {}

@@ -7,7 +7,7 @@ import Breadcrumb from 'common/components/BreadcrumbPath';
 import TopicHeadline from 'forums/components/TopicHeadline';
 import ActionsComp from 'forums/components/Actions';
 
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 
@@ -27,7 +27,7 @@ export default React.createClass({
 	onDelete () {
 		const {props: {item}} = this;
 
-		areYouSure(t('FORUMS.deleteTopicPrompt'))
+		Prompt.areYouSure(t('FORUMS.deleteTopicPrompt'))
 			.then(() => item.delete());
 	},
 

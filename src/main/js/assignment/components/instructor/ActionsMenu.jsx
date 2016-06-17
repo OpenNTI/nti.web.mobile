@@ -8,7 +8,7 @@ import cx from 'classnames';
 import {Mixins} from 'nti-web-commons';
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 
@@ -71,7 +71,7 @@ export default React.createClass({
 			? 'This will reset this assignment for this student. It is not recoverable.\nFeedback and work will be deleted.'
 			: 'This will reset the assignment. All work will be deleted and is not recoverable.';
 
-		areYouSure(msg)
+		Prompt.areYouSure(msg)
 			.then(reset)
 			.then(
 				()=> logger.log('Assignment Reset'),

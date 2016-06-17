@@ -26,7 +26,7 @@ export default React.createClass({
 			event.stopPropagation();
 			event.preventDefault();
 		}
-		// areYouSure(t('deleteListPrompt')).then(() => {
+		// Prompt.areYouSure(t('deleteListPrompt')).then(() => {
 		// 	this.setState({
 		// 		loading: true
 		// 	});

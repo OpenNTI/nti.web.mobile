@@ -8,7 +8,7 @@ import {decodeFromURI} from 'nti-lib-ntiids';
 
 import {Error as Err, Loading, Mixins, Notice} from 'nti-web-commons';
 
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 
 import ActionsComp from './Actions';
 import CommentForm from './CommentForm';
@@ -176,7 +176,7 @@ export default React.createClass({
 	},
 
 	deleteTopic () {
-		areYouSure(t('deleteTopicPrompt')).then(() => {
+		Prompt.areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this.getTopic());
 		},
 		()=> {});

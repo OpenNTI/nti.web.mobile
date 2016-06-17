@@ -26,7 +26,7 @@ import ObjectResolver from 'object-resolver/components/View';
 import Welcome from 'login/prompts/View';
 
 import NavStore from 'navigation/Store';
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 
 import {Mixins} from 'nti-web-commons';
 
@@ -89,7 +89,7 @@ export default React.createClass({
 	maybeBlockNavigation (cb) {
 		if (NavStore.getGuardMessage) {
 
-			areYouSure(NavStore.getGuardMessage(), 'Attention!', {
+			Prompt.areYouSure(NavStore.getGuardMessage(), 'Attention!', {
 				confirmButtonLabel: 'Leave',
 				cancelButtonLabel: 'Stay'})
 				.then(cb, ()=> {});

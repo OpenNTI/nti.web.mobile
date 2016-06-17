@@ -5,7 +5,7 @@ import {getService} from 'nti-web-client';
 
 import cx from 'classnames';
 
-import {areYouSure} from 'nti-web-commons';
+import {Prompt} from 'nti-web-commons';
 
 import Action from './ItemAction';
 
@@ -134,7 +134,7 @@ export default React.createClass({
 			return;
 		}
 
-		areYouSure('This action cannot be undone.', 'Report content as inappropriate?')
+		Prompt.areYouSure('This action cannot be undone.', 'Report content as inappropriate?')
 			.then(
 				() => item.flag(),
 				()=> {}
