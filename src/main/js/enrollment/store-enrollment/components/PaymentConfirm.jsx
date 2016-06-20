@@ -1,8 +1,6 @@
 import React from 'react';
 
-import {Loading, PanelButton} from 'nti-web-commons';
-
-import Localized from 'common/components/LocalizedHTML';
+import {Loading, PanelButton, LocalizedHTML as Localized} from 'nti-web-commons';
 
 import BillingInfo from './BillingInfo';
 import GiftInfo from './GiftInfo';

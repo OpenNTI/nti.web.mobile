@@ -7,9 +7,7 @@ import {clearLoadingFlag} from 'common/utils/react-state';
 let t = scoped('ENROLLMENT');
 let tGift = scoped('ENROLLMENT.GIFT');
 
-import {Error as Err, Loading} from 'nti-web-commons';
-
-import Localized from 'common/components/LocalizedHTML';
+import {Error as Err, Loading, LocalizedHTML as Localized} from 'nti-web-commons';
 
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
