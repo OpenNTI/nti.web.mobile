@@ -5,9 +5,8 @@ import {encode} from 'nti-web-client/lib/user';
 
 import Avatar from './Avatar';
 import DisplayName from './DisplayName';
-import Impersonate from './Impersonate';
 
-import {Mixins} from 'nti-web-commons';
+import {Impersonate, Mixins} from 'nti-web-commons';
 
 import {logout} from 'login/Actions';
 import {join} from 'path';
