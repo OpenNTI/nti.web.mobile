@@ -1,8 +1,8 @@
 import uuid from 'node-uuid';
 
-let ORIGIN;
-
 export default class Point {
+	static ORIGIN = new Point(0, 0)
+
 	/**
 	* Creates a new Point
 	* @constructor
@@ -16,12 +16,6 @@ export default class Point {
 		this.id = id;
 	}
 
-	static get ORIGIN () {
-		if (!ORIGIN) {
-			ORIGIN = new Point(0, 0);
-		}
-		return ORIGIN;
-	}
 
 	/**
 	* Returns a new Point that is the sum of this point and p2
