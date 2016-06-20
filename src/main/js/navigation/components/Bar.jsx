@@ -7,9 +7,8 @@ import cx from 'classnames';
 import Logger from 'nti-util-logger';
 import buffer from 'nti-commons/lib/function-buffer';
 
-import Pager from 'common/components/Pager';
+import {Pager, Mixins} from 'nti-web-commons';
 
-import {Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import Menu from './Menu';
