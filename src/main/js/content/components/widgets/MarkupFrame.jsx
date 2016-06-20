@@ -8,7 +8,7 @@ import Mixin from './Mixin';
 
 import {rawContent} from 'nti-commons/lib/jsx';
 
-import Zoomable from 'common/components/zoomable';
+import Zoomable from 'common/components/Zoomable';
 
 export default React.createClass({
 	displayName: 'ContentMarkupEnabled',
