@@ -5,7 +5,7 @@ import Breadcrumb from 'common/components/BreadcrumbPath';
 import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 import GotoItem from 'common/components/GotoItem';
-import Report from 'common/components/Report';
+import {Report} from 'nti-web-commons';
 
 import t from 'nti-lib-locale';
 
