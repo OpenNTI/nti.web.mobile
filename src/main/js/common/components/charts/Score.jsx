@@ -72,8 +72,8 @@ export default React.createClass({
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
 		let style = {
-			width: p.width,
-			height: p.height
+			width: p.width + 'px',
+			height: p.height + 'px'
 		};
 
 		return (
