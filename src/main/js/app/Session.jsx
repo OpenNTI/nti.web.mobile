@@ -5,10 +5,10 @@ import {Mixins} from 'nti-web-commons';
 import {getAppUsername} from 'nti-web-client';
 import {encode} from 'nti-web-client/lib/user';
 
-import Avatar from './Avatar';
-import DisplayName from './DisplayName';
+import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
 
-import Impersonate from 'app/Impersonate';
+import Impersonate from './Impersonate';
 import {logout} from 'login/Actions';
 
 /**

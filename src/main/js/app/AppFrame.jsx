@@ -1,7 +1,7 @@
 import React from 'react';
 import CSS from 'fbjs/lib/CSSCore';
 
-import Session from 'common/components/Session';
+import Session from './Session';
 import {Footer, LockScroll} from 'nti-web-commons';
 
 import Notifications from 'notifications/components/View';
