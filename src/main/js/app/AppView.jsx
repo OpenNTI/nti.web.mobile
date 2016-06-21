@@ -6,7 +6,7 @@ import {
 	addChangeListener as addLocaleChangeListener,
 	removeChangeListener as removeLocaleChangeListener
 } from 'nti-lib-locale';
-import './locale';
+import 'locale';
 
 import Router from './Router';
 import {Loading} from 'nti-web-commons';

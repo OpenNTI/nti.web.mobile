@@ -1,15 +1,15 @@
 import React from 'react';
+import {join} from 'path';
 
+import {Mixins} from 'nti-web-commons';
 import {getAppUsername} from 'nti-web-client';
 import {encode} from 'nti-web-client/lib/user';
 
 import Avatar from './Avatar';
 import DisplayName from './DisplayName';
 
-import {Impersonate, Mixins} from 'nti-web-commons';
-
+import Impersonate from 'app/Impersonate';
 import {logout} from 'login/Actions';
-import {join} from 'path';
 
 /**
  * Renders the user session box (user's avatar, name, logout link, profile link)

@@ -10,7 +10,7 @@ import OrientationHandler from 'common/utils/orientation';
 import {ensureTopFrame} from 'common/utils/iframe-buster';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfigFor} from 'nti-web-client';
 
-import AppView from './AppView';
+import AppView from './app/AppView';
 //webpack magic
 import '../resources/scss/app.scss';
 
