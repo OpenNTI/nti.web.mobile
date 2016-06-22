@@ -4,7 +4,7 @@
 	"utils/mixins",
 	"utils/placeholders";
 
-@import "~nti-style-common/fonts";
+@import "~nti-style-common/all";
 
 @import "~foundation-sites/scss/foundation";
 
@@ -22,7 +22,6 @@
 
 @import
 	"debris/common/transitions",
-	"debris/common/animations",
 	"debris/common/components",
 	"debris/contacts/components",
 	"debris/course/components",
