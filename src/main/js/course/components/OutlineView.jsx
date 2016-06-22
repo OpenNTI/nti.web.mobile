@@ -3,9 +3,7 @@ import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
 
-import {ActiveState, Banner, Ellipsed, CalendarCard, Loading} from 'nti-web-commons';
-
-import Header from 'common/components/TopicHeader';
+import {ActiveState, Banner, Ellipsed, CalendarCard, TopicHeader as Header, Loading} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';

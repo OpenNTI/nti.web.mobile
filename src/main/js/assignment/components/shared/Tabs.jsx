@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {ActiveState, Mixins} from 'nti-web-commons';
-import Header from 'common/components/TopicHeader';
+import {ActiveState, Mixins, TopicHeader as Header} from 'nti-web-commons';
 
 import Accessor from '../../mixins/AssignmentCollectionAccessor';
 
