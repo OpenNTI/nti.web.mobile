@@ -9,7 +9,7 @@
 		padding-top: .75rem;
 	}
 
-	.topic-header { display: none; }
+	.list-header-component { display: none; }
 }
 
 @media (min-width: 769px) {
@@ -20,7 +20,7 @@
 		position: sticky;
 		top: 0;
 
-		.topic-header { display: block; }
+		.list-header-component { display: block; }
 
 		ul {
 			box-shadow: inset -1px 0 0 #efefef;
