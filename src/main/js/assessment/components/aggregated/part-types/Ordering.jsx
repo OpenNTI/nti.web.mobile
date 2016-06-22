@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Toggle from 'common/components/Toggle';
+import {Toggle} from 'nti-web-commons';
 
 import BarChart from './charts/BarChart';
 import TableChart from './charts/TableChart';
