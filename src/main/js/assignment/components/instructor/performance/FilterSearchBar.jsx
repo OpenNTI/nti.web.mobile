@@ -1,7 +1,6 @@
 import React from 'react';
 
-import BufferedInput from 'common/components/BufferedInput';
-import {Mixins} from 'nti-web-commons';
+import {BufferedInput, Mixins} from 'nti-web-commons';
 
 import PageControls from '../PageControls';
 

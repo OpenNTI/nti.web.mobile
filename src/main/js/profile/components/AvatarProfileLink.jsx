@@ -1,7 +1,7 @@
 import React from 'react';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import FollowButton from 'common/components/FollowButton';
+import FollowButton from 'nti-web-commons';
 
 import {rawContent} from 'nti-commons/lib/jsx';
 
