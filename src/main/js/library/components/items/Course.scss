@@ -1,0 +1,19 @@
+.library-item.course {
+	.preview {
+		background-color: #FFA500;
+		color: #fff;
+		padding: 0 7px;
+		border-radius: 3px;
+		text-transform: uppercase;
+		font-size: .625rem;
+		font-weight: 700;
+		line-height: 2.7;
+		display: inline-block;
+		margin-right: .3125rem;
+	}
+	.badges {
+		position: absolute;
+		top: .3125em;
+		left: .3125em;
+	}
+}

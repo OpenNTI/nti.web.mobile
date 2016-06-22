@@ -139,13 +139,17 @@ export default React.createClass({
 		let {item} = this.props;
 		let {icon, title, label, author} = this.state;
 		let courseId = item.getCourseID();
-		let defaultSection = this.isPreview(item) ? COURSE_SECTIONS.INFO : COURSE_SECTIONS.LESSONS;
+		const preview = this.isPreview(item);
+		let defaultSection = preview ? COURSE_SECTIONS.INFO : COURSE_SECTIONS.LESSONS;
 
 		return (
 			<div className="library-item course">
 				<CourseContentLink courseId={courseId} section={defaultSection}>
 					<Icon src={icon}/>
-					<Badge item={item}/>
+					<div className="badges">
+						{preview && <div className="preview">Preview</div>}
+						<Badge item={item}/>
+					</div>
 					<label>
 						<h5>{label}</h5>
 						<Ellipsed tag="h3">{title}</Ellipsed>
