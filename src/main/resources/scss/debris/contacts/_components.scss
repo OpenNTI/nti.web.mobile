@@ -74,34 +74,6 @@
 		margin-bottom: 2rem;
 	}
 
-	.follow-widget {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		right: .5em;
-		width: 2rem;
-		height: 2rem;
-		line-height: 1;
-		&::after {
-			content: 'X';
-			font-size: 2rem;
-			width: 2em;
-			height: 2em;
-			font-family: 'icomoon';
-			color: $tertiary-grey;
-		}
-		&.follow::after {
-			content: '\e601'; // add user icon
-			color: $primary-green;
-		}
-
-		&.loading {
-			@extend %spinner;
-			&::after {
-				content:none;
-			}
-		}
-	}
 }
 
 .contacts-page-content {
