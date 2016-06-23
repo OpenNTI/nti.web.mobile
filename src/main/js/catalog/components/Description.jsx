@@ -29,57 +29,52 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 			<div className="course-description">{entry.Description}</div>
 
 			<div className="course-details">
-				<table>
-					<tbody>
-						<tr>
-							<td>{entry.ProviderUniqueID}</td>
-							<td>{entry.Title}</td>
-						</tr>
-						<tr>
-							<td>{t('SchoolLabel')}</td>
-							<td>{entry.ProviderDepartmentTitle}</td>
-						</tr>
-						<tr>
-							<td>Prerequisites</td>
-							<td>
-								{(prerequisites || []).map((x, i) => (<div key={x.id || i}>{x.title}</div>))}
-							</td>
-						</tr>
-						{EnrollmentMessage !== 'div' || !isEmpty(entry.Credit) ? (
-							<tr>
-								<td>{t('CreditHours')}</td>
-								<td>
-									{!isEmpty(entry.Credit) ?
-										<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
-									<EnrollmentMessage/>
-								</td>
-							</tr>
-						) : (
-							<tr/>
-						)}
-						<tr>
-							<td>{t('StartDate')}</td>
-							<td>{moment(entry.StartDate).format('LL')}</td>
-						</tr>
-						{weeks > 0 && (
-						<tr>
-							<td>{t('Duration')}</td>
-							<td>
-								{weeks} {t('DurationUnits')}
-							</td>
-						</tr>
-						)}
-						<tr>
-							<td>{t('DaysAndTimes')}</td>
-							<td>
-								{isEmpty(entry.Schedule && entry.Schedule.days) ?
-									<FullyOnline/> :
-									<Schedule schedule={entry.Schedule} startDate={entry.StartDate} />
-								}
-							</td>
-						</tr>
-					</tbody>
-				</table>
+
+				<dl>
+					<dt>{entry.ProviderUniqueID}</dt>
+					<dd>{entry.Title}</dd>
+				</dl>
+				<dl>
+					<dt>{t('SchoolLabel')}</dt>
+					<dd>{entry.ProviderDepartmentTitle}</dd>
+				</dl>
+				<dl>
+					<dt>Prerequisites</dt>
+					{(prerequisites || []).map((x, i) => (<dd key={x.id || i}>{x.title}</dd>))}
+				</dl>
+				{EnrollmentMessage !== 'div' || !isEmpty(entry.Credit) && (
+					<dl>
+						<dt>{t('CreditHours')}</dt>
+						<dd>
+							{!isEmpty(entry.Credit) ?
+								<CreditHours credit={entry.Credit} entry={entry.getID()} /> : null}
+							<EnrollmentMessage/>
+						</dd>
+					</dl>
+				)}
+				<div className="cols">
+					<dl>
+						<dt>{t('StartDate')}</dt>
+						<dd>{moment(entry.StartDate).format('LL')}</dd>
+					</dl>
+					{weeks > 0 && (
+					<dl>
+						<dt>{t('Duration')}</dt>
+						<dd>
+							{weeks} {t('DurationUnits')}
+						</dd>
+					</dl>
+					)}
+					<dl>
+						<dt>{t('DaysAndTimes')}</dt>
+						<dd>
+						{isEmpty(entry.Schedule && entry.Schedule.days) ?
+							<FullyOnline/> :
+							<Schedule schedule={entry.Schedule} startDate={entry.StartDate} />
+						}
+						</dd>
+					</dl>
+				</div>
 			</div>
 		</div>
 	);
