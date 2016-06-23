@@ -13,7 +13,7 @@ const OutlineNode = getModel('courses.courseoutlinenode');
 
 
 export default React.createClass( {
-	displayName: 'CourseOverviewDiscussion',
+	displayName: 'CourseOverviewSurveyReference',
 	mixins: [Mixins.NavigatableMixin],
 
 	statics: {

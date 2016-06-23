@@ -18,7 +18,7 @@ function isSubmitted (item) {
 
 
 export default React.createClass( {
-	displayName: 'CourseOverviewDiscussion',
+	displayName: 'CourseOverviewPollReference',
 	mixins: [Mixins.NavigatableMixin],
 
 	statics: {

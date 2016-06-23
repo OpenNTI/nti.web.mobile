@@ -27,7 +27,7 @@ const getID = o => o['Target-NTIID'] || (o.getID ? o.getID() : o['NTIID']);
 const getQuestionCount = o => o.getQuestionCount ? o.getQuestionCount() : o['question-count'];
 
 export default React.createClass( {
-	displayName: 'CourseOverviewDiscussion',
+	displayName: 'CourseOverviewQuestionSet',
 	mixins: [Mixins.NavigatableMixin],
 
 	statics: {
