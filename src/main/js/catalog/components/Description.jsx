@@ -18,7 +18,7 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 
 	let prerequisites = entry.Prerequisites;
 	if (isEmpty(prerequisites)) {
-		prerequisites = [t('NoPrerequisites')];
+		prerequisites = [{title: t('NoPrerequisites')}];
 	}
 
 	let weeks = Math.floor(moment.duration(entry.Duration).asWeeks());
