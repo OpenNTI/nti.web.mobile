@@ -199,7 +199,7 @@ export default React.createClass( {
 					<div className="tally-box">
 						<div className="message">{label}</div>
 						{assignment ?
-							<AssignmentStatusLabel assignment={assignment} historyItem={assignmentHistory}/>
+							<AssignmentStatusLabel showTimeWithDate assignment={assignment} historyItem={assignmentHistory}/>
 						: //Assessment:
 							<div className="tally">
 							{state.correct && (
