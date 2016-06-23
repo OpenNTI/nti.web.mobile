@@ -60,18 +60,6 @@ exports = module.exports = [
 
 		target: 'web',
 
-		node: {
-			net: 'empty',
-			tls: 'empty',
-			request: 'empty'
-		},
-
-		externals: [
-			{
-				request: true
-			}
-		],
-
 		resolve: {
 			root: [root, modules],
 			extensions: ['', '.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
@@ -247,7 +235,6 @@ exports = module.exports = [
 				fs: true,
 				net: true,
 				tls: true,
-				request: true,
 				'nti-lib-interfaces': true
 			}
 		],
