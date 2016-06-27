@@ -6,19 +6,14 @@ import '../../resources/scss/app.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import QueryString from 'query-string';
-import isTouch from 'nti-util-detection-touch';
-import {addClass, removeClass} from 'nti-lib-dom';
+import {addFeatureCheckClasses} from 'nti-lib-dom';
 import 'locale';
-
-const RootNode = document.querySelector('html');
-removeClass(RootNode, 'no-js');
-addClass(RootNode, 'js');
-addClass(RootNode, isTouch ? 'touch' : 'no-touch');
 
 import {overrideConfigAndForceCurrentHost, installAnonymousService} from 'nti-web-client';
 import Widget from './widget';
 
 
+addFeatureCheckClasses();
 overrideConfigAndForceCurrentHost();//ensures we talk back to our current host instead of anything else.
 installAnonymousService();//fakes a service doc.
 

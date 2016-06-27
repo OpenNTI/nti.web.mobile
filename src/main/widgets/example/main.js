@@ -7,16 +7,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'locale';
 
-import isTouch from 'nti-util-detection-touch';
-import {addClass, removeClass} from 'nti-lib-dom';
-const RootNode = document.querySelector('html');
-removeClass(RootNode, 'no-js');
-addClass(RootNode, 'js');
-addClass(RootNode, isTouch ? 'touch' : 'no-touch');
-
+import {addFeatureCheckClasses} from 'nti-lib-dom';
 import {overrideConfigAndForceCurrentHost} from 'nti-web-client';
 
 import Widget from './widget';
+
+addFeatureCheckClasses();
 
 //ensures we talk back to our current host instead of anything else.
 overrideConfigAndForceCurrentHost();
