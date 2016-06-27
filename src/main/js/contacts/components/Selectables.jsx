@@ -1,6 +1,6 @@
 import React from 'react';
-// import SelectableEntities from 'common/components/SelectableEntities';
-import SelectionModel from 'common/utils/ListSelectionModel';
+
+import EntitySelectionModel from 'nti-commons/lib/EntitySelectionModel';
 import SwipeEntity from './SwipeEntity';
 
 export default React.createClass({
@@ -29,7 +29,7 @@ export default React.createClass({
 	},
 
 	setUpSelectionModel (props = this.props) {
-		let selection = new SelectionModel(props.entities);
+		let selection = new EntitySelectionModel(props.entities);
 		this.setState({
 			selection
 		});

@@ -1,13 +1,13 @@
 import React from 'react';
 import SelectableEntity from './SelectableEntity';
 
-import SelectionModel from '../utils/ListSelectionModel';
+import EntitySelectionModel from 'nti-commons/lib/EntitySelectionModel';
 
 export default React.createClass({
 	displayName: 'SelectableEntities',
 
 	propTypes: {
-		selection: React.PropTypes.instanceOf(SelectionModel).isRequired,
+		selection: React.PropTypes.instanceOf(EntitySelectionModel).isRequired,
 
 		entities: React.PropTypes.any,
 

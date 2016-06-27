@@ -9,7 +9,7 @@ import Search from './EntitySearch';
 
 import {TinyLoader as Loading} from 'nti-web-commons';
 
-import ListSelection from '../utils/ListSelectionModel';
+import EntitySelectionModel from 'nti-commons/lib/EntitySelectionModel';
 
 import {getService} from 'nti-web-client';
 
@@ -86,7 +86,7 @@ export default React.createClass({
 
 		let value = props.defaultValue;
 
-		let selection = new ListSelection(value);
+		let selection = new EntitySelectionModel(value);
 
 		this.setState({value, selection});
 
