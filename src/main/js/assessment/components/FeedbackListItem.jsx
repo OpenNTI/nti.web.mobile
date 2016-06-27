@@ -1,5 +1,4 @@
 import React from 'react';
-import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import Avatar from 'common/components/Avatar';
 import {DateTime, LoadingInline} from 'nti-web-commons';
@@ -31,8 +30,8 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onDelete: emptyFunction,
-			onEdit: emptyFunction
+			onDelete: () => {},
+			onEdit: () => {}
 		};
 	},
 

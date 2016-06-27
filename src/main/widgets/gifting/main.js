@@ -7,13 +7,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import QueryString from 'query-string';
 import isTouch from 'nti-util-detection-touch';
-import CSS from 'fbjs/lib/CSSCore';
+import {addClass, removeClass} from 'nti-lib-dom';
 import 'locale';
 
 const RootNode = document.querySelector('html');
-CSS.removeClass(RootNode, 'no-js');
-CSS.addClass(RootNode, 'js');
-CSS.addClass(RootNode, isTouch ? 'touch' : 'no-touch');
+removeClass(RootNode, 'no-js');
+addClass(RootNode, 'js');
+addClass(RootNode, isTouch ? 'touch' : 'no-touch');
 
 import {overrideConfigAndForceCurrentHost, installAnonymousService} from 'nti-web-client';
 import Widget from './widget';

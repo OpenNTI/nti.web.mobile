@@ -1,5 +1,5 @@
 import React from 'react';
-import CSS from 'fbjs/lib/CSSCore';
+import {addClass, removeClass} from 'nti-lib-dom';
 
 import Session from './Session';
 import {Footer, LockScroll} from 'nti-web-commons';
@@ -106,8 +106,8 @@ export default React.createClass({
 				//get a reference to the dom node.
 				const {rightMenu: el} = this;
 				if (el) {
-					CSS.addClass(el, 'kill-transitions');
-					setTimeout(()=> CSS.removeClass(el, 'kill-transitions'), 17/*one frame*/);
+					addClass(el, 'kill-transitions');
+					setTimeout(()=> removeClass(el, 'kill-transitions'), 17/*one frame*/);
 				}
 			}, 550);
 

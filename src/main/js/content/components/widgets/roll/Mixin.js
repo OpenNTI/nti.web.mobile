@@ -1,5 +1,6 @@
-import CSS from 'fbjs/lib/CSSCore';
 import ReactTransitionEvents from 'react/lib/ReactTransitionEvents';
+
+import {addClass, removeClass} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 import {getEventTarget} from 'nti-lib-dom';
 
@@ -86,8 +87,8 @@ export default {
 
 		let transitionEnded = () => {
 			ReactTransitionEvents.removeEndEventListener(current, transitionEnded);
-			CSS.removeClass(stage, 'transitioning');
-			CSS.removeClass(stage, action);
+			removeClass(stage, 'transitioning');
+			removeClass(stage, action);
 			finish();
 			stage = null;//flag we've already run.
 		};
@@ -100,12 +101,12 @@ export default {
 
 		ReactTransitionEvents.addEndEventListener(current, transitionEnded);
 
-		CSS.addClass(stage, 'transitioning');
+		addClass(stage, 'transitioning');
 
 		setTimeout(() => {
 			this.setState({touchEnd: {}}, () => {
 				if (stage) {//we may execute out of order... so if the transitionEnded function executes first, don't add the class.
-					CSS.addClass(stage, action);
+					addClass(stage, action);
 				}
 			});
 		}, 0);

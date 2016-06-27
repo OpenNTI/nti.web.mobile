@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import Base, {TYPE_SHAPE} from './Base';
 
 import {PointerEvents} from 'nti-util-detection-touch';
-import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import {
 	isMultiTouch,
@@ -211,7 +210,7 @@ export default {
 	handleDragStart (e) {
 		let node = ReactDOM.findDOMNode(this);
 		let dragPoint = getDragPoint(e);
-		let onDragStart = this.context.onDragStart || emptyFunction;
+		let {onDragStart} = this.context;
 		let {handle, cancel} = this.props;
 		let {scrollParent} = this;
 
@@ -246,21 +245,22 @@ export default {
 			startY: parseInt(node.style.top, 10) || 0
 		});
 
-
-		onDragStart(this, e, this.getPosition());
+		if (onDragStart) {
+			onDragStart(this, e, this.getPosition());
+		}
 
 		this[addListeners]();
 	},
 
 
 	handleDragEnd (e) {
-		let onDragEnd = this.context.onDragEnd || emptyFunction;
+		const {onDragEnd} = this.context;
 
 		if (!this.state.dragging || this.props.locked || e.type === 'mouseout') {
 			return;
 		}
 
-		let dragStopResultedInDrop = !onDragEnd(this, e, this.getPosition());
+		const dragStopResultedInDrop = !onDragEnd && onDragEnd(this, e, this.getPosition());
 
 		this.setState(
 			Object.assign({
@@ -284,7 +284,7 @@ export default {
 		if (this.props.locked) { return; }
 
 		let s = this.state;
-		let onDrag = this.context.onDrag || emptyFunction;
+		let {onDrag} = this.context;
 		let dragPoint = getDragPoint(e);
 		let {lastDragPoint} = s;
 
@@ -303,7 +303,9 @@ export default {
 			y: y
 		});
 
-		onDrag(this, e, Object.assign(this.getPosition(), dragPoint));
+		if (onDrag) {
+			onDrag(this, e, Object.assign(this.getPosition(), dragPoint));
+		}
 
 		this.maybeScrollParent(dragPoint, lastDragPoint);
 	},

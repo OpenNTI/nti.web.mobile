@@ -1,5 +1,4 @@
 import React from 'react';
-import emptyFunction from 'fbjs/lib/emptyFunction';
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
 export default React.createClass({
@@ -73,7 +72,7 @@ export default React.createClass({
 
 
 		if (!context.setLineDash) {
-			context.setLineDash = emptyFunction;
+			context.setLineDash = () => {};
 		}
 
 		this.paint(context);

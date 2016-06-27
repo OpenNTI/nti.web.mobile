@@ -3,8 +3,7 @@ import 'babel-polyfill';//applies hooks into global
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import CSS from 'fbjs/lib/CSSCore';
-
+import {addClass, removeClass} from 'nti-lib-dom';
 import isTouch from 'nti-util-detection-touch';
 import OrientationHandler from 'common/utils/orientation';
 import {ensureTopFrame} from 'common/utils/iframe-buster';
@@ -17,9 +16,9 @@ import '../resources/scss/app.scss';
 
 
 const RootNode = document.querySelector('html');
-CSS.removeClass(RootNode, 'no-js');
-CSS.addClass(RootNode, 'js');
-CSS.addClass(RootNode, isTouch ? 'touch' : 'no-touch');
+removeClass(RootNode, 'no-js');
+addClass(RootNode, 'js');
+addClass(RootNode, isTouch ? 'touch' : 'no-touch');
 
 //After bundle CSS is injected, lets move this back down so it overrides the bundle.
 // This is the Browser's entry point, we can assume the existence of "document".

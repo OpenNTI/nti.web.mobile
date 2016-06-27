@@ -1,5 +1,4 @@
 import React from 'react';
-import emptyFunction from 'fbjs/lib/emptyFunction';
 import cx from 'classnames';
 
 import {processContent} from 'nti-lib-content-processing';
@@ -88,7 +87,7 @@ export default React.createClass({
 
 		let props = Object.assign({}, this.props, {className, ref: 'el', content: undefined});
 
-		let dynamicRender = emptyFunction;
+		let dynamicRender = () => {};
 		if (isFunction(this.state.content)) {
 			dynamicRender = this.state.content;
 		} else {

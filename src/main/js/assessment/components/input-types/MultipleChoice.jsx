@@ -3,11 +3,9 @@ import Mixin, {stopEvent} from './Mixin';
 
 import {getEventTarget} from 'nti-lib-dom';
 
-import emptyFunction from 'fbjs/lib/emptyFunction';
-
 import {rawContent} from 'nti-commons/lib/jsx';
 
-const isTruthy = emptyFunction.thatReturnsArgument;
+const isTruthy = x => x;
 
 const valueIfChecked = (i)=> i.checked && i.value;
 

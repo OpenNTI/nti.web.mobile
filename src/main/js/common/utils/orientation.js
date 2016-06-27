@@ -1,4 +1,4 @@
-import CSS from 'fbjs/lib/CSSCore';
+import {addClass, removeClass} from 'nti-lib-dom';
 
 function handler (component) {
 	let {body} = document;
@@ -8,9 +8,9 @@ function handler (component) {
 		state = 'landscape';
 	}
 
-	CSS.removeClass(body, 'portrait');
-	CSS.removeClass(body, 'landscape');
-	CSS.addClass(body, state);
+	removeClass(body, 'portrait');
+	removeClass(body, 'landscape');
+	addClass(body, state);
 
 	//console.debug('Window is now: %s', state);
 	if (component && component.isMounted()) {

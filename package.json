@@ -47,7 +47,6 @@
     "eslint-config-nti-codestyle-jsx": "^1.0.0",
     "exports-loader": "^0.6.2",
     "extract-text-webpack-plugin": "^1.0.0",
-    "fbjs": "^0.7.1",
     "file-loader": "^0.8.1",
     "fixedqueue": "0.0.1",
     "format-price": "0.0.2",

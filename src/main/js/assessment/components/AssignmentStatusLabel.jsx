@@ -1,14 +1,9 @@
 import React from 'react';
-import emptyFunction from 'fbjs/lib/emptyFunction';
-
 import cx from 'classnames';
 
 import {getModel} from 'nti-lib-interfaces';
-
 import {DateTime} from 'nti-web-commons';
-
 import {scoped} from 'nti-lib-locale';
-
 import {getEventTarget} from 'nti-lib-dom';
 
 import moment from 'moment';
@@ -341,7 +336,7 @@ export default React.createClass({
 		}
 
 
-		dur = (this.getDifferenceBetween[over] || emptyFunction)();
+		dur = this.getDifferenceBetween[over] ? this.getDifferenceBetween[over]() : void 0;
 
 		return (
 			<div className="assignment status-label-tip" onClick={this.onCloseDetail}>

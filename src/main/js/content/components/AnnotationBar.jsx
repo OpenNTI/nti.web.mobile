@@ -1,7 +1,7 @@
 import React from 'react';
-import CSS from 'fbjs/lib/CSSCore';
 import cx from 'classnames';
 
+import {addClass} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 import {encodeForURI} from 'nti-lib-ntiids';
 
@@ -85,7 +85,7 @@ export default React.createClass({
 		//we want the exit-animation to be different for this action
 		// than the normal one, so we need an extra class.
 		const {el: dom} = this;
-		CSS.addClass(dom.parentNode, 'swapping-modal');
+		addClass(dom.parentNode, 'swapping-modal');
 
 		this.setState({busy: 'note'});
 		this.props.onNewDiscussion(range);

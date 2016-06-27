@@ -1,5 +1,5 @@
 import React from 'react';
-import emptyFunction from 'fbjs/lib/emptyFunction';
+
 import {Draggable} from 'common/dnd';
 
 import Content from './Content';
@@ -23,7 +23,7 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onReset: emptyFunction,
+			onReset: () => {},
 			className: ''
 		};
 	},

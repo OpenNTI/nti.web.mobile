@@ -1,5 +1,4 @@
 import React from 'react';
-import emptyFunction from 'fbjs/lib/emptyFunction';
 
 import InputType, {stopEvent} from './Mixin';
 
@@ -41,7 +40,7 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onDrop: emptyFunction
+			onDrop: () => {}
 		};
 	},
 

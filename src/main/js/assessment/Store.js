@@ -1,4 +1,3 @@
-import emptyFunction from 'fbjs/lib/emptyFunction';
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 
@@ -217,7 +216,7 @@ class Store extends StorePrototype {
 			this.emitChange({type: BUSY_SAVEPOINT});
 
 			saveProgress(part)//eslint-disable-line no-use-before-define
-				.catch(emptyFunction)//handle errors
+				.catch(() => {})//handle errors
 				.then(() => {
 					this.markBusy(part, false);
 					this.emitChange({type: BUSY_SAVEPOINT});

@@ -1,17 +1,17 @@
 import React from 'react';
-import CSS from 'fbjs/lib/CSSCore';
 
+import {addClass, removeClass} from 'nti-lib-dom';
 const getViewport = ()=> document.getElementsByTagName('html')[0];
 
 export default React.createClass({
 	displayName: 'Menu',
 
 	componentDidMount () {
-		CSS.addClass(getViewport(), 'scroll-lock');
+		addClass(getViewport(), 'scroll-lock');
 	},
 
 	componentWillUnmount () {
-		CSS.removeClass(getViewport(), 'scroll-lock');
+		removeClass(getViewport(), 'scroll-lock');
 	},
 
 	render () {

@@ -1,6 +1,6 @@
 import React from 'react';
-import CSS from 'fbjs/lib/CSSCore';
 
+import {addClass, removeClass} from 'nti-lib-dom';
 import {DarkMode} from 'nti-web-commons';
 
 import Editor from './discussions/NoteEditor';
@@ -34,7 +34,7 @@ export default React.createClass({
 	onCancel () {
 		const {props: {onCancel}, el: {parentNode}} = this;
 
-		CSS.removeClass(parentNode, 'saving');
+		removeClass(parentNode, 'saving');
 
 		onCancel();
 	},
@@ -42,7 +42,7 @@ export default React.createClass({
 
 	onSubmit () {
 		const {el: {parentNode}} = this;
-		CSS.addClass(parentNode, 'saving');
+		addClass(parentNode, 'saving');
 	},
 
 
