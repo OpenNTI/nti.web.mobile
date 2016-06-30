@@ -52,7 +52,7 @@ a.right-off-canvas-toggle {
 	}
 }
 
-.dark {
+.darkmode {
 	.nav-bar {
 		background: #525252;
 	}
@@ -167,7 +167,7 @@ nav.nav-bar {
 		border-radius: 0 0 1px 1px;//iOS hack to show box-shadow
 		box-shadow: 0 0 1px 0px #222;
 
-		.dark & {
+		.darkmode & {
 			background: #525252;
 		}
 	}
@@ -177,7 +177,7 @@ nav.nav-bar {
 
 		&::before {
 			@extend %chevron-left;
-			.dark & {
+			.darkmode & {
 				@extend %chevron-left-white;
 			}
 		}
