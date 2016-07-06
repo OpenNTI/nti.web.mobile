@@ -1,5 +1,5 @@
 import AppDispatcher from 'nti-lib-dispatcher';
-import {EventEmitter} from 'events';
+import EventEmitter from 'events';
 
 import * as Constants from './Constants';
 import * as Api from './Api';

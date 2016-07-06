@@ -1,5 +1,5 @@
 import React from 'react';
-import {EventEmitter} from 'events';
+import EventEmitter from 'events';
 
 function emit (o, event, ...data) {
 	let e = o.state.dndEventEmitter;

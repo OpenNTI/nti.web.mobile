@@ -2,7 +2,7 @@ import Logger from 'nti-util-logger';
 
 import AppDispatcher from 'nti-lib-dispatcher';
 import {CHANGE_EVENT} from 'nti-lib-store';
-import {EventEmitter} from 'events';
+import EventEmitter from 'events';
 
 import {getServer} from 'nti-web-client';
 
