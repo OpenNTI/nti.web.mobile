@@ -111,6 +111,7 @@ class Store extends StorePrototype {
 		if (isError) {
 			this.setError(assessment, response.message || 'An error occurred.');
 			this.markBusy(assessment, false);
+			this.emitChange({type: SUBMIT_END});
 			return;
 		}
 
