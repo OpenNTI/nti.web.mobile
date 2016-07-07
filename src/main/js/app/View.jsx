@@ -21,21 +21,21 @@ const SET_CONTEXT = 'navigation:setContext';
 
 export const revision = typeof BUILD_SOURCE === 'undefined' ? 'nah' : BUILD_SOURCE;
 
-export default React.createClass({
-	displayName: 'App',
 
-	propTypes: {
+export default class App extends React.Component {
+
+	static propTypes = {
 		path: PropTypes.string,
 		basePath: PropTypes.string.isRequired
-	},
+	}
 
-	childContextTypes: {
+	static childContextTypes = {
 		basePath: PropTypes.string,
 		defaultEnvironment: PropTypes.object,
 		routerLinkComponent: PropTypes.func,
 		[SET_PAGESOURCE]: PropTypes.func,
 		[SET_CONTEXT]: PropTypes.func
-	},
+	}
 
 	getChildContext () {
 		return {
@@ -45,43 +45,42 @@ export default React.createClass({
 			[SET_PAGESOURCE]: NavigationActions.setPageSource,
 			[SET_CONTEXT]: NavigationActions.setContext
 		};
-	},
+	}
 
 
-	getInitialState () {
-		return {};
-	},
+	state = {}
 
 
 	componentDidMount () {
 		addLocaleChangeListener(this.onStringsChange);
-	},
+	}
 
 
 	componentWillUnmount () {
 		removeLocaleChangeListener(this.onStringsChange);
-	},
+	}
 
 
-	onBeforeNavigation () {
+	attachRef = x => this.frame = x
+
+
+
+	onBeforeNavigation = () => {
 		let {frame} = this;
 		if (frame && frame.onCloseMenus) {
 			frame.onCloseMenus();
 		}
-	},
+	}
 
 
-	onStringsChange () {
-		this.forceUpdate();
-	},
+	onStringsChange = () => this.forceUpdate()
 
 
 	render () {
-		let {mask} = this.state;
-		let {path} = this.props;
-		let isGated = /\/(login|onboarding)/i.test(path || location.href);
+		const {state: {mask}, props: {path}} = this;
+		const isGated = /\/(login|onboarding)/i.test(path || location.href);
 
-		let Wrapper = isGated ? 'div' : AppContainer;
+		const Wrapper = isGated ? 'div' : AppContainer;
 
 		if (mask) {
 			return <Loading message={typeof mask === 'string' ? mask : void 0}/>;
@@ -90,10 +89,10 @@ export default React.createClass({
 
 		return (
 			<CaptureClicks>
-				<Wrapper ref={x => this.frame = x}>
+				<Wrapper ref={this.attachRef}>
 					<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
 				</Wrapper>
 			</CaptureClicks>
 		);
 	}
-});
+}
