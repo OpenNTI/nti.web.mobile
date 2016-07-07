@@ -42,10 +42,14 @@ export default React.createClass({
 
 	render () {
 
-		const {columns, items, sort, sortOrder} = this.props;
+		const {columns, items, sort, sortOrder, ...otherProps} = this.props;
+
+		delete otherProps.onSortChange;
+		delete otherProps.assignment;
+		delete otherProps.assignmentId;
 
 		return (
-			<div className="gradebook" {...this.props}>
+			<div className="gradebook" {...otherProps}>
 				<div className="gradebook-row headings">
 					{
 						columns.map(Col => {
