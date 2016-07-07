@@ -4,10 +4,15 @@ export default React.createClass({
 	displayName: 'ColumnHeading',
 
 	propTypes: {
-		column: React.PropTypes.shape({
-			sort: React.PropTypes.string.isRequired,
-			label: React.PropTypes.func.isRequired
-		}).isRequired,
+		column: (o, k) => {
+			try {
+				if (typeof o[k].label !== 'function') {
+					throw new Error('not a function');
+				}
+			} catch (e) {
+				return new Error(`${k} is required, and needs to be something that has a label() method.`);
+			}
+		},
 		onClick: React.PropTypes.func,
 		className: React.PropTypes.any
 	},
