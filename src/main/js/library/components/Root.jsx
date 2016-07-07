@@ -7,11 +7,13 @@ import Courses from './containers/Courses';
 import Books from './containers/Books';
 import Features from './containers/Features';
 
+import Branding from './Branding';
+
 export default function Root () {
 	return (
 		<div>
 			<NavigationBar>
-				<section position="left" className="branding">Logo</section>
+				<Branding position="left"/>
 			</NavigationBar>
 
 			<Features/>

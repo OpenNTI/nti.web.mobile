@@ -111,8 +111,8 @@ export default React.createClass({
 										autoCorrect="off"
 										autoCapitalize="off"
 										tabIndex="1"
-										ariaLabel="Username"
-										auto=""
+										aria-label="Username"
+										autoComplete=""
 										defaultValue={username}
 										onChange={this.updateUsername}/>
 								</div>
@@ -123,7 +123,7 @@ export default React.createClass({
 										autoComplete="off"
 										placeholder="Password"
 										tabIndex="2"
-										ariaLabel="Password"
+										aria-label="Password"
 										defaultValue={password}
 										onChange={this.updatePassword}/>
 								</div>

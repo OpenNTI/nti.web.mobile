@@ -76,8 +76,8 @@ export default React.createClass({
 			//Lessons
 			items.push({
 				title: 'Lessons',
-				href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS),
-				hasChildren: true
+				href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS)
+				// hasChildren: true
 			});
 
 			// Assignments
@@ -90,8 +90,8 @@ export default React.createClass({
 			//Discussions
 			items.push({
 				title: 'Discussions',
-				href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS),
-				hasChildren: true
+				href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS)
+				// hasChildren: true
 			});
 
 			// items.push({

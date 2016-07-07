@@ -12,11 +12,11 @@ export default React.createClass({
 	},
 
 	render () {
-		let {courseId, section} = this.props;
+		let {courseId, section, ...otherProps} = this.props;
 		let href = this.courseHref(courseId, section);
 
 		return (
-			<a {...this.props} href={href}>{this.props.children}</a>
+			<a {...otherProps} href={href}>{this.props.children}</a>
 		);
 	}
 

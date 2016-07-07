@@ -14,13 +14,13 @@ export default React.createClass({
 	},
 
 	render () {
-		let {entity} = this.props;
+		let {entity, ...props} = this.props;
 
 		if (typeof entity === 'object') {
 			entity = entity.getID();
 		}
 
-		let props = Object.assign({}, this.props, {
+		props = Object.assign(props, {
 			onClick: this.navigateToProfile.bind(this, entity)
 		});
 

@@ -61,7 +61,6 @@ export default React.createClass({
 
 	getDefaultProps () {
 		return {
-			onResolve: () => {},
 			suppressProfileLink: false
 		};
 	},
@@ -114,20 +113,24 @@ export default React.createClass({
 
 	render () {
 		let {
-			props: {className, entity, localeKey, tag, useGeneralName},
+			props: {className, entity, localeKey, tag, useGeneralName,...otherProps},
 			state: {displayName, generalName}
 		} = this;
 
 		let Tag = tag || (localeKey ? 'address' : 'span');
 		let name = (useGeneralName && generalName) || displayName;
 
-		let props = Object.assign({}, this.props, {
+		let props = Object.assign({}, otherProps, {
 			className: cx('username', className),
 			children: name,
 			'data-for': getDebugUsernameString(entity),
-			tag: void 0,
 			onClick: this.props.suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
 		});
+
+		delete props.username;
+		delete props.user;
+		delete props.suppressProfileLink;
+		delete props.usePronoun;
 
 
 		if (localeKey) {

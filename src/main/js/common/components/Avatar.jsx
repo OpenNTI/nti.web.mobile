@@ -134,10 +134,15 @@ export default React.createClass({
 			onClick: this.props.suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
 		});
 
+		delete props.entity;
+		delete props.username;
+		delete props.user;
+		delete props.suppressProfileLink;
+
 		return avatarURL ? (
 				<img {...props} src={avatarURL} onError={this.setUnknown}/>
 			) : initials ? (
-				<svg xmlns="http://www.w3.org/2000/svg" {...props} viewBox="0 0 32 32">
+				<svg {...props} viewBox="0 0 32 32">
 					<text textAnchor="middle" x="16px" y="21px">{initials}</text>
 				</svg>
 			) : (
