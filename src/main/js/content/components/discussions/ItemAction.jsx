@@ -11,7 +11,7 @@ const ICON_MAP = {
 	'flag.metoo': 'flag'
 };
 
-const getIconClass = x => (x = ICON_MAP[x] || x, `icon-${x}`);
+const getIconClass = x => (x = ICON_MAP[x] || x, `icon-${x} small`);
 
 export default React.createClass({
 	displayName: 'Action',
