@@ -1,7 +1,9 @@
 /*globals BUILD_SOURCE*/
 import React, {PropTypes} from 'react';
 import {environment, CaptureClicks, Link} from 'react-router-component';
+import URL from 'url';
 
+import Logger from 'nti-util-logger';
 import {
 	addChangeListener as addLocaleChangeListener,
 	removeChangeListener as removeLocaleChangeListener
@@ -21,6 +23,7 @@ const SET_CONTEXT = 'navigation:setContext';
 
 export const revision = typeof BUILD_SOURCE === 'undefined' ? 'nah' : BUILD_SOURCE;
 
+const logger = Logger.get('root:app:View');
 
 export default class App extends React.Component {
 
@@ -64,6 +67,15 @@ export default class App extends React.Component {
 	attachRef = x => this.frame = x
 
 
+	gotoURL = (url) => {
+		const {basePath} = this.props;
+		const app = URL.resolve((global.location || {}).href || '', basePath);
+
+		if (!(url || '').startsWith(app)) {
+			logger.warn('blocked: Router wants to set location to url: %s', url);
+		}
+	}
+
 
 	onBeforeNavigation = () => {
 		let {frame} = this;
@@ -88,7 +100,7 @@ export default class App extends React.Component {
 
 
 		return (
-			<CaptureClicks>
+			<CaptureClicks gotoURL={this.gotoURL}>
 				<Wrapper ref={this.attachRef}>
 					<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
 				</Wrapper>
