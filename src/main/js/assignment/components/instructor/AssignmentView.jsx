@@ -13,7 +13,7 @@ import GradebookTable from './gradebook-table/GradebookTable';
 export default React.createClass({
 	displayName: 'instructor:AssignmentView',
 
-	mixins: [Accessor, ContextSender, Mixins.Navigatable, ShowAvatars],
+	mixins: [Accessor, ContextSender, Mixins.NavigatableMixin, ShowAvatars],
 
 	propTypes: {
 		rootId: React.PropTypes.string.isRequired
