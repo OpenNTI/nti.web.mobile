@@ -138,7 +138,7 @@ export default {
 
 	maybeScrollToFragment () {
 		let {content} = this;
-		if (!content || !content.isMounted()) {
+		if (!content || !ReactDOM.findDOMNode(content)) {
 			return;
 		}
 

@@ -19,53 +19,46 @@ declareCustomElement('widget');
 
 const logger = Logger.get('content:viewer:body');
 
-export default React.createClass({
-	displayName: 'content:Viewer:BodyContent',
+export default class Content extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		page: React.PropTypes.object.isRequired,
 		pageId: React.PropTypes.string.isRequired,
 		onContentReady: React.PropTypes.func,
 		onUserSelectionChange: React.PropTypes.func
-	},
+	}
 
 
-	getDefaultProps () {
-		return {
-			onContentReady: () => {},
-			onUserSelectionChange: hasSelection => logger.debug('Touch ended, has selection?', hasSelection)
-		};
-	},
+	static defaultProps = {
+		onContentReady: () => {},
+		onUserSelectionChange: hasSelection => logger.debug('Touch ended, has selection?', hasSelection)
+	}
 
 
-	getInitialState () {
-		return {
-			pageWidgets: {}
-		};
-	},
+	state = { pageWidgets: {} }
 
 
 	componentDidMount () {
 		this.onContentMaybeReady();
-	},
+	}
 
 
 	componentWillUnmount () {
 		this.cleanupWidgets();
-	},
+	}
 
 
 	componentDidUpdate (prevProps) {
 		let shouldUpdate = getComparable(prevProps) !== getComparable(this.props);
 		this.onContentMaybeReady(shouldUpdate);
-	},
+	}
 
 
 	componentWillReceiveProps (nextProps) {
 		if (getComparable(nextProps) !== getComparable(this.props)) {
 			this.cleanupWidgets();
 		}
-	},
+	}
 
 
 	onContentMaybeReady (shouldUpdate) {
@@ -102,7 +95,7 @@ export default React.createClass({
 			this.updatePrestine();
 			this.props.onContentReady();
 		}
-	},
+	}
 
 
 	cleanupWidgets () {
@@ -124,7 +117,7 @@ export default React.createClass({
 				logger.warn('Widget not found: %s', id);
 			}
 		}
-	},
+	}
 
 
 	createWidget (widgetData) {
@@ -136,7 +129,7 @@ export default React.createClass({
 				this.props.page,
 				Object.assign({}, this.props, {id: void 0}));
 		}
-	},
+	}
 
 
 	getPageWidgets () {
@@ -149,17 +142,13 @@ export default React.createClass({
 		}
 
 		return pageWidgets[pageId];
-	},
+	}
 
 
-	getCurrent () {
-		return this.content;
-	},
+	getCurrent = () => this.content
 
 
-	getPristine () {
-		return this.state.prestine;
-	},
+	getPristine = () => this.state.prestine
 
 
 	updatePrestine () {
@@ -168,10 +157,10 @@ export default React.createClass({
 		this.updatingPrestine = true;
 		this.setState({prestine}, () => delete this.updatingPrestine);
 		// logger.debug('Updated Prestine', prestine);
-	},
+	}
 
 
-	buildBody (part) {
+	buildBody = (part) => {
 
 		if (typeof part === 'string') {
 			return part;
@@ -181,16 +170,14 @@ export default React.createClass({
 
 		return `<widget id="${part.guid}"><error><span>Missing Component</span></error></widget>`;
 		// return `<widget id="${part.guid}"><error>If this is still visible, something went wrong.</error></widget>`;
-	},
+	}
 
 
-	attachContentRef (ref) {
-		this.content = ref;
-	},
+	attachContentRef = (ref) => this.content = ref
 
 
 	render () {
-		const {pageId, page} = this.props;
+		const {pageId, page, ...otherProps} = this.props;
 		const body = page.getBodyParts();
 		const styles = (page && page.getPageStyles()) || [];
 
@@ -198,12 +185,16 @@ export default React.createClass({
 			[isTouchDevice ? 'onTouchEnd' : 'onMouseUp']: this.detectSelection
 		};
 
-		const props = Object.assign({}, this.props, {
+		const props = Object.assign({}, otherProps, {
 			ref: this.attachContentRef,
 			className: 'nti-content-panel',
 			'data-ntiid': pageId,
 			'data-page-ntiid': pageId
 		});
+
+		for (let key of Object.keys(Content.propTypes)) {
+			delete props[key];
+		}
 
 		const content = body.map(this.buildBody).join('');
 
@@ -224,9 +215,9 @@ export default React.createClass({
 				}
 			</div>
 		);
-	},
+	}
 
-	detectSelection (e) {
+	detectSelection = (e) => {
 		let capture = {
 			srcElement: e.srcElement,
 			target: e.target
@@ -244,4 +235,4 @@ export default React.createClass({
 		this.props.onUserSelectionChange(capture, range);
 
 	}
-});
+}
