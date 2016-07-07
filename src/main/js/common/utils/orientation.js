@@ -13,7 +13,7 @@ function handler (component) {
 	addClass(body, state);
 
 	//console.debug('Window is now: %s', state);
-	if (component && component.isMounted()) {
+	if (component) {
 		component.setState({orientation: state});
 	}
 }
