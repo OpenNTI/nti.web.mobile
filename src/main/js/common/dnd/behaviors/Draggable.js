@@ -260,7 +260,7 @@ export default {
 			return;
 		}
 
-		const dragStopResultedInDrop = !onDragEnd && onDragEnd(this, e, this.getPosition());
+		const dragStopResultedInDrop = onDragEnd && onDragEnd(this, e, this.getPosition());
 
 		this.setState(
 			Object.assign({
