@@ -33,6 +33,7 @@ export default class App extends React.Component {
 	}
 
 	static childContextTypes = {
+		isMobile: PropTypes.bool,
 		basePath: PropTypes.string,
 		defaultEnvironment: PropTypes.object,
 		routerLinkComponent: PropTypes.func,
@@ -42,6 +43,7 @@ export default class App extends React.Component {
 
 	getChildContext () {
 		return {
+			isMobile: true,
 			basePath: this.props.basePath,
 			routerLinkComponent: Link,
 			defaultEnvironment: environment.defaultEnvironment,
