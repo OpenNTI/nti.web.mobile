@@ -27,7 +27,8 @@ export default React.createClass({
 	},
 
 	render () {
-		return React.createElement(Router.Locations, {contextual: true, ...this.props},
+
+		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route =>
 				route.path
 					? React.createElement(Router.Location, route)
