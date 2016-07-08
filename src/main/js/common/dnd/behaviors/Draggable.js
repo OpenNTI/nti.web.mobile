@@ -227,7 +227,7 @@ export default {
 		if (e.stopPropagation) {
 			e.stopPropagation();
 		}
-		e.returnValue = false;
+		// e.returnValue = false;
 
 		if (isMultiTouch(e)) {
 			this.handleDragEnd(e);
