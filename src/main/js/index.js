@@ -9,6 +9,14 @@ import OrientationHandler from 'common/utils/orientation';
 import {ensureTopFrame} from 'common/utils/iframe-buster';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfigFor} from 'nti-web-client';
 
+/**
+ * Login Store State Change listener.
+ * This is only responsible for reloading the APP on the home url once logged in.
+ * The node service is responsible for enforcing auth-required pages.
+ */
+import {LOGIN_STATE_CHANGED} from 'login/Constants';
+import LoginStore from 'login/Store';
+
 import AppView from './app/View';
 //webpack magic
 import '../resources/scss/app.scss';
@@ -30,46 +38,41 @@ console.debug('Client is using host: %s', getServerURI()); //eslint-disable-line
 const basePath = (x => (x = getConfigFor(x), typeof x === 'string' ? x : '/'))('basepath');
 
 
-const APP = ReactDOM.render(
+ReactDOM.render(
 	React.createElement(AppView, {
 		basePath,
+		ref: onAppMount,
 		canRunStandalone: ('standalone' in navigator),
 		isRunningStandalone: ('standalone' in navigator) && navigator.standalone
 	}),
 	document.getElementById('content')
 );
 
-OrientationHandler.init(APP);
-global.onbeforeunload = () => APP.setState({mask: 'Reloading...'});
+function onAppMount (APP) {
 
+	OrientationHandler.init(APP);
+	global.onbeforeunload = () => APP.setState({mask: 'Reloading...'});
 
+	LoginStore.addChangeListener(evt => {
+		const RETURN_URL = getReturnURL();
 
-/**
- * Login Store State Change listener.
- * This is only responsible for reloading the APP on the home url once logged in.
- * The node service is responsible for enforcing auth-required pages.
- */
-import {LOGIN_STATE_CHANGED} from 'login/Constants';
-import LoginStore from 'login/Store';
+		if (evt && evt.type === LOGIN_STATE_CHANGED) {
+			if (LoginStore.isLoggedIn) {
+				//APP.navigate(RETURN_URL || basePath, {replace:true});
+				location.replace(RETURN_URL || basePath);
+			}
 
-LoginStore.addChangeListener(evt => {
-	const RETURN_URL = getReturnURL();
-
-	if (evt && evt.type === LOGIN_STATE_CHANGED) {
-		if (LoginStore.isLoggedIn) {
-			//APP.navigate(RETURN_URL || basePath, {replace:true});
-			location.replace(RETURN_URL || basePath);
+			//Future idea: if we ever broadcast a login state changed event and
+			//the store reports not logged in (which it always will unless you
+			//go through the login process for now) we can client-side redirect
+			//to the login view.
+			//
+			//I currently have a better idea for this, so this block will
+			//probably just go unused.
+			else {
+				APP.navigate(basePath + 'login/', {replace: true});
+			}
 		}
+	});
 
-		//Future idea: if we ever broadcast a login state changed event and
-		//the store reports not logged in (which it always will unless you
-		//go through the login process for now) we can client-side redirect
-		//to the login view.
-		//
-		//I currently have a better idea for this, so this block will
-		//probably just go unused.
-		else {
-			APP.navigate(basePath + 'login/', {replace: true});
-		}
-	}
-});
+}
