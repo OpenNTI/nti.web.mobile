@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import cx from 'classnames';
 
 import ensureArray from 'nti-commons/lib/ensure-array';
 
@@ -84,24 +85,22 @@ export default {
 	},
 
 
-	renderDropTargetWrapper (children) {
-		return React.createElement(this.props.tag || 'div', Object.assign({}, this.props, {
-			children: children,
-			className: this[getWrapperElementClassName]()
+	renderDropTargetWrapper () {
+		const {tag, children, className, ...otherProps} = this.props;
+		delete otherProps.accepts;
+		return React.createElement(tag || 'div', Object.assign(otherProps, {
+			children,
+			className: cx(className, this[getWrapperElementClassName]())
 		}));
 	},
 
 
 	[getWrapperElementClassName] () {
-		let classes = ['dnd-drop-target'];
-		let push = classes.push.bind(classes);
-
-		if (this.isActive()) { push('active'); }
-		if (this.isDisabled()) { push('disabled'); }
-		if (this.state.over) { push('over'); }
-		if (this.props.className) { push(this.props.className); }
-
-		return classes.join(' ');
+		return cx('dnd-drop-target', {
+			active: this.isActive(),
+			disabled: this.isDisabled(),
+			over: this.state.over
+		});
 	},
 
 

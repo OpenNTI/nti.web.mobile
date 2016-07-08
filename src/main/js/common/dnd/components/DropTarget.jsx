@@ -6,11 +6,7 @@ export default React.createClass({
 	displayName: 'DropTarget',
 	mixins: [DropBehavior],
 
-	propTypes: {
-		children: React.PropTypes.any
-	},
-
 	render () {
-		return this.renderDropTargetWrapper(this.props.children);
+		return this.renderDropTargetWrapper();
 	}
 });
