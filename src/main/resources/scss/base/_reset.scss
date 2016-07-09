@@ -10,7 +10,6 @@ html { text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
 address {font-style: normal;}
 
 body {
-	user-select: none;
 	height: auto;
 	min-height: 100%;
 	overflow-x: hidden;
@@ -23,10 +22,6 @@ html, body {
 
 img {
 	-webkit-touch-callout: none;
-}
-
-[contenteditable] {
-	user-select: text !important;
 }
 
 time[datetime~=Invalid] {
