@@ -4,6 +4,8 @@ import Accessor from '../../../mixins/AssignmentCollectionAccessor';
 
 import GradeBox from '../GradeBox';
 
+import LetterGrade from './LetterGrade';
+
 export default React.createClass({
 	displayName: 'GradebookColumnGrade',
 	mixins: [Accessor],
@@ -32,7 +34,10 @@ export default React.createClass({
 		return (
 			<div className="grade">
 				{hasFinalGrade && finalGradeId && (
-					<GradeBox assignmentId={finalGradeId} grade={grade} userId={userId}/>
+					<div className="grade-parts">
+						<GradeBox assignmentId={finalGradeId} grade={grade} userId={userId}/>
+						<LetterGrade assignmentId={finalGradeId} grade={grade} userId={userId} />
+					</div>
 				)}
 			</div>
 		);

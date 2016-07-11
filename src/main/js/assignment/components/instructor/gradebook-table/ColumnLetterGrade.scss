@@ -1,0 +1,7 @@
+.letter-grade {
+	opacity: 1;
+	transition: opacity .3s ease;
+	&.busy {
+		opacity: .4;
+	}
+}
