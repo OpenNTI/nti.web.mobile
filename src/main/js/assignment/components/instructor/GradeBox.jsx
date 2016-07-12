@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
+import Grade from 'nti-lib-interfaces/lib/models/courses/Grade';
 import {PropType as NTIID} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
@@ -16,10 +17,9 @@ export default React.createClass({
 
 	propTypes: {
 		grade: React.PropTypes.object,
-
 		userId: React.PropTypes.string.isRequired,
-
-		assignmentId: NTIID.isRequired
+		assignmentId: NTIID.isRequired,
+		showLetter: React.PropTypes.bool
 	},
 
 
@@ -31,10 +31,6 @@ export default React.createClass({
 	componentWillReceiveProps (nextProps) {
 		const {grade: newGrade} = nextProps;
 		const {grade: oldGrade} = this.props;
-
-		if (!oldGrade && newGrade) {
-			logger.debug('Got new Grade!', nextProps.grade.value);
-		}
 
 		if (oldGrade !== newGrade) {
 			this.onItemChanged(nextProps);
@@ -84,23 +80,25 @@ export default React.createClass({
 		this.timerGradeChanging = setTimeout(()=> this.maybeSetGrade(value), 1000);
 	},
 
-
-	onKeyDown (e) {
-		logger.debug(e.key);
+	onLetterChange (e) {
+		const {value} = this.state;
+		const letter = e.target.value;
+		this.maybeSetGrade(value, letter);
 	},
 
 
-	maybeSetGrade (newValue) {
+	maybeSetGrade (newValue, newLetter) {
 		const {assignmentId, userId, grade} = this.props;
 		const collection = this.getAssignments();
 		const currentValue = grade && grade.value;
+		const currentLetter = grade && grade.letter;
 
-		if (currentValue === newValue || (!currentValue && !newValue)) {
+		if (currentValue === newValue && (!newLetter || currentLetter === newLetter) || (!currentValue && !newValue)) {
 			return;
 		}
 
 		this.setState({busy: true});
-		collection.setGrade(grade || assignmentId, userId, newValue)
+		collection.setGrade(grade || assignmentId, userId, newValue, newLetter)
 			.then(
 				( ) => logger.debug('Success'),
 				(e) => logger.error( e ? (e.stack || e.message || e) : 'Error')
@@ -110,15 +108,22 @@ export default React.createClass({
 
 
 	render () {
+		const {grade, showLetter} = this.props;
 		const {busy, value} = this.state;
 		return (
-			<input className={cx('grade-box', {busy})}
-				value={value}
-				onBlur={this.onBlur}
-				onChange={this.onChange}
-				onFocus={this.onFocus}
-				onKeyDown={this.onKeyDown}
-				/>
+			<div className={cx('grade-box', {busy})}>
+				<input
+					value={value}
+					onBlur={this.onBlur}
+					onChange={this.onChange}
+					onFocus={this.onFocus}
+					/>
+				{showLetter &&
+					(<select defaultValue={(grade && grade.letter) || ''} onChange={this.onLetterChange}>
+						{Grade.getPossibleGradeLetters().map(letter => <option key={letter} value={letter}>{letter}</option>)}
+					</select>)
+				}
+			</div>
 		);
 	}
 });

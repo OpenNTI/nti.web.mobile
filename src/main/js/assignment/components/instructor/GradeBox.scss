@@ -1,4 +1,8 @@
 .grade-box {
+	display: flex;
+	& > * {
+		flex: 1 1 50px;
+	}
 	opacity: 1;
 	transition: opactity 0.3s;
 	&.busy {
