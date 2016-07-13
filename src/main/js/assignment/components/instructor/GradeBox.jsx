@@ -93,7 +93,7 @@ export default React.createClass({
 		const currentValue = grade && grade.value;
 		const currentLetter = grade && grade.letter;
 
-		if (currentValue === newValue && (!newLetter || currentLetter === newLetter) || (!currentValue && !newValue)) {
+		if (currentValue === newValue && (!newLetter || currentLetter === newLetter)) {
 			return;
 		}
 
