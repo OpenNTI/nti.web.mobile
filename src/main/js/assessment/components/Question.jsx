@@ -88,7 +88,7 @@ export default React.createClass({
 		let admin = Store.isAdministrative(question);
 		let a = Store.getAssessedQuestion(question, question.getID());
 		let parts = question.parts;
-		let title = number || '';
+		let title = '';
 
 		//correct, incorrect, blank
 		let status = (Store.isSubmitted(question) && a) ?
@@ -111,6 +111,7 @@ export default React.createClass({
 					{title}
 					<span className="status">{status}</span>
 				</h3>
+				{number && <span className="question-number">{number}.</span>}
 				<Content className="question-content" content={question.content}/>
 				{question.wordbank && (
 					<WordBank record={question.wordbank} disabled={admin}/>

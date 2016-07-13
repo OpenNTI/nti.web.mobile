@@ -35,6 +35,12 @@
 		opacity: 0.4;
 	}
 
+	.question-number {
+		display: inline-block;
+		float: left;
+		margin: 1rem .4em 0;
+	}
+
 	.question-content:not(:empty) {
 		margin: 1rem 0;
 	}
