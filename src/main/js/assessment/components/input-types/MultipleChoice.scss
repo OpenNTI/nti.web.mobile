@@ -73,6 +73,14 @@
 			overflow: hidden;
 			display: block;
 			padding-right: 0.5rem;
+			p {
+				font-size: inherit;
+				line-height: inherit;
+				margin-bottom: 1.25em;
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
 		}
 	}
 

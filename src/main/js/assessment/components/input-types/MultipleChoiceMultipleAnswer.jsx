@@ -73,7 +73,7 @@ export default React.createClass({
 				<input type="checkbox" checked={checked} value={index} onChange={this.handleInteraction}/>
 				<div>
 					<span className="numeral">{numeral}.</span>
-					<span className="choice-content" {...rawContent(choice)}/>
+					<div className="choice-content" {...rawContent(choice)}/>
 				</div>
 			</label>
 		);
