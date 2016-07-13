@@ -51,11 +51,13 @@ function getContentsForAssessment (assessment) {
 		contents.push(`<div class="sidebar">${content}</div>`);
 	}
 
-	for (let question of questions) {
+	for (let index = 0; index < questions.length; index++) {
+		let question = questions[index];
 		const ntiid = question.getID();
 		contents.push(`
 			<object type="${question.MimeType}">
 				<param name="ntiid" value="${ntiid}"/>
+				<param name="number" value="${index + 1}"/>
 			</object>
 		`);
 	}

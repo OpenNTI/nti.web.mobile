@@ -24,7 +24,8 @@ export default React.createClass({
 	mixins: [DragDropOrchestrator, StoreEventsMixin],
 
 	propTypes: {
-		question: React.PropTypes.object.isRequired
+		question: React.PropTypes.object.isRequired,
+		number: React.PropTypes.string
 	},
 
 
@@ -83,11 +84,11 @@ export default React.createClass({
 
 
 	render () {
-		let {question} = this.props;
+		let {question, number} = this.props;
 		let admin = Store.isAdministrative(question);
 		let a = Store.getAssessedQuestion(question, question.getID());
 		let parts = question.parts;
-		let title = '';
+		let title = number || '';
 
 		//correct, incorrect, blank
 		let status = (Store.isSubmitted(question) && a) ?

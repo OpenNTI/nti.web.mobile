@@ -81,7 +81,7 @@ export default React.createClass({
 		const Widget = question.isPoll ? PollWidget : QuestionWidget;
 
 		return  (
-			<Widget question={question}/>
+			<Widget question={question} number={item.number}/>
 		);
 	}
 });
