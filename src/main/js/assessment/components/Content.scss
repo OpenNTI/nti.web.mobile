@@ -7,4 +7,10 @@
 	img[style*="height"] {
 		height: auto !important;
 	}
+
+	p {
+		margin: 0;
+		font-size: inherit;
+		line-height: inherit;
+	}
 }
