@@ -6,9 +6,11 @@ SubmissionError.propTypes = {
 	error: React.PropTypes.any
 };
 export default function SubmissionError (props) {
+	const {children, error, onClick} = props;
+	const errorMessage = error && (typeof error === 'string' ? error : error.message);
 	return (
 		<div className="submission-error">
-			<a href="#" onClick={props.onClick}>x</a>{props.error || props.children}
+			<a href="#" onClick={onClick}>x</a>{errorMessage || children}
 		</div>
 	);
 }

@@ -1,6 +1,8 @@
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 
+import {loadPreviousState, saveProgress} from './Api';
+
 import {
 	BUSY_LOADING,
 	BUSY_SUBMITTING,
@@ -216,8 +218,14 @@ class Store extends StorePrototype {
 			this.markBusy(part, BUSY_SAVEPOINT);
 			this.emitChange({type: BUSY_SAVEPOINT});
 
-			saveProgress(part)//eslint-disable-line no-use-before-define
-				.catch(() => {})//handle errors
+			saveProgress(part)
+				.catch(e => {
+					//handle errors
+					logger.warn('Error Saving Progress: %o', e);
+					if (e.statusCode === 409) {
+						this.setError (part, e);
+					}
+				})
 				.then(() => {
 					this.markBusy(part, false);
 					this.emitChange({type: BUSY_SAVEPOINT});
@@ -555,7 +563,3 @@ class Store extends StorePrototype {
 
 
 export default new Store();
-
-//we need to export our store instance before we can import Api, which
-//imports the Store. (otherwise, Api's reference to the store will be undefined)
-import {loadPreviousState, saveProgress} from './Api';

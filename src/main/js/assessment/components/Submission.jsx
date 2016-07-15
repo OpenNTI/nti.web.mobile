@@ -15,7 +15,8 @@ import {resetAssessment, submit} from '../Actions';
 import {
 	BUSY_SAVEPOINT,
 	BUSY_SUBMITTING,
-	BUSY_LOADING
+	BUSY_LOADING,
+	ERROR
 } from '../Constants';
 
 import {Prompt} from 'nti-web-commons';
@@ -45,7 +46,15 @@ export default React.createClass({
 	},
 
 
-	onChange () {
+	onChange (e) {
+		if (e.type === ERROR) {
+			e = Store.getError(this.props.assessment);
+			if (e && e.statusCode === 409) {
+				Prompt.alert('This assignemnt has changed. The page needs to reload.')
+					.then(() => location.reload());
+				return;
+			}
+		}
 		this.forceUpdate();
 	},
 
