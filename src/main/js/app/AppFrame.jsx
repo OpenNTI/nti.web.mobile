@@ -2,7 +2,7 @@ import React from 'react';
 import {addClass, removeClass} from 'nti-lib-dom';
 
 import Session from './Session';
-import {Footer, LockScroll} from 'nti-web-commons';
+import {Footer, LockScroll, ConflictResolutionHandler} from 'nti-web-commons';
 
 import Notifications from 'notifications/components/View';
 
@@ -67,6 +67,7 @@ export default React.createClass({
 		return (
 			<div className="app-container">
 				<Analytics />
+				<ConflictResolutionHandler/>
 				<LibraryInvalidationListener />
 				{this.getOverlayState() != null && (<LockScroll/> )}
 
