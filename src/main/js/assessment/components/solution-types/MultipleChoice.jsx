@@ -54,7 +54,7 @@ export default React.createClass({
 			return (
 				<div className="solution" key={x}>
 					<span className="numeral">{numeral}</span>
-					<span {...rawContent(choices[x])}/>
+					<div {...rawContent(choices[x])}/>
 				</div>
 			);
 		});
