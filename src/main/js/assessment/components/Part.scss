@@ -24,7 +24,7 @@
 		position: absolute !important;
 		z-index: 1;
 		top: 0;
-		right: -0.4rem;
+		right: 0;
 		display: block;
 		width: 1.5rem;
 		height: 1.5rem;
@@ -44,7 +44,7 @@
 	.part-help > .solutions {
 		border: 1px solid $border-grey;
 		padding: 0.4rem;
-		margin: 0 -0.4rem;
+		margin: 0;
 		background: $panel-background;
 	}
 

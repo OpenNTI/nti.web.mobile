@@ -2,9 +2,12 @@
 @import "utils/placeholders";
 
 .question-part .solutions .ordering {
-	margin: -0.4rem;
 	border: 0;
-	width: auto;
+	margin: 0;
+}
+
+.ordered.solutions .box {
+	margin: -.4rem;
 }
 
 .question-part .ordering {
