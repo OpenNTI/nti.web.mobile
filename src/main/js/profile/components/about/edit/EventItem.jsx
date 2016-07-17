@@ -64,7 +64,7 @@ export default React.createClass({
 		const {props: {fieldNames: [primaryField, secondaryField], schema}} = this;
 		const fields = [primaryField, secondaryField, 'startYear', 'endYear', 'description' ];
 		const errors = {};
-		for(name of fields) {
+		for(let name of fields) {
 			const field = this[name];
 			if (field && isRequired(schema, name) && Editor.isEmpty(field.value)) {
 				errors[name] = true;

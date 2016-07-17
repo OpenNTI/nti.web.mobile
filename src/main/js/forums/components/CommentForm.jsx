@@ -99,22 +99,33 @@ export default React.createClass({
 	},
 
 	render () {
-		if (this.state.busy) {
+		const {
+			props: {
+				editItem,
+				id,
+				onCancel
+			},
+			state: {
+				busy,
+				canSubmit,
+				error
+			}
+		} = this;
+
+		if (busy) {
 			return <Loading />;
 		}
 
-		if (false && this.state.complete) {
-			return <Notice>Comment added</Notice>;
-		}
-
-		let savefunc = this.props.editItem ? this.onSave.bind(this, this.props.editItem) : this.onAddComment;
+		const savefunc = editItem
+						? (...args) => this.onSave(this.props.editItem, ...args)
+						: this.onAddComment;
 
 
-		let value = (this.props.editItem || {}).body;
+		const value = (editItem || {}).body;
 
 		return (
-			<div className="comment-form" id={this.props.id}>
-				{this.state.error && <Notice className="err">{this.state.error.message || 'An error occurred.'}</Notice>}
+			<div className="comment-form" id={id}>
+				{error && <Notice className="err">{error.message || 'An error occurred.'}</Notice>}
 				<div className="comment-form-heading">{t('addComment')}</div>
 				<Editor ref={x => this.editor = x}
 					onChange={this.onBodyChange}
@@ -123,8 +134,8 @@ export default React.createClass({
 					>
 					<OkCancelButtons
 						onOk={savefunc}
-						okEnabled={this.state.canSubmit}
-						onCancel={this.props.onCancel}
+						okEnabled={canSubmit}
+						onCancel={onCancel}
 						okText={t('editorOkButton')} />
 				</Editor>
 			</div>

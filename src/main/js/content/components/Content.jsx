@@ -81,7 +81,7 @@ export default class Content extends React.Component {
 					logger.debug('Mounting Widget... %o', el);
 					try {
 						shouldUpdate = true;
-						w = ReactDOM.render(w, el);
+						ReactDOM.render(w, el);
 						el.setAttribute('mounted', 'true');
 					} catch (e) {
 						logger.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
