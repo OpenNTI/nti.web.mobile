@@ -73,12 +73,12 @@ export default React.createClass( {
 
 
 	fillInData (service) {
-		let {node, item, assessmentCollection} = this.props;
-		let ntiid = getID(item);
-		let assignment = assessmentCollection.getAssignment(ntiid, node.getContentId());
-		let isAssignment = assignment || assignmentType.test(item.MimeType);
+		const {node, item, assessmentCollection} = this.props;
+		const ntiid = getID(item);
+		const assignment = assessmentCollection.getAssignment(ntiid, node.getContentId());
+		const isAssignment = assignment || assignmentType.test(item.MimeType);
 
-		this.setState({assignment: assignment, loading: true});
+		this.setState({assignment, loading: true});
 
 		let work;
 
@@ -145,41 +145,51 @@ export default React.createClass( {
 
 
 	setAssignmentHref () {
-		let ntiid = getID(this.props.item);
+		const ntiid = getID(this.props.item);
 		// The '..' in the path tells "buildHref" to go up to the
 		// parent router instead of our immediate parent router.
-		let link = path.join('..', 'assignments', encodeForURI(ntiid)) + '/';
+		const link = path.join('..', 'assignments', encodeForURI(ntiid)) + '/';
 		this.setState({href: this.buildHref(link)});
 	},
 
 
 	setQuizHref () {
-		let ntiid = getID(this.props.item);
-		let link = path.join(this.getPath(), 'content', encodeForURI(ntiid)) + '/';
+		const ntiid = getID(this.props.item);
+		const link = path.join(this.getPath(), 'content', encodeForURI(ntiid)) + '/';
 		this.setState({href: this.buildHref(link)});
 	},
 
 
 	render () {
-		let state = this.state;
-		let item = this.props.item;
-		let questionCount = getQuestionCount(item);
-		let label = item.label || item.title;
+		const {
+			state: {
+				assignment,
+				assignmentHistory,
+				// latestAttempt
+				score,
+				networkError,
+				loading,
+				completed,
+				href,
+				correct,
+				incorrect
+			},
+			props: {
+				item
+			}
+		} = this;
 
-		//let latestAttempt = state.latestAttempt;
-		let assignment = state.assignment;
-		let assignmentHistory = state.assignmentHistory;
+		const questionCount = getQuestionCount(item);
+		const label = item.label || item.title;
 
-		// let due = assignment && assignment.getDueDate();
+		// const due = assignment && assignment.getDueDate();
 
-		let score = state.score || 0;
+		const isLate = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
 
-		let isLate = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
-
-		let classList = cx('overview-naquestionset', {
-			networkerror: state.networkError,
-			loading: state.loading,
-			completed: state.completed,
+		const classList = cx('overview-naquestionset', {
+			networkerror: networkError,
+			loading: loading,
+			completed: completed,
 			late: isLate,
 			assignment: assignment,
 			assessment: !assignment,
@@ -187,13 +197,13 @@ export default React.createClass( {
 		});
 
 		return (
-			<a className={classList} href={state.href}>
+			<a className={classList} href={href}>
 				<div className="body">
 					{assignment ?
 						<div className="icon assignment"/>
 					: //Assessment:
 						<div className="icon assessmentScore">
-							<Score width="40" height="40" score={score}/>
+							<Score width="40" height="40" score={score || 0}/>
 						</div>
 					}
 					<div className="tally-box">
@@ -202,13 +212,13 @@ export default React.createClass( {
 							<AssignmentStatusLabel showTimeWithDate assignment={assignment} historyItem={assignmentHistory}/>
 						: //Assessment:
 							<div className="tally">
-							{state.correct && (
+							{correct && (
 								<div className="stat correct">
-									<span className="count">{state.correct}</span> correct </div>
+									<span className="count">{correct}</span> correct </div>
 							)}
-							{state.incorrect && (
+							{incorrect && (
 								<div className="stat incorrect">
-									<span className="count">{state.incorrect}</span> incorrect </div>
+									<span className="count">{incorrect}</span> incorrect </div>
 							)}
 								<div className="stat questions">{questionCount} questions</div>
 							</div>
