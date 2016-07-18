@@ -30,14 +30,14 @@ nti\:content {
 	padding-bottom: 2rem;
 
 	&, * {
+		box-sizing: border-box;
 		position: relative;
-
+	}
+	* {
 		word-wrap: break-word;
-
+		word-break: break-word;
 		//Add the html-entity "&shy;" for break points you want to allow to hypnen-wrap.
 		hyphens: manual;
-
-		box-sizing: border-box;
 	}
 
 	.label {
@@ -66,9 +66,12 @@ nti\:content {
 	}
 
 	table.tabular {
-		// border-collapse: collapse;
+		border-collapse: collapse;
 		// table-layout: fixed;
 		zoom: 0.8;
+		* {
+			word-break: normal;
+		}
 	}
 
 
