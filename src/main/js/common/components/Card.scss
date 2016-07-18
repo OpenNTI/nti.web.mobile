@@ -32,6 +32,7 @@
 	}
 
 	h5 {
+		@include limit-lines();
 		font-family: $body-font-family;
 		font-size: .9375rem;
 		font-weight: 600;
@@ -69,6 +70,7 @@
 	}
 
 	.description {
+		@include limit-lines();
 		font-size: 0.75rem;
 		color: #000;
 	}
