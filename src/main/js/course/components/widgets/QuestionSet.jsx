@@ -180,7 +180,7 @@ export default React.createClass( {
 		} = this;
 
 		const questionCount = getQuestionCount(item);
-		const label = item.label || item.title;
+		const label = (assignment || {}).title || item.label || item.title;
 
 		// const due = assignment && assignment.getDueDate();
 
