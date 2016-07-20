@@ -50,6 +50,7 @@ export default React.createClass({
 		if (e.type === ERROR) {
 			e = Store.getError(this.props.assessment);
 			if (e && e.statusCode === 409) {
+				Store.clearError(this.props.assessment);
 				Prompt.alert('This assignment has changed, and needs to reload.')
 					.then(() => location.reload());
 				return;
