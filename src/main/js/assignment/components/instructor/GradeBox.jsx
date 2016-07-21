@@ -111,7 +111,7 @@ export default React.createClass({
 		const {grade, showLetter} = this.props;
 		const {busy, value} = this.state;
 		return (
-			<div className={cx('grade-box', {busy})}>
+			<div className={cx('grade-box', {busy, letter: showLetter})}>
 				<input
 					value={value}
 					onBlur={this.onBlur}
