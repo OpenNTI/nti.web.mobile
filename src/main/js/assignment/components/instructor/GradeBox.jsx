@@ -4,6 +4,7 @@ import cx from 'classnames';
 import Grade from 'nti-lib-interfaces/lib/models/courses/Grade';
 import {PropType as NTIID} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
+import isEmpty from 'isempty';
 
 import {Mixins} from 'nti-web-commons';
 
@@ -93,7 +94,7 @@ export default React.createClass({
 		const currentValue = grade && grade.value;
 		const currentLetter = grade && grade.letter;
 
-		if (currentValue === newValue && (!newLetter || currentLetter === newLetter)) {
+		if ((currentValue === newValue) || (isEmpty(currentValue) && isEmpty(newValue)) && (!newLetter || currentLetter === newLetter)) {
 			return;
 		}
 
