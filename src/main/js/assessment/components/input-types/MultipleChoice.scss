@@ -9,6 +9,7 @@
 		position: relative;
 		border: 0px solid $tertiary-grey;
 		line-height: 2;
+		min-height: 60px;
 
 		&:not(:last-of-type) {
 			border-bottom-width: 1px;
