@@ -47,6 +47,7 @@ export default React.createClass({
 		delete otherProps.onSortChange;
 		delete otherProps.assignment;
 		delete otherProps.assignmentId;
+		delete otherProps.userId;
 
 		return (
 			<div className="gradebook" {...otherProps}>
