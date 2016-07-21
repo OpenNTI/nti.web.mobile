@@ -108,10 +108,10 @@ export default React.createClass({
 		return (
 			<div className={css} data-ntiid={question.getID()} type={question.MimeType}>
 				<h3 className="question-title">
+					{number && <span className="question-number">{number}.</span>}
 					{title}
 					<span className="status">{status}</span>
 				</h3>
-				{number && <span className="question-number">{number}.</span>}
 				<Content className="question-content" content={question.content}/>
 				{question.wordbank && (
 					<WordBank record={question.wordbank} disabled={admin}/>
