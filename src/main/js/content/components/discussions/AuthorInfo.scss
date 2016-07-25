@@ -11,7 +11,8 @@
 
 	.avatar {
 		position: absolute;
-		top: 0;
+		// top: 0; //In the cononical location "top: 0" looks bad.
+		top: 1rem;
 		left: 0;
 		width: 3.75rem;
 		height: 3.75rem;
