@@ -178,8 +178,7 @@ exports = module.exports = [
 			], {
 				ignore: [
 					NTI_PACKAGES
-				],
-				manifest: 'bootstrap'
+				]
 			}),
 			new webpack.DefinePlugin({
 				'SERVER': false,
