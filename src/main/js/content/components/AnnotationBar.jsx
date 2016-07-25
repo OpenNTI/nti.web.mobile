@@ -140,12 +140,12 @@ export default React.createClass({
 				{!!onNewDiscussion && (
 					<button className="ugd note"
 						onTouchStart={this.onNote}
-						onClick={this.onNote}><i className="icon-discuss"/>Discuss</button>
+						onClick={this.onNote}><i className="icon-discuss small"/>Discuss</button>
 				)}
 
 				{!!discussionLink && (
-					<Link className="ugd note icon-discuss"
-						href={discussionLink}>View Discussion</Link>
+					<Link className="ugd note"
+						href={discussionLink}><i className="icon-discuss small"/>View Discussion</Link>
 				)}
 			</div>
 		);

@@ -99,7 +99,7 @@ export default class NoteEditor extends React.Component {
 
 					<Editor ref={this.attachEditorBodyRef} onChange={this.detectContent} initialValue={body}>
 						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss"/>{t('BUTTONS.post')}</button>
+						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss small"/>{t('BUTTONS.post')}</button>
 					</Editor>
 				</form>
 				{busy ? ( <Loading message="Saving..."/> ) : null}

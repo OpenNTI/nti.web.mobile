@@ -33,7 +33,7 @@
 
 	&.editor {
 
-		&, & > form, & > form > .editor {
+		&, & > form, & > form > .modeled-content-editor {
 			display: flex;
 			flex-direction: column;
 		}
@@ -47,7 +47,7 @@
 				margin: 0 .625rem;
 			}
 
-			& > .editor {
+			& > .modeled-content-editor {
 				flex: 1 1 auto;
 				position: relative;
 				margin: 0;
@@ -84,17 +84,14 @@
 					text-indent: 0;
 					margin: 0;
 
-					&::before {
-						font-family: 'icomoon';
-						font-size: 29px;
-						font-weight: normal;
-						vertical-align: middle;
+					i {
+						font-size: 24px !important;
 						position: relative;
 						left: -0.5px;//fix blur on 1x screens.
 					}
 				}
 
-				.center {
+				.DraftEditor-root {
 					padding-top: 0.625rem;
 					padding-left: 1rem;
 					padding-right: 1rem;
@@ -134,7 +131,7 @@
 	}
 
 
-	.modeled.modeled-content-editor [contenteditable]:focus {
+	.modeled-content-editor [contenteditable]:focus {
 		outline: 0;
 		box-shadow: none;
 		background: transparent;
