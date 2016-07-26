@@ -1,4 +1,14 @@
 export default {
+
+	COURSE: {
+		INFO: {
+			CATALOG_ENTRY: {
+				ForCredit: 'Registered',
+				Open: 'Registered'
+			}
+		}
+	},
+	
 	ENROLLMENT: {
 		enrollAsLifelongLearner: 'Buy now',
 		enrollAsLifelongLearnerWithPrice: 'Buy now: %(price)s',
