@@ -11,7 +11,7 @@ function isRequired (schema, prop) {
 }
 
 export default React.createClass({
-	displayName: 'EducationItem',
+	displayName: 'EventItem',
 
 	propTypes: {
 		item: React.PropTypes.object.isRequired,
@@ -149,7 +149,7 @@ export default React.createClass({
 			let v = state[field];
 			delete input[field];
 
-			if (v && !Editor.isEmpty(v)) {
+			if (v && (typeof v === 'number' || !Editor.isEmpty(v))) {
 				value[field] = Array.isArray(v) ? v : v.trim ? v.trim() : v;
 			}
 		}
