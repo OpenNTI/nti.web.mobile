@@ -247,11 +247,17 @@ export default React.createClass({
 		const dueToday = !complete && this.isDueToday();
 
 		const map = {
+			// Completed or Graded Assignment
 			'complete submittable': 'Completed',
 			'complete !submittable': 'Graded',
+			// Submittable Assignment
 			'submittable !complete dateOpen': 'Available',
 			'submittable !complete !dateOpen': 'Available Now',
-			'submittable !complete available dateClose': 'Due'
+			'submittable !complete available dateClose': 'Due',
+			// No Submit Assignment
+			'!submittable !complete !available !dateClose': 'Avaiable',
+			'!submittable !complete available !dateClose': 'Available Now',
+			'!submittable !complete available dateClose': 'Due'
 		};
 
 		const text = selectValue(map, {
