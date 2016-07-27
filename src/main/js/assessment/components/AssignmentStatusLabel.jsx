@@ -252,7 +252,7 @@ export default React.createClass({
 			'complete !submittable': 'Graded',
 			// Submittable Assignment
 			'submittable !complete dateOpen': 'Available',
-			'submittable !complete !dateOpen': 'Available Now',
+			'submittable !complete available': 'Available Now',
 			'submittable !complete available dateClose': 'Due',
 			// No Submit Assignment
 			'!submittable !complete !available !dateClose': 'Avaiable',
