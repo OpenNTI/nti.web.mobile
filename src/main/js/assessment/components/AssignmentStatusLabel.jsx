@@ -246,18 +246,24 @@ export default React.createClass({
 		const dateClose = assignment.getDueDate();
 		const dueToday = !complete && this.isDueToday();
 
+		const AVAILABLE = 'Available';
+		const AVAILABLE_NOW = 'Available Now';
+		const COMPLETED = 'Completed';
+		const DUE = 'Due';
+		const GRADED = 'Graded';
+
 		const map = {
 			// Completed or Graded Assignment
-			'complete submittable': 'Completed',
-			'complete !submittable': 'Graded',
+			'complete submittable': COMPLETED,
+			'complete !submittable': GRADED,
 			// Submittable Assignment
-			'submittable !complete dateOpen': 'Available',
-			'submittable !complete available': 'Available Now',
-			'submittable !complete available dateClose': 'Due',
+			'submittable !complete dateOpen': AVAILABLE,
+			'submittable !complete available': AVAILABLE_NOW,
+			'submittable !complete available dateClose': DUE,
 			// No Submit Assignment
-			'!submittable !complete !available !dateClose': 'Avaiable',
-			'!submittable !complete available !dateClose': 'Available Now',
-			'!submittable !complete available dateClose': 'Due'
+			'!submittable !complete !available !dateClose': AVAILABLE,
+			'!submittable !complete available !dateClose': AVAILABLE_NOW,
+			'!submittable !complete available dateClose': DUE
 		};
 
 		const text = selectValue(map, {
@@ -270,7 +276,7 @@ export default React.createClass({
 
 		const date = this.getCompletedDateTime()
 			|| (
-				/due/i.test(text)
+				text === DUE
 					? dateClose
 					: dateOpen
 			);
@@ -308,7 +314,7 @@ export default React.createClass({
 							<span>)</span>
 						</span>
 
-						{date && (
+						{date && text !== AVAILABLE_NOW && (
 							<DateTime
 								onClick={this.onShowStatusDetail}
 								date={date}
