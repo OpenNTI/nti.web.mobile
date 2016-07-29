@@ -156,14 +156,21 @@ export default React.createClass({
 
 	render () {
 		const {
-			props: {className, previewMode},
+			props: {className, previewMode, ...others},
 			state: {body}
 		} = this;
 
-		const props = Object.assign({}, this.props, {
-			body: undefined,
-			className: cx('modeled-content', className, {preview: previewMode})
-		});
+		const props = {
+			...others,
+			className: cx('modeled-content', className, {preview: previewMode}),
+		};
+
+		delete props.body;
+		delete props.previewLength;
+		delete props.previewMode;
+		delete props.strategies;
+		delete props.renderCustomWidget;
+		delete props.widgets;
 
 		let dynamicRenderers = [];
 		if (Array.isArray(body)) {
