@@ -138,20 +138,23 @@ export default React.createClass({
 	},
 
 	render () {
-		let item = this.getItem();
+		const item = this.getItem();
 		if (!item) {
 			return <div>No item?</div>;
 		}
-		let createdBy = item.creator;
-		let createdOn = item.getCreatedTime();
-		let modifiedOn = item.getLastModified();
-		let message = item.body;
-		let numComments = this.getNumberOfComments();
-		let href = this.makeHref('/' + encodeForURI(this.getItemId()) + '/', false);
 
-		let edited = (Math.abs(modifiedOn - createdOn) > 0);
+		const createdBy = item.creator;
+		const createdOn = item.getCreatedTime();
+		const modifiedOn = item.getLastModified();
+		const message = item.body;
+		const numComments = this.getNumberOfComments();
+		const href = this.makeHref('/' + encodeForURI(this.getItemId()) + '/', false);
 
-		if (this.state.busy) {
+		const edited = (Math.abs(modifiedOn - createdOn) > 0);
+
+		const {state: {busy, editing}, props: {detailLink, asHeadline}} = this;
+
+		if (busy) {
 			return <Loading className="post-item"/>;
 		}
 
@@ -159,7 +162,7 @@ export default React.createClass({
 		if (item.Deleted) {
 			return (
 				<div className="postitem deleted">
-					{this.props.detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
+					{detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
 					<div className="post">
 						<div className="wrap">
 							<div className="message">
@@ -171,7 +174,7 @@ export default React.createClass({
 			);
 		}
 
-		if (this.state.editing) {
+		if (editing) {
 			return (
 				<CommentForm
 					editItem={item}
@@ -181,13 +184,18 @@ export default React.createClass({
 		}
 
 		let classes = classnames({
-			'headline': this.props.asHeadline
+			'headline': asHeadline
 		}, 'postitem');
 
 		return (
 			<div className={classes}>
 				<LuckyCharms item={item} />
-				{this.props.detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
+				{detailLink && (
+					<a href={href} className="threadlink">
+						<span className="num-comments">{t('replies', {count: numComments})}</span>
+						<span className="arrow-right"/>
+					</a>
+				)}
 				<div className="post">
 					<Avatar entity={createdBy} />
 					<div className="wrap">
