@@ -62,6 +62,7 @@ export default React.createClass({
 
 	propTypes: {
 		item: React.PropTypes.object,
+		topic: React.PropTypes.object.isRequired,
 		asHeadline: React.PropTypes.bool,
 		detailLink: React.PropTypes.bool
 	},
@@ -152,7 +153,7 @@ export default React.createClass({
 
 		const edited = (Math.abs(modifiedOn - createdOn) > 0);
 
-		const {state: {busy, editing}, props: {detailLink, asHeadline}} = this;
+		const {state: {busy, editing}, props: {detailLink, asHeadline, topic}} = this;
 
 		if (busy) {
 			return <Loading className="post-item"/>;
@@ -209,7 +210,7 @@ export default React.createClass({
 						</div>
 						<ActionsComp
 							item={item}
-							canReply={this.props.asHeadline}
+							canReply={asHeadline && topic.hasLink('add')}
 							onEdit={this.onEditClick}
 							onDelete={this.onDeleteComment}
 							/>

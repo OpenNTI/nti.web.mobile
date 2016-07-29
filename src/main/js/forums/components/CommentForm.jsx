@@ -103,7 +103,8 @@ export default React.createClass({
 			props: {
 				editItem,
 				id,
-				onCancel
+				onCancel,
+				topic
 			},
 			state: {
 				busy,
@@ -123,7 +124,7 @@ export default React.createClass({
 
 		const value = (editItem || {}).body;
 
-		return (
+		return topic.hasLink('add') && (
 			<div className="comment-form" id={id}>
 				{error && <Notice className="err">{error.message || 'An error occurred.'}</Notice>}
 				<div className="comment-form-heading">{t('entryPlaceholder')}</div>

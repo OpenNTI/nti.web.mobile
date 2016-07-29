@@ -242,7 +242,7 @@ export default React.createClass({
 					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline topic={topic} {...props} />}
 					<ActionsComp
 						item={topic}
-						canReply={showComments}
+						canReply={showComments && topic.hasLink('add')}
 						onEdit={this.editTopic}
 						onDelete={this.deleteTopic}
 						/>
