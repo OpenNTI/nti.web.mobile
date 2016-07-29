@@ -67,7 +67,7 @@ export default React.createClass({
 			<ul key="control-links" className="action-links">
 				{canReply &&
 					<li key="reply-link">
-						<ScrollLink componentId={COMMENT_FORM_ID}>{t('addComment')}</ScrollLink>
+						<ScrollLink componentId={COMMENT_FORM_ID}>{t('entryPlaceholder')}</ScrollLink>
 					</li>
 				}
 				{canEdit && onEdit &&

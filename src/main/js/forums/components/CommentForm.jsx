@@ -126,7 +126,7 @@ export default React.createClass({
 		return (
 			<div className="comment-form" id={id}>
 				{error && <Notice className="err">{error.message || 'An error occurred.'}</Notice>}
-				<div className="comment-form-heading">{t('addComment')}</div>
+				<div className="comment-form-heading">{t('entryPlaceholder')}</div>
 				<Editor ref={x => this.editor = x}
 					onChange={this.onBodyChange}
 					initialValue={value}

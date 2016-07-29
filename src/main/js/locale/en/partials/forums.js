@@ -22,7 +22,7 @@ module.exports = {
 		other: '%(count)s Comments'
 	},
 	replyLink: 'Reply',
-	addComment: 'Add a Comment',
+	entryPlaceholder: 'Add a Comment',
 	reply: 'Reply',
 	editComment: 'Edit',
 	deleteComment: 'Delete',

@@ -16,7 +16,7 @@ export default React.createClass({
 		const {item} = this.props;
 		return (
 			<div className="add-comment">
-				<a href={this.objectLink(item)} className="placeholder">{t('AddComment')}</a>
+				<a href={this.objectLink(item)} className="placeholder">{t('entryPlaceholder')}</a>
 			</div>
 		);
 	}
