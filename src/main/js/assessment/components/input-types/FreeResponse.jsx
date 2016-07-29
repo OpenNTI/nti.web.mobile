@@ -38,6 +38,6 @@ export default React.createClass({
 		const {input = {}} = this;
 		const {value} = input;
 
-		return isEmpty(value) ? null : value;
+		return isEmpty(value) ? null : value.trim();
 	}
 });
