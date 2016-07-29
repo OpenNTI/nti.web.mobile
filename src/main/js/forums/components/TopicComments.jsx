@@ -128,7 +128,7 @@ export default React.createClass({
 								transitionEnterTimeout={500}
 								transitionLeaveTimeout={500}
 							>
-								<List className="forum-replies" container={container} {...this.props} itemProps={{topic: topic}} omitIfEmpty />
+								<List className="forum-replies" container={container} itemProps={{topic: topic}} />
 							</Transition>
 						</section>
 						{this.state[showJumpToLastPage] && this.jumpToLastPageMessage()}

@@ -44,7 +44,8 @@ export default React.createClass({
 			emptyText = t('emptyList'),
 			groupDeleted,
 			itemProps,
-			keyFn = this.keyFor
+			keyFn = this.keyFor,
+			...otherProps
 		} = this.props;
 
 		if (!container || !container.Items) {
@@ -65,7 +66,7 @@ export default React.createClass({
 			empty ?
 				<Notice className="empty-list">{emptyText}</Notice>
 				:
-				<ul {...this.props}>
+				<ul {...otherProps}>
 					{Items.map((item, index)=>
 						<li key={keyFn(item)}>{ListItem(item, index, itemProps)}</li>
 					)}

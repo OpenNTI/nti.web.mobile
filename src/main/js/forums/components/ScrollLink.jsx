@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default React.createClass({
-	displayName: 'ReplyLink',
+	displayName: 'ScrollLink',
 
 	propTypes: {
 		componentId: React.PropTypes.string.isRequired,
