@@ -31,7 +31,7 @@ export default React.createClass({
 
 		itemProps: React.PropTypes.object,
 
-		topic: React.PropTypes.object.isRequired,
+		topic: React.PropTypes.object,
 
 		keyFn: React.PropTypes.func
 	},
