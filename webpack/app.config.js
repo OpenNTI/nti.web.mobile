@@ -234,9 +234,10 @@ exports = module.exports = [
 				path: true,
 				fs: true,
 				net: true,
-				tls: true,
-				'nti-lib-interfaces': true
-			}
+				tls: true
+			},
+			// Every nti module
+			/^nti\-/i
 		],
 
 		module: {
