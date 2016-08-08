@@ -1,5 +1,7 @@
 import moment from 'moment';
 
+//XXX: using the locale function this way will not pickup site string changes after loading...
+//FIXME: Move string uages `t()` to the component's render method.
 const t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
 const concurrentForm = require('./ConcurrentEnrollmentForm');
 const admissionForm = require('./AdmissionForm');

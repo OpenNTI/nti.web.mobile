@@ -1,5 +1,7 @@
 /*eslint-disable*/
 
+//XXX: using the locale function this way will not pickup site string changes after loading...
+//FIXME: Move string uages `t()` to the component's render method.
 var t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
 var Constants = require('forms/Constants');
 var StateSelect = require('forms/fields').StateSelect;
