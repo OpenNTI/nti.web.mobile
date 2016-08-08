@@ -91,17 +91,23 @@ export default React.createClass({
 	},
 
 	renderReplies () {
-		if (!this.props.display) {
+		const {props: {display, listComponent: List, ...props}, state: {replies}} = this;
+
+		if (!display) {
 			return;
 		}
-		let items = this.state.replies || [];
-		let List = this.props.listComponent;
-		return items.length > 0 ? <List container={{Items: items}} {...this.props} /> : null;
+
+		delete props.item;
+
+		const items = replies || [];
+
+		return items.length > 0 ? <List container={{Items: items}} {...props} /> : null;
 	},
 
 	render () {
+		const {className} = this.props;
 		return (
-			<div className={this.props.className}>
+			<div className={className}>
 				<div className="replies">
 					{this.renderReplies()}
 				</div>

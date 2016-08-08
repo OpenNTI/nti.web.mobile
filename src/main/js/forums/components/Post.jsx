@@ -152,7 +152,6 @@ export default React.createClass({
 				{topic &&
 					<Replies key="replies" item={item}
 						listComponent={List}
-						childComponent={PostItem}
 						topic={topic}
 						display
 						className="visible"

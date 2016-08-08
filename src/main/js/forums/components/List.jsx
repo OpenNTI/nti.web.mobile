@@ -31,6 +31,8 @@ export default React.createClass({
 
 		itemProps: React.PropTypes.object,
 
+		topic: React.PropTypes.object.isRequired,
+
 		keyFn: React.PropTypes.func
 	},
 
@@ -39,12 +41,13 @@ export default React.createClass({
 	},
 
 	render () {
-		let {
+		const {
 			container,
 			emptyText = t('emptyList'),
 			groupDeleted,
 			itemProps,
 			keyFn = this.keyFor,
+			topic,
 			...otherProps
 		} = this.props;
 
@@ -68,7 +71,7 @@ export default React.createClass({
 				:
 				<ul {...otherProps}>
 					{Items.map((item, index)=>
-						<li key={keyFn(item)}>{ListItem(item, index, itemProps)}</li>
+						<li key={keyFn(item)}>{ListItem(item, index, {topic, ...itemProps})}</li>
 					)}
 				</ul>
 		);

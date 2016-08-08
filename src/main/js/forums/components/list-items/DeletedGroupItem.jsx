@@ -21,25 +21,26 @@ export default React.createClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object
+		item: React.PropTypes.object,
+		topic: React.PropTypes.object
 	},
 
 	render () {
 
-		let {item} = this.props;
-		let deletedItems = item.items;
-		let numItems = deletedItems.length;
-		let container = {
+		const {item, topic} = this.props;
+		const deletedItems = item.items;
+		const numItems = deletedItems.length;
+		const container = {
 			Items: item.items
 		};
 
-		let referenced = item.items.some(comment => comment.ReferencedByCount > 0);
+		const referenced = item.items.some(comment => comment.ReferencedByCount > 0);
 
 		return (
 			<div className="deleteditemgroup">
 				<Avatar />
 				<Collapsible triangle={numItems > 1 || referenced} title={t('deletedItemsMessage', {count: numItems})}>
-					<List container={container} groupDeleted={false} />
+					<List container={container} groupDeleted={false} topic={topic} />
 				</Collapsible>
 			</div>
 		);
