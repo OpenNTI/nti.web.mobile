@@ -41,6 +41,7 @@ export default React.createClass({
 
 	onClick (e) {
 		if (e) {
+			if (getEventTarget(e, 'a[href]')) {return;}
 			e.preventDefault();
 			e.stopPropagation();
 		}
