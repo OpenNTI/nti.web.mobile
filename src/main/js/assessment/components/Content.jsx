@@ -1,22 +1,22 @@
 import React from 'react';
 import cx from 'classnames';
 
+import {getEventTarget} from 'nti-lib-dom';
 import {processContent} from 'nti-lib-content-processing';
 
 import isFunction from 'is-function';
 import htmlToReact from 'html-reactifier';
 
-/**
+/*
  * Common component to render question and part content alike.
  * Keeping all assessment content-manipulation under one component.
  *
  * TODO: Implement Audio Snippets
  * maybe Sequences?
  */
-export default React.createClass({
-	displayName: 'Content',
+export default class Content extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		className: React.PropTypes.string,
 
 		content: React.PropTypes.string.isRequired,
@@ -24,22 +24,33 @@ export default React.createClass({
 		renderCustomWidget: React.PropTypes.func,
 
 		strategies: React.PropTypes.object
-	},
+	}
 
 
-	getInitialState () {
-		return {};
-	},
+	state = {}
 
 
-	componentWillMount () { this.buildContent(this.props); },
+	componentWillMount () { this.buildContent(this.props); }
 
 
 	componentWillReceiveProps (props) {
 		if (props.content !== this.props.content) {
 			this.buildContent(props);
 		}
-	},
+	}
+
+
+	onClick = (e) => {
+		const {onClick} = this.props; //eslint-disable-line react/prop-types
+		if (onClick) {
+			onClick(e);
+		}
+
+		const anchor = getEventTarget(e, 'a[href]');
+		if (anchor && !e.isDefaultPrevented() && !e.isPropagationStopped()) {
+			anchor.setAttribute('target', '_blank');
+		}
+	}
 
 
 	buildContent (props) {
@@ -79,13 +90,19 @@ export default React.createClass({
 		} else {
 			finish(work);
 		}
-	},
+	}
 
 
 	render () {
 		let className = cx('assessment-content-component', this.props.className);
 
-		let props = Object.assign({}, this.props, {className, ref: 'el', content: undefined});
+		const props = {
+			...this.props,
+			className,
+			content: void 0,
+			onClick: this.onClick,
+			ref: 'el'
+		};
 
 		let dynamicRender = () => {};
 		if (isFunction(this.state.content)) {
@@ -95,10 +112,10 @@ export default React.createClass({
 		}
 
 		return React.createElement('div', props, dynamicRender(React, this.renderWidget));
-	},
+	}
 
 
-	renderWidget (tagName, props, children) {
+	renderWidget = (tagName, props, children) => {
 		props = props || {};//ensure we have an object.
 
 		let {id} = props; //eslint-disable-line react/prop-types
@@ -114,7 +131,7 @@ export default React.createClass({
 		props = Object.assign({}, props, widget);
 		return f(tagName, props, children);
 	}
-});
+}
 
 
 function isWidget (tagName, props, widgets) {

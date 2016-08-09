@@ -41,7 +41,11 @@ export default React.createClass({
 
 	onClick (e) {
 		if (e) {
-			if (getEventTarget(e, 'a[href]')) {return;}
+			const anchor = getEventTarget(e, 'a[href]');
+			if (anchor) {
+				anchor.setAttribute('target', '_blank');
+				return;
+			}
 			e.preventDefault();
 			e.stopPropagation();
 		}
