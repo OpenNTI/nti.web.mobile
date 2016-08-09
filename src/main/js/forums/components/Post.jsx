@@ -9,7 +9,6 @@ import {StoreEventsMixin} from 'nti-lib-store';
 
 import KeepItemInState from '../mixins/KeepItemInState';
 
-import PostItem from './list-items/PostItem';
 import PostHeadline from './PostHeadline';
 import ViewHeader from './widgets/ViewHeader';
 
