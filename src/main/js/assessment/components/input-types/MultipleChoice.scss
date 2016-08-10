@@ -87,25 +87,3 @@
 	}
 
 }
-
-.multiple-choice.solutions {
-
-	.solution {
-		min-height: 32px;
-		display: block;
-		position: relative;
-		line-height: 2;
-		color: $correct;
-
-		p:last-child {
-			margin-bottom: 0;
-		}
-	}
-
-	.numeral {
-		margin-right: 0.5rem;
-		font-weight: bold;
-		float: left;
-		line-height: 2;
-	}
-}
