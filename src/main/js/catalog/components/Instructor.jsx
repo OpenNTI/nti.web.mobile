@@ -47,7 +47,7 @@ export default React.createClass({
 		let background = {backgroundImage: `url(${photo})`};
 
 		return (
-			<div className="instructor">
+			<div className="course-instructor">
 				<img style={background} src={BLANK_IMAGE} alt="Instructor Photo"/>
 				<div className="meta">
 					<div className="label">{t('Instructor')}</div>

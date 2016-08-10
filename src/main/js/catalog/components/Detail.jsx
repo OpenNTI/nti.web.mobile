@@ -5,6 +5,10 @@ import Description from './Description';
 import Instructors from './Instructors';
 import Support from './CourseSupport';
 
+Detail.propTypes = {
+	entry: React.PropTypes.object
+};
+
 export default function Detail ({entry}) {
 	return (
 		<div className="course-detail-view">
@@ -16,7 +20,3 @@ export default function Detail ({entry}) {
 		</div>
 	);
 }
-
-Detail.propTypes = {
-	entry: React.PropTypes.object
-};

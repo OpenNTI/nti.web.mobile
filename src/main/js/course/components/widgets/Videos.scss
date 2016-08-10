@@ -1,3 +1,6 @@
+@import "utils/variables";
+@import "utils/placeholders";
+
 .videos-carousel-container {
 	position: relative;
 	overflow: hidden;
@@ -68,7 +71,7 @@
 		display: block;
 		width: 0.75rem;
 		height: 0.75rem;
-		background: $secondary-color;
+		background: $quad-grey;
 		border-radius: 100%;
 		&.active {
 			background: $primary-blue;

@@ -1,6 +1,7 @@
+@import "utils/variables";
+@import "utils/placeholders";
 
 .overview-survey {
-	@extend .overview-naquestionset;
 
 	.icon {
 		font-family: icomoon;

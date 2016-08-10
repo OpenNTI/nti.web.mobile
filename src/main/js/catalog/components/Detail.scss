@@ -1,0 +1,19 @@
+
+.course-detail-view {
+	& > * {
+		padding: 0 .9375rem;
+	}
+
+	.header {
+		margin-bottom: 0.5rem;
+		padding: 0;
+	}
+
+	.cell {
+		margin-bottom: 0.5rem;
+	}
+
+	.footer {
+		margin-bottom: 3rem;
+	}
+}

@@ -9,4 +9,18 @@
 		background-size: cover;
 		background-color: #000;
 	}
+
+	.video-wrap {padding:0; .flex-video{ margin-bottom: 0;}}
+
+	.title {
+		background: rgba(0,0,0,0.8);
+		padding: 0 .9375rem;
+
+		.text {
+			color: #fff;
+			text-transform: uppercase;
+			padding-top: 0.5rem;
+			padding-bottom: 0.5rem;
+		}
+	}
 }

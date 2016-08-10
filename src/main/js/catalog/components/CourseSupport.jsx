@@ -31,18 +31,12 @@ export default React.createClass({
 
 	render () {
 		return this.shouldRender() && (
-			<div className="course-detail-view">
-
-				<div className="support">
-					<img src={BLANK_IMAGE} alt="Support"/>
-					<div className="meta">
-						<div className="label">{t('label')}</div>
-						{[0,1,2].map(x => this.renderLink(x))}
-					</div>
+			<div className="course-support">
+				<img src={BLANK_IMAGE} alt="Support"/>
+				<div className="meta">
+					<div className="label">{t('label')}</div>
+					{[0,1,2].map(x => this.renderLink(x))}
 				</div>
-
-				<div className="footer"/>
-
 			</div>
 		);
 	},

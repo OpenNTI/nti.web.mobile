@@ -1,0 +1,67 @@
+
+.activity-buckets {
+	margin: 0;
+	list-style-type: none;
+
+	.activity-columns {
+		display: flex;
+		& > * {
+			flex: 1 1 350px;
+		}
+	}
+
+	.activity-item {
+		background: none;
+		padding: 0;
+	}
+
+	.bucketed-items {
+		& > * {
+			background: white;
+			padding: .625rem;
+			margin: 1rem .5rem;
+			border-radius: 3px;
+		}
+	}
+
+	.header {
+		background: transparent;
+		color: white;
+		padding: 0;
+		margin: 0 .5rem;
+		text-transform: uppercase;
+	}
+
+	.modeled-content {
+		max-height: 300px;
+		overflow: hidden;
+	}
+
+	.path {
+		font: normal 600 0.65rem/1.3em "Open Sans",sans-serif;
+		text-transform: uppercase;
+	}
+
+	.card-title {
+		font: italic 500 1.5em/1.4em "Open Sans",sans-serif;
+		height: 4.2em;
+		color: white;
+	}
+
+	.bullets {
+		color: white;
+	}
+
+	.footer {
+		text-align: center;
+		& > * {
+			margin: 0;
+		}
+	}
+
+	.context.scoped {
+		max-height: 15rem;
+		overflow: hidden;
+	}
+
+}

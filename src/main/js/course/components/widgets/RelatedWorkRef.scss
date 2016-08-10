@@ -1,4 +1,26 @@
+@import "utils/variables";
+@import "utils/placeholders";
 
+%not-available {
+	position: relative;
+	&:after {
+		$width: 192px;
+		content: 'Not available.';
+		position: absolute;
+		width: $width;
+		margin: 0 1rem;
+		font-size: .6875rem;
+		color: white;
+		background: rgba(0,0,0,.8);
+		top: 50%;
+		left: 50%;
+		margin-left: -($width/2);
+		margin-top: -.75em;
+		text-align: center;
+		border-radius: 2px;
+		height: auto;
+	}
+}
 
 .overview-naquestionset {
 	display: block;
