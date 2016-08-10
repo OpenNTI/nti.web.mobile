@@ -1,0 +1,38 @@
+@import "utils/variables";
+
+.gradebook .col-completed {
+	.heading {
+		color: transparent;
+		width: 1em;
+		&::before {
+			content: '√';
+			font-family: 'icomoon';
+			color: $tertiary-grey;
+		}
+	}
+	.complete {
+		position: relative;
+		width: 1.5rem;
+		overflow: hidden;
+		time {
+			text-indent: 999px;
+			display: block;
+		}
+		&::before {
+			content: '√';
+			font-family: 'icomoon';
+			font-size: 1.5rem;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			transform: translate3d(0,-50%,0);
+			color: $primary-green;
+		}
+		&.late {
+			color: $primary-red;
+			&::before {
+				color: $primary-red;
+			}
+		}
+	}
+}

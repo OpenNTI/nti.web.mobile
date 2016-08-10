@@ -1,0 +1,71 @@
+@import "utils/variables";
+@import "utils/placeholders";
+@import "utils/mixins";
+
+.gradebook-assignment-header {
+	margin: 0;
+	padding: .625rem;
+	background: $quad-grey;
+	border-bottom: 1px solid #ddd;
+	position: relative;
+
+	z-index: 99; // so the shadow isn't clipped by the table that follows
+	&::after { // shadow
+		content: '';
+		box-shadow: 0 -5px 15px 5px rgba(0,0,0,0.2);
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 100px;
+		clip: rect(100px, auto, 150px, auto);
+		background: #dddddd;
+		border-radius: 40em / 10px;
+	}
+
+	.gradebook-assignment-title {
+		margin-bottom: .625rem;
+	}
+
+	.avatar {
+		width: 32px;
+		height: 32px;
+		vertical-align: middle;
+		margin-right: .5rem;
+	}
+
+	$metafontsize: .625rem;
+
+	.meta, .extras {
+		font-size: $metafontsize;
+		color: $primary-blue;
+		text-transform: uppercase;
+		font-weight: 600;
+		line-height: 1.2rem;
+		& > * {
+			display: inline-block;
+			margin-right: .5em;
+		}
+	}
+
+	.filter-menu-wrapper {
+		cursor: pointer;
+		position: relative;
+		.menu-label {
+			position: relative;
+			&::after {
+				@extend %chevron-down;
+				font-size: $metafontsize;
+				position: relative;
+				left: .25em;
+				font-weight: normal;
+			}
+		}
+		&.open::before {
+			@include menu-click-mask;
+		}
+		.filter-menu {
+			@include panel-menu;
+		}
+	}
+}

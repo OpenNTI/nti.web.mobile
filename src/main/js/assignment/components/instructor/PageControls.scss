@@ -1,0 +1,48 @@
+@import "utils/variables";
+@import "utils/placeholders";
+@import "utils/mixins";
+
+.gradebook-page-controls {
+	float: right;
+	position: relative;
+	width: 150px;
+	background: white;
+	padding: .5rem .6rem;
+	font-size: .875rem;
+	border: 1px solid #dcdcdc;
+	border-radius: 3px;
+	&.open::before {
+		@include menu-click-mask;
+	}
+	.menu-label {
+		&::after {
+			@extend %chevron-down;
+			color: $tertiary-grey;
+			font-size: 1em;
+			position: absolute;
+			right: .6rem;
+			top: 50%;
+			transform: translateY(-45%);
+		}
+	}
+	.page-menu {
+		@include menu-shadow;
+		list-style: none;
+		position: absolute;
+		left: 0;
+		top: 100%;
+		margin: 0;
+		width: 100%;
+		background: white;
+		font-size: .875rem;
+		z-index: 9999;
+		border: 1px solid #dcdcdc;
+		li {
+			padding: .5rem .6rem;
+			&.selected {
+				background: $primary-blue;
+				color: white;
+			}
+		}
+	}
+}

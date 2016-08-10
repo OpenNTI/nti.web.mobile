@@ -1,0 +1,27 @@
+@import "utils/variables";
+@import "utils/mixins";
+
+.options-menu-wrapper {
+	float: right;
+	margin-left: 1rem;
+	position: relative;
+
+	.icon-gear-menu {
+		font-size: 1.5rem;
+		display: inline-block;
+		background: white;
+		padding: 0.28em .4em;
+		border: 1px solid #dcdcdc;
+		border-radius: 3px;
+		color: $tertiary-grey;
+	}
+	&.open::before {
+		@include menu-click-mask;
+	}
+	.options-menu {
+		@include panel-menu;
+		right: 0;
+		left: auto;
+		top: 100%;
+	}
+}

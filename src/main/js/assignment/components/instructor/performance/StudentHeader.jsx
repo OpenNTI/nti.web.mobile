@@ -4,7 +4,7 @@ import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
 export default function StudentHeader ({userId}) {
 	return (
-		<div className="student-header">
+		<div className="student assignment-header">
 			<AvatarProfileLink entity={userId} />
 		</div>
 	);

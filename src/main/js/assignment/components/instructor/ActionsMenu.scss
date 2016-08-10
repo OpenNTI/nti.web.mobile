@@ -1,0 +1,33 @@
+@import "utils/mixins";
+@import "utils/variables";
+
+.gradebook-actions-menu {
+	position: relative;
+	display: inline-block;
+	.icon-hamburger-menu {
+		font-size: 1.5rem;
+		color: $secondary-grey;
+		line-height: 0;
+	}
+
+	&.open::before {
+		@include menu-click-mask;
+	}
+
+	ul {
+		@include menu-shadow;
+		position: absolute;
+		z-index: 9999;
+		background: white;
+		list-style: none;
+		right: 0;
+		top: 1rem;
+		font-size: .875rem;
+		border: 1px solid #dcdcdc;
+		li {
+			cursor: pointer;
+			padding: .25em .5em;
+			white-space: nowrap;
+		}
+	}
+}

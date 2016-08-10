@@ -54,7 +54,7 @@ export default React.createClass({
 		}
 
 		return (
-			<Table id="summary-table"
+			<Table id="summary-table" //FIXME: Do not use hard-coded ID's
 				columns={columns}
 				items={summary && summary.items}
 				onSortChange={this.onSort}

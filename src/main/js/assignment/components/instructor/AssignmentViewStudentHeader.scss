@@ -1,0 +1,87 @@
+@import "utils/variables";
+@import "utils/mixins";
+@import "utils/placeholders";
+
+.assignment-header {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 0;
+	padding: .625rem;
+	// padding: 0 $headermargin;
+	background: $quad-grey;
+	border-bottom: 1px solid #ddd;
+	position: relative;
+
+	z-index: 99; // so the shadow isn't clipped by the table that follows
+	&::after { // shadow
+		content: '';
+		box-shadow: 0 -5px 15px 5px rgba(0,0,0,0.2);
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 100px;
+		clip: rect(100px, auto, 150px, auto);
+		background: #dddddd;
+		border-radius: 40em / 10px;
+	}
+
+	.profile-link {
+
+		.avatar {
+			width: 96px;
+			height: 96px;
+			vertical-align: middle;
+			margin-right: .5rem;
+		}
+
+		.username {
+			font-weight: 700;
+			text-transform: uppercase;
+		}
+
+		.body {
+			display: inline-block;
+		}
+	}
+
+	.controls {
+		display: flex;
+		align-items: center;
+		margin-bottom: 1rem;
+
+		& > * {
+			margin: 0 .25rem;
+		}
+
+		.assignment-status {
+			font-size: .625rem;
+			text-transform: uppercase;
+			position: relative;
+			top: .5rem;
+		}
+
+		.grade {
+			text-align: center;
+
+			.label {
+				background: none;
+				text-transform: uppercase;
+				font-weight: 700;
+				color: $tertiary-grey;
+				font-size: .625rem;
+			}
+
+			.grade-box {
+				margin: 0 auto;
+				width: 7rem;
+			}
+		}
+
+		.gradebook-actions-menu {
+			position: relative;
+			top: .8rem;
+		}
+	}
+}
