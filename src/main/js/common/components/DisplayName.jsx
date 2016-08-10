@@ -13,12 +13,13 @@ import ProfileLink from 'profile/mixins/ProfileLink';
 function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
 
 /**
- * This DisplayName component can use the full User instance if you have it.
- * Otherwise, it will take a username prop. If you do not have the full entity
- * object, and you want to show the display name, do not resolve the full entity
- * object yourself just to pass to this componenent. Only resolve the entity IF
- * and ONLY IF you need it for something else. Most likely. If its a link, or
- * something, use the corresponding Component, do not roll your own.
+ * This DisplayName component can use the full Entity instance if you have it.
+ * Otherwise, it will take a username string for the entity prop. If you do not
+ * have the full entity object, and you want to show the display name, do not
+ * resolve the full entity object yourself just to pass to this componenent.
+ * Only resolve the entity IF and ONLY IF you need it for something else. Most
+ * likely, if its a link, or something, use the corresponding Component,
+ * do not roll your own.
  */
 export default React.createClass({
 	displayName: 'DisplayName',
@@ -51,7 +52,7 @@ export default React.createClass({
 
 		/**
 		 * Sharing Scopes (entity objects) are given GeneralNames by the suggestion provider.
-		 * This flag will instruct the widget to use that designation instead of the displayName.
+		 * This flag will instruct this component to use that designation instead of the displayName.
 		 *
 		 * @type {boolean}
 		 */
@@ -112,23 +113,23 @@ export default React.createClass({
 
 
 	render () {
-		let {
+		const {
 			props: {className, entity, localeKey, tag, useGeneralName,...otherProps},
 			state: {displayName, generalName}
 		} = this;
 
-		let Tag = tag || (localeKey ? 'address' : 'span');
+		const Tag = tag || (localeKey ? 'address' : 'span');
 		let name = (useGeneralName && generalName) || displayName;
 
-		let props = Object.assign({}, otherProps, {
+		const props = {
+			...otherProps,
 			className: cx('username', className),
 			children: name,
 			'data-for': getDebugUsernameString(entity),
 			onClick: this.props.suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
-		});
+		};
 
-		delete props.username;
-		delete props.user;
+
 		delete props.suppressProfileLink;
 		delete props.usePronoun;
 

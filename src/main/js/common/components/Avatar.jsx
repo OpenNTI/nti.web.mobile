@@ -1,7 +1,7 @@
 import React from 'react';
+import cx from 'classnames';
 
 import {Constants} from 'nti-web-commons';
-
 import {resolve, getDebugUsernameString} from 'nti-web-client/lib/user';
 import ProfileLink from 'profile/mixins/ProfileLink';
 
@@ -9,25 +9,16 @@ const {DataURIs: {BLANK_AVATAR, BLANK_GROUP_AVATAR}} = Constants;
 const DEFAULT = { entity: {avatarURL: BLANK_AVATAR }};
 const DEFAULT_GROUP = { entity: {avatarURL: BLANK_GROUP_AVATAR }};
 
-import cx from 'classnames';
-
-function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
 
 export default React.createClass({
 	displayName: 'Avatar',
-
-
 	mixins: [ProfileLink],
-
 
 	propTypes: {
 		entity: React.PropTypes.oneOfType([
 			React.PropTypes.object,
 			React.PropTypes.string
 		]),
-
-		username: deprecated,
-		user: deprecated,
 
 		suppressProfileLink: React.PropTypes.bool,
 		className: React.PropTypes.string
@@ -119,34 +110,32 @@ export default React.createClass({
 
 
 	render () {
-		let {loading, entity, color} = this.state;
-		let {className} = this.props;
-		let css = cx('avatar', color, className);
+		const {loading, entity, color} = this.state;
+		const {className, suppressProfileLink} = this.props;
 
 		if (loading) { return null; }
 
-		let {avatarURL, initials, displayName} = entity || {};
+		const {avatarURL, initials, displayName} = entity || {};
 
-		let props = Object.assign({}, this.props, {
+		const childProps = {
+			...this.props,
 			'data-for': getDebugUsernameString(entity),
 			alt: 'Avatar for ' + displayName,
-			className: css,
-			onClick: this.props.suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
-		});
+			className: cx('avatar', color, className),
+			onClick: suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
+		};
 
-		delete props.entity;
-		delete props.username;
-		delete props.user;
-		delete props.suppressProfileLink;
+		delete childProps.entity;
+		delete childProps.suppressProfileLink;
 
 		return avatarURL ? (
-				<img {...props} src={avatarURL} onError={this.setUnknown}/>
+				<img {...childProps} src={avatarURL} onError={this.setUnknown}/>
 			) : initials ? (
-				<svg {...props} viewBox="0 0 32 32">
+				<svg {...childProps} viewBox="0 0 32 32">
 					<text textAnchor="middle" x="16px" y="21px">{initials}</text>
 				</svg>
 			) : (
-				<img {...props} src={this.fallback()}/>
+				<img {...childProps} src={this.fallback()}/>
 			);
 	}
 });
