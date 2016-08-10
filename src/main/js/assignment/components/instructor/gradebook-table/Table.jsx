@@ -9,6 +9,7 @@ export default React.createClass({
 	displayName: 'gradebook:Table',
 
 	propTypes: {
+		className: React.PropTypes.string,
 		items: React.PropTypes.any.isRequired,
 		columns: React.PropTypes.array.isRequired,
 		sort: React.PropTypes.string,
@@ -42,7 +43,7 @@ export default React.createClass({
 
 	render () {
 
-		const {columns, items, sort, sortOrder, ...otherProps} = this.props;
+		const {className, columns, items, sort, sortOrder, ...otherProps} = this.props;
 
 		delete otherProps.onSortChange;
 		delete otherProps.assignment;
@@ -50,7 +51,7 @@ export default React.createClass({
 		delete otherProps.userId;
 
 		return (
-			<div className="gradebook" {...otherProps}>
+			<div className={cx('gradebook', className)} {...otherProps}>
 				<div className="gradebook-row headings">
 					{
 						columns.map(Col => {

@@ -43,7 +43,9 @@ export default React.createClass({
 		const {items} = this.props;
 		const sort = items.getSort();
 		return (
-			<Table id="student-assignments-table" {...this.props}
+			<Table
+				{...this.props}
+				classaName="student-assignments-table"
 				columns={COLUMNS}
 				sort={sort.sortOn}
 				sortOrder={sort.sortOrder}
