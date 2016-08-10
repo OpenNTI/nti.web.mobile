@@ -75,7 +75,7 @@ export default React.createClass({
 				<div className="search"><input type="text" ref={x => this.search = x} onChange={this.onSearchChange} /></div>
 			{sections.map(s=>
 			{
-				const list = s.items.filter(passesFilter.bind(null, search));
+				const list = s.items.filter(item => passesFilter(search, item));
 				return list.length > 0 && (
 					<div className="grid-container" key={s.label}>
 						<h3>{s.label}</h3>

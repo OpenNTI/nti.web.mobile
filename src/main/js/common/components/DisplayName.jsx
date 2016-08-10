@@ -114,7 +114,7 @@ export default React.createClass({
 
 	render () {
 		const {
-			props: {className, entity, localeKey, tag, useGeneralName,...otherProps},
+			props: {className, entity, localeKey, tag, suppressProfileLink, useGeneralName,...otherProps},
 			state: {displayName, generalName}
 		} = this;
 
@@ -126,13 +126,10 @@ export default React.createClass({
 			className: cx('username', className),
 			children: name,
 			'data-for': getDebugUsernameString(entity),
-			onClick: this.props.suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
+			onClick: suppressProfileLink ? null : (e) => this.navigateToProfile(entity, e)
 		};
 
-
-		delete props.suppressProfileLink;
 		delete props.usePronoun;
-
 
 		if (localeKey) {
 			name = ReactDOMServer.renderToStaticMarkup(<a rel="author" className="username">{name}</a>);

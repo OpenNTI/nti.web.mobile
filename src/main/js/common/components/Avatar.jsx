@@ -122,7 +122,7 @@ export default React.createClass({
 			'data-for': getDebugUsernameString(entity),
 			alt: 'Avatar for ' + displayName,
 			className: cx('avatar', color, className),
-			onClick: suppressProfileLink ? null : this.navigateToProfile.bind(this, this.props.entity)
+			onClick: suppressProfileLink ? null : (e) => this.navigateToProfile(entity, e)
 		};
 
 		delete childProps.entity;

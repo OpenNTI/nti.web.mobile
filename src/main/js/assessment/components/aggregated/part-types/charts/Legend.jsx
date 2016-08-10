@@ -1,31 +1,28 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'Legend',
+Legend.propTypes = {
+	items: React.PropTypes.array,
+	colors: React.PropTypes.object
+};
 
-	propTypes: {
-		items: React.PropTypes.array,
-		colors: React.PropTypes.object
-	},
+export default function Legend (props) {
 
-	render () {
-		const {props: {colors, items}} = this;
+	const {colors, items} = props;
 
-		if (!items || !(items.length > 1)) { // the "!" catches the case where length is not numeric AND length is less than 2.
-			return null;
-		}
-
-		return (
-			<div className="legend">
-				{items.map((name, i)=>
-
-					<div key={i + name} className="legend-item">
-						<span className="legend-swatch" style={{background: colors[name]}}/>
-						{name}
-					</div>
-
-				)}
-			</div>
-		);
+	if (!items || !(items.length > 1)) { // the "!" catches the case where length is not numeric AND length is less than 2.
+		return null;
 	}
-});
+
+	return (
+		<div className="legend">
+			{items.map((name, i)=>
+
+				<div key={i + name} className="legend-item">
+					<span className="legend-swatch" style={{background: colors[name]}}/>
+					{name}
+				</div>
+
+			)}
+		</div>
+	);
+}

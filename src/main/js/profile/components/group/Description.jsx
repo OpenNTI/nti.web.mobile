@@ -1,23 +1,16 @@
 import React from 'react';
 import {Ellipsed} from 'nti-web-commons';
 
-export default React.createClass({
-	displayName: 'Group:Description',
+Description.propTypes = {
+	entity: React.PropTypes.object.isRequired
+};
 
-	propTypes: {
-		entity: React.PropTypes.object.isRequired
-	},
-
-	render () {
-
-		let {entity} = this.props;
-
-		if (!entity || !entity.description) {
-			return null;
-		}
-
-		return (
-			<Ellipsed className="description">The purpose of this group is to start a respectful and reflective discussion on how social rights have progressed in modern day. In addition, this group is also a place to make a case on how social rights are still needing to improve in the 21st century.</Ellipsed>
-		);
+export default function Description ({entity}) {
+	if (!entity || !entity.description) {
+		return null;
 	}
-});
+
+	return (
+		<Ellipsed className="description">{entity.description}</Ellipsed>
+	);
+}

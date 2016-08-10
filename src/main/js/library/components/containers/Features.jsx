@@ -1,9 +1,5 @@
-import React from 'react';
+// import React from 'react';
 
-export default React.createClass({
-	displayName: 'Features',
-
-	render () {
-		return null;
-	}
-});
+export default function Features () {
+	return null;
+}

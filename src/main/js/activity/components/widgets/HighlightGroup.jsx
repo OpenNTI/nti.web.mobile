@@ -5,32 +5,26 @@ import Breadcrumb from 'common/components/BreadcrumbPath';
 import ContentIcon from './ContentIcon';
 import Highlight from './Highlight';
 
-export default React.createClass({
-	displayName: 'HighlightGroup',
+HighlightGroup.propTypes = {
+	items: React.PropTypes.array.isRequired
+};
 
-	propTypes: {
-		ntiid: React.PropTypes.string.isRequired,
-		items: React.PropTypes.array.isRequired
-	},
+export default function HighlightGroup (props) {
+	const {items = []} = props;
 
-
-	render () {
-		let {items = []} = this.props;
-
-		if (items.length === 0) {
-			return null;
-		}
-
-		return (
-			<div className="highlight-group">
-				<ContentIcon item={items[0]} />
-				<Breadcrumb item={items[0]} />
-				{ items.map((item, index) =>(
-
-					<Highlight item={item} key={'highlight' + index} />
-
-				) ) }
-			</div>
-		);
+	if (items.length === 0) {
+		return null;
 	}
-});
+
+	return (
+		<div className="highlight-group">
+			<ContentIcon item={items[0]} />
+			<Breadcrumb item={items[0]} />
+			{ items.map((item, index) =>(
+
+				<Highlight item={item} key={'highlight' + index} />
+
+			) ) }
+		</div>
+	);
+}

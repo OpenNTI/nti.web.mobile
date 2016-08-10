@@ -21,7 +21,7 @@ export default React.createClass({
 		}
 
 		props = Object.assign(props, {
-			onClick: this.navigateToProfile.bind(this, entity)
+			onClick: (...args) => this.navigateToProfile(entity, ...args)
 		});
 
 		return (

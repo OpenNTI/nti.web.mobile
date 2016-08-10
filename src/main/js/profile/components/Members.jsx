@@ -16,7 +16,7 @@ export default React.createClass({
 
 		let {entity} = this.props;
 		let entities = this.getMembers(entity, false);
-		const classesFunc = classesFor.bind(null, entity.creator);
+		const classesFunc = (...args) => classesFor(entity.creator, ...args);
 
 		return (
 			<ProfileBodyContainer className="members">
