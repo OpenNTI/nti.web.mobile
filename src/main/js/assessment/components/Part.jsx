@@ -138,8 +138,6 @@ export default React.createClass({
 	renderHelpButton (label) {
 		let {part} = this.props;
 		let {helpVisible} = this.state;
-		let isSubmitted = part && Store.isSubmitted(part);
-		let isAdministrative = part && Store.isAdministrative(part);
 		let hints = part && Store.getHints(part);
 		let solution = part && Store.getSolution(part);
 		let handler = null;
@@ -148,8 +146,8 @@ export default React.createClass({
 			handler = this.onCloseHelp;
 		}
 		else {
-			//Submitted AND solution...
-			if (solution && (isSubmitted || isAdministrative)) {
+
+			if (solution) {
 				handler = this.onShowSolution;
 				label = 'Show Solution';
 			}
