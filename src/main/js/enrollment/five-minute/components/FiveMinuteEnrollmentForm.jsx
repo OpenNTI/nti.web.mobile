@@ -89,7 +89,7 @@ export default React.createClass({
 		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
 		case FormConstants.FIELD_VALUE_CHANGE:
-			if (event.fieldName === 'signature' || event.fieldName === 'contactme') {
+			if ((/radio|checkbox/i).test((event.target || {}).type) || event.fieldName === 'signature' || event.fieldName === 'contactme') {
 				this.forceUpdate();
 			}
 			break;
