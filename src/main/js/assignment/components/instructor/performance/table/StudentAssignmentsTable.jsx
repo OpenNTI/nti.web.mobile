@@ -45,7 +45,7 @@ export default React.createClass({
 		return (
 			<Table
 				{...this.props}
-				classaName="student-assignments-table"
+				className="student-assignments-table"
 				columns={COLUMNS}
 				sort={sort.sortOn}
 				sortOrder={sort.sortOrder}
