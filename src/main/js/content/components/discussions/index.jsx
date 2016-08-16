@@ -4,7 +4,7 @@ import {Locations, Location, NotFound as Default} from 'react-router-component';
 
 // import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
-import PageSource from 'nti-lib-interfaces/lib/models/ListBackedPageSource';
+import PageSource from 'nti-commons/lib/ListBackedPageSource';
 // import {decodeFromURI} from 'nti-lib-ntiids';
 
 import ContextMixin from 'common/mixins/ContextSender';
