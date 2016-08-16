@@ -7,7 +7,7 @@ import t from 'nti-lib-locale';
 
 import {getModel} from 'nti-lib-interfaces';
 import {encodeForURI} from 'nti-lib-ntiids';
-import {REPORT_LINK} from 'nti-lib-interfaces/lib/models/assessment/survey/Constants';
+import {SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
@@ -40,7 +40,7 @@ export default React.createClass( {
 	render () {
 		const {item} = this.props;
 		const questionCount = item.getQuestionCount();
-		const report = item.getLink(REPORT_LINK);
+		const report = item.getLink(SURVEY_REPORT_LINK);
 		const {isSubmitted: submitted, label = 'No Label', submissions = 0} = item;
 
 		let href = path.join('content', encodeForURI(item['Target-NTIID'])) + '/';

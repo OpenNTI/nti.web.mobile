@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Logger from 'nti-util-logger';
-import getLinkFn from 'nti-lib-interfaces/lib/utils/getlink'; //Accessing interfaces/lib directly is taboo
+import {getLink as getLinkFn} from 'nti-lib-interfaces';
 
 import {Error as Err, Loading} from 'nti-web-commons';
 

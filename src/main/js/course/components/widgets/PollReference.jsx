@@ -6,14 +6,14 @@ import {Mixins} from 'nti-web-commons';
 import t from 'nti-lib-locale';
 
 import {getModel} from 'nti-lib-interfaces';
-import {HISTORY_LINK} from 'nti-lib-interfaces/lib/models/assessment/Constants';
+import {ASSESSMENT_HISTORY_LINK} from 'nti-lib-interfaces';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
 
 function isSubmitted (item) {
-	return !!((item || {}).Links || []).find(x=> x.rel === HISTORY_LINK);
+	return !!((item || {}).Links || []).find(x=> x.rel === ASSESSMENT_HISTORY_LINK);
 }
 
 

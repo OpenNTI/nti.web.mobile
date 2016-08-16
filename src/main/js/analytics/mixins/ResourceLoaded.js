@@ -1,24 +1,9 @@
 import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
 
-const AssessmentEvent = getModel('analytics.assessmentevent');
-const AssignmentEvent = getModel('analytics.assignmentevent');
 const ResourceEvent = getModel('analytics.resourceevent');
-const TopicViewedEvent = getModel('analytics.topicviewedevent');
-const ProfileViewedEvent = getModel('analytics.profileviewevent');
-const ProfileActivityViewedEvent = getModel('analytics.profileactivityviewevent');
-const ProfileMembershipViewedEvent = getModel('analytics.profilemembershipviewevent');
 
 import {decodeFromURI} from 'nti-lib-ntiids';
-import {
-	ASSIGNMENT_VIEWED,
-	RESOURCE_VIEWED,
-	SELFASSESSMENT_VIEWED,
-	TOPIC_VIEWED,
-	PROFILE_VIEWED,
-	PROFILE_ACTIVITY_VIEWED,
-	PROFILE_MEMBERSHIP_VIEWED
-} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 import {emitEventStarted, emitEventEnded} from '../Actions';
 import AnalyticsStore from '../Store';
@@ -31,16 +16,6 @@ const logger = Logger.get('mixin:resourceLoaded');
 
 // keep track of the view start event so we can push analytics including duration
 const CURRENT_EVENT = Symbol('CurrentEvent');
-
-const typeMap = {
-	[ASSIGNMENT_VIEWED]: AssignmentEvent,
-	[SELFASSESSMENT_VIEWED]: AssessmentEvent,
-	[RESOURCE_VIEWED]: ResourceEvent,
-	[TOPIC_VIEWED]: TopicViewedEvent,
-	[PROFILE_VIEWED]: ProfileViewedEvent,
-	[PROFILE_ACTIVITY_VIEWED]: ProfileActivityViewedEvent,
-	[PROFILE_MEMBERSHIP_VIEWED]: ProfileMembershipViewedEvent
-};
 
 
 export default {
@@ -78,7 +53,7 @@ export default {
 		// new event so we don't change this[CURRENT_EVENT] out from under us.
 		this.resourceUnloaded().then(() => {
 
-			let Type = typeMap[eventMimeType] || ResourceEvent;
+			const Type = getModel(eventMimeType) || ResourceEvent;
 			this[CURRENT_EVENT] = new Type(
 				decodeFromURI(resourceId),
 				courseId,

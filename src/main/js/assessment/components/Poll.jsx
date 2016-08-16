@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {REPORT_LINK} from 'nti-lib-interfaces/lib/models/assessment/survey/Constants';
+import {SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 
@@ -44,7 +44,7 @@ export default React.createClass({
 		const submitted = Store.isSubmitted(question);
 		const showAggregation = Store.aggregationViewState(question);
 		const results = showAggregation ? 'Hide Results' : 'Show Results';
-		const report = question.getLink(REPORT_LINK);
+		const report = question.getLink(SURVEY_REPORT_LINK);
 		const showReport = report && question.individual;
 		const showLinks = question.hasAggregationData || showReport;
 

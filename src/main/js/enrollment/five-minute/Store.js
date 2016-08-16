@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 
-import FiveMinuteInterface from 'nti-lib-interfaces/lib/interface/FiveMinuteInterface';
+import {FiveMinuteEnrollmentInterface} from 'nti-lib-interfaces';
 
 import {getService} from 'nti-web-client';
 import AppDispatcher from 'nti-lib-dispatcher';
@@ -38,7 +38,7 @@ function getFiveMinuteService () {
 	let me = getFiveMinuteService;
 	if (!me.promise) {
 		me.promise = getService().then(service =>
-			FiveMinuteInterface.fromService(service));
+			FiveMinuteEnrollmentInterface.fromService(service));
 	}
 	return me.promise;
 }
