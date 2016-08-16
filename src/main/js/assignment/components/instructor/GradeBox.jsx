@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import Grade from 'nti-lib-interfaces/lib/models/courses/Grade';
+import {getModel} from 'nti-lib-interfaces';
 import {PropType as NTIID} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 import isEmpty from 'isempty';
@@ -11,6 +11,7 @@ import {Mixins} from 'nti-web-commons';
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 const logger = Logger.get('assignment:components:instructor:GradeBox');
+const Grade = getModel('grade');
 
 export default React.createClass({
 	displayName: 'GradeBox',
