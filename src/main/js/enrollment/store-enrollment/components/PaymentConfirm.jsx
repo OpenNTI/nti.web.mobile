@@ -101,7 +101,7 @@ export default React.createClass({
 				) : (
 					<div>
 						<Pricing purchasable={purchasable} locked />
-						<PanelButton buttonClick={this.submitPayment} linkText="Submit Payment">
+						<PanelButton onClick={this.submitPayment} linkText="Submit Payment">
 							<h3>{t('header')}</h3>
 							<p>{t('review')}</p>
 							<p>{t('salesFinal')}</p>

@@ -46,7 +46,7 @@ export default React.createClass({
 
 		return (
 			<div className="small-12 columns">
-				<PanelButton className="error" buttonClick={this.onClick}>
+				<PanelButton className="error" onClick={this.onClick}>
 					<p>We were unable to process your enrollment for '{courseTitle}'.</p>
 					{this.errorMessage()}
 					<p>If this issue persists contact support.</p>
