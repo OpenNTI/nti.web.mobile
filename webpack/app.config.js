@@ -55,7 +55,7 @@ exports = module.exports = [
 		devtool: PROD ? 'hidden-source-map' : 'source-map',
 
 		entry: {
-			main: './src/main/js/index.js'
+			main: ['whatwg-fetch','./src/main/js/index.js']
 		},
 
 		target: 'web',
@@ -188,9 +188,6 @@ exports = module.exports = [
 					// This has effect on the react lib size
 					'NODE_ENV': JSON.stringify(ENV)
 				}
-			}),
-			new webpack.ProvidePlugin({
-				'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 			}),
 			new ExtractTextPlugin('resources/styles.css', {allChunks: true}),
 			PROD && new webpack.optimize.UglifyJsPlugin({
