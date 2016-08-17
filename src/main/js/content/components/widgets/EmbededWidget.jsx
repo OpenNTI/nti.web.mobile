@@ -125,7 +125,8 @@ export default React.createClass({
 						height={height}
 						frameBorder="no"
 						scrolling="no"
-						allowTransparency="true"
+						allowFullscreen
+						allowTransparency
 						seamless
 						/>
 				)}
