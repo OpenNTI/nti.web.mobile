@@ -8,7 +8,6 @@ import Notifications from 'notifications/components/View';
 
 import {getViewportHeight} from 'nti-lib-dom';
 
-import Analytics from 'analytics/components/Tag';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
 
 const LEFT_MENU_OPEN = 'offcanvas-overlap-right';
@@ -66,7 +65,6 @@ export default React.createClass({
 
 		return (
 			<div className="app-container">
-				<Analytics />
 				<ConflictResolutionHandler/>
 				<LibraryInvalidationListener />
 				{this.getOverlayState() != null && (<LockScroll/> )}

@@ -14,7 +14,7 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import {rawContent} from 'nti-commons/lib/jsx';
 
-import AnalyticsStore from 'analytics/Store';
+import {addHistory} from 'nti-analytics';
 
 // This is an example of the correct way to aquire a reference to
 // this mixin from outside of the `widgets` package. If this comment
@@ -68,7 +68,7 @@ export default React.createClass({
 
 
 	componentWillUnmount () {
-		AnalyticsStore.pushHistory(this.getOutlineID(this.props));
+		addHistory(this.getOutlineID(this.props));
 	},
 
 

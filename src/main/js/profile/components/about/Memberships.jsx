@@ -4,8 +4,8 @@ import MembershipList from './MembershipList';
 import {EmptyList} from 'nti-web-commons';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
+import {PROFILE_MEMBERSHIP_VIEWED} from 'nti-analytics';
 
-import {PROFILE_MEMBERSHIP_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 export default React.createClass({
 	displayName: 'Memberships',

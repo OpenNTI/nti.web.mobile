@@ -1,5 +1,3 @@
-import {isMimeType} from 'common/utils/mimetype';
-
 const CLEANED = Symbol('Type has been cleaned');
 
 export default {
@@ -25,3 +23,10 @@ export default {
 
 	}
 };
+
+export function isMimeType (item, itemType)	 {
+	let type = item.MimeType
+						.replace('application/vnd.nextthought.', '')
+						.toLowerCase();
+	return (itemType.indexOf(type) !== -1);
+}

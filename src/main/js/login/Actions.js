@@ -3,7 +3,7 @@ import AppDispatcher from 'nti-lib-dispatcher';
 import {getServer, getService} from 'nti-web-client';
 
 import Store from './Store'; //ONLY READ from the store!!
-import {endSession as endAnalyticsSession} from 'analytics/Actions';
+import {endSession as endAnalyticsSession} from 'nti-analytics';
 
 import {
 	LOGIN_INIT_DATA,

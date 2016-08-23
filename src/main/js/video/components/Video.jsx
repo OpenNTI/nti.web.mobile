@@ -3,14 +3,14 @@ import React from 'react';
 import Video from 'nti-web-video';
 import Logger from 'nti-util-logger';
 
-
-import {getModel} from 'nti-lib-interfaces'; //TODO: Once deprecations are taken care of, remove this.
-
-import {emitEventStarted, emitEventEnded} from 'analytics/Actions'; //FIXME: Find a way to move analytics into its own package.
-import {toAnalyticsPath} from 'analytics/utils'; //TODO: Once deprecations are taken care of, remove this.
+import {
+	eventStarted,
+	eventEnded,
+	toAnalyticsPath,
+	WatchVideoEvent
+} from 'nti-analytics';
 
 const logger = Logger.get('video:component:VideoWrapper');
-const WatchVideoEvent = getModel('analytics.watchvideoevent'); //TODO: Once deprecations are taken care of, remove this.
 
 const emptyFunction = () => {};
 
@@ -32,7 +32,7 @@ export default React.createClass({
 		 */
 		src: React.PropTypes.oneOfType([
 			React.PropTypes.string,
-			React.PropTypes.instanceOf(getModel('video'))
+			React.PropTypes.object
 		]).isRequired,
 
 
@@ -111,13 +111,13 @@ export default React.createClass({
 						'pause/stop/seek/end in between?');
 			let e = this.state.playStartEvent;
 			e.finish();
-			emitEventEnded(e);
+			eventEnded(e);
 		}
 
 		if (this.mounted) {
 			let analyticsEvent = this.newWatchVideoEvent(event);
 			if (analyticsEvent) {
-				emitEventStarted(analyticsEvent);
+				eventStarted(analyticsEvent);
 				this.setState({
 					playStartEvent: analyticsEvent
 				});
@@ -171,7 +171,7 @@ export default React.createClass({
 		}
 
 		playStartEvent.finish(event.target.currentTime);
-		emitEventEnded(playStartEvent);
+		eventEnded(playStartEvent);
 
 		if (this.mounted) {
 			this.setState({playStartEvent: null});

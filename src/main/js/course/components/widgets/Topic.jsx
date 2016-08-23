@@ -4,7 +4,7 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Mixins} from 'nti-web-commons';
-import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
+import {Mixin as ResourceLoaded} from 'nti-analytics';
 
 /**
  * This is not to be confused with Forum topics.

@@ -5,7 +5,7 @@ import Controls from './HeaderControls';
 import Head from './Head';
 import Invite from './Invite';
 
-// import {getWidth} from 'nti-lib-dom/lib/viewport';
+// import {getViewportWidth} from 'nti-lib-dom';
 
 import ContextSender from 'common/mixins/ContextSender';
 

@@ -1,5 +1,7 @@
-import AnalyticsStore from 'analytics/Store';
-import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
+import {
+	Mixin as ResourceLoaded,
+	getHistory
+} from 'nti-analytics';
 
 const startAnalyticsEvent = 'Profile:startAnalyticsEvent';
 const getEntityId = 'Profile:getEntityId';
@@ -29,7 +31,7 @@ export default {
 	},
 
 	analyticsContext () {
-		let h = AnalyticsStore.getHistory() || [];
+		let h = getHistory() || [];
 		if (h.length > 0 && h[h.length - 1] === this[getEntityId]()) {
 			h.length--; // don't include ourselves in the context
 		}

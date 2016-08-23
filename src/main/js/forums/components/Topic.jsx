@@ -1,9 +1,13 @@
 import React from 'react';
 import Transition from 'react-addons-css-transition-group';
 
-import AnalyticsStore from 'analytics/Store';
+import {
+	Mixin as ResourceLoaded,
+	TOPIC_VIEWED,
+	addHistory,
+	getHistory
+} from 'nti-analytics';
 
-import {TOPIC_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import {Error as Err, Loading, Mixins, Notice} from 'nti-web-commons';
@@ -25,7 +29,7 @@ import Store from '../Store';
 // mixins
 import KeepItemInState from '../mixins/KeepItemInState';
 import Paging from '../mixins/Paging';
-import ResourceLoaded from 'analytics/mixins/ResourceLoaded';
+
 import {StoreEventsMixin} from 'nti-lib-store';
 import ToggleState from '../mixins/ToggleState';
 
@@ -119,7 +123,7 @@ export default React.createClass({
 	},
 
 	componentWillUnmount () {
-		AnalyticsStore.pushHistory(this.getTopicId(this.props));
+		addHistory(this.getTopicId(this.props));
 		this.resourceUnloaded();
 	},
 
@@ -161,7 +165,7 @@ export default React.createClass({
 	},
 
 	analyticsContext () {
-		let h = AnalyticsStore.getHistory() || [];
+		let h = getHistory() || [];
 		if (h.length > 0 && h[h.length - 1] === this.getTopicId()) {
 			h.length--; // don't include ourselves in the context
 		}

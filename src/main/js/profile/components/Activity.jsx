@@ -9,10 +9,10 @@ import ItemsMixin from 'activity/RenderItemsMixin';
 import Joined from 'activity/components/widgets/Joined';
 
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
+import {PROFILE_ACTIVITY_VIEWED} from 'nti-analytics';
 
 import WriteSomething from './WriteSomething';
 
-import {PROFILE_ACTIVITY_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
 
 export default React.createClass({
 	displayName: 'Activity',

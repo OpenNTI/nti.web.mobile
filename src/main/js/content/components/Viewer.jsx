@@ -22,10 +22,9 @@ import PageDescriptor from '../PageDescriptor';
 import {
 	ASSIGNMENT_VIEWED,
 	RESOURCE_VIEWED,
-	SELFASSESSMENT_VIEWED
-} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
-
-import AnalyticsBehavior from 'analytics/mixins/ResourceLoaded';
+	SELFASSESSMENT_VIEWED,
+	Mixin as AnalyticsBehavior
+} from 'nti-analytics';
 import AnnotationFeature from './viewer-parts/annotations';
 import AssessmentFeature, {isAssignment} from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';

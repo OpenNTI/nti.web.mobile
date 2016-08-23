@@ -7,11 +7,10 @@ import {
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {getModel} from 'nti-lib-interfaces';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
-import {toAnalyticsPath} from 'analytics/utils';
+import {WatchVideoEvent, toAnalyticsPath} from 'nti-analytics';
 
 import Discussions from 'content/components/discussions';
 import Gutter from 'content/components/Gutter';
@@ -32,8 +31,6 @@ import Transcript from './Transcript';
 import {NOT_FOUND, RETRY_AFTER_DOM_SETTLES} from 'content/components/annotations/Annotation';
 
 const logger = Logger.get('course:transcripted-video');
-
-const WatchVideoEvent = getModel('analytics.watchvideoevent');
 
 const None = void 0;
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 import {Link} from 'react-router-component';
 
-import AnalyticsStore from 'analytics/Store';
+import {addHistory} from 'nti-analytics';
 
 import Transition from 'react-addons-css-transition-group';
 
@@ -45,7 +45,7 @@ export default React.createClass({
 	},
 
 	componentWillUnmount () {
-		AnalyticsStore.pushHistory(decodeFromURI(this.props.forumId));
+		addHistory(decodeFromURI(this.props.forumId));
 	},
 
 	getForum () {

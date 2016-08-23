@@ -3,7 +3,7 @@ import Url from 'url';
 
 import {Error, Loading, Mixins} from 'nti-web-commons';
 
-import Messages from 'common/utils/WindowMessageListener';
+import {WindowMessageListener as Messages} from 'nti-lib-dom';
 
 import {getAppUser, getReturnURL} from 'nti-web-client';
 

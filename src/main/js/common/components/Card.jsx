@@ -26,8 +26,6 @@ import React from 'react';
 import Url from 'url';
 import cx from 'classnames';
 
-import {toAnalyticsPath} from 'analytics/utils';
-
 import ContextAccessor from '../mixins/ContextAccessor';
 
 import {scoped} from 'nti-lib-locale';
@@ -35,15 +33,13 @@ import {rawContent} from 'nti-commons/lib/jsx';
 
 import {AssetIcon, Constants, Mixins} from 'nti-web-commons';
 
-import {getModel} from 'nti-lib-interfaces';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 import {Progress} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 
-import {emitEventStarted} from 'analytics/Actions';
+import {eventStarted, toAnalyticsPath, ExternalResourceEvent} from 'nti-analytics';
 
 const {DataURIs: {BLANK_IMAGE}} = Constants;
-const ExternalResourceEvent = getModel('analytics.externalresourceevent');
 
 const logger = Logger.get('common:components:card');
 
@@ -285,7 +281,7 @@ export default React.createClass({
 					toAnalyticsPath(context, resourceId)
 				);
 
-				emitEventStarted(viewEvent);
+				eventStarted(viewEvent);
 			});
 		}
 	},

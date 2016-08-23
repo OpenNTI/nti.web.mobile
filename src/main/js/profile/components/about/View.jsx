@@ -1,10 +1,11 @@
 import React from 'react';
-import {PROFILE_VIEWED} from 'nti-lib-interfaces/lib/models/analytics/MimeTypes';
+
+import {PROFILE_VIEWED} from 'nti-analytics';
+import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 
 import {ActiveState, TinyLoader as Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
-import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 import Card from '../Card';
 import Mixin from '../about/Mixin';
 

@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 import Url from 'url';
 import QueryString from 'query-string';
 
-import MESSAGES from 'common/utils/WindowMessageListener';
+import {WindowMessageListener as MESSAGES} from 'nti-lib-dom';
 
 import Mixin from './Mixin';
 
