@@ -83,7 +83,7 @@ exports = module.exports = [
 				},
 				{
 					test: /\.js(x?)$/,
-					// include: /node_modules.+nti\-/,
+					include: /.+nti\-/,
 					loader: 'source-map-loader'
 				}
 			],
@@ -92,7 +92,8 @@ exports = module.exports = [
 
 				{
 					test: /\.js(x?)$/i,
-					exclude: /node_modules/,
+					exclude: /.*node_modules.*/,
+					include: /src.main.+jsx?$/,
 					loader: 'babel-loader',
 					query: {
 						sourceMaps: true
