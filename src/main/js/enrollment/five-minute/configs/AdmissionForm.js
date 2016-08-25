@@ -214,6 +214,7 @@ const admissionForm = [
 				ref: 'okResident',
 				type: 'radiogroup',
 				label: t('okResident'),
+				required: true,
 				options: [
 					{
 						label: 'Yes',
