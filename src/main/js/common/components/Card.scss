@@ -45,16 +45,22 @@
 	}
 
 	.label {
+		//Design wants the by-line to be one line and ellipsed
+		display: block;
+		line-height: 1.4;
+		text-align: left;
+
+		white-space: nowrap;;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
 		margin: 0;
 		padding: 0;
 		font-weight: bold;
 		background: none;
 		text-transform: uppercase;
-		white-space: normal;
-		text-align: left;
+
 		color: $primary-blue;
-		display: block;
-		line-height: 1.4;
 		margin-bottom: .25em;
 		font-size: rem-calc(10px);
 	}
