@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://repos.nextthought.com/nti.web.mobile"
+    "url": "https://repos.nextthought.com/git/nti.web.mobile"
   },
   "files": [
     "dist"
