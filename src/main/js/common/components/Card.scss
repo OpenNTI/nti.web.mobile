@@ -50,9 +50,11 @@
 		line-height: 1.4;
 		text-align: left;
 
-		white-space: nowrap;;
-		overflow: hidden;
-		text-overflow: ellipsis;
+		//This is dumb... but i'm having a hard time figuring out why "white-space: nowrap"
+		//forces the label to overflow and drive the width wider than the container. :|
+		//So... use the two-line solution clamped to one.
+		white-space: normal;
+		@include limit-lines($lines: 1, $line-height: 1.4);
 
 		margin: 0;
 		padding: 0;
