@@ -122,7 +122,7 @@ describe('AssignmentStatusLabel', () => {
 
 			test({assignment})
 				.map(getText)
-				.forEach(text => expect(text).toEqual(`Available()${time}`));
+				.forEach(text => expect(text).toEqual('Available Now()'));
 
 			//past assignment with due
 			assignment = MockAssignment({ [START]: yesterday, [END]: tomorrow });
@@ -134,11 +134,12 @@ describe('AssignmentStatusLabel', () => {
 
 
 
-			//no submits do not have an "Available {date}" state
+			//no submit
 			assignment = MockNoSubmitAssignment({ [START]: tomorrow, [END]: void 0 });
+			time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
 			test({assignment})
 				.map(getText)
-				.forEach(text => expect(text).toEqual(void 0));
+				.forEach(text => expect(text).toEqual(`Available()${time}`));
 		});
 
 	});

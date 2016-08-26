@@ -34,11 +34,11 @@ export default React.createClass({
 
 
 	render () {
-		const {className, enabled} = this.props;
+		const {className, enabled, ...props} = this.props;
 		const css = cx('button tiny', className, {disabled: !enabled});
 
 		return (
-			<a {...this.props} onClick={this.onClick} className={css}/>
+			<a {...props} onClick={this.onClick} className={css}/>
 		);
 	}
 });
