@@ -57,7 +57,13 @@ export default React.createClass({
 			.then((result) => this.setState({
 				busy: false,
 				enrolled: result.success
-			}));
+			}))
+			.catch(reason => {
+				this.setState({
+					error: reason,
+					busy: false
+				});
+			});
 		});
 
 	},
@@ -75,14 +81,14 @@ export default React.createClass({
 			return <div><Loading /></div>;
 		}
 
-		const {enrolled} = this.state;
+		const {enrolled, error} = this.state;
 
 		return (
 			<div>
 				<div className="enrollment open-enrollment">
 					<h2 className="title">Enroll for Free</h2>
 					<p className="description">Get complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once class is in session.</p>
-
+					{error && <p className="error">{error.message}</p>}
 					{enrolled
 						?
 						(
