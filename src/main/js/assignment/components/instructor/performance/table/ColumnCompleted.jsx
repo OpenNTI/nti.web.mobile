@@ -23,7 +23,7 @@ export default React.createClass({
 		const completedTime = item && item.completed;
 		const classes = cx({
 			'complete': !!completedTime,
-			'late': completedTime && completedTime > item.dueDate
+			'late': item.dueDate && completedTime && completedTime > item.dueDate
 		});
 		return (
 			<div className={classes}>
