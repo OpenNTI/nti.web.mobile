@@ -6,6 +6,7 @@
 
 import UNITS from './partials/units';
 import ACTIVITY from './partials/activity';
+import ASSESSMENTS from './partials/assessments';
 import COURSE from './partials/course';
 import CONTACTS from './partials/contacts';
 import CONTENT from './partials/content';
@@ -36,6 +37,8 @@ export default {
 	},
 
 	ACTIVITY,
+
+	ASSESSMENTS,
 
 	FORUMS,
 
