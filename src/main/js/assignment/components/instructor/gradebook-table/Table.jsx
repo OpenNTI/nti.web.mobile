@@ -28,10 +28,10 @@ export default React.createClass({
 		this.setSort(column.sort);
 	},
 
-	row (item) {
+	row (item, index) {
 		const {columns} = this.props;
 		return (
-			<div className="gradebook-row" key={item.title || item.username}>
+			<div className="gradebook-row" key={index}>
 				{columns.map(Col =>
 					<div className={Col.className} key={Col.label()}>
 						<Col item={item} {...this.props}/>
@@ -76,7 +76,7 @@ export default React.createClass({
 						})
 					}
 				</div>
-				{items.map((item) => this.row(item))}
+				{items.map((item, index) => this.row(item, index))}
 			</div>
 
 		);
