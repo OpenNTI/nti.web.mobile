@@ -18,15 +18,10 @@ export function enrollOpen (catalogId) {
 }
 
 export function dropCourse (courseId) {
-	try {
-		return getEnrollmentService()
-			.then(enrollmentService => enrollmentService.dropCourse(courseId))
-			.then( (response) => {
-				AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
-				return response;
-			});
-	}
-	catch(err) {
-		return Promise.reject(err);
-	}
+	return getEnrollmentService()
+		.then(enrollmentService => enrollmentService.dropCourse(courseId))
+		.then( (response) => {
+			AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
+			return response;
+		});
 }
