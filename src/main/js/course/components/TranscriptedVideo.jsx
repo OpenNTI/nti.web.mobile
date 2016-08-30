@@ -234,7 +234,9 @@ export default React.createClass({
 			})
 			.catch(reason=> {
 				if (reason === video.NO_TRANSCRIPT ||
-					reason === video.NO_TRANSCRIPT_LANG) {
+					reason === video.NO_TRANSCRIPT_LANG ||
+					reason.statusCode === 404
+				) {
 					this.setState({ cues: None, regions: None, video });
 					return;
 				}
