@@ -307,7 +307,8 @@ export default React.createClass({
 
 
 	getType () {
-		return [this.type, this.targetMimeType].filter(x => x);
+		const {item} = this.props;
+		return [item.type, item.targetMimeType].filter(x => x);
 	},
 
 
