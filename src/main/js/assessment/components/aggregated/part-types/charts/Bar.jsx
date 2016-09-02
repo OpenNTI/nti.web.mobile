@@ -1,12 +1,13 @@
 import React from 'react';
 import Segment from './BarSegment';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 export default function Bar ({colors, label, labelPrefix, series}) {
 	return (
 		<div className="bar">
 			<div className="axis-label">
 				{!!labelPrefix && ( <strong>{labelPrefix}</strong> )}
-				{label}
+				<span {...rawContent(label)}/>
 			</div>
 			<div className="bar-series">
 				{series.map((x, i) =>

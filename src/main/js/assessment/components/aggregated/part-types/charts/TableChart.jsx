@@ -1,4 +1,5 @@
 import React from 'react';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 import TableRow from './TableRow';
 
@@ -19,7 +20,7 @@ export default function TableChart ({data}) {
 				<tr>
 					<th/>
 					{columnItems.map(label =>
-						<th key={label}>{label}</th>
+						<th key={label} {...rawContent(label)} />
 					)}
 				</tr>
 			</thead>

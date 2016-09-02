@@ -1,4 +1,5 @@
 import React from 'react';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 Legend.propTypes = {
 	items: React.PropTypes.array,
@@ -19,7 +20,7 @@ export default function Legend (props) {
 
 				<div key={i + name} className="legend-item">
 					<span className="legend-swatch" style={{background: colors[name]}}/>
-					{name}
+					<span {...rawContent(name)} />
 				</div>
 
 			)}

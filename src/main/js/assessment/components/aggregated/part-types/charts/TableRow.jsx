@@ -1,4 +1,5 @@
 import React from 'react';
+import {rawContent} from 'nti-commons/lib/jsx';
 
 import TableCell from './TableCell';
 
@@ -20,7 +21,7 @@ export default function TableRow ({columns, label, labelPrefix, series}) {
 		<tr>
 			<td className="axis-label">
 				{!!labelPrefix && ( <strong>{labelPrefix}</strong> )}
-				{label}
+				<span {...rawContent(label)} />
 			</td>
 
 			{row.map((x, i) =>
