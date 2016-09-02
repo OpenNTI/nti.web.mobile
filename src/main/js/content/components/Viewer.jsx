@@ -75,10 +75,10 @@ export default React.createClass({
 
 
 	signalResourceLoaded () {
-		let quiz = this.getAssessment();
-		let mime = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
+		const quiz = this.getAssessment();
+		const mime = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
 
-		let args = [
+		const args = [
 			this.getPageID(),
 			this.props.contentPackage.getID(),
 			mime
@@ -88,7 +88,7 @@ export default React.createClass({
 			args.unshift(quiz.getID());
 		}
 
-		this.resourceLoaded.apply(this, args);
+		this.resourceLoaded(...args);
 	},
 
 
@@ -136,7 +136,7 @@ export default React.createClass({
 
 
 	componentDidUpdate () {
-		let {pageSource, currentPage} = this.state;
+		const {pageSource, currentPage} = this.state;
 		//We transition between discussions, NoteEditor and content...
 		//those transitions delay "componentWillUnmount" which is one of the
 		//places where context book-keeping is performed... wait for it to occur.
@@ -146,10 +146,10 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		let newPageId = this.getPageID(props);
-		let newPage = newPageId !== this.state.currentPage;
-		let newRoot = this.getRootID(props) !== this.getRootID();
-		let initial = this.props === props;
+		const newPageId = this.getPageID(props);
+		const newPage = newPageId !== this.state.currentPage;
+		const newRoot = this.getRootID(props) !== this.getRootID();
+		const initial = this.props === props;
 
 		if (initial || newPage || newRoot) {
 			this.setState({
@@ -168,16 +168,16 @@ export default React.createClass({
 
 
 	getPageID (props = this.props) {
-		let h = this.getPropsFromRoute(props);
+		const h = this.getPropsFromRoute(props);
 		return decodeFromURI(h.pageId || props.rootId);
 	},
 
 
 	onStoreChange () {
-		let id = this.getPageID();
+		const id = this.getPageID();
 		let page = Store.getPageDescriptor(id);
-		let pageTitle, error;
 		let {pageSource, onPageLoaded} = this.props;
+		let pageTitle, error;
 
 		if (!page) { //the event was not for this component.
 			return;
@@ -224,11 +224,11 @@ export default React.createClass({
 
 
 	verifyContentPackage (pageInfo) {
-		let {contentPackage} = this.props;
-		let packageId = pageInfo.getPackageID();
+		const {contentPackage} = this.props;
+		const packageId = pageInfo.getPackageID();
 
-		let fallback = p => p.getID() === packageId;
-		let test = p => p.containsPackage ? p.containsPackage(packageId) : fallback(p);
+		const fallback = p => p.getID() === packageId;
+		const test = p => p.containsPackage ? p.containsPackage(packageId) : fallback(p);
 
 		if (!test(contentPackage)) {
 			logger.debug('Cross-Referenced... need to redirect to a new context that contains: %s', packageId);
@@ -245,14 +245,14 @@ export default React.createClass({
 
 
 	render () {
-		let {contentPackage, className} = this.props;
+		const {contentPackage, className} = this.props;
 
-		let {
+		const {
 			annotations, stagedNote, error, loading, page,
 			selectedDiscussions, style
 		} = this.state;
 
-		let {discussions} = this.getPropsFromRoute();
+		const {discussions} = this.getPropsFromRoute();
 
 		if (loading) {
 			return (<Loading/>);
@@ -265,18 +265,17 @@ export default React.createClass({
 			return ( <Err error={error}/> );
 		}
 
-		let props = {
+		const props = {
 			className: cx('content-view', className, {
 				'note-editor-open': !!stagedNote
 			}),
 			style
 		};
 
-		if (!this.content) {
-			//Annotations cannot resolve their anchors if the
-			//content ref is not present... so don't even try.
-			annotations = undefined;
-		}
+
+		//Annotations cannot resolve their anchors if the
+		//content ref is not present... so don't even try.
+		const gutterItems = this.content ? annotations : void 0;
 
 
 		return (
@@ -318,7 +317,7 @@ export default React.createClass({
 
 								{this.renderBottomPager()}
 
-								<Gutter items={annotations} selectFilter={this.setDiscussionFilter}/>
+								<Gutter items={gutterItems} selectFilter={this.setDiscussionFilter}/>
 							</div>
 						</div>
 						{this.renderDockedToolbar()}
@@ -337,16 +336,16 @@ export default React.createClass({
 
 
 	renderDockedToolbar () {
-		let annotation = this.renderAnnotationToolbar();
-		let submission = this.renderAssessmentSubmission();
+		const annotation = this.renderAnnotationToolbar();
+		const submission = this.renderAssessmentSubmission();
 
-		let key = annotation
+		const key = annotation
 			? 'annotation'
 			: submission
 				? 'submission'
 				: 'none';
 
-		let content = annotation || submission;
+		const content = annotation || submission;
 
 		return (
 			<TransitionGroup component="div"
@@ -369,13 +368,13 @@ export default React.createClass({
 
 	renderAnnotationToolbar () {
 		const None = void 0;
-		let {selected} = this.state;
+		const {selected} = this.state;
 		if (!selected || isAssignment(this.getAssessment())) {
 			return null;
 		}
 
-		let isRange = selected instanceof Range;
-		let isHighlight = !isRange && !selected.isNote;
+		const isRange = selected instanceof Range;
+		const isHighlight = !isRange && !selected.isNote;
 
 		if (!isRange && !selected.isModifiable) {
 			logger.debug('Selected annotation is not modifiable: %o', selected);
@@ -384,7 +383,7 @@ export default React.createClass({
 
 		if (selected.isNote) { return null; } //don't deal with notes for now.
 
-		let props = {
+		const props = {
 			item: isRange ? None : selected,
 			range: isRange ? selected : None,
 			onNewDiscussion: (isRange || isHighlight) ? this.createNote : None,
@@ -400,7 +399,7 @@ export default React.createClass({
 
 	renderNoteEditor () {
 		const cancel = ()=> this.setState({stagedNote: void 0});
-		let {stagedNote} = this.state;
+		const {stagedNote} = this.state;
 
 		if (!stagedNote) {
 			return null;
