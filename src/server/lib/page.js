@@ -7,8 +7,12 @@ const Path = require('path');
 const fs = require('fs');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
+const urlJoin = require('nti-commons/lib/url-join');
 
-const isRootPath = /^\/(?!\/).*/;
+const isRootPath = RegExp.prototype.test.bind(/^\/(?!\/).*/);
+const isSiteAssets = RegExp.prototype.test.bind(/^\/site\-assets/);
+const shouldPrefixBasePath = val => isRootPath(val) && !isSiteAssets(val);
+
 const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
@@ -84,8 +88,12 @@ exports.getPage = function getPage () {
 		const path = u.pathname;
 		const cfg = Object.assign({revision}, clientConfig.config || {});
 
-		let basePathFix = (original, attr, val) => attr + '="' +
-				(isRootPath.test(val) ? (basePath || '/') + val.substr(1) : val) + '"';
+		const basePathFix = (original, attr, val) =>
+				attr + `="${
+					shouldPrefixBasePath(val)
+						? urlJoin(basePath, val)
+						: val
+				}"`;
 
 		let html = '';
 
@@ -93,8 +101,8 @@ exports.getPage = function getPage () {
 			try {
 				global.$AppConfig = cfg;
 
-				let app = React.createElement(Application, {
-					path: Path.join(basePath || '', path),
+				const app = React.createElement(Application, {
+					path: urlJoin(basePath, path),
 					basePath
 				});
 
