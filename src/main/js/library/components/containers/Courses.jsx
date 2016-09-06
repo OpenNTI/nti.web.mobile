@@ -15,8 +15,8 @@ export default React.createClass({
 
 	render () {
 		const {props: {admin}} = this;
-		let section = admin ? 'admin' : 'courses';
-		let allcourses = this.getBinnedData(section);
+		const section = admin ? 'admin' : 'courses';
+		const allcourses = this.getBinnedData(section);
 
 		//The output should be (per Design™):
 		// Groups: Current For-Credit, Current Open and Archived. (Upcoming is omitted)
@@ -39,23 +39,25 @@ export default React.createClass({
 
 		for (let bin of courses) {
 			//Current courses were asked to be grouped into "ForCredit" and "Open"
-			if (bin.isCurrent) {
+			if (bin.isCurrent && !bin.homeItems) {//skip if we already processed
 
-				let forCredit = [];
-				let open = [];
+				const forCredit = [];
+				const open = [];
 
-				//items are already sorted in chronological order...
-				for (let course of bin.items) {
-					let list = isOpen(course.getStatus()) ? open : forCredit;
+				//sort items into reverse chronological order (put newest on the front)...
+				const sorted = bin.items.slice().sort((a,b) => b.getCreatedTime() - a.getCreatedTime());
+				for (let course of sorted) {
+					const list = isOpen(course.getStatus()) ? open : forCredit;
 					list.push(course);
 				}
 
-				bin.items = [...forCredit, ...open];
+				//do not mutate the original "items" key.
+				bin.homeItems = [...forCredit, ...open];
 			}
 		}
 
 
-		let items = courses.reduce((a, o) => a.concat(o.items), []); //join into one list
+		const items = courses.reduce((a, o) => a.concat(o.homeItems || o.items), []); //join into one list
 
 		return (
 			<Container section={section} items={items}/>
