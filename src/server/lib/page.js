@@ -31,17 +31,34 @@ exports.getPage = function getPage () {
 	let revision = require('./git-revision');
 	let Application;
 	let template;
+	let isDevMode = false;
+
+	try {
+
+		let file = Path.resolve(__dirname, '../../client/page.html'); //production
+		if (!isFile(file)) {
+			isDevMode = true;
+			file = Path.resolve(__dirname, '../../main/page.html'); //dev
+		}
+
+		template = fs.readFileSync(file, 'utf8');
+	} catch (er) {
+		logger.error('%s', er.stack || er.message || er);
+		template = 'Could not load page template.';
+	}
 
 	try {
 		const app = require('app-renderer');
 		Application = app.default;
 		revision = app.revision;
 	} catch (e) {
-		const isDevmode = /Cannot find module \'app-renderer\'/.test(e.message || e);
+		const noModule = /Cannot find module \'app-renderer\'/.test(e.message || e);
 		Application = null;
 
-		logger[isDevmode ? 'debug' : 'error']('No Server-side Rendering (Because: %s)',
-			isDevmode ? e.message : e.stack || e.message || e);
+		if (!isDevMode) {
+			logger.error('No Server-side Rendering (Because: %s)',
+				noModule ? e.message : e.stack || e.message || e);
+		}
 	}
 
 
@@ -54,34 +71,23 @@ exports.getPage = function getPage () {
 		}
 	}
 	catch (e) {
-		logger.error('Could not resolve chunk names!');
-	}
-
-
-
-	try {
-
-		let file = Path.resolve(__dirname, '../../client/page.html'); //production
-		if (!isFile(file)) {
-			file = Path.resolve(__dirname, '../../main/page.html'); //dev
+		if (!isDevMode) {
+			logger.error('Could not resolve chunk names.');
 		}
-
-		template = fs.readFileSync(file, 'utf8');
-	} catch (er) {
-		logger.error('%s', er.stack || er.message || er);
-		template = 'Could not load page template.';
 	}
 
 
 	return (basePath, req, clientConfig) => {
-		let u = url.parse(req.url);
-		let manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
-		let path = u.pathname;
-		let cfg = Object.assign({revision}, clientConfig.config || {});
-		let html = '';
+		basePath = basePath || '/';
+		const u = url.parse(req.url);
+		const manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
+		const path = u.pathname;
+		const cfg = Object.assign({revision}, clientConfig.config || {});
 
 		let basePathFix = (original, attr, val) => attr + '="' +
 				(isRootPath.test(val) ? (basePath || '/') + val.substr(1) : val) + '"';
+
+		let html = '';
 
 		if (Application) {
 			try {
