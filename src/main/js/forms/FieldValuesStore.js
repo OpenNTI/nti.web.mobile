@@ -87,6 +87,10 @@ export default Object.assign({}, EventEmitter.prototype, {
 		let {target} = event;
 		let {name, value} = target;
 
+		if (typeof value === 'string') {
+			value = value.trim();
+		}
+
 		if(target.type === 'checkbox' && !target.checked) {
 			delete this.fieldValues[name];
 		}
