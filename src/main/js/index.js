@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 
 import {addFeatureCheckClasses} from 'nti-lib-dom';
 import {initAnalytics, endSession, resumeSession} from 'nti-analytics';
+import {init as initLocale} from 'nti-lib-locale';
 
 import {VisibilityMonitor, Orientation} from 'nti-lib-dom';
 import {ensureTopFrame} from 'common/utils/iframe-buster';
@@ -22,7 +23,7 @@ import AppView from './app/View';
 //webpack magic
 import '../resources/scss/app.scss';
 
-
+initLocale();
 addFeatureCheckClasses();
 
 //After bundle CSS is injected, lets move this back down so it overrides the bundle.
