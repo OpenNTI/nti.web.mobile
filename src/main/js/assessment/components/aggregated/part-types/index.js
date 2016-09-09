@@ -2,6 +2,7 @@ import React from 'react';
 
 import Unknown from './Unknown';
 
+import FreeResponse from './FreeResponse';
 import ModeledContent from './ModeledContent';
 
 import MultipleChoice from './MultipleChoice';
@@ -12,6 +13,7 @@ import Ordering from './Ordering';
 
 const KINDS = [
 	Unknown,
+	FreeResponse,
 	ModeledContent,
 	MultipleChoice,
 	// MultipleChoiceMultipleAnswer,
