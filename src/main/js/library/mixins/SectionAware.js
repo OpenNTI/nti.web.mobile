@@ -1,6 +1,10 @@
 import Logger from 'nti-util-logger';
+import naturalSort from 'node-natural-sort';
 import Filters from '../Filters';
 import LibraryAccessor from './LibraryAccessor';
+
+
+const stringCompare = naturalSort({caseSensitive: false});
 
 const logger = Logger.get('library:mixins:SectionAware');
 
@@ -20,7 +24,7 @@ const SECTION_FILTERS_MAP = {
 	[SECTION_NAMES.courses]: Filters,
 	[SECTION_NAMES.books]: [{
 		// name: 'Books',
-		sort: (a, b) => ((a || {}).title || '').localeCompare((b || {}).title)
+		sort: (a, b) => stringCompare((a || {}).title, (b || {}).title)
 	}]
 };
 

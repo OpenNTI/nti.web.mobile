@@ -1,5 +1,6 @@
 import Logger from 'nti-util-logger';
 import {scoped} from 'nti-lib-locale';
+import naturalSort from 'node-natural-sort';
 
 export const CURRENT = 'current';
 export const UPCOMING = 'upcoming';
@@ -10,10 +11,7 @@ const logger = Logger.get('library:Filters');
 let getLabel = scoped('LIBRARY.CATEGORY');
 
 function courseSortComparatorFunc (a, b) {
-
-	function strComp (s1, s2) {
-		return (s1 || '').localeCompare(s2);
-	}
+	const strComp = naturalSort({caseSensitive: false});
 
 	return strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID)
 		|| strComp((a || {}).title, (b || {}).title);

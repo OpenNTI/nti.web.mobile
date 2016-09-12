@@ -57,7 +57,7 @@
     "invariant": "^2.1.0",
     "is-function": "^1.0.1",
     "isempty": "0.0.1",
-    "javascript-natural-sort": "^0.7.1",
+    "node-natural-sort": "^0.8.3",
     "json-loader": "^0.5.1",
     "jstimezonedetect": "^1.0.6",
     "mime-types": "^2.1.0",
