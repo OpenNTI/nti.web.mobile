@@ -7,6 +7,13 @@ import {rawContent} from 'nti-commons/lib/jsx';
 
 import ProfileLink from './ProfileLink';
 
+AvatarProfileLink.propTypes = {
+	entity: React.PropTypes.any.isRequired,
+	children: React.PropTypes.any,
+	hideFollow: React.PropTypes.bool
+};
+
+
 export default function AvatarProfileLink (props) {
 	let e = props.entity;
 
@@ -18,13 +25,8 @@ export default function AvatarProfileLink (props) {
 				{e.location && <span className="location" {...rawContent(e.location)}/>}
 				{props.children}
 			</div>
-			{e.follow && <FollowButton entity={e} />}
+			{(e.follow && !props.hideFollow) && <FollowButton entity={e} />}
 		</ProfileLink>
 	);
 
 }
-
-AvatarProfileLink.propTypes = {
-	entity: React.PropTypes.any.isRequired,
-	children: React.PropTypes.any
-};

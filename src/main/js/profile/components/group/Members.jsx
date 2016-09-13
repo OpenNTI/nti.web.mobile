@@ -23,9 +23,8 @@ export default React.createClass({
 					<div className="member-count">Members</div>
 					<Link className="view-all-link" href="/members/">View All</Link>
 				</div>
-				<AvatarGrid entities={entities} creator={entity.creator} />
+				<AvatarGrid entities={entities} creator={entity.creator} hideFollow/>
 			</div>
-
 		);
 	}
 });
