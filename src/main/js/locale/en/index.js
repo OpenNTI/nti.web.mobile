@@ -65,29 +65,6 @@ export default {
 		post: 'Post'
 	},
 
-	LISTS: {
-		noMatches: 'No items match the selected filter.',
-		emptyList: 'This list is empty.',
-		'emptyList:discussions': 'No discussions.',
-		'emptyList:lesson-overview': 'Empty Overview :(\nThis lesson is missing content.',
-		'emptyList:library-admin': 'No Administered Courses.',
-		'emptyList:library-books': 'You don\'t have any books.',
-		'emptyList:library-courses': 'You don\'t have any courses yet.',
-		'emptyList:library-communities': 'You aren\'t in any communities yet.',
-		'emptyList:videos': 'No videos.',
-		'emptyList:activity': 'No Activity.',
-		'emptyList:user-details': 'Empty Profile :(\nNo additional profile information available.',
-		'emptyList:memberships': 'No memberships',
-		'emptyList:communities': 'No communities',
-		'emptyList:groups': 'No groups',
-		'emptyList:friendslists': 'No Lists.',
-		'emptyList:dynamicfriendslists': 'No Groups.',
-		'emptyList:contacts': 'No contacts.',
-		'emptyList:contactssearch': 'No contacts found.',
-		'emptyList:entity-search': 'No one found',
-		'emptyList:assignments': 'No assignments currently available.'
-	},
-
 	CONTENT,
 	COURSE,
 
