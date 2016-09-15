@@ -146,7 +146,6 @@ export default React.createClass({
 
 
 	getDataIfNeeded (props) {
-		const packageId = props.contentPackage.getID();
 		const newPageId = this.getPageID(props);
 		const newPage = newPageId !== this.state.currentPage;
 		const newRoot = this.getRootID(props) !== this.getRootID();
@@ -157,7 +156,7 @@ export default React.createClass({
 				currentPage: newPageId,
 				...this.getResetState()
 			}, () =>
-				loadPage(newPageId, packageId)
+				loadPage(newPageId, props.contentPackage)
 			);
 		}
 	},
