@@ -1,11 +1,5 @@
 import React from 'react';
 
-export default function CompletionRatio ({course, assignment}) {
-	return (
-		<div className="completion-ratio">{assignment.submittedCount}/{course.enrolledTotalCount}</div>
-	);
-}
-
 CompletionRatio.propTypes = {
 	course: React.PropTypes.shape({
 		enrolledTotalCount: React.PropTypes.number
@@ -14,3 +8,13 @@ CompletionRatio.propTypes = {
 		submittedCount: React.PropTypes.number
 	}).isRequired
 };
+
+export default function CompletionRatio ({course, assignment}) {
+	const {submittedCount, submittedCountTotalPossible: totalPossible} = assignment;
+
+	const total = typeof totalPossible === 'number' ? totalPossible : course.enrolledTotalCount;
+
+	return (
+		<div className="completion-ratio">{submittedCount}/{total}</div>
+	);
+}
