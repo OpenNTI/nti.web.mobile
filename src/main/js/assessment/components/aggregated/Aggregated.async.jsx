@@ -44,7 +44,7 @@ export default React.createClass({
 			<Loading/>
 		) : error ? (
 			<div className="question error"><Error error={error}/></div>
-		) : !data ? (
+		) : (!data || !data.parts) ? (
 			<div className="question missing-data">No Data</div>
 		) : (
 			<div className="question" data-ntiid={question.getID()} type={question.MimeType}>
