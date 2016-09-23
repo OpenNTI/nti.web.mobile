@@ -9,14 +9,16 @@ export function getPageInfo (ntiid, context) {
 		.then(service => {
 			return service.getPageInfo(ntiid, {parent: context, params})
 				.catch(error => error.statusCode === 405
-						? generatePageInfoFrom(ntiid, service)
+						? generatePageInfoFrom(ntiid, service, context)
 						: Promise.reject(error));
 		});
 }
 
 
-function generatePageInfoFrom (ntiid, service) {
-	return service.getObject(ntiid)
+function generatePageInfoFrom (ntiid, service, context) {
+	const params = context ? {course: context.getID()} : void 0;
+
+	return service.getObject(ntiid, {parent: context, params})
 		.then(object => {
 			const generator = GENERATORS[object.MimeType];
 			if (!generator) {
@@ -24,6 +26,6 @@ function generatePageInfoFrom (ntiid, service) {
 				return Promise.reject('405: Method Not Allowed');
 			}
 
-			return generator(service, object);
+			return generator(service, context, object);
 		});
 }

@@ -2,7 +2,7 @@ import {getModel} from 'nti-lib-interfaces';
 
 const PageInfo = getModel('pageinfo');
 
-export default function generate (service, assessment) {
+export default function generate (service, context, assessment) {
 	const contents = getContentsForAssessment(assessment);
 	const ntiid = assessment.getID();
 
@@ -24,7 +24,7 @@ export default function generate (service, assessment) {
 		</body>
 	`;
 
-	const pi = new PageInfo(service, {
+	const pi = new PageInfo(service, context, {
 		ContentPackageNTIID,
 		ID: ntiid,
 		NTIID: ntiid
