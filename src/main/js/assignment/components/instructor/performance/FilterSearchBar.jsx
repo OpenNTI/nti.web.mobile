@@ -39,28 +39,26 @@ export default React.createClass({
 
 		const {summary} = this.props;
 
-		return (
-			<div>
-				<div className="gradebook-assignment-header">
-					<div className="search-sort-bar">
-						<EnrollmentSelect onChange={this.onEnrollmentChange} value={summary.scopeFilter} />
-						<CategorySelect onChange={this.onCategoryChange} value={summary.categoryFilter}/>
-					</div>
-					<div className="search-sort-bar">
-						<PageControls
-							currentPage={summary.getCurrentPage()}
-							pageSize={summary.getPageSize()}
-							total={summary.getTotal()}
-							onChange={this.onPageChange}
-						/>
-					<BufferedInput
-						className="search"
-						type="search"
-						placeholder="Search Students"
-						onChange={this.onSearchChange}
-						delay={1000}
-						defaultValue={summary.getSearch()} />
-					</div>
+		return summary && (
+			<div className="gradebook-assignment-header">
+				<div className="search-sort-bar">
+					<EnrollmentSelect onChange={this.onEnrollmentChange} value={summary.scopeFilter} />
+					<CategorySelect onChange={this.onCategoryChange} value={summary.categoryFilter}/>
+				</div>
+				<div className="search-sort-bar">
+					<PageControls
+						currentPage={summary.getCurrentPage()}
+						pageSize={summary.getPageSize()}
+						total={summary.getTotal()}
+						onChange={this.onPageChange}
+					/>
+				<BufferedInput
+					className="search"
+					type="search"
+					placeholder="Search Students"
+					onChange={this.onSearchChange}
+					delay={1000}
+					defaultValue={summary.getSearch()} />
 				</div>
 			</div>
 		);
