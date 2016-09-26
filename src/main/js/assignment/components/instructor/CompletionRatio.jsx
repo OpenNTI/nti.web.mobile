@@ -15,6 +15,6 @@ export default function CompletionRatio ({course, assignment}) {
 	const total = typeof totalPossible === 'number' ? totalPossible : course.enrolledTotalCount;
 
 	return (
-		<div className="completion-ratio">{submittedCount}/{total}</div>
+		<div className="completion-ratio">{submittedCount || 0}/{total}</div>
 	);
 }
