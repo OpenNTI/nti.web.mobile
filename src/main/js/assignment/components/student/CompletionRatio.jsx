@@ -1,5 +1,9 @@
 import React from 'react';
 
+CompletionRatio.propTypes = {
+	assignments: React.PropTypes.object.isRequired
+};
+
 export default function CompletionRatio ({assignments}) {
 	if (!assignments) {
 		return null;
@@ -12,7 +16,3 @@ export default function CompletionRatio ({assignments}) {
 		<span>{numerator} of {denominator}</span>
 	);
 }
-
-CompletionRatio.propTypes = {
-	assignments: React.PropTypes.object.isRequired
-};
