@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-
+import {rawContent} from 'nti-commons/lib/jsx';
 
 export default React.createClass({
 	displayName: 'BarSegment',
@@ -54,7 +54,7 @@ export default React.createClass({
 
 		return (
 			<div className="bar-tool-tip">
-				<span>{label}</span>
+				<span {...rawContent(label)}/>
 				<div>{count} of {total} ({percentString}%)</div>
 			</div>
 		);
