@@ -189,13 +189,16 @@ export default class Highlight extends Annotation {
 	render () {
 		if (!this.shouldRender()) { return; }
 
-		let r = this.getRange();
+		const r = this.getRange();
 		if (!r) {
 			return;
 		}
 
-
-		this[RENDERED] = this.wrapRange(r.commonAncestorContainer, r);
+		const rec = this.getRecord();
+		const rendered = this[RENDERED] = this.wrapRange(r.commonAncestorContainer, r);
+		if (rendered) {
+			rendered[0].setAttribute('name', rec.getID());
+		}
 		return true;
 	}
 }
