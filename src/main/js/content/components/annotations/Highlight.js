@@ -196,7 +196,7 @@ export default class Highlight extends Annotation {
 
 		const rec = this.getRecord();
 		const rendered = this[RENDERED] = this.wrapRange(r.commonAncestorContainer, r);
-		if (rendered) {
+		if (rendered && rendered.length > 0) {
 			rendered[0].setAttribute('name', rec.getID());
 		}
 		return true;
