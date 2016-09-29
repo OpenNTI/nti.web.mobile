@@ -8,7 +8,7 @@ $alt-grey: darken($panel-background, 3.9%); // #f1f1f1
 	margin: 0 -1rem #{$vertical-spacing/2} -1rem;
 	padding: 0 1rem #{$vertical-spacing/2} 1rem;
 	box-shadow: 0 1px 0 $alt-grey;
-	&.admin {
+	&.instructor {
 		& > h2 {
 			display: flex;
 			justify-content: space-between;

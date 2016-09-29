@@ -18,14 +18,14 @@ export default React.createClass({
 	},
 
 	contextTypes: {
-		isAdmin: React.PropTypes.bool,
+		isInstructor: React.PropTypes.bool,
 		AssignmentListItem: React.PropTypes.func.isRequired
 	},
 
 
 	render () {
-		const {context: {isAdmin: admin, AssignmentListItem: Item}, props: {group}} = this;
-		const classes = cx( 'assignment-group', {admin});
+		const {context: {isInstructor: instructor, AssignmentListItem: Item}, props: {group}} = this;
+		const classes = cx( 'assignment-group', {instructor});
 
 		return (
 			<div className={classes}>
@@ -34,7 +34,7 @@ export default React.createClass({
 						isDate(group.label)
 							? ( <DateTime date={group.label}/> )
 							: t(group.label || 'unset', {fallback: group.label})}</span>
-					{admin && <span className="column-heading">Completion</span>}
+					{instructor && <span className="column-heading">Completion</span>}
 				</h2>
 				<ul>
 					{
