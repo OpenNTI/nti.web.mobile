@@ -57,7 +57,7 @@ export default {
 	componentDidMount () {
 		if (!this.getContext) {
 			this.getContext = ()=> Promise.resolve([]);
-			logger.warn('Missing getContext implementation, adding empty no-op to %s', this.constructor.displayName);
+			logger.debug('Missing getContext implementation, adding empty no-op to %s', this.constructor.displayName);
 		}
 
 		let parent = this.context[ContextParent];
