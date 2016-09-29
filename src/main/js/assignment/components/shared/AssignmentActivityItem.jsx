@@ -22,6 +22,11 @@ const DEFAULT_TEXT = {
 
 const t = scoped('COURSE.ASSIGNMENTS.ACTIVITY', DEFAULT_TEXT);
 
+function getLabelWithUser (type) {
+	const map = getLabelWithUser;
+	const key = `getter-${type}`;
+	return map[key] || (map[key] = (data) => t(type, data));
+}
 
 const hasName = RegExp.prototype.test.bind(/^(user|they)/i);
 
@@ -59,7 +64,7 @@ export default function ActivityItem ({event}, {isInstructor}) {
 		<div className={cx('item', {unread})}>
 			<DateTime date={date} format={format}/>
 			{hasName(type) ? (
-				<DisplayName entity={user} usePronoun localeKey={`${scope}.${type}`}/>
+				<DisplayName entity={user} usePronoun localeKey={getLabelWithUser(type)}/>
 			) : (
 				<span className="type">{t(type)}</span>
 			)}
