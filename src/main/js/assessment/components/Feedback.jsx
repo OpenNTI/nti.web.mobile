@@ -59,7 +59,7 @@ export default React.createClass({
 		}
 
 		return (
-			<div className="feedback container">
+			<div className="feedback container" name="feedback">
 				<div className="feedback header">
 					<h3>{t('title')}</h3>
 					<div className="message">{t('description')}</div>

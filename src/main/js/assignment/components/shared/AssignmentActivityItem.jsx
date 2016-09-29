@@ -17,7 +17,20 @@ const hasName = RegExp.prototype.test.bind(/^(user|they)/i);
 
 const linkToStudentView = (user, type) => user && hasName(type);
 
-export default function ActivityItem ({event}) {
+const GOTO_HASH = {
+	'they-feedback': '#feedback',
+	'you-feedback': '#feedback'
+};
+
+ActivityItem.propTypes = {
+	event: React.PropTypes.object.isRequired
+};
+
+ActivityItem.contextTypes = {
+	isInstructor: React.PropTypes.bool
+};
+
+export default function ActivityItem ({event}, {isInstructor}) {
 	const {date, title, type, suffix, unread, user, assignment} = event;
 	const today = new Date((new Date()).setHours(0, 0, 0, 0));
 
@@ -26,11 +39,11 @@ export default function ActivityItem ({event}) {
 		format = 'h:mm a'; // "8:05 pm" ...Hours without zero padding, ":", minutes with zero padding, lower-case "am/pm"
 	}
 
-	//TODO: Limit linkToStudentView to only apply IF instructor view...
-	//feedback events look the same to both student and instructors... so this breaks feedback for students.
-	const href = linkToStudentView(user, type)
-		? join('..', encodeForURI(assignment.getID()), 'students', encodeURIComponent(user))
-		: join('..', encodeForURI(assignment.getID()));
+	const href = (
+		isInstructor && linkToStudentView(user, type)
+			? join('..', encodeForURI(assignment.getID()), 'students', encodeURIComponent(user))
+			: join('..', encodeForURI(assignment.getID()))
+		) + (GOTO_HASH[type] || '');
 
 	return (
 		<div className={cx('item', {unread})}>
@@ -49,7 +62,3 @@ export default function ActivityItem ({event}) {
 		</div>
 	);
 }
-
-ActivityItem.propTypes = {
-	event: React.PropTypes.object.isRequired
-};
