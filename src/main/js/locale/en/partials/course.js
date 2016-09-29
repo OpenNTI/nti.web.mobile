@@ -1,6 +1,3 @@
-import ACTIVITY from './assignments-activity';
-
-
 export default {
 	CONTACTINFO: {
 		label: 'Tech Support',
@@ -47,9 +44,5 @@ export default {
 		lessons: 'Lessons',
 		info: 'Course Info',
 		videos: 'Videos'
-	},
-
-	ASSIGNMENTS: {
-		ACTIVITY
 	}
 };

@@ -10,8 +10,18 @@ import {scoped} from 'nti-lib-locale';
 
 import {join} from 'path';
 
-const scope = 'COURSE.ASSIGNMENTS.ACTIVITY';
-const t = scoped(scope);
+const DEFAULT_TEXT = {
+	'grade-received': 'Grade Received:',
+	'late-assignment': 'Assignment Past Due:',
+	'new-assignment': 'New Assignment:',
+	'submitted-assignment': 'Assignment Submitted:',
+	'they-feedback': '%(name)s left feedback on:',
+	'user-submitted-assignment': '%(name)s Submitted Assignment:',
+	'you-feedback': 'You commented on:'
+};
+
+const t = scoped('COURSE.ASSIGNMENTS.ACTIVITY', DEFAULT_TEXT);
+
 
 const hasName = RegExp.prototype.test.bind(/^(user|they)/i);
 
