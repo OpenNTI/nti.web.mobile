@@ -56,7 +56,7 @@ export default React.createClass({
 	fillIn (props) {
 		this.setState({loading: true});
 		let {item} = props;
-		let resolvingOutline = item ? item.getOutline() : Promise.reject();
+		let resolvingOutline = item ? item.getOutline({force: true}) : Promise.reject();
 
 		let depthMap = ['h1', 'div'];
 
