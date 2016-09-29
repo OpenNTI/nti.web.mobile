@@ -1,35 +1,19 @@
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-
-import cx from 'classnames';
-
-import {resolve, getDebugUsernameString} from 'nti-web-client/lib/user';
-
-import t from 'nti-lib-locale';
-
-import {getAppUsername} from 'nti-web-client';
+import {DisplayName} from 'nti-web-commons';
 import ProfileLink from 'profile/mixins/ProfileLink';
 
 function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
 
-/**
- * This DisplayName component can use the full Entity instance if you have it.
- * Otherwise, it will take a username string for the entity prop. If you do not
- * have the full entity object, and you want to show the display name, do not
- * resolve the full entity object yourself just to pass to this componenent.
- * Only resolve the entity IF and ONLY IF you need it for something else. Most
- * likely, if its a link, or something, use the corresponding Component,
- * do not roll your own.
- */
 export default React.createClass({
-	displayName: 'DisplayName',
-
+	displayName: 'Mobile:DisplayName',
 	mixins: [ProfileLink],
 
+	//Mirror the propTypes of the Common DisplayName
 	propTypes: {
-		className: React.PropTypes.string,
-
-		localeKey: React.PropTypes.string,
+		localeKey: React.PropTypes.oneOfType([
+			React.PropTypes.string,
+			React.PropTypes.func
+		]),
 
 		tag: React.PropTypes.any,
 
@@ -59,87 +43,14 @@ export default React.createClass({
 		useGeneralName: React.PropTypes.bool
 	},
 
-
-	getDefaultProps () {
-		return {
-			suppressProfileLink: false
-		};
+	onClick (e) {
+		const {entity} = this.props;
+		this.navigateToProfile(entity, e);
 	},
-
-
-	getInitialState () {
-		return {
-			displayName: ''
-		};
-	},
-
-
-	componentDidMount () { this.fillIn(); },
-
-	componentWillReceiveProps (nextProps) {
-		let {entity} = this.props;
-		if (entity !== nextProps.entity) {
-			this.fillIn(nextProps);
-		}
-	},
-
-
-	fillIn (props = this.props) {
-		let appuser = getAppUsername();
-		let {usePronoun} = props;
-		let task = Date.now();
-
-		let set = state => {
-			if (this.state.task === task) {
-				this.setState(state);
-			}
-		};
-
-		this.setState({task}, ()=> resolve(props)
-			.then(
-				entity => {
-					let displayName = (usePronoun && entity.getID() === appuser)
-						? 'You'
-						: entity.displayName;
-
-					let { generalName } = entity;
-
-					set({ displayName, generalName });
-				},
-				()=> set({ failed: true, displayName: 'Unknown' })
-			));
-
-	},
-
 
 	render () {
-		const {
-			props: {className, entity, localeKey, tag, suppressProfileLink, useGeneralName,...otherProps},
-			state: {displayName, generalName}
-		} = this;
+		const {suppressProfileLink, ...props} = this.props;
 
-		const Tag = tag || (localeKey ? 'address' : 'span');
-		let name = (useGeneralName && generalName) || displayName;
-
-		const props = {
-			...otherProps,
-			className: cx('username', className),
-			children: name,
-			'data-for': getDebugUsernameString(entity),
-			onClick: suppressProfileLink ? null : (e) => this.navigateToProfile(entity, e)
-		};
-
-		delete props.usePronoun;
-
-		if (localeKey) {
-			name = ReactDOMServer.renderToStaticMarkup(<a rel="author" className="username">{name}</a>);
-
-			Object.assign(props, {
-				children: void 0,
-				dangerouslySetInnerHTML: {'__html': t(localeKey, {name})}
-			});
-		}
-
-		return <Tag {...props} rel="author"/>;
+		return <DisplayName {...props} onClick={suppressProfileLink ? null : this.onClick}/>;
 	}
 });
