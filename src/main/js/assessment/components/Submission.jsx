@@ -24,7 +24,7 @@ import {Prompt} from 'nti-web-commons';
 const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSubmit();
 
 export default React.createClass({
-	displayName: 'SetSubmission',
+	displayName: 'Submission',
 
 	propTypes: {
 		/**
@@ -102,7 +102,7 @@ export default React.createClass({
 		let disabled = admin || !Store.canSubmit(assessment);
 		let cannotReset = Store.isSubmitted(assessment) || disabled;
 
-		let unanswered = Store.countUnansweredQuestions(assessment);
+		let unanswered = Store.countUnansweredQuestions(assessment) || NaN;
 		let status = unanswered ? 'incomplete' : 'complete';
 
 		let busy = Store.getBusyState(assessment);

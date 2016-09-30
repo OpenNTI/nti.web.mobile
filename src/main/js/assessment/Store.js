@@ -309,6 +309,12 @@ class Store extends StorePrototype {
 	}
 
 
+	isActive (assessment) {
+		const key = this[GetAssessmentKey](assessment);
+		return Boolean(this.active[key]);
+	}
+
+
 	teardownAssessment (assessment) {
 		let m = this[GetAssessmentKey](assessment);
 		if (m) {
