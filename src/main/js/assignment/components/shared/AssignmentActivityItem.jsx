@@ -1,39 +1,37 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
-
-import {encodeForURI} from 'nti-lib-ntiids';
-
-import {DateTime} from 'nti-web-commons';
-import DisplayName from 'common/components/DisplayName';
-
-import {scoped} from 'nti-lib-locale';
-
 import {join} from 'path';
 
+import {rawContent} from 'nti-commons/lib/jsx';
+import {encodeForURI} from 'nti-lib-ntiids';
+import {DateTime, DisplayName} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
+
+
 const DEFAULT_TEXT = {
-	'grade-received': 'Grade Received:',
-	'late-assignment': 'Assignment Past Due:',
-	'new-assignment': 'New Assignment:',
-	'submitted-assignment': 'Assignment Submitted:',
-	'they-feedback': '%(name)s left feedback on:',
-	'user-submitted-assignment': '%(name)s Submitted Assignment:',
-	'you-feedback': 'You commented on:'
+	'grade-received': 'Grade Received:  %(title)s',
+	'late-assignment': 'Assignment Past Due:  %(title)s',
+	'new-assignment': 'New Assignment:  %(title)s',
+
+	'submitted-assignment': 'Assignment Submitted:  %(title)s',
+	'user-submitted-assignment': '%(name)s Submitted Assignment:  %(title)s',
+
+	'they-feedback': '%(name)s left feedback on: %(title)s',
+	'you-feedback-theirs': 'You commented on %(title)s (%(name)s)',
+	'you-feedback': 'You commented on: %(title)s'
 };
 
 const t = scoped('COURSE.ASSIGNMENTS.ACTIVITY', DEFAULT_TEXT);
 
-function getLabelWithUser (type) {
-	const map = getLabelWithUser;
-	const key = `getter-${type}`;
-	return map[key] || (map[key] = (data) => t(type, data));
-}
 
-const hasName = RegExp.prototype.test.bind(/^(user|they)/i);
+const hasName = type => (t(type, {name: type, title: ''}) || '').indexOf(type) >= 0;
 
-const linkToStudentView = (user, type) => user && hasName(type);
+const linkToStudentView = (user) => user;
 
 const GOTO_HASH = {
 	'they-feedback': '#feedback',
+	'you-feedback-theirs': '#feedback',
 	'you-feedback': '#feedback'
 };
 
@@ -46,7 +44,7 @@ ActivityItem.contextTypes = {
 };
 
 export default function ActivityItem ({event}, {isInstructor}) {
-	const {date, title, type, suffix, unread, user, assignment} = event;
+	const {date, title, type, unread, user, assignment} = event;
 	const today = new Date((new Date()).setHours(0, 0, 0, 0));
 
 	let format = 'MMM D'; // "Jan 2" ... Short month, Day of month without zero padding
@@ -60,20 +58,19 @@ export default function ActivityItem ({event}, {isInstructor}) {
 			: join('..', encodeForURI(assignment.getID()))
 		) + (GOTO_HASH[type] || '');
 
+	const titleMarkup = ReactDOMServer.renderToStaticMarkup(<span className="assignment-name">{title}</span>);
+	const getLabelWithUser = (data) => t(type, {...data, title: titleMarkup});
+
 	return (
 		<div className={cx('item', {unread})}>
-			<DateTime date={date} format={format}/>
-			{hasName(type) ? (
-				<DisplayName entity={user} usePronoun localeKey={getLabelWithUser(type)}/>
-			) : (
-				<span className="type">{t(type)}</span>
-			)}
-			<a href={href}><span className="assignment-name">{title}</span></a>
-			{suffix && (
-				<div>
-					<span className="label suffix">{suffix}</span>
-				</div>
-			)}
+			<a href={href}>
+				<DateTime date={date} format={format}/>
+				{hasName(type) ? (
+					<DisplayName entity={user} usePronoun localeKey={getLabelWithUser}/>
+				) : (
+					<span {...rawContent(t(type, {title: titleMarkup}))}/>
+				)}
+			</a>
 		</div>
 	);
 }

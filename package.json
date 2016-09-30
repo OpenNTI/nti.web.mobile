@@ -72,7 +72,7 @@
     "nti-lib-content-processing": "^1.0.0",
     "nti-lib-dispatcher": "^1.0.0",
     "nti-lib-dom": "^1.5.2",
-    "nti-lib-interfaces": "^1.11.0",
+    "nti-lib-interfaces": "^1.11.2",
     "nti-lib-locale": "^1.0.5",
     "nti-lib-ntiids": "^1.0.0",
     "nti-lib-ranges": "^1.0.0",

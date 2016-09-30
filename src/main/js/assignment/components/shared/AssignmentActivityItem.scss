@@ -1,0 +1,48 @@
+@import "utils/variables";
+
+.assignments-activity {
+	.item {
+		padding: 0.75em 0 .75em 1em;
+
+		& > a[href] {
+			color: inherit;
+		}
+
+		&.unread {
+			position: relative;
+			font-weight: 600;
+			&::before {
+				content: '•';
+				color: $primary-blue;
+				position: absolute;
+				left: .25em;
+			}
+		}
+
+		& > * {
+			padding-right: .25rem;
+		}
+
+		address {
+			display: inline;
+			a[rel=author] {
+				color: inherit;
+			}
+		}
+
+		time {
+			float: right;
+			color: $tertiary-grey;
+		}
+
+		.assignment-name {
+			color: $primary-blue;
+		}
+
+		&::after {
+			content: '';
+			display: table;
+			clear: both;
+		}
+	}
+}
