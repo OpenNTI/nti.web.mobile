@@ -12,7 +12,7 @@ import {Error as Err, Loading, LocalizedHTML as Localized} from 'nti-web-commons
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
 
-import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
+import {ExternalLibraryManager} from 'nti-web-client';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';

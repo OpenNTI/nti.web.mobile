@@ -6,7 +6,7 @@ import {getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 
 import {Error, TinyLoader as Loading} from 'nti-web-commons';
-import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
+import {ExternalLibraryManager} from 'nti-web-client';
 import {clearLoadingFlag, setError} from 'common/utils/react-state';
 
 import Mixin, {stopEvent} from './Mixin';

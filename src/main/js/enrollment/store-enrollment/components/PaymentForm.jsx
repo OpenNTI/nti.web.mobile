@@ -11,11 +11,10 @@ import FormErrors from 'forms/components/FormErrors';
 
 import {Loading, TinyLoader} from 'nti-web-commons';
 
-import {getAppUser} from 'nti-web-client';
 import {clearLoadingFlag} from 'common/utils/react-state';
 
 
-import ExternalLibraryManager from 'nti-web-client/lib/ExternalLibraryManagerMixin';
+import {ExternalLibraryManager, getAppUser} from 'nti-web-client';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import BillingAddress from './BillingAddressForm';

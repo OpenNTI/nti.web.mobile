@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {resolve} from 'nti-web-client/lib/user';
+import {User} from 'nti-web-client';
 import {TinyLoader as Loading} from 'nti-web-commons';
 
 import t from 'nti-lib-locale';
@@ -71,7 +71,7 @@ export default React.createClass({
 		let {sharedWith = []} = item;
 		let pending = sharedWith
 			.filter(x => x && x !== EVERYONE)
-			.map(entity=> resolve({entity}).catch(()=> null));
+			.map(entity=> User.resolve({entity}).catch(()=> null));
 
 
 		Promise.all(pending)

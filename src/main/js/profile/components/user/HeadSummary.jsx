@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {resolve} from 'nti-web-client/lib/user';
+import {User} from 'nti-web-client';
 import {TinyLoader as Loader} from 'nti-web-commons';
 import ensureArray from 'nti-commons/lib/ensure-array';
 
@@ -33,7 +33,7 @@ export default React.createClass({
 	},
 
 	setUser (props = this.props) {
-		resolve(props).then(user => this.setState({user}));
+		User.resolve(props).then(user => this.setState({user}));
 	},
 
 	render () {

@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {resolve} from 'nti-web-client/lib/user';
+import {User} from 'nti-web-client';
 
 import {PromiseButton, Mixins} from 'nti-web-commons';
 
@@ -30,7 +30,7 @@ export default React.createClass({
 	setup (props = this.props) {
 		let {entity} = props;
 		//so far, entity is always the full object, but allow it to be a string...
-		resolve({entity})
+		User.resolve({entity})
 			.then(e => this.setState({entity: e}));
 	},
 

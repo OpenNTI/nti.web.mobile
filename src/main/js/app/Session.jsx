@@ -2,8 +2,7 @@ import React from 'react';
 import {join} from 'path';
 
 import {Mixins} from 'nti-web-commons';
-import {getAppUsername} from 'nti-web-client';
-import {encode} from 'nti-web-client/lib/user';
+import {getAppUsername, User} from 'nti-web-client';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -30,7 +29,7 @@ export default React.createClass({
 
 		let entity = getAppUsername();
 
-		let profile = join(base, 'profile', encode(entity));
+		let profile = join(base, 'profile', User.encode(entity));
 		let contacts = join(base, 'contacts', '/');
 
 		return (

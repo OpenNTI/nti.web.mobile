@@ -1,6 +1,5 @@
 import Logger from 'nti-util-logger';
-import {encode} from 'nti-web-client/lib/user';
-import {getAppUsername} from 'nti-web-client';
+import {User, getAppUsername} from 'nti-web-client';
 
 import {Mixins} from 'nti-web-commons';
 
@@ -8,7 +7,7 @@ const logger = Logger.get('profile:mixins:ProfileLink');
 
 export function profileHref (id = getAppUsername()) {
 	id = id && id.getID ? id.getID() : id;
-	return (`profile/${encode(id)}/`).replace(/\/\//g, '/');
+	return (`profile/${User.encode(id)}/`).replace(/\/\//g, '/');
 }
 
 export default {

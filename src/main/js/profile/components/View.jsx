@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {resolve} from 'nti-web-client/lib/user';
+import {User} from 'nti-web-client';
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 
@@ -14,7 +14,7 @@ import UserView from './user/View';
 
 
 const Community = getModel('community');
-const User = getModel('user');
+const UserModel = getModel('user');
 
 const logger = Logger.get('profile:components:View');
 
@@ -32,7 +32,7 @@ export default React.createClass({
 
 	updateEntity (props = this.props) {
 		this.setState({entity: null}, () =>
-			resolve(props, true)
+			User.resolve(props, true)
 				.catch(()=> false)
 				.then(entity => {
 					logger.debug('Resolved entity: %o', entity);
@@ -67,7 +67,7 @@ export default React.createClass({
 
 		return entity instanceof Community ? (
 			<CommunityView entity={entity}/>
-		) : entity instanceof User ? (
+		) : entity instanceof UserModel ? (
 			<UserView entity={entity}/>
 		) : (
 			<GroupView entity={entity}/>
