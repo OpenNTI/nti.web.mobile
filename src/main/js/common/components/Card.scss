@@ -75,6 +75,7 @@
 
 		&[href] {
 			color: $primary-blue;
+			float: left;//NTI-2258 - setting display: inline-block adds descender space below, floating just makes it shrink w/o adding height.
 		}
 	}
 
