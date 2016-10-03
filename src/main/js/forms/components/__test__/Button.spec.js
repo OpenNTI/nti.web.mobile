@@ -16,6 +16,7 @@ describe('FooBar', ()=> {
 		container.id = 'content';
 		document.body.appendChild(container);
 
+		//TODO: update example to use ref callback since render()'s return value is deprecated.
 		component = ReactDOM.render(
 			React.createElement(Button, {href: '#'}, 'Test'),
 			container
@@ -30,7 +31,7 @@ describe('FooBar', ()=> {
 
 	it('should create a new instance of Button', ()=> {
 		expect(component).toBeDefined();
-		expect(ReactDOM.findDOMNode(component).textContent).toBe('Test');
+		expect(container.textContent).toBe('Test');
 	});
 
 

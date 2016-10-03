@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import scrollParent from 'scrollparent';
 
 import Logger from 'nti-util-logger';
@@ -109,12 +108,12 @@ export default {
 
 
 	getScrollPosition () {
-		return getScrollPosition(ReactDOM.findDOMNode(this));
+		return getScrollPosition(this.node);
 	},
 
 
 	scrollToPosition (pos) {
-		const scroller = scrollParent(ReactDOM.findDOMNode(this));
+		const scroller = scrollParent(this.node);
 		const {left: scrollLeft = 0, top: scrollTop = 0} = pos;
 		Object.assign(scroller, { scrollTop, scrollLeft });
 	},
@@ -138,7 +137,7 @@ export default {
 
 	maybeScrollToFragment () {
 		let {content} = this;
-		if (!content || !ReactDOM.findDOMNode(content)) {
+		if (!content || !content.content) {
 			return;
 		}
 

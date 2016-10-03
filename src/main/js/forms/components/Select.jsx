@@ -101,7 +101,7 @@ export default React.createClass({
 		});
 
 		// include empty option
-		options.unshift(<option value="" key="blank"></option>);
+		options.unshift(<option value="" key="blank"/>);
 
 		return options;
 

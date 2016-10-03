@@ -83,7 +83,7 @@ export default React.createClass({
 							{children}
 							<Footer />
 						</section>
-						<a className="exit-off-canvas" onClick={this.onCloseMenus}></a>
+						<a className="exit-off-canvas" onClick={this.onCloseMenus}/>
 					</div>
 				</div>
 			</div>

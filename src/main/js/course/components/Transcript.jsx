@@ -95,7 +95,7 @@ export default React.createClass({
 		const items = cues.concat(slides).sort((a, b) => a.startTime - b.startTime);
 
 		return (
-			<div className="cues">
+			<div className="cues" ref={x => this.node = x}>
 				{items.map(this.renderItem)}
 				{children}
 			</div>

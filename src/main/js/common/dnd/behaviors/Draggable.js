@@ -1,7 +1,6 @@
 //heavily inspired by: https://github.com/mzabriskie/react-draggable
 
 import {PropTypes} from 'react';
-import ReactDOM from 'react-dom';
 import Base, {TYPE_SHAPE} from './Base';
 
 import {PointerEvents} from 'nti-util-detection-touch';
@@ -176,7 +175,7 @@ export default {
 
 
 	componentDidMount () {
-		this.scrollParent = getScrollParent(ReactDOM.findDOMNode(this));
+		this.scrollParent = getScrollParent(this.getDOMNode());
 	},
 
 
@@ -208,7 +207,7 @@ export default {
 
 
 	handleDragStart (e) {
-		let node = ReactDOM.findDOMNode(this);
+		let node = this.getDOMNode();
 		let dragPoint = getDragPoint(e);
 		let {onDragStart} = this.context;
 		let {handle, cancel} = this.props;

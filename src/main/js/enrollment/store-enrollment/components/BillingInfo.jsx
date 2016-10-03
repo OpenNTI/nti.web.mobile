@@ -39,19 +39,19 @@ export default React.createClass({
 				<fieldset>
 					<div className="title">
 						<span>{t('paymentInfo')}</span>
-						<span> </span>
+						<span>{' '}</span>
 						<a href="#" onClick={this.onEdit}>edit</a>
 					</div>
 
 					<div className="field">{card.name}</div>
 					<div className="field">
 						<span className="label">{card.brand}:</span>
-						<span> </span>
+						<span>{' '}</span>
 						<span className="value">**** **** **** {card.last4}</span>
 					</div>
 					<div className="field">
 						<span className="label">{t('expires')}</span>
-						<span> </span>
+						<span>{' '}</span>
 						<span className="value">{card.exp_month}/{card.exp_year}</span>
 					</div>
 				</fieldset>

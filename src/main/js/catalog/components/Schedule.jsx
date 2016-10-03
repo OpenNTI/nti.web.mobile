@@ -28,7 +28,7 @@ export default React.createClass({
 		return (
 			<div className="value">
 				<span>{schedule.days.join(' / ')}</span>
-				<span className="space"> </span>
+				<span className="space">{' '}</span>
 				<span>{schedule.times.map(this.format).join(' - ')}</span>
 			</div>
 		);

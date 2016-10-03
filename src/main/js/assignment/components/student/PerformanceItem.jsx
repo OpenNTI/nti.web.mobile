@@ -38,7 +38,7 @@ export default React.createClass({
 
 		return (
 			<div className="performance-item">
-				<div className={completedClasses}></div>
+				<div className={completedClasses}/>
 				<a href={`./${encodeForURI(item.assignmentId)}/`}>
 					<div className={cx('assignment-title', {'sorted': sortedOn === 'title'})}>{item.title}</div>
 				</a>

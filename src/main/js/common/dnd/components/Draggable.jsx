@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import {getRefHandler} from 'nti-commons/lib/jsx';
 
 import DragBehavior from '../behaviors/Draggable';
 
@@ -13,19 +14,32 @@ export default React.createClass({
 	},
 
 
+	attachRef (node) {
+		this.node = node;
+	},
+
+
+	getDOMNode () {
+		return this.node;
+	},
+
+
 	render () {
-		let {className, children} = this.props;
-		let {dragging, restoring} = this.state;
-		let child = React.Children.only(children); //only() will throw if there is not one and only one child.
+		const {className, children} = this.props;
+		const {dragging, restoring} = this.state;
+		const child = React.Children.only(children); //only() will throw if there is not one and only one child.
 
-		//By the time we get to this line, child will be a non-null react element, so dereferencing className from .props is safe.
-		// React.cloneElement does not merge classNames together, it replaces.. so we need to get the original className value.
-		className = cx('draggable', className, child.props.className, {
-			dragging,
-			restoring
-		});
-
-		let newProps = Object.assign({ style: this.computeStyle(), className }, this.getHandlers());
+		const newProps = {
+			style: this.computeStyle(),
+			//By the time we get to this line, child will be a non-null react element, so dereferencing className from .props is safe.
+			// React.cloneElement does not merge classNames together, it replaces.. so we need to get the original className value.
+			className: cx('draggable', className, child.props.className, {
+				dragging,
+				restoring
+			}),
+			...this.getHandlers(),
+			ref: getRefHandler(child.ref, this.attachRef)
+		};
 
 		return React.cloneElement(child, newProps);
 	}

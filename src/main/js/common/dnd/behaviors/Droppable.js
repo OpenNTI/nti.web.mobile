@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import cx from 'classnames';
 
 import ensureArray from 'nti-commons/lib/ensure-array';
@@ -88,10 +87,11 @@ export default {
 	renderDropTargetWrapper () {
 		const {tag, children, className, ...otherProps} = this.props;
 		delete otherProps.accepts;
-		return React.createElement(tag || 'div', Object.assign(otherProps, {
+		return React.createElement(tag || 'div', {...otherProps,
+			ref: x => this.node = x,
 			children,
 			className: cx(className, this[getWrapperElementClassName]())
-		}));
+		});
 	},
 
 
@@ -108,7 +108,7 @@ export default {
 		let {x, y} = dragData;
 		if (!this.context.currentDragItem) { return; }
 
-		if (isPointWithin(ReactDOM.findDOMNode(this), x, y)) {
+		if (isPointWithin(this.node, x, y)) {
 			if (!this.state.over) {
 				this[onDragEnteredDropTarget]();
 			}

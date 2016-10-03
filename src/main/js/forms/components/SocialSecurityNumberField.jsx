@@ -1,32 +1,39 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-export default React.createClass({
-	displayName: 'SocialSecurityNumberField',
+export default class SocialSecurityNumberField extends React.Component {
 
-	onKeyUp () {
-		let input = ReactDOM.findDOMNode(this.input);
-		let val = input.value.replace(/\D/g, ''); // strip non-digit characters
-		let newVal = '';
-		if(val.length > 4) {
-			this.value = val;
+	onKeyUp = () => {
+		const {input} = this;
+
+		let value = input.value.replace(/\D/g, ''); // strip non-digit characters
+
+		if(value.length > 4) {
+			this.value = value;
 		}
-		if((val.length > 3) && (val.length < 6)) {
-			newVal += val.substr(0, 3) + '-';
-			val = val.substr(3);
+
+		const output = [];
+
+		if((value.length > 3) && (value.length < 6)) {
+			output.push(value.substr(0, 3), '-');
+
+			value = value.substr(3);
 		}
-		if (val.length > 5) {
-			newVal += val.substr(0, 3) + '-';
-			newVal += val.substr(3, 2) + '-';
-			val = val.substr(5);
+
+		if (value.length > 5) {
+			output.push(value.substr(0, 3), '-');
+			output.push(value.substr(3, 2), '-');
+			value = value.substr(5);
 		}
-		newVal += val;
-		input.value = newVal;
-	},
+
+		output.push(value);
+
+		input.value = output.join('');
+	}
+
 
 	render () {
 		return (
 			<input ref={x => this.input = x} type="tel" pattern="\d*" onKeyUp={this.onKeyUp} />
 		);
 	}
-});
+}

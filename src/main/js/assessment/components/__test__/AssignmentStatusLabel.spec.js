@@ -40,6 +40,7 @@ describe('AssignmentStatusLabel', () => {
 
 
 	function test (props) {
+		//TODO: convert to async style. ReactDOM.render() return value is deprecated.
 		return [
 			ReactDOM.render(
 				React.createElement(AssignmentStatusLabel, props),

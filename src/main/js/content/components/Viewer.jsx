@@ -298,7 +298,7 @@ export default React.createClass({
 					this.renderNoteEditor()
 
 				) : (
-					<div key="content">
+					<div key="content" ref={x => this.node = x}>
 						<div className="content-body">
 							{this.renderAssessmentHeader()}
 							<div className="coordinate-root">

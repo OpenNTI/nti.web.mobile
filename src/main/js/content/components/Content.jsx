@@ -186,12 +186,12 @@ export default class Content extends React.Component {
 			[isTouchDevice ? 'onTouchEnd' : 'onMouseUp']: this.detectSelection
 		};
 
-		const props = Object.assign({}, otherProps, {
+		const props = {...otherProps,
 			ref: this.attachContentRef,
 			className: 'nti-content-panel',
 			'data-ntiid': pageId,
 			'data-page-ntiid': pageId
-		});
+		};
 
 		for (let key of Object.keys(Content.propTypes)) {
 			delete props[key];

@@ -5,7 +5,6 @@ import {
 } from 'vtt.js';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
@@ -36,35 +35,34 @@ const None = void 0;
 
 
 class Annotation {
-	constructor (item, root) {
-		Object.assign(this, {item, root});
+	constructor (item, ownerCmp) {
+		Object.assign(this, {item, ownerCmp});
 	}
 
 	get id () { return this.item.getID(); }
 
 	resolveVerticalLocation () {
-		let getStart = x => x && x.getStart && x.getStart().getSeconds().toFixed(3);
+		const getStart = x => x && x.getStart && x.getStart().getSeconds().toFixed(3);
 
-		let {root, item} = this;
-		let {applicableRange} = item;
-		let start = getStart(applicableRange);
+		const {ownerCmp, item} = this;
+		const {applicableRange} = item;
+		const start = getStart(applicableRange);
 
-		root = root.transcript;
+		const {transcript} = ownerCmp;
 
-		if (!root) {
+		if (!transcript || !transcript.node) {
 			return RETRY_AFTER_DOM_SETTLES;
-		} else if (!root.isMounted()) {
+		} else if (!transcript.isMounted()) {
 			return NOT_FOUND;
 		}
 
 
-		root = ReactDOM.findDOMNode(root);
-		let {scrollTop} = document.body;
+		const {scrollTop} = document.body;
 
-		let cue = start && root.querySelector(`[data-start-time="${start}"]`);
+		const cue = start && transcript.node.querySelector(`[data-start-time="${start}"]`);
 
 		//getBoundingClientRect is effected by scroll position... so add it back in.
-		return (cue ? cue : root).getBoundingClientRect().top + scrollTop;
+		return (cue ? cue : transcript.node).getBoundingClientRect().top + scrollTop;
 	}
 }
 
