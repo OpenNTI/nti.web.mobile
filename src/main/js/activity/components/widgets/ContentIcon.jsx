@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ArrayUtils} from 'nti-commons';
+import {Array as ArrayUtils} from 'nti-commons';
 import {getService} from 'nti-web-client';
 
 const {ensure: ensureArray} = ArrayUtils;
