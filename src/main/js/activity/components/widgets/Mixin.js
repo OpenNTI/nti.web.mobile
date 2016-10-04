@@ -1,4 +1,4 @@
-import escape from 'nti-commons/lib/regexp-escape';
+import {String as StringUtils} from 'nti-commons';
 
 const inputTypeCleaned = Symbol();
 
@@ -12,7 +12,7 @@ export default {
 					this.mimeType = [this.mimeType];
 				}
 				//ensure shape:
-				this.mimeType.forEach((s, i, a)=> a[i] = s.test ? s : new RegExp(escape(s), 'i'));
+				this.mimeType.forEach((s, i, a)=> a[i] = s.test ? s : new RegExp(StringUtils.escapeForRegExp(s), 'i'));
 
 				//prevent re-entry:
 				this[inputTypeCleaned] = true;

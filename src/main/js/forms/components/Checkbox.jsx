@@ -1,5 +1,5 @@
 import React from 'react';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 export default function Checkbox (props) {
 	let config = props.field || {};

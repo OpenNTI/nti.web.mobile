@@ -1,15 +1,14 @@
 import React from 'react';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent, Array as ArrayUtils} from 'nti-commons';
 
 import TableCell from './TableCell';
 
-import unique from 'nti-commons/lib/array-unique';
 
 const RANK = ['first', 'second'];
 
 export default function TableRow ({columns, label, labelPrefix, series}) {
 
-	const ranks = unique(series.map(x => x.count)).sort().reverse();
+	const ranks = ArrayUtils.unique(series.map(x => x.count)).sort().reverse();
 
 	const applyRank = o => Object.assign({rank: RANK[ranks.indexOf(o.count)]}, o);
 

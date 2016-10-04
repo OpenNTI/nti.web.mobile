@@ -4,7 +4,7 @@ import {Locations, Location, NotFound as Default} from 'react-router-component';
 
 // import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
-import PageSource from 'nti-commons/lib/ListBackedPageSource';
+import {Paging} from 'nti-commons';
 // import {decodeFromURI} from 'nti-lib-ntiids';
 
 import ContextMixin from 'common/mixins/ContextSender';
@@ -12,6 +12,8 @@ import {Loading} from 'nti-web-commons';
 
 import List from './List';
 import View from './View';
+
+const PageSource = Paging.ListBackedPageSource;
 
 // const logger = Logger.get('content:components:discussions');
 const Note = getModel('note');

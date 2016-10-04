@@ -29,7 +29,7 @@ import cx from 'classnames';
 import ContextAccessor from '../mixins/ContextAccessor';
 
 import {scoped} from 'nti-lib-locale';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 import {AssetIcon, Constants, Mixins} from 'nti-web-commons';
 

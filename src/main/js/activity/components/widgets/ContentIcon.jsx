@@ -1,8 +1,9 @@
 import React from 'react';
 
-import ensureArray from 'nti-commons/lib/ensure-array';
+import {ArrayUtils} from 'nti-commons';
 import {getService} from 'nti-web-client';
 
+const {ensure: ensureArray} = ArrayUtils;
 const getID = (x) => x && x.getID && x.getID();
 
 function getThumbnail (item) {

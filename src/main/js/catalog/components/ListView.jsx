@@ -1,6 +1,6 @@
 import React from 'react';
 
-import PageSource from 'nti-commons/lib/ListBackedPageSource';
+import {Paging} from 'nti-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -9,6 +9,8 @@ import CatalogAccessor from '../mixins/CatalogAccessor';
 import passesFilter from '../catalog-list-search';
 
 import Item from './Entry';
+
+const PageSource = Paging.ListBackedPageSource;
 
 export default React.createClass({
 	displayName: 'ListView',

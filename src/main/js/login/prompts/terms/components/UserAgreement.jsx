@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {getServer} from 'nti-web-client';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 import {Error as ErrorWidget, Loading, Mixins} from 'nti-web-commons';
 

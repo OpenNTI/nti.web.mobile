@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import {StoreEventsMixin} from 'nti-lib-store';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 import Content from './Content';
 import WordBank from './WordBank';

@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 export default React.createClass({
 	displayName: 'BarSegment',

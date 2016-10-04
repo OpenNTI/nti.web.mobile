@@ -2,7 +2,7 @@ import React from 'react';
 
 import {User} from 'nti-web-client';
 import {TinyLoader as Loader} from 'nti-web-commons';
-import ensureArray from 'nti-commons/lib/ensure-array';
+import {Array as ArrayUtils} from 'nti-commons';
 
 import SocialLinks from './SocialLinks';
 
@@ -46,9 +46,9 @@ export default React.createClass({
 		let {positions, education, location} = user;
 		let homePage = user.home_page; //eslint-disable-line camecase
 
-		let position = ensureArray(positions)[0]; //TODO: pick "latest" (start year)?
+		let position = ArrayUtils.ensure(positions)[0]; //TODO: pick "latest" (start year)?
 
-		education = ensureArray(education)[0]; //TODO: pick "latest" (start year)?
+		education = ArrayUtils.ensure(education)[0]; //TODO: pick "latest" (start year)?
 
 		//Is the affiliation field deprecated in favor of professional positions?
 

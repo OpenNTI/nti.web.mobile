@@ -1,10 +1,8 @@
 import React from 'react';
 
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent, Array as ArrayUtils} from 'nti-commons';
 
 import Mixin from './Mixin';
-
-import ensureArray from 'nti-commons/lib/ensure-array';
 
 /**
  * This solution type represents Muliple Choice (with multiple answers--aka Checkboxes)
@@ -47,7 +45,7 @@ export default React.createClass({
 			return null;
 		}
 
-		solution = ensureArray(solution.value);
+		solution = ArrayUtils.ensure(solution.value);
 
 		return solution.map(x=> {
 			let numeral = String.fromCharCode(65 + x);

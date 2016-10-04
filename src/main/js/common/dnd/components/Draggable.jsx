@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import {getRefHandler} from 'nti-commons/lib/jsx';
+import {getRefHandler} from 'nti-commons';
 
 import DragBehavior from '../behaviors/Draggable';
 

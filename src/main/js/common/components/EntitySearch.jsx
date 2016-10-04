@@ -7,7 +7,7 @@ import {
 	TinyLoader as Loading
 } from 'nti-web-commons';
 
-import EntitySelectionModel from 'nti-commons/lib/EntitySelectionModel';
+import {Selection} from 'nti-commons';
 
 import EntitySearchResultItem from './EntitySearchResultItem';
 
@@ -22,7 +22,7 @@ export default React.createClass({
 
 		query: React.PropTypes.string,
 
-		selection: React.PropTypes.instanceOf(EntitySelectionModel),
+		selection: React.PropTypes.instanceOf(Selection.EntitySelectionModel),
 
 		pageSize: React.PropTypes.number
 	},

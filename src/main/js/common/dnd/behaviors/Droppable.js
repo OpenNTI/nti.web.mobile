@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import ensureArray from 'nti-commons/lib/ensure-array';
+import {Array as ArrayUtils} from 'nti-commons';
 
 import {isPointWithin} from 'nti-lib-dom';
 import Base, {TYPE_SHAPE} from './Base';
@@ -48,7 +48,7 @@ export default {
 
 
 	accepts (type) {
-		let criteria = ensureArray(this.props.accepts);
+		let criteria = ArrayUtils.ensure(this.props.accepts);
 
 		return criteria.reduce((yes, x) => {
 			return yes || (x === type) || (x.accepts && x.accepts(type));

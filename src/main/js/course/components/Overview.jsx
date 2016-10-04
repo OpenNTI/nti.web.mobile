@@ -12,7 +12,7 @@ import {
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 import {addHistory} from 'nti-analytics';
 

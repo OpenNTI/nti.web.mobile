@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {getService} from 'nti-web-client';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 import {Loading, Error} from 'nti-web-commons';
 

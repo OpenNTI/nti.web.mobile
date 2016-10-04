@@ -8,7 +8,7 @@ import {getModel} from 'nti-lib-interfaces';
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import {TinyLoader as Loading} from 'nti-web-commons';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 import Content from '../Content';
 

@@ -1,7 +1,7 @@
-import escape from 'nti-commons/lib/regexp-escape';
+import {String as StringUtils} from 'nti-commons';
 
 function toRegExpStr (s) {
-	return escape(s.replace(/^application\/vnd\.nextthought\./, ''));
+	return StringUtils.escapeForRegExp(s.replace(/^application\/vnd\.nextthought\./, ''));
 }
 
 export default {

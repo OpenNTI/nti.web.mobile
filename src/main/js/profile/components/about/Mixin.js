@@ -1,9 +1,9 @@
 import selectWidget from './widgets/';
-import ensureArray from 'nti-commons/lib/ensure-array';
+import {ArrayUtils} from 'nti-commons';
 
 export default {
 	renderItems (items, props) {
-		let widgets = ensureArray(items).map((item, index) => {
+		let widgets = ArrayUtils.ensure(items).map((item, index) => {
 			return selectWidget(item, index, props);
 		});
 		return widgets;

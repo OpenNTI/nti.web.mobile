@@ -1,7 +1,7 @@
 import React from 'react';
 import Logger from 'nti-util-logger';
 
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 import {scoped} from 'nti-lib-locale';
 import {LoadingInline as Loading, Mixins} from 'nti-web-commons';
 

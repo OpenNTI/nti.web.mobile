@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 import {declareCustomElement, getEventTarget} from 'nti-lib-dom';
 import isTouchDevice from 'nti-util-detection-touch';
 
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 import {getWidget} from './widgets';
 

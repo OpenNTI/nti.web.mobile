@@ -3,7 +3,7 @@ import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
 import {join} from 'path';
 
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {DateTime, DisplayName} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';

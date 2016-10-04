@@ -67,7 +67,7 @@
     "node-uuid": "^1.4.3",
     "normalize.css": "^5.0.0",
     "nti-analytics": "^1.0.0",
-    "nti-commons": "^1.0.26",
+    "nti-commons": "^2.0.0",
     "nti-lib-anchorjs": "^1.0.0",
     "nti-lib-content-processing": "^1.0.0",
     "nti-lib-dispatcher": "^1.0.0",

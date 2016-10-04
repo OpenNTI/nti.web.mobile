@@ -2,7 +2,7 @@ import React from 'react';
 import Mixin, {stopEvent} from './Mixin';
 
 import {getEventTarget} from 'nti-lib-dom';
-import {rawContent} from 'nti-commons/lib/jsx';
+import {rawContent} from 'nti-commons';
 
 const isTruthy = x => x;
 

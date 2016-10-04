@@ -7,7 +7,7 @@ const Path = require('path');
 const fs = require('fs');
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
-const {default: urlJoin} = require('nti-commons/lib/url-join');
+const {URL: {join: urlJoin}} = require('nti-commons');
 
 const isRootPath = RegExp.prototype.test.bind(/^\/(?!\/).*/);
 const isSiteAssets = RegExp.prototype.test.bind(/^\/site\-assets/);
