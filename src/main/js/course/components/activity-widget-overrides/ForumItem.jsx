@@ -67,7 +67,7 @@ function Comment (props) {
 		<div className="post comment">
 			<Avatar entity={item.creator}/>
 			<div className="meta">
-				<DisplayName entity={item.creator}/>{" · "}<DateTime date={item.getCreatedTime()} relative/>
+				<DisplayName entity={item.creator}/>{' · '}<DateTime date={item.getCreatedTime()} relative/>
 			</div>
 			<ModeledContentPanel body={item.body} />
 			<ul className="action-links">

@@ -25,7 +25,7 @@ export default React.createClass({
 					<Avatar entity={username} width="32" height="32"/>
 					<div className="wrap">
 						<DisplayName entity={username}/>
-							{" added you as a contact."}
+							{' added you as a contact.'}
 						<DateTime date={time} relative/>
 					</div>
 				</ProfileLink>

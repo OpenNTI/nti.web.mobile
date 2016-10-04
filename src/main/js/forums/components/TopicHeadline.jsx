@@ -21,7 +21,7 @@ export default function TopicHeadline ({className, item}) {
 			<div className="wrap">
 				<h1>{post.title}</h1>
 				<div className="meta">
-					<DisplayName entity={post.creator}/>{" · "}<DateTime date={post.getCreatedTime()} relative/>
+					<DisplayName entity={post.creator}/>{' · '}<DateTime date={post.getCreatedTime()} relative/>
 				</div>
 			</div>
 			<ModeledContentPanel body={post.body} />
