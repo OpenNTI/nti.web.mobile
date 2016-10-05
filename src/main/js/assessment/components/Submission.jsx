@@ -23,6 +23,8 @@ import {Prompt} from 'nti-web-commons';
 
 const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSubmit();
 
+const forceNumber = x => typeof x === 'number' ? x : NaN;
+
 export default React.createClass({
 	displayName: 'Submission',
 
@@ -102,7 +104,7 @@ export default React.createClass({
 		let disabled = admin || !Store.canSubmit(assessment);
 		let cannotReset = Store.isSubmitted(assessment) || disabled;
 
-		let unanswered = Store.countUnansweredQuestions(assessment) || NaN;
+		let unanswered = forceNumber(Store.countUnansweredQuestions(assessment));
 		let status = unanswered ? 'incomplete' : 'complete';
 
 		let busy = Store.getBusyState(assessment);
@@ -129,7 +131,9 @@ export default React.createClass({
 					)}
 					<a href={disabled ? '#' : null} className={'button ' + (disabled ? 'disabled' : '')} onClick={this.onSubmit}>{t('submit')}</a>
 					{cannotReset ? null : (<a href="#" className="reset button link" onClick={this.onReset}>{t('reset')}</a>)}
-					<span className="status-line">{t('unanswered', { count: unanswered })}</span>
+					<span className="status-line">
+						{!isNaN(unanswered) && t('unanswered', { count: unanswered })}
+					</span>
 				</div>
 
 				{!busy ? null : <Loading message="Please Wait" maskScreen/>}
