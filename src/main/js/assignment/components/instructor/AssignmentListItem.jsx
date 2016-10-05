@@ -7,6 +7,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
 import CompletionRatio from './CompletionRatio';
+import TotalPointsLabel from '../shared/TotalPointsLabel';
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 const DEFAULT_TEXT = {
@@ -30,7 +31,10 @@ export default React.createClass({
 		return (
 			<a className={classes} href={`./${encodeForURI(assignment.getID())}/students/`}>
 				<div>
-					<div className="title">{assignment.title || t('emptyTitle')}</div>
+					<div className="title">
+						{assignment.title || t('emptyTitle')}
+						<TotalPointsLabel assignment={assignment}/>
+					</div>
 					<AssignmentStatusLabel assignment={assignment} />
 				</div>
 				<CompletionRatio course={this.getCourse()} assignment={assignment} />

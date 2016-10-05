@@ -7,6 +7,8 @@ import {Mixins} from 'nti-web-commons';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
+import TotalPointsLabel from '../shared/TotalPointsLabel';
+
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 export default React.createClass({
@@ -46,6 +48,7 @@ export default React.createClass({
 			<a className={cx('assignment-item', { complete: !!history })} href={`./${encodeForURI(assignment.getID())}/`}>
 				<div>
 					{assignment.title}
+					<TotalPointsLabel assignment={assignment}/>
 					<AssignmentStatusLabel assignment={assignment} historyItem={history} showTimeWithDate/>
 				</div>
 			</a>

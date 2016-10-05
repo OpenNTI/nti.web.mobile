@@ -10,6 +10,7 @@ import {Mixins} from 'nti-web-commons';
 
 import Score from 'common/components/charts/Score';
 
+import TotalPointsLabel from 'assignment/components/shared/TotalPointsLabel';
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import {loadPreviousState} from 'assessment/Api';
 
@@ -206,11 +207,17 @@ export default React.createClass( {
 							<Score width="40" height="40" score={score || 0}/>
 						</div>
 					}
-					<div className="tally-box">
-						<div className="message">{label}</div>
-						{assignment ?
-							<AssignmentStatusLabel showTimeWithDate assignment={assignment} historyItem={assignmentHistory}/>
-						: //Assessment:
+					{assignment ? (
+
+						<div className="tally-box">
+							<div className="message">{label}<TotalPointsLabel assignment={assignment}/></div>
+								<AssignmentStatusLabel showTimeWithDate assignment={assignment} historyItem={assignmentHistory}/>
+						</div>
+
+					) : ( //Assessment:
+
+						<div className="tally-box">
+							<div className="message">{label}</div>
 							<div className="tally">
 							{correct && (
 								<div className="stat correct">
@@ -222,8 +229,9 @@ export default React.createClass( {
 							)}
 								<div className="stat questions">{questionCount} questions</div>
 							</div>
-						}
-					</div>
+						</div>
+
+					)}
 				</div>
 			</a>
 		);
