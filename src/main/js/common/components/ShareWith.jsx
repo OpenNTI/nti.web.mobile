@@ -7,7 +7,7 @@ import ShareTarget from './TokenEntity';
 import SelectableEntities from './SelectableEntities';
 import Search from './EntitySearch';
 
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 import {Selection} from 'nti-commons';
 
@@ -300,7 +300,7 @@ export default React.createClass({
 				) : (
 					<div className="suggestions">
 					{!focused ? null : loading ? (
-						<Loading />
+						<Loading.Ellipse />
 					) : (
 
 						<div ref={x => this.scroller = x}

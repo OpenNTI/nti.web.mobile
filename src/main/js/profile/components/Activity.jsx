@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {EmptyList, TinyLoader as Loading, Mixins, ScrollTrigger} from 'nti-web-commons';
+import {EmptyList, Loading, Mixins, ScrollTrigger} from 'nti-web-commons';
 
 import Button from 'forms/components/Button';
 
@@ -111,7 +111,7 @@ export default React.createClass({
 		const loading = !store || (store.loading && !store.length);
 
 		if (!store) {
-			return ( <Loading /> );
+			return ( <Loading.Ellipse /> );
 		}
 
 		const canPost = !!store.postToActivity;
@@ -134,14 +134,14 @@ export default React.createClass({
 				})}
 
 				{loading && (
-					<Loading/>
+					<Loading.Ellipse/>
 				)}
 
 				{!loading && (entity.isUser || store.more) && (
 				<li key="theend" className="activity-item end">
 					{store.more
 						? store.loading
-							? ( <Loading/> )
+							? ( <Loading.Ellipse/> )
 							: ( <Button className="more" onClick={this.more}>More</Button> )
 						: (
 						<Joined entity={entity} />

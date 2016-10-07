@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {User} from 'nti-web-client';
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 import t from 'nti-lib-locale';
 
@@ -91,7 +91,7 @@ export default React.createClass({
 		let {sharedWith = []} = item;
 
 		if (loading) {
-			return (<Loading/>);
+			return (<Loading.Ellipse/>);
 		}
 
 		if (typeof limit === 'number' && limit > 0) {

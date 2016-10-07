@@ -5,7 +5,7 @@ import isEmpty from 'isempty';
 import {getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 
-import {Error, TinyLoader as Loading} from 'nti-web-commons';
+import {Error, Loading} from 'nti-web-commons';
 import {ExternalLibraryManager} from 'nti-web-client';
 import {clearLoadingFlag, setError} from 'common/utils/react-state';
 
@@ -144,7 +144,7 @@ export default React.createClass({
 		const {props: {item}, state: {value, loading, error}} = this;
 
 		if (loading) {
-			return ( <Loading/> );
+			return ( <Loading.Ellipse/> );
 		}
 
 		if (error) {

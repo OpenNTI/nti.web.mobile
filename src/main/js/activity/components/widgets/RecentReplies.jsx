@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 import Panel from 'content/components/discussions/Panel';
 
@@ -40,7 +40,7 @@ export default React.createClass({
 		const {loading, replies} = this.state;
 
 		if (loading) {
-			return <Loading />;
+			return <Loading.Ellipse />;
 		}
 
 		return (

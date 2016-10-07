@@ -1,7 +1,7 @@
 import React from 'react';
 import {Editor} from 'modeled-content';
 
-import {Notice, OkCancelButtons, TinyLoader as Loading} from 'nti-web-commons';
+import {Notice, OkCancelButtons, Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
 
@@ -114,7 +114,7 @@ export default React.createClass({
 		} = this;
 
 		if (busy) {
-			return <Loading />;
+			return <Loading.Ellipse />;
 		}
 
 		const savefunc = editItem

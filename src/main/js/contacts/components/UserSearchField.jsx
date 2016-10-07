@@ -3,7 +3,7 @@ import SelectableEntity from 'common/components/SelectableEntity';
 import {getStore, getSuggestedContacts} from '../Api';
 import {USERS} from '../Constants';
 import cx from 'classnames';
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 function listContainsEntity (list, entity) {
 	return (list || []).findIndex((user) => user.getID && user.getID() === entity.getID()) > -1;
@@ -201,7 +201,7 @@ export default React.createClass({
 		let {searchResults, contactsResults, suggestedContacts, searchLoading, search} = this.state;
 		let children = [];
 		if (searchLoading) {
-			children.push(<Loading/>);
+			children.push(<Loading.Ellipse/>);
 		}
 		else if (search.length === 0) {
 			if(suggestedContacts.length > 0) {

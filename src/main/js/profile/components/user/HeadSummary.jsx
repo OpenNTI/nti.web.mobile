@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {User} from 'nti-web-client';
-import {TinyLoader as Loader} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 import {Array as ArrayUtils} from 'nti-commons';
 
 import SocialLinks from './SocialLinks';
@@ -40,7 +40,7 @@ export default React.createClass({
 		let {user} = this.state;
 
 		if (!user) {
-			return <Loader />;
+			return <Loading.Ellipse />;
 		}
 
 		let {positions, education, location} = user;
