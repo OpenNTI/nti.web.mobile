@@ -272,7 +272,7 @@ export default React.createClass({
 
 
 	render () {
-		if (this.state.loading) { return (<Loading/>); }
+		if (this.state.loading) { return (<Loading.Mask />); }
 		if (this.state.error) {	return (<ErrorWidget error={this.state.error}/>); }
 
 		return (

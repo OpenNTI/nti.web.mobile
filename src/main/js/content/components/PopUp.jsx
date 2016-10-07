@@ -57,7 +57,7 @@ export default React.createClass({
 				<div onClick={this.props.onClose} className="close"><i className="icon-light-x" /></div>
 				{error ? <Error error={error} /> :
 					loading ?
-						<Loading /> :
+						<Loading.Mask /> :
 							<div className="content" {...rawContent(html)} />
 				}
 			</div>

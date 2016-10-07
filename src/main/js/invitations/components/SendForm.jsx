@@ -124,7 +124,7 @@ export default React.createClass({
 		const {loading, success} = this.state;
 
 		if (loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		if(!canSend(course)) {

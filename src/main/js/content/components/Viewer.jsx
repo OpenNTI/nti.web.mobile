@@ -255,7 +255,7 @@ export default React.createClass({
 		const {discussions} = this.getPropsFromRoute();
 
 		if (loading) {
-			return (<Loading/>);
+			return (<Loading.Mask />);
 		}
 		else if (error) {
 			if (ContentAcquirePrompt.shouldPrompt(error)) {

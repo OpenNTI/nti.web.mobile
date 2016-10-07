@@ -89,7 +89,7 @@ export default React.createClass({
 	render () {
 
 		if (this.state.busy) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		if (!this.canCreateTopic()) {

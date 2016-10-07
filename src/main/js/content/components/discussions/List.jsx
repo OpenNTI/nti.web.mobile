@@ -11,7 +11,7 @@ export default function DiscussionsList (props) {
 			{children}
 			<div className="list">
 				{!items
-					? ( <Loading/> )
+					? ( <Loading.Mask /> )
 					: items.length
 						? items.map(x => <Item item={x} key={x.getID()}/>)
 						: ( <Empty type="discussions"/> )

@@ -100,7 +100,7 @@ export default React.createClass({
 		const entry = course && course.CatalogEntry;
 
 		if (this.state.loading) {
-			return (<Loading/>);
+			return (<Loading.Mask />);
 		}
 
 		if ((course && course.error) || !entry) {

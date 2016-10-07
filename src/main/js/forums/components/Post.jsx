@@ -135,7 +135,7 @@ export default React.createClass({
 		}
 
 		if (busy || !item) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		let topic = Store.getForumItem(this.props.topicId);

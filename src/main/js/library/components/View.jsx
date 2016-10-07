@@ -25,7 +25,7 @@ export default React.createClass({
 			<div>
 				<DarkMode/>
 				{loading ? (
-					<Loading />
+					<Loading.Mask />
 				) : (
 					<Locations contextual>
 						<Location path="/communities(/*)" handler={SectionCommunities} />

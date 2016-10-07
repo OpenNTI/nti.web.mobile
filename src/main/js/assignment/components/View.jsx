@@ -52,7 +52,7 @@ export default React.createClass({
 		let {loading, assignments} = this.state;
 
 		if(loading) {
-			return ( <Loading /> );
+			return ( <Loading.Mask /> );
 		}
 
 		let Comp = course.isAdministrative && course.GradeBook ? Instructor : Student;

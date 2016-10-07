@@ -89,7 +89,7 @@ export default React.createClass({
 		return error ? (
 			<Err error={error}/>
 		) : loading ? (
-			<Loading />
+			<Loading.Mask />
 		) : (
 			<ContentViewer {...this.props}
 				assessment={assignment}

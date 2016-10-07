@@ -60,6 +60,6 @@ export default React.createClass({
 
 
 	render () {
-		return (<Loading message="Redirecting..."/>);
+		return (<Loading.Mask message="Redirecting..."/>);
 	}
 });

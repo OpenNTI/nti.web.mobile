@@ -28,7 +28,7 @@ export default React.createClass({
 
 		//If the library is loading, or reloading this will be true.
 		if (loading || !library) {
-			return ( <Loading/> );
+			return ( <Loading.Mask /> );
 		}
 
 		const label = courseTitle || getLastEnrolledCourseTitle(library);

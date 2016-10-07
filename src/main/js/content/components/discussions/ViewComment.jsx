@@ -86,7 +86,7 @@ export default React.createClass({
 		}
 
 		return !item ? (
-			<Loading/>
+			<Loading.Mask />
 		) : (
 			<div className="comment-view">
 				{edit ? (

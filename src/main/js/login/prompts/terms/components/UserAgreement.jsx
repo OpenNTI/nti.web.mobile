@@ -60,7 +60,7 @@ export default React.createClass({
 			<div className="agreement-wrapper">
 
 				{ loading ? (
-					<Loading />
+					<Loading.Mask />
 				) : error ? (
 					<ErrorWidget error={error} />
 				) : (content && (

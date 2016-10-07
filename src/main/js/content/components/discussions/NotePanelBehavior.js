@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
 	Error as Err,
-	LoadingInline as Loading,
+	Loading,
 	Mixins
 } from 'nti-web-commons';
 
@@ -74,7 +74,7 @@ export default {
 				{error ? (
 					<Err error={error}/>
 				) : (
-					<Loading />
+					<Loading.Whacky />
 				)}
 			</div>
 		) : (

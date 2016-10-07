@@ -117,7 +117,7 @@ export default React.createClass({
 		let {relatedWorkRef, storeProvider} = this.state;
 
 		if (!storeProvider) {
-			return ( <Loading/> );
+			return ( <Loading.Mask /> );
 		}
 
 		return (

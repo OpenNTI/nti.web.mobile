@@ -122,7 +122,7 @@ export default React.createClass({
 		}
 
 		if (busy) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		let title = t('formTitle');

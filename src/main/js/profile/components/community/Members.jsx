@@ -92,7 +92,7 @@ export default React.createClass({
 	render () {
 		let {store} = this.state;
 		if (!store || (store.loading && !store.length)) {
-			return ( <Loading /> );
+			return ( <Loading.Mask /> );
 		}
 
 		return (

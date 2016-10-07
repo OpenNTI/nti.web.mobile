@@ -4,8 +4,7 @@ import {
 	EmptyList,
 	Loading,
 	Notice,
-	ScrollTrigger,
-	TinyLoader
+	ScrollTrigger
 } from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -85,7 +84,7 @@ export default React.createClass({
 		}
 
 		if (!activity) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		if (activity.length === 0) {
@@ -98,7 +97,7 @@ export default React.createClass({
 					<AssignmentActivityItem key={`activity-item-${index}`} event={event} />
 				)}
 				{activity.loading && (
-					<TinyLoader />
+					<Loading.Ellipse />
 				)}
 				{activity.more && !activity.loading && (
 					<a className="more" href="#" onClick={this.loadMore}>More</a>

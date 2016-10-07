@@ -204,7 +204,7 @@ export default React.createClass({
 		let submitCls = enabled ? '' : 'disabled';
 
 		if(loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		if(error) {

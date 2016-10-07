@@ -215,7 +215,7 @@ export default React.createClass({
 		}
 
 		if (this.state.loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		if (this.state.deleted) {

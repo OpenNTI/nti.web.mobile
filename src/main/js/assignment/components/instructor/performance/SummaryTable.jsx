@@ -46,7 +46,7 @@ export default React.createClass({
 		const {sortOn, sortOrder} = summary.getSort();
 
 		if (summary.loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		if (summary.hasFinalGrade) {

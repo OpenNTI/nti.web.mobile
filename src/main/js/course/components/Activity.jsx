@@ -89,7 +89,7 @@ export default React.createClass({
 				<Banner item={contentPackage} />
 				<ul className="activity-buckets">{store && store.map((bucket, index) => <ActivityBucket key={`bucket-${index}`} bucket={bucket} />)}</ul>
 				<ScrollTrigger onEnterView={this.loadMore} />
-				{store && store.loading && <Loading />}
+				{store && store.loading && <Loading.Mask />}
 			</div>
 		);
 	}

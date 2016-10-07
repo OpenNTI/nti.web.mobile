@@ -179,7 +179,7 @@ export default React.createClass({
 	render () {
 
 		if (this.state.busy) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		let title = t('admissionTitle');

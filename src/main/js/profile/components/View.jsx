@@ -58,7 +58,7 @@ export default React.createClass({
 
 
 		if (entity == null) {
-			return ( <Loading /> );
+			return ( <Loading.Mask /> );
 		}
 
 		if (entity === false) {

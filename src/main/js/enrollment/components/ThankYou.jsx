@@ -22,7 +22,7 @@ export default React.createClass({
 
 		//If the library is loading, or reloading this will be true.
 		if (loading) {
-			return ( <Loading/> );
+			return ( <Loading.Mask /> );
 		}
 
 		return thankYouURL ? (

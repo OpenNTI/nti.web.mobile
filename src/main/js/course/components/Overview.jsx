@@ -145,7 +145,7 @@ export default React.createClass({
 	render () {
 		let {data, node, loading, error} = this.state;
 
-		if (loading) { return (<Loading/>); }
+		if (loading) { return (<Loading.Mask />); }
 		if (error) { return (<ErrorWidget error={error}/>); }
 
 		let title = (data || {}).title || '';

@@ -127,7 +127,7 @@ export default React.createClass({//eslint-disable-line react/no-multi-comp
 
 		return (
 			<Page title="Catalog">
-				{!catalog ? <Loading/> : <CatalogBody catalog={catalog}/>}
+				{!catalog ? <Loading.Mask/> : <CatalogBody catalog={catalog}/>}
 			</Page>
 		);
 	}
