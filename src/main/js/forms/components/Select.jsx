@@ -2,7 +2,7 @@ import React from 'react';
 import {loadSelectOptionsFromUserLinkRel} from '../Actions';
 import Store from '../Store';
 import * as Constants from '../Constants';
-import {LoadingInline as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 export default React.createClass({
 
@@ -110,7 +110,7 @@ export default React.createClass({
 	render () {
 
 		if (this.state.loading) {
-			return <Loading />;
+			return <Loading.Whacky />;
 		}
 
 		return (

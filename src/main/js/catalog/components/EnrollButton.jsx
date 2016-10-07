@@ -2,7 +2,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 import {scoped} from 'nti-lib-locale';
-import {LoadingInline as Loading, Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 import Button from 'forms/components/Button';
 
 import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';
@@ -69,7 +69,7 @@ export default React.createClass({
 			return (
 				<div className="column text-center">
 					<p>Checking enrollment status</p>
-					<Loading />
+					<Loading.Whacky />
 				</div>);
 		}
 
