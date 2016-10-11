@@ -1,5 +1,5 @@
 import selectWidget from './widgets/';
-import {ArrayUtils} from 'nti-commons';
+import {Array as ArrayUtils} from 'nti-commons';
 
 export default {
 	renderItems (items, props) {
