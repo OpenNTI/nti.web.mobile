@@ -63,7 +63,7 @@ function onAppMount (APP) {
 	});
 
 	Orientation.init(APP);
-	global.onbeforeunload = () => APP.setState({mask: 'Reloading...'});
+	global.onbeforeunload = () => { APP.setState({mask: 'Reloading...'}) };
 
 	LoginStore.addChangeListener(evt => {
 		const RETURN_URL = getReturnURL();
