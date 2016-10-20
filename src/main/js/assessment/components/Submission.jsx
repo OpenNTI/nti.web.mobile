@@ -136,7 +136,7 @@ export default React.createClass({
 					</span>
 				</div>
 
-				{!busy ? null : <Loading message="Please Wait" maskScreen/>}
+				{!busy ? null : <Loading.Mask message="Please Wait" maskScreen/>}
 			</div>
 		);
 	}

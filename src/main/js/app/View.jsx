@@ -97,7 +97,7 @@ export default class App extends React.Component {
 		const Wrapper = isGated ? 'div' : AppContainer;
 
 		if (mask) {
-			return <Loading message={typeof mask === 'string' ? mask : void 0}/>;
+			return <Loading.Mask message={typeof mask === 'string' ? mask : void 0}/>;
 		}
 
 

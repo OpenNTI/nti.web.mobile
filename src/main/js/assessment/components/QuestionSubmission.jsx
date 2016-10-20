@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 const t = scoped('ASSESSMENT');
@@ -117,7 +117,7 @@ export default React.createClass({
 					{t(`${prefix}-${submitted ? 'reset' : 'submit'}`)}
 				</a>
 
-				{!busy ? null : <Loading/>}
+				{!busy ? null : <Loading.Ellipse/>}
 			</div>
 		);
 	}

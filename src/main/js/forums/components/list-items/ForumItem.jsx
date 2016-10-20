@@ -2,7 +2,7 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-import {Mixins, TinyLoader} from 'nti-web-commons';
+import {Mixins, Loading} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
 
@@ -111,7 +111,7 @@ export default React.createClass({
 		return (
 			<div className="forum-item">
 				{loading ? (
-					<TinyLoader />
+					<Loading.Ellipse />
 				) : (
 					<div>
 						<a href={this.getHref()} className="blockLink">

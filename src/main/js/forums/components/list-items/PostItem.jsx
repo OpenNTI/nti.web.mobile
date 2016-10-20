@@ -6,7 +6,7 @@ import Store from '../../Store';
 
 import Avatar from 'common/components/Avatar';
 
-import {DateTime, TinyLoader as Loading, LuckyCharms, Mixins} from 'nti-web-commons';
+import {DateTime, Loading, LuckyCharms, Mixins} from 'nti-web-commons';
 
 import DisplayName from 'common/components/DisplayName';
 
@@ -156,7 +156,7 @@ export default React.createClass({
 		const {state: {busy, editing}, props: {detailLink, asHeadline, topic}} = this;
 
 		if (busy) {
-			return <Loading className="post-item"/>;
+			return <Loading.Ellipse className="post-item"/>;
 		}
 
 

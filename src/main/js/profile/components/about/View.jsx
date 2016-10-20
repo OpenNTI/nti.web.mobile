@@ -3,7 +3,7 @@ import React from 'react';
 import {PROFILE_VIEWED} from 'nti-analytics';
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 
-import {ActiveState, TinyLoader as Loading} from 'nti-web-commons';
+import {ActiveState, Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 import Card from '../Card';
@@ -31,7 +31,7 @@ export default React.createClass({
 		let {entity} = this.props;
 
 		if (!entity) {
-			return <Loading />;
+			return <Loading.Ellipse />;
 		}
 
 		let canEdit = entity.hasLink('edit');

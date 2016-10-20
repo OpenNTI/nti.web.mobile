@@ -22,7 +22,7 @@ export default React.createClass({
 		const store = this.getStore();
 
 		if(!store || store.loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		if(store.length === 0) {

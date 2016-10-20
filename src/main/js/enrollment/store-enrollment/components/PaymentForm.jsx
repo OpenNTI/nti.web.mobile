@@ -9,7 +9,7 @@ import {scoped} from 'nti-lib-locale';
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
 
-import {Loading, TinyLoader} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 import {clearLoadingFlag} from 'common/utils/react-state';
 
@@ -148,7 +148,7 @@ export default React.createClass({
 		const {props: {purchasable: purch}, state: {busy, errors, defaultValues, loading, termsChecked}} = this;
 
 		if(loading) {
-			return ( <Loading /> );
+			return ( <Loading.Mask /> );
 		}
 
 		const title = purch.name || null;
@@ -161,7 +161,7 @@ export default React.createClass({
 				{errors && ( <FormErrors errors={errors} /> )}
 				<TermsCheckbox onChange={this.termsCheckboxChange}/>
 				{busy ? (
-					<div><TinyLoader/></div>
+					<div><Loading.Ellipse/></div>
 				) : (
 					<input type="submit"
 						id="storeenroll:submit"

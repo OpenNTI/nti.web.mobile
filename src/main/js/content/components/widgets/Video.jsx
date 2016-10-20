@@ -5,7 +5,7 @@ import scrollparent from 'scrollparent';
 import {Progress} from 'nti-lib-interfaces';
 import {getScreenHeight} from 'nti-lib-dom';
 
-import {Loading as LoadingMask} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import {Component as Video} from 'video';
@@ -214,7 +214,7 @@ export default React.createClass({
 				}
 
 				{(playing || requestPlay) ? null :
-					<LoadingMask style={posterRule} loading={loading}
+					<Loading.Mask style={posterRule} loading={loading}
 						tag="a" onFocus={onFocus} onClick={this.onPosterClicked}
 						className="content-video-tap-area" href="#">
 
@@ -226,7 +226,7 @@ export default React.createClass({
 								<span className="label" title={label}>{label}</span>
 							</div>
 						</div>
-					</LoadingMask>
+					</Loading.Mask>
 				}
 			</Tag>
 		);

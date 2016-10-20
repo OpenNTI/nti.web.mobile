@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 
 import ShareWith from 'common/components/ShareWith';
-import {TinyLoader as Busy} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 import {Editor} from 'modeled-content';
 
@@ -128,7 +128,7 @@ export default React.createClass({
 					onBlur={this.onChange}
 					initialValue={this.props.value}>
 					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-					<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Busy/>) : t('BUTTONS.save')}</button>
+					<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Loading.Ellipse/>) : t('BUTTONS.save')}</button>
 				</Editor>
 				</form>
 			</div>

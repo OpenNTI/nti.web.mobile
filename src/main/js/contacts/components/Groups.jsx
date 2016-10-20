@@ -88,7 +88,7 @@ export default React.createClass({
 		}
 
 		if (!store || store.loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		let items = [];

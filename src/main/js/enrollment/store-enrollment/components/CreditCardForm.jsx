@@ -2,7 +2,7 @@
 import React from 'react';
 import cx from 'classnames';
 
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
 import {ExternalLibraryManager} from 'nti-web-client';
 import {clearLoadingFlag} from 'common/utils/react-state';
@@ -152,7 +152,7 @@ export default React.createClass({
 		const secondLineError = errors.number || errors.exp || errors.cvc;
 
 		if (loading) {
-			return ( <Loading/> );
+			return ( <Loading.Ellipse/> );
 		}
 
 		let expDefaultValue = `${defaultValues.exp_month} / ${defaultValues.exp_year}`;

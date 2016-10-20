@@ -147,7 +147,7 @@ export default React.createClass({
 		return (
 			<div className="profile-edit">
 				{loading ? (
-					<Loading/>
+					<Loading.Mask />
 				) : (
 					<div>
 						<NavigationGuard message="You are currently editing your profile. Would you like to leave without saving?"/>
@@ -191,7 +191,7 @@ export default React.createClass({
 
 						{busy && (
 							<div className="busy">
-								<Loading />
+								<Loading.Mask />
 							</div>
 						)}
 					</div>

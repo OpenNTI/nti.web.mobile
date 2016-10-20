@@ -111,7 +111,7 @@ export default React.createClass({
 		const {loading, success, instance} = this.state;
 
 		if (loading) {
-			return <Loading/>;
+			return <Loading.Mask />;
 		}
 
 		const heading = success ? t('successMessage') : t('formHeading');

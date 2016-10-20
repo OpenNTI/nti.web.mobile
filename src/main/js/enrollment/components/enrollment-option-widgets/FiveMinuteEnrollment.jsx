@@ -3,7 +3,7 @@ import Logger from 'nti-util-logger';
 
 import {rawContent} from 'nti-commons';
 import {scoped} from 'nti-lib-locale';
-import {LoadingInline as Loading, Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
 const logger = Logger.get('enrollment:components:enrollment-option-widgets:FiveMinuteEnrollment');
 const t = scoped('ENROLLMENT');
@@ -107,7 +107,7 @@ export default React.createClass({
 		}
 
 		if (loading) {
-			return ( <Loading/> );
+			return ( <Loading.Whacky/> );
 		}
 
 		const actions = error ? null : <div className="actions"><a href={href}>{t('fiveMinuteEnrollmentButton')}</a></div>;

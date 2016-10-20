@@ -3,7 +3,7 @@ import {Link} from 'react-router-component';
 
 import Transition from 'react-addons-css-transition-group';
 
-import {Error as Err, TinyLoader as Loading, Notice} from 'nti-web-commons';
+import {Error as Err, Loading, Notice} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import Paging from '../mixins/Paging';
@@ -118,7 +118,7 @@ export default React.createClass({
 		return (
 			<div>
 				{loading ? (
-					<Loading className="topic-comments"/>
+					<Loading.Ellipse className="topic-comments"/>
 				) : (container.Items || []).length > 0 ? (
 					<div>
 						<section className="comments">

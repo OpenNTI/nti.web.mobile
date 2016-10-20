@@ -6,7 +6,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 
 import {getService} from 'nti-web-client';
 
-import {Loading as LoadingMask, Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from 'nti-web-commons';
 
 export default React.createClass({
 	displayName: 'CourseOverviewDiscussion',
@@ -139,7 +139,7 @@ export default React.createClass({
 		const img = icon ? {backgroundImage: `url(${icon})`} : null;
 
 		return (
-			<LoadingMask loading={this.state.loading}
+			<Loading.Mask loading={this.state.loading}
 				tag="a" href={this.state.href}
 				className={'overview-discussion ' + disabled}>
 				<div style={img} className={cx('icon', {'default': !icon})} />
@@ -147,7 +147,7 @@ export default React.createClass({
 					<div className="title">{title}</div>
 					<div className="comments">{this.state.count + this.state.commentType}</div>
 				</div>
-			</LoadingMask>
+			</Loading.Mask>
 		);
 	}
 

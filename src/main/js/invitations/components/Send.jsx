@@ -54,7 +54,7 @@ export default React.createClass({
 		const {loading, course} = this.state;
 
 		if(loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		return (

@@ -78,7 +78,7 @@ export default React.createClass({
 	render () {
 
 		if (this.state.busy) {
-			return <div><Loading /></div>;
+			return <div><Loading.Mask /></div>;
 		}
 
 		const {enrolled, error} = this.state;

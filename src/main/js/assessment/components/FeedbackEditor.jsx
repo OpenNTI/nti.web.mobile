@@ -56,7 +56,7 @@ export default React.createClass({
 				</Editor>
 
 				{busy ?
-					<Loading message="Saving..."/> : null}
+					<Loading.Mask message="Saving..."/> : null}
 			</div>
 		);
 	},

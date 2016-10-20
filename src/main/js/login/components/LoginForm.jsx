@@ -96,7 +96,7 @@ export default React.createClass({
 		return (
 			<div className="login-wrapper">
 				<form ref={el => this.form = el} className="login-form" onSubmit={this.handleSubmit} noValidate>
-					{busy ? ( <Loading/> ) : (
+					{busy ? ( <Loading.Mask /> ) : (
 						<div>
 							<div className="header">next thought</div>
 							{!!error &&

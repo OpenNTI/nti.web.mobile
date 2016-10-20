@@ -139,7 +139,7 @@ export default React.createClass({
 		}
 
 		if (loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		if (!list) {

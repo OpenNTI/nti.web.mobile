@@ -92,7 +92,7 @@ export default React.createClass({
 		) : prompt ? (
 			<ContentAcquirePrompt data={prompt} relatedItem={object}/>
 		) : (
-			<Loading />
+			<Loading.Mask />
 		);
 	}
 });

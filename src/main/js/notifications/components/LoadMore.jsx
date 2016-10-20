@@ -1,13 +1,13 @@
 import React from 'react';
 
-import {LoadingInline} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 import Button from 'forms/components/Button';
 
 export default function LoadMore ({store, onClick}) {
 	return (
 		<div className="text-center button-box">
 			{store.isBusy ?
-				<LoadingInline />
+				<Loading.Whacky />
 			:
 				<Button onClick={onClick}>Load More</Button>
 			}

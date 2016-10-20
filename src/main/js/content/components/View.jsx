@@ -79,7 +79,7 @@ export default React.createClass({
 		let {contentPackage, error, loading} = this.state;
 
 		if (loading) {
-			return ( <Loading/> );
+			return ( <Loading.Mask /> );
 		}
 
 		if (error) {

@@ -121,7 +121,7 @@ export default React.createClass({
 		const props = Object.assign({}, this.props, { store, pageSource });
 
 		return (!store || loading) ? (
-			<Loading/>
+			<Loading.Mask/>
 		) : (
 			<Locations contextual ref={this.attachRef}>
 				<Location path="/:itemId/edit(/*)" handler={View} {...props} edit/>

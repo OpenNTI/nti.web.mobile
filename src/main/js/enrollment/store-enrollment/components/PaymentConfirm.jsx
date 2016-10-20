@@ -97,7 +97,7 @@ export default React.createClass({
 		return (
 			<div className="payment-confirm">
 				{(busy || !stripeToken) ? (
-					<Loading/>
+					<Loading.Mask />
 				) : (
 					<div>
 						<Pricing purchasable={purchasable} locked />

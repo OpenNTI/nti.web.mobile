@@ -143,7 +143,7 @@ export default React.createClass({
 		let {dropped, loading, error} = this.state;
 
 		if (loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		let title = this.getCourseTitle();

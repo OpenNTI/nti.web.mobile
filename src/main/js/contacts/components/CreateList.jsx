@@ -78,7 +78,7 @@ export default React.createClass({
 	render () {
 
 		if (this.state.loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 		return (
 			<Page title="Create List">

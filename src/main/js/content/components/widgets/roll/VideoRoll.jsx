@@ -214,7 +214,7 @@ export default React.createClass({
 
 					{ loading ? (
 
-						<Loading/>
+						<Loading.Mask/>
 
 					) : error ? (
 

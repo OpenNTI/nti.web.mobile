@@ -75,7 +75,7 @@ export default React.createClass({
 		return error ? (
 			<Error error={error}/>
 		) : busy ? (
-			<Loading />
+			<Loading.Mask />
 		) : (
 			<div className="logon-action-survey-wrapper">
 				<header>

@@ -99,7 +99,7 @@ export default React.createClass({
 	render () {
 		let {loading, error, MediaIndex} = this.state;
 
-		if (loading) { return ( <Loading/> ); }
+		if (loading) { return ( <Loading.Mask /> ); }
 		if (error) {
 			return ( <EmptyList type="videos"/> );
 		}

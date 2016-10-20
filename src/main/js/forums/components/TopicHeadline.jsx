@@ -3,13 +3,13 @@ import cx from 'classnames';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {DateTime, LoadingInline as Loading, LuckyCharms} from 'nti-web-commons';
+import {DateTime, Loading, LuckyCharms} from 'nti-web-commons';
 
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
 export default function TopicHeadline ({className, item}) {
 	if (!item) {
-		return <Loading />;
+		return <Loading.Whacky />;
 	}
 
 	const post = item.headline || item;

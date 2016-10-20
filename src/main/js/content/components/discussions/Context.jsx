@@ -7,7 +7,7 @@ import {getModel} from 'nti-lib-interfaces';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 import {rawContent} from 'nti-commons';
 
 import Content from '../Content';
@@ -211,7 +211,7 @@ export default React.createClass({
 		let props = {className};
 
 		return loading
-			? ( <div {...props}><Loading/></div> )
+			? ( <div {...props}><Loading.Ellipse/></div> )
 			: error
 				? (is403(error)
 					? ( <ContentAcquirePrompt {...props} relatedItem={item} data={error}/> )

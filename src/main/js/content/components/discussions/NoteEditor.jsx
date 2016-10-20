@@ -102,7 +102,7 @@ export default class NoteEditor extends React.Component {
 						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss small"/>{t('BUTTONS.post')}</button>
 					</Editor>
 				</form>
-				{busy ? ( <Loading message="Saving..."/> ) : null}
+				{busy ? ( <Loading.Mask message="Saving..."/> ) : null}
 			</div>
 		);
 	}

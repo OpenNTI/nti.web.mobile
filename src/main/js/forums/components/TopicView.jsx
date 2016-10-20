@@ -77,7 +77,7 @@ export default React.createClass({
 		}
 
 		if (this.state.loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		let topic = this.getTopic();

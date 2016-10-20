@@ -1,7 +1,7 @@
 import React from 'react';
 
 import DisplayName from 'common/components/DisplayName';
-import {DateTime, TinyLoader as Loading} from 'nti-web-commons';
+import {DateTime, Loading} from 'nti-web-commons';
 
 import Transcript from 'chat/components/Transcript';
 
@@ -69,7 +69,7 @@ export default React.createClass({
 
 				{loading && (
 					<div className="wrap">
-						<Loading />
+						<Loading.Ellipse />
 					</div>
 				)}
 

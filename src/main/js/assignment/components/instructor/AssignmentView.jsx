@@ -52,7 +52,7 @@ export default React.createClass({
 		return (
 			<div>
 				<AssignmentHeader {...props} />
-				{!Store || Store.loading ? <Loading /> : <GradebookTable {...props} />}
+				{!Store || Store.loading ? <Loading.Mask /> : <GradebookTable {...props} />}
 			</div>
 		);
 	}

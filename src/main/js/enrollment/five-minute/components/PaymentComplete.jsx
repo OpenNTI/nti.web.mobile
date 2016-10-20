@@ -19,7 +19,7 @@ const Wrapper = React.createClass({
 	render () {
 		//If the library is loading, or reloading this will be true.
 		if (this.state.loading) {
-			return ( <Loading/> );
+			return ( <Loading.Mask /> );
 		}
 
 		return (

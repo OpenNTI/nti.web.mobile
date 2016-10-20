@@ -97,7 +97,7 @@ export default React.createClass({
 						</fieldset>
 					}
 
-					{busy && <Loading/>}
+					{busy && <Loading.Mask />}
 
 					{!success && !busy &&
 						<fieldset>

@@ -108,7 +108,7 @@ export default React.createClass({
 					<button onClick={this.onSubmit} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
 				</Editor>
 
-				{busy ? ( <Loading message="Saving..."/> ) : null}
+				{busy ? ( <Loading.Mask message="Saving..."/> ) : null}
 			</div>
 		);
 	}

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
-import {DateTime, LoadingInline} from 'nti-web-commons';
+import {DateTime, Loading} from 'nti-web-commons';
 
 import {Panel} from 'modeled-content';
 import DisplayName from 'common/components/DisplayName';
@@ -48,7 +48,7 @@ export default React.createClass({
 		let canEdit = item.hasLink('edit') && item.creator === getAppUsername();
 
 		if (this.state.deleting) {
-			return <div className="feedback item"><LoadingInline/></div>;
+			return <div className="feedback item"><Loading.Whacky/></div>;
 		}
 
 		return (

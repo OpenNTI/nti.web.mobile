@@ -69,7 +69,7 @@ export default React.createClass({
 		let filterParams;
 
 		if (!sections) {
-			return ( <Loading/> );
+			return ( <Loading.Mask/> );
 		}
 
 		if (selected) {

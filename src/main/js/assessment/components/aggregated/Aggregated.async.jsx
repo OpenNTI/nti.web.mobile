@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Error, TinyLoader as Loading} from 'nti-web-commons';
+import {Error, Loading} from 'nti-web-commons';
 
 import Content from '../Content';
 
@@ -41,7 +41,7 @@ export default React.createClass({
 		const {props: {question}, state: {loading, data, error}} = this;
 
 		return loading ? (
-			<Loading/>
+			<Loading.Ellipse/>
 		) : error ? (
 			<div className="question error"><Error error={error}/></div>
 		) : (!data || !data.parts) ? (

@@ -4,7 +4,7 @@ import {getService} from 'nti-web-client';
 import {
 	EmptyList as Empty,
 	Error as Err,
-	TinyLoader as Loading
+	Loading
 } from 'nti-web-commons';
 
 import {Selection} from 'nti-commons';
@@ -105,7 +105,7 @@ export default React.createClass({
 			<Tag className="entity-search">
 				{!results ? (
 
-					<Loading/>
+					<Loading.Ellipse/>
 
 				) : results.length === 0 ? (
 

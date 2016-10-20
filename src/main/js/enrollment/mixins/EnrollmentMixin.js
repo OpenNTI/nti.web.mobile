@@ -98,7 +98,7 @@ export default {
 	enrollmentWidgets () {
 		let catalogEntry = this.getEntry();
 		if (!this.state.enrollmentStatusLoaded) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		function showOption (option) {

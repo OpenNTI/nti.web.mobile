@@ -90,7 +90,7 @@ export default React.createClass({
 		const {props: {className, item}, state: {outline, loading}} = this;
 
 		if (loading) {
-			return (<Loading/>);
+			return (<Loading.Mask />);
 		}
 
 		return (

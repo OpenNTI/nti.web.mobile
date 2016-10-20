@@ -81,7 +81,7 @@ export default React.createClass({
 		let {data, loading} = this.state;
 
 		if (loading) {
-			return (<Loading/>);
+			return (<Loading.Mask />);
 		}
 
 		return (

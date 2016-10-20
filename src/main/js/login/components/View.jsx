@@ -42,7 +42,7 @@ export default React.createClass({
 		}
 
 		if (!Store.getData()) {
-			return (<Loading />);
+			return (<Loading.Mask />);
 		}
 
 		return (

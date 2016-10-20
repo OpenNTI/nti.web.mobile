@@ -67,7 +67,7 @@ export default React.createClass({
 	render () {
 
 		if (this.state.loading) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		let {forumId} = this.props;

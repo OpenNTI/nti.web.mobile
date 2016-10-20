@@ -1,7 +1,7 @@
 import path from 'path';
 import React from 'react';
 
-import {Error as Err, Loading as LoadingMask, Mixins} from 'nti-web-commons';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
@@ -195,7 +195,7 @@ export default React.createClass({
 						deferred />
 				}
 				{playing ? null :
-				<LoadingMask style={style} loading={this.state.loading}
+				<Loading.Mask style={style} loading={this.state.loading}
 					tag="a" onFocus={onFocus}
 					className="overview-tap-area" href={link}>
 					{viewed && <div className="viewed">Viewed</div>}
@@ -205,7 +205,7 @@ export default React.createClass({
 							<span className="label" title={label}>{label}</span>
 						</div>
 					</div>
-				</LoadingMask>
+				</Loading.Mask>
 				}
 			</Tag>
 		);

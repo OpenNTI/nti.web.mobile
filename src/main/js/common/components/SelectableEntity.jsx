@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {TinyLoader as Loading} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 import ProfileLink from 'profile/components/ProfileLink';
 
 export default React.createClass({
@@ -89,7 +89,7 @@ export default React.createClass({
 					<div className="association">{this.association(entity)}</div>
 				</Tag>
 				<div onClick={profileLinks ? this.onClick : null} className={classes}>{this.label(selected)}</div>
-				{busy && <Loading />}
+				{busy && <Loading.Ellipse />}
 				{children}
 			</Element>
 		);

@@ -59,7 +59,7 @@ export default React.createClass({
 	render () {
 		let list = this.getItems();
 		if (!list.map) {
-			return <Loading />;
+			return <Loading.Mask />;
 		}
 
 		return (
