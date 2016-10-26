@@ -16,20 +16,16 @@ const MEMBERS = 'members';
 const FACULTY = 'faculty';
 const PEOPLE_YOU_KNOW = 'pyk';
 
-const Breakdown = function Breakdown (props) {
+const Breakdown = function Breakdown ({count, ...props}) {
 
-	let {count} = props;
-
-	if (!count) {
-		count = void 0;
-	}
-
-	if (count > 9999) {
-		count = '9999+';
-	}
+	const countDisplay = !count
+							? void 0 
+							: (count > 9999)
+								? '9999+'
+								: count;
 
 	return (
-		<li><Link data-count={count} {...props}/></li>
+		<li><Link data-count={countDisplay} {...props}/></li>
 	);
 };
 
