@@ -46,6 +46,11 @@ exports.getPage = function getPage () {
 		}
 
 		template = fs.readFileSync(file, 'utf8');
+		if (isDevMode) {
+			template = template
+				.replace('react-with-addons.min.js', 'react-with-addons.js')
+				.replace('react-dom.min.js', 'react-dom.js');
+		}
 	} catch (er) {
 		logger.error('%s', er.stack || er.message || er);
 		template = 'Could not load page template.';

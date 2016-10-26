@@ -52,11 +52,23 @@ exports = module.exports = [
 		},
 
 		cache: true,
-		devtool: PROD ? 'hidden-source-map' : 'source-map',
+		// devtool: PROD ? 'hidden-source-map' : 'source-map',
+		devtool: 'source-map',
 
 		entry: {
-			main: ['whatwg-fetch','./src/main/js/index.js']
+			main: [
+				// 'whatwg-fetch',
+				'./src/main/js/index.js'
+			]
 		},
+
+		externals: [
+			{
+				'react' : 'React',
+				'react-dom': 'ReactDOM',
+				'react/lib/ReactCSSTransitionGroup': 'React.addons.CSSTransitionGroup'
+			}
+		],
 
 		target: 'web',
 
