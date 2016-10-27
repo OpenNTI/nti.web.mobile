@@ -1,4 +1,4 @@
-const Logger = require('nti-util-logger').default;
+const {default: Logger} = require('nti-util-logger');
 
 const logger = Logger.get('server-side:mobile');
 

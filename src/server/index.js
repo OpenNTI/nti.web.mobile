@@ -6,6 +6,7 @@ const path = require('path');
 const redirects = require('./lib/redirects');
 const dev = require('./lib/devmode');
 const page = require('./lib/page');
+const sessionSetup = require('./lib/session-setup');
 
 function exists (f) {
 	try {
@@ -38,6 +39,8 @@ exports = module.exports = {
 			devmode,
 
 			assets,
+
+			sessionSetup,
 
 			render (base, req, clientConfig) {
 				return pageRenderer(base, req, clientConfig);
