@@ -7,7 +7,7 @@ const logger = require('./logger');
 
 const needsAttention = route => Promise.reject({isLoginAction: true, route});
 
-exports = function sessionSetup (service) {
+module.exports = function sessionSetup (service) {
 	return service.getAppUser()
 
 		.then(user => {
