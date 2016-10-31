@@ -41,6 +41,16 @@ export default React.createClass({
 	backingStore: Store,
 	backingStoreEventHandlers: {},
 
+	componentWillMount () {
+		const {contentPackage} = this.props;
+		// if a user lands directly on a topic or post view without going through
+		// the parent views the store may not have the package id.
+		if (!Store.getPackageId() && contentPackage) {
+			Store.setPackageId(contentPackage.getID());
+		}
+	},
+
+
 	getInitialState () {
 		return {
 			loading: true
@@ -63,14 +73,8 @@ export default React.createClass({
 			return <Loading.Mask />;
 		}
 
-		let {forumId, contentPackage} = this.props;
+		let {forumId} = this.props;
 		let forum = Store.getForum(forumId);
-
-		// if a user lands directly on a topic or post view without going through
-		// the parent views the store may not have the package id.
-		if (!Store.getPackageId() && contentPackage) {
-			Store.setPackageId(contentPackage.getID());
-		}
 
 		return (
 			<nav className="forum">
