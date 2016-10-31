@@ -24,8 +24,6 @@ const logger = Logger.get('forums:components:ForumListView');
 
 const t = scoped('FORUMS.groupTitles');
 const discussionsChanged = 'ForumListView:discussionsChangedHandler';
-const getContentPackage = 'ForumListView:getContentPackage';
-const getContentPackageId = 'ForumListView:getContentPackageId';
 
 export default React.createClass({
 	displayName: 'ForumListView',
@@ -50,7 +48,7 @@ export default React.createClass({
 	},
 
 	[discussionsChanged] (event) {
-		if(event.packageId === this[getContentPackageId]()) {
+		if(event.contextID === this.getContentPackageID()) {
 			clearLoadingFlag(this);
 		}
 	},
@@ -62,7 +60,7 @@ export default React.createClass({
 	},
 
 	componentDidMount () {
-		if(!Store.getDiscussions(this[getContentPackageId]())) {
+		if(!Store.getDiscussions(this.getContentPackageID())) {
 			this.load();
 		}
 		else {
@@ -71,12 +69,12 @@ export default React.createClass({
 	},
 
 	load () {
-		let contentPackage = this[getContentPackage]();
+		let contentPackage = this.getContentPackage();
 		loadDiscussions(contentPackage)
 			.then(
 				result => {
 					Store.setDiscussions(contentPackage.getID(), result);
-					Store.setPackageId(contentPackage.getID());
+					Store.setContextID(contentPackage.getID());
 				},
 				error => {
 					logger.error('Failed to load discussions', error);
@@ -84,12 +82,12 @@ export default React.createClass({
 				});
 	},
 
-	[getContentPackageId] () {
-		let p = this[getContentPackage]();
+	getContentPackageID () {
+		let p = this.getContentPackage();
 		return p && p.getID();
 	},
 
-	[getContentPackage] () {
+	getContentPackage () {
 		return this.props.contentPackage;
 	},
 
@@ -99,8 +97,8 @@ export default React.createClass({
 			return <Loading.Mask />;
 		}
 
-		let contentPackageId = this[getContentPackageId]();
-		let discussions = Store.getDiscussions(contentPackageId);
+		let contentPackageID = this.getContentPackageID();
+		let discussions = Store.getDiscussions(contentPackageID);
 		let err = this.state.error || ((discussions || {}).isError ? discussions.error : null);
 
 		if (err) {

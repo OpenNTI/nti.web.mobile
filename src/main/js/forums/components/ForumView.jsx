@@ -29,24 +29,18 @@ export default React.createClass({
 	propTypes: {
 		forumId: React.PropTypes.string.isRequired,
 
-		/**
-		 * @type {object} Any model that implements getDiscussions() and getID()
-		 */
-		contentPackage: React.PropTypes.shape({
-			getDiscussions: React.PropTypes.func,
-			getID: React.PropTypes.func
-		})
+		contextID: React.PropTypes.string
 	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {},
 
 	componentWillMount () {
-		const {contentPackage} = this.props;
+		const {contextID} = this.props;
 		// if a user lands directly on a topic or post view without going through
 		// the parent views the store may not have the package id.
-		if (!Store.getPackageId() && contentPackage) {
-			Store.setPackageId(contentPackage.getID());
+		if (!Store.getContextID() && contextID) {
+			Store.setContextID(contextID);
 		}
 	},
 

@@ -24,7 +24,7 @@ class Store extends StorePrototype {
 			forums: {},// forum items by id.
 			itemContents: {},
 			items: {},
-			packageId: undefined
+			contextID: undefined
 		});
 
 		//FIXME: Stores respond to Action's results and store. period.
@@ -72,11 +72,11 @@ class Store extends StorePrototype {
 		});
 	}
 
-	setDiscussions (packageId, data) {
-		this.setPackageId(packageId);
-		this.discussions[packageId] = dataOrError(data);
+	setDiscussions (contextID, data) {
+		this.setContextID(contextID);
+		this.discussions[contextID] = dataOrError(data);
 		this.forums = Object.assign(this.forums || {}, indexForums(this.discussions));
-		this.emitChange({ type: Constants.DISCUSSIONS_CHANGED, packageId });
+		this.emitChange({ type: Constants.DISCUSSIONS_CHANGED, contextID });
 	}
 
 	setForumItem (ntiid, item) {
@@ -102,12 +102,12 @@ class Store extends StorePrototype {
 		this.emitChange({ type: Constants.EDIT_ENDED });
 	}
 
-	setPackageId (packageId) {
-		this.packageId = packageId;
+	setContextID (contextID) {
+		this.contextID = contextID;
 	}
 
-	getPackageId () {
-		return this.packageId;
+	getContextID () {
+		return this.contextID;
 	}
 
 	getDiscussions (forPackageId) {

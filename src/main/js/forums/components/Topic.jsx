@@ -108,7 +108,7 @@ export default React.createClass({
 
 	startAnalyticsEvent () {
 		let {topicId} = this.props;
-		this.resourceLoaded(topicId, Store.getPackageId(), TOPIC_VIEWED);
+		this.resourceLoaded(topicId, Store.getContextID(), TOPIC_VIEWED);
 	},
 
 	resumeAnalyticsEvents () {

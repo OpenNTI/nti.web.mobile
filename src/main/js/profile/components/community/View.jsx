@@ -60,7 +60,7 @@ export default React.createClass({
 			return null;
 		}
 
-		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
+		return React.createElement(Router.Locations, {ref: 'router', contextual: true, childProps: {entity}},
 			...ROUTES.map(route=>
 				route.path ?
 				<Router.Location {...route} handler={Page} pageContent={route.handler} entity={entity} /> :
