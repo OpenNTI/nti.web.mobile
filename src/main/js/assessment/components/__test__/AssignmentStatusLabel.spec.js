@@ -13,7 +13,11 @@ const MockNoSubmitAssignment = (o) => MockAssignment(o, true);
 const START = 'available_for_submission_beginning';
 const END = 'available_for_submission_ending';
 
-const getText = cmp => (ReactDOM.findDOMNode(cmp) || {}).textContent;
+//We should refactor this to make the linter happy. React plans to remove findDOMNode...
+// the linter is warning about deprecations, but thier isn't a suitable replacement yet.
+const getNode = cmp => ReactDOM.findDOMNode(cmp); //eslint-disable-line
+
+const getText = cmp => (getNode(cmp) || {}).textContent;
 
 const EXPECTED_DAY_FORMAT = 'dddd, MMMM D';
 const EXPECTED_DAYTIME_FORMAT = 'dddd, MMMM D h:mm A z';
@@ -185,10 +189,10 @@ describe('AssignmentStatusLabel', () => {
 		it('should contain an .info-part child element with an \'overdue\' class', () => {
 			const [A, B] = test({assignment, historyItem});
 
-			let infoPart = ReactDOM.findDOMNode(A).querySelector('.info-part');
+			let infoPart = getNode(A).querySelector('.info-part');
 			expect(infoPart.classList.contains('overdue')).toBe(true);
 
-			infoPart = ReactDOM.findDOMNode(B).querySelector('.info-part');
+			infoPart = getNode(B).querySelector('.info-part');
 			expect(infoPart.classList.contains('overdue')).toBe(true);
 
 		});
