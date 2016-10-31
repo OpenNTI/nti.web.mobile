@@ -40,6 +40,8 @@ import Discussions from './discussions';
 
 const logger = Logger.get('content:components:Viewer');
 
+const getCourse = x => x.is('isCourse') ? x : x.parent('isCourse');
+
 const TRANSITION_TIMEOUT = 300;
 
 export default React.createClass({
@@ -75,20 +77,25 @@ export default React.createClass({
 
 
 	signalResourceLoaded () {
+		const {contentPackage} = this.props;
 		const quiz = this.getAssessment();
-		const mime = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
+		const mimeType = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
 
-		const args = [
-			this.getPageID(),
-			this.props.contentPackage.getID(),
-			mime
-		];
+		const assessmentId = quiz && quiz.getID();
+		const rootContextId = contentPackage.getID();
 
-		if (quiz) {
-			args.unshift(quiz.getID());
-		}
+		const course = getCourse(contentPackage);
+		const courseId = course && course.getID();
 
-		this.resourceLoaded(...args);
+		const resourceId = assessmentId
+			? [ assessmentId, this.getPageID() ]
+			: this.getPageID();
+
+		this.resourceLoaded(
+			resourceId,
+			courseId || rootContextId,
+			mimeType
+		);
 	},
 
 
