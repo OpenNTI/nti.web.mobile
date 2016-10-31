@@ -33,4 +33,4 @@ module.exports = function sessionSetup (service) {
 			// Catalog.load(service),
 			// Notifications.load(service)
 		]));
-}
+};
