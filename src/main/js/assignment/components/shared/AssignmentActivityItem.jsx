@@ -44,7 +44,7 @@ ActivityItem.contextTypes = {
 };
 
 export default function ActivityItem ({event}, {isInstructor}) {
-	const {date, title, type, unread, user, assignment} = event;
+	const {feedbackAuthor, date, title, type, unread, user, assignment} = event;
 	const today = new Date((new Date()).setHours(0, 0, 0, 0));
 
 	let format = 'MMM D'; // "Jan 2" ... Short month, Day of month without zero padding
@@ -66,7 +66,7 @@ export default function ActivityItem ({event}, {isInstructor}) {
 			<a href={href}>
 				<DateTime date={date} format={format}/>
 				{hasName(type) ? (
-					<DisplayName entity={user} usePronoun localeKey={getLabelWithUser}/>
+					<DisplayName entity={feedbackAuthor || user} usePronoun localeKey={getLabelWithUser}/>
 				) : (
 					<span {...rawContent(t(type, {title: titleMarkup}))}/>
 				)}
