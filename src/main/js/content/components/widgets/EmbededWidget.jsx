@@ -2,6 +2,7 @@ import React from 'react';
 
 import Logger from 'nti-util-logger';
 
+import Path from 'path';
 import Url from 'url';
 import QueryString from 'query-string';
 
@@ -93,8 +94,14 @@ export default React.createClass({
 			? contentPackage.resolveContentURL(splash).catch(()=> null)
 			: Promise.resolve(splash);
 
-		splashResolve.then(url =>
-			this.setState({sourceName, source: src.format(), height, splash: url, defer}));
+		const pathResolve = Path.isAbsolute(src.pathname)
+			? Promise.resolve(src.pathname)
+			: contentPackage.resolveContentURL(src.pathname)
+				.then(p => src.pathname = p);
+
+		Promise.all([splashResolve, pathResolve])
+			.then(([splashURL]) =>
+				this.setState({sourceName, source: src.format(), height, splash: splashURL, defer}));
 	},
 
 
