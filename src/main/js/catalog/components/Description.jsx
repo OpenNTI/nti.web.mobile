@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import isEmpty from 'isempty';
 import {scoped} from 'nti-lib-locale';
+import {rawContent} from 'nti-commons';
 
 import OpenEnrolledMessage from './OpenEnrolledMessage';
 import CreditHours from './CreditHours';
@@ -28,10 +29,14 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 
 	let weeks = Math.floor(moment.duration(entry.Duration).asWeeks());
 
+	const desc = !isEmpty(entry.RichDescription)
+		? rawContent(entry.RichDescription)
+		: {children: entry.Description};
+
 	return (
 		<div>
 
-			<div className="course-description">{entry.Description}</div>
+			<div className="course-description" {...desc}/>
 
 			<div className="course-details">
 
