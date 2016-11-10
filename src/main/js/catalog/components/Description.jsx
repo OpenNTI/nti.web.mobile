@@ -12,6 +12,11 @@ const t = scoped('COURSE.INFO');
 
 const isOpenEnrolled = RegExp.prototype.test.bind(/open/i);
 
+Description.propTypes = {
+	enrollmentStatus: React.PropTypes.string,
+	entry: React.PropTypes.object.isRequired
+};
+
 export default function Description ({entry, enrollmentStatus = 'None'}) {
 	let EnrollmentMessage = isOpenEnrolled(enrollmentStatus) ?
 			OpenEnrolledMessage : 'div';
@@ -79,8 +84,3 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 		</div>
 	);
 }
-
-Description.propTypes = {
-	enrollmentStatus: React.PropTypes.string,
-	entry: React.PropTypes.object.isRequired
-};
