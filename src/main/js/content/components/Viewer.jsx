@@ -40,7 +40,7 @@ import Discussions from './discussions';
 
 const logger = Logger.get('content:components:Viewer');
 
-const getCourse = x => x.is('isCourse') ? x : x.parent('isCourse');
+const getCourse = x => (!x || x.isCourse) ? x : x.parent('isCourse');
 
 const TRANSITION_TIMEOUT = 300;
 
