@@ -93,6 +93,12 @@ export default React.createClass({
 	},
 
 
+	isDraft () {
+		const {props: {assignment: a}} = this;
+		return a && !a.isPublished();
+	},
+
+
 	getCompletedDateTime () {
 		const {props: {historyItem: i}} = this;
 		return i && i.isSubmitted() && i.getCreatedTime();
@@ -301,7 +307,11 @@ export default React.createClass({
 			return null;
 		}
 
-		return (
+		return this.isDraft() ? (
+			<div className="assignment status-label-wrapper">
+				<h6 className="assignment status-label draft">Draft</h6>
+			</div>
+		) : (
 			<div className="assignment status-label-wrapper">
 				<h6 className="assignment status-label">
 					{assignment.isTimed && this.renderTimeInfo()}

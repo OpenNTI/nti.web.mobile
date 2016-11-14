@@ -10,6 +10,10 @@
 	text-transform: uppercase;
 	overflow: hidden;
 
+	&.draft {
+		color: $tertiary-grey;
+	}
+
 	span.info-part {
 		&.time-limit {
 			display: block;
