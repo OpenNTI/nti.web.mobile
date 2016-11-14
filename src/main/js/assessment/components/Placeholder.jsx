@@ -85,7 +85,7 @@ export default React.createClass({
 						</div>
 					</div>
 
-					<div className="dialog">
+					<div className="nti-dialog-mount-point dialog">
 						<div className="dialog window">
 							<div className="icon"/>
 							<div className="content-area">

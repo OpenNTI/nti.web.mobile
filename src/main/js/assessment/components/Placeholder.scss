@@ -33,11 +33,8 @@
 	}
 
 	.dialog.window {
-		z-index: 10;
-		top: 40%;
-		left: 50%;
+		bottom: inherit;
 		box-shadow: 0 0 5em 0 rgba(0, 0, 0, 0.5);
-		transform: translate3d(-50%, -50%, 0);
 
 		.buttons {
 			@extend %dialog-buttons;
