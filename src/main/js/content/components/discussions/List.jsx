@@ -4,10 +4,14 @@ import {EmptyList as Empty, Loading} from 'nti-web-commons';
 
 import Item from './Item';
 
-export default function DiscussionsList (props) {
-	const {children, items} = props;
+DiscussionsList.propTypes = {
+	items: React.PropTypes.array,
+	children: React.PropTypes.any
+};
+
+export default function DiscussionsList ({children, items}) {
 	return (
-		<div className="discussions" {...props}>
+		<div className="discussions">
 			{children}
 			<div className="list">
 				{!items
@@ -20,8 +24,3 @@ export default function DiscussionsList (props) {
 		</div>
 	);
 }
-
-DiscussionsList.propTypes = {
-	items: React.PropTypes.array,
-	children: React.PropTypes.any
-};

@@ -56,7 +56,7 @@ export default React.createClass({
 
 
 	render () {
-		const {props: {children, entity, selected, tag, removable, labels, linkToProfile}, state: {busy}} = this;
+		const {props: {children, entity, selected, tag, removable, labels, linkToProfile, ...props}, state: {busy}} = this;
 
 		let profileLinks = linkToProfile !== undefined;
 
@@ -82,7 +82,7 @@ export default React.createClass({
 		let Tag = profileLinks ? ProfileLink : 'div';
 
 		return (
-			<Element className={wrapperClasses} {...this.props} onClick={profileLinks ? null : this.onClick}>
+			<Element className={wrapperClasses} {...props} onClick={profileLinks ? null : this.onClick}>
 				<Tag className="avatar-spacer" entity={entity}>
 					<Avatar entity={entity} suppressProfileLink/>
 					<DisplayName entity={entity} useGeneralName suppressProfileLink/>

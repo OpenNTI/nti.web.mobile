@@ -22,7 +22,7 @@ const logger = Logger.get('content:viewer:body');
 export default class Content extends React.Component {
 
 	static propTypes = {
-		contentPackage: React.PropTypes.object.isRequired,
+		contentPackage: React.PropTypes.object,
 		page: React.PropTypes.object.isRequired,
 		pageId: React.PropTypes.string.isRequired,
 		onContentReady: React.PropTypes.func,

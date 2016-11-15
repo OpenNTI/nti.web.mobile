@@ -24,10 +24,10 @@ export default React.createClass({
 	},
 
 	render () {
-		let {entities, labels, selection, linkToProfile} = this.props;
+		let {entities, labels, selection, linkToProfile, ...props} = this.props;
 
 		return (
-			<ul className="selectable-entities" {...this.props}>
+			<ul className="selectable-entities" {...props}>
 				{Array.from(entities).map(entity =>
 					<SelectableEntity
 						linkToProfile={linkToProfile}

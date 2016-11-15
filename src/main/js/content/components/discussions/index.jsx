@@ -127,7 +127,7 @@ export default React.createClass({
 				<Location path="/:itemId/edit(/*)" handler={View} {...props} edit/>
 				<Location path="/:itemId(/*)" handler={View} {...props}/>
 
-				<Default handler={List} items={items} {...props}/>
+				<Default handler={List} items={items}/>
 			</Locations>
 		);
 	}

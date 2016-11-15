@@ -211,7 +211,9 @@ export default {
 		}
 
 		//generate the range description
-		const {description: applicableRange, container: ContainerId} = createRangeDescriptionFromRange(range, this.getContentNode());
+		const data = createRangeDescriptionFromRange(range, this.getContentNode());
+		console.log(data);
+		const {description: applicableRange, container: ContainerId} = data;
 
 		return {
 			ContainerId,

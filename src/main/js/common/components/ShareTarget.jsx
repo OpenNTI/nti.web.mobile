@@ -2,8 +2,13 @@ import React from 'react';
 import cx from 'classnames';
 import DisplayName from './DisplayName';
 
-export default function ShareTarget (props) {
-	let {className, entity, selected} = props;
+ShareTarget.propTypes = {
+	className: React.PropTypes.string,
+	entity: React.PropTypes.any,
+	selected: React.PropTypes.bool
+};
+
+export default function ShareTarget ({className, entity, selected, ...props}) {
 
 	return (
 		<div className={cx('token pill', className, {selected})} {...props}>
@@ -11,9 +16,3 @@ export default function ShareTarget (props) {
 		</div>
 	);
 }
-
-ShareTarget.propTypes = {
-	className: React.PropTypes.string,
-	entity: React.PropTypes.any,
-	selected: React.PropTypes.bool
-};
