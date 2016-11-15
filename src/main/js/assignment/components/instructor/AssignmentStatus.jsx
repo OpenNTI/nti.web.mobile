@@ -29,6 +29,7 @@ export default React.createClass({
 
 		const due = assignment.getDueDate();
 		const submitted = history && history.getCreatedTime();
+		const synthetic = history && history.isSyntheticSubmission();
 		const isExcused = history && history.isGradeExcused();
 		const isLate = due && submitted > due;
 
@@ -37,11 +38,11 @@ export default React.createClass({
 		if(!history) {
 			status = <span>Due <DateTime date={due} /></span>;
 		}
-		else if(isLate) {
+		else if(isLate && !synthetic) {
 			status = <span><DateTime date={due} relativeTo={submitted} suffix={false}/> late</span>;
 		}
 		else {
-			status = <span>Submitted <DateTime date={submitted} /></span>;
+			status = <span>{synthetic ? 'Graded' : 'Submitted'} <DateTime date={submitted} /></span>;
 		}
 
 		const classes = cx('assignment-status', {
