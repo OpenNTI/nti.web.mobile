@@ -87,6 +87,18 @@ export default React.createClass({
 	},
 
 
+	isSyntheticSubmission () {
+		const {props: {historyItem}} = this;
+
+		//back-compat
+		if (historyItem && typeof historyItem.isSyntheticSubmission === 'undefined') {
+			return !!historyItem.SyntheticSubmission;
+		}
+
+		return historyItem && historyItem.isSyntheticSubmission();
+	},
+
+
 	isExcused () {
 		const {props: {historyItem: i}} = this;
 		return i && i.isGradeExcused && i.isGradeExcused();
@@ -245,6 +257,7 @@ export default React.createClass({
 		const {props: {showTimeWithDate, assignment}} = this;
 
 		const complete = this.isSubmitted();
+		const instructorCreatedSubmission = this.isSyntheticSubmission();
 		const available =  this.isAvailable(); //no start date, or start date is in past.
 		const submittable = assignment.canBeSubmitted(); //aka !isNonSubmit()
 
@@ -262,6 +275,7 @@ export default React.createClass({
 			// Completed or Graded Assignment
 			'complete submittable': COMPLETED,
 			'complete !submittable': GRADED,
+			'complete instructorCreatedSubmission': GRADED,
 			// Submittable Assignment
 			'submittable !complete dateOpen': AVAILABLE,
 			'submittable !complete available': AVAILABLE_NOW,
@@ -277,7 +291,8 @@ export default React.createClass({
 			complete,
 			dateOpen,
 			dateClose,
-			submittable
+			submittable,
+			instructorCreatedSubmission
 		}) || '';
 
 		const date = this.getCompletedDateTime()
@@ -287,7 +302,7 @@ export default React.createClass({
 					: dateOpen
 			);
 
-		const showOverdue = complete && submittable && this.isOverDue();
+		const showOverdue = complete && submittable && this.isOverDue() && !instructorCreatedSubmission;
 		const showOvertime = complete && submittable && this.isOverTime();
 
 		const infoClasses = cx('info-part', text.toLowerCase(), {
