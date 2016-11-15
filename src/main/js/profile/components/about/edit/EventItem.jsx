@@ -24,6 +24,13 @@ export default React.createClass({
 	},
 
 
+	attachPrimaryFieldRef (x) { this[this.props.fieldNames[0]] = x; },
+	attachSecondaryFieldRef (x) { this[this.props.fieldNames[1]] = x; },
+	attachStartYearRef (x) { this.startYear = x; },
+	attachEndYearRef (x) { this.endYear = x; },
+	attachDescriptionRef (x) { this.description = x; },
+
+
 	componentWillMount () { this.setup(); },
 
 	ccomponentWillReceiveProps (nextProps) {
@@ -87,48 +94,48 @@ export default React.createClass({
 				<div>
 					<label>{t(primaryField)}</label>
 					<input type="text" name={primaryField}
-						ref={c => this[primaryField] = c}
+						ref={this.attachPrimaryFieldRef}
 						className={cx({error: errors[primaryField], required: isRequired(schema, primaryField)})}
 						required={isRequired(schema, primaryField)}
-						value={state[primaryField]} onChange={this.onChange} />
+						value={state[primaryField] || ''} onChange={this.onChange} />
 				</div>
 
 				<div className="secondary-line">
 					<div>
 						<label>{t(secondaryField)}</label>
 						<input type="text" name={secondaryField}
-							ref={c => this[secondaryField] = c}
+							ref={this.attachSecondaryFieldRef}
 							className={cx({error: errors[secondaryField], required: isRequired(schema, secondaryField)})}
 							required={isRequired(schema, secondaryField)}
-							value={state[secondaryField]} onChange={this.onChange} />
+							value={state[secondaryField] || ''} onChange={this.onChange} />
 					</div>
 
 					<div className="event-years">
 						<div>
 							<label>Start Year</label>
 							<input type="number" name="startYear"
-								ref={c => this.startYear = c}
+								ref={this.attachStartYearRef}
 								className={cx({error: errors.startYear, required: isRequired(schema, 'startYear')})}
 								required={isRequired(schema, 'startYear')}
 								min="1900" max={maxYear}
-								value={startYear} onChange={this.onChange}/>
+								value={startYear || ''} onChange={this.onChange}/>
 						</div>
 
 						<div>
 							<label>End Year</label>
 							<input type="number" name="endYear"
-								ref={c => this.endYear = c}
+								ref={this.attachEndYearRef}
 								className={cx({error: errors.endYear, required: isRequired(schema, 'endYear')})}
 								required={isRequired(schema, 'endYear')}
 								min="1900" max={maxYear}
-								value={endYear} onChange={this.onChange} />
+								value={endYear || ''} onChange={this.onChange} />
 						</div>
 					</div>
 				</div>
 
 				<label>Description</label>
 				<textarea
-					ref={c => this.description = c}
+					ref={this.attachDescriptionRef}
 					defaultValue={description}
 					onChange={this.onChange}
 					name="description"
