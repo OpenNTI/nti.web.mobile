@@ -39,10 +39,12 @@ export default React.createClass({
 		const {rootId, userId} = props;
 		const id = decodeFromURI(rootId);
 		const collection = this.getAssignments();
-		const assignment = collection.getAssignment(id);
 
-		collection.getHistoryItem(id, userId)
-			.then(history => ({assignment, history}), error => ({error}))
+		Promise.all([
+			ensureNotSummary(collection.getAssignment(id)),
+			collection.getHistoryItem(id, userId)
+		])
+			.then(([assignment,history]) => ({assignment, history}), error => ({error}))
 			.then(state => this.setState({loading: false, ...state}));
 
 	},
@@ -90,6 +92,8 @@ export default React.createClass({
 			<Err error={error}/>
 		) : loading ? (
 			<Loading.Mask />
+		) : !assignment ? (
+			<Err error="Assignment Not Found"/>
 		) : (
 			<ContentViewer {...this.props}
 				assessment={assignment}
@@ -101,3 +105,8 @@ export default React.createClass({
 		);
 	}
 });
+
+
+function ensureNotSummary (a) {
+	return a && a.ensureNotSummary();
+}
