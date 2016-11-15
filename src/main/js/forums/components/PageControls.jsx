@@ -20,27 +20,24 @@ export default React.createClass({
 		}).isRequired
 	},
 
-	[goToPage] () {
+
+	[goToPage] ({target}) {
 		scrollTo(0, 0); // solves an issue in firefox on android in which navigating to a short page from the bottom of a long one results in a blank screen.
-		const page = this.pageselect.value;
+		const {value: page} = target;
 		this.navigate('/?p=' + page);
 	},
 
 	pageSelector (paging) {
 		const current = paging.currentPage();
-		const options = [];
-		for(let i = 1; i <= paging.numPages; i++) {
-			options.push(<option key={'option' + i} value={i}>{i}</option>);
-		}
+
 		return (
 			<div className="page-selector-wrapper">
-				<select value={current}
-						ref={x => this.pageselect = x}
-						onChange={this[goToPage]}
-						className="page-select">
-							{options}
-						</select>
-					of {paging.numPages}
+				<select value={current} onChange={this[goToPage]} className="page-select">
+					{Array.from({length: paging.numPages})
+						.map((_, i) => (i++, <option key={i} value={i}>{i}</option>))
+					}
+				</select>
+				of {paging.numPages}
 			</div>
 		);
 	},
