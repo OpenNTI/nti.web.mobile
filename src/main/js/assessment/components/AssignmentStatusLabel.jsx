@@ -89,12 +89,6 @@ export default React.createClass({
 
 	isSyntheticSubmission () {
 		const {props: {historyItem}} = this;
-
-		//back-compat
-		if (historyItem && typeof historyItem.isSyntheticSubmission === 'undefined') {
-			return !!historyItem.SyntheticSubmission;
-		}
-
 		return historyItem && historyItem.isSyntheticSubmission();
 	},
 
