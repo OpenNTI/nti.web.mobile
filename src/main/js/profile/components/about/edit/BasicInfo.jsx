@@ -138,6 +138,10 @@ export default React.createClass({
 
 
 	getValue () {
-		return Object.assign({}, this.state, {about: this.about.getValue()});
+		const n = x => !x || !x.length ? null : x;
+		return {
+			...this.state,
+			about: n(this.about.getValue())
+		};
 	}
 });
