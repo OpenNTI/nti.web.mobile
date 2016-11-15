@@ -138,10 +138,10 @@ export default React.createClass({
 
 
 	getValue () {
-		const n = x => !x || !x.length ? null : x;
+		const valueOrNull = x => !x || !x.length ? null : x;
 		return {
 			...this.state,
-			about: n(this.about.getValue())
+			about: valueOrNull(this.about.getValue())
 		};
 	}
 });
