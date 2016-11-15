@@ -42,6 +42,9 @@ export default React.createClass({
 	},
 
 
+	attachAboutRef (x) { this.about = x; },
+
+
 	getInitialState () {
 		return {errors: {}};
 	},
@@ -101,7 +104,7 @@ export default React.createClass({
 					{isReadOnly(schema, 'about') ? (
 						<Panel body={state.about}/>
 					) : (
-						<Editor ref={c => this.about = c}
+						<Editor ref={this.attachAboutRef}
 							className={cx({required: isRequired(schema, 'about')})}
 							allowInsertImage={false}
 							initialValue={state.about}
@@ -116,8 +119,8 @@ export default React.createClass({
 							<div>{state[name]}</div>
 						) : (
 							<input type={TYPE_OVERRIDE[name] || 'text'} name={name}
-								ref={r => this[name] = r}
-								value={state[name]}
+								// ref={r => this[name] = r}
+								value={state[name] || ''}
 								onChange={this.onChange}
 								className={cx({
 									'required': isRequired(schema, name),

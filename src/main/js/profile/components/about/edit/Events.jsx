@@ -20,6 +20,11 @@ export default React.createClass({
 		fieldNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 	},
 
+	getRefCallback (index) {
+		const key = `ref-cb-${index}`;
+		return this[key] || (this[key] = x => this.eventItems[`item-${index}`] = x);
+	},
+
 	componentWillMount () {
 		this.eventItems = {};
 	},
@@ -50,9 +55,9 @@ export default React.createClass({
 			<div>
 				{(items || []).map((item, index) => {
 					return (
-						<div className="entry" key={`item-${item.NTIID || item.id}`}>
+						<div className="entry" key={`item-${index}`}>
 							<RemoveIcon onClick={this.remove} index={index} />
-							<EventItem schema={itemSchema} item={item} ref={x => this.eventItems[`item-${index}`] = x} mimeType={mimeType} fieldNames={fieldNames}/>
+							<EventItem schema={itemSchema} item={item} ref={this.getRefCallback(index)} mimeType={mimeType} fieldNames={fieldNames}/>
 						</div>
 					);
 				})}
