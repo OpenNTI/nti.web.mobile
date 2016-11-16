@@ -1,5 +1,4 @@
 import React from 'react';
-import update from 'react/lib/update';
 
 import Logger from 'nti-util-logger';
 
@@ -62,13 +61,13 @@ export default React.createClass({
 
 	onStoreChange (event) {
 		if(event.isError) {
-			let errs = update(
-				this.state.errors,
-				{$push: [{
+			const errs = [
+				...this.state.errors,
+				{
 					field: event.reason.field,
 					message: event.reason.message || event.reason.responseText
-				}]}
-			);
+				}
+			];
 			this.setState({
 				errors: errs,
 				busy: false
@@ -111,9 +110,12 @@ export default React.createClass({
 		let error = errors.find(entry => entry.field === ref);
 		let index = errors.indexOf(error);
 		if (index > -1) {
-			let newErrs = update(errors, {$splice: [[index, 1]]}); // errors.splice(index, 1);
 			this.setState({
-				errors: newErrs
+				errors: [
+					//Immutable way of removing an item (and creating a new array without it)
+					...errors.slice(0, index),
+					...errors.slice(index + 1)
+				]
 			});
 		}
 		return !!error;
