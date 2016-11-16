@@ -178,6 +178,7 @@ export default React.createClass({
 		if (editing) {
 			return (
 				<CommentForm
+					topic={topic}
 					editItem={item}
 					onCompletion={this.onHideEditForm}
 					onCancel={this.onHideEditForm}/>

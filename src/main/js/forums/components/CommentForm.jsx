@@ -25,7 +25,7 @@ export default React.createClass({
 		onCompletion: React.PropTypes.func,
 
 		editItem: React.PropTypes.object,//??
-		topic: React.PropTypes.object,
+		topic: React.PropTypes.object.isRequired,
 		parent: React.PropTypes.object
 	},
 
@@ -125,7 +125,7 @@ export default React.createClass({
 
 		const value = (editItem || {}).body;
 
-		return topic.hasLink('add') && (
+		return topic && topic.hasLink('add') ? (
 			<div className="comment-form" id={id}>
 				{error && <Notice className="err">{error.message || 'An error occurred.'}</Notice>}
 				<div className="comment-form-heading">{t('entryPlaceholder')}</div>
@@ -141,7 +141,7 @@ export default React.createClass({
 						okText={t('editorOkButton')} />
 				</Editor>
 			</div>
-		);
+		) : null;
 	}
 
 });
