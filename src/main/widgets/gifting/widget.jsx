@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react/lib/ReactCSSTransitionGroup';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import Router, {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
 import CaptureClicks from 'react-router-component/lib/CaptureClicks';
