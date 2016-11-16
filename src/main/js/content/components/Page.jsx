@@ -57,10 +57,11 @@ export default React.createClass({
 			menu = null;
 		}
 
-		let props = Object.assign({}, this.props, {
+		const props = {
+			...this.props,
 			availableSections: menu,
 			children: React.Children.map(children, x => React.cloneElement(x))
-		});
+		};
 
 		return React.createElement(Page, props);
 	}

@@ -51,7 +51,7 @@ export default {
 			)
 			.then(x => {
 				clearTimeout(t);
-				this.setState(Object.assign({loading: false}, x));
+				this.setState({loading: false, ...x});
 			});
 	},
 

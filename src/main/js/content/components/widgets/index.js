@@ -18,6 +18,5 @@ export function getWidget (item, page, ownerProps) {
 
 	let key = `widget-${item.guid}`;
 
-	return React.createElement(Item,
-		Object.assign({}, ownerProps, {key, item, page}));
+	return React.createElement(Item, {...ownerProps, key, item, page});
 }

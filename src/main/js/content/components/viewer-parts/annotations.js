@@ -225,7 +225,7 @@ export default {
 
 	saveNote (item, data) {
 		const itemData = item && item.getData ? item.getData() : item;
-		const result = getStore(this.state).create(Object.assign({}, itemData, data));
+		const result = getStore(this.state).create({...itemData, ...data});
 
 
 		//Do not clear the stagedNode from state until
@@ -257,10 +257,9 @@ export default {
 
 		page.getSharingPreferences()
 			.then(preferences => contentPackage.getDefaultShareWithValue(preferences))
-			.then(sharedWith => {
-				Object.assign(properties, {sharedWith});
-				return Note.createFrom(properties);
-			})
+			.then(sharedWith =>
+				Note.createFrom({...properties, sharedWith})
+			)
 			.then(note => this.setState({stagedNote: note}));
 	},
 

@@ -197,8 +197,7 @@ export default {
 				}
 
 				this.setState({
-					touch: Object.assign(state.touch,
-						{ delta, pixelOffset, startPixelOffset, sliding })
+					touch: {...state.touch, delta, pixelOffset, startPixelOffset, sliding }
 				});
 			}
 		}

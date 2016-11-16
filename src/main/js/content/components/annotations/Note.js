@@ -21,7 +21,7 @@ export default class Note extends Highlight {
 
 	static createFrom (data) {
 
-		let base = {
+		const base = {
 			MimeType: 'application/vnd.nextthought.note',
 			style: 'suppressed',
 			title: null,
@@ -29,7 +29,10 @@ export default class Note extends Highlight {
 			sharedWith: []
 		};
 
-		return Object.assign(base, data);
+		return {
+			...base,
+			...data
+		};
 	}
 
 	constructor (...args) {

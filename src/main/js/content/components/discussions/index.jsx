@@ -118,7 +118,7 @@ export default React.createClass({
 
 	render () {
 		const {store, items, loading, pageSource} = this.state;
-		const props = Object.assign({}, this.props, { store, pageSource });
+		const props = {...this.props, store, pageSource };
 
 		return (!store || loading) ? (
 			<Loading.Mask/>

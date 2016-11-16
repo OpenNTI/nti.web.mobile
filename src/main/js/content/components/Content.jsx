@@ -128,7 +128,7 @@ export default class Content extends React.Component {
 			widgets[widgetData.guid] = getWidget(
 				widgetData,
 				this.props.page,
-				Object.assign({}, this.props, {id: void 0}));
+				{...this.props, id: void 0});
 		}
 	}
 

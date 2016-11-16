@@ -5,7 +5,7 @@ import Path from 'path';
 
 const ROUTES = Symbol('Routes');
 
-const makeRoute = (path, extra) => ({props: Object.assign({ handler: 'div', path }, extra || {})});
+const makeRoute = (path, extra) => ({props: {handler: 'div', path, ...(extra || {})}});
 
 const logger = Logger.get('content:viewer-parts:router');
 
@@ -65,10 +65,10 @@ export default {
 
 
 	getPropsFromRoute  (props) {
-		props = Object.assign({contextual: true}, props || this.props);
+		props = {contextual: true, ...(props || this.props)};
 
 		let {match} = this.getRouterState(props);
-		let p = match && Object.assign({}, (match.route || {}).props, match.match);
+		let p = match && {...((match.route || {}).props || {}), ...match.match};
 		if (p && p.props) {
 			p = p.props;
 		}

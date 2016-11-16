@@ -223,7 +223,7 @@ export default React.createClass({
 						<div ref={this.attachRef} {...props}>
 						{
 							React.createElement(context.type,
-								Object.assign({}, context.props, {ref: this.attachWRef}))
+								{...context.props, ref: this.attachWRef})
 						}
 						</div>
 					);
