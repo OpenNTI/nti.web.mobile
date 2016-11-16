@@ -28,14 +28,15 @@ export function getPackage (id) {
 /**
  *	@param {string} ntiid Content Page - NTIID
  *	@param {Package|Bundle|Instance} context - An instance of a Content/Course model
+ *	@param {object} [extra] - props, or extra config to pass along
  *	@returns {void}
  */
-export function loadPage (ntiid, context) {
+export function loadPage (ntiid, context, extra) {
 	let isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';
 
 	return Promise.all([
 		getLibrary(),
-		getPageInfo(ntiid, context)
+		getPageInfo(ntiid, context, extra)
 	])
 
 		.then(data => {

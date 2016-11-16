@@ -163,7 +163,7 @@ export default React.createClass({
 				currentPage: newPageId,
 				...this.getResetState()
 			}, () =>
-				loadPage(newPageId, props.contentPackage)
+				loadPage(newPageId, props.contentPackage, props)
 			);
 		}
 	},
