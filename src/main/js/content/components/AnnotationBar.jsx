@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 
+import isTouch from 'nti-util-detection-touch';
 import {addClass} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -8,6 +9,9 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import {Link} from 'react-router-component';
 
 const logger = Logger.get('content:components:AnnotationBar');
+
+const stop = e => (e.preventDefault(),e.stopPropagation());
+
 
 export default React.createClass({
 	displayName: 'AnnotationBar',
@@ -98,8 +102,12 @@ export default React.createClass({
 
 
 	render () {
-		let {busy} = this.state;
-		let {item, onNewDiscussion, onSetHighlight, onRemoveHighlight} = this.props;
+		const {
+			state: {busy},
+			props: {onNewDiscussion, onSetHighlight, onRemoveHighlight}
+		} = this;
+
+		let {item} = this.props;
 		let discussionLink;
 
 		if (item) {
@@ -109,28 +117,23 @@ export default React.createClass({
 			item = item.highlightColorName;
 		}
 
-		let hightlighters = onSetHighlight && ['Yellow', 'Green', 'Blue'].map(x => (
-			<button key={x} data-color={x}
+		const hightlighters = onSetHighlight && ['Yellow', 'Green', 'Blue'].map(x => (
+			<Button key={x} data-color={x}
 				className={cx('ugd highlight', x.toLowerCase(), {
 					'selected': (item === x.toLowerCase() && !busy) || busy === x.toLowerCase(),
 					'busy': busy === x.toLowerCase()
 				})}
-				onTouchStart={this.onHighlight}
-				onClick={this.onHighlight}>Highlight</button> ));
-
-			// Why both onTouchStart and onClick? Because the selection is gone before onClick fires on
-			// iOS, and I believe all touch devices. So, where we get onTouchStart, treat that as the click,
-			// and fallback to onClick so we can read the selection before it goes away.
+				onClick={this.onHighlight}>Highlight</Button> ));
 
 		return (
 			<div className="add annotation toolbar" ref={this.attachRef}>
 				{hightlighters}
 
 				{!!onRemoveHighlight && (
-					<button className={cx('ugd delete', {'busy': busy === 'delete'})}
+					<Button className={cx('ugd delete', {'busy': busy === 'delete'})}
 						onClick={this.onUnHighlight}>
 						Remove Hightlight
-					</button>
+					</Button>
 				)}
 
 				{!!(onNewDiscussion || discussionLink) && (
@@ -138,9 +141,8 @@ export default React.createClass({
 				)}
 
 				{!!onNewDiscussion && (
-					<button className="ugd note"
-						onTouchStart={this.onNote}
-						onClick={this.onNote}><i className="icon-discuss small"/>Discuss</button>
+					<Button className="ugd note"
+						onClick={this.onNote}><i className="icon-discuss small"/>Discuss</Button>
 				)}
 
 				{!!discussionLink && (
@@ -151,3 +153,25 @@ export default React.createClass({
 		);
 	}
 });
+
+
+// Why both onTouchStart and onClick? Because the selection is gone before onClick fires on
+// iOS, and I believe all touch devices. So, where we get onTouchStart, treat that as the click,
+// and fallback to onClick so we can read the selection before it goes away.
+Button.propTypes = { onClick: React.PropTypes.func };
+function Button ({onClick, ...props}) {
+
+	const event = isTouch ? 'onTouchStart' : 'onClick';
+
+	const click = {
+		[event]: onClick
+	};
+
+	if (click.onTouchStart) {
+		click.onClick = stop;
+	}
+
+	return (
+		<button {...props} {...click}/>
+	);
+}
