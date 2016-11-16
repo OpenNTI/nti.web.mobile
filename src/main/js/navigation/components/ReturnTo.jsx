@@ -1,26 +1,17 @@
 import React from 'react';
 
-import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
+ReturnTo.propTypes = {
+	href: React.PropTypes.string,
+	label: React.PropTypes.string
+};
 
-export default React.createClass({
-	displayName: 'ReturnTo',
-	mixins: [PureRenderMixin],
+export default function ReturnTo ({href, label}) {
+	const props = {
+		className: 'return-to',
+		href,
+		title: label,
+		children: label
+	};
 
-	propTypes: {
-		href: React.PropTypes.string,
-		label: React.PropTypes.string
-	},
-
-
-	render () {
-		let {href, label} = this.props;
-		let props = {
-			className: 'return-to',
-			href,
-			title: label,
-			children: label
-		};
-
-		return <a {...props}/>;
-	}
-});
+	return <a {...props}/>;
+}

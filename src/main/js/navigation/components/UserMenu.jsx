@@ -1,24 +1,20 @@
 import React from 'react';
 
-import PureRenderMixin from 'react/lib/ReactComponentWithPureRenderMixin';
-
 import {getAppUsername} from 'nti-web-client';
 
 import Avatar from 'common/components/Avatar';
 
-export default React.createClass({
-	displayName: 'UserMenu',
-	mixins: [PureRenderMixin],
+export default class UserMenu extends React.PureComponent {
 
-	propTypes: {
+	static propTypes = {
 		onClick: React.PropTypes.func
-	},
+	}
 
-	onClick (e) {
+	onClick = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		this.props.onClick();
-	},
+	}
 
 	render () {
 		let props = {
@@ -29,4 +25,4 @@ export default React.createClass({
 
 		return <a {...props}><Avatar entity={getAppUsername()} suppressProfileLink/></a>;
 	}
-});
+}
