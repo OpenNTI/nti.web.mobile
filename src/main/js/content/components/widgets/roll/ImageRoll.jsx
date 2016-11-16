@@ -41,6 +41,13 @@ export default React.createClass({
 		item: React.PropTypes.object
 	},
 
+	attachStageRef (x) {this.stage = x;},
+	attachCurrentRef (x) {this.current = x;},
+
+	getThumbnailRefAttacher (index) {
+		const name = `attachThumbnail${index}`;
+		return this[name] || (this[name] = x => this['thumbnail' + index] = x);
+	},
 
 	getItemCount () { return this.getImages().length; },
 
@@ -166,7 +173,7 @@ export default React.createClass({
 		return (
 			<div className="media-roll image-roll">
 				<label>{title}</label>
-				<div ref={x => this.stage = x} className={stageClasses} {...handlers}>
+				<div ref={this.attachStageRef} className={stageClasses} {...handlers}>
 
 					{empty ? (
 
@@ -174,7 +181,7 @@ export default React.createClass({
 
 					) : (
 
-						<div ref={x => this.current = x} className="item image current" style={style}>
+						<div ref={this.attachCurrentRef} className="item image current" style={style}>
 							<img src={current.src} alt={current.alt} title={current.title} />
 
 							{allowZoom && ( <a href="#zoom" className="zoom fi-magnifying-glass" onClick={this.onZoom}/> )}
@@ -212,7 +219,7 @@ export default React.createClass({
 
 		return (
 			<li className={cx('thumbnail', {active})}
-				ref={x=> this['thumbnail' + index] = x}
+				ref={this.getThumbnailRefAttacher}
 				data-index={index}
 				style={thumb}>
 				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="icon fi-eye"/></a>

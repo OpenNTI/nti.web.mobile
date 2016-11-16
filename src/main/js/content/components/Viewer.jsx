@@ -76,6 +76,9 @@ export default React.createClass({
 	},
 
 
+	attachNodeRef (x) { this.node = x; },
+
+
 	signalResourceLoaded () {
 		const {contentPackage} = this.props;
 		const quiz = this.getAssessment();
@@ -305,7 +308,7 @@ export default React.createClass({
 					this.renderNoteEditor()
 
 				) : (
-					<div key="content" ref={x => this.node = x}>
+					<div key="content" ref={this.attachNodeRef}>
 						<div className="content-body">
 							{this.renderAssessmentHeader()}
 							<div className="coordinate-root">

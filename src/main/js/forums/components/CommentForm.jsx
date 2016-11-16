@@ -41,6 +41,7 @@ export default React.createClass({
 		}
 	},
 
+	attachEditorRef (x) { this.editor = x; },
 
 	getInitialState () {
 		return {
@@ -128,7 +129,7 @@ export default React.createClass({
 			<div className="comment-form" id={id}>
 				{error && <Notice className="err">{error.message || 'An error occurred.'}</Notice>}
 				<div className="comment-form-heading">{t('entryPlaceholder')}</div>
-				<Editor ref={x => this.editor = x}
+				<Editor ref={this.attachEditorRef}
 					onChange={this.onBodyChange}
 					initialValue={value}
 					allowInsertVideo
