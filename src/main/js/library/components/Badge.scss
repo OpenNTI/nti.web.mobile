@@ -8,6 +8,14 @@
 	font: normal 700 0.625rem/2.5 $body-font-family;
 	padding: 0 0.4375rem;
 	display: inline-block;
+	.short {display: inline;}
+	.long {display: none;}
+
+	$media-tab: "screen and (min-width: 600px)";
+	@media #{$media-tab} {
+		.short {display: none;}
+		.long {display: inline;}
+	}
 
 	&.archived {
 		background: rgba(0,0,0,0.6);
@@ -36,7 +44,7 @@
 
 
 	&.upcoming {
-		
+
 		background: rgba($primary-blue,0.95);
 		letter-spacing: 0.06em;
 

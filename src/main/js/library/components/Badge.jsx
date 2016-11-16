@@ -24,7 +24,12 @@ export default function Badge ({item}) {
 
 	if (type) {
 		if (type.kind === UPCOMING) {
-			label = ( <DateTime date={item.getStartDate()}/> );
+			label = (
+				<span>
+					<DateTime date={item.getStartDate()} className="long"/>
+					<DateTime date={item.getStartDate()} className="short" format="ll"/>
+				</span>
+			);
 		}
 		else if (type.kind === ARCHIVED) {
 			[{label}] = type.split([item]);
