@@ -26,6 +26,8 @@ export default React.createClass({
 		purchasableId: React.PropTypes.string.isRequired
 	},
 
+	attachRouterRef (x) { this.router = x; },
+
 	getInitialState () {
 		return {
 			loading: true,
@@ -123,7 +125,7 @@ export default React.createClass({
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
 				<ReactCSSTransitionGroup transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName="fadeOutIn">
-					<Locations hash ref={x => this.router = x} onNavigation={this.onNavigation}>
+					<Locations hash ref={this.attachRouterRef} onNavigation={this.onNavigation}>
 						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
 						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this.onDone} />
 						<Location path="/error/*" handler={PaymentError} courseTitle={title} />

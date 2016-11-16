@@ -37,8 +37,9 @@ const arrayToMap = (arr, field) => {
 
 export default React.createClass({
 	displayName: 'FiveMinuteEnrollmentForm',
-
 	mixins: [FieldRender],
+
+	attachFormPanelRef (x) { this.formPanel = x; },
 
 	getInitialState () {
 		return {
@@ -196,7 +197,7 @@ export default React.createClass({
 						<FormErrors errors={errorsByRef} />
 						<RelatedFormPanel
 							inputFocus={this.inputFocused}
-							ref={x => this.formPanel = x}
+							ref={this.attachFormPanelRef}
 							title={title}
 							formConfig={_formConfig}
 							errorFieldRefs={errorRefs}
