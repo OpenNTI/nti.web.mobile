@@ -212,12 +212,11 @@ export default {
 
 		//generate the range description
 		const data = createRangeDescriptionFromRange(range, this.getContentNode());
-		console.log(data);
-		const {description: applicableRange, container: ContainerId} = data;
+		logger.debug('Range Description: %o', data);
 
 		return {
-			ContainerId,
-			applicableRange,
+			ContainerId: data.container,
+			applicableRange: data.description,
 			selectedText: range.toString()
 		};
 	},
@@ -243,7 +242,8 @@ export default {
 
 		let properties = hasRange && this.selectionToCommonUGD(range);
 		if (!properties && selected) {
-			let {applicableRange, selectedText, ContainerId} = selected.getRecord();
+			logger.debug('Using (editing) previously existing record: %o', selected);
+			const {applicableRange, selectedText, ContainerId} = selected.getRecord();
 			properties = {
 				applicableRange,
 				selectedText,
