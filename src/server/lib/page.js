@@ -16,6 +16,8 @@ const shouldPrefixBasePath = val => isRootPath(val) && !isSiteAssets(val);
 const basepathreplace = /(manifest|src|href)="(.*?)"/igm;
 const configValues = /<\[cfg\:([^\]]*)\]>/igm;
 
+const statCache = {};
+
 function injectConfig (cfg, orginal, prop) {
 	return cfg[prop] || 'MissingConfigValue';
 }
@@ -28,10 +30,28 @@ function isFile (file) {
 	}
 }
 
-const unwrap = x => Array.isArray(x) ? x[0] : x;
+
+function getModules () {
+	const file = '../compile-data.json';
+	const {mtime} = fs.statSync(file);
+
+	if (statCache.mtime === mtime) {
+		return statCache.chunks;
+	}
+
+	const unwrap = x => Array.isArray(x) ? x[0] : x;
+	const data = JSON.parse(fs.readFileSync(file));
+	const chunks = data.assetsByChunkName;
+
+	for (let chunk of Object.keys(chunks)) {
+		chunks[chunk] = unwrap(chunks[chunk]);
+	}
+
+	Object.assign(statCache, {mtime, chunks});
+	return chunks;
+}
 
 exports.getPage = function getPage () {
-	const ScriptFilenameMap = { main: 'js/main.js', vendor: 'js/vendor.js' };
 	let revision = require('./git-revision');
 	let Application;
 	let template;
@@ -71,27 +91,22 @@ exports.getPage = function getPage () {
 	}
 
 
-	try {
-		const data = require('../compile-data.json');
-		const chunks = data.assetsByChunkName;
-
-		for (let chunk of Object.keys(chunks)) {
-			ScriptFilenameMap[chunk] = unwrap(chunks[chunk]);
-		}
-	}
-	catch (e) {
-		if (!isDevMode) {
-			logger.error('Could not resolve chunk names.');
-		}
-	}
-
-
 	return (basePath, req, clientConfig) => {
 		basePath = basePath || '/';
+		const ScriptFilenameMap = { main: 'js/main.js', vendor: 'js/vendor.js' };
 		const u = url.parse(req.url);
 		const manifest = u.query === 'cache' ? '<html manifest="/manifest.appcache"' : '<html';
 		const path = u.pathname;
 		const cfg = Object.assign({revision}, clientConfig.config || {});
+
+		try {
+			Object.assign(ScriptFilenameMap, getModules());
+		}
+		catch (e) {
+			if (!isDevMode) {
+				logger.error('Could not resolve chunk names.');
+			}
+		}
 
 		const basePathFix = (original, attr, val) =>
 				attr + `="${
