@@ -197,6 +197,8 @@ exports = module.exports = [
 				'SERVER': false,
 				'BUILD_SOURCE': gitRevision,
 				'process.browser': true,
+				//Has to be set multiple ways to pickup on the ways the NODE_ENV is accessed
+				'process.env.NODE_ENV': JSON.stringify(ENV),
 				'process.env': {
 					// This has effect on the react lib size
 					'NODE_ENV': JSON.stringify(ENV)
@@ -232,6 +234,8 @@ exports = module.exports = [
 				'SERVER': true,
 				'BUILD_SOURCE': gitRevision,
 				'process.browser': false,
+				//Has to be set multiple ways to pickup on the ways the NODE_ENV is accessed
+				'process.env.NODE_ENV': JSON.stringify(ENV),
 				'process.env': {
 					'NODE_ENV': JSON.stringify(ENV)
 				}
