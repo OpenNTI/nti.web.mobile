@@ -32,7 +32,7 @@ function isFile (file) {
 
 
 function getModules () {
-	const file = '../compile-data.json';
+	const file = Path.resolve(__dirname, '../compile-data.json');
 	const {mtime} = fs.statSync(file);
 
 	if (statCache.mtime === mtime) {
