@@ -95,7 +95,7 @@ export default React.createClass({
 
 		function process (content) {
 			if (previewMode && previewLength <= letterCount) {
-				return nullRender;
+				return Promise.resolve(nullRender);
 			}
 
 			return getPacket(content, strategies, previewMode, previewLength - letterCount)
