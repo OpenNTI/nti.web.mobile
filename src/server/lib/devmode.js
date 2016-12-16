@@ -10,7 +10,7 @@ exports.setupDeveloperMode = function setupDeveloperMode (config) {
 	const WebpackServer = require('webpack-dev-server');
 
 	const port = config.port;
-	let devPort = config['webpack-dev-server'] || (port + 1);
+	const devPort = config['webpack-dev-server'] || 0;
 
 	const webpackConfig = Object.assign({}, webpackConfigFile[0]);
 
@@ -20,7 +20,7 @@ exports.setupDeveloperMode = function setupDeveloperMode (config) {
 	webpackConfig.output.chunkFilename = 'js/[name].js';
 	// webpackConfig.entry = './src/main/js/index.js';
 
-	let webpackServer = new WebpackServer(webpack(webpackConfig), {
+	const webpackServer = new WebpackServer(webpack(webpackConfig), {
 		contentBase: port,
 		//hot: true,
 
@@ -66,7 +66,7 @@ exports.setupDeveloperMode = function setupDeveloperMode (config) {
 					logger.error(err);
 				}
 
-				logger.info('WebPack Dev Server listening on port %d', devPort);
+				logger.info('WebPack Dev Server Started');
 			});
 		}
 	};
