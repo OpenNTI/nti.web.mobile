@@ -63,6 +63,32 @@ describe('AssignmentStatusLabel', () => {
 	});
 
 
+	describe('Unpublished States', () => {
+
+		bookkeeping();
+
+		it('Unpublished', () => {
+			const assignment = MockAssignment({
+				[START]: '2014-08-16T05:00:00Z',
+				[END]: '2015-08-29T04:59:59Z'
+			});
+
+			const value = 'Draft';
+			const overtime = Object.assign(Object.create(assignment), {isOverTime: ()=> true});
+
+			assignment.isPublished = () => false;
+
+			test({assignment})
+				.map(getText)
+				.forEach(text => expect(text).toEqual(value));
+
+			test({assignment: overtime})
+				.map(getText)
+				.forEach(text => expect(text).toEqual(value));
+		});
+
+	});
+
 	describe('Unsubmitted States', () => {
 
 		bookkeeping();
