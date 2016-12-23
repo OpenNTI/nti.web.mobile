@@ -9,7 +9,8 @@
 	clean-stage-widgets \
 	clean-maps \
 	clean \
-	check
+	check \
+	test
 
 DIST=./dist/
 STAGE=./stage/
@@ -27,6 +28,8 @@ setup:
 	@rm -rf node_modules
 	@npm install
 
+test:
+	@karma start --single-run
 
 check:
 	@eslint --ext .js,.jsx .
