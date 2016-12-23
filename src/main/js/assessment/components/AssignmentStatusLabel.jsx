@@ -375,9 +375,7 @@ export default React.createClass({
 				{ !isSubmitted ? (
 					<span className="part">{this.getNaturalDuration(this.getTimeRemaining(), 2)} Remaining</span>
 
-				) :
-
-				[over && (
+				) : [over && (
 					<span key="over" className="part">{this.getNaturalDuration(dur, 1)} {over}</span>
 				), (
 					<span key="datetime" className="part"><DateTime date={date} format="[Submitted at] h:mm A MM/DD/YYYY"/></span>
