@@ -8,6 +8,7 @@ export default function MockAssignment (props = {}, NoSubmit = false) {
 		canBeSubmitted: () => !NoSubmit,
 		isNonSubmit: () => NoSubmit,
 		isLate: () => true,
+		isPublished: () => true,
 		getDueDate () {
 			let d = this['available_for_submission_ending'];
 			return d ? new Date(d) : null;
