@@ -13,12 +13,25 @@ export default React.createClass({
 		message: React.PropTypes.string
 	},
 
+	contextTypes: {
+		markNotFound: React.PropTypes.func
+	},
+
 	getDefaultProps () {
 		return {
 			code: 404,
 			message: 'That page was not found.'
 		};
 	},
+
+
+	componentWillMount () {
+		const {markNotFound} = this.context;
+		if (markNotFound) {
+			markNotFound();
+		}
+	},
+
 
 	onBack (e) {
 		e.preventDefault();
@@ -27,12 +40,8 @@ export default React.createClass({
 		global.history.go(-1);
 	},
 
-	render () {
-		/* global pageRenderSetPageNotFound */
-		if (global.pageRenderSetPageNotFound) {
-			pageRenderSetPageNotFound();
-		}
 
+	render () {
 		let home = this.getBasePath();
 		let {length = 1} = global.history || {};
 

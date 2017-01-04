@@ -29,7 +29,8 @@ export default class App extends React.Component {
 
 	static propTypes = {
 		path: PropTypes.string,
-		basePath: PropTypes.string.isRequired
+		basePath: PropTypes.string.isRequired,
+		markNotFound: PropTypes.func
 	}
 
 	static childContextTypes = {
@@ -37,6 +38,7 @@ export default class App extends React.Component {
 		basePath: PropTypes.string,
 		defaultEnvironment: PropTypes.object,
 		routerLinkComponent: PropTypes.func,
+		markNotFound: PropTypes.func,
 		[SET_PAGESOURCE]: PropTypes.func,
 		[SET_CONTEXT]: PropTypes.func
 	}
@@ -47,6 +49,7 @@ export default class App extends React.Component {
 			basePath: this.props.basePath,
 			routerLinkComponent: Link,
 			defaultEnvironment: environment.defaultEnvironment,
+			markNotFound: this.props.markNotFound,
 			[SET_PAGESOURCE]: NavigationActions.setPageSource,
 			[SET_CONTEXT]: NavigationActions.setContext
 		};
