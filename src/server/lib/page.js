@@ -91,7 +91,7 @@ exports.getPage = function getPage () {
 	}
 
 
-	return (basePath, req, clientConfig) => {
+	return (basePath, req, clientConfig, markNotFound) => {
 		basePath = basePath || '/';
 		const ScriptFilenameMap = { main: 'js/main.js', vendor: 'js/vendor.js' };
 		const u = url.parse(req.url);
@@ -122,8 +122,9 @@ exports.getPage = function getPage () {
 				global.$AppConfig = cfg;
 
 				const app = React.createElement(Application, {
-					path: urlJoin(basePath, path),
-					basePath
+					basePath,
+					markNotFound,
+					path: urlJoin(basePath, path)
 				});
 
 				html = ReactDOMServer.renderToString(app);
