@@ -13,6 +13,7 @@ import Mixin from './Mixin';
 const logger = Logger.get('content:widgets:EmbededWidget');
 
 const NO_SOURCE_ID = 'No source id specified!';
+const SANDBOX_FLAGS = 'allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-scripts';
 
 export default React.createClass({
 	displayName: 'embeded-widget',
@@ -100,8 +101,19 @@ export default React.createClass({
 				.then(p => src.pathname = p);
 
 		Promise.all([splashResolve, pathResolve])
-			.then(([splashURL]) =>
-				this.setState({sourceName, source: src.format(), height, splash: splashURL, defer}));
+			.then(([splashURL]) => {
+				const uri = src.format();
+				const sameOrigin = isSameOrigin(uri, (global.location || {}).origin);
+
+				this.setState({
+					sourceName,
+					source: uri,
+					sameOrigin,
+					height,
+					splash: splashURL,
+					defer
+				});
+			});
 	},
 
 
@@ -114,9 +126,11 @@ export default React.createClass({
 
 
 	render () {
-		const {state: {source, height, splash, defer}} = this;
+		const {state: {sameOrigin, source, height, splash, defer}} = this;
 
 		const skip = !source || (splash && defer !== false);
+
+		const sandbox = sameOrigin ? {sandbox: SANDBOX_FLAGS} : {};
 
 		return source && (
 			<div className="embeded-widget" style={{height}}>
@@ -135,9 +149,22 @@ export default React.createClass({
 						allowFullscreen
 						allowTransparency
 						seamless
+						{...sandbox}
 						/>
 				)}
 			</div>
 		);
 	}
 });
+
+
+
+function isSameOrigin (uri, as) {
+	const toOrigin = (o) => (
+		o = Url.parse(o),
+		Object.assign(o, {pathname: '', search: '', hash: ''}),
+		o.format()
+	);
+
+	return as && (toOrigin(uri) === toOrigin(as));
+}
