@@ -1,11 +1,14 @@
 import React from 'react';
 
 import {rawContent} from 'nti-commons';
+import Logger from 'nti-util-logger';
 
 import Mixin from './Mixin';
 
 import Content from '../Content';
 import WordBankEntry from '../WordBankEntry';
+
+const logger = Logger.get('assessment:components:solution-types:FillInTheBlankWithWordBank');
 
 const strategies = {
 	'input[type=blankfield]': (x)=>({name: x.getAttribute('name')})
@@ -62,8 +65,16 @@ export default React.createClass({
 		let solution = (this.state.solution || {}).value;
 		let wid = (solution || {})[input];
 		let {item} = this.props;
-		let entry = item.getWordBankEntry(wid);
 
+		//Only show the first?
+		if (Array.isArray(wid)) {
+			if (wid.length > 1) {
+				logger.warn('Blank has more than one possible solution! Tossing all but the first: %o', wid);
+			}
+			wid = wid[0];
+		}
+
+		let entry = item.getWordBankEntry(wid);
 		if (!entry) {
 			return null;
 		}
