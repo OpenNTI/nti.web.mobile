@@ -255,7 +255,18 @@ export default {
 	handleDragEnd (e) {
 		const {onDragEnd} = this.context;
 
-		if (!this.state.dragging || this.props.locked || e.type === 'mouseout') {
+		if (!this.state.dragging || this.props.locked) {
+			return;
+		}
+
+		if (e.type === 'mouseout' || e.type === 'pointerout') {
+			//ignore pointer leaving hitzone of the inner elements...
+			// const node = this.getDOMNode();
+			// if (node.contains(e.target)) {
+			// 	return;
+			// }
+
+			//ignoe all 'mouse-out-like' events.
 			return;
 		}
 
