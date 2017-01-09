@@ -6,14 +6,10 @@ You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org):
     * Use [nvm](https://github.com/creationix/nvm) to install NodeJS.
-        * `nvm install v5.5.0`
+        * `nvm install v6.9.4`
         * Setup default node:
           ```bash
-          echo v5.5.0 > ~/.nvmrc
-          ```
-          or
-          ```
-          nvm alias default 5.5.0
+          nvm alias default stable
           ```
   * [Karma](http://karma-runner.github.io): Run `npm install -g karma-cli`
 
@@ -137,31 +133,6 @@ from `nti.web.mobile`:
 ```bash
 npm link {dependency-name}
 ```
-
-| dependency-name            | repository:source                                            |
-|----------------------------|--------------------------------------------------------------|
-| nti-lib-analytics          | git@repos.nextthought.com:nti.lib.analytics                  |
-| nti-lib-anchorjs           | git@repos.nextthought.com:nti.lib.anchorjs                   |
-| nti-lib-commons            | git@repos.nextthought.com:nti.lib.commons                    |
-| nti-lib-content-processing | git@repos.nextthought.com:nti.lib.content-processing         |
-| nti-lib-dispatcher         | git@repos.nextthought.com:nti.lib.dispatcher                 |
-| nti-lib-dom                | git@repos.nextthought.com:nti.lib.domjs                      |
-| nti-lib-interfaces         | git@repos.nextthought.com:nti.lib.interfaces                 |
-| nti-lib-locale             | git@repos.nextthought.com:nti.lib.locale                     |
-| nti-lib-ntiids             | git@repos.nextthought.com:nti.lib.ntiids                     |
-| nti-lib-ranges             | git@repos.nextthought.com:nti.lib.ranges                     |
-| nti-lib-store              | git@repos.nextthought.com:nti.lib.store                      |
-| nti-lib-whiteboardjs       | git@repos.nextthought.com:nti.lib.whiteboardjs               |
-| nti-style-common           | git@repos.nextthought.com:nti.style.common                   |
-| nti-util-detection-touch   | git@repos.nextthought.com:nti.util.detection.touch           |
-| nti-util-git-rev           | git@repos.nextthought.com:nti.util.git.rev                   |
-| nti-util-ios-version       | git@repos.nextthought.com:nti.util.ios-version               |
-| nti-util-logger            | git@repos.nextthought.com:nti.util.logger                    |
-| nti-web-client             | git@repos.nextthought.com:nti.web.client                     |
-| nti-web-commons            | git@repos.nextthought.com:nti.web.component.commons          |
-| nti-modeled-content        | git@repos.nextthought.com:nti.web.component.modeled-content  |
-| nti-video                  | git@repos.nextthought.com:nti.web.component.video            |
-
 
 ---
 
