@@ -361,8 +361,9 @@ export default React.createClass({
 		let over = detail && detail.over;
 		let dur;
 
-
-		if (!detail || (!isSubmitted && !isDueToday)) {
+		//Only show details is we are toggled on,
+		//and we are submitted
+		if (!detail || !isSubmitted) {
 			return;
 		}
 
