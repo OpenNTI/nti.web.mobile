@@ -56,9 +56,11 @@ export default React.createClass({
 
 
 	onDrop (drop) {
-		let value = Object.assign({}, this.state.value || {});
-		let data = drop || {}, movedFrom;
+		const value = Object.assign({}, this.state.value || {});
+		const data = drop || {};
+
 		let {source, target} = data;
+		let movedFrom;
 
 		if (source) {
 			movedFrom = source.props['data-dropped-on'];
@@ -120,7 +122,7 @@ export default React.createClass({
 
 
 	renderInput (tag, props) {
-		let {name} = props; //eslint-disable-line react/prop-types
+		const {name} = props; //eslint-disable-line react/prop-types
 		return (
 			<DropTarget accepts={this.state.PartLocalDNDToken}
 				tag="span" onDrop={this.onDrop}
@@ -134,22 +136,23 @@ export default React.createClass({
 
 
 	renderWordBankEntry (input) {
-		let wid = (this.state.value || {})[input];
-		let {item} = this.props;
-		let entryItem = item.getWordBankEntry(wid);
+		const wid = (this.state.value || {})[input];
+		const {item} = this.props;
+		const entryItem = item.getWordBankEntry(wid);
+
 		let correct = '';
 
 		if (!entryItem) {
 			return null;
 		}
 
-		let locked = Store.isSubmitted(item);
-		let solution = this.getSolution();
+		const locked = Store.isSubmitted(item);
+		const solution = this.getSolution();
 		if (locked && solution && solution.value) {
-			solution = solution.value;
-			const solutionForInput = ensureArray(solution[input]);
+			const {value: solutionValue} = solution;
+			const solutionForInput = ensureArray(solutionValue[input]);
 			correct = solutionForInput.includes(wid) ? 'correct' : 'incorrect';
-			//console.log(solution[input], input, wid);
+			//console.log(solutionValue[input], input, wid);
 		}
 
 		return (
