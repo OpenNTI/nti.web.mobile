@@ -15,6 +15,9 @@ const strategies = {
 	})
 };
 
+const ensureArray = x => Array.isArray(x) ? x : [x];
+
+
 /**
  * This input type represents Fill In The Blank: With Word Bank
  */
@@ -144,7 +147,8 @@ export default React.createClass({
 		let solution = this.getSolution();
 		if (locked && solution && solution.value) {
 			solution = solution.value;
-			correct = solution[input] === wid ? 'correct' : 'incorrect';
+			const solutionForInput = ensureArray(solution[input]);
+			correct = solutionForInput.includes(wid) ? 'correct' : 'incorrect';
 			//console.log(solution[input], input, wid);
 		}
 
