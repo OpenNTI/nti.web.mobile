@@ -354,7 +354,6 @@ export default React.createClass({
 
 
 	renderDetail () {
-		let isDueToday = this.isDueToday();
 		let isSubmitted = this.isSubmitted();
 		let date = this.getCompletedDateTime();
 		let detail = this.state.showDetail;
