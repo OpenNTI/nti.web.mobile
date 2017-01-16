@@ -17,9 +17,8 @@
   ],
   "scripts": {
     "test": "karma start --single-run --reporters dots,html,junit,coverage",
-    "start": "make check; web-service --config ./src/server/config/env.json.example",
+    "start": "make check && web-service --config ./src/server/config/env.json.example",
     "prepublish": "not-in-install && make || in-install",
-    "bump": "npm version",
     "preversion": "make check && make test",
     "postversion": "git push && git push --tags && npm publish"
   },
