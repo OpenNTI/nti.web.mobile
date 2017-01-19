@@ -1,4 +1,1 @@
-import {Editor} from 'nti-modeled-content';
-import Panel from './components/Panel';
-
-export {Editor, Panel};
+export {Editor, Panel} from 'nti-modeled-content';

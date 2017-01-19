@@ -1,1 +1,1 @@
-export {Component, Placeholder} from 'nti-web-video'
+export {Component, Placeholder} from 'nti-web-video';
