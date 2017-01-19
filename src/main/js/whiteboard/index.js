@@ -1,3 +1,1 @@
-import Panel from './components/Panel';
-
-export {Panel};
+export {Panel} from 'nti-whiteboard';
