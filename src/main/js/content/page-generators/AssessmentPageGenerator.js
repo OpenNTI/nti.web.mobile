@@ -2,8 +2,7 @@ import {getModel} from 'nti-lib-interfaces';
 
 const PageInfo = getModel('pageinfo');
 
-export default function generate (service, context, assessment) {
-	const contents = getContentsForAssessment(assessment);
+export function buildPageInfoForContents (service, context, assessment, contents) {
 	const ntiid = assessment.getID();
 
 	const parent = assessment.parent('ContentPackageBundle');
@@ -36,6 +35,12 @@ export default function generate (service, context, assessment) {
 	return pi;
 }
 
+
+export default function generate (service, context, assessment) {
+	const contents = getContentsForAssessment(assessment);
+
+	return buildPageInfoForContents(service, context, assessment, contents);
+}
 
 
 function getContentsForAssessment (assessment) {

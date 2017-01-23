@@ -1,0 +1,13 @@
+ @import "~nti-style-common";
+
+.embedded-topic-widget {
+	background: $primary-blue;
+	padding: 0.6rem 1.25rem;
+	font: normal 600 0.875rem/1rem $body-font-family;
+	margin: 1rem 0;
+	display: inline-block;
+
+	span {
+		color: white;
+	}
+}
