@@ -5,9 +5,6 @@ import {getConfigFor} from 'nti-web-client';
 
 import Mixin from './Mixin';
 
-//Hack until we can get context to work
-const basePath = (x => (x = getConfigFor(x), typeof x === 'string' ? x : '/'))('basepath');
-
 const DEFAULT_TEXT = {
 	join: 'Join the Discussion'
 };
@@ -33,11 +30,14 @@ export default React.createClass({
 		const {item} = props;
 		const {ntiid} = item;
 
-		return `${basePath}object/${encodeForURI(ntiid)}/`;
+		return `${this.basePath}object/${encodeForURI(ntiid)}/`;
 	},
 
 
 	componentWillMount () {
+		//Hack until we can get context to work
+		this.basePath = (x => (x = getConfigFor(x), typeof x === 'string' ? x : '/'))('basepath');
+
 		this.setState({href: this.getHref()});
 	},
 
