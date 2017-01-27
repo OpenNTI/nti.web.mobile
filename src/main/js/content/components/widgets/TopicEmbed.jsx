@@ -2,11 +2,13 @@ import React from 'react';
 import {scoped} from 'nti-lib-locale';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {getConfigFor} from 'nti-web-client';
+import {EmptyState} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 
 const DEFAULT_TEXT = {
-	join: 'Join the Discussion'
+	join: 'Join the Discussion',
+	noAccess: 'You do not have access to this discussion.'
 };
 
 const t = scoped('TOPIC_EMBED_WIDGET', DEFAULT_TEXT);
@@ -30,7 +32,7 @@ export default React.createClass({
 		const {item} = props;
 		const {ntiid} = item;
 
-		return `${this.basePath}object/${encodeForURI(ntiid)}/`;
+		return ntiid && `${this.basePath}object/${encodeForURI(ntiid)}/`;
 	},
 
 
@@ -54,6 +56,12 @@ export default React.createClass({
 
 	render () {
 		const {href} = this.state;
+
+		if (!href) {
+			return (
+				<EmptyState header={t('noAccess')} />
+			);
+		}
 
 		return (
 			<a className="embedded-topic-widget" role="button" href={href}>
