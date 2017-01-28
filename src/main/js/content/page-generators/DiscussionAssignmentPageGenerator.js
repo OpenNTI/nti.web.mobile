@@ -20,7 +20,6 @@ function getBaseContents (assignment) {
 //TODO: pass the user to resolve the topic they have access to.
 export default function (service, context, assignment) {
 	return assignment.resolveTopic()
-		.then(() => Promise.reject())
 		.then((topic) => {
 			const ntiid = topic.getID();
 			const contents = getBaseContents(assignment);
