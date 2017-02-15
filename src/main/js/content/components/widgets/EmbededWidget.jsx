@@ -66,7 +66,7 @@ export default React.createClass({
 	},
 
 
-	isNoSandboxSet ({item} = this.props) {
+	isNoSandboxingSet ({item} = this.props) {
 		return Boolean(item['no-sandboxing']);
 	},
 
