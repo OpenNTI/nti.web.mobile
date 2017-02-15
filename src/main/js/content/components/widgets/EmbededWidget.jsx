@@ -66,6 +66,11 @@ export default React.createClass({
 	},
 
 
+	isNoSandboxSet ({item} = this.props) {
+		return Boolean(item['no-sandboxing']);
+	},
+
+
 	setup (props = this.props) {
 
 		const {contentPackage, item = {}} = props;
@@ -130,7 +135,7 @@ export default React.createClass({
 
 		const skip = !source || (splash && defer !== false);
 
-		const sandbox = sameOrigin ? {sandbox: SANDBOX_FLAGS} : {};
+		const sandbox = sameOrigin && !this.isNoSandboxingSet() ? {sandbox: SANDBOX_FLAGS} : {};
 
 		return source && (
 			<div className="embeded-widget" style={{height}}>
