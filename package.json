@@ -93,7 +93,6 @@
     "nti-web-client": "^1.1.0",
     "nti-web-commons": ">=0.0.121",
     "nti-web-video": "^1.2.0",
-    "nti-web-whiteboard": "0.0.1",
     "null-loader": "^0.1.0",
     "numeral": "^1.5.3",
     "object-hash": "^1.1.0",
