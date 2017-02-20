@@ -1,9 +1,5 @@
 /*eslint strict: 0, no-console: 0*/
 'use strict';
-
-const publicPath = '/mobile/';
-const outPath = './stage/';
-
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 
@@ -15,10 +11,13 @@ const SplitByPathPlugin = require('webpack-split-by-path');
 
 const path = require('path');
 
-const root = path.resolve(__dirname, '..', 'src', 'main', 'js');
-const sassRoot = path.resolve(__dirname, '..', 'src', 'main', 'resources', 'scss');
-const modules = path.resolve(__dirname, '..', 'node_modules');
-const eslintrc = path.resolve(__dirname, '..', '.eslintrc');
+const publicPath = '/mobile/';
+
+const outPath = path.resolve(__dirname, 'dist') + '/';
+const root = path.resolve(__dirname, 'src', 'main', 'js');
+const sassRoot = path.resolve(__dirname, 'src', 'main', 'resources', 'scss');
+const modules = path.resolve(__dirname, 'node_modules');
+const eslintrc = path.resolve(__dirname, '.eslintrc');
 
 const gitRevision = JSON.stringify(require('nti-util-git-rev'));
 
