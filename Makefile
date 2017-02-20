@@ -43,17 +43,18 @@ build-app: compile-app clean-dist-app
 	@mkdir -p $(DIST)
 	@mv -f $(STAGE)client $(DIST)client
 	@mv -f $(STAGE)server $(DIST)server
+##Pre-Compress
+	@find $(DIST)client -type f \( -name '*.js' -o -name '*.css' -o -name '*.svg' -o -name '*.map' \) -exec gzip -k -v -f -9 {} \;
 ## Capture versions
 	@npm la 2>/dev/null > $(DIST)client/js/versions.txt
 	@npm ls 2>/dev/null | grep nti- | sed -e 's/^[\│\├\─\┬\└\ ]\{1,\}/z /g' | sort | sed -e 's/^z/-/g' > $(DIST)client/js/nti-versions.txt
-##Pre-Compress
-	@find $(DIST)client -type f \( -name '*.js' -o -name '*.css' -o -name '*.svg' -o -name '*.map' \) -exec gzip -k -v -f -9 {} \;
-	@find $(DIST)widgets -type f \( -name '*.js' -o -name '*.css' -o -name '*.svg' -o -name '*.map' \) -exec gzip -k -v -f -9 {} \;
 
 
 build-widgets: compile-widgets clean-dist-widgets
 	@mkdir -p $(DIST)
 	@mv -f $(STAGE)widgets $(DIST)widgets
+##Pre-Compress
+	@find $(DIST)widgets -type f \( -name '*.js' -o -name '*.css' -o -name '*.svg' -o -name '*.map' \) -exec gzip -k -v -f -9 {} \;
 
 compile-app: stage clean-stage-app $(STAGE)server
 ## copy static assets
