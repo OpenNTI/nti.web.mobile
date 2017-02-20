@@ -12,7 +12,7 @@ import DisplayName from 'common/components/DisplayName';
 
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
-import {Placeholder as Video} from 'video';
+import {Placeholder as Video} from 'nti-web-video';
 
 import CommentForm from '../CommentForm';
 import ActionsComp from '../Actions';

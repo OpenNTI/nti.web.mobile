@@ -6,7 +6,7 @@ import {Error, Loading} from 'nti-web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
-import {Component as Video} from 'video';
+import {Component as Video} from 'nti-web-video';
 
 import Mixin from '../Mixin';
 import RollCommon from './Mixin';

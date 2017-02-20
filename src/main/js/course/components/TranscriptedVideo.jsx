@@ -23,7 +23,7 @@ import {
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import {Component as Video} from 'video';
+import {Component as Video} from 'nti-web-video';
 
 import Transcript from './Transcript';
 

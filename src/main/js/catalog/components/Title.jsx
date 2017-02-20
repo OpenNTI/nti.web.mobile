@@ -1,6 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-import {Component as Video} from 'video';
+import {Component as Video} from 'nti-web-video';
 
 import {Mixins} from 'nti-web-commons';
 

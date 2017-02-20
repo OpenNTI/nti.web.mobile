@@ -5,7 +5,7 @@ import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
-import {Component as Video} from 'video';
+import {Component as Video} from 'nti-web-video';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {Progress} from 'nti-lib-interfaces';
 
