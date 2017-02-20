@@ -1,0 +1,26 @@
+{
+  "name": "nti-web-widget-gifting",
+  "version": "2017.1.0-alpha",
+  "description": "NextThought Gifting Widget",
+  "author": "nextthought",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=5.0.0",
+    "npm": ">=3.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://repos.nextthought.com/git/nti.web.mobile"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "make",
+	"postpublish": "make clean"
+  },
+  "publishConfig": {
+    "registry": "https://npm.nextthought.com"
+  },
+  "dependencies": {}
+}

@@ -1,6 +1,6 @@
 /*bootstrap junk begin*/
 import 'babel-polyfill';
-import '../../resources/scss/app.scss';
+import '../../../../resources/scss/app.scss';
 /*bootstrap junk end*/
 
 import React from 'react';

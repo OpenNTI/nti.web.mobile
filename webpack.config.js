@@ -138,10 +138,17 @@ exports = module.exports = [
 					test: /\.(s?)css$/,
 					loader: ExtractTextPlugin.extract(
 						'style-loader',
-						'css?-minimize!postcss!resolve-url!sass'
+						'css-loader?-minimize!postcss-loader!resolve-url-loader!sass'
 					)
 				}
 			]
+		},
+
+		resolveUrlLoader: {
+			silent: false,
+			sourceMap: true,
+			debug:true,
+			root: __dirname
 		},
 
 		eslint: {
