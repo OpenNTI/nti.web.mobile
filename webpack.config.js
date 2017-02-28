@@ -256,8 +256,10 @@ exports = module.exports = [
 				net: true,
 				tls: true
 			},
-			// Every nti module
-			/^nti\-/i
+			/^nti\-common/i,
+			/^nti\-lib-interfaces/i,
+			/^nti\-util-logger/i,
+			/^nti\-web\-client/i,
 		],
 
 		module: {
