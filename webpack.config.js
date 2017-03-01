@@ -258,8 +258,7 @@ exports = module.exports = [
 			},
 			/^nti\-common/i,
 			/^nti\-lib-interfaces/i,
-			/^nti\-util-logger/i,
-			/^nti\-web\-client/i,
+			/^nti\-util-logger/i
 		],
 
 		module: {
