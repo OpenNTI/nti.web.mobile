@@ -82,9 +82,9 @@ And `CHEM4970.csv` is a file with the forum content:
 
 If you haven't already:
 step one: clone this git repo
-https://repos.nextthought.com/git/nti-git-test
+git@github.com:NextThought/nti-git-test
 
-    git clone https://repos.nextthought.com/git/nti-git-test
+    git clone git@github.com:NextThought/nti-git-test
 
 step two: checkout this svn repo
 https://repos.nextthought.com/svn/nti-svn/nti.content.environments

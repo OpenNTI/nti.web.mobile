@@ -65,7 +65,7 @@ npm login --registry https://npm.nextthought.com
 ## Quickstart
 
 ```bash
-git clone ssh://repos.nextthought.com/nti.web.mobile
+git clone git@github.com:NextThought/nti.web.mobile
 cd nti.web.mobile
 npm install
 ```

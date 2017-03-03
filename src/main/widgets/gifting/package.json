@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://repos.nextthought.com/git/nti.web.mobile"
+    "url": "https://github.com/NextThought/nti.web.mobile.git"
   },
   "files": [
     "dist"
