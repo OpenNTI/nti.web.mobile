@@ -5,7 +5,7 @@ const logger = require('./logger');
 
 exports.setupDeveloperMode = function setupDeveloperMode (config) {
 	const webpack = require('webpack');
-	const webpackConfigFile = require('../../../webpack/app.config');
+	const webpackConfigFile = require('../../../webpack.config');
 
 	const WebpackServer = require('webpack-dev-server');
 
