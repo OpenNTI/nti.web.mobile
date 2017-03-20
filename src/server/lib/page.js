@@ -1,13 +1,14 @@
 /*eslint strict: 0*/
 'use strict';
-const logger = require('./logger');
-
 const url = require('url');
 const Path = require('path');
 const fs = require('fs');
+
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const {URL: {join: urlJoin}} = require('nti-commons');
+
+const logger = require('./logger');
 
 const isRootPath = RegExp.prototype.test.bind(/^\/(?!\/).*/);
 const isSiteAssets = RegExp.prototype.test.bind(/^\/site\-assets/);
@@ -77,7 +78,7 @@ exports.getPage = function getPage () {
 	}
 
 	try {
-		const app = require('app-renderer');
+		const app = require('app-renderer');//eslint-disable-line
 		Application = app.default;
 		revision = app.revision;
 	} catch (e) {

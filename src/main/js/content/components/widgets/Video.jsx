@@ -1,9 +1,7 @@
 import React from 'react';
 
-import scrollparent from 'scrollparent';
-
 import {Progress} from 'nti-lib-interfaces';
-import {getScreenHeight} from 'nti-lib-dom';
+import {getScreenHeight, getScrollParent} from 'nti-lib-dom';
 
 import {Loading} from 'nti-web-commons';
 import ContextAccessor from 'common/mixins/ContextAccessor';
@@ -25,7 +23,7 @@ function getVideo (object, index) {
 
 
 function listen (context, action) {
-	const p = scrollparent(context.el);
+	const p = getScrollParent(context.el);
 	p[action]('scroll', context.maybeRenderVideo, false);
 	if (p !== global) {
 		global[action]('scroll', context.maybeRenderVideo, false);

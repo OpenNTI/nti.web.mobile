@@ -1,8 +1,6 @@
-import scrollParent from 'scrollparent';
-
 import Logger from 'nti-util-logger';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
-import {hasClass, getEventTarget, getScrollPosition} from 'nti-lib-dom';
+import {hasClass, getEventTarget, getScrollPosition, getScrollParent} from 'nti-lib-dom';
 
 const logger = Logger.get('content:components:viewer-parts:interaction');
 const SCROLL = Symbol('Scroll-To-Target-Delay');
@@ -113,7 +111,7 @@ export default {
 
 
 	scrollToPosition (pos) {
-		const scroller = scrollParent(this.node);
+		const scroller = getScrollParent(this.node);
 		const {left: scrollLeft = 0, top: scrollTop = 0} = pos;
 		Object.assign(scroller, { scrollTop, scrollLeft });
 	},
