@@ -22,22 +22,20 @@ External Links:
 
 */
 import path from 'path';
-import React from 'react';
 import Url from 'url';
+
+import React from 'react';
 import cx from 'classnames';
+import {eventStarted, toAnalyticsPath, ExternalResourceEvent} from 'nti-analytics';
+import {rawContent} from 'nti-commons';
+import {AssetIcon, Constants, Mixins} from 'nti-web-commons';
+import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
+import {scoped} from 'nti-lib-locale';
+
+import {Progress} from 'nti-lib-interfaces';
 
 import ContextAccessor from '../mixins/ContextAccessor';
-
-import {scoped} from 'nti-lib-locale';
-import {rawContent} from 'nti-commons';
-
-import {AssetIcon, Constants, Mixins} from 'nti-web-commons';
-
-import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
-import {Progress} from 'nti-lib-interfaces';
-import Logger from 'nti-util-logger';
-
-import {eventStarted, toAnalyticsPath, ExternalResourceEvent} from 'nti-analytics';
 
 const {DataURIs: {BLANK_IMAGE}} = Constants;
 
@@ -229,7 +227,11 @@ export default React.createClass({
 			}
 			bail();
 		})
-			.catch(()=> item.icon ? contentPackage.resolveContentURL(item.icon) : Promise.reject())
+			.catch(()=> {
+				const icon = item.resolveIcon ? item.resolveIcon(contentPackage) : item.icon;
+
+				return icon ? contentPackage.resolveContentURL(icon) : Promise.reject();
+			})
 			.catch(()=> null)
 			.then(icon => {
 				try {
