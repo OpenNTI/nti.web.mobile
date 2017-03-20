@@ -1,21 +1,17 @@
 import Logger from 'nti-util-logger';
 import {parseNTIID} from 'nti-lib-ntiids';
-
 import {getService} from 'nti-web-client';
-
 import {dispatch} from 'nti-lib-dispatcher';
-
-import PageDescriptor from './PageDescriptor';
-
-import {getPageInfo} from './Api';
-import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
-
 import {processContent} from 'nti-lib-content-processing';
 
 import {load as getLibrary} from 'library/Actions';
 
-const logger = Logger.get('content:actions');
+import PageDescriptor from './PageDescriptor';
+import {getPageInfo} from './Api';
+import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
 
+
+const logger = Logger.get('content:actions');
 
 
 export function getPackage (id) {
@@ -34,14 +30,22 @@ export function getPackage (id) {
 export function loadPage (ntiid, context, extra) {
 	let isAssessmentID = parseNTIID(ntiid).specific.type === 'NAQ';
 
-	return Promise.all([
-		getLibrary(),
-		getPageInfo(ntiid, context, extra)
-	])
+	function loadPackage (id) {
+		const p = context.getPackage(id);
 
-		.then(data => {
-			let [lib, pageInfo] = data;
+		return p ?
+				Promise.resolve(p) :
+				context.refresh()
+					.then(() => context.getPackage(id));
+	}
 
+	function loadTOC (id) {
+		return loadPackage(id)
+			.then(p => (p && p.getTableOfContents()) || Promise.reject('No Package for Page!'));
+	}
+
+	return getPageInfo(ntiid, context, extra)
+		.then(pageInfo => {
 			if (pageInfo.getID() !== ntiid && !isAssessmentID) {
 				// We will always missmatch for assessments, since we
 				// get the pageInfo for an assessment id and the server
@@ -50,12 +54,9 @@ export function loadPage (ntiid, context, extra) {
 				logger.warn('PageInfo ID missmatch! %s != %s %o', ntiid, pageInfo.getID());
 			}
 
-			let p = lib.getPackage(pageInfo.getPackageID());
-
-
 			return Promise.all([
 				//Load the toc
-				(p && p.getTableOfContents()) || Promise.reject('No Package for Page!'),
+				loadTOC(pageInfo.getPackageID()),
 
 				//Load the page html
 				getPageContent(pageInfo),
