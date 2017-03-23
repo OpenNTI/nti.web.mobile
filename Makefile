@@ -13,13 +13,13 @@ setup:
 	@rm -rf node_modules
 	@npm install
 
-test:
+test: check
 	@karma start --single-run
 
 check:
 	@eslint --ext .js,.jsx .
 
-build: compile
+build: test compile
 ##Pre-Compress
 	@find $(DIST)client -type f \( -name '*.js' -o -name '*.css' -o -name '*.svg' -o -name '*.map' \) -exec gzip -k -v -f -9 {} \;
 ## Capture versions
