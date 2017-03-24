@@ -157,7 +157,7 @@ export default React.createClass({
 
 	render () {
 		const {state: {breadcrumb}, props: {item, showPrompt}} = this;
-		const href = this.objectLink(item);
+		const href = breadcrumb && !breadcrumb.isError ? this.objectLink(item) : null;
 
 		if (!breadcrumb) {
 			return this.renderPlaceholder();
