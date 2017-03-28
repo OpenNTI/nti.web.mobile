@@ -1,5 +1,6 @@
 .PHONY: all build compile setup clean clean-maps check test
 
+REPORTS = ./reports/
 DIST=./dist/
 SRC=./src/
 IMAGES=resources/images/
@@ -41,3 +42,4 @@ clean-maps:
 
 clean:
 	@rm -rf $(DIST)
+	@rm -rf $(REPORTS)
