@@ -1,15 +1,16 @@
 /*eslint strict: 0, no-console: 0*/
 'use strict';
+const path = require('path');
+
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-
 const AppCachePlugin = require('appcache-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const SplitByPathPlugin = require('webpack-split-by-path');
+const gitRevision = JSON.stringify(require('nti-util-git-rev'));
 
-const path = require('path');
 
 const publicPath = '/mobile/';
 
@@ -19,7 +20,6 @@ const sassRoot = path.resolve(__dirname, 'src', 'main', 'resources', 'scss');
 const modules = path.resolve(__dirname, 'node_modules');
 const eslintrc = path.resolve(__dirname, '.eslintrc');
 
-const gitRevision = JSON.stringify(require('nti-util-git-rev'));
 
 const ENV = process.env.NODE_ENV || 'development';
 const PROD = ENV === 'production';
