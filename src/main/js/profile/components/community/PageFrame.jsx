@@ -1,5 +1,5 @@
 import React from 'react';
-import TransitionGroup from 'react-addons-css-transition-group';
+import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import Controls from './HeaderControls';
 import Head from './Head';

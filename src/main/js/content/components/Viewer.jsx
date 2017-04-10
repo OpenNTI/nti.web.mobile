@@ -1,5 +1,5 @@
 import React from 'react';
-import TransitionGroup from 'react-addons-css-transition-group';
+import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import cx from 'classnames';
 
 import {RouterMixin} from 'react-router-component';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-component';
 
-import Transition from 'react-addons-css-transition-group';
+import Transition from 'react-transition-group/CSSTransitionGroup';
 
 import {Error as Err, Loading, Notice} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';

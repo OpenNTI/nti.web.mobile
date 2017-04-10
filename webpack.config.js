@@ -64,8 +64,7 @@ exports = module.exports = [
 		externals: [
 			{
 				'react' : 'React',
-				'react-dom': 'ReactDOM',
-				'react/lib/ReactCSSTransitionGroup': 'React.addons.CSSTransitionGroup'
+				'react-dom': 'ReactDOM'
 			}
 		],
 

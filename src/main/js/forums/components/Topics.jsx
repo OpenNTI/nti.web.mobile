@@ -4,7 +4,7 @@ import {Link} from 'react-router-component';
 
 import {addHistory} from 'nti-analytics';
 
-import Transition from 'react-addons-css-transition-group';
+import Transition from 'react-transition-group/CSSTransitionGroup';
 
 import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
