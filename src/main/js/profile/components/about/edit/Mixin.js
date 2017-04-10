@@ -1,5 +1,5 @@
 import React from 'react';
-import uuid from 'node-uuid';
+import uuid from 'uuid';
 
 export default {
 	propTypes: {

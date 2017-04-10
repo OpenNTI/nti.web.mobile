@@ -70,7 +70,7 @@
     "moment-timezone": "^0.5.0",
     "node-natural-sort": "^0.8.3",
     "node-sass": "^4.5.0",
-    "node-uuid": "^1.4.3",
+    "uuid": "^3.0.0",
     "normalize.css": "^5.0.0",
     "nti-analytics": "^1.1.0",
     "nti-lib-anchorjs": "^1.0.0",
