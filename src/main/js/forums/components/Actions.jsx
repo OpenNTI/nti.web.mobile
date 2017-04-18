@@ -55,8 +55,8 @@ export default React.createClass({
 		const {props: {item, canReply, onEdit, onDelete}} = this;
 		const {editEnabled} = this.state;
 
-		const canEdit = editEnabled && item.hasLink('edit');
-		const canDelete = item.hasLink('edit');
+		const canEdit = editEnabled && item.isModifiable;
+		const canDelete = item.isModifiable;
 		const canReport = item.hasLink('flag') || item.hasLink('flag.metoo');
 
 		if (item.Deleted) {

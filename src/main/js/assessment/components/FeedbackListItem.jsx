@@ -45,7 +45,7 @@ export default React.createClass({
 		let {body} = item;
 
 		let edited = (Math.abs(modifiedOn - createdOn) > 0);
-		let canEdit = item.hasLink('edit') && item.creator === getAppUsername();
+		let canEdit = item.isModifiable && item.creator === getAppUsername();
 
 		if (this.state.deleting) {
 			return <div className="feedback item"><Loading.Whacky/></div>;

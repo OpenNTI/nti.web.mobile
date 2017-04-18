@@ -34,7 +34,7 @@ export default React.createClass({
 			return <Loading.Ellipse />;
 		}
 
-		let canEdit = entity.hasLink('edit');
+		let canEdit = entity.isModifiable;
 
 		return (
 			<div className="profile-view">

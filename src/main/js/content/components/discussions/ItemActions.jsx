@@ -11,8 +11,8 @@ import Action from './ItemAction';
 
 const CLOSE_MENU_DELAY = 30000; //30 seconds
 
-const CanDelete = (_, item) => item.hasLink('edit');
-const CanEdit = (_, item) => item.hasLink('edit');
+const CanDelete = (_, item) => item.isModifiable;
+const CanEdit = (_, item) => item.isModifiable;
 const CanFlag = (_, item) => item.hasLink('flag') || item.hasLink('flag.metoo');
 const CanReply = caps => caps && caps.canShare;
 const CanShare = (caps, item) =>
