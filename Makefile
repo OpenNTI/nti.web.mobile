@@ -4,6 +4,7 @@ REPORTS = ./reports/
 DIST=./dist/
 SRC=./src/
 IMAGES=resources/images/
+INDEX=$(DIST)client/page
 CC=webpack
 C_FLAGS=--progress --cache --bail
 
@@ -34,6 +35,9 @@ compile: clean
 ## copy static assets
 	@(cd $(SRC)main; rsync -R *.* ../../$(DIST)client)
 	@(cd $(SRC)main; rsync -R $(IMAGES)*.* ../../$(DIST)client)
+## Modify CDN assets to use minified urls:
+	@sed -e 's/\(react.*\)\.js/\1.min.js/g' $(INDEX).html > $(INDEX).min
+	@mv $(INDEX).min $(INDEX).html
 ##compile
 	@NODE_ENV="production" $(CC) $(C_FLAGS)
 
