@@ -217,16 +217,19 @@ export default React.createClass({
 				parser.onregion = region => regions.push(region);
 				parser.onparsingerror = e => { throw e; };
 
-				if (!global.VTTCue) {
+				//Safari has a native VTTCue but it doesn't honor auto (which is in the spec)
+				//so for now just force it to use the poly-fill
+				const oldVTTCue = global.VTTCue;
+
+				try {
 					global.VTTCue = VTTCue;
+
+					parser.parse(vtt);
+					parser.flush();
+				} finally {
+					global.VTTCue = oldVTTCue;
 				}
 
-				parser.parse(vtt);
-				parser.flush();
-
-				if (global.VTTCue === VTTCue) {
-					delete global.VTTCue;
-				}
 
 				this.setState({ cues, regions, video });
 			})
