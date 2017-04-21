@@ -4725,7 +4725,14 @@
     "nti-lib-interfaces": {
       "version": "1.49.0",
       "from": "nti-lib-interfaces@>=1.40.0 <2.0.0",
-      "resolved": "https://npm.nextthought.com/nti-lib-interfaces/-/nti-lib-interfaces-1.49.0.tgz"
+      "resolved": "https://npm.nextthought.com/nti-lib-interfaces/-/nti-lib-interfaces-1.49.0.tgz",
+      "dependencies": {
+        "uuid": {
+          "version": "3.0.1",
+          "from": "uuid@>=3.0.1 <4.0.0",
+          "resolved": "https://npm.nextthought.com/uuid/-/uuid-3.0.1.tgz"
+        }
+      }
     },
     "nti-lib-locale": {
       "version": "1.0.7",
@@ -6766,7 +6773,7 @@
     },
     "uuid": {
       "version": "2.0.3",
-      "from": "uuid@>=2.0.2 <3.0.0",
+      "from": "https://npm.nextthought.com/uuid/-/uuid-2.0.3.tgz",
       "resolved": "https://npm.nextthought.com/uuid/-/uuid-2.0.3.tgz",
       "dev": true
     },
