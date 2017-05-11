@@ -2,7 +2,7 @@
 .drag.source {
 	position: relative;
 	user-select: none;
-
+	touch-action: none;
 	color: $primary-blue;
 	border: 1px solid $primary-blue;
 	border-radius: 3px;
