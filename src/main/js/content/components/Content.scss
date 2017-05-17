@@ -13,6 +13,10 @@ nti\:content {
 		& + .caption { display: none; }
 	}
 
+	.figure {
+		widget ~ .caption {display: none; }
+	}
+
 	a {
 		color: inherit; //fix foundation assuming all anchors are "links"
 		word-break: break-all;
