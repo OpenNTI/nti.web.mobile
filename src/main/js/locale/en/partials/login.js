@@ -10,7 +10,8 @@ module.exports = {
 		facebook: 'Log in with Facebook',
 		google: 'Log in with Google',
 		openid: 'Log in with OpenID',
-		linkedin: 'Log in with LinkedIn'
+		linkedin: 'Log in with LinkedIn',
+		ou: 'Log in with OU 4+4'
 	},
 	forgot: {
 		username: 'username',
