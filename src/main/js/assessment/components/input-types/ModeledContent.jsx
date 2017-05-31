@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Mixin, {stopEvent} from './Mixin';
 
 import {Panel, Editor} from 'modeled-content';
@@ -6,7 +7,7 @@ import {Panel, Editor} from 'modeled-content';
 /**
  * This input type represents Modeled Body Content
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ModeledBodyContent',
 	mixins: [Mixin],
 	saveBuffer: 30000,

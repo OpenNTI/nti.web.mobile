@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {scoped} from 'nti-lib-locale';
@@ -8,7 +9,7 @@ import {enrollOpen} from '../../Api';
 
 const t = scoped('ENROLLMENT.BUTTONS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'OpenEnrollmentWidget',
 
 	mixins: [Mixins.BasePath],

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -17,7 +18,7 @@ import {getInputWidget} from './input-types';
 import {getSolutionWidget} from './solution-types';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Part',
 	mixins: [StoreEventsMixin],
 

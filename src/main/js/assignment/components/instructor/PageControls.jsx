@@ -4,41 +4,37 @@ import cx from 'classnames';
 import MenuTransitionGroup from './MenuTransitionGroup';
 import PageControlsMenuOption from './PageControlsMenuOption';
 
-export default React.createClass({
-	displayName: 'PageControls',
+export default class extends React.Component {
+    static displayName = 'PageControls';
 
-	propTypes: {
+    static propTypes = {
 		currentPage: React.PropTypes.number.isRequired,
 		pageSize: React.PropTypes.number.isRequired,
 		total: React.PropTypes.number.isRequired,
 		onChange: React.PropTypes.func
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			onChange () {}
-		};
-	},
+    static defaultProps = {
+        onChange () {}
+    };
 
-	getInitialState () {
-		return {
-			open: false
-		};
-	},
+    state = {
+        open: false
+    };
 
-	toggleMenu () {
+    toggleMenu = () => {
 		this.setState({
 			open: !this.state.open
 		});
-	},
+	};
 
-	setPage (pageNum) {
+    setPage = (pageNum) => {
 		if (pageNum !== this.props.currentPage) {
 			this.props.onChange(pageNum);
 		}
-	},
+	};
 
-	render () {
+    render() {
 
 		const {currentPage, pageSize, total} = this.props;
 		const {open} = this.state;
@@ -78,4 +74,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

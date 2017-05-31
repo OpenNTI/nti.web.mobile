@@ -1,5 +1,6 @@
 import path from 'path';
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -8,7 +9,7 @@ import {getService} from 'nti-web-client';
 
 import {Loading, Mixins} from 'nti-web-commons';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseOverviewDiscussion',
 
 	mixins: [Mixins.NavigatableMixin],

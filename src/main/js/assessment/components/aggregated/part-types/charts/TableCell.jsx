@@ -2,25 +2,22 @@ import React from 'react';
 import cx from 'classnames';
 
 
-export default React.createClass({
-	displayName: 'TableCell',
+export default class extends React.Component {
+    static displayName = 'TableCell';
 
-	propTypes: {
+    static propTypes = {
 		label: React.PropTypes.string,
 		count: React.PropTypes.number,
 		percent: React.PropTypes.number,
 		total: React.PropTypes.number,
 		rank: React.PropTypes.oneOf(['first', 'second', 'none'])
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			rank: 'none'
-		};
-	},
+    static defaultProps = {
+        rank: 'none'
+    };
 
-
-	render () {
+    render() {
 		const {props: {count, rank, label}} = this;
 
 		const cls = cx({
@@ -35,4 +32,4 @@ export default React.createClass({
 			</td>
 		);
 	}
-});
+}

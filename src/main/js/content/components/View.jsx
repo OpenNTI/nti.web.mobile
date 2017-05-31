@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -30,7 +31,7 @@ const ROUTES = [
 	{}//not found
 ];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ContentView',
 	mixins: [Mixins.BasePath, ContextContributor],
 

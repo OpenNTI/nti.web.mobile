@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import InputType, {stopEvent} from './Mixin';
 
 import Content from '../Content';
@@ -21,7 +23,7 @@ const ensureArray = x => Array.isArray(x) ? x : [x];
 /**
  * This input type represents Fill In The Blank: With Word Bank
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'FillInTheBlankWithWordBank',
 	mixins: [InputType],
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import cx from 'classnames';
 
 import isEmpty from 'isempty';
@@ -10,7 +12,7 @@ import {rawContent} from 'nti-commons';
 
 import {Zoomable} from 'nti-web-commons';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ContentMarkupEnabled',
 	mixins: [Mixin],
 

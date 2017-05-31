@@ -1,11 +1,13 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Mixins} from 'nti-web-commons';
 
 import Mixin from './mixin';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NotEnrolled',
 
 	mixins: [Mixins.BasePath, Mixin],

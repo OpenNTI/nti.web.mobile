@@ -6,23 +6,21 @@ import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT.CONFIRMATION');
 
-export default React.createClass({
-	displayName: 'GiftInfo',
+export default class extends React.Component {
+    static displayName = 'GiftInfo';
 
-	propTypes: {
+    static propTypes = {
 		info: React.PropTypes.object,
 		edit: React.PropTypes.any
-	},
+	};
 
-
-	onEdit (e) {
+    onEdit = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		edit(this.props.edit);
-	},
+	};
 
-
-	render () {
+    render() {
 		let {info} = this.props;
 
 		if (!info || !info.from) {
@@ -53,4 +51,4 @@ export default React.createClass({
 			</fieldset>
 		);
 	}
-});
+}

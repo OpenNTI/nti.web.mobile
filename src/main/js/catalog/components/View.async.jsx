@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Locations, Location} from 'react-router-component';
 
 import CatalogListView from './CatalogListView';
@@ -20,7 +22,7 @@ import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import GiftRedeem from './GiftRedeem';
 import AcceptInvitation from 'invitations/components/View';
 
-const CatalogBody = React.createClass({
+const CatalogBody = createReactClass({
 	displayName: 'CatalogBody',
 	mixins: [Mixins.BasePath, ContextMixin],
 
@@ -117,7 +119,7 @@ const CatalogBody = React.createClass({
 });
 
 
-export default React.createClass({//eslint-disable-line react/no-multi-comp
+export default createReactClass({//eslint-disable-line react/no-multi-comp
 	displayName: 'CatalogView',
 	mixins: [CatalogAccessor],
 

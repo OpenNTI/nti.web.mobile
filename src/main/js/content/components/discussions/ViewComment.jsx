@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
 
 import {
@@ -13,7 +15,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import Edit from './EditComment';
 import Panel from './Panel';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ViewComment',
 	mixins: [
 		ContextSender,

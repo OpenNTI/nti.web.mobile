@@ -1,8 +1,10 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import ProfileLink from '../mixins/ProfileLink';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ProfileLink',
 	mixins: [ProfileLink],
 

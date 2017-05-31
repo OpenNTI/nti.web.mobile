@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Transition from 'react-transition-group/CSSTransitionGroup';
 
 import {
@@ -37,7 +38,7 @@ import {scoped} from 'nti-lib-locale';
 let t = scoped('FORUMS');
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Topic',
 
 	mixins: [

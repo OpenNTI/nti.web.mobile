@@ -19,25 +19,23 @@ function headerTextForType (localeKey) {
 	return headerText;
 }
 
-export default React.createClass({
-	displayName: 'ViewHeader',
+export default class extends React.Component {
+    static displayName = 'ViewHeader';
 
-	propTypes: {
+    static propTypes = {
 		type: React.PropTypes.oneOf([
 			DISCUSSIONS,
 			FORUM,
 			TOPIC,
 			POST
 		]).isRequired
-	},
+	};
 
-	statics: {
-		headerTextForType (localeKey) {
-			return headerTextForType(localeKey);
-		}
-	},
+    static headerTextForType(localeKey) {
+        return headerTextForType(localeKey);
+    }
 
-	render () {
+    render() {
 		let headerText = headerTextForType(this.props.type);
 		if ((headerText || '').trim().length === 0 ) {
 			// console.warn('No view-header entry in locale/forums for type: %s', this.props.type);
@@ -47,4 +45,4 @@ export default React.createClass({
 			<h2 className="view-header">{headerText}</h2>
 		);
 	}
-});
+}

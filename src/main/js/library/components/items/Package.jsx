@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 import {getModel} from 'nti-lib-interfaces';
 
@@ -8,7 +10,7 @@ import {Mixins} from 'nti-web-commons';
 import Icon from './shared/Icon';
 const PackageClass = getModel('ContentPackage');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Package',
 	mixins: [Mixins.BasePath],
 

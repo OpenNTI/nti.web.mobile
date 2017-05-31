@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {buffer} from 'nti-commons';
 
 import {ActiveState} from 'nti-web-commons';
@@ -8,7 +10,7 @@ import {StoreEventsMixin} from 'nti-lib-store';
 
 import NavStore from '../Store';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Breadcrumb',
 	mixins: [StoreEventsMixin],
 

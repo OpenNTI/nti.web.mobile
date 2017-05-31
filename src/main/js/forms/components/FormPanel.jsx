@@ -1,10 +1,10 @@
 import React from 'react';
 import cx from 'classnames';
 
-export default React.createClass({
-	displayName: 'FormPanel',
+export default class extends React.Component {
+    static displayName = 'FormPanel';
 
-	propTypes: {
+    static propTypes = {
 		busy: React.PropTypes.bool,
 		noValidate: React.PropTypes.bool,
 		onSubmit: React.PropTypes.func,
@@ -14,17 +14,15 @@ export default React.createClass({
 
 		children: React.PropTypes.any,
 		className: React.PropTypes.string
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			noValidate: true,
-			subhead: null,
-			title: null
-		};
-	},
+    static defaultProps = {
+        noValidate: true,
+        subhead: null,
+        title: null
+    };
 
-	render () {
+    render() {
 		const {props: {children, className, busy, onSubmit, noValidate, title, subhead}} = this;
 		const cssClasses = cx('form-panel', className, { busy });
 
@@ -40,5 +38,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
-});
+}

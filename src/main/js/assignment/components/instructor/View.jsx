@@ -33,19 +33,19 @@ const ROUTES = [
 	{}//not found
 ];
 
-export default React.createClass({
-	displayName: 'Assignments:Instructor:View',
+export default class extends React.Component {
+    static displayName = 'Assignments:Instructor:View';
 
-	childContextTypes: {
+    static childContextTypes = {
 		isInstructor: React.PropTypes.bool,
 		AssignmentListItem: React.PropTypes.func
-	},
+	};
 
-	getChildContext () {
+    getChildContext() {
 		return {isInstructor: true, AssignmentListItem};
-	},
+	}
 
-	render () {
+    render() {
 		return (
 			<div>
 				{
@@ -59,4 +59,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

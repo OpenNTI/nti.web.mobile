@@ -1,40 +1,33 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'Score',
+export default class extends React.Component {
+    static displayName = 'Score';
 
-	propTypes: {
+    static propTypes = {
 		title: React.PropTypes.string,
 		colors: React.PropTypes.arrayOf(React.PropTypes.string),
 		pixelDensity: React.PropTypes.number,
 		score: React.PropTypes.number,
 		inlinePercent: React.PropTypes.bool
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			inlinePercent: true,
-			title: '',
-			colors: ['#40b450', '#b8b8b8'],
-			pixelDensity: (global.devicePixelRatio || 1) * 2,
-			score: 90
-		};
-	},
+    static defaultProps = {
+        inlinePercent: true,
+        title: '',
+        colors: ['#40b450', '#b8b8b8'],
+        pixelDensity: (global.devicePixelRatio || 1) * 2,
+        score: 90
+    };
 
+    state = {
+        series: []
+    };
 
-	getInitialState () {
-		return {
-			series: []
-		};
-	},
-
-
-	getCanvas () {
+    getCanvas = () => {
 		return this.canvas;
-	},
+	};
 
-
-	updateSeries (props = this.props) {
+    updateSeries = (props = this.props) => {
 		let score = Math.max(0, Math.min(100, parseInt(props.score, 10)));
 
 		this.setState({
@@ -44,30 +37,26 @@ export default React.createClass({
 				{value: 100 - score, label: ''}
 			]
 		});
-	},
+	};
 
+    componentWillMount() { this.updateSeries(); }
+    componentWillReceiveProps(nextProps) { this.updateSeries(nextProps); }
 
-	componentWillMount () { this.updateSeries(); },
-	componentWillReceiveProps (nextProps) { this.updateSeries(nextProps); },
-
-
-	componentDidMount () {
+    componentDidMount() {
 		let canvas = this.getCanvas();
 		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
 
 		this.paint(context);
-	},
+	}
 
-
-	componentDidUpdate () {
+    componentDidUpdate() {
 		let context = this.getCanvas().getContext('2d');
 		this.paint(context);
-	},
+	}
 
-
-	render () {
+    render() {
 		let p = this.props;
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
@@ -79,10 +68,9 @@ export default React.createClass({
 		return (
 			<canvas ref={x => this.canvas = x} style={style} width={width} height={height} />
 		);
-	},
+	}
 
-
-	paint (ctx) {
+    paint = (ctx) => {
 		let centerX = ctx.canvas.width / 2;
 		let centerY = ctx.canvas.height / 2;
 		let {length} = this.state.series;
@@ -111,29 +99,25 @@ export default React.createClass({
 		} finally {
 			ctx.restore();
 		}
-	},
+	};
 
-
-	getTotal () {
+    getTotal = () => {
 		return this.state.series.reduce((sum, i) => sum + i.value, 0);
-	},
+	};
 
-
-	getRadius (ctx) {
+    getRadius = (ctx) => {
 		let {width, height} = ctx.canvas;
 		let leg = Math.min(width, height) + this.getStrokeWidth();
 
 		return Math.ceil(leg / 2);
-	},
+	};
 
-
-	getStrokeWidth () {
+    getStrokeWidth = () => {
 		let {pixelDensity} = this.props;
 		return 3 * pixelDensity;
-	},
+	};
 
-
-	drawSegment (ctx, i) {
+    drawSegment = (ctx, i) => {
 		let {series} = this.state;
 		let radius = this.getRadius(ctx);
 		let {value} = series[i];
@@ -169,10 +153,9 @@ export default React.createClass({
 		ctx.stroke();
 
 		ctx.restore();
-	},
+	};
 
-
-	drawLabel (ctx) {
+    drawLabel = (ctx) => {
 		const draw = (text, f, ...xy) => {
 			ctx.save();
 			setFont(ctx, f);
@@ -235,8 +218,8 @@ export default React.createClass({
 		finally {
 			ctx.restore();
 		}
-	}
-});
+	};
+}
 
 
 function sumTo (data, i) {

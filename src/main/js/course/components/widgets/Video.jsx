@@ -1,6 +1,8 @@
 import path from 'path';
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
@@ -9,7 +11,7 @@ import {Component as Video} from 'nti-web-video';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {Progress} from 'nti-lib-interfaces';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseOverviewVideo',
 	mixins: [Mixins.BasePath, ContextAccessor],
 

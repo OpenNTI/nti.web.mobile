@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {join} from 'path';
 
 import {Mixins} from 'nti-web-commons';
@@ -13,7 +14,7 @@ import {logout} from 'login/Actions';
 /**
  * Renders the user session box (user's avatar, name, logout link, profile link)
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Session',
 	mixins: [Mixins.BasePath],
 

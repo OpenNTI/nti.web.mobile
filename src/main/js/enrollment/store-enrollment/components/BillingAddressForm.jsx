@@ -9,37 +9,30 @@ const t2 = scoped('ENROLLMENT');
 
 const FIELDS = ['line1', 'line2', 'city', 'state', 'country', 'zip'];
 
-export default React.createClass({
-	displayName: 'BillingAddressForm',
+export default class extends React.Component {
+    static displayName = 'BillingAddressForm';
 
-	propTypes: {
+    static propTypes = {
 		className: React.PropTypes.string,
 		required: React.PropTypes.object,
 		defaultValues: React.PropTypes.object,
 		onChange: React.PropTypes.func
-	},
+	};
 
-	componentWillMount () {
+    static defaultProps = {
+        defaultValues: {},
+        required: {line1: true, country: true}
+    };
+
+    state = {
+        errors: {}
+    };
+
+    componentWillMount() {
 		this.elements = {};
-	},
+	}
 
-
-	getDefaultProps () {
-		return {
-			defaultValues: {},
-			required: {line1: true, country: true}
-		};
-	},
-
-
-	getInitialState () {
-		return {
-			errors: {}
-		};
-	},
-
-
-	getValue () {
+    getValue = () => {
 		const getValue = x => x && x.value && x.value.trim();
 		const values = {};
 
@@ -49,10 +42,9 @@ export default React.createClass({
 		}
 
 		return values;
-	},
+	};
 
-
-	validate () {
+    validate = () => {
 		const errors = {};
 		const {props: {required}, elements} = this;
 		for (let field of Object.keys(required)) {
@@ -67,29 +59,26 @@ export default React.createClass({
 		this.setState({errors});
 
 		return !hasErrors;
-	},
+	};
 
-
-	delegateError (err) {
+    delegateError = (err) => {
 		for (let key of Object.keys(err)) {
 			if (FIELDS.includes(key.replace(/^address_/i, ''))) {
 				this.setState({errors: {[key]: err[key]}});
 				return true;
 			}
 		}
-	},
+	};
 
-
-	onChange (e) {
+    onChange = (e) => {
 		this.onFieldEventClearError(e);
 		let {onChange} = this.props;
 		if (onChange) {
 			onChange();
 		}
-	},
+	};
 
-
-	onFieldEventClearError (e) {
+    onFieldEventClearError = (e) => {
 		let {name} = e.target;
 		let {errors} = this.state;
 
@@ -100,10 +89,9 @@ export default React.createClass({
 
 			this.setState({errors});
 		}
-	},
+	};
 
-
-	render () {
+    render() {
 		const {props: {className, defaultValues, required}, state: {errors = {}}} = this;
 
 		return (
@@ -126,4 +114,4 @@ export default React.createClass({
 			</fieldset>
 		);
 	}
-});
+}

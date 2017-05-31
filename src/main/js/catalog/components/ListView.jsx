@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Paging} from 'nti-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -12,7 +14,7 @@ import Item from './Entry';
 
 const PageSource = Paging.ListBackedPageSource;
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ListView',
 
 	mixins: [CatalogAccessor, ContextSender],

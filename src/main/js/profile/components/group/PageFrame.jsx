@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import GroupControls from './Controls';
 
 import {ActiveLink, Background} from 'nti-web-commons';
@@ -11,7 +13,7 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import Head from './Head';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Group:Page',
 	mixins: [ContextSender],
 

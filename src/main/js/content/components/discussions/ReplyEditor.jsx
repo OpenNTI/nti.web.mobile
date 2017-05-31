@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
@@ -12,7 +13,7 @@ import {Editor} from 'modeled-content';
 const logger = Logger.get('content:components:discussions:ReplyEditor');
 const getBody = x => Array.isArray(x) ? x : [x];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ReplyEditor',
 	mixins: [ContextAccessor],
 

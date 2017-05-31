@@ -10,10 +10,10 @@ function listContainsEntity (list, entity) {
 }
 
 
-export default React.createClass({
-	displayName: 'UserSearchField',
+export default class extends React.Component {
+    static displayName = 'UserSearchField';
 
-	propTypes: {
+    static propTypes = {
 		onChange: React.PropTypes.func,
 		selected: React.PropTypes.array,
 		onSave: React.PropTypes.func.isRequired,
@@ -22,36 +22,32 @@ export default React.createClass({
 		saveButtonText: React.PropTypes.string,
 		placeholder: React.PropTypes.string,
 		saveDisabled: React.PropTypes.bool
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			selected: [],
-			saveButtonText: 'Add Selected',
-			placeholder: 'Search'
-		};
-	},
+    static defaultProps = {
+        selected: [],
+        saveButtonText: 'Add Selected',
+        placeholder: 'Search'
+    };
 
-	getInitialState () {
-		return {
-			search: '',
-			selectedUsers: [],
-			searchResults: [],
-			contactsResults: [],
-			suggestedContacts: []
-		};
-	},
+    state = {
+        search: '',
+        selectedUsers: [],
+        searchResults: [],
+        contactsResults: [],
+        suggestedContacts: []
+    };
 
-	componentDidMount () {
+    componentDidMount() {
 		this.setUpStore();
 		this.getSuggestedContacts();
-	},
+	}
 
-	componentWillReceiveProps () {
+    componentWillReceiveProps() {
 		this.setUpStore();
-	},
+	}
 
-	componentWillUpdate (_, nextState) {
+    componentWillUpdate(_, nextState) {
 		let {store} = this.state;
 		let nextStore = nextState.store;
 
@@ -62,34 +58,34 @@ export default React.createClass({
 		if (nextStore && nextStore !== store) {
 			nextStore.addListener('change', this.onStoreChange);
 		}
-	},
+	}
 
-	componentWillUnmount () {
+    componentWillUnmount() {
 		let {store} = this.state;
 		if (store) {
 			store.removeListener('change', this.onStoreChange);
 		}
-	},
+	}
 
-	onStoreChange () {
+    onStoreChange = () => {
 		this.forceUpdate();
-	},
+	};
 
-	setUpStore () {
+    setUpStore = () => {
 		getStore(USERS)
 			.then(store => this.setState({store}));
-	},
+	};
 
-	getSuggestedContacts () {
+    getSuggestedContacts = () => {
 		getSuggestedContacts()
 			.then(results => this.setState({suggestedContacts: results || []}));
-	},
+	};
 
-	focus () {
+    focus = () => {
 		this.query.focus();
-	},
+	};
 
-	selectionChange (user) {
+    selectionChange = (user) => {
 		const {props: {onChange}, state: {selectedUsers}} = this;
 
 		const userId = user.getID();
@@ -108,13 +104,13 @@ export default React.createClass({
 		if (onChange) {
 			onChange(user);
 		}
-	},
+	};
 
-	getSelections () {
+    getSelections = () => {
 		return this.state.selectedUsers.slice();
-	},
+	};
 
-	onKeyDown (e) {
+    onKeyDown = (e) => {
 		// on backspace in an empty field remove the last selected user
 		if (e.target.value === '' && (e.keyCode === 8 || e.keyCode === 46)) {
 			let selectedUsers = this.getSelections();
@@ -122,9 +118,9 @@ export default React.createClass({
 				return this.selectionChange(selectedUsers[selectedUsers.length - 1]);
 			}
 		}
-	},
+	};
 
-	queryChanged (event) {
+    queryChanged = (event) => {
 		let query = event ? event.target.value : '';
 		let {store} = this.state;
 
@@ -169,9 +165,9 @@ export default React.createClass({
 					}
 				});
 		}
-	},
+	};
 
-	renderResults (heading, results, classes) {
+    renderResults = (heading, results, classes) => {
 		const classnames = cx('contact-list search-results', classes);
 		const {props: {selected}, state: {selectedUsers, search}} = this;
 
@@ -195,9 +191,9 @@ export default React.createClass({
 				</ul>
 			</section>
 		);
-	},
+	};
 
-	results () {
+    results = () => {
 		let {searchResults, contactsResults, suggestedContacts, searchLoading, search} = this.state;
 		let children = [];
 		if (searchLoading) {
@@ -219,9 +215,9 @@ export default React.createClass({
 				{children.map((child, index) => <li key={index}>{child}</li>)}
 			</ul>
 		);
-	},
+	};
 
-	render () {
+    render() {
 		const {props, state: {selectedUsers = []}} = this;
 		const {onCancel, onSave, placeholder, saveButtonText, saveDisabled} = props;
 
@@ -255,4 +251,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

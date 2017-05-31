@@ -12,24 +12,22 @@ const t = scoped('COURSE.CONTACTINFO');
 
 const f = {fallback: MISSING};
 
-export default React.createClass({
-	displayName: 'CourseSupport',
+export default class extends React.Component {
+    static displayName = 'CourseSupport';
 
-	propTypes: {
+    static propTypes = {
 		entry: React.PropTypes.object
-	},
+	};
 
-
-	shouldRender () {
+    shouldRender = () => {
 		return [
 			t('LINK0.label', f) !== MISSING,
 			t('LINK1.label', f) !== MISSING,
 			t('LINK2.label', f) !== MISSING
 		].some(x => x);
-	},
+	};
 
-
-	render () {
+    render() {
 		return this.shouldRender() && (
 			<div className="course-support">
 				<img src={BLANK_IMAGE} alt="Support"/>
@@ -39,9 +37,9 @@ export default React.createClass({
 				</div>
 			</div>
 		);
-	},
+	}
 
-	renderLink (index) {
+    renderLink = (index) => {
 		const label = t(`LINK${index}.label`, f);
 		const link = t(`LINK${index}.link`, f);
 
@@ -56,5 +54,5 @@ export default React.createClass({
 				<a href={ref} target="_blank">{label}</a>
 			</div>
 		);
-	}
-});
+	};
+}

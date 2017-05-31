@@ -6,38 +6,32 @@ import Content from '../Content';
 
 import {renderWidget} from './part-types';
 
-export default React.createClass({
-	displayName: 'AggregatedQuestion',
+export default class extends React.Component {
+    static displayName = 'AggregatedQuestion';
 
-	propTypes: {
+    static propTypes = {
 		question: React.PropTypes.object.isRequired
-	},
+	};
 
+    state = {};
+    componentDidMount() { this.loadData(this.props); }
 
-	getInitialState () {
-		return {};
-	},
-
-
-	componentDidMount () { this.loadData(this.props); },
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if (nextProps.question !== this.props.question) {
 			this.loadData(nextProps);
 		}
-	},
+	}
 
-
-	loadData (props) {
+    loadData = (props) => {
 		const {question: item} = props;
 		this.setState({loading: true});
 
 		item.getAggregated()
 			.then(data => this.setState({loading: false, data}))
 			.catch(error => this.setState({loading: false, error}));
-	},
+	};
 
-
-	render () {
+    render() {
 		const {props: {question}, state: {loading, data, error}} = this;
 
 		return loading ? (
@@ -61,4 +55,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

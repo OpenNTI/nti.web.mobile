@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Url from 'url';
 
 import {Error, Loading, Mixins} from 'nti-web-commons';
@@ -18,7 +19,7 @@ function getData ({data}) {
 }
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'RegistrationSurveyView',
 	mixins: [Mixins.BasePath],
 

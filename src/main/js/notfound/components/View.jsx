@@ -1,9 +1,11 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 // import Page from 'common/components/Page';
 import {Mixins} from 'nti-web-commons';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NotFound',
 	mixins: [Mixins.BasePath],
 

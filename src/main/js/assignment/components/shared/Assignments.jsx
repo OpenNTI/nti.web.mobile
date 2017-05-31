@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import ContextSender from 'common/mixins/ContextSender';
 
 import AssignmentsListView from './AssignmentsListView';
@@ -8,7 +10,7 @@ import PageFrame from './PageFrame';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Assignments',
 	mixins: [AssignmentsAccessor, ContextSender],
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {DateTime, EmptyList} from 'nti-web-commons';
@@ -9,7 +10,7 @@ const t = scoped('ASSESSMENT.ASSIGNMENTS.GROUP_LABELS');
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AssignmentGroup',
 	mixins: [AssignmentsAccessor],
 

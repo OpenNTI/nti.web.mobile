@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import {Mixins} from 'nti-web-commons';
@@ -30,7 +32,7 @@ const ENROLLMENT_SUFFIXES = {
 	apply: 'FiveMinute'
 };
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'enrollment:View',
 	mixins: [Mixins.BasePath, CatalogAccessor, ContextSender, Mixins.NavigatableMixin],
 

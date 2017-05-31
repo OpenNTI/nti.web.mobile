@@ -19,23 +19,19 @@ import AddComment from './AddComment';
 
 const PREFIX = [];
 
-export default React.createClass({
-	displayName: 'ForumItem',
+export default class extends React.Component {
+    static displayName = 'ForumItem';
 
-	statics: {
-		handles (item) {
-			const {MimeType = ''} = item;
-			return /topic$/i.test(MimeType);
-		}
-	},
+    static handles(item) {
+        const {MimeType = ''} = item;
+        return /topic$/i.test(MimeType);
+    }
 
-
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.any.isRequired
-	},
+	};
 
-
-	render () {
+    render() {
 		const {props: {item}} = this;
 
 		return (
@@ -58,7 +54,7 @@ export default React.createClass({
 		);
 
 	}
-});
+}
 
 
 function Comment (props) {

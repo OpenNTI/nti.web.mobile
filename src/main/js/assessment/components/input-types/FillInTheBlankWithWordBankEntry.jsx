@@ -1,22 +1,22 @@
 import React from 'react';
 import WordBankEntry from '../WordBankEntry';
 
-export default React.createClass({
-	displayName: 'FillInTheBlankWithWordBankEntry',
+export default class extends React.Component {
+    static displayName = 'FillInTheBlankWithWordBankEntry';
 
-	propTypes: {
+    static propTypes = {
 		input: React.PropTypes.object.isRequired,
 		onReset: React.PropTypes.func
-	},
+	};
 
-	onReset (entry, cmp) {
+    onReset = (entry, cmp) => {
 		const {onReset, input} = this.props;
 		onReset && onReset(input, entry, cmp);
-	},
+	};
 
-	render () {
+    render() {
 		return (
 			<WordBankEntry {...this.props} onReset={this.onReset}/>
 		);
 	}
-});
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import isEmpty from 'isempty';
 
 import {getEventTarget} from 'nti-lib-dom';
@@ -62,7 +64,7 @@ function sanitizeMathquillOutput (v) {
 /**
 * This input type represents Symbolic Math
 */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'SymbolicMath',
 	mixins: [Mixin, ExternalLibraryManager],
 

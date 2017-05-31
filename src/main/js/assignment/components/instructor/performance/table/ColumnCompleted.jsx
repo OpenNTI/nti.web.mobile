@@ -3,22 +3,21 @@ import cx from 'classnames';
 
 import {DateTime} from 'nti-web-commons';
 
-export default React.createClass({
-	displayName: 'performance:ColumnCompleted',
+export default class extends React.Component {
+    static displayName = 'performance:ColumnCompleted';
 
-	statics: {
-		label () {
-			return 'Completed';
-		},
-		className: 'col-completed',
-		sort: 'completed'
-	},
+    static label() {
+        return 'Completed';
+    }
 
-	propTypes: {
+    static className = 'col-completed';
+    static sort = 'completed';
+
+    static propTypes = {
 		item: React.PropTypes.object.isRequired
-	},
+	};
 
-	render () {
+    render() {
 		const {item} = this.props;
 		const completedTime = item && item.completed;
 		const classes = cx({
@@ -31,4 +30,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 // import EditButton from './EditButton';
 
 import {ActiveState, Background} from 'nti-web-commons';
@@ -14,7 +16,7 @@ import {getAppUsername} from 'nti-web-client';
 import FollowButton from './FollowButton';
 import Head from './Head';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'profile:Page',
 	mixins: [ContextSender],
 

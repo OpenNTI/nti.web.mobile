@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.GIFT.PRICING');
 import {DateTime} from 'nti-web-commons';
@@ -11,7 +12,7 @@ import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 const getDiscountString = 'Pricing:getDiscountString';
 const onChange = 'Pricing:onChange';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Pricing',
 
 	mixins: [FormattedPriceMixin],

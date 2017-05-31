@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {join} from 'path';
 
 import Logger from 'nti-util-logger';
@@ -21,7 +22,7 @@ import {getDistributionList} from '../Api';
 
 const logger = Logger.get('contacts:components:ListDetail');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ListDetail',
 	mixins: [ContextSender, Mixins.BasePath],
 	propTypes: {

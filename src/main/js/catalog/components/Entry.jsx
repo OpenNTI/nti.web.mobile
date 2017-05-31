@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Mixins} from 'nti-web-commons';
@@ -37,7 +39,7 @@ ES_CREDIT_NONDEGREE = "ForCreditNonDegree"
 */
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Entry',
 	mixins: [Mixins.BasePath],
 

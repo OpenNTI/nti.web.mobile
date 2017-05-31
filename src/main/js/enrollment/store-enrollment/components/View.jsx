@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {priceItem} from '../Actions';
 import Store from '../Store';
 
@@ -9,7 +11,7 @@ import {Error as ErrorComponent, Loading, Mixins} from 'nti-web-commons';
 
 import Form from './PaymentForm';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'StoreEnrollmentView',
 
 	mixins: [Mixins.NavigatableMixin, Mixins.BasePath], // needed for getPath() call we're using for the router's key.

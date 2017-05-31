@@ -1,10 +1,12 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Mixins} from 'nti-web-commons';
 
 import Store from '../Store';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AddButton',
 	mixins: [Mixins.BasePath],
 

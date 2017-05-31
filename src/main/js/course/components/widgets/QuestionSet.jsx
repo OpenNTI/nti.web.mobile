@@ -2,6 +2,8 @@ import path from 'path';
 
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import cx from 'classnames';
 
 import {getModel} from 'nti-lib-interfaces';
@@ -27,7 +29,7 @@ const OutlineNode = getModel('courses.courseoutlinenode');
 const getID = o => o['Target-NTIID'] || (o.getID ? o.getID() : o['NTIID']);
 const getQuestionCount = o => o.getQuestionCount ? o.getQuestionCount() : o['question-count'];
 
-export default React.createClass( {
+export default createReactClass({
 	displayName: 'CourseOverviewQuestionSet',
 	mixins: [Mixins.NavigatableMixin],
 

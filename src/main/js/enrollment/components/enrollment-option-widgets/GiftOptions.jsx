@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Mixins} from 'nti-web-commons';
@@ -9,7 +11,7 @@ import GiftableUtils from '../../mixins/GiftableUtils';
 import Giftable from './Giftable';
 import RedeemButton from './RedeemButton';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GiftOptions',
 
 	mixins: [Mixins.BasePath, GiftableUtils],

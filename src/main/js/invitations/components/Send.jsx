@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import CourseContentLink from 'library/mixins/CourseContentLink';
 import {Banner, Loading} from 'nti-web-commons';
 import ContextSender from 'common/mixins/ContextSender';
@@ -9,7 +11,7 @@ import SendForm from './SendForm';
 
 const t = scoped('INVITATIONS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Invitations:Send',
 
 	mixins: [ContextSender, CourseContentLink],

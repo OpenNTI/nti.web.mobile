@@ -1,9 +1,11 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {DateTime} from 'nti-web-commons';
 import ObjectLink from 'common/mixins/ObjectLink';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseOutlineContentNode',
 	mixins: [ObjectLink],
 

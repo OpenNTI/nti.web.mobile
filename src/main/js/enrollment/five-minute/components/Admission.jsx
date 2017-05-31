@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 import {getLink as getLinkFn} from 'nti-lib-interfaces';
 
@@ -35,7 +37,7 @@ function getLink (o, k) {
 	return getLinkFn(o, k);
 }
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Admission',
 	mixins: [StoreEventsMixin],
 

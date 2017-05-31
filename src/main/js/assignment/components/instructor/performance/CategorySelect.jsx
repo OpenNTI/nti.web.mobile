@@ -8,23 +8,23 @@ const OPTIONS = [
 	{ label: 'Ungraded Items', value: 'ungraded'}
 ];
 
-export default React.createClass({
-	displayName: 'ItemCategorySelect',
+export default class extends React.Component {
+    static displayName = 'ItemCategorySelect';
 
-	propTypes: {
+    static propTypes = {
 		value: React.PropTypes.any,
 		onChange: React.PropTypes.func.isRequired
-	},
+	};
 
-	componentWillMount () {
+    componentWillMount() {
 		this.setState({filter: this.props.value || 'all'});
-	},
+	}
 
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		this.setState({filter: nextProps.value || 'all'});
-	},
+	}
 
-	render () {
+    render() {
 
 		let {filter} = this.state;
 
@@ -32,4 +32,4 @@ export default React.createClass({
 			<SelectBox options={OPTIONS} onChange={this.props.onChange} value={filter} />
 		);
 	}
-});
+}

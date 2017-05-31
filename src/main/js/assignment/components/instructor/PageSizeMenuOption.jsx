@@ -1,20 +1,20 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'PageSizeMenuOption',
+export default class extends React.Component {
+    static displayName = 'PageSizeMenuOption';
 
-	propTypes: {
+    static propTypes = {
 		value: React.PropTypes.string,
 		onClick: React.PropTypes.func,
 		className: React.PropTypes.any
-	},
+	};
 
-	onClick () {
+    onClick = () => {
 		const {value, onClick} = this.props;
 		onClick && onClick(value);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {value, className} = this.props;
 
@@ -24,4 +24,4 @@ export default React.createClass({
 			</li>
 		);
 	}
-});
+}

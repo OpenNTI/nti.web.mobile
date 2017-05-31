@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import Logger from 'nti-util-logger';
 import {Loading} from 'nti-web-commons';
 
 const logger = Logger.get('navigation:components:Redirect');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Redirect',
 	mixins: [Router.NavigatableMixin],
 

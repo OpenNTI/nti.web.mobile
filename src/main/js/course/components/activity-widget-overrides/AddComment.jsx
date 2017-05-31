@@ -1,10 +1,12 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import ObjectLink from 'common/mixins/ObjectLink';
 import {scoped} from 'nti-lib-locale';
 const t = scoped('ACTIVITY.REPLYABLE');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AddComment',
 	mixins: [ObjectLink], //temp
 

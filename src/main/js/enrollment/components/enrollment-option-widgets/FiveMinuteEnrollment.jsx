@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Logger from 'nti-util-logger';
 
 import {rawContent} from 'nti-commons';
@@ -10,7 +11,7 @@ const t = scoped('ENROLLMENT');
 
 const DETAILS = 'fmaep.course.details';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'FiveMinuteEnrollment',
 
 	mixins: [Mixins.BasePath],

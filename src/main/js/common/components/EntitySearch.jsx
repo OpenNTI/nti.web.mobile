@@ -11,10 +11,10 @@ import {Selection} from 'nti-commons';
 
 import EntitySearchResultItem from './EntitySearchResultItem';
 
-export default React.createClass({
-	displayName: 'UserSearch',
+export default class extends React.Component {
+    static displayName = 'UserSearch';
 
-	propTypes: {
+    static propTypes = {
 		allowAny: React.PropTypes.bool,
 		allowContacts: React.PropTypes.bool,
 
@@ -25,32 +25,27 @@ export default React.createClass({
 		selection: React.PropTypes.instanceOf(Selection.EntitySelectionModel),
 
 		pageSize: React.PropTypes.number
-	},
+	};
 
+    state = {
+        page: 1
+    };
 
-	getInitialState () {
-		return {
-			page: 1
-		};
-	},
-
-
-	componentDidMount () {
+    componentDidMount() {
 		const {props: {query}} = this;
 		this.search(query);
-	},
+	}
 
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		const {props: {query}} = this;
 		const {query: newQuery} = nextProps;
 
 		if (newQuery !== query) {
 			this.search(newQuery);
 		}
-	},
+	}
 
-
-	search (query) {
+    search = (query) => {
 		const {props: {allowAny, allowContacts}} = this;
 		const stillValid = () => query === this.props.query;
 
@@ -68,16 +63,14 @@ export default React.createClass({
 				.catch(error => this.setState({error}))
 			);
 
-	},
+	};
 
-
-	onSelectionChange (entity) {
+    onSelectionChange = (entity) => {
 		let {props: {onChange = ()=> {}}} = this;
 		return Promise.resolve(onChange(entity));
-	},
+	};
 
-
-	showMore (e) {
+    showMore = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -86,10 +79,9 @@ export default React.createClass({
 		page++;
 
 		this.setState({page});
-	},
+	};
 
-
-	render () {
+    render() {
 		let {props: {selection, pageSize = 10}, state: {results, error, page}} = this;
 
 		const limit = (_, i) => i < (page * pageSize);
@@ -123,4 +115,4 @@ export default React.createClass({
 			</Tag>
 		);
 	}
-});
+}

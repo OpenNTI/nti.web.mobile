@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {mimeTypes, TOPIC, POST} from '../../Constants';
 import Store from '../../Store';
 import DisplayName from 'common/components/DisplayName';
@@ -16,7 +17,7 @@ const t = scoped('FORUMS');
 /**
  * For lists of Topics, this is the row item.
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'TopicItem',
 	mixins: [
 		Mixin,

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Loading, PanelButton, LocalizedHTML as Localized} from 'nti-web-commons';
 
 import BillingInfo from './BillingInfo';
@@ -15,7 +17,7 @@ import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.CONFIRMATION');
 
 
-export default React.createClass({
+export default createReactClass({
 
 	displayName: 'store-enrollment:PaymentConfirm',
 

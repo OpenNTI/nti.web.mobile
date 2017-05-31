@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Link} from 'react-router-component';
 
 import {Loading} from 'nti-web-commons';
@@ -23,7 +25,7 @@ const PROFESSIONAL = 'application/vnd.nextthought.profile.professionalposition';
 const ERROR_REQUIRED_MISSING = 'RequiredMissing';
 const ERROR_VALIDATION = 'ValidationErrors';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Edit',
 
 	mixins: [RedirectToProfile],

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Progress} from 'nti-lib-interfaces';
 import {getScreenHeight, getScrollParent} from 'nti-lib-dom';
 
@@ -34,7 +36,7 @@ function listen (context, action) {
 const inView = y => y >= 0 && y <= getScreenHeight();
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NTIVideo',
 	mixins: [Mixin, ContextAccessor],
 

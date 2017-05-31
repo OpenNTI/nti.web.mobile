@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
 
 import Transition from 'react-transition-group/CSSTransitionGroup';
@@ -20,7 +21,7 @@ const commentAdded = 'TopicComments:commentAdded';
 const showCommentAddedMessage = 'TopicComments:showCommentAddedMessage';
 const showJumpToLastPage = 'TopicComments:showJumpToLastPage';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'TopicComments',
 
 	mixins: [Paging, StoreEventsMixin],

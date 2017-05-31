@@ -10,33 +10,25 @@ import {getAppUsername} from 'nti-web-client';
 
 import Editor from './FeedbackEditor';
 
-export default React.createClass({
-	displayName: 'FeedbackListItem',
+export default class extends React.Component {
+    static displayName = 'FeedbackListItem';
 
-
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object,
 		onDelete: React.PropTypes.func.isRequired,
 		onEdit: React.PropTypes.func.isRequired
-	},
+	};
 
+    static defaultProps = {
+        onDelete: () => {},
+        onEdit: () => {}
+    };
 
-	getInitialState () {
-		return {
-			editing: false
-		};
-	},
+    state = {
+        editing: false
+    };
 
-
-	getDefaultProps () {
-		return {
-			onDelete: () => {},
-			onEdit: () => {}
-		};
-	},
-
-
-	render () {
+    render() {
 		let {item} = this.props;
 		let {editing} = this.state;
 		let createdBy = item.creator;
@@ -77,29 +69,26 @@ export default React.createClass({
 				</div>
 			</div>
 		);
-	},
+	}
 
-
-	onEdit (value) {
+    onEdit = (value) => {
 		return this.props.onEdit(this.props.item, value)
 			.then(()=>this.setState({editing: false}));
-	},
+	};
 
-
-	onToggleEditor (e) {
+    onToggleEditor = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 
 		this.setState({editing: !this.state.editing});
-	},
+	};
 
-
-	onDelete (e) {
+    onDelete = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		this.setState({deleting: true});
 		this.props.onDelete(this.props.item);
-	}
-});
+	};
+}

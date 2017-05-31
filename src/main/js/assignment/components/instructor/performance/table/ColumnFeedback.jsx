@@ -1,21 +1,20 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'performance:ColumnFeedback',
+export default class extends React.Component {
+    static displayName = 'performance:ColumnFeedback';
 
-	statics: {
-		label () {
-			return 'Feedback';
-		},
-		className: 'col-feedback',
-		sort: 'feedbackCount'
-	},
+    static label() {
+        return 'Feedback';
+    }
 
-	propTypes: {
+    static className = 'col-feedback';
+    static sort = 'feedbackCount';
+
+    static propTypes = {
 		item: React.PropTypes.object.isRequired
-	},
+	};
 
-	render () {
+    render() {
 
 		const {item} = this.props;
 
@@ -23,4 +22,4 @@ export default React.createClass({
 			<div>{item.feedbackCount > 0 && item.feedbackCount}</div>
 		);
 	}
-});
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import QueryString from 'query-string';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -13,10 +15,11 @@ import Detail from 'catalog/components/Detail';
 import ThankYou from '../../components/ThankYou';
 
 
-const Wrapper = React.createClass({
-	mixins: [LibraryAccessor],
+const Wrapper = createReactClass({
+    displayName: 'Wrapper',
+    mixins: [LibraryAccessor],
 
-	render () {
+    render () {
 		//If the library is loading, or reloading this will be true.
 		if (this.state.loading) {
 			return ( <Loading.Mask /> );
@@ -25,11 +28,11 @@ const Wrapper = React.createClass({
 		return (
 			<div {...this.props}/>
 		);
-	}
+	},
 });
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'PaymentComplete',
 	mixins: [Mixins.BasePath, CatalogAccessor],
 

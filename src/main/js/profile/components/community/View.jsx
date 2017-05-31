@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Router from 'react-router-component';
 
 import {Mixins} from 'nti-web-commons';
@@ -27,7 +29,7 @@ const ROUTES = [
 	{}//default
 ];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Community:View',
 	mixins: [Mixins.BasePath, ContextSender],
 

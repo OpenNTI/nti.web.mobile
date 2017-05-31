@@ -6,31 +6,29 @@ import Button from 'forms/components/Button';
 
 import {dropCourse} from '../../Actions';
 
-export default React.createClass({
-	displayName: 'DropOpen',
+export default class extends React.Component {
+    static displayName = 'DropOpen';
 
-	propTypes: {
+    static propTypes = {
 		courseId: React.PropTypes.string.isRequired,
 		courseTitle: React.PropTypes.string.isRequired
-	},
+	};
 
-	getInitialState () {
-		return {
-			loading: false
-		};
-	},
+    state = {
+        loading: false
+    };
 
-	onCancel () {
+    onCancel = () => {
 		history.back();
-	},
+	};
 
-	onConfirm () {
+    onConfirm = () => {
 		this.setState({ loading: true });
 
 		dropCourse(this.props.courseId);
-	},
+	};
 
-	render () {
+    render() {
 
 		if(this.state.loading) {
 			return <Loading.Mask />;
@@ -46,5 +44,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
-});
+}

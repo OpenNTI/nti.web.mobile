@@ -11,35 +11,31 @@ import t from 'nti-lib-locale';
 
 const logger = Logger.get('assessment:components:FeedbackEditor');
 
-export default React.createClass({
-	displayName: 'FeedbackEditor',
+export default class extends React.Component {
+    static displayName = 'FeedbackEditor';
 
-	propTypes: {
+    static propTypes = {
 		onCancel: React.PropTypes.func,
 		onSubmit: React.PropTypes.func.isRequired,
 		value: React.PropTypes.array
-	},
+	};
 
-
-	componentWillMount () {
+    componentWillMount() {
 		this.updateDisabled(this.props.value || null);
-	},
+	}
 
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if (nextProps.value !== this.props.value) {
 			this.updateDisabled(nextProps.value);
 		}
-	},
+	}
 
-
-	updateDisabled (value) {
+    updateDisabled = (value) => {
 		let disabled = Editor.isEmpty(value);
 		this.setState({disabled});
-	},
+	};
 
-
-	render () {
+    render() {
 		let {disabled, busy} = this.state;
 
 		return (
@@ -59,25 +55,22 @@ export default React.createClass({
 					<Loading.Mask message="Saving..."/> : null}
 			</div>
 		);
-	},
+	}
 
-
-	onChange () {
+    onChange = () => {
 		if (this.editor) {
 			let value = this.editor.getValue();
 			this.updateDisabled(value);
 		}
-	},
+	};
 
-
-	onCancel (e) {
+    onCancel = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		this.props.onCancel();
-	},
+	};
 
-
-	onClick (e) {
+    onClick = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -99,5 +92,5 @@ export default React.createClass({
 			.then(()=> {
 				this.setState({busy: false});
 			});
-	}
-});
+	};
+}

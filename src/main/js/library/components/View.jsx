@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
 
 import {DarkMode, Loading, Mixins} from 'nti-web-commons';
@@ -10,7 +12,7 @@ import SectionCommunities from './SectionCommunities';
 
 import Library from '../mixins/LibraryAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Library:View',
 	mixins: [Mixins.BasePath, Library],
 

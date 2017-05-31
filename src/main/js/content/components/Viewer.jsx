@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import cx from 'classnames';
 
@@ -44,7 +45,7 @@ const getCourse = x => (!x || x.isCourse) ? x : x.parent('isCourse');
 
 const TRANSITION_TIMEOUT = 300;
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'content:Viewer',
 	mixins: [
 		AnalyticsBehavior,

@@ -3,10 +3,10 @@ import SelectableEntity from './SelectableEntity';
 
 import {Selection} from 'nti-commons';
 
-export default React.createClass({
-	displayName: 'SelectableEntities',
+export default class extends React.Component {
+    static displayName = 'SelectableEntities';
 
-	propTypes: {
+    static propTypes = {
 		selection: React.PropTypes.instanceOf(Selection.EntitySelectionModel).isRequired,
 
 		entities: React.PropTypes.any,
@@ -16,14 +16,14 @@ export default React.createClass({
 		labels: React.PropTypes.object,
 
 		linkToProfile: React.PropTypes.any
-	},
+	};
 
-	onChange (entity) {
+    onChange = (entity) => {
 		let {onChange = ()=> {}} = this.props;
 		return Promise.resolve(onChange(entity));
-	},
+	};
 
-	render () {
+    render() {
 		let {entities, labels, selection, linkToProfile, ...props} = this.props;
 
 		return (
@@ -41,4 +41,4 @@ export default React.createClass({
 			</ul>
 		);
 	}
-});
+}

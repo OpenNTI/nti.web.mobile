@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import {scoped} from 'nti-lib-locale';
@@ -16,7 +18,7 @@ const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
 const logError = error=>logger.warn(error.message || error);
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Feedback',
 	mixins: [StoreEventsMixin],
 

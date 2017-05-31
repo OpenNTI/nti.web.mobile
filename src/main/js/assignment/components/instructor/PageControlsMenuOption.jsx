@@ -1,21 +1,21 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'PageControlsMenuOption',
+export default class extends React.Component {
+    static displayName = 'PageControlsMenuOption';
 
-	propTypes: {
+    static propTypes = {
 		onClick: React.PropTypes.func,
 		page: React.PropTypes.number,
 		className: React.PropTypes.any,
 		children: React.PropTypes.any
-	},
+	};
 
-	onClick () {
+    onClick = () => {
 		const {onClick, page} = this.props;
 		onClick && onClick(page);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {className, children} = this.props;
 
@@ -25,4 +25,4 @@ export default React.createClass({
 			</li>
 		);
 	}
-});
+}

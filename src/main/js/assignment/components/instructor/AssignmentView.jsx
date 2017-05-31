@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Loading, Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -10,7 +12,7 @@ import Accessor from './mixins/AssignmentSummaryAccessor';
 import AssignmentHeader from './AssignmentHeader';
 import GradebookTable from './gradebook-table/GradebookTable';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'instructor:AssignmentView',
 
 	mixins: [Accessor, ContextSender, Mixins.NavigatableMixin, ShowAvatars],

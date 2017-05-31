@@ -9,34 +9,32 @@ import SocialLinks from './SocialLinks';
 import {default as DisplayName} from 'common/components/DisplayName';
 
 
-export default React.createClass({
-	displayName: 'HeadSummary',
+export default class extends React.Component {
+    static displayName = 'HeadSummary';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.any.isRequired
-	},
+	};
 
-	getInitialState () {
-		return {
-		};
-	},
+    state = {
+    };
 
-	componentWillMount () {
+    componentWillMount() {
 		this.setUser();
-	},
+	}
 
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		let {entity} = this.props;
 		if (entity !== nextProps.entity) {
 			this.setUser(nextProps);
 		}
-	},
+	}
 
-	setUser (props = this.props) {
+    setUser = (props = this.props) => {
 		User.resolve(props).then(user => this.setState({user}));
-	},
+	};
 
-	render () {
+    render() {
 		let {user} = this.state;
 
 		if (!user) {
@@ -81,4 +79,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

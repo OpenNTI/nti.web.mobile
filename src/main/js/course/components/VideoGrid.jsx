@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -10,29 +12,27 @@ import {EmptyList, Mixins} from 'nti-web-commons';
 //some notes: http://stackoverflow.com/questions/20870448/reactjs-modeling-bi-directional-infinite-scrolling
 //I want to turn this into a buffered list.
 
-const VideoCell = React.createClass({
-	mixins: [Mixins.NavigatableMixin],
+const VideoCell = createReactClass({
+    displayName: 'VideoCell',
+    mixins: [Mixins.NavigatableMixin],
 
-	propTypes: {
+    propTypes: {
 		item: React.PropTypes.object
 	},
 
-	getInitialState () {
+    getInitialState () {
 		return {};
 	},
 
+    componentDidMount () { this.fillIn(); },
 
-	componentDidMount () { this.fillIn(); },
-
-
-	componentWillUpdate (nextProps) {
+    componentWillUpdate (nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.fillIn(nextProps);
 		}
 	},
 
-
-	fillIn (props = this.props) {
+    fillIn (props = this.props) {
 		let {item} = props || {};
 
 		function fallback (x) {
@@ -45,8 +45,7 @@ const VideoCell = React.createClass({
 			.then(poster => this.setState({poster}));
 	},
 
-
-	render () {
+    render () {
 		const {state: {poster}, props: {item}} = this;
 		const style = poster && { backgroundImage: `url(${poster})` };
 		const thumbnail = cx('thumbnail', {resolving: !poster});
@@ -60,11 +59,11 @@ const VideoCell = React.createClass({
 				</a>
 			</li>
 		);
-	}
+	},
 });
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'VideoGrid',
 	mixins: [ContextSender],
 

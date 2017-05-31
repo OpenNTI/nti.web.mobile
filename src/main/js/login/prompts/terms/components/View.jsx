@@ -9,20 +9,15 @@ import UserAgreement from './UserAgreement';
 
 const logger = Logger.get('terms:components:View');
 
-export default React.createClass({
-	displayName: 'TermsOfServiceAcceptence',
+export default class extends React.Component {
+    static displayName = 'TermsOfServiceAcceptence';
+    state = {};
 
-	getInitialState () {
-		return {};
-	},
-
-
-	onCheckChanged (e) {
+    onCheckChanged = (e) => {
 		this.setState({agree: e.target.checked});
-	},
+	};
 
-
-	acceptTermsOfService () {
+    acceptTermsOfService = () => {
 		if (!this.state.agree) { return; }
 
 		this.setState({busy: true});
@@ -31,10 +26,9 @@ export default React.createClass({
 			.then(u => u.acceptTermsOfService())
 			.catch(e => logger.error(e.stack || e.message || e))
 			.then(()=> location.replace(getReturnURL()));
-	},
+	};
 
-
-	render () {
+    render() {
 		let {state: {agree}} = this;
 
 		let disabled = !agree;
@@ -56,4 +50,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

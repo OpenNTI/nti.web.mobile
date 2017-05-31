@@ -1,23 +1,23 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'PerformanceListViewHeading',
+export default class extends React.Component {
+    static displayName = 'PerformanceListViewHeading';
 
-	propTypes: {
+    static propTypes = {
 		column: React.PropTypes.shape({
 			label: React.PropTypes.string,
 			sortOn: React.PropTypes.string
 		}).isRequired,
 		onClick: React.PropTypes.func,
 		className: React.PropTypes.any
-	},
+	};
 
-	onClick () {
+    onClick = () => {
 		const {onClick, column} = this.props;
 		onClick && onClick(column.sortOn);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {className, column} = this.props;
 
@@ -27,4 +27,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Mixin, {stopEvent} from './Mixin';
 
 import isEmpty from 'isempty';
@@ -8,7 +9,7 @@ const isValid = /^[0-9\-\/\\,\.\*¼-¾]*$/;
 /**
  * This input type represents Numeric Math
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NumericMath',
 	mixins: [Mixin],
 

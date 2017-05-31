@@ -4,16 +4,15 @@ import cx from 'classnames';
 import WordEntry from './WordBankEntry';
 import Store from '../Store';
 
-export default React.createClass({
-	displayName: 'WordBank',
+export default class extends React.Component {
+    static displayName = 'WordBank';
 
-	propTypes: {
+    static propTypes = {
 		record: React.PropTypes.object.isRequired,
 		disabled: React.PropTypes.bool
-	},
+	};
 
-
-	render () {
+    render() {
 		let {record, disabled} = this.props;
 		if (!record) {
 			return null;
@@ -38,9 +37,9 @@ export default React.createClass({
 				)}
 			</div>
 		);
-	},
+	}
 
-	getEntryState (entry) {
+    getEntryState = (entry) => {
 		let {record} = this.props;
 		if (!record.unique) {
 			return {};
@@ -49,5 +48,5 @@ export default React.createClass({
 		return Store.isWordBankEntryUsed(entry) ?
 			{className: 'used'} :
 			{};
-	}
-});
+	};
+}

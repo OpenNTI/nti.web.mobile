@@ -9,21 +9,19 @@ import Context from 'content/components/discussions/Context';
 import RecentReplies from './RecentReplies';
 import ContentIcon from './ContentIcon';
 
-export default React.createClass({
-	displayName: 'Note',
+export default class extends React.Component {
+    static displayName = 'Note';
 
-	statics: {
-		handles (item) {
-			const {MimeType = ''} = item;
-			return /note$/i.test(MimeType);
-		}
-	},
+    static handles(item) {
+        const {MimeType = ''} = item;
+        return /note$/i.test(MimeType);
+    }
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.any.isRequired
-	},
+	};
 
-	render () {
+    render() {
 
 		let {item} = this.props;
 
@@ -50,4 +48,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

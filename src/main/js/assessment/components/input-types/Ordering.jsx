@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import {Mixin, Draggable, DropTarget} from 'common/dnd';
@@ -15,7 +17,7 @@ const SetValueRaw = 'ordering:SetValueRaw';
 /**
  * This input type represents Ordering
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Ordering',
 	mixins: [InputType, Mixin],
 

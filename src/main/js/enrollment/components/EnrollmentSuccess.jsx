@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Loading, Mixins} from 'nti-web-commons';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
@@ -10,7 +12,7 @@ function getLastEnrolledCourseTitle (library) {
 	return (library.getLastEnrolledCourse() || {}).title;
 }
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'EnrollmentSuccess',
 	//The LibraryAccessor mixin gives us the 'getLibrary' method.
 	mixins: [Mixins.BasePath, LibraryAccessor],

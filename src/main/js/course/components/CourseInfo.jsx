@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Detail from 'catalog/components/Detail';
 import InviteButton from 'invitations/components/InviteButton';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 import ContextSender from 'common/mixins/ContextSender';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseInfo',
 	mixins: [ContextSender],
 

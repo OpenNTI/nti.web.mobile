@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -14,7 +16,7 @@ import Mixin from './Mixin';
 
 const logger = Logger.get('assessment:NAQuestionWidget');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NAQuestion',
 	mixins: [Mixin, StoreEventsMixin],
 

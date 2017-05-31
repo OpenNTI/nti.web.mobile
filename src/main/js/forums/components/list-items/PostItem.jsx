@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import classnames from 'classnames';
 import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
 import * as Actions from '../../Actions';
@@ -39,7 +40,7 @@ const widgets = {
 };
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'list-items:PostItem',
 
 	mixins: [

@@ -28,46 +28,39 @@ function is403 (e) {
 }
 
 
-export default React.createClass({
-	displayName: 'Context',
+export default class extends React.Component {
+    static displayName = 'Context';
 
-	propTypes: {
+    static propTypes = {
 		contentPackage: React.PropTypes.object,
 		item: React.PropTypes.object,
 		className: React.PropTypes.string
-	},
+	};
 
+    state = {
+        loading: true
+    };
 
-	getInitialState () {
-		return {
-			loading: true
-		};
-	},
-
-
-	componentDidMount () {
+    componentDidMount() {
 		this.updateContext(this.props.item);
-	},
+	}
 
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		let {item} = nextProps;
 		if (this.props.item !== item) {
 			this.updateContext(item);
 		}
-	},
+	}
 
-
-	componentDidUpdate (_, state) {
+    componentDidUpdate(_, state) {
 		let {error} = this.state;
 		if (error && !is403(error) && error !== state.error) {
 			logger.error(error);
 		}
 		this.focusApplicableRange();
-	},
+	}
 
-
-	updateContext (item) {
+    updateContext = (item) => {
 		this.setState({error: null, found: false, loading: true, scoped: false, fragment: false});
 
 		item.getContextData()
@@ -76,10 +69,9 @@ export default React.createClass({
 				this.setWidgetContainerContext(item, x)
 			)
 			.catch(error => this.setState({error, loading: false}));
-	},
+	};
 
-
-	setPageContext (item, pageInfo) {
+    setPageContext = (item, pageInfo) => {
 		getPageContent(pageInfo)
 			.then(x => new PageDescriptor(x.pageInfo.getID(), x))
 			.then(x => {
@@ -92,10 +84,9 @@ export default React.createClass({
 
 				this.setState({loading: false, fragment: true, context, pageId});
 			});
-	},
+	};
 
-
-	setWidgetContainerContext (_, object) {
+    setWidgetContainerContext = (_, object) => {
 		let {item, contentPackage} = this.props;
 		let props = {
 			record: object,
@@ -128,10 +119,9 @@ export default React.createClass({
 				error
 			});
 		}
-	},
+	};
 
-
-	findApplicableRange () {
+    findApplicableRange = () => {
 		let {item} = this.props;
 		let {found, fragment, pageId, contextReady} = this.state;
 
@@ -172,10 +162,9 @@ export default React.createClass({
 		}
 
 		return !!found;
-	},
+	};
 
-
-	focusApplicableRange () {
+    focusApplicableRange = () => {
 		let {root: node} = this;
 		if (node && this.findApplicableRange()) {
 
@@ -197,14 +186,12 @@ export default React.createClass({
 				}
 			}
 		}
-	},
+	};
 
+    attachRef = (ref) => { this.root = ref; };
+    attachWRef = (ref) => { this.widget = ref; };
 
-	attachRef (ref) { this.root = ref; },
-	attachWRef (ref) { this.widget = ref; },
-
-
-	render () {
+    render() {
 		let {error, loading, scoped, fragment, context} = this.state;
 		let {item, className: cls} = this.props;
 		let className = cx('discussion-context', cls, {scoped, fragment});
@@ -228,4 +215,4 @@ export default React.createClass({
 						</div>
 					);
 	}
-});
+}

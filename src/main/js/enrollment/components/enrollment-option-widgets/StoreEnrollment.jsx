@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Notice, Error as Err, Mixins} from 'nti-web-commons';
 
 import {scoped} from 'nti-lib-locale';
@@ -10,7 +12,7 @@ import GiftOptions from './GiftOptions';
 const t = scoped('ENROLLMENT');
 const getPurchasable = 'StoreEnrollment:getPurchasable';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'StoreEnrollment',
 
 	mixins: [FormattedPriceMixin, Mixins.BasePath],

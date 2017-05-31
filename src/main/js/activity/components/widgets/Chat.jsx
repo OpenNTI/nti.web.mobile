@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import DisplayName from 'common/components/DisplayName';
 import {DateTime, Loading} from 'nti-web-commons';
 
@@ -10,7 +12,7 @@ let t = scoped('UNITS');
 
 import Mixin from './Mixin';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Chat Card',
 
 	mixins: [Mixin],

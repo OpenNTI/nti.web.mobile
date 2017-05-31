@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Link} from 'react-router-component';
 
 import NavigationBar from 'navigation/components/Bar';
@@ -11,7 +13,7 @@ import Collection from './containers/Collection';
 import SectionTitle from './SectionTitle';
 import AddButton from './AddButton';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'SectionCommunities',
 
 	mixins: [Mixins.ItemChanges],

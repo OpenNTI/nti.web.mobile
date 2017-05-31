@@ -7,40 +7,38 @@ import {Error as Err} from 'nti-web-commons';
 import {Editor} from 'modeled-content';
 
 
-export default React.createClass({
-	displayName: 'WriteSomething',
+export default class extends React.Component {
+    static displayName = 'WriteSomething';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.object.isRequired,
 		store: React.PropTypes.shape({
 			postToActivity: React.PropTypes.func
 		}).isRequired
-	},
+	};
 
-	getInitialState () {
-		return {
-			edit: false
-		};
-	},
+    state = {
+        edit: false
+    };
 
-	showEditor () {
+    showEditor = () => {
 		this.setState({
 			edit: true
 		});
-	},
+	};
 
-	hideEditor () {
+    hideEditor = () => {
 		this.setState({
 			error: void 0,
 			edit: false
 		});
-	},
+	};
 
-	onCancel () {
+    onCancel = () => {
 		this.hideEditor();
-	},
+	};
 
-	onSubmit (title, value, shareWith) {
+    onSubmit = (title, value, shareWith) => {
 
 		if (Editor.isEmpty(value) || Editor.isEmpty(title)) {
 			return;
@@ -54,9 +52,9 @@ export default React.createClass({
 			.catch(error => {
 				this.setState({ error, busy: false });
 			});
-	},
+	};
 
-	render () {
+    render() {
 		const {state: {busy, error}, props: {entity}} = this;
 
 		if (error && error.statusCode !== 422) {
@@ -78,5 +76,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
-});
+}

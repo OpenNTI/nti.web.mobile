@@ -1,10 +1,12 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Card from 'common/components/Card';
 
 import Mixin from './Mixin';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NTICard',
 	mixins: [Mixin],
 

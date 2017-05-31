@@ -1,5 +1,6 @@
 /* globals Stripe jQuery */
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {Loading} from 'nti-web-commons';
@@ -14,7 +15,7 @@ const t2 = scoped('ENROLLMENT');
 
 const EXP_PATTERN = /\d+ \/ \d+/;
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CreditCardForm',
 	mixins: [ExternalLibraryManager],
 

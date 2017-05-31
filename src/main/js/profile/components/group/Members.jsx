@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import AvatarGrid from '../AvatarGrid';
 import {Link} from 'react-router-component';
 import HasMembers from '../../mixins/HasMembers';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Group:Members',
 
 	mixins: [HasMembers],

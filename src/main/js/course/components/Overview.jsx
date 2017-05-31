@@ -2,6 +2,8 @@ import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {
 	DateTime,
 	Loading,
@@ -23,7 +25,7 @@ import {Mixin} from './widgets';
 
 const logger = Logger.get('course:components:Overview');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseOverview',
 	mixins: [Mixin, Mixins.NavigatableMixin, ContextSender],
 

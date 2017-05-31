@@ -2,28 +2,26 @@ import React from 'react';
 import cx from 'classnames';
 import {rawContent} from 'nti-commons';
 
-export default React.createClass({
-	displayName: 'BarSegment',
+export default class extends React.Component {
+    static displayName = 'BarSegment';
 
-	propTypes: {
+    static propTypes = {
 		colors: React.PropTypes.object,
 		label: React.PropTypes.string,
 		count: React.PropTypes.number,
 		percent: React.PropTypes.number,
 		total: React.PropTypes.number
-	},
+	};
 
-	isTipVisible () {
+    isTipVisible = () => {
 		return !!(this.state || {}).showTip;
-	},
+	};
 
-
-	toggleTip () {
+    toggleTip = () => {
 		this.setState({ showTip: !this.isTipVisible() });
-	},
+	};
 
-
-	render () {
+    render() {
 		const {props: {colors, label, count, percent}} = this;
 
 		const css = {
@@ -41,10 +39,9 @@ export default React.createClass({
 				{this.renderTooltip()}
 			</div>
 		);
-	},
+	}
 
-
-	renderTooltip () {
+    renderTooltip = () => {
 		const {props: {label, count, percent, total}} = this;
 		if (!this.isTipVisible()) {
 			return null;
@@ -58,5 +55,5 @@ export default React.createClass({
 				<div>{count} of {total} ({percentString}%)</div>
 			</div>
 		);
-	}
-});
+	};
+}

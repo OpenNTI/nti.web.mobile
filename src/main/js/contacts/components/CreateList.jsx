@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Loading, Mixins} from 'nti-web-commons';
 import Page from 'common/components/Page';
 
@@ -10,7 +12,7 @@ import {LISTS} from '../Constants';
 
 import UserSearchField from './UserSearchField';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CreateList',
 	mixins: [ContextSender, ContactsCommon, Mixins.NavigatableMixin],
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Mixin from './Mixin';
 import Collapsible from '../Collapsible';
 import List from '../List';
@@ -7,7 +8,7 @@ import {mimeTypes, DELETED_ITEM_GROUP} from '../../Constants';
 import {scoped} from 'nti-lib-locale';
 const t = scoped('FORUMS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'list-items:DeletedGroupItem',
 
 	mixins: [

@@ -7,10 +7,10 @@ import {Link} from 'react-router-component';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 
-export default React.createClass({
-	displayName: 'Community:Head',
+export default class extends React.Component {
+    static displayName = 'Community:Head';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.object,
 
 		sections: React.PropTypes.array,
@@ -20,25 +20,20 @@ export default React.createClass({
 		narrow: React.PropTypes.bool,
 
 		onMenuToggle: React.PropTypes.func
-	},
+	};
 
+    static defaultProps = {
+        onMenuToggle: () => {}
+    };
 
-	getDefaultProps () {
-		return {
-			onMenuToggle: () => {}
-		};
-	},
-
-
-	onMenuToggleClicked (e) {
+    onMenuToggleClicked = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		this.props.onMenuToggle();
-	},
+	};
 
-
-	render () {
+    render() {
 		let {entity, narrow, sections = [], selected} = this.props;
 
 		selected = (sections.find(x=> x.ID === selected) || {}).title || 'All Topics';
@@ -64,4 +59,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

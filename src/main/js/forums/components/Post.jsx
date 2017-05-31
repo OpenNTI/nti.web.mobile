@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
 
 import {Error as Err, Loading, Mixins, Notice} from 'nti-web-commons';
@@ -21,7 +23,7 @@ import Store from '../Store';
 import {getForumItems} from '../Api';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'forums:Post',
 
 	mixins: [

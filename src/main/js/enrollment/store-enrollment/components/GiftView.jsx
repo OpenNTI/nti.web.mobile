@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {scoped} from 'nti-lib-locale';
 import {getAppUser, getUserAgreementURI} from 'nti-web-client';
 import {clearLoadingFlag} from 'common/utils/react-state';
@@ -29,7 +31,7 @@ import From from './GiftViewFrom';
 import Recipient from './GiftRecipient';
 import Pricing from './Pricing';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GiftView',
 	mixins: [StoreEventsMixin, ExternalLibraryManager, FormattedPriceMixin],
 

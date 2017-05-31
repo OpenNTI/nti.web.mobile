@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {validate as isEmail} from 'email-validator';
 
 import {Loading, Notice} from 'nti-web-commons';
@@ -11,7 +12,7 @@ import {send, canSend} from '../Api';
 
 const t = scoped('INVITATIONS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Invitations:SendForm',
 
 	propTypes: {

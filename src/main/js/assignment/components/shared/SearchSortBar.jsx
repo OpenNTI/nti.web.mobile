@@ -1,12 +1,14 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {BufferedInput} from 'nti-web-commons';
 
 import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';
 
 import SortBox from './SortBox';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'SearchSortBar',
 	mixins: [StoreAccessor],
 

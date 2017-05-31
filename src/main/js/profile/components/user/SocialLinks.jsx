@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
 
 let t = scoped('PROFILE.ABOUT.SOCIAL');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'SocialLinks',
 
 	socialPropNames: [

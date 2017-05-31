@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {BufferedInput, Mixins} from 'nti-web-commons';
 
 import PageControls from '../PageControls';
@@ -7,7 +9,7 @@ import PageControls from '../PageControls';
 import EnrollmentSelect from './EnrollmentSelect';
 import CategorySelect from './CategorySelect';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'SearchSortBar',
 	mixins: [Mixins.ItemChanges],
 

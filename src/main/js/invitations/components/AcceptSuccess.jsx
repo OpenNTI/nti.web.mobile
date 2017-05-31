@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {join} from 'path';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Mixins} from 'nti-web-commons';
 import Redirect from 'navigation/components/Redirect';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Invitations:Success',
 
 	mixins: [Mixins.BasePath],

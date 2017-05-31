@@ -1,10 +1,10 @@
 import React from 'react';
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
-export default React.createClass({
-	displayName: 'GradePerformance',
+export default class extends React.Component {
+    static displayName = 'GradePerformance';
 
-	propTypes: {
+    static propTypes = {
 		averageColor: React.PropTypes.string,
 		averageWidth: React.PropTypes.number,
 		gradeColor: React.PropTypes.string,
@@ -17,32 +17,20 @@ export default React.createClass({
 		width: React.PropTypes.number,
 		height: React.PropTypes.number
 
-	},
+	};
 
+    static defaultProps = {
+        averageColor: '#b8b8b8',
+        averageWidth: 3,
+        gradeColor: '#40b450',
+        gradeWidth: 4,
+        store: null,
+        topMargin: 30,
+        bottomMargin: 10,
+        pixelDensity: (global.devicePixelRatio || 1) * 2
+    };
 
-	getDefaultProps () {
-		return {
-			averageColor: '#b8b8b8',
-			averageWidth: 3,
-			gradeColor: '#40b450',
-			gradeWidth: 4,
-			store: null,
-			topMargin: 30,
-			bottomMargin: 10,
-			pixelDensity: (global.devicePixelRatio || 1) * 2
-		};
-	},
-
-
-	getInitialState () {
-		return {
-			dashOffset: 0,
-			canAnimate: this.testAnimationProperties()
-		};
-	},
-
-
-	componentDidMount () {
+    componentDidMount() {
 		const {canvas} = this;
 		let context = canvas.getContext('2d');
 
@@ -76,23 +64,20 @@ export default React.createClass({
 		}
 
 		this.paint(context);
-	},
+	}
 
-
-	componentDidUpdate () {
+    componentDidUpdate() {
 		let ctx = this.canvasContext;
 		if (ctx) {
 			this.paint(ctx);
 		}
-	},
+	}
 
-
-	componentWillUnmount () {
+    componentWillUnmount() {
 		this.stopAnimation();
-	},
+	}
 
-
-	render () {
+    render() {
 		let p = this.props;
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
@@ -104,10 +89,9 @@ export default React.createClass({
 		return (
 			<canvas ref={x => this.canvas = x} {...this.props} className="grade" style={style} width={width} height={height} />
 		);
-	},
+	}
 
-
-	testAnimationProperties () {
+    testAnimationProperties = () => {
 		if (this.state && this.state.hasOwnProperty('canAnimate')) {
 			return this.state.canAnimate;
 		}
@@ -117,43 +101,38 @@ export default React.createClass({
 			hasSetLineDash = !!ctx.setLineDash;
 
 		return hasDashOffset && hasSetLineDash;
-	},
+	};
 
-
-	startAnimation () {
+    startAnimation = () => {
 		let canAnimate = this.testAnimationProperties();
 		if (canAnimate) {
 			this.animateTask.start();//safe to call repeatedly (will noop if already started)
 		}
-	},
+	};
 
-
-	stopAnimation () {
+    stopAnimation = () => {
 		if (this.animateTask) {
 			this.animateTask.stop();
 		}
-	},
+	};
 
-
-	repaint () {
+    repaint = () => {
 		let {dashOffset = 0} = this.state || {};
 
 		dashOffset--;
 
 		this.setState({dashOffset});
-	},
+	};
 
-
-	paint (ctx) {
+    paint = (ctx) => {
 		if (!ctx) { return; }
 
 		ctx.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 		this.drawAverages(ctx);
 		this.drawGrades(ctx);
-	},
+	};
 
-
-	drawAverages (ctx) {
+    drawAverages = (ctx) => {
 
 		ctx.save();
 		try {
@@ -173,10 +152,9 @@ export default React.createClass({
 		} finally {
 			ctx.restore();
 		}
-	},
+	};
 
-
-	drawGrades (ctx) {
+    drawGrades = (ctx) => {
 		ctx.save();
 		try {
 			ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -192,10 +170,9 @@ export default React.createClass({
 		} finally {
 			ctx.restore();
 		}
-	},
+	};
 
-
-	drawLine (ctx, property) {
+    drawLine = (ctx, property) => {
 		if (!this.store || !this.store.length) {
 			this.stopAnimation();
 			return;
@@ -215,6 +192,10 @@ export default React.createClass({
 		});
 
 		ctx.stroke();
-	}
+	};
 
-});
+    state = {
+        dashOffset: 0,
+        canAnimate: this.testAnimationProperties()
+    };
+}

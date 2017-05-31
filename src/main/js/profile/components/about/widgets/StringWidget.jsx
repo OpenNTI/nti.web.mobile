@@ -2,20 +2,18 @@ import React from 'react';
 
 import {rawContent} from 'nti-commons';
 
-export default React.createClass({
-	displayName: 'StringWidget',
+export default class extends React.Component {
+    static displayName = 'StringWidget';
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.string.isRequired
-	},
+	};
 
-	statics: {
-		handles (item) {
-			return typeof item === 'string';
-		}
-	},
+    static handles(item) {
+        return typeof item === 'string';
+    }
 
-	render () {
+    render() {
 		return <div className="string-item" {...rawContent(this.props.item)}/>;
 	}
-});
+}

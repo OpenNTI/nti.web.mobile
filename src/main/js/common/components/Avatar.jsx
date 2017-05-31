@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Avatar} from 'nti-web-commons';
 import ProfileLink from 'profile/mixins/ProfileLink';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Mobile:Avatar',
 	mixins: [ProfileLink],
 

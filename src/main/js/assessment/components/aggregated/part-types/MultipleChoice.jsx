@@ -1,9 +1,11 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import BarChart from './charts/BarChart';
 import CommonParts from './CommonParts';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AggregatedMultipleChoice',
 	mixins: [CommonParts],
 

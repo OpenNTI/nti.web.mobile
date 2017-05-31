@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Editor} from 'modeled-content';
 
 import {Notice, OkCancelButtons, Loading} from 'nti-web-commons';
@@ -13,7 +14,7 @@ import {scoped} from 'nti-lib-locale';
 
 let t = scoped('FORUMS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CommentForm',
 
 	mixins: [StoreEventsMixin],

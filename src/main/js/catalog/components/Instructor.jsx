@@ -8,39 +8,33 @@ import {scoped} from 'nti-lib-locale';
 
 const t = scoped('COURSE.INFO');
 
-export default React.createClass({
-	displayName: 'Instructor',
+export default class extends React.Component {
+    static displayName = 'Instructor';
 
-	propTypes: {
+    static propTypes = {
 		instructor: React.PropTypes.object,
 		assetRoot: React.PropTypes.string,
 		index: React.PropTypes.number
-	},
+	};
 
+    state = {
+        photo: BLANK_AVATAR
+    };
 
-	getInitialState () {
-		return {
-			photo: BLANK_AVATAR
-		};
-	},
-
-
-	componentDidMount () {
+    componentDidMount() {
 		let {assetRoot, index} = this.props;
 		let img = new Image();
 
 		img.onload = () => this.setPhoto(img.src);
 
 		img.src = assetRoot + 'instructor-photos/' + pad(index + 1) + '.png';
-	},
+	}
 
-
-	setPhoto (photo) {
+    setPhoto = (photo) => {
 		this.setState({photo});
-	},
+	};
 
-
-	render () {
+    render() {
 		let {photo} = this.state;
 		let {instructor} = this.props;
 		let {Name, JobTitle} = instructor;
@@ -57,4 +51,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

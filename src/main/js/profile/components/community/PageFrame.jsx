@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import Controls from './HeaderControls';
@@ -13,7 +14,7 @@ import {Background, ActiveLink as Link, Loading} from 'nti-web-commons';
 
 import Page from 'common/components/Page';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Community:Page',
 	mixins: [ContextSender],
 

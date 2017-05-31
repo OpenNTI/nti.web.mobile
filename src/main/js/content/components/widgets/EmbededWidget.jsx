@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import Path from 'path';
@@ -15,7 +17,7 @@ const logger = Logger.get('content:widgets:EmbededWidget');
 const NO_SOURCE_ID = 'No source id specified!';
 const SANDBOX_FLAGS = 'allow-forms allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-scripts';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'embeded-widget',
 	mixins: [Mixin],
 

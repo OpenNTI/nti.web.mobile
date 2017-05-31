@@ -1,11 +1,13 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Container from './Container';
 
 import {getService} from 'nti-web-client';
 import {Mixins} from 'nti-web-commons';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Community',
 	mixins: [Mixins.ItemChanges],
 

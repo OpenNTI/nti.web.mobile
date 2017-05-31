@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {PropType as NTIID} from 'nti-lib-ntiids';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
@@ -10,7 +12,7 @@ import Status from './AssignmentStatus';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'instructor:AssignmentViewStudentHeader',
 	mixins: [AssignmentsAccessor],
 

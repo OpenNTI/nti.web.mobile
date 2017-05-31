@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
@@ -11,7 +13,7 @@ import {LESSONS} from '../Sections';
 
 const logger = Logger.get('course:content');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Content',
 	mixins: [CourseLinker, ContextContributor],
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {PROFILE_VIEWED} from 'nti-analytics';
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 
@@ -13,7 +15,7 @@ const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
 
 let sections = ['about', 'education', 'positions', 'interests'];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'About:View',
 
 	mixins: [Mixin, ProfileAnalytics],

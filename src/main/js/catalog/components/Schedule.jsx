@@ -4,26 +4,25 @@ import moment from 'moment';
 
 let {PropTypes} = React;
 
-export default React.createClass({
-	displayName: 'Schedule',
+export default class extends React.Component {
+    static displayName = 'Schedule';
 
-	propTypes: {
+    static propTypes = {
 		startDate: PropTypes.string.isRequired,
 		schedule: PropTypes.shape({
 			days: PropTypes.arrayOf(PropTypes.string),
 			times: PropTypes.arrayOf(PropTypes.string)
 		}).isRequired
-	},
+	};
 
-
-	format (d) {
+    format = (d) => {
 		let date = this.props.startDate.split('T')[0];//YUCK
 		date = [date, d].join('T'); //ICK!
 
 		return moment(date).format('h:mm a');
-	},
+	};
 
-	render () {
+    render() {
 		let {schedule} = this.props;
 		return (
 			<div className="value">
@@ -34,4 +33,4 @@ export default React.createClass({
 		);
 
 	}
-});
+}

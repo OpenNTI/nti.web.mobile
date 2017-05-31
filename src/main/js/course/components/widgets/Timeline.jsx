@@ -16,24 +16,20 @@ import QueryString from 'query-string';
 import Card from 'common/components/Card';
 
 
-export default React.createClass({
-	displayName: 'CourseOverviewTimeline',
+export default class extends React.Component {
+    static displayName = 'CourseOverviewTimeline';
+    static mimeTest = /ntitimeline/i;
 
-	statics: {
-		mimeTest: /ntitimeline/i,
-		handles (item) {
-			return this.mimeTest.test(item.MimeType);
-		}
-	},
+    static handles(item) {
+        return this.mimeTest.test(item.MimeType);
+    }
 
-
-	propTypes: {
+    static propTypes = {
 		course: React.PropTypes.object,
 		item: React.PropTypes.object
-	},
+	};
 
-
-	prefixJSONWithEmbedURL (source) {
+    prefixJSONWithEmbedURL = (source) => {
 		let title = (this.props.item || {}).label;
 		let params = QueryString.stringify({title, source});
 
@@ -41,10 +37,9 @@ export default React.createClass({
 
 		// /app/resources/lib/timeline/embed/index.html?source=
 		return '/app/resources/lib/timeline/embed/index.html?' + params;
-	},
+	};
 
-
-	render () {
+    render() {
 		let {course, item} = this.props;
 
 		let props = Object.assign({}, this.props, {
@@ -59,4 +54,4 @@ export default React.createClass({
 
 		return (<Card {...props}/>);
 	}
-});
+}

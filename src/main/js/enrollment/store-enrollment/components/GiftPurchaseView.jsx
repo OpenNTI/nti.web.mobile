@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import GiftView from './GiftView';
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GiftPurchase',
 
 	mixins: [CatalogAccessor],

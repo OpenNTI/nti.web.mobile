@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {PropType as NTIID} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
@@ -14,7 +16,7 @@ import MenuTransitionGroup from './MenuTransitionGroup';
 
 const logger = Logger.get('assignment:components:instructor:ActionsMenu');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'instructor:ActionsMenu',
 	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 

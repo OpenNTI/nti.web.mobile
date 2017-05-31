@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {rawContent, Array as ArrayUtils} from 'nti-commons';
 
 import Mixin from './Mixin';
@@ -7,7 +9,7 @@ import Mixin from './Mixin';
 /**
  * This solution type represents Muliple Choice (with multiple answers--aka Checkboxes)
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'MultipleChoiceMulipleAnswer',
 	mixins: [Mixin],
 

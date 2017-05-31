@@ -1,8 +1,8 @@
-import React from 'react';
+import createReactClass from 'create-react-class';
 
 import DropBehavior from '../behaviors/Droppable';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'DropTarget',
 	mixins: [DropBehavior],
 

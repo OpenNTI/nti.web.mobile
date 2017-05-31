@@ -4,6 +4,7 @@
 // in this file.
 
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
 
 import FormPanel from 'forms/components/FormPanel';
@@ -28,7 +29,7 @@ import {BILLING_INFO_REJECTED} from '../Constants';
 
 const t = scoped('ENROLLMENT');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'PaymentForm',
 	mixins: [StoreEventsMixin, ExternalLibraryManager],
 

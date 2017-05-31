@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -19,7 +20,7 @@ const STATUS_MAP = {
 	'null': ''
 };
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Question',
 	mixins: [DragDropOrchestrator, StoreEventsMixin],
 

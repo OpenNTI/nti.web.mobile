@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Ellipsed} from 'nti-web-commons';
 
 import * as COURSE_SECTIONS from 'course/Sections';
@@ -11,7 +13,7 @@ import Badge from '../Badge';
 
 import Icon from './shared/Icon';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Course',
 	mixins: [CourseLinker],
 

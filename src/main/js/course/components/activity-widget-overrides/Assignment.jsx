@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {scoped} from 'nti-lib-locale';
@@ -11,7 +12,7 @@ import AssignmentHistoryContextChild from '../../mixins/AssignmentHistoryContext
 
 let t = scoped('UNITS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Assignment',
 	mixins: [ObjectLink, AssignmentHistoryContextChild],
 

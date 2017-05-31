@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
@@ -8,7 +9,7 @@ import {StoreEventsMixin} from 'nti-lib-store';
 import Store from '../Store';
 import {toggleAggregatedView} from '../Actions';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'HeaderSurvey',
 	mixins: [StoreEventsMixin],
 

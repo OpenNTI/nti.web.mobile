@@ -7,20 +7,20 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import ListMeta from './ListMeta';
 
-export default React.createClass({
-	displayName: 'DistributionListItem',
+export default class extends React.Component {
+    static displayName = 'DistributionListItem';
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object.isRequired,
 		onRightClick: React.PropTypes.func
-	},
+	};
 
-	onRightClick (e) {
+    onRightClick = (e) => {
 		const {item, onRightClick} = this.props;
 		onRightClick && onRightClick(item, e);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {item} = this.props;
 
@@ -53,4 +53,4 @@ export default React.createClass({
 			</li>
 		);
 	}
-});
+}

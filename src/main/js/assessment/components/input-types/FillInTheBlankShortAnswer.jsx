@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import InputType, {stopEvent} from './Mixin';
 
 import Content from '../Content';
@@ -18,7 +20,7 @@ const strategies = {
 /**
  * This input type represents Fill In The Blank - Short Answer
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'FillInTheBlankShortAnswer',
 	mixins: [InputType],
 

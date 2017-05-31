@@ -1,10 +1,12 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Accessor from '../../../mixins/AssignmentCollectionAccessor';
 
 import GradeBox from '../GradeBox';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GradebookColumnGrade',
 	mixins: [Accessor],
 

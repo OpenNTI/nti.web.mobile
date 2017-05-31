@@ -7,20 +7,20 @@ import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
 import ListMeta from './ListMeta';
 
-export default React.createClass({
-	displayName: 'GroupsListItem',
+export default class extends React.Component {
+    static displayName = 'GroupsListItem';
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object.isRequired,
 		onRightClick: React.PropTypes.func
-	},
+	};
 
-	onRightClick () {
+    onRightClick = () => {
 		const {item, onRightClick} = this.props;
 		onRightClick && onRightClick(item);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {item} = this.props;
 
@@ -51,4 +51,4 @@ export default React.createClass({
 			</li>
 		);
 	}
-});
+}

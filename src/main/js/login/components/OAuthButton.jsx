@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Path from 'path';
 import Url from 'url';
 import QueryString from 'query-string';
@@ -17,7 +19,7 @@ function getServiceName (k) {
 	return k.split('.')[1].toLowerCase();
 }
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'OAuthButton',
 	mixins: [Mixins.BasePath],
 

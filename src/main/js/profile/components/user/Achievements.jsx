@@ -4,26 +4,25 @@ import Card from '../Card';
 
 const logger = Logger.get('profile:components:user:Achievements');
 
-export default React.createClass({
-	displayName: 'Achievements',
+export default class extends React.Component {
+    static displayName = 'Achievements';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.object.isRequired
-	},
+	};
 
-
-	componentDidMount () {
+    componentDidMount() {
 		let {entity} = this.props;
 		if (entity) {
 			entity.getAchievements().then(achievements=> logger.debug(achievements));
 		}
-	},
+	}
 
-	render () {
+    render() {
 		return (
 			<ul className="profile-cards">
 				<Card className="achievements" title="Achievements">...</Card>
 			</ul>
 		);
 	}
-});
+}

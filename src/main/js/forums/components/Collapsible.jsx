@@ -3,34 +3,30 @@ import cx from 'classnames';
 
 const toggle = 'Collapsible:toggle';
 
-export default React.createClass({
-	displayName: 'Collapsible',
+export default class extends React.Component {
+    static displayName = 'Collapsible';
 
-	propTypes: {
+    static propTypes = {
 		title: React.PropTypes.string.isRequired,
 		children: React.PropTypes.any,
 		triangle: React.PropTypes.bool
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			triangle: true
-		};
-	},
+    static defaultProps = {
+        triangle: true
+    };
 
-	getInitialState () {
-		return {
-			collapsed: true
-		};
-	},
+    state = {
+        collapsed: true
+    };
 
-	[toggle] () {
+    toggle = () => {
 		this.setState({
 			collapsed: !this.state.collapsed
 		});
-	},
+	};
 
-	render () {
+    render() {
 
 		let classes = cx({
 			'collapsible': true,
@@ -51,4 +47,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

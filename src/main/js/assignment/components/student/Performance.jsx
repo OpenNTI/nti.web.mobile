@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import ContextSender from 'common/mixins/ContextSender';
 import {Mixins} from 'nti-web-commons';
 
@@ -10,7 +12,7 @@ import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 import PerformanceListView from './PerformanceListView';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Performance',
 
 	mixins: [AssignmentsAccessor, ContextSender, Mixins.NavigatableMixin],

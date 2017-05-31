@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Transition from 'react-transition-group/CSSTransitionGroup';
 
 import path from 'path';
@@ -35,7 +36,7 @@ function ensureSlash (str) {
 	return str + args;
 }
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NavigationBar',
 	mixins: [StoreEventsMixin, Mixins.BasePath, Mixins.NavigatableMixin],
 

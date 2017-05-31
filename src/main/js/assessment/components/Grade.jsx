@@ -1,30 +1,25 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'Grade',
+export default class extends React.Component {
+    static displayName = 'Grade';
 
-	propTypes: {
+    static propTypes = {
 		value: React.PropTypes.any.isRequired
-	},
+	};
 
-	getInitialState () {
-		return {
-			grade: ''
-		};
-	},
+    state = {
+        grade: ''
+    };
 
-
-	componentDidMount () {
+    componentDidMount() {
 		this.parseGrade(this.props.value);
-	},
+	}
 
-
-	componentWillReceiveProps (props) {
+    componentWillReceiveProps(props) {
 		this.parseGrade(props.value);
-	},
+	}
 
-
-	parseGrade (grade) {
+    parseGrade = (grade) => {
 		let n;
 		if (typeof grade === 'number') {
 			n = grade.toFixed(1);
@@ -40,13 +35,12 @@ export default React.createClass({
 			letter: parts.slice(1).join(' ')
 		});
 
-	},
+	};
 
-
-	render () {
+    render() {
 		let {grade} = this.state;
 		return (
 			<div className="grade">{grade}</div>
 		);
 	}
-});
+}

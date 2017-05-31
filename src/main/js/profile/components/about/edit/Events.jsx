@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import AddEntryButton from './AddEntryButton';
 import EventItem from './EventItem';
 import Mixin from './Mixin';
 import RemoveIcon from './RemoveIcon';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Events:Edit',
 	mixins: [Mixin],
 

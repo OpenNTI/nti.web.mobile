@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
 import {Loading, Mixins} from 'nti-web-commons';
@@ -16,7 +17,7 @@ import Store from '../Store';
 
 let Location = Router.Location;
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ForumView',
 
 	mixins: [

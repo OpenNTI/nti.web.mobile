@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {
 	environment,
 	Locations,
@@ -53,7 +55,7 @@ const SetPath = '_original:SetPath';
 
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Router',
 	mixins: [Mixins.BasePath],
 

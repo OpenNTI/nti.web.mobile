@@ -1,5 +1,6 @@
 //node modules imports (react is always first), react components second, others after.
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
 
 //intra-app module imports (ordered LocalName)
@@ -16,7 +17,7 @@ import {LISTS} from '../Constants';
 import DistributionListItem from './DistributionListItem';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Contacts:Lists',
 	mixins: [mixin],
 	storeType: LISTS,

@@ -6,6 +6,8 @@ import {
 
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
@@ -67,7 +69,7 @@ class Annotation {
 }
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'TranscriptedVideo',
 	mixins: [ContextSender, Mixins.NavigatableMixin],
 

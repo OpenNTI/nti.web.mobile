@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Link} from 'react-router-component';
 
 import {addHistory} from 'nti-analytics';
@@ -27,7 +29,7 @@ import {FORUM} from '../Constants';
 const t = scoped('FORUMS');
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Topics',
 
 	mixins: [Mixins.NavigatableMixin, StoreEventsMixin, LoadForum],

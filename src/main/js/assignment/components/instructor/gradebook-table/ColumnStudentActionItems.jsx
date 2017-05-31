@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {scoped} from 'nti-lib-locale';
@@ -9,7 +10,7 @@ import StudentStatics from './StudentStaticsMixin';
 
 const t = scoped('UNITS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ColumnStudentActionItems',
 
 	mixins: [StudentStatics],

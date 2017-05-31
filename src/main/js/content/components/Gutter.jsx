@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import cx from 'classnames';
 import hash from 'object-hash';
 import {join} from 'path';
@@ -13,7 +15,7 @@ import {RETRY_AFTER_DOM_SETTLES} from './annotations/Annotation';
 
 const pluck = (a, k) => a && a.map(x=> x[k]);
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'content:AnnotationGutter',
 	mixins: [Mixins.NavigatableMixin],
 

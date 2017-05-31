@@ -1,8 +1,10 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import ObjectLink from '../mixins/ObjectLink';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GotoItem',
 	mixins: [ObjectLink],
 

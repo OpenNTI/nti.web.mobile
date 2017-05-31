@@ -18,19 +18,16 @@ const UserModel = getModel('user');
 
 const logger = Logger.get('profile:components:View');
 
-export default React.createClass({
-	displayName: 'profile:View',
+export default class extends React.Component {
+    static displayName = 'profile:View';
 
-	propTypes: {
+    static propTypes = {
 		entityId: React.PropTypes.string.isRequired
-	},
+	};
 
-	getInitialState () {
-		return {};
-	},
+    state = {};
 
-
-	updateEntity (props = this.props) {
+    updateEntity = (props = this.props) => {
 		this.setState({entity: null}, () =>
 			User.resolve(props, true)
 				.catch(()=> false)
@@ -38,22 +35,19 @@ export default React.createClass({
 					logger.debug('Resolved entity: %o', entity);
 					this.setState({entity});
 				}));
-	},
+	};
 
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if (nextProps.entityId !== this.props.entityId) {
 			this.updateEntity(nextProps);
 		}
-	},
+	}
 
-
-	componentDidMount () {
+    componentDidMount() {
 		this.updateEntity();
-	},
+	}
 
-
-	render () {
+    render() {
 		let {entity} = this.state;
 
 
@@ -73,4 +67,4 @@ export default React.createClass({
 			<GroupView entity={entity}/>
 		);
 	}
-});
+}

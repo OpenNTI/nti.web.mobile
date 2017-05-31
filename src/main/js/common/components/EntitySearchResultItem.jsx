@@ -2,21 +2,21 @@ import React from 'react';
 
 import SelectableEntity from './SelectableEntity';
 
-export default React.createClass({
-	displayName: 'EntitySearchResultItem',
+export default class extends React.Component {
+    static displayName = 'EntitySearchResultItem';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.object.isRequired,
 		selected: React.PropTypes.bool,
 		onChange: React.PropTypes.func
-	},
+	};
 
-	onChange () {
+    onChange = () => {
 		const {entity, onChange} = this.props;
 		onChange && onChange(entity);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {entity, selected} = this.props;
 
@@ -28,4 +28,4 @@ export default React.createClass({
 			/>
 		);
 	}
-});
+}

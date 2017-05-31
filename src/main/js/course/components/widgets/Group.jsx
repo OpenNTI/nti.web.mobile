@@ -1,12 +1,14 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Error as ErrorWidget} from 'nti-web-commons';
 
 // This is an exmaple of a widget needing the mixin because it has children,
 // only components within this package can(and should) import the mixin this way.
 import Mixin, {IllegalStateException} from './Mixin';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseOverviewGroup',
 	mixins: [Mixin],
 

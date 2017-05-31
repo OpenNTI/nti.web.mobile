@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 import ContextContributor from 'common/mixins/ContextContributor';
@@ -9,7 +11,7 @@ import ContentViewer from 'content/components/Viewer';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AssignmentViewer',
 	mixins: [AssignmentsAccessor, Mixins.BasePath, ContextContributor, Mixins.NavigatableMixin],
 

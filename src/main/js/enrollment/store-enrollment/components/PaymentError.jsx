@@ -1,11 +1,13 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {PanelButton, Mixins} from 'nti-web-commons';
 
 import Store from '../Store';
 import {resetProcess} from '../Actions';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'PaymentError',
 	mixins: [Mixins.NavigatableMixin],
 

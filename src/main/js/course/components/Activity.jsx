@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Banner, ScrollTrigger, Loading, Mixins} from 'nti-web-commons';
 
 import ActivityBucket from './ActivityBucket';
@@ -9,7 +11,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import ContextParent from '../mixins/AssignmentHistoryContextParent';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Course:Activity',
 
 	mixins: [ContextSender, Mixins.NavigatableMixin, ContextParent],

@@ -1,11 +1,13 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Loading, EmptyList} from 'nti-web-commons';
 
 import AssignmentGroup from './AssignmentGroup';
 import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AssignmentsList',
 	mixins: [StoreAccessor],
 

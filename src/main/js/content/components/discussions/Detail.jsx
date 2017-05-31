@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Mixins} from 'nti-web-commons';
 
 import {Panel as Body} from 'modeled-content';
@@ -15,7 +17,7 @@ import Reply from './Panel';
 
 import NotePanelBehavior from './NotePanelBehavior';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'content:discussions:Detail',
 	mixins: [
 		Mixins.NavigatableMixin,

@@ -10,44 +10,37 @@ function isValid (topicValue) {
 }
 
 
-export default React.createClass({
-	displayName: 'TopicEditor',
+export default class extends React.Component {
+    static displayName = 'TopicEditor';
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object,
 		onSubmit: React.PropTypes.func.isRequired,
 		onCancel: React.PropTypes.func.isRequired
-	},
+	};
 
+    state = {
+        canSubmit: false
+    };
 
-	getInitialState () {
-		return {
-			canSubmit: false
-		};
-	},
-
-
-	componentDidMount () {
+    componentDidMount() {
 		this.title.focus();
-	},
+	}
 
-
-	getValue () {
+    getValue = () => {
 		return {
 			title: this.title.value,
 			body: this.editor.getValue()
 		};
-	},
+	};
 
-
-	onEditorChange () {
+    onEditorChange = () => {
 		this.setState({
 			canSubmit: isValid(this.getValue())
 		});
-	},
+	};
 
-
-	render () {
+    render() {
 		const {title, body} = this.props.item || {};
 		const buttons = (
 			<OkCancelButtons
@@ -78,5 +71,4 @@ export default React.createClass({
 			</PanelButton>
 		);
 	}
-
-});
+}

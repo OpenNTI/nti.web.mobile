@@ -7,35 +7,33 @@ import {Loading, Error} from 'nti-web-commons';
 
 import {parseHTML} from 'nti-lib-content-processing';
 
-export default React.createClass({
-	displayName: 'PopUp',
+export default class extends React.Component {
+    static displayName = 'PopUp';
 
-	propTypes: {
+    static propTypes = {
 		onClose: React.PropTypes.func.isRequired,
 		download: React.PropTypes.string,
 		source: React.PropTypes.string.isRequired
-	},
+	};
 
-	getInitialState () {
-		return {
-			loading: true
-		};
-	},
+    state = {
+        loading: true
+    };
 
-	componentDidMount () {
+    componentDidMount() {
 		this.load();
-	},
+	}
 
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		this.load(nextProps);
-	},
+	}
 
-	getBody (htmlStr) {
+    getBody = (htmlStr) => {
 		const dom = parseHTML(htmlStr);
 		return dom.getElementsByTagName('body')[0];
-	},
+	};
 
-	load (props = this.props) {
+    load = (props = this.props) => {
 		let {source} = props;
 		getService()
 			.then(service => service.get(source))
@@ -47,9 +45,9 @@ export default React.createClass({
 					loading: false
 				});
 			});
-	},
+	};
 
-	render () {
+    render() {
 
 		const {loading, html, error} = this.state;
 		return (
@@ -63,4 +61,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -300,9 +300,8 @@ class Store extends StorePrototype {
 		function find (found, item) {
 			return found || (
 				//Find in Assignments/QuestionSets
-				(item.getQuestion && item.getQuestion(questionId)) ||
-				//or find the top-level question:
-				(item.getID() === questionId && item)
+				(//or find the top-level question:
+                item.getQuestion && item.getQuestion(questionId) || item.getID() === questionId && item)
 			);
 		}
 		return Object.values(this.active).reduce(find, null);

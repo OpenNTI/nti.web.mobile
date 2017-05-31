@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Mixin from './Mixin';
 
 import RemoveIcon from './RemoveIcon';
@@ -6,7 +7,7 @@ import RemoveIcon from './RemoveIcon';
 const COMMA = 188;
 const RETURN = 13;
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Interests:Edit',
 	itemsArePrimitive: true,
 	mixins: [Mixin],

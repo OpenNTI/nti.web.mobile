@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
 import {Mixins} from 'nti-web-commons';
 
 const goToPage = 'PageControls:goToPage';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'forums:PageControls',
 
 	mixins: [Mixins.NavigatableMixin],

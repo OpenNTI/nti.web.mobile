@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {getConfigFor} from 'nti-web-client';
@@ -14,7 +15,7 @@ const DEFAULT_TEXT = {
 const t = scoped('TOPIC_EMBED_WIDGET', DEFAULT_TEXT);
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'EmbededTopic',
 
 	mixins: [Mixin],

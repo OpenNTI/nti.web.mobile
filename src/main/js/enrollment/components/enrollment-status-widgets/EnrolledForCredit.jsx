@@ -1,11 +1,13 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {DateTime, Mixins} from 'nti-web-commons';
 
 import Mixin from './mixin';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'EnrolledForCredit',
 
 	mixins: [Mixins.BasePath, Mixin],

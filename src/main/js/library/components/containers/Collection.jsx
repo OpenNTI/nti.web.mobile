@@ -4,19 +4,19 @@ import getItem from '../items';
 
 const isEmpty = s => s == null || s === '';
 
-export default React.createClass({
-	displayName: 'Library:Collection',
+export default class extends React.Component {
+    static displayName = 'Library:Collection';
 
-	propTypes: {
+    static propTypes = {
 		list: React.PropTypes.array,
 
 		title: React.PropTypes.string,
 		subtitle: React.PropTypes.string,
 
 		children: React.PropTypes.any
-	},
+	};
 
-	render () {
+    render() {
 		const {props: {children, list, title, subtitle}} = this;
 
 		let titleRow = isEmpty(title) ? null : ( <h5>{title}<label>{subtitle}</label></h5> );
@@ -38,4 +38,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -1,16 +1,14 @@
 import React from 'react';
 import Placeholder from './Placeholder';
 
-export default React.createClass({
-	displayName: 'UnSupprtedPlaceholder',
+export default class extends React.Component {
+    static displayName = 'UnSupprtedPlaceholder';
 
-
-	propTypes: {
+    static propTypes = {
 		assignment: React.PropTypes.object
-	},
+	};
 
-
-	onBack (e) {
+    onBack = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -18,10 +16,9 @@ export default React.createClass({
 
 		//Temp:
 		history.go(-1);
-	},
+	};
 
-
-	render () {
+    render() {
 		//You have <strong>5 minutes</strong> to complete this Timed Assignment.
 		//<span className="red">Once you've started, the timer will not stop.</span>
 		let {assignment} = this.props;
@@ -38,4 +35,4 @@ export default React.createClass({
 			<Placeholder {...props} />
 		);
 	}
-});
+}

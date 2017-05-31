@@ -3,26 +3,24 @@ import React from 'react';
 import FinalGrade from './FinalGrade';
 import CompletionRatio from './CompletionRatio';
 
-export default React.createClass({
-	displayName: 'PerformanceHeader',
+export default class extends React.Component {
+    static displayName = 'PerformanceHeader';
 
-	propTypes: {
+    static propTypes = {
 		assignments: React.PropTypes.object.isRequired
-	},
+	};
 
-	getInitialState () {
-		return {};
-	},
+    state = {};
 
-	componentWillMount () {
+    componentWillMount() {
 		this.getFinalGrade();
-	},
+	}
 
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		this.getFinalGrade(nextProps);
-	},
+	}
 
-	getFinalGrade (props = this.props) {
+    getFinalGrade = (props = this.props) => {
 		const {assignments} = props;
 		if (assignments) {
 			const id = assignments.getFinalGradeAssignmentId();
@@ -35,9 +33,9 @@ export default React.createClass({
 					});
 			}
 		}
-	},
+	};
 
-	render () {
+    render() {
 
 		const {assignments} = this.props;
 		const {grade} = this.state;
@@ -55,4 +53,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

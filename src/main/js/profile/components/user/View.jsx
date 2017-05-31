@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -24,7 +25,7 @@ const ROUTES = [
 	{}//default
 ];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'profile:View',
 	mixins: [ProfileLink, ContextSender],
 

@@ -1,11 +1,13 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {getServer} from 'nti-web-client';
 import {rawContent} from 'nti-commons';
 
 import {Error as ErrorWidget, Loading, Mixins} from 'nti-web-commons';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'UserAgreement',
 
 	mixins: [Mixins.BasePath],

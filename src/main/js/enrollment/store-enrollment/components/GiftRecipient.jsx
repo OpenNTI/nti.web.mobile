@@ -8,23 +8,20 @@ import Store from '../Store';
 const t = scoped('ENROLLMENT.GIFT.RECIPIENT');
 const t2 = scoped('ENROLLMENT');
 
-export default React.createClass({
-	displayName: 'Recipient',
+export default class extends React.Component {
+    static displayName = 'Recipient';
 
-	getInitialState () {
-		return {
-			valid: true,
-			enabled: false,
-			message: null,
-			receiver: null,
-			sender: null,
-			toFirstName: null,
-			toLastName: null
-		};
-	},
+    state = {
+        valid: true,
+        enabled: false,
+        message: null,
+        receiver: null,
+        sender: null,
+        toFirstName: null,
+        toLastName: null
+    };
 
-
-	componentWillMount () {
+    componentWillMount() {
 		this.elements = {};
 
 		const prevState = Store.getGiftInfo();
@@ -42,11 +39,9 @@ export default React.createClass({
 
 			this.setState(Object.assign({enabled}, prevState));
 		}
-	},
+	}
 
-
-
-	getData () {
+    getData = () => {
 		const {state: {enabled}, elements: {form}} = this;
 		const elements = Array.from(form.elements) || [];
 		let result = {};
@@ -80,60 +75,54 @@ export default React.createClass({
 		}
 
 		return result;
-	},
+	};
 
-
-	isEmpty () {
+    isEmpty = () => {
 		const {elements: {email: {value = ''} = {}}} = this;
 		return value.trim().length === 0;
-	},
+	};
 
-
-	validate () {
+    validate = () => {
 		const {state: {enabled}, elements: {email: {value = ''} = {}}} = this;
 		const valid = !enabled || isEmail(value);
 
 		this.setState({valid});
 
 		return valid;
-	},
+	};
 
-
-	clearError () {
+    clearError = () => {
 		this.setState({valid: true}); //clear the error
-	},
+	};
 
-
-	fieldClicked () {
+    fieldClicked = () => {
 		this.enable();
-	},
+	};
 
-	fieldChanged (event) {
+    fieldChanged = (event) => {
 		this.enable();
 		this.updateState(event);
-	},
+	};
 
-	enable () {
+    enable = () => {
 		this.setState({ enabled: true });
-	},
+	};
 
-	onCheckedChange (e) {
+    onCheckedChange = (e) => {
 		const {target: {checked: enabled}} = e;
 		this.setState({ enabled });
-	},
+	};
 
-
-	updateState (e) {
+    updateState = (e) => {
 		let input = e.target;
 		let state = {};
 
 		state[input.name] = input.value;
 
 		this.setState(state);
-	},
+	};
 
-
-	render () {
+    render() {
 		const {state: {enabled, valid, toFirstName, toLastName, receiver, message, sender}} = this;
 
 		const css = cx('gift-info', {disabled: !enabled});
@@ -207,4 +196,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -9,21 +9,17 @@ import {scoped} from 'nti-lib-locale';
 
 const t = scoped('LOGIN.forgot');
 
-export default React.createClass({
+export default class extends React.Component {
+    static displayName = 'PasswordResetForm';
 
-	displayName: 'PasswordResetForm',
-
-	propTypes: {
+    static propTypes = {
 		username: React.PropTypes.string,
 		token: React.PropTypes.string
-	},
+	};
 
-	getInitialState () {
-		return {};
-	},
+    state = {};
 
-
-	onInput () {
+    onInput = () => {
 		let {valid} = this.state;
 		let fields = this.getFieldValues();
 		let submitEnabled = Object.values(fields).every(x => x && x.trim().length > 0);
@@ -34,10 +30,9 @@ export default React.createClass({
 		}
 
 		this.setState({submitEnabled, valid});
-	},
+	};
 
-
-	getFieldValues () {
+    getFieldValues = () => {
 		let {password, password2} = (this.form || {}).elements || {};
 
 		let fields = {password, password2};
@@ -47,10 +42,9 @@ export default React.createClass({
 		}
 
 		return fields;
-	},
+	};
 
-
-	handleSubmit (e) {
+    handleSubmit = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -73,10 +67,9 @@ export default React.createClass({
 				})
 				.then(() => this.setState({busy: false}));
 		});
-	},
+	};
 
-
-	render () {
+    render() {
 		const {busy, submitEnabled, success, error, valid = true} = this.state;
 
 		return (
@@ -124,5 +117,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
-});
+}

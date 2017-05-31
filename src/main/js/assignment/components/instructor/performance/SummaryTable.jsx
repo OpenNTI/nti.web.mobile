@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {SortOrder} from 'nti-lib-interfaces';
 
 import {Loading} from 'nti-web-commons';
@@ -10,7 +12,7 @@ import ColumnGrade from '../gradebook-table/ColumnGrade';
 
 import ShowAvatars from '../mixins/ShowAvatarsContainer';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Performance:SummaryTable',
 
 	mixins: [ShowAvatars],

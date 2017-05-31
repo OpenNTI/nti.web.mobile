@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
@@ -20,7 +21,7 @@ import Store from '../Store';
 const logger = Logger.get('login:components:View');
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'LoginView',
 	mixins: [Mixins.BasePath, Mixins.NavigatableMixin],
 

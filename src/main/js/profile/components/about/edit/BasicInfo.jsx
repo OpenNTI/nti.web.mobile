@@ -30,37 +30,28 @@ function isRequired (schema, prop) {
 	return ((schema || {})[prop] || {}).required;
 }
 
-export default React.createClass({
-	displayName: 'BasicInfo',
+export default class extends React.Component {
+    static displayName = 'BasicInfo';
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object,
 
 		schema: React.PropTypes.object,
 
 		error: React.PropTypes.object
-	},
+	};
 
+    state = {errors: {}};
+    attachAboutRef = (x) => { this.about = x; };
+    componentWillMount() { this.setup(); }
 
-	attachAboutRef (x) { this.about = x; },
-
-
-	getInitialState () {
-		return {errors: {}};
-	},
-
-
-	componentWillMount () { this.setup(); },
-
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.setup(nextProps);
 		}
-	},
+	}
 
-
-	setup (props = this.props) {
+    setup = (props = this.props) => {
 		let {item} = props;
 		let state = {};
 
@@ -69,19 +60,17 @@ export default React.createClass({
 		}
 
 		this.setState(state);
-	},
+	};
 
-
-	onChange (e) {
+    onChange = (e) => {
 		let {name, value} = e.target;
 
 		value = Editor.isEmpty(value) ? null : value;
 
 		this.setState({[name]: value});
-	},
+	};
 
-
-	validate () {
+    validate = () => {
 		const {schema} = this.props;
 		const errors = {};
 		for(let name of TEXT_FIELDS) {
@@ -92,9 +81,9 @@ export default React.createClass({
 		}
 		this.setState({errors});
 		return Object.keys(errors).length === 0;
-	},
+	};
 
-	render () {
+    render() {
 		const {state, props: {schema, error}} = this;
 
 		return (
@@ -134,14 +123,13 @@ export default React.createClass({
 
 			</fieldset>
 		);
-	},
+	}
 
-
-	getValue () {
+    getValue = () => {
 		const valueOrNull = x => !x || !x.length ? null : x;
 		return {
 			...this.state,
 			about: valueOrNull(this.about.getValue())
 		};
-	}
-});
+	};
+}

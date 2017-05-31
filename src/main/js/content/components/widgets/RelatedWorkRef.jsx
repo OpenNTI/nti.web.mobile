@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {AssetIcon} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'RelatedWorkRef',
 
 	mixins: [Mixin],

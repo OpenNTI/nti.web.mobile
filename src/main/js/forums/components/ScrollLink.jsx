@@ -1,16 +1,15 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'ScrollLink',
+export default class extends React.Component {
+    static displayName = 'ScrollLink';
 
-	propTypes: {
+    static propTypes = {
 		componentId: React.PropTypes.string.isRequired,
 
 		children: React.PropTypes.any
-	},
+	};
 
-
-	onClick (event) {
+    onClick = (event) => {
 		event.preventDefault();
 		event.stopPropagation();
 		let node = document.getElementById(this.props.componentId);
@@ -22,12 +21,11 @@ export default React.createClass({
 				input.scrollIntoView(true);
 			}
 		}
-	},
+	};
 
-
-	render () {
+    render() {
 		return (
 			<a className="action-link scroll-link" onClick={this.onClick}>{this.props.children}</a>
 		);
 	}
-});
+}

@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {Panel} from 'modeled-content';
 
 import CommonParts from './CommonParts';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AggregatedModeledContent',
 	mixins: [CommonParts],
 

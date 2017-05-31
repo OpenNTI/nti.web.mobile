@@ -9,25 +9,25 @@ let t = scoped('ENROLLMENT.CONFIRMATION');
 
 const rowIfNotEmpty = 'BillingInfo:rowIfNotEmpty';
 
-export default React.createClass({
-	displayName: 'BillingInfo',
+export default class extends React.Component {
+    static displayName = 'BillingInfo';
 
-	propTypes: {
+    static propTypes = {
 		edit: React.PropTypes.any,
 		card: React.PropTypes.object
-	},
+	};
 
-	[rowIfNotEmpty] (value) {
+    rowIfNotEmpty = (value) => {
 		return (value || '').trim().length > 0 ? <div>{value}</div> : null;
-	},
+	};
 
-	onEdit (e) {
+    onEdit = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		edit(this.props.edit);
-	},
+	};
 
-	render () {
+    render() {
 		let card = this.props.card,
 			city = card.address_city ? card.address_city + ',' : '';
 
@@ -68,5 +68,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
-});
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
@@ -15,7 +16,7 @@ const killEvent = (e) => {
 	e.preventDefault();
 };
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'FilterMenu',
 	mixins: [Accessor],
 

@@ -1,6 +1,8 @@
 import path from 'path';
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Mixins} from 'nti-web-commons';
 
 import t from 'nti-lib-locale';
@@ -17,7 +19,7 @@ function isSubmitted (item) {
 }
 
 
-export default React.createClass( {
+export default createReactClass({
 	displayName: 'CourseOverviewPollReference',
 	mixins: [Mixins.NavigatableMixin],
 

@@ -54,7 +54,7 @@ function getModules () {
 }
 
 exports.getPage = function getPage () {
-	let revision = require('./git-revision');
+	let revision;
 	let Application;
 	let template;
 	let isDevMode = false;

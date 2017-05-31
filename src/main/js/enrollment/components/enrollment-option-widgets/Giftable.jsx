@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {Mixins} from 'nti-web-commons';
@@ -8,7 +9,7 @@ import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT.BUTTONS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Giftable',
 	mixins: [Mixins.BasePath],
 

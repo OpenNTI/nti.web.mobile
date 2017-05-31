@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
@@ -20,7 +22,7 @@ import {redeemGift} from '../Actions';
 const logger = Logger.get('catalog:components:GiftRedeem');
 const t = scoped('ENROLLMENT.GIFT.REDEEM');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GiftRedeem',
 	mixins: [CatalogAccessor, ContextSender, Mixins.NavigatableMixin],
 

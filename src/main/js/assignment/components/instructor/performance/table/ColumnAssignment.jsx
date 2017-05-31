@@ -2,22 +2,21 @@ import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
 
-export default React.createClass({
-	displayName: 'GradebookColumnAssignment',
+export default class extends React.Component {
+    static displayName = 'GradebookColumnAssignment';
 
-	statics: {
-		label () {
-			return 'Assignment';
-		},
-		className: 'col-assignment',
-		sort: 'title'
-	},
+    static label() {
+        return 'Assignment';
+    }
 
-	propTypes: {
+    static className = 'col-assignment';
+    static sort = 'title';
+
+    static propTypes = {
 		item: React.PropTypes.object.isRequired
-	},
+	};
 
-	render () {
+    render() {
 
 		const {item} = this.props;
 
@@ -27,4 +26,4 @@ export default React.createClass({
 			<a href={href}>{item.title}</a>
 		);
 	}
-});
+}

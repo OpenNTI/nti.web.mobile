@@ -11,16 +11,14 @@ import groupDeletedItems from '../utils/group-deleted-items';
 
 const t = scoped('FORUMS');
 
-export default React.createClass({
-	displayName: 'forums:List',
+export default class extends React.Component {
+    static displayName = 'forums:List';
 
-	getDefaultProps () {
-		return {
-			groupDeleted: true
-		};
-	},
+    static defaultProps = {
+        groupDeleted: true
+    };
 
-	propTypes: {
+    static propTypes = {
 		container: React.PropTypes.shape({
 			Items: React.PropTypes.array
 		}).isRequired,
@@ -34,13 +32,13 @@ export default React.createClass({
 		topic: React.PropTypes.object,
 
 		keyFn: React.PropTypes.func
-	},
+	};
 
-	keyFor (item) {
+    keyFor = (item) => {
 		return item.getID ? item.getID() : hash(item);
-	},
+	};
 
-	render () {
+    render() {
 		const {
 			container,
 			emptyText = t('emptyList'),
@@ -76,4 +74,4 @@ export default React.createClass({
 				</ul>
 		);
 	}
-});
+}

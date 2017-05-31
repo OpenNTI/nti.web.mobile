@@ -1,27 +1,27 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'DateFieldSelect',
+export default class extends React.Component {
+    static displayName = 'DateFieldSelect';
 
-	propTypes: {
+    static propTypes = {
 		children: React.PropTypes.any,
 		onChange: React.PropTypes.func,
 		name: React.PropTypes.string
-	},
+	};
 
-	handleChange (event) {
+    handleChange = (event) => {
 		const {onChange, name} = this.props;
 		const {value} = event.target;
 		if (onChange) {
 			onChange({ name, value });
 		}
-	},
+	};
 
-	render () {
+    render() {
 		return (
 			<select {...this.props} onChange={this.handleChange}>
 				{this.props.children}
 			</select>
 		);
 	}
-});
+}

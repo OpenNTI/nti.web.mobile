@@ -12,10 +12,10 @@ const PUBLISH = {publish: true};
 
 const preventSubmit = e => e.preventDefault() && false;
 
-export default React.createClass({
-	displayName: 'PostEditor',
+export default class extends React.Component {
+    static displayName = 'PostEditor';
 
-	propTypes: {
+    static propTypes = {
 		onSubmit: React.PropTypes.func.isRequired,
 		onCancel: React.PropTypes.func.isRequired,
 		title: React.PropTypes.string,
@@ -25,27 +25,23 @@ export default React.createClass({
 		busy: React.PropTypes.bool,
 
 		showSharing: React.PropTypes.bool
-	},
+	};
 
-	getInitialState () {
-		return {};
-	},
+    state = {};
 
-	componentWillMount () {
+    componentWillMount() {
 		const {busy, value, title} = this.props;
 		this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
-	},
+	}
 
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if(['busy', 'value', 'title'].some(x => this.props[x] !== nextProps[x])) {
 			const {busy, value, title} = nextProps;
 			this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
 		}
-	},
+	}
 
-
-	onChange () {
+    onChange = () => {
 		let {busy} = this.props;
 		let value = this.editor.getValue();
 		let title = (this.title || {}).value;
@@ -53,20 +49,18 @@ export default React.createClass({
 		this.setState({
 			disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title)
 		});
-	},
+	};
 
-
-	onCancel (e) {
+    onCancel = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 
 		this.props.onCancel(e);
-	},
+	};
 
-
-	doSubmit (e) {
+    doSubmit = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -82,10 +76,9 @@ export default React.createClass({
 		if (typeof onSubmit === 'function') {
 			onSubmit(titleValue, body, shareWith);
 		}
-	},
+	};
 
-
-	getSharingSuggestions () {
+    getSharingSuggestions = () => {
 		return Promise.resolve([{
 			MimeType: 'application/vnd.nextthought.community',
 			publish: true,
@@ -94,10 +87,9 @@ export default React.createClass({
 			NTIID: PUBLISH,
 			getID: () => PUBLISH
 		}]);
-	},
+	};
 
-
-	render () {
+    render() {
 		let {error, busy, showSharing} = this.props;
 		let {disabled} = this.state;
 
@@ -134,4 +126,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -12,10 +12,10 @@ const isEmpty = x => !Array.isArray(x) || x.length === 0;
 
 const EVERYONE = 'everyone';
 
-export default React.createClass({
-	displayName: 'SharedWithList',
+export default class extends React.Component {
+    static displayName = 'SharedWithList';
 
-	propTypes: {
+    static propTypes = {
 
 		/**
 		 * Sometimes you just want the first entity and a remainder count. Ex:
@@ -37,35 +37,29 @@ export default React.createClass({
 		 * @type {number}
 		 */
 		limit: React.PropTypes.number
-	},
+	};
 
+    state = {loading: true};
 
-	getInitialState () {
-		return {loading: true};
-	},
-
-
-	isPublic (sharedWith) {
+    isPublic = (sharedWith) => {
 		if (isEmpty(sharedWith)) {
 			return false;
 		}
 
 		return sharedWith.includes(EVERYONE);
-	},
+	};
 
-
-	componentDidMount () {
+    componentDidMount() {
 		this.fill(this.props.item);
-	},
+	}
 
-	componentWillReceiveProps (props) {
+    componentWillReceiveProps(props) {
 		if (this.props.item !== props.item) {
 			this.fill(props.item);
 		}
-	},
+	}
 
-
-	fill (item) {
+    fill = (item) => {
 		this.setState({loading: true});
 
 		let {sharedWith = []} = item;
@@ -82,10 +76,9 @@ export default React.createClass({
 
 				this.setState({users, others, loading: false});
 			});
-	},
+	};
 
-
-	render () {
+    render() {
 		let {short, limit, item} = this.props;
 		let {loading, users = [], others = 0} = this.state;
 		let {sharedWith = []} = item;
@@ -120,4 +113,4 @@ export default React.createClass({
 
 		return React.createElement('span', {className: 'shared-with-list'}, ...names);
 	}
-});
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Locations, Location, NotFound as Default} from 'react-router-component';
 
 // import Logger from 'nti-util-logger';
@@ -24,7 +26,7 @@ const Note = getModel('note');
  *
  * Without this we have to bake in too much knowledge into the parent Viewer component's mock-router.
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'content:discussions',
 	mixins: [
 		ContextMixin

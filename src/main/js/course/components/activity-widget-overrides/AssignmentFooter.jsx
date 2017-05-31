@@ -1,22 +1,20 @@
 import React from 'react';
 import {DateTime} from 'nti-web-commons';
 
-export default React.createClass({
-	displayName: 'AssignmentFooter',
+export default class extends React.Component {
+    static displayName = 'AssignmentFooter';
 
-	propTypes: {
+    static propTypes = {
 		assignment: React.PropTypes.object.isRequired,
 		history: React.PropTypes.object,
 		dateFormat: React.PropTypes.string
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			dateFormat: 'dddd, MMMM D'
-		};
-	},
+    static defaultProps = {
+        dateFormat: 'dddd, MMMM D'
+    };
 
-	render () {
+    render() {
 
 		const {assignment, history, dateFormat} = this.props;
 		const completed = !!history;
@@ -38,4 +36,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

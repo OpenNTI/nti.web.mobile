@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Score from 'common/components/charts/Score';
 import {DateTime} from 'nti-web-commons';
 
@@ -10,7 +12,7 @@ import {clearAssessmentAnswers} from '../Actions';
 
 //Still need to get the list of previous attempts. Not just the last one.
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'HeaderScoreboard',
 
 	propTypes: {

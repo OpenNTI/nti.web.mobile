@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import ContextSender from 'common/mixins/ContextSender';
 import {
 	EmptyList,
@@ -14,7 +16,7 @@ import AddPeopleButton from './AddPeopleButton';
 import mixin from '../mixins/Mixin';
 import {USERS} from '../Constants';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Contacts:Users',
 	mixins: [mixin, ContextSender],
 	storeType: USERS,

@@ -8,24 +8,20 @@ import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.forms.storeenrollment');
 let t2 = scoped('ENROLLMENT');
 
-export default React.createClass({
-	displayName: 'GiftFrom',
+export default class extends React.Component {
+    static displayName = 'GiftFrom';
 
-	propTypes: {
+    static propTypes = {
 		className: React.PropTypes.string,
 		defaultValues: React.PropTypes.object,
 		onChange: React.PropTypes.func
-	},
+	};
 
+    state = {
+        errors: {}
+    };
 
-	getInitialState () {
-		return {
-			errors: {}
-		};
-	},
-
-
-	getValue () {
+    getValue = () => {
 		const getValue = x => x && x.value && x.value.trim();
 		const values = {};
 
@@ -33,10 +29,9 @@ export default React.createClass({
 		values[from.name] = getValue(from);
 
 		return values;
-	},
+	};
 
-
-	validate () {
+    validate = () => {
 		const errors = {};
 		const {from} = this;
 
@@ -56,19 +51,17 @@ export default React.createClass({
 		this.setState({errors});
 
 		return !hasErrors;
-	},
+	};
 
-
-	onChange (e) {
+    onChange = (e) => {
 		this.onFieldEventClearError(e);
 		let {onChange} = this.props;
 		if (onChange) {
 			onChange();
 		}
-	},
+	};
 
-
-	onFieldEventClearError (e) {
+    onFieldEventClearError = (e) => {
 		let {name} = e.target;
 		let {errors} = this.state;
 
@@ -79,10 +72,9 @@ export default React.createClass({
 
 			this.setState({errors});
 		}
-	},
+	};
 
-
-	render () {
+    render() {
 		const {state: {errors}, props: {className, defaultValues}} = this;
 		return (
 			<fieldset className={cx('gift-from', className)}>
@@ -102,4 +94,4 @@ export default React.createClass({
 			</fieldset>
 		);
 	}
-});
+}

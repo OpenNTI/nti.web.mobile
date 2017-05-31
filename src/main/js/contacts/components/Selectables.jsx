@@ -3,39 +3,39 @@ import React from 'react';
 import {Selection} from 'nti-commons';
 import SwipeEntity from './SwipeEntity';
 
-export default React.createClass({
-	displayName: 'Selectables',
+export default class extends React.Component {
+    static displayName = 'Selectables';
 
-	propTypes: {
+    static propTypes = {
 		entities: React.PropTypes.array.isRequired,
 		linkToProfile: React.PropTypes.any
-	},
+	};
 
-	componentWillMount () {
+    componentWillMount() {
 		this.setUpSelectionModel();
 		this.rememberOriginalList();
-	},
+	}
 
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if (nextProps.entities !== this.props.entities) {
 			this.setUpSelectionModel(nextProps);
 		}
-	},
+	}
 
-	rememberOriginalList (props = this.props) {
+    rememberOriginalList = (props = this.props) => {
 		this.setState({
 			original: (props.entities || []).slice()
 		});
-	},
+	};
 
-	setUpSelectionModel (props = this.props) {
+    setUpSelectionModel = (props = this.props) => {
 		let selection = new Selection.EntitySelectionModel(props.entities);
 		this.setState({
 			selection
 		});
-	},
+	};
 
-	render () {
+    render() {
 		return (
 			<div>
 				<div className="swipers selectable-entities">
@@ -49,4 +49,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

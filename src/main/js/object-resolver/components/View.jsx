@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {join} from 'path';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -24,7 +26,7 @@ const logger = Logger.get('object-resolver:components:View');
 const filter = o => (o && o.MimeType === 'application/vnd.nextthought.change' && o.Item) ? o.Item : o;
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ObjectResolver',
 	mixins: [Mixins.BasePath],
 

@@ -2,23 +2,22 @@ import React from 'react';
 
 import GradeBox from '../GradeBox';
 
-export default React.createClass({
-	displayName: 'GradebookColumnScore',
+export default class extends React.Component {
+    static displayName = 'GradebookColumnScore';
 
-	statics: {
-		label () {
-			return 'Score';
-		},
-		className: 'col-score',
-		sort: 'Grade'
-	},
+    static label() {
+        return 'Score';
+    }
 
-	propTypes: {
+    static className = 'col-score';
+    static sort = 'Grade';
+
+    static propTypes = {
 		item: React.PropTypes.object.isRequired, // UserGradeBookSummary object
 		assignmentId: React.PropTypes.string.isRequired
-	},
+	};
 
-	render () {
+    render() {
 
 		const {props: {item: {HistoryItemSummary}}} = this;
 		const {grade} = HistoryItemSummary || {};
@@ -33,4 +32,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

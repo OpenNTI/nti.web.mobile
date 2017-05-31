@@ -1,14 +1,14 @@
 import React from 'react';
 import t from 'nti-lib-locale';
 
-export default React.createClass({
-	displayName: 'ContentWidgetUnknown',
+export default class extends React.Component {
+    static displayName = 'ContentWidgetUnknown';
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object
-	},
+	};
 
-	componentDidMount () {
+    componentDidMount() {
 		if (typeof document === 'undefined') { return; }
 
 		let {type} = this.props.item;
@@ -18,13 +18,13 @@ export default React.createClass({
 			dom.appendChild(
 				document.createComment(`Unknown Type: ${type}`));
 		}
-	},
+	}
 
-	render () {
+    render() {
 		return (
 			<error className="unsupported-content" ref={el => this.el = el}>
 				<span>{t('COMING_SOON.singular', {subject: 'This content'})}</span>
 			</error>
 		);
 	}
-});
+}

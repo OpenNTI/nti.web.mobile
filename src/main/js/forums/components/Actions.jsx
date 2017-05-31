@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {scoped} from 'nti-lib-locale';
 
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -12,7 +14,7 @@ import ScrollLink from './ScrollLink';
 
 const t = scoped('FORUMS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Actions',
 
 	propTypes: {

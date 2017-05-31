@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
@@ -16,7 +17,7 @@ function getBreadcrumb (item) {
 }
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Breadcrumb',
 	mixins: [ObjectLink],
 

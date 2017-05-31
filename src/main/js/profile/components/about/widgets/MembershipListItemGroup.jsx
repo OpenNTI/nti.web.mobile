@@ -5,20 +5,18 @@ import DisplayName from 'common/components/DisplayName';
 
 import Link from '../../ProfileLink';
 
-export default React.createClass({
-	displayName: 'MembershipListItemCommunity',
+export default class extends React.Component {
+    static displayName = 'MembershipListItemCommunity';
 
-	statics: {
-		handles (item) {
-			return item.isGroup;
-		}
-	},
+    static handles(item) {
+        return item.isGroup;
+    }
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object.isRequired
-	},
+	};
 
-	render () {
+    render() {
 		let {item} = this.props;
 
 		return (
@@ -30,4 +28,4 @@ export default React.createClass({
 			</li>
 		);
 	}
-});
+}

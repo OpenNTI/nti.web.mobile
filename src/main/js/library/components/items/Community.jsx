@@ -5,20 +5,18 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import {Ellipsed as E} from 'nti-web-commons';
 
-export default React.createClass({
-	displayName: 'CommunityItem',
+export default class extends React.Component {
+    static displayName = 'CommunityItem';
 
-	statics: {
-		handles (item) {
-			return item.isCommunity;
-		}
-	},
+    static handles(item) {
+        return item.isCommunity;
+    }
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object.isRequired
-	},
+	};
 
-	render () {
+    render() {
 		const {props: {item}} = this;
 		return (
 			<ProfileLink entity={item} className="community-item">
@@ -27,4 +25,4 @@ export default React.createClass({
 			</ProfileLink>
 		);
 	}
-});
+}

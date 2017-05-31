@@ -1,17 +1,15 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'course:activity:DoNotRender',
+export default class extends React.Component {
+    static displayName = 'course:activity:DoNotRender';
 
-	statics: {
-		handles (item) {
-			return [
-				/forums(.*)comment/i
-			].some(x => x.test(item.MimeType));
-		}
-	},
+    static handles(item) {
+        return [
+            /forums(.*)comment/i
+        ].some(x => x.test(item.MimeType));
+    }
 
-	render () {
+    render() {
 		return null;
 	}
-});
+}

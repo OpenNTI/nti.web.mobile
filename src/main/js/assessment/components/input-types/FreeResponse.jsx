@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Mixin, {stopEvent} from './Mixin';
 
 import isEmpty from 'isempty';
@@ -7,7 +8,7 @@ import isEmpty from 'isempty';
 /**
  * This input type represents Free Response
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'FreeResponse',
 	mixins: [Mixin],
 	saveBuffer: 10000,//10seconds

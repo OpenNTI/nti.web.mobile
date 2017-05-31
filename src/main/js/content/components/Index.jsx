@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Router from 'react-router-component';
 
 import ContextContributor from 'common/mixins/ContextContributor';
@@ -13,7 +15,7 @@ const ROUTES = [
 	{path: '(/*)',			handler: TableOfContents }
 ];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Content:OutlineView',
 	mixins: [ContextContributor, Mixins.NavigatableMixin],
 

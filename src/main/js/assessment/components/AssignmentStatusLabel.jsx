@@ -37,119 +37,101 @@ function selectValue (values, context) {
 	return result;
 }
 
-export default React.createClass({
-	displayName: 'AssignmentStatusLabel',
+export default class extends React.Component {
+    static displayName = 'AssignmentStatusLabel';
 
-	propTypes: {
+    static propTypes = {
 		assignment: React.PropTypes.instanceOf(Assignment),
 		historyItem: React.PropTypes.instanceOf(HistoryItem),
 
 		showTimeWithDate: React.PropTypes.bool
-	},
+	};
 
-	getInitialState () {
-		return {
-			showDetail: null
-		};
-	},
+    state = {
+        showDetail: null
+    };
 
-
-	isAvailable () {
+    isAvailable = () => {
 		const now = new Date();
 		const {props: {assignment: a}} = this;
 		const date = a.getAssignedDate();
 		return !date || (date <= now);
-	},
+	};
 
-
-	isOverDue () {
+    isOverDue = () => {
 		const date = this.getCompletedDateTime() || new Date();
 		const a = this.props.assignment;
 		return a.isLate(date);
-	},
+	};
 
-
-	isOverTime () {
+    isOverTime = () => {
 		const {props: {assignment: a}} = this;
 		return Boolean(a.isOverTime && a.isOverTime());
-	},
+	};
 
-
-	isDueToday () {
+    isDueToday = () => {
 		const {props: {assignment: a}} = this;
 		return isToday(a.getDueDate());
-	},
+	};
 
-
-	isSubmitted () {
+    isSubmitted = () => {
 		const {props: {historyItem}} = this;
 		return historyItem && historyItem.isSubmitted();
-	},
+	};
 
-
-	isSyntheticSubmission () {
+    isSyntheticSubmission = () => {
 		const {props: {historyItem}} = this;
 		return historyItem && historyItem.isSyntheticSubmission();
-	},
+	};
 
-
-	isExcused () {
+    isExcused = () => {
 		const {props: {historyItem: i}} = this;
 		return i && i.isGradeExcused && i.isGradeExcused();
-	},
+	};
 
-
-	isDraft () {
+    isDraft = () => {
 		const {props: {assignment: a}} = this;
 		return a && !a.isPublished();
-	},
+	};
 
-
-	getCompletedDateTime () {
+    getCompletedDateTime = () => {
 		const {props: {historyItem: i}} = this;
 		return i && i.isSubmitted() && i.getCreatedTime();
-	},
+	};
 
-
-	getDuration () {
+    getDuration = () => {
 		const {props: {assignment: a}} = this;
 		return a.getDuration && a.getDuration();
-	},
+	};
 
-
-	getMaximumTimeAllowed () {
+    getMaximumTimeAllowed = () => {
 		let a = this.props.assignment;
 		return a.getMaximumTimeAllowed && a.getMaximumTimeAllowed();
-	},
+	};
 
-
-	getStartTime () {
+    getStartTime = () => {
 		let a = this.props.assignment;
 		return a.getStartTime && a.getStartTime();
-	},
+	};
 
-
-	getTimeRemaining () {
+    getTimeRemaining = () => {
 		let max = this.getMaximumTimeAllowed();
 		return max - (new Date() - this.getStartTime());
-	},
+	};
 
-
-	getDifferenceBetweenSubmittedAndDue () {
+    getDifferenceBetweenSubmittedAndDue = () => {
 		let submitted = this.getCompletedDateTime();
 		let due = this.props.assignment.getDueDate();
 		return Math.abs(due - submitted);
-	},
+	};
 
-
-	getDifferenceBetweenTimeSpentAndMaxTime () {
+    getDifferenceBetweenTimeSpentAndMaxTime = () => {
 		let max = this.getMaximumTimeAllowed();
 		let dur = this.getDuration();
 		return Math.abs(max - dur);
-	},
+	};
 
-
-	getNaturalDuration (duration, accuracy, singular) {
+    getNaturalDuration = (duration, accuracy, singular) => {
 		let d = new moment.duration(duration);
 
 		let out = [];
@@ -175,20 +157,18 @@ export default React.createClass({
 		}
 
 		return out.join(', ');
-	},
+	};
 
-
-	onCloseDetail (e) {
+    onCloseDetail = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 
 		this.setState({showDetail: null});
-	},
+	};
 
-
-	onShowOverdueDetail (e) {
+    onShowOverdueDetail = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -200,10 +180,9 @@ export default React.createClass({
 		this.setState({
 			showDetail: c === 'overdue' ? void 0 : {over: 'overdue'}
 		});
-	},
+	};
 
-
-	onShowOvertimeDetail (e) {
+    onShowOvertimeDetail = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -215,10 +194,9 @@ export default React.createClass({
 		this.setState({
 			showDetail: c === 'overtime' ? void 0 : {over: 'overtime'}
 		});
-	},
+	};
 
-
-	onShowStatusDetail (e) {
+    onShowStatusDetail = (e) => {
 		let s = this.state;
 
 
@@ -236,18 +214,16 @@ export default React.createClass({
 		this.setState({
 			showDetail: s.showDetail === 'detail' ? void 0 : 'detail'
 		});
-	},
+	};
 
-
-	componentWillMount () {
+    componentWillMount() {
 		this.getDifferenceBetween = {
 			overdue: this.getDifferenceBetweenSubmittedAndDue,
 			overtime: this.getDifferenceBetweenTimeSpentAndMaxTime
 		};
-	},
+	}
 
-
-	render () {
+    render() {
 		const {props: {showTimeWithDate, assignment}} = this;
 
 		const complete = this.isSubmitted();
@@ -350,10 +326,9 @@ export default React.createClass({
 				{this.renderDetail()}
 			</div>
 		);
-	},
+	}
 
-
-	renderDetail () {
+    renderDetail = () => {
 		let isSubmitted = this.isSubmitted();
 		let date = this.getCompletedDateTime();
 		let detail = this.state.showDetail;
@@ -383,10 +358,9 @@ export default React.createClass({
 			</div>
 			</div>
 		);
-	},
+	};
 
-
-	renderTimeInfo () {
+    renderTimeInfo = () => {
 		let baseCls = 'info-part time-limit';
 		let duration = this.getDuration();
 		let maxtime = this.getMaximumTimeAllowed();
@@ -400,5 +374,5 @@ export default React.createClass({
 		}
 
 		return (<span className={baseCls}>{time} Time Limit</span>);
-	}
-});
+	};
+}

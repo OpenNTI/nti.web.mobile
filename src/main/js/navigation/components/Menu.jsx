@@ -3,18 +3,18 @@ import React from 'react';
 import {addClass, removeClass} from 'nti-lib-dom';
 const getViewport = ()=> document.getElementsByTagName('html')[0];
 
-export default React.createClass({
-	displayName: 'Menu',
+export default class extends React.Component {
+    static displayName = 'Menu';
 
-	componentDidMount () {
+    componentDidMount() {
 		addClass(getViewport(), 'scroll-lock');
-	},
+	}
 
-	componentWillUnmount () {
+    componentWillUnmount() {
 		removeClass(getViewport(), 'scroll-lock');
-	},
+	}
 
-	render () {
+    render() {
 		return (<ul {...this.props}/>);
 	}
-});
+}

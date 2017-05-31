@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Student from './student/View';
 import Instructor from './instructor/View';
 import {Loading, Mixins} from 'nti-web-commons';
@@ -6,7 +7,7 @@ import ContextContributor from 'common/mixins/ContextContributor';
 
 import AssignmentsHolder from '../mixins/AssignmentCollectionHolder';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Assignments:View',
 
 	mixins: [AssignmentsHolder, Mixins.NavigatableMixin, ContextContributor],

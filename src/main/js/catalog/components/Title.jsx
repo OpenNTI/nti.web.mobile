@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {Component as Video} from 'nti-web-video';
 
 import {Mixins} from 'nti-web-commons';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Title',
 	mixins: [Mixins.ItemChanges],
 

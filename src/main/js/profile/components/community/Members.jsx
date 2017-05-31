@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Loading, Mixins, PromiseButton} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -7,7 +9,7 @@ import AvatarGrid from '../AvatarGrid';
 import {profileHref} from '../../mixins/ProfileLink';
 import ProfileBodyContainer from '../ProfileBodyContainer';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Community:Members',
 	mixins: [Mixins.BasePath, ContextSender],
 

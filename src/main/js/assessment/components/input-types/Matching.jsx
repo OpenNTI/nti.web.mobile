@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import InputType, {stopEvent} from './Mixin';
 
 import Content from '../Content';
@@ -13,7 +14,7 @@ const SetValueRaw = 'matching:SetValueRaw';
 /**
  * This input type represents Matching
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Matching',
 	mixins: [InputType, Mixin],
 

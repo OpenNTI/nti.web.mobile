@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Locations, Location, NotFound as Default} from 'react-router-component';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -13,7 +15,7 @@ import Edit from './EditNote';
 import ViewComment from './ViewComment';
 import Detail from './Detail';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'content:discussions:View',
 	mixins: [
 		ContextSender,

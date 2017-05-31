@@ -1,10 +1,12 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {ActiveState, Mixins, ListHeader as Header} from 'nti-web-commons';
 
 import Accessor from '../../mixins/AssignmentCollectionAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Tabs',
 	mixins: [Accessor, Mixins.ActiveStateSelector],
 

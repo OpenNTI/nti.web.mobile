@@ -39,30 +39,28 @@ function getThumbnail (item) {
 }
 
 
-export default React.createClass({
-	displayName: 'ContentIcon',
+export default class extends React.Component {
+    static displayName = 'ContentIcon';
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object.isRequired
-	},
+	};
 
-	getInitialState () {
-		return {};
-	},
+    state = {};
 
-	componentDidMount () {
+    componentDidMount() {
 		this.load();
-	},
+	}
 
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		let {item} = this.props;
 		let {item: nextItem} = nextProps;
 		if(getID(item) !== getID(nextItem)) {
 			this.load(nextProps);
 		}
-	},
+	}
 
-	load (props = this.props) {
+    load = (props = this.props) => {
 		let {item} = props;
 		if (item) {
 			getThumbnail(item)
@@ -72,13 +70,13 @@ export default React.createClass({
 		else {
 			this.setState({ src: null });
 		}
-	},
+	};
 
-	render () {
+    render() {
 		let {src} = this.state;
 
 		return !src ? null : (
 			<img src={src} />
 		);
 	}
-});
+}

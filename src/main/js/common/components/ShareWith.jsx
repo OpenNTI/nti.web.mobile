@@ -21,56 +21,48 @@ const EVENTS = ['focus', 'focusin', 'click', 'touchstart'];
 
 const trim = x => typeof x === 'string' ? x.trim() : x;
 
-export default React.createClass({
-	displayName: 'ShareWith',
+export default class extends React.Component {
+    static displayName = 'ShareWith';
 
-	propTypes: {
+    static propTypes = {
 		defaultValue: React.PropTypes.array,
 
 		scope: React.PropTypes.object,
 
 		onBlur: React.PropTypes.func
-	},
+	};
 
-	attachDomRef (x) { this.el = x; },
-	attachEntryRef (x) { this.entry = x; },
-	attachSearchRef (x) { this.search = x; },
-	attachScrollerRef (x) { this.scroller = x; },
+    state = {};
+    attachDomRef = (x) => { this.el = x; };
+    attachEntryRef = (x) => { this.entry = x; };
+    attachSearchRef = (x) => { this.search = x; };
+    attachScrollerRef = (x) => { this.scroller = x; };
 
-	getInitialState () {
-		return {};
-	},
-
-
-	componentWillMount () {
+    componentWillMount() {
 		this.setup();
-	},
+	}
 
-
-	componentDidMount () {
+    componentDidMount() {
 		for(let e of EVENTS) {
 			document.body.addEventListener(e, this.maybeCloseDrawer, e === 'focus');
 		}
-	},
+	}
 
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if (nextProps[KEY] !== this.props[KEY]) {
 			this.setup(nextProps);
 		}
-	},
+	}
 
-
-	componentWillUnmount () {
+    componentWillUnmount() {
 		for(let e of EVENTS) {
 			document.body.removeEventListener(e, this.maybeCloseDrawer, e === 'focus');
 		}
 
 		this.setState({focused: false});
-	},
+	}
 
-
-	setup (props = this.props) {
+    setup = (props = this.props) => {
 		const stillValid = () => props[KEY] === this.props[KEY];
 		const {scope} = props;
 
@@ -122,10 +114,9 @@ export default React.createClass({
 					this.setState({suggestionGroups: {suggestions, communities, groups, lists, contacts}});
 				}
 			});
-	},
+	};
 
-
-	maybeCloseDrawer (e) {
+    maybeCloseDrawer = (e) => {
 		const {state: {focused}, el, entry, props: {onBlur}} = this;
 
 		if (!focused || !el) {
@@ -147,34 +138,29 @@ export default React.createClass({
 
 			}, 500);
 		}
-	},
+	};
 
-
-	focusSearch () {
+    focusSearch = () => {
 		let search = this.getSearchBoxEl();
 		if (search) {
 			search.focus();
 		}
-	},
+	};
 
-
-	getSearchBoxEl () {
+    getSearchBoxEl = () => {
 		return this.search;
-	},
+	};
 
-
-	onFocus () {
+    onFocus = () => {
 		this.setState({focused: true});
 		this.focusSearch();
-	},
+	};
 
-
-	onInputBlur () {
+    onInputBlur = () => {
 		//this.setState({focused: true, inputFocused: false});
-	},
+	};
 
-
-	onListScroll () {
+    onListScroll = () => {
 		const {scroller} = this;
 		const search = this.getSearchBoxEl();
 		if (search) {
@@ -187,16 +173,14 @@ export default React.createClass({
 
 		clearTimeout(this.maybeCloseDrawerTimout);
 		this.setState({focused: true, inputFocused: false});
-	},
+	};
 
-
-	onInputFocus () {
+    onInputFocus = () => {
 		clearTimeout(this.maybeCloseDrawerTimout);
 		this.setState({focused: true, inputFocused: true});
-	},
+	};
 
-
-	onInputChange () {
+    onInputChange = () => {
 		let search = (this.getSearchBoxEl() || {}).value;
 
 		if (!search || search === '') {
@@ -205,10 +189,9 @@ export default React.createClass({
 
 		this.onInputFocus();
 		this.setState({search});
-	},
+	};
 
-
-	onSelectionChange (entity) {
+    onSelectionChange = (entity) => {
 		let {state: {selection}} = this;
 		let result = selection.isSelected(entity)
 			? selection.remove(entity)
@@ -219,10 +202,9 @@ export default React.createClass({
 		if (result) {
 			this.forceUpdate();
 		}
-	},
+	};
 
-
-	onTokenTap (e) {
+    onTokenTap = (e) => {
 		let {state: {pendingRemove}} = this;
 
 		if (pendingRemove === e) {
@@ -230,10 +212,9 @@ export default React.createClass({
 		}
 
 		this.setState({pendingRemove: e});
-	},
+	};
 
-
-	onKeyPressHandleDelete (e) {
+    onKeyPressHandleDelete = (e) => {
 		let {state: {selection, pendingRemove}} = this;
 
 		if (e.target.value === '' && (e.keyCode === 8 || e.keyCode === 46)) {
@@ -249,10 +230,9 @@ export default React.createClass({
 		} else if (pendingRemove) {
 			this.setState({pendingRemove: void 0});
 		}
-	},
+	};
 
-
-	render () {
+    render() {
 		let {state: {focused, inputFocused, pendingRemove, search, selection, suggestionGroups}} = this;
 		const loading = !suggestionGroups;
 		let groupings = Object.keys(suggestionGroups || {})
@@ -330,11 +310,10 @@ export default React.createClass({
 				)}
 			</div>
 		);
-	},
+	}
 
-
-	getValue (valueTransformer = o => typeof o === 'object' ? o.getID() : o) {
+    getValue = (valueTransformer = o => typeof o === 'object' ? o.getID() : o) => {
 		let {state: {selection}} = this;
 		return selection.getItems().map(valueTransformer);
-	}
-});
+	};
+}

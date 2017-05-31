@@ -1,6 +1,8 @@
 /*eslint react/no-multi-comp:0*/
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Link} from 'react-router-component';
 
 import {Mixins} from 'nti-web-commons';
@@ -35,7 +37,7 @@ Breakdown.propTypes = {
 };
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Community:Info',
 	mixins: [Mixins.BasePath, ContextSender],
 

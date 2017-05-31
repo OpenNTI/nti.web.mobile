@@ -1,9 +1,11 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import StudentLink from './StudentLink';
 import StudentStatics from './StudentStaticsMixin';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GradebookColumnStudent',
 
 	mixins: [StudentStatics],

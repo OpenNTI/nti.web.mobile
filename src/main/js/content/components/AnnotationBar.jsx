@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import isTouch from 'nti-util-detection-touch';
@@ -13,7 +14,7 @@ const logger = Logger.get('content:components:AnnotationBar');
 const stop = e => (e.preventDefault(),e.stopPropagation());
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AnnotationBar',
 
 	propTypes: {

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {scoped} from 'nti-lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -9,7 +11,7 @@ import EnrollmentOptions from '../mixins/EnrollmentMixin';
 
 let t = scoped('ENROLLMENT');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Enroll',
 	mixins: [EnrollmentOptions, ContextSender],
 

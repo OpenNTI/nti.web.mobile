@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Mixin, {stopEvent} from './Mixin';
 
 import {getEventTarget} from 'nti-lib-dom';
@@ -12,7 +13,7 @@ const valueIfChecked = (i)=> i.checked && i.value;
 /**
  * This input type represents Muliple Choice (with one answer--aka Radio Buttons)
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'MultipleChoice',
 	mixins: [Mixin],
 

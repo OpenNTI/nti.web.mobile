@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Loading} from 'nti-web-commons';
 
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -12,7 +13,7 @@ import Empty from './Empty';
 import LoadMore from './LoadMore';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NotificationsView',
 	mixins: [StoreEventsMixin],
 

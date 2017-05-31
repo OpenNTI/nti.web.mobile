@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import NoteableMixin from '../mixins/Noteable';
@@ -17,7 +19,7 @@ function trunc (txt, len) {
 	return txt.substr(0, Math.max(0, len - 3)) + '...';
 }
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
 

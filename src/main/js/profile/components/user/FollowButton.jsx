@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {User} from 'nti-web-client';
@@ -6,7 +7,7 @@ import {User} from 'nti-web-client';
 import {PromiseButton, Mixins} from 'nti-web-commons';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'FollowButton',
 	mixins: [Mixins.ItemChanges],
 

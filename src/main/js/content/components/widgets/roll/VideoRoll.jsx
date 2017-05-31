@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import cx from 'classnames';
 
 import {Error, Loading} from 'nti-web-commons';
@@ -23,7 +25,7 @@ function getVideo (object, index) {
 }
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'VideoRoll',
 	mixins: [Mixin, RollCommon, ContextAccessor],
 

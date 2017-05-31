@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -20,7 +22,7 @@ const logger = Logger.get('course:components:ExternalContent');
 
 const RelatedWorkReference = getModel('relatedworkref');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ExternalContent',
 	mixins: [CourseLinker, ContextContributor, Mixins.NavigatableMixin],
 

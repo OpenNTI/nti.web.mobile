@@ -1,11 +1,13 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Container from './Container';
 import SectionMixin from '../../mixins/SectionAware';
 
 const isOpen = RegExp.prototype.test.bind(/open/i);
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Courses',
 	mixins: [SectionMixin],
 

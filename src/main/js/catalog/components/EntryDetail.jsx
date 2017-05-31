@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Loading, Mixins} from 'nti-web-commons';
@@ -16,7 +18,7 @@ import Detail from './Detail';
 
 const logger = Logger.get('catalog:EntryDetail');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'EntryDetail',
 	mixins: [ContextSender, Mixins.NavigationAware],
 

@@ -2,23 +2,22 @@ import React from 'react';
 
 import GradeBox from '../../GradeBox';
 
-export default React.createClass({
-	displayName: 'performance:ColumnScore',
+export default class extends React.Component {
+    static displayName = 'performance:ColumnScore';
 
-	statics: {
-		label () {
-			return 'Score';
-		},
-		className: 'col-score',
-		sort: 'grade'
-	},
+    static label() {
+        return 'Score';
+    }
 
-	propTypes: {
+    static className = 'col-score';
+    static sort = 'grade';
+
+    static propTypes = {
 		item: React.PropTypes.object.isRequired,
 		userId: React.PropTypes.string.isRequired
-	},
+	};
 
-	render () {
+    render() {
 
 		const {item, userId} = this.props;
 		const {grade, assignmentId} = item;
@@ -29,4 +28,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

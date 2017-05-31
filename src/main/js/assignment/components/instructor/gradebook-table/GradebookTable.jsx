@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {SortOrder} from 'nti-lib-interfaces';
 
 import Accessor from '../mixins/AssignmentSummaryAccessor';
@@ -13,7 +15,7 @@ import Actions from './ColumnActions';
 
 const COLUMNS = [Student, Completed, Score, Feedback, Actions];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GradebookTable',
 	mixins: [Accessor],
 

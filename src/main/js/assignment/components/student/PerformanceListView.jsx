@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {SortOrder} from 'nti-lib-interfaces';
@@ -39,7 +40,7 @@ const columns = [
 	}
 ];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'PerformanceListView',
 	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 

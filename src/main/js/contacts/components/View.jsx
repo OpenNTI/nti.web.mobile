@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import Redirect from 'navigation/components/Redirect';
 import Page from './PageFrame';
@@ -20,7 +21,7 @@ const ROUTES = [
 	{} // default
 ];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Contacts:View',
 	mixins: [ContextContributor, Mixins.BasePath],
 

@@ -1,21 +1,20 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'GradebookColumnFeedback',
+export default class extends React.Component {
+    static displayName = 'GradebookColumnFeedback';
 
-	statics: {
-		label () {
-			return 'Feedback';
-		},
-		className: 'col-feedback',
-		sort: 'feedbackCount'
-	},
+    static label() {
+        return 'Feedback';
+    }
 
-	propTypes: {
+    static className = 'col-feedback';
+    static sort = 'feedbackCount';
+
+    static propTypes = {
 		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
-	},
+	};
 
-	render () {
+    render() {
 
 		const {props: {item: {HistoryItemSummary: item}}} = this;
 
@@ -23,4 +22,4 @@ export default React.createClass({
 			<div>{item && item.feedbackCount > 0 && item.feedbackCount}</div>
 		);
 	}
-});
+}

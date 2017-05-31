@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import QueryString from 'query-string';
 
 import {Link} from 'react-router-component';
@@ -36,7 +37,7 @@ const signupLink = () => t(MESSAGE_SIGNUP_CONFIRMATION, {fallback: 'missing'}) =
 							? '/signup/'
 							: '/signup/confirm';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'LoginForm',
 	mixins: [StoreEventsMixin],
 

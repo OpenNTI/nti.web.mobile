@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ListDetail from './ListDetail';
 import DistributionLists from './DistributionLists';
 import ContextSender from 'common/mixins/ContextSender';
 import {Mixins} from 'nti-web-commons';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Contacts:ListsView',
 	mixins: [ContextSender, Mixins.NavigatableMixin],
 

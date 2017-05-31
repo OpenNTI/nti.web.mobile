@@ -12,33 +12,33 @@ import {scoped} from 'nti-lib-locale';
 const t = scoped('ENROLLMENT.GIFT.SUCCESS');
 const siteString = scoped('COURSE.CONTACTINFO');
 
-export default React.createClass({
-	displayName: 'GiftSuccess',
+export default class extends React.Component {
+    static displayName = 'GiftSuccess';
 
-	propTypes: {
+    static propTypes = {
 		purchasable: React.PropTypes.object,
 		purchaseattempt: React.PropTypes.object,
 		doneLink: React.PropTypes.string,
 		onDone: React.PropTypes.func
-	},
+	};
 
-	componentWillUnmount () {
+    componentWillUnmount() {
 		resetProcess();
-	},
+	}
 
-	onNewGift () {
+    onNewGift = () => {
 		resetProcess({
 			gift: true
 		});
-	},
+	};
 
-	ignoreChange  () {
+    ignoreChange = () => {
 		//replaces changes user made with current state (effectively making
 		//the field readonly, while still letting it be focusable)
 		this.forceUpdate();
-	},
+	};
 
-	render () {
+    render() {
 		const {purchasable, purchaseattempt, doneLink} = this.props;
 		const {title} = purchasable;
 		const {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
@@ -99,4 +99,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -2,31 +2,27 @@ import React from 'react';
 
 import NavigationBar from 'navigation/components/Bar';
 
-export default React.createClass({
-	displayName: 'Page',
+export default class extends React.Component {
+    static displayName = 'Page';
 
-	propTypes: {
+    static propTypes = {
 		pageContent: React.PropTypes.any,
 		children: React.PropTypes.any
-	},
+	};
 
-
-	childContextTypes: {
+    static childContextTypes = {
 		PageWrapped: React.PropTypes.bool
-	},
+	};
 
-
-	contextTypes: {
+    static contextTypes = {
 		PageWrapped: React.PropTypes.bool
-	},
+	};
 
-
-	getChildContext () {
+    getChildContext() {
 		return {PageWrapped: true};
-	},
+	}
 
-
-	render () {
+    render() {
 		let {children} = this.props;
 
 		let props = Object.assign({}, this.props, {
@@ -39,10 +35,9 @@ export default React.createClass({
 					React.createElement(NavigationBar, props),
 				...this.renderChildren(children)
 		);
-	},
+	}
 
-
-	renderChildren (c) {
+    renderChildren = (c) => {
 		let {pageContent} = this.props;
 		let props = Object.assign({}, this.props, {
 			availableSections: null,
@@ -61,5 +56,5 @@ export default React.createClass({
 		}
 
 		return c.map(x=>React.cloneElement(x));
-	}
-});
+	};
+}

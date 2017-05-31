@@ -1,6 +1,8 @@
 import path from 'path';
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Mixins} from 'nti-web-commons';
@@ -12,7 +14,7 @@ import {Mixin as ResourceLoaded} from 'nti-analytics';
  * This is is just a flat link to content.
  */
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseOverviewTopic',
 	mixins: [Mixins.NavigatableMixin, ResourceLoaded],
 

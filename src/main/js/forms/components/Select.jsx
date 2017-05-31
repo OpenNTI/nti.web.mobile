@@ -4,11 +4,10 @@ import Store from '../Store';
 import * as Constants from '../Constants';
 import {Loading} from 'nti-web-commons';
 
-export default React.createClass({
+export default class extends React.Component {
+    static displayName = 'forms:Select';
 
-	displayName: 'forms:Select',
-
-	propTypes: {
+    static propTypes = {
 
 		/**
 		* the list of options for the select: an array of
@@ -31,35 +30,32 @@ export default React.createClass({
 
 
 		field: React.PropTypes.object.isRequired
-	},
+	};
 
-	getInitialState () {
-		return {
-			loading: false
-		};
-	},
+    state = {
+        loading: false
+    };
 
-
-	componentWillMount () {
+    componentWillMount() {
 		if (this.props.optionsLink) {
 			this.setState({
 				loading: true
 			});
 		}
-	},
+	}
 
-	componentDidMount () {
+    componentDidMount() {
 		Store.addChangeListener(this.onStoreChange);
 		if (this.props.optionsLink) {
 			this.loadOptions();
 		}
-	},
+	}
 
-	componentWillUnmount () {
+    componentWillUnmount() {
 		Store.removeChangeListener(this.onStoreChange);
-	},
+	}
 
-	loadOptions () {
+    loadOptions = () => {
 		let link = this.props.optionsLink || {};
 		if (link.type === 'rel' && link.rel) {
 			loadSelectOptionsFromUserLinkRel(link.rel);
@@ -70,9 +66,9 @@ export default React.createClass({
 				'a rel property for looking getting a link from user.'
 			);
 		}
-	},
+	};
 
-	onStoreChange (event) {
+    onStoreChange = (event) => {
 		let action = event.action || {};
 		let rel = (action.payload || {}).link;
 		if(event.type === Constants.URL_RETRIEVED && rel && this.props.optionsLink && rel === this.props.optionsLink.rel) {
@@ -81,15 +77,15 @@ export default React.createClass({
 				options: event.response
 			});
 		}
-	},
+	};
 
-	// if our options are simple strings turn them into objects
-	// with name and value properties.
-	makeOption (option) {
+    // if our options are simple strings turn them into objects
+    // with name and value properties.
+    makeOption = (option) => {
 		return typeof option === 'string' ? { name: option, value: option } : option;
-	},
+	};
 
-	renderOptions () {
+    renderOptions = () => {
 		let raw = this.state.options || this.props.options || [];
 		let options = raw.map(item => {
 			let o = this.makeOption(item);
@@ -105,9 +101,9 @@ export default React.createClass({
 
 		return options;
 
-	},
+	};
 
-	render () {
+    render() {
 
 		if (this.state.loading) {
 			return <Loading.Whacky />;
@@ -122,5 +118,4 @@ export default React.createClass({
 			</label>
 		);
 	}
-
-});
+}

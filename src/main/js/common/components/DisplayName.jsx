@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {DisplayName} from 'nti-web-commons';
 import ProfileLink from 'profile/mixins/ProfileLink';
 
 function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Mobile:DisplayName',
 	mixins: [ProfileLink],
 

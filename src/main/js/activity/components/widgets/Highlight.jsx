@@ -1,11 +1,12 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {Ellipsed} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Highlight',
 	mixins: [Mixin],
 

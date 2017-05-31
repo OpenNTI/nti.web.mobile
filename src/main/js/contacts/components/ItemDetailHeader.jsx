@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Prompt} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 import {Mixins} from 'nti-web-commons';
@@ -6,7 +7,7 @@ import cx from 'classnames';
 
 let t = scoped('CONTACTS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ItemDetailHeader',
 
 	mixins: [Mixins.NavigatableMixin],

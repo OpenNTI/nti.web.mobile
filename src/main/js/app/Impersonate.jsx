@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import QueryString from 'query-string';
 import Url from 'url';
 
@@ -8,7 +10,7 @@ const LINK = 'logon.nti.impersonate';
 
 import {getAppUser} from 'nti-web-client';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Impersonate',
 
 

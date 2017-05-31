@@ -3,29 +3,26 @@ import isFunction from 'is-function';
 
 const onToggle = 'ToggleFieldset:onToggle';
 
-export default React.createClass({
+export default class extends React.Component {
+    static displayName = 'forms:ToggleFieldset';
 
-	displayName: 'forms:ToggleFieldset',
-
-	propTypes: {
+    static propTypes = {
 		field: React.PropTypes.object.isRequired,
 		renderField: React.PropTypes.func.isRequired,
 		translator: React.PropTypes.func.isRequired,
 		onChange: React.PropTypes.func
-	},
+	};
 
-	getInitialState () {
-		return {};
-	},
+    state = {};
 
-	componentWillMount () {
+    componentWillMount() {
 		this.setState({
 			fieldset: this.props.field.fieldsetOff,
 			fieldValues: {}
 		});
-	},
+	}
 
-	[onToggle] (event) {
+    onToggle = (event) => {
 		let config = this.props.field;
 		let fs = event.target.checked ? config.fieldsetOn : config.fieldsetOff;
 		this.setState({
@@ -34,9 +31,9 @@ export default React.createClass({
 		if(isFunction(this.props.onChange)) {
 			this.props.onChange(event);
 		}
-	},
+	};
 
-	render () {
+    render() {
 
 		let fieldset = this.state.fieldset;
 		let fields = (fieldset || {}).fields || [];
@@ -57,5 +54,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
-});
+}

@@ -4,37 +4,33 @@ import DisplayName from './DisplayName';
 
 import {getService} from 'nti-web-client';
 
-export default React.createClass({
-	displayName: 'RepliedTo',
+export default class extends React.Component {
+    static displayName = 'RepliedTo';
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object
-	},
+	};
 
-
-	componentDidMount () {
+    componentDidMount() {
 		this.fill();
-	},
+	}
 
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.fill(nextProps);
 		}
-	},
+	}
 
-
-	fill (props = this.props) {
+    fill = (props = this.props) => {
 		let {item} = props;
 
 		getService()
 			.then(s => s.getObject(item.inReplyTo, {field: 'Creator'}))
 			.catch(() => 'Unknown')
 			.then(o => this.setState({parentObjectsCreator: o}));
-	},
+	};
 
-
-	render () {
+    render() {
 		let {item} = this.props;
 		let {parentObjectsCreator} = this.state || {};
 
@@ -52,4 +48,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

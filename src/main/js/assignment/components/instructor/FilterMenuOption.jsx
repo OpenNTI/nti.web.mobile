@@ -1,20 +1,20 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'FilterMenuOption',
+export default class extends React.Component {
+    static displayName = 'FilterMenuOption';
 
-	propTypes: {
+    static propTypes = {
 		onClick: React.PropTypes.func,
 		option: React.PropTypes.any,
 		className: React.PropTypes.any
-	},
+	};
 
-	onClick () {
+    onClick = () => {
 		const {onClick, option} = this.props;
 		onClick && onClick(option);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {option, className} = this.props;
 
@@ -26,4 +26,4 @@ export default React.createClass({
 			</li>
 		);
 	}
-});
+}

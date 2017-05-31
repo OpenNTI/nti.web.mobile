@@ -25,6 +25,7 @@ import path from 'path';
 import Url from 'url';
 
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {eventStarted, toAnalyticsPath, ExternalResourceEvent} from 'nti-analytics';
 import {rawContent} from 'nti-commons';
@@ -58,7 +59,7 @@ function canSetState (cmp) {
 	return can;
 }
 
-export default React.createClass({
+export default createReactClass({
 	mixins: [ContextAccessor, Mixins.NavigatableMixin],
 	displayName: 'RelatedWorkRef',
 

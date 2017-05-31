@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
 import path from 'path';
@@ -21,7 +22,7 @@ import Store from '../Store';
 import {CONCURRENT_ENROLLMENT_SUCCESS} from '../Constants';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'View',
 
 	mixins: [Mixins.NavigatableMixin, CourseContentLink, ContextSender],

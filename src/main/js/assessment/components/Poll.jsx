@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
@@ -11,7 +12,7 @@ import Aggregated from './aggregated/Aggregated';
 import Store from '../Store';
 import {toggleAggregatedView} from '../Actions';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Poll',
 	mixins: [StoreEventsMixin],
 

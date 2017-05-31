@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Panel as ModeledContent} from 'modeled-content';
 
 import Avatar from 'common/components/Avatar';
@@ -11,7 +13,7 @@ import {getService} from 'nti-web-client';
 
 import Mixin from './Mixin';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ForumComment',
 	mixins: [Mixin],
 

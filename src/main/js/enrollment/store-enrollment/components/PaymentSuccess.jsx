@@ -10,47 +10,45 @@ import EnrollmentSuccess from '../../components/EnrollmentSuccess';
 import {resetProcess} from '../Actions';
 import Store from '../Store';
 
-export default React.createClass({
-	displayName: 'PaymentSuccess',
+export default class extends React.Component {
+    static displayName = 'PaymentSuccess';
 
-	propTypes: {
+    static propTypes = {
 		courseId: React.PropTypes.string,
 		purchasable: React.PropTypes.object.isRequired,
 		giftDoneLink: React.PropTypes.string,
 		onDone: React.PropTypes.func
-	},
+	};
 
-	getInitialState () {
-		return {
-			purchaseAttempt: null
-		};
-	},
+    state = {
+        purchaseAttempt: null
+    };
 
-	componentWillMount () {
+    componentWillMount() {
 		this.setState({
 			purchaseAttempt: Store.getPaymentResult()
 		});
-	},
+	}
 
-	componentWillUnmount () {
+    componentWillUnmount() {
 		resetProcess();
-	},
+	}
 
-	componentDidMount () {
+    componentDidMount() {
 		if (!this.state.purchaseAttempt) {
 			resetProcess();
 		}
-	},
+	}
 
-	_courseLink () {
+    _courseLink = () => {
 		return (
 			<CourseContentLink
 					className="button tiny radius column"
 					courseId={this.props.courseId}>Go to course</CourseContentLink>
 		);
-	},
+	};
 
-	render () {
+    render() {
 		let {purchaseAttempt} = this.state;
 		let {giftDoneLink, onDone, purchasable} = this.props;
 		let {title = 'the course'} = purchasable || {};
@@ -71,5 +69,4 @@ export default React.createClass({
 			<EnrollmentSuccess courseTitle={title} />
 		);
 	}
-
-});
+}

@@ -59,28 +59,27 @@ class Queue {
 
 const GOV = new Queue();
 
-export default React.createClass({
-	displayName: 'content:Icon',
+export default class extends React.Component {
+    static displayName = 'content:Icon';
 
-	propTypes: {
+    static propTypes = {
 		src: React.PropTypes.string
-	},
+	};
 
-	getInitialState () {
-		return {};
-	},
+    state = {};
+    componentWillMount() { this.start(); }
 
-	componentWillMount () { this.start(); },
-	componentDidMount () {
+    componentDidMount() {
 		this.mounted = true;
-	},
-	componentWillReceiveProps (nextProps) {
+	}
+
+    componentWillReceiveProps(nextProps) {
 		if (this.props.src !== nextProps.src) {
 			this.start(nextProps);
 		}
-	},
+	}
 
-	start (props = this.props) {
+    start = (props = this.props) => {
 		const {src} = props;
 		if (src) {
 			GOV.wait(this)
@@ -92,18 +91,18 @@ export default React.createClass({
 				.catch((e)=> e !== 'aborted'
 							&& logger.warn('Huh?', e && e.stack || e.message || e));
 		}
-	},
+	};
 
-	componentWillUnmount () {
+    componentWillUnmount() {
 		this.mounted = false;
 		GOV.remove(this);
-	},
+	}
 
-	onFinish () {
+    onFinish = () => {
 		GOV.remove(this);
-	},
+	};
 
-	render () {
+    render() {
 		const {icon} = this.state;
 		return (
 			<img {...this.props}
@@ -113,4 +112,4 @@ export default React.createClass({
 				/>
 		);
 	}
-});
+}

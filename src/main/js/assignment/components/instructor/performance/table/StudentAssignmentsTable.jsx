@@ -11,35 +11,35 @@ import ColumnFeedback from './ColumnFeedback';
 
 const COLUMNS = [ColumnAssignment, ColumnCompleted, ColumnScore, ColumnFeedback, ColumnActions];
 
-export default React.createClass({
-	displayName: 'StudentAssignmentsTable',
+export default class extends React.Component {
+    static displayName = 'StudentAssignmentsTable';
 
-	propTypes: {
+    static propTypes = {
 		items: React.PropTypes.any.isRequired
-	},
+	};
 
-	componentWillMount () {
+    componentWillMount() {
 		const {items} = this.props;
 		items.addListener('change', this.itemsChange);
-	},
+	}
 
-	componentWillUnmount () {
+    componentWillUnmount() {
 		const {items} = this.props;
 		items.removeListener('change', this.itemsChange);
-	},
+	}
 
-	itemsChange () {
+    itemsChange = () => {
 		this.forceUpdate();
-	},
+	};
 
-	sortChange (sort) {
+    sortChange = (sort) => {
 		const {items} = this.props;
 		const current = items.getSort();
 		const direction = current.sortOn === sort ? SortOrder.reverse(current.sortOrder) : SortOrder.ASC;
 		items.setSort(sort, direction);
-	},
+	};
 
-	render () {
+    render() {
 		const {items} = this.props;
 		const sort = items.getSort();
 		return (
@@ -53,4 +53,4 @@ export default React.createClass({
 				/>
 		);
 	}
-});
+}

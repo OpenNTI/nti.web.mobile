@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import cx from 'classnames';
@@ -30,7 +31,7 @@ const FIELDS = [
 ];
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'SignupForm',
 	mixins: [StoreEventsMixin, Mixins.NavigatableMixin, Mixins.BasePath],
 

@@ -2,30 +2,27 @@ import React from 'react';
 
 import {getService} from 'nti-web-client';
 
-export default React.createClass({
-	displayName: 'InvitationCode',
+export default class extends React.Component {
+    static displayName = 'InvitationCode';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.object.isRequired
-	},
+	};
 
-
-	componentWillMount () {
+    componentWillMount() {
 		this.getCode();
-	},
+	}
 
-
-	selectCode () {
+    selectCode = () => {
 		const selection = window.getSelection();
 		const range = document.createRange();
 
 		range.selectNodeContents(this.code);
 		selection.removeAllRanges();
 		selection.addRange(range);
-	},
+	};
 
-
-	getCode () {
+    getCode = () => {
 		const {entity} = this.props;
 		const link = entity && entity.getLink('default-trivial-invitation-code');
 
@@ -36,10 +33,9 @@ export default React.createClass({
 				.then(result => this.setState({ code: result.invitation_code }));
 
 		}
-	},
+	};
 
-
-	render () {
+    render() {
 		const {busy, code} = this.state || {};
 		if (busy || !code) {
 			return null;
@@ -51,4 +47,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

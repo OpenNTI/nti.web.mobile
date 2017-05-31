@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {join} from 'path';
 
 import {Mixins} from 'nti-web-commons';
@@ -9,7 +11,7 @@ import Button from 'forms/components/Button';
 import {makeHref as profileLink} from 'profile/components/ProfileLink';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GroupLeaveButton',
 
 	mixins: [Mixins.BasePath, Mixins.NavigatableMixin],

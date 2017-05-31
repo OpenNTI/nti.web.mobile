@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -7,7 +9,7 @@ import {Mixins} from 'nti-web-commons';
 
 import ReplyEditor from './ReplyEditor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'NoteCommentEditView',
 	mixins: [
 		ContextSender,

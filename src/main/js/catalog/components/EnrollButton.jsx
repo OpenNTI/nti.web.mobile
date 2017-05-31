@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 import {scoped} from 'nti-lib-locale';
 import {Loading, Mixins} from 'nti-web-commons';
@@ -15,7 +17,7 @@ let t = scoped('ENROLLMENT');
  * Displays a link/button to enroll if enrollment options are
  * available for the given catalog entry.
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'EnrollButton',
 	mixins: [EnrollmentOptions, Mixins.BasePath],
 

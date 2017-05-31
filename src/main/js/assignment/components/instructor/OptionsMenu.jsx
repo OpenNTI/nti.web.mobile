@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import Accessor from './mixins/AssignmentSummaryAccessor';
@@ -7,7 +8,7 @@ import ShowAvatars from './mixins/ShowAvatarsChild';
 import MenuTransitionGroup from './MenuTransitionGroup';
 import PageSizeMenuOption from './PageSizeMenuOption';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'OptionsMenu',
 
 	mixins: [Accessor, ShowAvatars],

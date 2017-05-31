@@ -1,22 +1,22 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'AddEntryButton',
+export default class extends React.Component {
+    static displayName = 'AddEntryButton';
 
-	propTypes: {
+    static propTypes = {
 		onClick: React.PropTypes.func.isRequired
-	},
+	};
 
-	onClick (e) {
+    onClick = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		this.props.onClick.call();
-	},
+	};
 
-	render () {
+    render() {
 		return (
 			<a className="add-entry-button button tiny" onClick={this.onClick}>Add Entry</a>
 		);
 	}
-});
+}

@@ -3,11 +3,10 @@ import cx from 'classnames';
 
 import {rawContent} from 'nti-commons';
 
-export default React.createClass({
-	displayName: 'Transcript',
+export default class extends React.Component {
+    static displayName = 'Transcript';
 
-
-	propTypes: {
+    static propTypes = {
 		children: React.PropTypes.any,
 
 		cues: React.PropTypes.arrayOf(
@@ -28,24 +27,19 @@ export default React.createClass({
 
 		onJumpTo: React.PropTypes.func,
 		onSlideLoaded: React.PropTypes.func
-	},
+	};
 
+    static defaultProps = {
+        onJumpTo: () => {},
+        onSlideLoaded: () => {}
+    };
 
-	getDefaultProps () {
-		return {
-			onJumpTo: () => {},
-			onSlideLoaded: () => {}
-		};
-	},
-
-
-	onJumpToCue (e) {
+    onJumpToCue = (e) => {
 		e.preventDefault();
 		this.props.onJumpTo(e.target.getAttribute('data-start-time'));
-	},
+	};
 
-
-	renderCues (cue) {
+    renderCues = (cue) => {
 		const divider = null;
 		const time = this.props.currentTime;
 
@@ -62,10 +56,9 @@ export default React.createClass({
 				onClick={this.onJumpToCue}
 				{...rawContent(cue.text)}/>
 		)];
-	},
+	};
 
-
-	renderSlide (slide) {
+    renderSlide = (slide) => {
 		let divider = null;
 		let time = this.props.currentTime;
 
@@ -81,15 +74,13 @@ export default React.createClass({
 				<img src={slide.image} className="slide" onLoad={this.props.onSlideLoaded}/>
 			</a>
 		)];
-	},
+	};
 
-
-	renderItem (item) {
+    renderItem = (item) => {
 		return ('text' in item) ? this.renderCues(item) : this.renderSlide(item);
-	},
+	};
 
-
-	render () {
+    render() {
 		const {cues = [], slides = [], children} = this.props;
 
 		const items = cues.concat(slides).sort((a, b) => a.startTime - b.startTime);
@@ -101,4 +92,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

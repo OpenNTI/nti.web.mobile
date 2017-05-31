@@ -22,30 +22,28 @@ const MONTHS = [
 // month is 1-based (january = 1, december = 12)
 const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
 
-export default React.createClass({
-	displayName: 'DateField',
+export default class extends React.Component {
+    static displayName = 'DateField';
 
-	getInitialState () {
-		return {
-		};
-	},
-
-	propTypes: {
+    static propTypes = {
 		name: React.PropTypes.string,
 		onChange: React.PropTypes.func,
 		field: React.PropTypes.object,
 		defaultValue: React.PropTypes.string
-	},
+	};
 
-	componentWillMount () {
+    state = {
+    };
+
+    componentWillMount() {
 		this.setUp();
-	},
+	}
 
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		this.setUp(nextProps);
-	},
+	}
 
-	setUp (props = this.props) {
+    setUp = (props = this.props) => {
 		const {defaultValue} = props;
 		if (defaultValue) {
 			// (yyyy)-(mm)-(dd)
@@ -66,18 +64,18 @@ export default React.createClass({
 		else {
 			this.setToToday();
 		}
-	},
+	};
 
-	setToToday () {
+    setToToday = () => {
 		const today = new Date();
 		this.setState({
 			year: today.getFullYear(),
 			month: zpad(today.getMonth() + 1),
 			day: zpad(today.getDate())
 		});
-	},
+	};
 
-	onSelectChange (event) {
+    onSelectChange = (event) => {
 		const {onChange, name} = this.props;
 
 		// ensure that we keep the 'day' in range for the currently selected month
@@ -96,9 +94,9 @@ export default React.createClass({
 				});
 			}
 		});
-	},
+	};
 
-	monthSelect () {
+    monthSelect = () => {
 		const {month} = this.state;
 		return (
 			<DateFieldSelect name="month" onChange={this.onSelectChange} className="date-field-month" value={month}>
@@ -106,9 +104,9 @@ export default React.createClass({
 				{MONTHS.map( (m, i) => (<option key={m} value={zpad(i + 1)}>{m}</option>) )}
 			</DateFieldSelect>
 		);
-	},
+	};
 
-	daySelect () {
+    daySelect = () => {
 
 		const {day, year, month} = this.state;
 
@@ -118,9 +116,9 @@ export default React.createClass({
 				{range(1, daysInMonth(month, year) + 1).map( (n) => (<option key={n} value={zpad(n)}>{n}</option>) )}
 			</DateFieldSelect>
 		);
-	},
+	};
 
-	yearSelect () {
+    yearSelect = () => {
 		const {year = ''} = this.state;
 		return (
 			<DateFieldSelect name="year" onChange={this.onSelectChange} className="date-field-year" value={year}>
@@ -128,15 +126,15 @@ export default React.createClass({
 				{range(1900, (new Date().getFullYear() + 1)).reverse().map((n) => (<option key={n} value={n}>{n}</option>) )}
 			</DateFieldSelect>
 		);
-	},
+	};
 
-	composeValue () {
+    composeValue = () => {
 		const {month, day, year} = this.state;
 		const isValid = (v) => v > 0;
 		return [month, day, year].every(isValid) ? `${year}-${zpad(month, 2)}-${zpad(day, 2)}` : '';
-	},
+	};
 
-	render () {
+    render() {
 		const {name, field} = this.props;
 		return (
 			<div className="date-field-wrapper">
@@ -150,4 +148,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

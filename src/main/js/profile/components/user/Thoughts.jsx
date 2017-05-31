@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import {join} from 'path';
 
@@ -16,7 +17,7 @@ const ROUTES = [
 	{}//default
 ];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Thoughts',
 	mixins: [ContextSender, ProfileLink],
 

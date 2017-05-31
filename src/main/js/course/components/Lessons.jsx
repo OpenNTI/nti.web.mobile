@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Router from 'react-router-component';
 
 import Content from './Content';
@@ -21,7 +23,7 @@ const ROUTES = [
 	{}//
 ];
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Lessons',
 	mixins: [ContextContributor, Mixins.NavigatableMixin],
 

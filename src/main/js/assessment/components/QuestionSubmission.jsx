@@ -17,30 +17,26 @@ const STATUS_MAP = {
 	'false': 'Incorrect'
 };
 
-export default React.createClass({
-	displayName: 'QuestionSubmission',
+export default class extends React.Component {
+    static displayName = 'QuestionSubmission';
 
-	propTypes: {
+    static propTypes = {
 		question: React.PropTypes.object.isRequired
-	},
+	};
 
-
-	componentDidMount () {
+    componentDidMount() {
 		Store.addChangeListener(this.onChange);
-	},
+	}
 
-
-	componentWillUnmount () {
+    componentWillUnmount() {
 		Store.removeChangeListener(this.onChange);
-	},
+	}
 
-
-	onChange () {
+    onChange = () => {
 		this.forceUpdate();
-	},
+	};
 
-
-	onReset (e) {
+    onReset = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -51,10 +47,9 @@ export default React.createClass({
 		if (Store.canReset(question)) {
 			clearAssessmentAnswers(question);
 		}
-	},
+	};
 
-
-	onSubmit (e) {
+    onSubmit = (e) => {
 		let {question} = this.props;
 
 		if (e) {
@@ -65,19 +60,17 @@ export default React.createClass({
 		if (Store.canSubmit(question)) {
 			submit(question);
 		}
-	},
+	};
 
-
-	dismissAssessmentError (e) {
+    dismissAssessmentError = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 		Store.clearError(this.props.question);
-	},
+	};
 
-
-	render () {
+    render() {
 		let {question} = this.props;
 
 		if (!areAssessmentsSupported()) {
@@ -121,4 +114,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

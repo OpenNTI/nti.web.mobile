@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Loading, Mixins, Notice} from 'nti-web-commons';
@@ -14,7 +16,7 @@ import * as Actions from '../Actions';
 import {TOPIC_CREATED, TOPIC_CREATION_ERROR} from '../Constants';
 import Store from '../Store';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CreateTopic',
 	mixins: [ContextSender, Mixins.NavigatableMixin],
 

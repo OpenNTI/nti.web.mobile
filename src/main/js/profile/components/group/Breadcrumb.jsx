@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Mixins} from 'nti-web-commons';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Breadcrumb',
 	mixins: [Mixins.BasePath],
 

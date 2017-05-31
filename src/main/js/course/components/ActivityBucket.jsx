@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Logger from 'nti-util-logger';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
@@ -96,7 +97,7 @@ class ActivityColumns {
 	}
 }
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Course:ActivityBucket',
 	mixins: [ItemsMixin],
 	propTypes: {

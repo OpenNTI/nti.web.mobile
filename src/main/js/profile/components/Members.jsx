@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import AvatarGrid from './AvatarGrid';
 import ProfileBodyContainer from './ProfileBodyContainer';
 import HasMembers, {classesFor} from '../mixins/HasMembers';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Members',
 
 	mixins: [HasMembers],

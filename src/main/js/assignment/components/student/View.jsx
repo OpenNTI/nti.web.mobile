@@ -15,18 +15,18 @@ const ROUTES = [
 	{}//not found
 ];
 
-export default React.createClass({
-	displayName: 'Assignments:Students:View',
+export default class extends React.Component {
+    static displayName = 'Assignments:Students:View';
 
-	childContextTypes: {
+    static childContextTypes = {
 		AssignmentListItem: React.PropTypes.func
-	},
+	};
 
-	getChildContext () {
+    getChildContext() {
 		return {AssignmentListItem};
-	},
+	}
 
-	render () {
+    render() {
 
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route =>
@@ -35,4 +35,4 @@ export default React.createClass({
 					: React.createElement(Router.NotFound, {handler: Redirect, location: '/'})
 			));
 	}
-});
+}

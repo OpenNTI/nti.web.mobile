@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
@@ -14,7 +15,7 @@ import {LESSONS} from '../Sections';
 
 const logger = Logger.get('course:components:OutlineView');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseOutlineView',
 	mixins: [
 		ContextSender,

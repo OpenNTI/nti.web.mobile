@@ -9,25 +9,23 @@ import * as Sections from '../Sections';
 let getLabel = scoped('CONTENT.SECTIONS');
 
 
-export default React.createClass({
-	displayName: 'course:Page',
+export default class extends React.Component {
+    static displayName = 'course:Page';
 
-	propTypes: {
+    static propTypes = {
 		contentPackage: React.PropTypes.object.isRequired,
 		children: React.PropTypes.any
-	},
+	};
 
-	componentWillMount () {
+    componentWillMount() {
 		this.setup();
-	},
+	}
 
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		this.setup(nextProps);
-	},
+	}
 
-
-	setup (props = this.props) {
+    setup = (props = this.props) => {
 		let {contentPackage} = props;
 		let menu = [];
 
@@ -46,10 +44,9 @@ export default React.createClass({
 		}
 
 		this.setState({menu});
-	},
+	};
 
-
-	render () {
+    render() {
 		let {menu} = this.state || {};
 		let {children} = this.props;
 
@@ -65,4 +62,4 @@ export default React.createClass({
 
 		return React.createElement(Page, props);
 	}
-});
+}

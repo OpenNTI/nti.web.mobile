@@ -1,24 +1,22 @@
 import React from 'react';
 import Page from 'common/components/Page';
 
-export default React.createClass({
-	displayName: 'Contacts:PageFrame',
+export default class extends React.Component {
+    static displayName = 'Contacts:PageFrame';
 
-	propTypes: {
+    static propTypes = {
 		pageContent: React.PropTypes.any
-	},
+	};
 
-
-	componentWillMount () {
+    componentWillMount() {
 		this.setState({menu: [
 			{label: 'Contacts', href: '/'},
 			{label: 'Groups', href: '/groups/'},
 			{label: 'Distribution Lists', href: '/lists/'}
 		]});
-	},
+	}
 
-
-	render () {
+    render() {
 		const {props: {pageContent: Content}, state: {menu}} = this;
 
 
@@ -32,4 +30,4 @@ export default React.createClass({
 			</Page>
 		);
 	}
-});
+}

@@ -1,16 +1,14 @@
 import React from 'react';
 import Placeholder from './Placeholder';
 
-export default React.createClass({
-	displayName: 'TimeLockedPlaceholder',
+export default class extends React.Component {
+    static displayName = 'TimeLockedPlaceholder';
 
-
-	propTypes: {
+    static propTypes = {
 		assignment: React.PropTypes.object
-	},
+	};
 
-
-	onBack (e) {
+    onBack = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -18,10 +16,9 @@ export default React.createClass({
 
 		//Temp:
 		history.go(-1);
-	},
+	};
 
-
-	render () {
+    render() {
 		const {props:{assignment}} = this;
 		const props = {
 			assignment,
@@ -35,4 +32,4 @@ export default React.createClass({
 			<Placeholder {...props} />
 		);
 	}
-});
+}

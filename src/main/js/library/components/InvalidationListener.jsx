@@ -47,26 +47,23 @@ function flush (event) {
 	reloadNotifications();
 }
 
-export default React.createClass({
-	displayName: 'InvalidationListener',
+export default class extends React.Component {
+    static displayName = 'InvalidationListener';
 
-	componentDidMount () {
+    componentDidMount() {
 		this.reloadToken = AppDispatcher.register(flush);
 		CatalogStore.addChangeListener(flush);
 		EnrollmentStore.addChangeListener(flush);
 		StoreEnrollmentStore.addChangeListener(flush);
-	},
+	}
 
-
-	componentWillUnmount () {
+    componentWillUnmount() {
 		AppDispatcher.unregister(this.reloadToken);
 		EnrollmentStore.removeChangeListener(flush);
 		StoreEnrollmentStore.removeChangeListener(flush);
-	},
-
-
-	render () {
-		return null;
 	}
 
-});
+    render() {
+		return null;
+	}
+}

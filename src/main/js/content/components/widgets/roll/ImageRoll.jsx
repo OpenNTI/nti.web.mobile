@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import cx from 'classnames';
 
 import Mixin from '../Mixin';
@@ -28,7 +30,7 @@ function getZOffset (offset, max) {
 	return 5 * ratio;
 }
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ImageRoll',
 	mixins: [Mixin, RollCommon],
 

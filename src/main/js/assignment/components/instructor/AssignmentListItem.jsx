@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {scoped} from 'nti-lib-locale';
 
@@ -16,7 +17,7 @@ const DEFAULT_TEXT = {
 
 const t = scoped('EMPTY_ASSIGNMENT_LIST_ITEM', DEFAULT_TEXT);
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AssignmentItem',
 	mixins: [AssignmentsAccessor],
 

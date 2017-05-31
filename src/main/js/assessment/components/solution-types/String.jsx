@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {rawContent} from 'nti-commons';
 
 import Mixin from './Mixin';
@@ -7,7 +9,7 @@ import Mixin from './Mixin';
 /**
  * This solution type represents Any solution who's value is just a string/html.
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'StringBasedAnswer',
 	mixins: [Mixin],
 

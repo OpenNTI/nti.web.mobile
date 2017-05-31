@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {DateTime, Mixins} from 'nti-web-commons';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AssignmentStatus',
 
 	mixins: [Mixins.ItemChanges],

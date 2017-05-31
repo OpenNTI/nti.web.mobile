@@ -13,10 +13,10 @@ const ICON_MAP = {
 
 const getIconClass = x => (x = ICON_MAP[x] || x, `icon-${x} small`);
 
-export default React.createClass({
-	displayName: 'Action',
+export default class extends React.Component {
+    static displayName = 'Action';
 
-	propTypes: {
+    static propTypes = {
 		onClick: React.PropTypes.oneOfType([
 			React.PropTypes.bool,
 			React.PropTypes.func
@@ -31,25 +31,20 @@ export default React.createClass({
 		className: React.PropTypes.string,
 
 		iconOnly: React.PropTypes.bool
-	},
+	};
 
+    static defaultProps = {
+        onClick () {}
+    };
 
-	getDefaultProps () {
-		return {
-			onClick () {}
-		};
-	},
-
-
-	onClick (e) {
+    onClick = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		this.props.onClick();
-	},
+	};
 
-
-	render () {
+    render() {
 		let {criteria, inList} = this.props;
 
 		if (criteria === false) {
@@ -58,10 +53,9 @@ export default React.createClass({
 
 		let button = this.renderButton();
 		return inList ? (<li>{button}</li>) : button;
-	},
+	}
 
-
-	renderButton () {
+    renderButton = () => {
 		let {className, name, iconOnly} = this.props;
 		let css = cx('discussion-item-action', name, className, {'icon-only': iconOnly});
 		return (
@@ -70,5 +64,5 @@ export default React.createClass({
 				{iconOnly ? null : t(name)}
 			</a>
 		);
-	}
-});
+	};
+}

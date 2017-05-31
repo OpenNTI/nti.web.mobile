@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {Mixins, Loading} from 'nti-web-commons';
@@ -16,7 +18,7 @@ const t = scoped('FORUMS');
 /**
  * For lists of Forums, this is the row item.
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'list-items:ForumItem',
 	mixins: [
 		ForumMixin,

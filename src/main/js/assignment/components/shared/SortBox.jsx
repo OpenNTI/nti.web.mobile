@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {SelectBox} from 'nti-web-commons';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'SortBox',
 	mixins: [AssignmentsAccessor],
 

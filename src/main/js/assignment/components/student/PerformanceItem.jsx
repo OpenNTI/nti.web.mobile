@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -7,7 +8,7 @@ import {DateTime, Mixins} from 'nti-web-commons';
 
 const DATE_FORMAT = 'MM/DD';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'PerformanceItem',
 	mixins: [Mixins.ItemChanges],
 

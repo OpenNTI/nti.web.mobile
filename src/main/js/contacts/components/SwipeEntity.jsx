@@ -7,28 +7,28 @@ import ProfileLink from 'profile/components/ProfileLink';
 import cx from 'classnames';
 
 
-export default React.createClass({
-	displayName: 'SwipeEntity',
+export default class extends React.Component {
+    static displayName = 'SwipeEntity';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.object.isRequired,
 		onChange: React.PropTypes.func,
 		selection: React.PropTypes.object.isRequired
-	},
+	};
 
-	association (entity) {
+    association = (entity) => {
 		let {generalName, displayName, displayType} = entity;
 		let type = generalName ? displayName : entity.isUser ? null : displayType;
 
 		return type; // || entity.association;
-	},
+	};
 
-	onChange () {
+    onChange = () => {
 		let {entity} = this.props;
 		this.props.onChange(entity);
-	},
+	};
 
-	render () {
+    render() {
 
 		let {entity, selection} = this.props;
 		let selected = selection.isSelected(entity);
@@ -61,4 +61,4 @@ export default React.createClass({
 			</SwipeToRevealOptions>
 		);
 	}
-});
+}

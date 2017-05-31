@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import path from 'path';
 
 import Router from 'react-router-component';
@@ -18,7 +19,7 @@ let t = scoped('ENROLLMENT');
 /**
  * Used by both store-enrollment/components/View and store-enrollment/components/GiftPurchaseView.
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'StoreEnrollmentRoutes',
 
 	mixins: [Mixins.BasePath, ContextSender, Mixins.NavigatableMixin],

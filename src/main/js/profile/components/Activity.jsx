@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {EmptyList, Loading, Mixins, ScrollTrigger} from 'nti-web-commons';
@@ -14,7 +15,7 @@ import {PROFILE_ACTIVITY_VIEWED} from 'nti-analytics';
 import WriteSomething from './WriteSomething';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Activity',
 
 	mixins: [ItemsMixin, Mixins.BasePath, ProfileAnalytics],

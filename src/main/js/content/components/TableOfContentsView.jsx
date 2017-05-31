@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import cx from 'classnames';
 
 import {
@@ -23,7 +25,7 @@ const TYPE_TAG_MAP = {
 	chapter: 'h3'
 };
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'TableOfContentsView',
 	mixins: [
 		Mixins.BasePath,

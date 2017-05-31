@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {getModel} from 'nti-lib-interfaces';
@@ -13,7 +14,7 @@ import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 const logger = Logger.get('assignment:components:instructor:GradeBox');
 const Grade = getModel('grade');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'GradeBox',
 	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 

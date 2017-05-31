@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import t from 'nti-lib-locale';
 
 import * as Constants from '../Constants';
@@ -45,7 +47,7 @@ const getVisibleFieldRefs = 'RelatedFormPanel:getVisibleFieldRefs';
 
 const hasRelatedFields = new Set();
 
-let RelatedFormPanel = React.createClass({
+let RelatedFormPanel = createReactClass({
 
 	displayName: 'RelatedFormPanel',
 

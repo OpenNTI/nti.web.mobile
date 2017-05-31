@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {PromiseButton} from 'nti-web-commons';
 import RedirectToProfile from '../../mixins/RedirectToProfile';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CommunityLeaveButton',
 
 	mixins: [RedirectToProfile],

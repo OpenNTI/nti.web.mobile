@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import * as Actions from '../Actions';
@@ -12,7 +14,7 @@ import {
 
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'forums:Replies',
 
 	mixins: [StoreEventsMixin],

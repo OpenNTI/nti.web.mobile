@@ -4,19 +4,19 @@ import {Loading} from 'nti-web-commons';
 
 import Panel from 'content/components/discussions/Panel';
 
-export default React.createClass({
-	displayName: 'RecentReplies',
+export default class extends React.Component {
+    static displayName = 'RecentReplies';
 
-	componentWillMount () {
-		this.load();
-	},
-
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object.isRequired,
 		count: React.PropTypes.number
-	},
+	};
 
-	load (props = this.props) {
+    componentWillMount() {
+		this.load();
+	}
+
+    load = (props = this.props) => {
 
 		const {item, count} = props;
 
@@ -33,9 +33,9 @@ export default React.createClass({
 				replies,
 				loading: false
 			}));
-	},
+	};
 
-	render () {
+    render() {
 
 		const {loading, replies} = this.state;
 
@@ -49,4 +49,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

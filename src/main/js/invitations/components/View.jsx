@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
 
 import {Mixins} from 'nti-web-commons';
@@ -8,7 +9,7 @@ import AcceptInvitation from './Accept';
 
 let t = scoped('INVITATIONS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'InvitationsView',
 
 	mixins: [Mixins.BasePath, ContextSender],

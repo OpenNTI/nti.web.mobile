@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import {Error as Err, Loading, Mixins} from 'nti-web-commons';
@@ -13,7 +15,7 @@ import {PAY_AND_ENROLL_ERROR} from '../Constants';
 const logger = Logger.get('enrollment:five-minute:components:Payment');
 const t = scoped('ENROLLMENT');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Payment',
 
 	mixins: [Mixins.NavigatableMixin],

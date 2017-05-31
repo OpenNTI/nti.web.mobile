@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import Mixin from '../mixins/CourseContentLink';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseContentLink',
 	mixins: [Mixin],
 

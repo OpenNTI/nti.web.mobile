@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default React.createClass( {
-	displayName: 'Grade',
+export default class extends React.Component {
+    static displayName = 'Grade';
 
-	propTypes: {
+    static propTypes = {
 		/**
 		 * Specifying a singular color will result in drawing only one segment.
 		 * Adding a second color will make this draw the second segment.
@@ -53,36 +53,30 @@ export default React.createClass( {
 
 
 		withLetter: React.PropTypes.bool
-	},
+	};
 
+    static defaultProps = {
+        grade: 90,
+        color: '#40b450',//#a5c959
+        pixelDensity: (global.devicePixelRatio || 1) * 2,
+        width: 200,
+        height: 200
+    };
 
-	getDefaultProps () {
-		return {
-			grade: 90,
-			color: '#40b450',//#a5c959
-			pixelDensity: (global.devicePixelRatio || 1) * 2,
-			width: 200,
-			height: 200
-		};
-	},
-
-
-	componentDidMount () {
+    componentDidMount() {
 		const {canvas} = this;
 		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
 
 		this.paint(context);
-	},
+	}
 
-
-	componentDidUpdate () {
+    componentDidUpdate() {
 		this.paint(this.canvas.getContext('2d'));
-	},
+	}
 
-
-	render () {
+    render() {
 		let p = this.props;
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
@@ -94,38 +88,34 @@ export default React.createClass( {
 		return (
 			<canvas ref={x => this.canvas = x} {...this.props} className="grade" style={style} width={width} height={height} />
 		);
-	},
+	}
 
-
-	paint (context) {
+    paint = (context) => {
 		context.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 
 		this.drawCircle(context);
 		if (this.props.withLetter) {
 			this.drawDot(context);
 		}
-	},
+	};
 
-
-	getColor () {
+    getColor = () => {
 		let c = this.props.color;
 		if (Array.isArray(c)) {
 			c = c[0];
 		}
 		return c;
-	},
+	};
 
-
-	getSecondaryColor () {
+    getSecondaryColor = () => {
 		let c = this.props.color;
 		if (!Array.isArray(c)) {
 			c = [];
 		}
 		return c[1];
-	},
+	};
 
-
-	drawCircle (ctx) {
+    drawCircle = (ctx) => {
 		let node = ctx.canvas,
 			stroke = node.width * (1 / 112),
 			centerX = node.width / 2,
@@ -170,10 +160,9 @@ export default React.createClass( {
 		} finally {
 			ctx.restore();
 		}
-	},
+	};
 
-
-	drawDot (ctx) {
+    drawDot = (ctx) => {
 		let node = ctx.canvas,
 			slope = node.height / node.width,
 			centerY = (node.height / 2) + (node.width / 4),
@@ -215,8 +204,8 @@ export default React.createClass( {
 		} finally {
 			ctx.restore();
 		}
-	}
-});
+	};
+}
 
 
 function setFont (context, font) {

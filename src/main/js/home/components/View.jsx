@@ -1,8 +1,9 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {Mixins} from 'nti-web-commons';
 import Redirect from 'navigation/components/Redirect';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'HomeView',
 	mixins: [Mixins.BasePath],
 

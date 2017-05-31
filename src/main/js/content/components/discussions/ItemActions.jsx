@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Mixins} from 'nti-web-commons';
 import {getService} from 'nti-web-client';
 
@@ -21,7 +23,7 @@ const CanShare = (caps, item) =>
 					&& (caps && caps.canShare)
 					&& false; //disable for now
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ItemActions',
 	mixins: [Mixins.ItemChanges],
 

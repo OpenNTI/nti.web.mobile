@@ -13,52 +13,44 @@ import LibraryInvalidationListener from 'library/components/InvalidationListener
 const LEFT_MENU_OPEN = 'offcanvas-overlap-right';
 const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
 
-export default React.createClass({
-	displayName: 'AppContainer',
+export default class extends React.Component {
+    static displayName = 'AppContainer';
 
-	propTypes: {
+    static propTypes = {
 		children: React.PropTypes.element
-	},
+	};
 
-
-	childContextTypes: {
+    static childContextTypes = {
 		triggerLeftMenu: React.PropTypes.func,
 		triggerRightMenu: React.PropTypes.func
-	},
+	};
 
-
-	getChildContext () {
+    getChildContext() {
 		return {
 			triggerLeftMenu: this.onLeftMenuClick,
 			triggerRightMenu: this.onRightMenuClick
 		};
-	},
+	}
 
-
-	attachRightMenuRef (ref) {
+    attachRightMenuRef = (ref) => {
 		this.rightMenu = ref;
-	},
+	};
 
+    onNavChange = () => { this.onCloseMenus(); };
 
-	onNavChange () { this.onCloseMenus(); },
-
-
-	componentDidMount () {
+    componentDidMount() {
 		addEventListener('hashchange', this.onNavChange, false);
 		addEventListener('popstate', this.onNavChange, false);
-	},
+	}
 
-
-	componentWillUnmount () {
+    componentWillUnmount() {
 		removeEventListener('hashchange', this.onNavChange, false);
 		removeEventListener('popstate', this.onNavChange, false);
-	},
+	}
 
+    getOverlayState = () => { return (this.state || {}).overlay; };
 
-	getOverlayState () { return (this.state || {}).overlay; },
-
-
-	render () {
+    render() {
 		const height = {height: getViewportHeight()};
 		const state = this.getOverlayState() || '';
 		const {children} = this.props;
@@ -88,10 +80,9 @@ export default React.createClass({
 				</div>
 			</div>
 		);
-	},
+	}
 
-
-	onCloseMenus (e) {
+    onCloseMenus = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -112,15 +103,13 @@ export default React.createClass({
 
 
 		});
-	},
+	};
 
-
-	onLeftMenuClick () {
+    onLeftMenuClick = () => {
 		this.setState({overlay: LEFT_MENU_OPEN});
-	},
+	};
 
-
-	onRightMenuClick () {
+    onRightMenuClick = () => {
 		this.setState({overlay: RIGHT_MENU_OPEN});
-	}
-});
+	};
+}

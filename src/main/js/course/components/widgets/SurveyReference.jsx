@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import path from 'path';
 
 import {NestableLink as Link, Mixins} from 'nti-web-commons';
@@ -12,7 +13,7 @@ import {SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
 const OutlineNode = getModel('courses.courseoutlinenode');
 
 
-export default React.createClass( {
+export default createReactClass({
 	displayName: 'CourseOverviewSurveyReference',
 	mixins: [Mixins.NavigatableMixin],
 

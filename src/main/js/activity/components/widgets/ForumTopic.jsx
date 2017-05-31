@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import t from 'nti-lib-locale';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
@@ -11,7 +13,7 @@ import {Prompt} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ForumTopic',
 	mixins: [Mixin],
 

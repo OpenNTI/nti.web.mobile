@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {rawContent} from 'nti-commons';
 
 import Mixin from './Mixin';
@@ -9,7 +11,7 @@ import Content from '../Content';
 /**
  * This solution type represents Matching
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'MatchingAnswer',
 	mixins: [Mixin],
 

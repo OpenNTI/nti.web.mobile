@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import WidgetsMixin from './Mixin';
@@ -8,7 +10,7 @@ import {Error as ErrorWidget, Loading} from 'nti-web-commons';
 
 const logger = Logger.get('course:components:widgets:Videos');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'CourseOverviewVideos',
 	mixins: [WidgetsMixin],
 

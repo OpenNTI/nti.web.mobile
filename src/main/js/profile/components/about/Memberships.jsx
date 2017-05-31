@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import MembershipList from './MembershipList';
 import {EmptyList} from 'nti-web-commons';
 
@@ -7,7 +9,7 @@ import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 import {PROFILE_MEMBERSHIP_VIEWED} from 'nti-analytics';
 
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Memberships',
 
 	mixins: [ProfileAnalytics],

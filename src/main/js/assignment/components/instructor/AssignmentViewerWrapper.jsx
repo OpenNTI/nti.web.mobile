@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import {join} from 'path';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -10,7 +11,7 @@ import ContentViewer from '../shared/AssignmentViewer';
 
 import Header from './AssignmentViewStudentHeader';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AssignmentViewStudent',
 	mixins: [Mixins.BasePath, ContextMixin, Mixins.NavigatableMixin],
 

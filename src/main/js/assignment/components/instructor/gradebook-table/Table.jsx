@@ -5,30 +5,30 @@ import ColumnHeading from './ColumnHeading';
 
 import {SortOrder} from 'nti-lib-interfaces';
 
-export default React.createClass({
-	displayName: 'gradebook:Table',
+export default class extends React.Component {
+    static displayName = 'gradebook:Table';
 
-	propTypes: {
+    static propTypes = {
 		className: React.PropTypes.string,
 		items: React.PropTypes.any.isRequired,
 		columns: React.PropTypes.array.isRequired,
 		sort: React.PropTypes.string,
 		sortOrder: React.PropTypes.any,
 		onSortChange: React.PropTypes.func
-	},
+	};
 
-	setSort (sort) {
+    setSort = (sort) => {
 		const {onSortChange} = this.props;
 		if (typeof onSortChange === 'function') {
 			onSortChange(sort);
 		}
-	},
+	};
 
-	onHeadingClick (column) {
+    onHeadingClick = (column) => {
 		this.setSort(column.sort);
-	},
+	};
 
-	row (item, index) {
+    row = (item, index) => {
 		const {columns} = this.props;
 		return (
 			<div className="gradebook-row" key={index}>
@@ -39,9 +39,9 @@ export default React.createClass({
 				)}
 			</div>
 		);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {className, columns, items, sort, sortOrder, ...otherProps} = this.props;
 
@@ -81,4 +81,4 @@ export default React.createClass({
 
 		);
 	}
-});
+}

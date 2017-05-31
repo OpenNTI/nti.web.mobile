@@ -10,41 +10,36 @@ import TimeLockedPlaceholder from './TimeLockedPlaceholder';
 
 import isEmpty from 'isempty';
 
-export default React.createClass({
-	displayName: 'HeaderAssignment',
+export default class extends React.Component {
+    static displayName = 'HeaderAssignment';
 
-	propTypes: {
+    static propTypes = {
 		assessment: React.PropTypes.object
-	},
+	};
 
-	componentDidMount () {
+    componentDidMount() {
 		Store.addChangeListener(this.synchronizeFromStore);
-	},
+	}
 
-
-	componentWillUnmount () {
+    componentWillUnmount() {
 		Store.removeChangeListener(this.synchronizeFromStore);
-	},
+	}
 
-
-	componentWillReceiveProps (props) {
+    componentWillReceiveProps(props) {
 		this.synchronizeFromStore(props);
-	},
+	}
 
-
-	synchronizeFromStore () {
+    synchronizeFromStore = () => {
 		this.forceUpdate();
-	},
+	};
 
-
-	isLate  (date) {
+    isLate = (date) => {
 		let a = this.props.assessment;
 		let ot = a.isOverTime && a.isOverTime();
 		return ot || a.isLate(date);
-	},
+	};
 
-
-	render () {
+    render() {
 		let assignment = this.props.assessment;
 		let item = Store.getAssignmentHistoryItem(assignment);
 		let admin = Store.isAdministrative(assignment);
@@ -90,4 +85,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

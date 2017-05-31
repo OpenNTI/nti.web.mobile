@@ -1,29 +1,24 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'TimedPlaceholder',
+export default class extends React.Component {
+    static displayName = 'TimedPlaceholder';
 
-
-	propTypes: {
+    static propTypes = {
 		assignment: React.PropTypes.object,
 		message: React.PropTypes.string.isRequired,
 		buttonLabel: React.PropTypes.string,
 		className: React.PropTypes.string,
 		pageTitle: React.PropTypes.string.isRequired,
 		onConfirm: React.PropTypes.func
-	},
+	};
 
+    static defaultProps = {
+        buttonLabel: 'Back',
+        className: '',
+        onConfirm: () => {}
+    };
 
-	getDefaultProps () {
-		return {
-			buttonLabel: 'Back',
-			className: '',
-			onConfirm: () => {}
-		};
-	},
-
-
-	render () {
+    render() {
 		let {assignment, message, buttonLabel, className, pageTitle, onConfirm} = this.props;
 
 		return (
@@ -101,4 +96,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -12,22 +12,18 @@ import AddComment from './AddComment';
 
 const PREFIX = ['Lessons'];
 
-export default React.createClass({
-	displayName: 'course:activity:Note',
+export default class extends React.Component {
+    static displayName = 'course:activity:Note';
 
-	statics: {
-		handles (item) {
-			return /note$/i.test(item.MimeType);
-		}
-	},
+    static handles(item) {
+        return /note$/i.test(item.MimeType);
+    }
 
-
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object.isRequired
-	},
+	};
 
-
-	render () {
+    render() {
 		const {props: {item}} = this;
 		return (
 			<div className="course-note-activity">
@@ -44,4 +40,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

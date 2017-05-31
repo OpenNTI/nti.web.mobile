@@ -1,10 +1,10 @@
 import React from 'react';
 import cx from 'classnames';
 
-export default React.createClass({
-	displayName: 'RadioGroup',
+export default class extends React.Component {
+    static displayName = 'RadioGroup';
 
-	propTypes: {
+    static propTypes = {
 		defaultValue: React.PropTypes.any,
 
 		field: React.PropTypes.shape({
@@ -22,9 +22,9 @@ export default React.createClass({
 		className: React.PropTypes.string,
 
 		value: React.PropTypes.any
-	},
+	};
 
-	renderOptions () {
+    renderOptions = () => {
 		return (this.props.options || []).map((option, index) => {
 			let value = this.props.value || this.props.defaultValue;
 			let checked = value && value === option.value;
@@ -40,9 +40,9 @@ export default React.createClass({
 				</label>
 			);
 		});
-	},
+	};
 
-	render () {
+    render() {
 
 		const {field, className} = this.props;
 
@@ -55,5 +55,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
-});
+}

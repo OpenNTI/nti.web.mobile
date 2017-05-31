@@ -1,10 +1,11 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {getRefHandler} from 'nti-commons';
 
 import DragBehavior from '../behaviors/Draggable';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Draggable',
 	mixins: [DragBehavior],
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import Logger from 'nti-util-logger';
@@ -13,7 +14,7 @@ import {getAppUsername} from 'nti-web-client';
 
 const logger = Logger.get('chat:components:MessageInfo');
 
-const MessageInfo = React.createClass({
+const MessageInfo = createReactClass({
 	displayName: 'MessageInfo',
 
 	propTypes: {

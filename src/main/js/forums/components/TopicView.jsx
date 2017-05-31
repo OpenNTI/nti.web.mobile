@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Store from '../Store';
 import {ITEM_CONTENTS_CHANGED} from '../Constants';
 import {encodeForURI, isNTIID} from 'nti-lib-ntiids';
@@ -18,7 +20,7 @@ import ToggleState from '../mixins/ToggleState';
 import ContextSender from 'common/mixins/ContextSender';
 import Paging from '../mixins/Paging';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'TopicView',
 
 	mixins: [

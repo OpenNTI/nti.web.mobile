@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {rawContent} from 'nti-commons';
 import Logger from 'nti-util-logger';
 
@@ -18,7 +20,7 @@ const strategies = {
 /**
  * This solution type represents Fill in the Blank - WordBank
  */
-export default React.createClass({
+export default createReactClass({
 	displayName: 'FillInTheBlankWithWordBankAnswer',
 	mixins: [Mixin],
 

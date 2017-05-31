@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import Button from 'forms/components/Button';
@@ -34,7 +36,7 @@ const arrayToMap = (arr, field) => {
 	return result;
 };
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'FiveMinuteEnrollmentForm',
 	mixins: [FieldRender],
 

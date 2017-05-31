@@ -3,18 +3,18 @@ import React from 'react';
 import {Notice} from 'nti-web-commons';
 import Button from 'forms/components/Button';
 
-export default React.createClass({
-	displayName: 'DropFive',
+export default class extends React.Component {
+    static displayName = 'DropFive';
 
-	propTypes: {
+    static propTypes = {
 		courseTitle: React.PropTypes.string.isRequired
-	},
+	};
 
-	onCancel () {
+    onCancel = () => {
 		history.back();
-	},
+	};
 
-	render () {
+    render() {
 		return (
 			<div>
 				<Notice>To drop {this.props.courseTitle} please contact support.</Notice>
@@ -24,5 +24,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-
-});
+}

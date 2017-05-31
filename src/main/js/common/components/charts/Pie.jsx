@@ -1,56 +1,49 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'Pie',
+export default class extends React.Component {
+    static displayName = 'Pie';
 
-	propTypes: {
+    static propTypes = {
 		title: React.PropTypes.string,
 		colors: React.PropTypes.arrayOf(React.PropTypes.string),
 		pixelDensity: React.PropTypes.number,
 		series: React.PropTypes.arrayOf(React.PropTypes.object)
-	},
+	};
 
-	getDefaultProps  () {
-		return {
-			title: '',
-			colors: ['#40b450', /*'#b8b8b8',*/ '#3fb3f6', '#F35252'],
-			pixelDensity: (global.devicePixelRatio || 1) * 2,
-			series: [
-				{value: 12, label: 'foo'},
-				{value: 30, label: 'bar'},
-				{value: 23, label: 'baz'}
-			]
-		};
-	},
+    static defaultProps = {
+        title: '',
+        colors: ['#40b450', /*'#b8b8b8',*/ '#3fb3f6', '#F35252'],
+        pixelDensity: (global.devicePixelRatio || 1) * 2,
+        series: [
+            {value: 12, label: 'foo'},
+            {value: 30, label: 'bar'},
+            {value: 23, label: 'baz'}
+        ]
+    };
 
-
-	getCanvas () {
+    getCanvas = () => {
 		return this.canvas;
-	},
+	};
 
-
-	componentDidMount () {
+    componentDidMount() {
 		let canvas = this.getCanvas();
 		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
 
 		this.paint(context);
-	},
+	}
 
-
-	componentDidUpdate () {
+    componentDidUpdate() {
 		let context = this.getCanvas().getContext('2d');
 		this.paint(context);
-	},
+	}
 
-
-	getTotal  () {
+    getTotal = () => {
 		return this.props.series.reduce((sum, i) => sum + i.value, 0);
-	},
+	};
 
-
-	render () {
+    render() {
 		let p = this.props;
 		let colors = p.colors;
 		let data = p.series;
@@ -81,10 +74,9 @@ export default React.createClass({
 				</ul>
 			</div>
 		);
-	},
+	}
 
-
-	paint (ctx) {
+    paint = (ctx) => {
 		let centerX = ctx.canvas.width / 2,
 			centerY = ctx.canvas.height / 2 - 10,
 			len = this.props.series.length, i = 0;
@@ -110,10 +102,9 @@ export default React.createClass({
 		} finally {
 			ctx.restore();
 		}
-	},
+	};
 
-
-	drawSegment (ctx, i) {
+    drawSegment = (ctx, i) => {
 		let radius = Math.floor(ctx.canvas.width / 4),
 			series = this.props.series[i].value,
 			total = this.getTotal(),
@@ -148,8 +139,8 @@ export default React.createClass({
 		ctx.stroke();
 
 		ctx.restore();
-	}
-});
+	};
+}
 
 
 function sumTo (data, i) {

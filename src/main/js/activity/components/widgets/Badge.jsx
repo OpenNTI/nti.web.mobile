@@ -1,21 +1,19 @@
 import React from 'react';
 import {DateTime} from 'nti-web-commons';
 
-export default React.createClass({
-	displayName: 'Badge',
+export default class extends React.Component {
+    static displayName = 'Badge';
 
-	statics: {
-		handles (item) {
-			const {MimeType = ''} = item;
-			return /change$/i.test(MimeType) && item.ChangeType === 'BadgeEarned';
-		}
-	},
+    static handles(item) {
+        const {MimeType = ''} = item;
+        return /change$/i.test(MimeType) && item.ChangeType === 'BadgeEarned';
+    }
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.any.isRequired
-	},
+	};
 
-	render () {
+    render() {
 
 		const {item} = this.props;
 		const {Item} = item;
@@ -31,4 +29,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

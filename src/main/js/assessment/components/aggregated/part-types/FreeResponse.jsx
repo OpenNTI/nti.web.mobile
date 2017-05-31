@@ -1,9 +1,10 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import CommonParts from './CommonParts';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AggregatedFreeResponse',
 	mixins: [CommonParts],
 

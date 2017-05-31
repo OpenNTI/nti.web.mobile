@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default React.createClass({
-	displayName: 'ColumnHeading',
+export default class extends React.Component {
+    static displayName = 'ColumnHeading';
 
-	propTypes: {
+    static propTypes = {
 		column: (o, k) => {
 			try {
 				if (typeof o[k].label !== 'function') {
@@ -15,14 +15,14 @@ export default React.createClass({
 		},
 		onClick: React.PropTypes.func,
 		className: React.PropTypes.any
-	},
+	};
 
-	onClick () {
+    onClick = () => {
 		const {column, onClick} = this.props;
 		onClick && onClick(column);
-	},
+	};
 
-	render () {
+    render() {
 
 		const {column, className} = this.props;
 
@@ -36,4 +36,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

@@ -5,10 +5,10 @@ import DisplayName from 'common/components/DisplayName';
 import {Loading} from 'nti-web-commons';
 import ProfileLink from 'profile/components/ProfileLink';
 
-export default React.createClass({
-	displayName: 'SelectableEntity',
+export default class extends React.Component {
+    static displayName = 'SelectableEntity';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.object.isRequired,
 		selected: React.PropTypes.bool,
 		tag: React.PropTypes.string,
@@ -17,22 +17,18 @@ export default React.createClass({
 		children: React.PropTypes.any,
 		labels: React.PropTypes.object, // e.g. {selected: 'Remove', unselected: 'Undo'}
 		linkToProfile: React.PropTypes.any
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			tag: 'li',
-			removable: false
-		};
-	},
+    static defaultProps = {
+        tag: 'li',
+        removable: false
+    };
 
-	getInitialState () {
-		return {
-			busy: false
-		};
-	},
+    state = {
+        busy: false
+    };
 
-	onClick () {
+    onClick = () => {
 		this.setState({ busy: true });
 
 		const {onChange, entity} = this.props;
@@ -40,22 +36,21 @@ export default React.createClass({
 		Promise.resolve(onChange && onChange(entity))
 			.catch(error => this.setState({ error }))
 			.then(() => this.setState({ busy: false }));
-	},
+	};
 
-	label (selected) {
+    label = (selected) => {
 		let {labels = {}} = this.props;
 		return selected ? labels.selected : labels.unselected;
-	},
+	};
 
-	association (entity) {
+    association = (entity) => {
 		let {generalName, displayName, displayType} = entity;
 		let type = generalName ? displayName : entity.isUser ? null : displayType;
 
 		return type; // || entity.association;
-	},
+	};
 
-
-	render () {
+    render() {
 		const {props: {children, entity, selected, tag, removable, labels, linkToProfile, ...props}, state: {busy}} = this;
 
 		let profileLinks = linkToProfile !== undefined;
@@ -94,4 +89,4 @@ export default React.createClass({
 			</Element>
 		);
 	}
-});
+}

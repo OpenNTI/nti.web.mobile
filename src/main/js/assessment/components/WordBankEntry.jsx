@@ -6,29 +6,27 @@ import Content from './Content';
 
 let {PropTypes} = React;
 
-export default React.createClass({
-	displayName: 'WordBankEntry',
+export default class extends React.Component {
+    static displayName = 'WordBankEntry';
 
-	contextTypes: {
+    static contextTypes = {
 		QuestionUniqueDNDToken: PropTypes.object.isRequired
-	},
+	};
 
-	propTypes: {
+    static propTypes = {
 		entry: PropTypes.object.isRequired,
 		className: PropTypes.string,
 
 		locked: PropTypes.bool,
 		onReset: PropTypes.func
-	},
+	};
 
-	getDefaultProps () {
-		return {
-			onReset: () => {},
-			className: ''
-		};
-	},
+    static defaultProps = {
+        onReset: () => {},
+        className: ''
+    };
 
-	onResetClicked (e) {
+    onResetClicked = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -37,9 +35,9 @@ export default React.createClass({
 		if (!this.props.locked) {
 			this.props.onReset(this.props.entry, this);
 		}
-	},
+	};
 
-	render () {
+    render() {
 		let {content, wid} = this.props.entry;
 		let props = Object.assign({}, this.props, {entry: undefined});
 		let {locked} = props;
@@ -59,5 +57,4 @@ export default React.createClass({
 			</Draggable>
 		);
 	}
-
-});
+}

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import {
@@ -19,7 +21,7 @@ import NotePanelBehavior from './NotePanelBehavior';
 
 const t = scoped('UNITS');
 
-const Panel = React.createClass({
+const Panel = createReactClass({
 	displayName: 'content:discussions:Panel',
 	mixins: [
 		Mixins.NavigatableMixin,

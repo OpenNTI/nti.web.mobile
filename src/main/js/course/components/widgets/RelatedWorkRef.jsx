@@ -29,22 +29,19 @@ import Card from 'common/components/Card';
 
 import t from 'nti-lib-locale';
 
-export default React.createClass({
-	displayName: 'CourseOverviewRelatedWorkRef',
+export default class extends React.Component {
+    static displayName = 'CourseOverviewRelatedWorkRef';
+    static mimeTest = /^application\/vnd\.nextthought\.relatedworkref/i;
 
-	statics: {
-		mimeTest: /^application\/vnd\.nextthought\.relatedworkref/i,
-		handles (item) {
-			return this.mimeTest.test(item.MimeType);
-		}
-	},
+    static handles(item) {
+        return this.mimeTest.test(item.MimeType);
+    }
 
-	propTypes: {
+    static propTypes = {
 		item: React.PropTypes.object.isRequired
-	},
+	};
 
-
-	render () {
+    render() {
 		let {props} = this;
 		let {item} = props;
 		let commentCount = item[Summary];
@@ -66,4 +63,4 @@ export default React.createClass({
 			/>
 		);
 	}
-});
+}

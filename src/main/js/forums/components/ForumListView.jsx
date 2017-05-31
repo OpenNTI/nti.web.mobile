@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Transition from 'react-transition-group/CSSTransitionGroup';
 
 import Logger from 'nti-util-logger';
@@ -25,7 +27,7 @@ const logger = Logger.get('forums:components:ForumListView');
 const t = scoped('FORUMS.groupTitles');
 const discussionsChanged = 'ForumListView:discussionsChangedHandler';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'ForumListView',
 
 	mixins: [

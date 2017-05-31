@@ -4,47 +4,35 @@ import {getService} from 'nti-web-client';
 
 import Entry from './Entry';
 
-export default React.createClass({
-	displayName: 'ContentAcquirePrompt',
+export default class extends React.Component {
+    static displayName = 'ContentAcquirePrompt';
 
+    static shouldPrompt(error) {
+        const has = x => x && x.length > 0;
+        return error.statusCode === 403 && has(error.Items);
+    }
 
-	statics: {
-
-		shouldPrompt (error) {
-			const has = x => x && x.length > 0;
-			return error.statusCode === 403 && has(error.Items);
-		}
-
-	},
-
-
-	propTypes: {
+    static propTypes = {
 		//The note or thing that points to content the user does not have access to.
 		relatedItem: React.PropTypes.object,
 
 		//The 403 response body
 		data: React.PropTypes.object
-	},
+	};
 
+    state = {};
 
-	getInitialState () {
-		return {};
-	},
-
-
-	componentDidMount () {
+    componentDidMount() {
 		this.resolve();
-	},
+	}
 
-
-	componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
 		if (this.props.data !== nextProps.data) {
 			this.resolve(nextProps);
 		}
-	},
+	}
 
-
-	resolve (props = this.props) {
+    resolve = (props = this.props) => {
 		let {data = {Items:[]}} = props;
 		let items = data.Items.reduce((a, x) => a.concat(x), []);
 
@@ -53,10 +41,9 @@ export default React.createClass({
 				Promise.all(items.map(x =>
 					service.getObject(x))))
 			.then(o => this.setState({items: o}));
-	},
+	};
 
-
-	render () {
+    render() {
 		let {items = []} = this.state;
 		let {length} = items;
 
@@ -81,4 +68,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

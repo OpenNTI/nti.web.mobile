@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 
@@ -20,7 +22,7 @@ import DropFive from './drop-widgets/DropFive';
 const logger = Logger.get('enrollment:components:DropCourse');
 const t = scoped('ENROLLMENT.BUTTONS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'DropCourseDialog',
 	mixins: [Mixins.NavigatableMixin, Mixins.BasePath, ContextSender],
 

@@ -15,14 +15,14 @@ function canJoin (entity) {
 	return entity.hasLink('join');
 }
 
-export default React.createClass({
-	displayName: 'GroupControls',
+export default class extends React.Component {
+    static displayName = 'GroupControls';
 
-	propTypes: {
+    static propTypes = {
 		entity: React.PropTypes.object
-	},
+	};
 
-	render () {
+    render() {
 		let {entity} = this.props;
 		let controls = [
 			hasOptions(entity) && this.renderOptions(entity),
@@ -31,29 +31,26 @@ export default React.createClass({
 		];
 
 		return React.createElement('ul', {className: 'profile-top-controls-buttons'}, ...controls.filter(x=>x));
-	},
+	}
 
-
-	renderOptions () {
+    renderOptions = () => {
 		return (
 			<li>
 				<a className="gear-button"/>
 				<ul className="menu"/>
 			</li>
 		);
-	},
+	};
 
-
-	renderLeaveButton (entity) {
+    renderLeaveButton = (entity) => {
 		return (
 			<li><LeaveButton entity={entity}/></li>
 		);
-	},
+	};
 
-
-	renderJoinButton (entity) {
+    renderJoinButton = (entity) => {
 		return (
 			<li><JoinButton entity={entity}/></li>
 		);
-	}
-});
+	};
+}

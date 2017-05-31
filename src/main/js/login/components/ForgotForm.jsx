@@ -9,15 +9,14 @@ import {getServer} from 'nti-web-client';
 const t = scoped('LOGIN.forgot');
 
 
-export default React.createClass({
-	displayName: 'ForgotForm',
+export default class extends React.Component {
+    static displayName = 'ForgotForm';
 
-	propTypes: {
+    static propTypes = {
 		param: React.PropTypes.string
-	},
+	};
 
-
-	getFieldValues () {
+    getFieldValues = () => {
 		let {email, username} = (this.form || {}).elements || {};
 
 		let fields = {email};
@@ -31,10 +30,9 @@ export default React.createClass({
 		}
 
 		return fields;
-	},
+	};
 
-
-	handleSubmit (e) {
+    handleSubmit = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -56,17 +54,15 @@ export default React.createClass({
 				})
 				.then(()=> this.setState({busy: false}));
 		});
-	},
+	};
 
-
-	onInput () {
+    onInput = () => {
 		let fields = this.getFieldValues();
 		let submitEnabled = Object.values(fields).every(x => x && x.trim().length > 0);
 		this.setState({submitEnabled});
-	},
+	};
 
-
-	render () {
+    render() {
 		const {param} = this.props;
 		const {submitEnabled, error, success} = this.state || {};
 		const buttonLabel = t(param === 'password' ? 'recoverpassword' : 'recoverusername');
@@ -112,4 +108,4 @@ export default React.createClass({
 			</div>
 		);
 	}
-});
+}

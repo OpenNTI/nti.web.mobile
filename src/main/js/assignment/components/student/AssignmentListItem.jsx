@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -11,7 +12,7 @@ import TotalPointsLabel from '../shared/TotalPointsLabel';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'AssignmentItem',
 	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import {Mixins, PanelButton} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -8,7 +10,7 @@ import ContextSender from 'common/mixins/ContextSender';
 import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.forms.fiveminute');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Policy',
 	mixins: [Mixins.NavigatableMixin, ContextSender],
 

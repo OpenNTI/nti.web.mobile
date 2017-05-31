@@ -2,22 +2,21 @@ import React from 'react';
 
 import ActionsMenu from '../ActionsMenu';
 
-export default React.createClass({
-	displayName: 'GradebookColumnActions',
+export default class extends React.Component {
+    static displayName = 'GradebookColumnActions';
 
-	statics: {
-		label () {
-			return '';
-		},
-		className: 'col-actions',
-		sort: ''
-	},
+    static label() {
+        return '';
+    }
 
-	propTypes: {
+    static className = 'col-actions';
+    static sort = '';
+
+    static propTypes = {
 		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
-	},
+	};
 
-	render () {
+    render() {
 
 		const {item} = this.props;
 		if(!item.grade) {
@@ -28,4 +27,4 @@ export default React.createClass({
 			<ActionsMenu {...this.props} userId={item.username} />
 		);
 	}
-});
+}

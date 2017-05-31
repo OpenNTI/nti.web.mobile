@@ -1,5 +1,7 @@
 import React from 'react';
 
+import createReactClass from 'create-react-class';
+
 import Logger from 'nti-util-logger';
 
 import {scoped} from 'nti-lib-locale';
@@ -18,7 +20,7 @@ import GroupsListItem from './GroupsListItem';
 const logger = Logger.get('contacts:components:Groups');
 const t = scoped('CONTACTS');
 
-export default React.createClass({
+export default createReactClass({
 	displayName: 'Contacts:Groups',
 	mixins: [mixin, ContextSender],
 	storeType: GROUPS,
