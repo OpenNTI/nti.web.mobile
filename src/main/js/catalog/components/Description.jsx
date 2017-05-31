@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 import isEmpty from 'isempty';
@@ -14,8 +15,8 @@ const t = scoped('COURSE.INFO');
 const isOpenEnrolled = RegExp.prototype.test.bind(/open/i);
 
 Description.propTypes = {
-	enrollmentStatus: React.PropTypes.string,
-	entry: React.PropTypes.object.isRequired
+	enrollmentStatus: PropTypes.string,
+	entry: PropTypes.object.isRequired
 };
 
 export default function Description ({entry, enrollmentStatus = 'None'}) {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -21,7 +22,7 @@ export default class extends React.Component {
     static displayName = 'QuestionSubmission';
 
     static propTypes = {
-		question: React.PropTypes.object.isRequired
+		question: PropTypes.object.isRequired
 	};
 
     componentDidMount() {

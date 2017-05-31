@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -14,9 +15,9 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		className: React.PropTypes.string,
-		catalogId: React.PropTypes.string,
-		href: React.PropTypes.string
+		className: PropTypes.string,
+		catalogId: PropTypes.string,
+		href: PropTypes.string
 	},
 
 	urlForEntry () {

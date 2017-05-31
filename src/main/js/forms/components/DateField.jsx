@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import zpad from 'zpad';
 import range from 'array-range';
@@ -26,10 +27,10 @@ export default class extends React.Component {
     static displayName = 'DateField';
 
     static propTypes = {
-		name: React.PropTypes.string,
-		onChange: React.PropTypes.func,
-		field: React.PropTypes.object,
-		defaultValue: React.PropTypes.string
+		name: PropTypes.string,
+		onChange: PropTypes.func,
+		field: PropTypes.object,
+		defaultValue: PropTypes.string
 	};
 
     state = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -21,7 +22,7 @@ export default createReactClass({
 	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 
 	propTypes: {
-		userId: React.PropTypes.string.isRequired,
+		userId: PropTypes.string.isRequired,
 
 		assignmentId: NTIID, //when the row item does not specify the assignment... #smh
 
@@ -33,7 +34,7 @@ export default createReactClass({
 		 * 		.username
 		 * 		.grade
 		 */
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	},
 
 	getInitialState () {

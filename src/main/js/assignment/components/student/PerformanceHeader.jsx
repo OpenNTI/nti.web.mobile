@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import FinalGrade from './FinalGrade';
@@ -7,7 +8,7 @@ export default class extends React.Component {
     static displayName = 'PerformanceHeader';
 
     static propTypes = {
-		assignments: React.PropTypes.object.isRequired
+		assignments: PropTypes.object.isRequired
 	};
 
     state = {};

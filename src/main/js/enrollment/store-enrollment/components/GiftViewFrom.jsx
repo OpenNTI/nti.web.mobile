@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -12,9 +13,9 @@ export default class extends React.Component {
     static displayName = 'GiftFrom';
 
     static propTypes = {
-		className: React.PropTypes.string,
-		defaultValues: React.PropTypes.object,
-		onChange: React.PropTypes.func
+		className: PropTypes.string,
+		defaultValues: PropTypes.object,
+		onChange: PropTypes.func
 	};
 
     state = {

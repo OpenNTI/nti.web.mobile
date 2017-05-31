@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -13,10 +14,10 @@ export default class extends React.Component {
     static displayName = 'BillingAddressForm';
 
     static propTypes = {
-		className: React.PropTypes.string,
-		required: React.PropTypes.object,
-		defaultValues: React.PropTypes.object,
-		onChange: React.PropTypes.func
+		className: PropTypes.string,
+		required: PropTypes.object,
+		defaultValues: PropTypes.object,
+		onChange: PropTypes.func
 	};
 
     static defaultProps = {

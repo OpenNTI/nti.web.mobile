@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {EmptyList} from 'nti-web-commons';
@@ -23,6 +24,6 @@ export default function Container ({section, items}) {
 }
 
 Container.propTypes = {
-	section: React.PropTypes.string,
-	items: React.PropTypes.array
+	section: PropTypes.string,
+	items: PropTypes.array
 };

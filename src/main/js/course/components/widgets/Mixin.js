@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export class IllegalStateException {
@@ -30,11 +31,11 @@ import {select} from './index';
 export default {
 
 	contextTypes: {
-		assignments: React.PropTypes.object
+		assignments: PropTypes.object
 	},
 
 	childContextTypes: {
-		assignments: React.PropTypes.object
+		assignments: PropTypes.object
 	},
 
 	getChildContext () {

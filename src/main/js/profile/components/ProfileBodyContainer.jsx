@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -18,6 +19,6 @@ export default function ProfileBodyContainer ({className, children}) {
 }
 
 ProfileBodyContainer.propTypes = {
-	children: React.PropTypes.any, // exactly one or two children. first is main body. second is sidebar if present.
-	className: React.PropTypes.string
+	children: PropTypes.any, // exactly one or two children. first is main body. second is sidebar if present.
+	className: PropTypes.string
 };

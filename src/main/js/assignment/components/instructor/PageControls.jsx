@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -8,10 +9,10 @@ export default class extends React.Component {
     static displayName = 'PageControls';
 
     static propTypes = {
-		currentPage: React.PropTypes.number.isRequired,
-		pageSize: React.PropTypes.number.isRequired,
-		total: React.PropTypes.number.isRequired,
-		onChange: React.PropTypes.func
+		currentPage: PropTypes.number.isRequired,
+		pageSize: PropTypes.number.isRequired,
+		total: PropTypes.number.isRequired,
+		onChange: PropTypes.func
 	};
 
     static defaultProps = {

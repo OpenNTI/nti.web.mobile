@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -16,7 +17,7 @@ export default createReactClass({
 	displayName: 'HeaderScoreboard',
 
 	propTypes: {
-		assessment: React.PropTypes.object
+		assessment: PropTypes.object
 	},
 
 	getInitialState () {

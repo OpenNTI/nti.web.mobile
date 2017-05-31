@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 ReturnTo.propTypes = {
-	href: React.PropTypes.string,
-	label: React.PropTypes.string
+	href: PropTypes.string,
+	label: PropTypes.string
 };
 
 export default function ReturnTo ({href, label}) {

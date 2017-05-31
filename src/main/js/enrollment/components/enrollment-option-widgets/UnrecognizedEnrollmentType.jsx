@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Logger from 'nti-util-logger';
 
@@ -7,8 +8,8 @@ export default class extends React.Component {
     static displayName = 'UnrecogzniedEnrollmentType';
 
     static propTypes = {
-		catalogEntry: React.PropTypes.object.isRequired,
-		enrollmentOption: React.PropTypes.object.isRequired
+		catalogEntry: PropTypes.object.isRequired,
+		enrollmentOption: PropTypes.object.isRequired
 	};
 
     componentWillMount() {

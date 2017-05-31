@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Instructor from './Instructor';
@@ -20,5 +21,5 @@ export default function Instructors ({entry}) {
 }
 
 Instructors.propTypes = {
-	entry: React.PropTypes.object.isRequired
+	entry: PropTypes.object.isRequired
 };

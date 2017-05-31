@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {loadSelectOptionsFromUserLinkRel} from '../Actions';
 import Store from '../Store';
@@ -14,7 +15,7 @@ export default class extends React.Component {
 		* objects with name and value properties
 		* or an array of strings.
 		*/
-		options: React.PropTypes.array,
+		options: PropTypes.array,
 
 		/**
 		* optionsLink property if provided should be an object
@@ -26,10 +27,10 @@ export default class extends React.Component {
 		* where rel is a reference to a Link available on User
 		* This allows room for other types in the future (e.g. raw urls)
 		*/
-		optionsLink: React.PropTypes.object,
+		optionsLink: PropTypes.object,
 
 
-		field: React.PropTypes.object.isRequired
+		field: PropTypes.object.isRequired
 	};
 
     state = {

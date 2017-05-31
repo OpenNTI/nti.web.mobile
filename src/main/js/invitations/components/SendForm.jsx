@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {validate as isEmail} from 'email-validator';
@@ -16,7 +17,7 @@ export default createReactClass({
 	displayName: 'Invitations:SendForm',
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired
+		course: PropTypes.object.isRequired
 	},
 
 	getInitialState () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
@@ -14,9 +15,9 @@ export default class extends React.Component {
     static displayName = 'FeedbackListItem';
 
     static propTypes = {
-		item: React.PropTypes.object,
-		onDelete: React.PropTypes.func.isRequired,
-		onEdit: React.PropTypes.func.isRequired
+		item: PropTypes.object,
+		onDelete: PropTypes.func.isRequired,
+		onEdit: PropTypes.func.isRequired
 	};
 
     static defaultProps = {

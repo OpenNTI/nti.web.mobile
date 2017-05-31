@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -18,9 +19,9 @@ export default createReactClass({
 	mixins: [CourseLinker, ContextContributor],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired,
+		course: PropTypes.object.isRequired,
 
-		outlineId: React.PropTypes.string.isRequired
+		outlineId: PropTypes.string.isRequired
 	},
 
 	getContext () {

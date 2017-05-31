@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -28,7 +29,7 @@ export default createReactClass({
 	mixins: [ContextContributor, Mixins.NavigatableMixin],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired
+		course: PropTypes.object.isRequired
 	},
 
 	getContext () {

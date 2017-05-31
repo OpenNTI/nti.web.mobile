@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -22,7 +23,7 @@ export default createReactClass({
 	mixins: [ObjectLink],
 
 	propTypes: {
-		item: React.PropTypes.any.isRequired,
+		item: PropTypes.any.isRequired,
 
 		/**
 		 * Force the breadcrumb to be whatever you want with this
@@ -33,7 +34,7 @@ export default createReactClass({
 		 *
 		 * @type {array}
 		 */
-		breadcrumb: React.PropTypes.array,
+		breadcrumb: PropTypes.array,
 
 
 		/**
@@ -47,7 +48,7 @@ export default createReactClass({
 		 *
 		 * @type {number}
 		 */
-		splicePaths: React.PropTypes.number,
+		splicePaths: PropTypes.number,
 
 
 		/**
@@ -55,7 +56,7 @@ export default createReactClass({
 		 *
 		 * @type {boolean}
 		 */
-		showPrompt: React.PropTypes.bool
+		showPrompt: PropTypes.bool
 	},
 
 

@@ -1,4 +1,4 @@
-import {PropTypes} from 'react';
+import PropTypes from 'prop-types';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Mixins} from 'nti-web-commons';

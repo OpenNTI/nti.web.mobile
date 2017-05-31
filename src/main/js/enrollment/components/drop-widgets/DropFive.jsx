@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Notice} from 'nti-web-commons';
@@ -7,7 +8,7 @@ export default class extends React.Component {
     static displayName = 'DropFive';
 
     static propTypes = {
-		courseTitle: React.PropTypes.string.isRequired
+		courseTitle: PropTypes.string.isRequired
 	};
 
     onCancel = () => {

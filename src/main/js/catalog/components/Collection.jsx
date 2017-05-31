@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {CollectionFilter as Filter} from 'nti-web-commons';
@@ -17,17 +18,17 @@ export default function CatalogCollection (props) {
 }
 
 CatalogCollection.propTypes = {
-	title: React.PropTypes.string,
+	title: PropTypes.string,
 
 	/**
 	 *	An array or object with a filter() method.
 	 */
-	list: React.PropTypes.oneOfType([
-		React.PropTypes.array,
-		React.PropTypes.shape({
-			filter: React.PropTypes.func //shouldn't this be 'map' ?
+	list: PropTypes.oneOfType([
+		PropTypes.array,
+		PropTypes.shape({
+			filter: PropTypes.func //shouldn't this be 'map' ?
 		})
 	]).isRequired,
 
-	filters: React.PropTypes.object
+	filters: PropTypes.object
 };

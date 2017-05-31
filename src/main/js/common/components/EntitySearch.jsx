@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {getService} from 'nti-web-client';
 
@@ -15,16 +16,16 @@ export default class extends React.Component {
     static displayName = 'UserSearch';
 
     static propTypes = {
-		allowAny: React.PropTypes.bool,
-		allowContacts: React.PropTypes.bool,
+		allowAny: PropTypes.bool,
+		allowContacts: PropTypes.bool,
 
-		onChange: React.PropTypes.func,
+		onChange: PropTypes.func,
 
-		query: React.PropTypes.string,
+		query: PropTypes.string,
 
-		selection: React.PropTypes.instanceOf(Selection.EntitySelectionModel),
+		selection: PropTypes.instanceOf(Selection.EntitySelectionModel),
 
-		pageSize: React.PropTypes.number
+		pageSize: PropTypes.number
 	};
 
     state = {

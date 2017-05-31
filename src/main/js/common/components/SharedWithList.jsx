@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {User} from 'nti-web-client';
@@ -27,16 +28,16 @@ export default class extends React.Component {
 		 *
 		 * @type {boolean}
 		 */
-		short: React.PropTypes.bool,
+		short: PropTypes.bool,
 
-		item: React.PropTypes.object.isRequired,
+		item: PropTypes.object.isRequired,
 
 		/**
 		 * The maximum number of entities to show before hidding the rest behind an ", and XX others." text.
 		 *
 		 * @type {number}
 		 */
-		limit: React.PropTypes.number
+		limit: PropTypes.number
 	};
 
     state = {loading: true};

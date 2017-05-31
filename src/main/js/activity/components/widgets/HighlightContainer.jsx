@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import DisplayName from 'common/components/DisplayName';
@@ -16,7 +17,7 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	},
 
 	render () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 /* globals Stripe jQuery */
 import React from 'react';
 import createReactClass from 'create-react-class';
@@ -20,9 +21,9 @@ export default createReactClass({
 	mixins: [ExternalLibraryManager],
 
 	propTypes: {
-		className: React.PropTypes.string,
-		onChange: React.PropTypes.func,
-		defaultValues: React.PropTypes.object
+		className: PropTypes.string,
+		onChange: PropTypes.func,
+		defaultValues: PropTypes.object
 	},
 
 

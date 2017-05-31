@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -18,10 +19,10 @@ export default createReactClass({
 	mixins: [FormattedPriceMixin, Mixins.BasePath],
 
 	propTypes: {
-		catalogEntry: React.PropTypes.object.isRequired,
-		enrollmentOption: React.PropTypes.object.isRequired,
-		entryId: React.PropTypes.string.isRequired,
-		isGiftable: React.PropTypes.bool
+		catalogEntry: PropTypes.object.isRequired,
+		enrollmentOption: PropTypes.object.isRequired,
+		entryId: PropTypes.string.isRequired,
+		isGiftable: PropTypes.bool
 	},
 
 	statics: {

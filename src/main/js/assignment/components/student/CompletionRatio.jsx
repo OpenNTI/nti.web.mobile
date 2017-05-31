@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 CompletionRatio.propTypes = {
-	assignments: React.PropTypes.object.isRequired
+	assignments: PropTypes.object.isRequired
 };
 
 export default function CompletionRatio ({assignments}) {

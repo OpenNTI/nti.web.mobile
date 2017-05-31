@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {addClass, removeClass} from 'nti-lib-dom';
@@ -9,11 +10,11 @@ export default class extends React.Component {
     static displayName = 'content:NoteEditor';
 
     static propTypes = {
-		item: React.PropTypes.object,
-		scope: React.PropTypes.object,
+		item: PropTypes.object,
+		scope: PropTypes.object,
 
-		onCancel: React.PropTypes.func,
-		onSave: React.PropTypes.func
+		onCancel: PropTypes.func,
+		onSave: PropTypes.func
 	};
 
     ensureVisible = () => {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import ForumItem from '../list-items/ForumItem';
@@ -22,6 +23,6 @@ export default function ForumBoard ({title, board}) {
 }
 
 ForumBoard.propTypes = {
-	board: React.PropTypes.object.isRequired,
-	title: React.PropTypes.string.isRequired
+	board: PropTypes.object.isRequired,
+	title: PropTypes.string.isRequired
 };

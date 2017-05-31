@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
@@ -11,7 +12,7 @@ export default class extends React.Component {
     static sort = 'feedbackCount';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
+		item: PropTypes.object.isRequired // UserGradeBookSummary object
 	};
 
     render() {

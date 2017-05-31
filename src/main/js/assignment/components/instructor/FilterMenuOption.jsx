@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'FilterMenuOption';
 
     static propTypes = {
-		onClick: React.PropTypes.func,
-		option: React.PropTypes.any,
-		className: React.PropTypes.any
+		onClick: PropTypes.func,
+		option: PropTypes.any,
+		className: PropTypes.any
 	};
 
     onClick = () => {

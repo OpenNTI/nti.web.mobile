@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -17,7 +18,7 @@ export default createReactClass({
 	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
 
 	propTypes: {
-		assignment: React.PropTypes.object.isRequired
+		assignment: PropTypes.object.isRequired
 	},
 
 	getInitialState () {

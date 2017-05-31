@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -22,7 +23,7 @@ export default createReactClass({
 	mixins: [AssignmentsAccessor],
 
 	propTypes: {
-		assignment: React.PropTypes.object.isRequired
+		assignment: PropTypes.object.isRequired
 	},
 
 	render () {

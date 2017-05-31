@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -18,7 +19,7 @@ export default createReactClass({
 	mixins: [ShowAvatars],
 
 	propTypes: {
-		summary: React.PropTypes.object.isRequired
+		summary: PropTypes.object.isRequired
 	},
 
 	componentWillMount () {

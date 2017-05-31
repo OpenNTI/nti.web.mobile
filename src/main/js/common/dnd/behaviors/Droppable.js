@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -16,20 +17,20 @@ export default {
 	mixins: [Base],
 
 	propTypes: {
-		accepts: React.PropTypes.oneOfType([
-			React.PropTypes.string,
-			React.PropTypes.shape(TYPE_SHAPE),
-			React.PropTypes.arrayOf(React.PropTypes.string),
-			React.PropTypes.arrayOf(React.PropTypes.shape(TYPE_SHAPE))
+		accepts: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.shape(TYPE_SHAPE),
+			PropTypes.arrayOf(PropTypes.string),
+			PropTypes.arrayOf(PropTypes.shape(TYPE_SHAPE))
 		]).isRequired
 	},
 
 
 	contextTypes: {
-		dndEvents: React.PropTypes.object,
-		currentDragItem: React.PropTypes.object,
-		onDragOver: React.PropTypes.func.isRequired,
-		onDrop: React.PropTypes.func.isRequired
+		dndEvents: PropTypes.object,
+		currentDragItem: PropTypes.object,
+		onDragOver: PropTypes.func.isRequired,
+		onDrop: PropTypes.func.isRequired
 	},
 
 

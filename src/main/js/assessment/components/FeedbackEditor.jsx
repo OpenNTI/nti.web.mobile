@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -15,9 +16,9 @@ export default class extends React.Component {
     static displayName = 'FeedbackEditor';
 
     static propTypes = {
-		onCancel: React.PropTypes.func,
-		onSubmit: React.PropTypes.func.isRequired,
-		value: React.PropTypes.array
+		onCancel: PropTypes.func,
+		onSubmit: PropTypes.func.isRequired,
+		value: PropTypes.array
 	};
 
     componentWillMount() {

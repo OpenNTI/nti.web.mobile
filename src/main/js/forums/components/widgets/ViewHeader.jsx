@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {DISCUSSIONS, FORUM, TOPIC, POST} from '../../Constants';
@@ -23,7 +24,7 @@ export default class extends React.Component {
     static displayName = 'ViewHeader';
 
     static propTypes = {
-		type: React.PropTypes.oneOf([
+		type: PropTypes.oneOf([
 			DISCUSSIONS,
 			FORUM,
 			TOPIC,

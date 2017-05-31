@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {rawContent} from 'nti-commons';
 
@@ -16,5 +17,5 @@ export default function Checkbox (props) {
 }
 
 Checkbox.propTypes = {
-	field: React.PropTypes.object.isRequired
+	field: PropTypes.object.isRequired
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
@@ -52,7 +53,7 @@ export default createReactClass({
 
 
 	propTypes: {
-		course: React.PropTypes.string.isRequired
+		course: PropTypes.string.isRequired
 	},
 
 

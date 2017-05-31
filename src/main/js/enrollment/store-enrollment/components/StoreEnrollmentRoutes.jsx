@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import path from 'path';
@@ -25,10 +26,10 @@ export default createReactClass({
 	mixins: [Mixins.BasePath, ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
-		entryId: React.PropTypes.string.isRequired,
-		purchasable: React.PropTypes.object.isRequired,
-		defaultHandler: React.PropTypes.func.isRequired,
-		isGift: React.PropTypes.bool
+		entryId: PropTypes.string.isRequired,
+		purchasable: PropTypes.object.isRequired,
+		defaultHandler: PropTypes.func.isRequired,
+		isGift: PropTypes.bool
 	},
 
 	getDefaultProps () {

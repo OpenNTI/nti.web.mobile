@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -5,15 +6,15 @@ export default class extends React.Component {
     static displayName = 'FormPanel';
 
     static propTypes = {
-		busy: React.PropTypes.bool,
-		noValidate: React.PropTypes.bool,
-		onSubmit: React.PropTypes.func,
+		busy: PropTypes.bool,
+		noValidate: PropTypes.bool,
+		onSubmit: PropTypes.func,
 
-		subhead: React.PropTypes.string,
-		title: React.PropTypes.string,
+		subhead: PropTypes.string,
+		title: PropTypes.string,
 
-		children: React.PropTypes.any,
-		className: React.PropTypes.string
+		children: PropTypes.any,
+		className: PropTypes.string
 	};
 
     static defaultProps = {

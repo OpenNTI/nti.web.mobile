@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -18,7 +19,7 @@ export default createReactClass({
 	mixins: [Accessor, ContextSender, Mixins.NavigatableMixin, ShowAvatars],
 
 	propTypes: {
-		rootId: React.PropTypes.string.isRequired
+		rootId: PropTypes.string.isRequired
 	},
 
 

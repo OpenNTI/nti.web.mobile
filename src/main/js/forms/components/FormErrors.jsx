@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 FormErrors.propTypes = {
-	errors: React.PropTypes.object
+	errors: PropTypes.object
 };
 
 export default function FormErrors ({errors}) {

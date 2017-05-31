@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -19,8 +20,8 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.shape({
-			grade: React.PropTypes.object
+		item: PropTypes.shape({
+			grade: PropTypes.object
 		}).isRequired
 	},
 

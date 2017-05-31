@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import LeaveButton from './LeaveButton';
@@ -19,7 +20,7 @@ export default class extends React.Component {
     static displayName = 'GroupControls';
 
     static propTypes = {
-		entity: React.PropTypes.object
+		entity: PropTypes.object
 	};
 
     render() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -20,12 +21,12 @@ export default createReactClass({
 	mixins: [CatalogAccessor, ContextSender],
 
 	propTypes: {
-		filter: React.PropTypes.object,
-		list: React.PropTypes.oneOfType([
-			React.PropTypes.array,
-			React.PropTypes.shape({
-				map: React.PropTypes.func,
-				sort: React.PropTypes.func
+		filter: PropTypes.object,
+		list: PropTypes.oneOfType([
+			PropTypes.array,
+			PropTypes.shape({
+				map: PropTypes.func,
+				sort: PropTypes.func
 			})
 		])
 	},

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -21,9 +22,9 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
-		paymentLink: React.PropTypes.string.isRequired, // dataserver pay and enroll link ('fmaep.pay.and.enroll')
-		ntiCrn: React.PropTypes.string.isRequired, // passed to dataserver to get payment site url
-		ntiTerm: React.PropTypes.string.isRequired // passed to dataserver to get payment site url
+		paymentLink: PropTypes.string.isRequired, // dataserver pay and enroll link ('fmaep.pay.and.enroll')
+		ntiCrn: PropTypes.string.isRequired, // passed to dataserver to get payment site url
+		ntiTerm: PropTypes.string.isRequired // passed to dataserver to get payment site url
 	},
 
 	getInitialState () {

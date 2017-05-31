@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 import {rawContent} from 'nti-commons';
@@ -6,11 +7,11 @@ export default class extends React.Component {
     static displayName = 'BarSegment';
 
     static propTypes = {
-		colors: React.PropTypes.object,
-		label: React.PropTypes.string,
-		count: React.PropTypes.number,
-		percent: React.PropTypes.number,
-		total: React.PropTypes.number
+		colors: PropTypes.object,
+		label: PropTypes.string,
+		count: PropTypes.number,
+		percent: PropTypes.number,
+		total: PropTypes.number
 	};
 
     isTipVisible = () => {

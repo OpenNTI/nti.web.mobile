@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {SortOrder} from 'nti-lib-interfaces';
 
@@ -15,7 +16,7 @@ export default class extends React.Component {
     static displayName = 'StudentAssignmentsTable';
 
     static propTypes = {
-		items: React.PropTypes.any.isRequired
+		items: PropTypes.any.isRequired
 	};
 
     componentWillMount() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -9,12 +10,12 @@ export default class extends React.Component {
     static displayName = 'gradebook:Table';
 
     static propTypes = {
-		className: React.PropTypes.string,
-		items: React.PropTypes.any.isRequired,
-		columns: React.PropTypes.array.isRequired,
-		sort: React.PropTypes.string,
-		sortOrder: React.PropTypes.any,
-		onSortChange: React.PropTypes.func
+		className: PropTypes.string,
+		items: PropTypes.any.isRequired,
+		columns: PropTypes.array.isRequired,
+		sort: PropTypes.string,
+		sortOrder: PropTypes.any,
+		onSortChange: PropTypes.func
 	};
 
     setSort = (sort) => {

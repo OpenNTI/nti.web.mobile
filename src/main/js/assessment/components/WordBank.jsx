@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -8,8 +9,8 @@ export default class extends React.Component {
     static displayName = 'WordBank';
 
     static propTypes = {
-		record: React.PropTypes.object.isRequired,
-		disabled: React.PropTypes.bool
+		record: PropTypes.object.isRequired,
+		disabled: PropTypes.bool
 	};
 
     render() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Editor from './FeedbackEditor';
@@ -12,8 +13,8 @@ export default class extends React.Component {
     static displayName = 'FeedbackEntry';
 
     static propTypes = {
-		feedback: React.PropTypes.object.isRequired,
-		onSubmit: React.PropTypes.func.isRequired
+		feedback: PropTypes.object.isRequired,
+		onSubmit: PropTypes.func.isRequired
 	};
 
     state = {

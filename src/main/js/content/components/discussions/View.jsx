@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -23,11 +24,11 @@ export default createReactClass({
 	],
 
 	propTypes: {
-		pageSource: React.PropTypes.object,
-		store: React.PropTypes.object.isRequired,
-		itemId: React.PropTypes.string.isRequired,
+		pageSource: PropTypes.object,
+		store: PropTypes.object.isRequired,
+		itemId: PropTypes.string.isRequired,
 
-		edit: React.PropTypes.bool
+		edit: PropTypes.bool
 	},
 
 

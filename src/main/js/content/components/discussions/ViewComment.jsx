@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -23,10 +24,10 @@ export default createReactClass({
 	],
 
 	propTypes: {
-		root: React.PropTypes.object.isRequired,
-		commentId: React.PropTypes.string.isRequired,
+		root: PropTypes.object.isRequired,
+		commentId: PropTypes.string.isRequired,
 
-		edit: React.PropTypes.bool
+		edit: PropTypes.bool
 	},
 
 

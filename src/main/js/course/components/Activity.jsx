@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -17,8 +18,8 @@ export default createReactClass({
 	mixins: [ContextSender, Mixins.NavigatableMixin, ContextParent],
 
 	propTypes: {
-		filterParams: React.PropTypes.object,
-		course: React.PropTypes.object.isRequired
+		filterParams: PropTypes.object,
+		course: PropTypes.object.isRequired
 	},
 
 	getInitialState () {

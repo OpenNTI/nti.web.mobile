@@ -1,6 +1,4 @@
-//heavily inspired by: https://github.com/mzabriskie/react-draggable
-
-import {PropTypes} from 'react';
+import PropTypes from 'prop-types';
 import Base, {TYPE_SHAPE} from './Base';
 
 import {PointerEvents} from 'nti-util-detection-touch';

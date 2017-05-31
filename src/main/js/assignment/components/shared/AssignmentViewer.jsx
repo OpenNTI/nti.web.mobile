@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -16,10 +17,10 @@ export default createReactClass({
 	mixins: [AssignmentsAccessor, Mixins.BasePath, ContextContributor, Mixins.NavigatableMixin],
 
 	propTypes: {
-		explicitContext: React.PropTypes.object,
+		explicitContext: PropTypes.object,
 
-		rootId: React.PropTypes.string.isRequired,
-		userId: React.PropTypes.string
+		rootId: PropTypes.string.isRequired,
+		userId: PropTypes.string
 	},
 
 

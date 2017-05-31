@@ -1,15 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'TimedPlaceholder';
 
     static propTypes = {
-		assignment: React.PropTypes.object,
-		message: React.PropTypes.string.isRequired,
-		buttonLabel: React.PropTypes.string,
-		className: React.PropTypes.string,
-		pageTitle: React.PropTypes.string.isRequired,
-		onConfirm: React.PropTypes.func
+		assignment: PropTypes.object,
+		message: PropTypes.string.isRequired,
+		buttonLabel: PropTypes.string,
+		className: PropTypes.string,
+		pageTitle: PropTypes.string.isRequired,
+		onConfirm: PropTypes.func
 	};
 
     static defaultProps = {

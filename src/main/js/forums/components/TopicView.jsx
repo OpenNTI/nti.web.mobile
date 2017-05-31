@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -33,7 +34,7 @@ export default createReactClass({
 	],
 
 	propTypes: {
-		topicId: React.PropTypes.string
+		topicId: PropTypes.string
 	},
 
 	backingStore: Store,

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
@@ -18,8 +19,8 @@ export default createReactClass({
 	mixins: [FormattedPriceMixin],
 
 	propTypes: {
-		purchasable: React.PropTypes.object.isRequired,
-		locked: React.PropTypes.bool
+		purchasable: PropTypes.object.isRequired,
+		locked: PropTypes.bool
 	},
 
 	getInitialState () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {join} from 'path';
@@ -12,7 +13,7 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		instance: React.PropTypes.object.isRequired
+		instance: PropTypes.object.isRequired
 	},
 
 	render () {

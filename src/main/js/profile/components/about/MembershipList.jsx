@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
@@ -10,10 +11,10 @@ export default createReactClass({
 	displayName: 'MembershipList',
 
 	propTypes: {
-		list: React.PropTypes.array.isRequired,
-		title: React.PropTypes.string,
+		list: PropTypes.array.isRequired,
+		title: PropTypes.string,
 
-		preview: React.PropTypes.bool
+		preview: PropTypes.bool
 	},
 
 	mixins: [Mixin],

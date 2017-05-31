@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -15,8 +16,8 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		catalogEntry: React.PropTypes.object.isRequired,
-		enrollmentOption: React.PropTypes.object
+		catalogEntry: PropTypes.object.isRequired,
+		enrollmentOption: PropTypes.object
 	},
 
 	getInitialState () {

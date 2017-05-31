@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
@@ -28,9 +29,9 @@ export default createReactClass({
 	],
 
 	propTypes: {
-		forumId: React.PropTypes.string.isRequired,
+		forumId: PropTypes.string.isRequired,
 
-		contextID: React.PropTypes.string
+		contextID: PropTypes.string
 	},
 
 	backingStore: Store,

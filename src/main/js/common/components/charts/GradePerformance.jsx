@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
@@ -5,17 +6,17 @@ export default class extends React.Component {
     static displayName = 'GradePerformance';
 
     static propTypes = {
-		averageColor: React.PropTypes.string,
-		averageWidth: React.PropTypes.number,
-		gradeColor: React.PropTypes.string,
-		gradeWidth: React.PropTypes.number,
-		store: React.PropTypes.arrayOf(React.PropTypes.object),
-		topMargin: React.PropTypes.number,
-		bottomMargin: React.PropTypes.number,
-		pixelDensity: React.PropTypes.number,
+		averageColor: PropTypes.string,
+		averageWidth: PropTypes.number,
+		gradeColor: PropTypes.string,
+		gradeWidth: PropTypes.number,
+		store: PropTypes.arrayOf(PropTypes.object),
+		topMargin: PropTypes.number,
+		bottomMargin: PropTypes.number,
+		pixelDensity: PropTypes.number,
 
-		width: React.PropTypes.number,
-		height: React.PropTypes.number
+		width: PropTypes.number,
+		height: PropTypes.number
 
 	};
 

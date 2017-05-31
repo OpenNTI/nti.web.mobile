@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import SelectableEntity from 'common/components/SelectableEntity';
 import {getStore, getSuggestedContacts} from '../Api';
@@ -14,14 +15,14 @@ export default class extends React.Component {
     static displayName = 'UserSearchField';
 
     static propTypes = {
-		onChange: React.PropTypes.func,
-		selected: React.PropTypes.array,
-		onSave: React.PropTypes.func.isRequired,
-		onCancel: React.PropTypes.func.isRequired,
-		excludeContacts: React.PropTypes.any,
-		saveButtonText: React.PropTypes.string,
-		placeholder: React.PropTypes.string,
-		saveDisabled: React.PropTypes.bool
+		onChange: PropTypes.func,
+		selected: PropTypes.array,
+		onSave: PropTypes.func.isRequired,
+		onCancel: PropTypes.func.isRequired,
+		excludeContacts: PropTypes.any,
+		saveButtonText: PropTypes.string,
+		placeholder: PropTypes.string,
+		saveDisabled: PropTypes.bool
 	};
 
     static defaultProps = {

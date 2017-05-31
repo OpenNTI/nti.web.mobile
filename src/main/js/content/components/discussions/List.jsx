@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {EmptyList as Empty, Loading} from 'nti-web-commons';
@@ -5,8 +6,8 @@ import {EmptyList as Empty, Loading} from 'nti-web-commons';
 import Item from './Item';
 
 DiscussionsList.propTypes = {
-	items: React.PropTypes.array,
-	children: React.PropTypes.any
+	items: PropTypes.array,
+	children: PropTypes.any
 };
 
 export default function DiscussionsList ({children, items}) {

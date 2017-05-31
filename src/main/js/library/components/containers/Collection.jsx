@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import getItem from '../items';
@@ -8,12 +9,12 @@ export default class extends React.Component {
     static displayName = 'Library:Collection';
 
     static propTypes = {
-		list: React.PropTypes.array,
+		list: PropTypes.array,
 
-		title: React.PropTypes.string,
-		subtitle: React.PropTypes.string,
+		title: PropTypes.string,
+		subtitle: PropTypes.string,
 
-		children: React.PropTypes.any
+		children: PropTypes.any
 	};
 
     render() {

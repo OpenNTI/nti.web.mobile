@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 const typeCleaned = Symbol();
 
@@ -34,9 +35,9 @@ export default {
 
 
 	propTypes: {
-		item: React.PropTypes.object,
+		item: PropTypes.object,
 
-		questionPart: React.PropTypes.object
+		questionPart: PropTypes.object
 	},
 
 

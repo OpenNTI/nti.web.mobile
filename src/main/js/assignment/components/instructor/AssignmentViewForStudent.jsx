@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {join} from 'path';
@@ -14,7 +15,7 @@ export default createReactClass({
 	mixins: [ContextMixin, Mixins.NavigatableMixin],
 
 	propTypes: {
-		rootId: React.PropTypes.string
+		rootId: PropTypes.string
 	},
 
 	getContext () {

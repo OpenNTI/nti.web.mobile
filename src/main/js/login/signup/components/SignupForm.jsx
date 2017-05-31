@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -36,7 +37,7 @@ export default createReactClass({
 	mixins: [StoreEventsMixin, Mixins.NavigatableMixin, Mixins.BasePath],
 
 	propTypes: {
-		privacyUrl: React.PropTypes.string
+		privacyUrl: PropTypes.string
 	},
 
 	backingStore: Store,

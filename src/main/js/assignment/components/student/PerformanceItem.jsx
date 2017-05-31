@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -13,8 +14,8 @@ export default createReactClass({
 	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired,
-		sortedOn: React.PropTypes.string
+		item: PropTypes.object.isRequired,
+		sortedOn: PropTypes.string
 	},
 
 

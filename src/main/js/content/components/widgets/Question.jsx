@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -32,11 +33,11 @@ export default createReactClass({
 
 	propTypes: {
 		//Normal Path:
-		item: React.PropTypes.object,
-		page: React.PropTypes.object,
+		item: PropTypes.object,
+		page: PropTypes.object,
 
 		//Static Rendering Path:
-		record: React.PropTypes.object
+		record: PropTypes.object
 	},
 
 

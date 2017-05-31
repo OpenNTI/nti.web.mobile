@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {getService} from 'nti-web-client';
@@ -11,9 +12,9 @@ export default class extends React.Component {
     static displayName = 'PopUp';
 
     static propTypes = {
-		onClose: React.PropTypes.func.isRequired,
-		download: React.PropTypes.string,
-		source: React.PropTypes.string.isRequired
+		onClose: PropTypes.func.isRequired,
+		download: PropTypes.string,
+		source: PropTypes.string.isRequired
 	};
 
     state = {

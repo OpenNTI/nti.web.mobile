@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -41,12 +42,12 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		UserDataStoreProvider: React.PropTypes.shape({
-			getUserDataStore: React.PropTypes.func
+		UserDataStoreProvider: PropTypes.shape({
+			getUserDataStore: PropTypes.func
 		}),
 
-		contentPackage: React.PropTypes.object,
-		filter: React.PropTypes.arrayOf(React.PropTypes.string)
+		contentPackage: PropTypes.object,
+		filter: PropTypes.arrayOf(PropTypes.string)
 	},
 
 

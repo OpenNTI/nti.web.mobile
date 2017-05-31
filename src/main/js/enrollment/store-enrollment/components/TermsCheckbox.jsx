@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {scoped} from 'nti-lib-locale';
@@ -10,7 +11,7 @@ export default class extends React.Component {
     static displayName = 'TermsCheckbox';
 
     static propTypes = {
-		onChange: React.PropTypes.func
+		onChange: PropTypes.func
 	};
 
     onChange = () => {

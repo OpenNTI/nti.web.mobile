@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -15,7 +16,7 @@ export default createReactClass({
 	mixins: [AssignmentsAccessor, ContextSender],
 
 	propTypes: {
-		rootId: React.PropTypes.string // assignmentId, present when viewing an individual assignment
+		rootId: PropTypes.string // assignmentId, present when viewing an individual assignment
 	},
 
 	componentWillMount () {

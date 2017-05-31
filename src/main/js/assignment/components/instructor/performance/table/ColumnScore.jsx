@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import GradeBox from '../../GradeBox';
@@ -13,8 +14,8 @@ export default class extends React.Component {
     static sort = 'grade';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired,
-		userId: React.PropTypes.string.isRequired
+		item: PropTypes.object.isRequired,
+		userId: PropTypes.string.isRequired
 	};
 
     render() {

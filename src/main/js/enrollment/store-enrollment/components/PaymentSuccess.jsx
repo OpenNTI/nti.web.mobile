@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Error as ErrorWidget} from 'nti-web-commons';
@@ -14,10 +15,10 @@ export default class extends React.Component {
     static displayName = 'PaymentSuccess';
 
     static propTypes = {
-		courseId: React.PropTypes.string,
-		purchasable: React.PropTypes.object.isRequired,
-		giftDoneLink: React.PropTypes.string,
-		onDone: React.PropTypes.func
+		courseId: PropTypes.string,
+		purchasable: PropTypes.object.isRequired,
+		giftDoneLink: PropTypes.string,
+		onDone: PropTypes.func
 	};
 
     state = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -5,23 +6,23 @@ export default class extends React.Component {
     static displayName = 'RadioGroup';
 
     static propTypes = {
-		defaultValue: React.PropTypes.any,
+		defaultValue: PropTypes.any,
 
-		field: React.PropTypes.shape({
-			label: React.PropTypes.string
+		field: PropTypes.shape({
+			label: PropTypes.string
 		}).isRequired,
 
-		options: React.PropTypes.arrayOf(
-				React.PropTypes.shape({
-					label: React.PropTypes.string,
-					value: React.PropTypes.string
+		options: PropTypes.arrayOf(
+				PropTypes.shape({
+					label: PropTypes.string,
+					value: PropTypes.string
 				})),
 
-		name: React.PropTypes.string,
+		name: PropTypes.string,
 
-		className: React.PropTypes.string,
+		className: PropTypes.string,
 
-		value: React.PropTypes.any
+		value: PropTypes.any
 	};
 
     renderOptions = () => {

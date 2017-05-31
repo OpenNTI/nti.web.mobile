@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -18,13 +19,13 @@ export default createReactClass({
 	displayName: 'Actions',
 
 	propTypes: {
-		item: React.PropTypes.object,
-		canReply: React.PropTypes.bool,
-		cssClasses: React.PropTypes.object,
-		numComments: React.PropTypes.number,
+		item: PropTypes.object,
+		canReply: PropTypes.bool,
+		cssClasses: PropTypes.object,
+		numComments: PropTypes.number,
 
-		onDelete: React.PropTypes.func,
-		onEdit: React.PropTypes.func
+		onDelete: PropTypes.func,
+		onEdit: PropTypes.func
 	},
 
 	mixins: [StoreEventsMixin],

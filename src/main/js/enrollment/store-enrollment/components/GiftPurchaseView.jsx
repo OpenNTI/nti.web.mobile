@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
@@ -11,7 +12,7 @@ export default createReactClass({
 	mixins: [CatalogAccessor],
 
 	propTypes: {
-		entryId: React.PropTypes.string.isRequired
+		entryId: PropTypes.string.isRequired
 	},
 
 	getPurchasable () {

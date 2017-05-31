@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -32,5 +33,5 @@ export default function DiscussionsItem ({item}) {
 }
 
 DiscussionsItem.propTypes = {
-	item: React.PropTypes.object
+	item: PropTypes.object
 };

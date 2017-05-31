@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Mixin from './Mixin';
@@ -22,8 +23,8 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object,
-		topic: React.PropTypes.object
+		item: PropTypes.object,
+		topic: PropTypes.object
 	},
 
 	render () {

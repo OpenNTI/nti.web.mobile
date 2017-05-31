@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -7,26 +8,26 @@ export default class extends React.Component {
     static displayName = 'Transcript';
 
     static propTypes = {
-		children: React.PropTypes.any,
+		children: PropTypes.any,
 
-		cues: React.PropTypes.arrayOf(
-			React.PropTypes.shape({
-				endTime: React.PropTypes.number,
-				startTime: React.PropTypes.number,
-				text: React.PropTypes.string
+		cues: PropTypes.arrayOf(
+			PropTypes.shape({
+				endTime: PropTypes.number,
+				startTime: PropTypes.number,
+				text: PropTypes.string
 			})),
 
-		slides: React.PropTypes.arrayOf(
-			React.PropTypes.shape({
-				endTime: React.PropTypes.number,
-				startTime: React.PropTypes.number,
-				image: React.PropTypes.string
+		slides: PropTypes.arrayOf(
+			PropTypes.shape({
+				endTime: PropTypes.number,
+				startTime: PropTypes.number,
+				image: PropTypes.string
 			})),
 
-		currentTime: React.PropTypes.number,
+		currentTime: PropTypes.number,
 
-		onJumpTo: React.PropTypes.func,
-		onSlideLoaded: React.PropTypes.func
+		onJumpTo: PropTypes.func,
+		onSlideLoaded: PropTypes.func
 	};
 
     static defaultProps = {

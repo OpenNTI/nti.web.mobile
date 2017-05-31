@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -15,7 +16,7 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired
+		course: PropTypes.object.isRequired
 	},
 
 	href () {

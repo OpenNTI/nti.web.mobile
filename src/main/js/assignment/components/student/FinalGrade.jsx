@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -19,8 +20,8 @@ export default function FinalGrade ({grade}) {
 }
 
 FinalGrade.propTypes = {
-	grade: React.PropTypes.shape({
-		value: React.PropTypes.string,
-		letter: React.PropTypes.string
+	grade: PropTypes.shape({
+		value: PropTypes.string,
+		letter: PropTypes.string
 	})
 };

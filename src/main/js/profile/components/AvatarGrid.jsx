@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import AvatarProfileLink from './AvatarProfileLink';
 import {classesFor} from '../mixins/HasMembers';
 
 AvatarGrid.propTypes = {
-	entities: React.PropTypes.shape({
-		map: React.PropTypes.func }).isRequired,
-	creator: React.PropTypes.object,
-	hideFollow: React.PropTypes.bool
+	entities: PropTypes.shape({
+		map: PropTypes.func }).isRequired,
+	creator: PropTypes.object,
+	hideFollow: PropTypes.bool
 };
 
 

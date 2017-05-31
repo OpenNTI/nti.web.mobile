@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-component';
 
 import t from 'nti-lib-locale';
 
 SectionTitle.propTypes = {
-	section: React.PropTypes.string.isRequired,
-	href: React.PropTypes.string
+	section: PropTypes.string.isRequired,
+	href: PropTypes.string
 };
 
 export default function SectionTitle (props) {

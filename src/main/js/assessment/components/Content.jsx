@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -17,13 +18,13 @@ import htmlToReact from 'html-reactifier';
 export default class Content extends React.Component {
 
 	static propTypes = {
-		className: React.PropTypes.string,
+		className: PropTypes.string,
 
-		content: React.PropTypes.string.isRequired,
+		content: PropTypes.string.isRequired,
 
-		renderCustomWidget: React.PropTypes.func,
+		renderCustomWidget: PropTypes.func,
 
-		strategies: React.PropTypes.object
+		strategies: PropTypes.object
 	}
 
 

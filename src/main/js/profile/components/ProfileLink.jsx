@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -9,9 +10,9 @@ export default createReactClass({
 	mixins: [ProfileLink],
 
 	propTypes: {
-		entity: React.PropTypes.oneOfType([
-			React.PropTypes.object,
-			React.PropTypes.string
+		entity: PropTypes.oneOfType([
+			PropTypes.object,
+			PropTypes.string
 		])
 	},
 

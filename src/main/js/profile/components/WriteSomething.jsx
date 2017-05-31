@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import PostEditor from 'activity/components/PostEditor';
@@ -11,9 +12,9 @@ export default class extends React.Component {
     static displayName = 'WriteSomething';
 
     static propTypes = {
-		entity: React.PropTypes.object.isRequired,
-		store: React.PropTypes.shape({
-			postToActivity: React.PropTypes.func
+		entity: PropTypes.object.isRequired,
+		store: PropTypes.shape({
+			postToActivity: PropTypes.func
 		}).isRequired
 	};
 

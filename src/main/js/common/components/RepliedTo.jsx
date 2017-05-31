@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import DisplayName from './DisplayName';
@@ -8,7 +9,7 @@ export default class extends React.Component {
     static displayName = 'RepliedTo';
 
     static propTypes = {
-		item: React.PropTypes.object
+		item: PropTypes.object
 	};
 
     componentDidMount() {

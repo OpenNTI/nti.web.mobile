@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Transition from 'react-transition-group/CSSTransitionGroup';
@@ -41,19 +42,19 @@ export default createReactClass({
 	mixins: [StoreEventsMixin, Mixins.BasePath, Mixins.NavigatableMixin],
 
 	contextTypes: {
-		triggerRightMenu: React.PropTypes.func.isRequired
+		triggerRightMenu: PropTypes.func.isRequired
 	},
 
 	propTypes: {
-		branding: React.PropTypes.bool,
-		menuItems: React.PropTypes.arrayOf(React.PropTypes.shape({
-			label: React.PropTypes.string,
-			href: React.PropTypes.string
+		branding: PropTypes.bool,
+		menuItems: PropTypes.arrayOf(PropTypes.shape({
+			label: PropTypes.string,
+			href: PropTypes.string
 		})),
-		title: React.PropTypes.string,
+		title: PropTypes.string,
 
-		children: React.PropTypes.any,
-		availableSections: React.PropTypes.array
+		children: PropTypes.any,
+		availableSections: PropTypes.array
 	},
 
 	backingStore: NavStore,

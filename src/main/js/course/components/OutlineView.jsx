@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -24,9 +25,9 @@ export default createReactClass({
 	],
 
 	propTypes: {
-		children: React.PropTypes.any,
-		className: React.PropTypes.string,
-		item: React.PropTypes.object.isRequired
+		children: PropTypes.any,
+		className: PropTypes.string,
+		item: PropTypes.object.isRequired
 	},
 
 	getDefaultProps () {

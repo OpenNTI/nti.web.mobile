@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {join} from 'path';
@@ -26,7 +27,7 @@ export default createReactClass({
 	displayName: 'ListDetail',
 	mixins: [ContextSender, Mixins.BasePath],
 	propTypes: {
-		id: React.PropTypes.string.isRequired
+		id: PropTypes.string.isRequired
 	},
 
 	getInitialState () {

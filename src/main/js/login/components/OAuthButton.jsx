@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 
 import Path from 'path';
 import Url from 'url';
+import PropTypes from 'prop-types';
 import QueryString from 'query-string';
 
 import Button from 'forms/components/Button';
@@ -24,8 +25,8 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		rel: React.PropTypes.string,
-		href: React.PropTypes.string
+		rel: PropTypes.string,
+		href: PropTypes.string
 	},
 
 	render () {

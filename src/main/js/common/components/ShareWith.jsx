@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -25,11 +26,11 @@ export default class extends React.Component {
     static displayName = 'ShareWith';
 
     static propTypes = {
-		defaultValue: React.PropTypes.array,
+		defaultValue: PropTypes.array,
 
-		scope: React.PropTypes.object,
+		scope: PropTypes.object,
 
-		onBlur: React.PropTypes.func
+		onBlur: PropTypes.func
 	};
 
     state = {};

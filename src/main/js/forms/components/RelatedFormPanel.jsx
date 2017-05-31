@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -62,13 +63,13 @@ let RelatedFormPanel = createReactClass({
 	},
 
 	propTypes: {
-		inputFocus: React.PropTypes.func,
-		formConfig: React.PropTypes.array.isRequired,
-		translator: React.PropTypes.func,
-		errorFieldRefs: React.PropTypes.shape({ // a Set
-			has: React.PropTypes.func
+		inputFocus: PropTypes.func,
+		formConfig: PropTypes.array.isRequired,
+		translator: PropTypes.func,
+		errorFieldRefs: PropTypes.shape({ // a Set
+			has: PropTypes.func
 		}),
-		children: React.PropTypes.any
+		children: PropTypes.any
 	},
 
 	getDefaultProps () {

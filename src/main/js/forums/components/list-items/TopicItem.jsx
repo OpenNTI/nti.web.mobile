@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {mimeTypes, TOPIC, POST} from '../../Constants';
@@ -32,7 +33,7 @@ export default createReactClass({
 	backingStore: Store,
 
 	propTypes: {
-		parentPath: React.PropTypes.string
+		parentPath: PropTypes.string
 	},
 
 	componentWillMount () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
@@ -28,9 +29,9 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin, CourseContentLink, ContextSender],
 
 	propTypes: {
-		courseId: React.PropTypes.string.isRequired,
-		entryId: React.PropTypes.string.isRequired,
-		enrollment: React.PropTypes.object.isRequired
+		courseId: PropTypes.string.isRequired,
+		entryId: PropTypes.string.isRequired,
+		enrollment: PropTypes.object.isRequired
 	},
 
 	componentDidMount () {

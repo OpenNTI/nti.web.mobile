@@ -11,6 +11,8 @@
 
 import React from 'react';
 
+import PropTypes from 'prop-types';
+
 import QueryString from 'query-string';
 
 import Card from 'common/components/Card';
@@ -25,8 +27,8 @@ export default class extends React.Component {
     }
 
     static propTypes = {
-		course: React.PropTypes.object,
-		item: React.PropTypes.object
+		course: PropTypes.object,
+		item: PropTypes.object
 	};
 
     prefixJSONWithEmbedURL = (source) => {

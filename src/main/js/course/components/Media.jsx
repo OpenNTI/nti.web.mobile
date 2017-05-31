@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
@@ -22,8 +23,8 @@ export default createReactClass({
 	mixins: [CourseLinker, Mixins.NavigatableMixin, ContextContributor],
 
 	propTypes: {
-		outlineId: React.PropTypes.string,
-		course: React.PropTypes.object.isRequired
+		outlineId: PropTypes.string,
+		course: PropTypes.object.isRequired
 	},
 
 	getInitialState () {

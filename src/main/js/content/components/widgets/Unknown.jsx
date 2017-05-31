@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import t from 'nti-lib-locale';
 
@@ -5,7 +6,7 @@ export default class extends React.Component {
     static displayName = 'ContentWidgetUnknown';
 
     static propTypes = {
-		item: React.PropTypes.object
+		item: PropTypes.object
 	};
 
     componentDidMount() {

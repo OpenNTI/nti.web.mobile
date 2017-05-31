@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Transition from 'react-transition-group/CSSTransitionGroup';
@@ -52,8 +53,8 @@ export default createReactClass({
 
 
 	propTypes: {
-		topicId: React.PropTypes.string,
-		showComments: React.PropTypes.bool
+		topicId: PropTypes.string,
+		showComments: PropTypes.bool
 	},
 
 	getDefaultProps () {

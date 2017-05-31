@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -20,7 +21,7 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.any.isRequired
+		item: PropTypes.any.isRequired
 	},
 
 	render () {

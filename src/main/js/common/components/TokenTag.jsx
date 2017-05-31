@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
 TokenTag.propTypes = {
-	className: React.PropTypes.string,
-	selected: React.PropTypes.bool,
-	name: React.PropTypes.string,
-	value: React.PropTypes.string.isRequired
+	className: PropTypes.string,
+	selected: PropTypes.bool,
+	name: PropTypes.string,
+	value: PropTypes.string.isRequired
 };
 
 export default function TokenTag ({className, selected, name, value, ...props}) {

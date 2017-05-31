@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default {
 
 	contextTypes: {
-		assignmentsHistory: React.PropTypes.object
+		assignmentsHistory: PropTypes.object
 	},
 
 

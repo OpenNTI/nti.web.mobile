@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import ListDetail from './ListDetail';
@@ -10,7 +11,7 @@ export default createReactClass({
 	mixins: [ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
-		id: React.PropTypes.string
+		id: PropTypes.string
 	},
 
 	getContext () {

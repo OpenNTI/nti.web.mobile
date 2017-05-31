@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -35,7 +36,7 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin, StoreEventsMixin, LoadForum],
 
 	propTypes: {
-		forumId: React.PropTypes.string
+		forumId: PropTypes.string
 	},
 
 	backingStore: Store,

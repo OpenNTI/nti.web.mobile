@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'Editable';
 
     static propTypes = {
-		tag: React.PropTypes.string,
-		children: React.PropTypes.any
+		tag: PropTypes.string,
+		children: PropTypes.any
 	};
 
     focus = () => {

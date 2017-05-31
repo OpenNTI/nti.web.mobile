@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
@@ -15,7 +16,7 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin, ContextSender],
 
 	propTypes: {
-		contentPackage: React.PropTypes.object
+		contentPackage: PropTypes.object
 	},
 
 	// title bar back arrow

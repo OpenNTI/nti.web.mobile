@@ -4,6 +4,8 @@ import {
 	VTTCue/*, VTTRegion*/
 } from 'vtt.js';
 
+import PropTypes from 'prop-types';
+
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -74,12 +76,12 @@ export default createReactClass({
 	mixins: [ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
-		MediaIndex: React.PropTypes.object.isRequired,
-		outlineId: React.PropTypes.string,
-		videoId: React.PropTypes.string,
-		course: React.PropTypes.object,
+		MediaIndex: PropTypes.object.isRequired,
+		outlineId: PropTypes.string,
+		videoId: PropTypes.string,
+		course: PropTypes.object,
 
-		showDiscussions: React.PropTypes.bool
+		showDiscussions: PropTypes.bool
 	},
 
 	getInitialState () {

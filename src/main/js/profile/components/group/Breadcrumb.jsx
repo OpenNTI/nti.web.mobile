@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Mixins} from 'nti-web-commons';
@@ -7,7 +8,7 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		entity: React.PropTypes.object.isRequired
+		entity: PropTypes.object.isRequired
 	},
 
 	render () {

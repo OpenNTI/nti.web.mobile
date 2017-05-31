@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const GetContext = 'context:provider:get-local';
@@ -10,8 +11,8 @@ const RESOLVING = Symbol('resolvingContext');
 export default {
 
 	contextTypes: {
-		[ContextResolver]: React.PropTypes.func,
-		[ContextParent]: React.PropTypes.any
+		[ContextResolver]: PropTypes.func,
+		[ContextParent]: PropTypes.any
 	},
 
 

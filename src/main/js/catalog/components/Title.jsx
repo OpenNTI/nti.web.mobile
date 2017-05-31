@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -11,7 +12,7 @@ export default createReactClass({
 	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
-		entry: React.PropTypes.object
+		entry: PropTypes.object
 	},
 
 	getItem (props) {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Student from './student/View';
@@ -13,7 +14,7 @@ export default createReactClass({
 	mixins: [AssignmentsHolder, Mixins.NavigatableMixin, ContextContributor],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired
+		course: PropTypes.object.isRequired
 	},
 
 	getInitialState () {

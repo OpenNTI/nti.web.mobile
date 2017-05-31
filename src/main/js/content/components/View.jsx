@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
@@ -40,7 +41,7 @@ export default createReactClass({
 		 * The NTIID of the content Package/Bundle/Thing to view.
 		 * @type {string}
 		 */
-		contentId: React.PropTypes.string.isRequired
+		contentId: PropTypes.string.isRequired
 	},
 
 

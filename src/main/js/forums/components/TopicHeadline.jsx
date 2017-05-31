@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -30,14 +31,14 @@ export default function TopicHeadline ({className, item}) {
 }
 
 TopicHeadline.propTypes = {
-	className: React.PropTypes.string,
+	className: PropTypes.string,
 
-	item: React.PropTypes.shape({
-		creator: React.PropTypes.string,
-		body: React.PropTypes.array,
-		title: React.PropTypes.string,
-		getCreatedTime: React.PropTypes.func
+	item: PropTypes.shape({
+		creator: PropTypes.string,
+		body: PropTypes.array,
+		title: PropTypes.string,
+		getCreatedTime: PropTypes.func
 	}),
 
-	topic: React.PropTypes.object
+	topic: PropTypes.object
 };

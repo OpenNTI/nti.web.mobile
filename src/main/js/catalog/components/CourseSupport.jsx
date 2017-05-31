@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Constants} from 'nti-web-commons';
@@ -16,7 +17,7 @@ export default class extends React.Component {
     static displayName = 'CourseSupport';
 
     static propTypes = {
-		entry: React.PropTypes.object
+		entry: PropTypes.object
 	};
 
     shouldRender = () => {

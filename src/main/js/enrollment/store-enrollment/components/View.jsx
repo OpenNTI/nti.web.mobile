@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -17,10 +18,10 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin, Mixins.BasePath], // needed for getPath() call we're using for the router's key.
 
 	propTypes: {
-		courseId: React.PropTypes.string,
-		entryId: React.PropTypes.string,
-		enrollment: React.PropTypes.shape({
-			Purchasable: React.PropTypes.object
+		courseId: PropTypes.string,
+		entryId: PropTypes.string,
+		enrollment: PropTypes.shape({
+			Purchasable: PropTypes.object
 		}).isRequired
 	},
 

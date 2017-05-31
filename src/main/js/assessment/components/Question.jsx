@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -25,8 +26,8 @@ export default createReactClass({
 	mixins: [DragDropOrchestrator, StoreEventsMixin],
 
 	propTypes: {
-		question: React.PropTypes.object.isRequired,
-		number: React.PropTypes.string
+		question: PropTypes.object.isRequired,
+		number: PropTypes.string
 	},
 
 
@@ -41,7 +42,7 @@ export default createReactClass({
 
 
 	childContextTypes: {
-		QuestionUniqueDNDToken: React.PropTypes.object
+		QuestionUniqueDNDToken: PropTypes.object
 	},
 
 

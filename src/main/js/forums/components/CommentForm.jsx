@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Editor} from 'modeled-content';
@@ -20,14 +21,14 @@ export default createReactClass({
 	mixins: [StoreEventsMixin],
 
 	propTypes: {
-		id: React.PropTypes.string,
+		id: PropTypes.string,
 
-		onCancel: React.PropTypes.func,
-		onCompletion: React.PropTypes.func,
+		onCancel: PropTypes.func,
+		onCompletion: PropTypes.func,
 
-		editItem: React.PropTypes.object,//??
-		topic: React.PropTypes.object.isRequired,
-		parent: React.PropTypes.object
+		editItem: PropTypes.object,//??
+		topic: PropTypes.object.isRequired,
+		parent: PropTypes.object
 	},
 
 	backingStore: Store,

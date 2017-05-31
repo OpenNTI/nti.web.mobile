@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -15,7 +16,7 @@ export default createReactClass({
 	mixins: [StoreEventsMixin],
 
 	propTypes: {
-		children: React.PropTypes.any
+		children: PropTypes.any
 	},
 
 	backingStore: NavStore,

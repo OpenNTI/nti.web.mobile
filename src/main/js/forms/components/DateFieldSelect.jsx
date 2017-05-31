@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'DateFieldSelect';
 
     static propTypes = {
-		children: React.PropTypes.any,
-		onChange: React.PropTypes.func,
-		name: React.PropTypes.string
+		children: PropTypes.any,
+		onChange: PropTypes.func,
+		name: PropTypes.string
 	};
 
     handleChange = (event) => {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Color} from 'nti-lib-whiteboardjs';
@@ -14,15 +15,15 @@ function concatUnique (list, toappend) {
 }
 
 BarChart.propTypes = {
-	data: React.PropTypes.arrayOf(
-		React.PropTypes.shape({
-			label: React.PropTypes.string.isRequired,
-			labelPrefix: React.PropTypes.string,
-			series: React.PropTypes.arrayOf(
-				React.PropTypes.shape({
-					label: React.PropTypes.string,
-					count: React.PropTypes.number,
-					percent: React.PropTypes.number.isRequired
+	data: PropTypes.arrayOf(
+		PropTypes.shape({
+			label: PropTypes.string.isRequired,
+			labelPrefix: PropTypes.string,
+			series: PropTypes.arrayOf(
+				PropTypes.shape({
+					label: PropTypes.string,
+					count: PropTypes.number,
+					percent: PropTypes.number.isRequired
 				})
 			)
 		})

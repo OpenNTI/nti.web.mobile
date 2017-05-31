@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Avatar from 'common/components/Avatar';
@@ -11,10 +12,10 @@ export default createReactClass({
 	mixins: [ShowAvatars],
 
 	propTypes: {
-		item: React.PropTypes.shape({
-			username: React.PropTypes.string
+		item: PropTypes.shape({
+			username: PropTypes.string
 		}).isRequired,
-		children: React.PropTypes.any
+		children: PropTypes.any
 	},
 
 	render () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function UnknownListItem ({item}) {
@@ -9,5 +10,5 @@ export default function UnknownListItem ({item}) {
 }
 
 UnknownListItem.propTypes = {
-	item: React.PropTypes.object
+	item: PropTypes.object
 };

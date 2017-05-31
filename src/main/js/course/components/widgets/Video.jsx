@@ -1,4 +1,5 @@
 import path from 'path';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -16,14 +17,14 @@ export default createReactClass({
 	mixins: [Mixins.BasePath, ContextAccessor],
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired,
-		course: React.PropTypes.object.isRequired,
+		item: PropTypes.object.isRequired,
+		course: PropTypes.object.isRequired,
 
-		activeIndex: React.PropTypes.number,
-		index: React.PropTypes.number,
-		touching: React.PropTypes.bool,
-		tag: React.PropTypes.string,
-		onFocus: React.PropTypes.func
+		activeIndex: PropTypes.number,
+		index: PropTypes.number,
+		touching: PropTypes.bool,
+		tag: PropTypes.string,
+		onFocus: PropTypes.func
 	},
 
 

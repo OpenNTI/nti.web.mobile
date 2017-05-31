@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Prompt} from 'nti-web-commons';
@@ -13,7 +14,7 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
-		list: React.PropTypes.object.isRequired
+		list: PropTypes.object.isRequired
 	},
 
 	getInitialState () {

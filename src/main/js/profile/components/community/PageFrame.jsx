@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -19,11 +20,11 @@ export default createReactClass({
 	mixins: [ContextSender],
 
 	propTypes: {
-		pageContent: React.PropTypes.any,
+		pageContent: PropTypes.any,
 
-		entity: React.PropTypes.object.isRequired,
+		entity: PropTypes.object.isRequired,
 
-		selected: React.PropTypes.string
+		selected: PropTypes.string
 	},
 
 	getInitialState () {

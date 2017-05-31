@@ -1,8 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import moment from 'moment';
-
-let {PropTypes} = React;
 
 export default class extends React.Component {
     static displayName = 'Schedule';

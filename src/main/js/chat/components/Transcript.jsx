@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {DateTime} from 'nti-web-commons';
@@ -20,5 +21,5 @@ export default function Transcript ({transcript}) {
 }
 
 Transcript.propTypes = {
-	transcript: React.PropTypes.object.isRequired
+	transcript: PropTypes.object.isRequired
 };

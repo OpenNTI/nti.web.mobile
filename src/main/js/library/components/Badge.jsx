@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -6,7 +7,7 @@ import {DateTime} from 'nti-web-commons';
 import Filters, {ARCHIVED, UPCOMING} from '../Filters';
 
 Badge.propTypes = {
-	item: React.PropTypes.object.isRequired
+	item: PropTypes.object.isRequired
 };
 
 export default function Badge ({item}) {

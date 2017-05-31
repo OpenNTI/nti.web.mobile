@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -18,11 +19,11 @@ export default createReactClass({
 	displayName: 'AnnotationBar',
 
 	propTypes: {
-		item: React.PropTypes.object,
-		range: React.PropTypes.object,
-		onNewDiscussion: React.PropTypes.func,
-		onSetHighlight: React.PropTypes.func,
-		onRemoveHighlight: React.PropTypes.func
+		item: PropTypes.object,
+		range: PropTypes.object,
+		onNewDiscussion: PropTypes.func,
+		onSetHighlight: PropTypes.func,
+		onRemoveHighlight: PropTypes.func
 	},
 
 
@@ -159,7 +160,7 @@ export default createReactClass({
 // Why both onTouchStart and onClick? Because the selection is gone before onClick fires on
 // iOS, and I believe all touch devices. So, where we get onTouchStart, treat that as the click,
 // and fallback to onClick so we can read the selection before it goes away.
-Button.propTypes = { onClick: React.PropTypes.func };
+Button.propTypes = { onClick: PropTypes.func };
 function Button ({onClick, ...props}) {
 
 	const event = isTouch ? 'onTouchStart' : 'onClick';

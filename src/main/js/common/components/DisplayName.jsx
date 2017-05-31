@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {DisplayName} from 'nti-web-commons';
@@ -11,29 +12,29 @@ export default createReactClass({
 
 	//Mirror the propTypes of the Common DisplayName
 	propTypes: {
-		localeKey: React.PropTypes.oneOfType([
-			React.PropTypes.string,
-			React.PropTypes.func
+		localeKey: PropTypes.oneOfType([
+			PropTypes.string,
+			PropTypes.func
 		]),
 
-		tag: React.PropTypes.any,
+		tag: PropTypes.any,
 
-		entity: React.PropTypes.oneOfType([
-			React.PropTypes.object,
-			React.PropTypes.string
+		entity: PropTypes.oneOfType([
+			PropTypes.object,
+			PropTypes.string
 		]).isRequired,
 
 		username: deprecated,
 		user: deprecated,
 
-		suppressProfileLink: React.PropTypes.bool,
+		suppressProfileLink: PropTypes.bool,
 
 		/**
 		 * Specifies to substitute your name with "You".
 		 *
 		 * @type {boolean}
 		 */
-		usePronoun: React.PropTypes.bool,
+		usePronoun: PropTypes.bool,
 
 		/**
 		 * Sharing Scopes (entity objects) are given GeneralNames by the suggestion provider.
@@ -41,7 +42,7 @@ export default createReactClass({
 		 *
 		 * @type {boolean}
 		 */
-		useGeneralName: React.PropTypes.bool
+		useGeneralName: PropTypes.bool
 	},
 
 	onClick (e) {

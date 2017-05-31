@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -11,8 +12,8 @@ export default class extends React.Component {
     static displayName = 'GroupsListItem';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired,
-		onRightClick: React.PropTypes.func
+		item: PropTypes.object.isRequired,
+		onRightClick: PropTypes.func
 	};
 
     onRightClick = () => {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -12,12 +13,12 @@ import t from 'nti-lib-locale';
 export default class NoteEditor extends React.Component {
 
 	static propTypes = {
-		item: React.PropTypes.object,
-		scope: React.PropTypes.object,
+		item: PropTypes.object,
+		scope: PropTypes.object,
 
-		onCancel: React.PropTypes.func,
-		onSubmit: React.PropTypes.func,
-		onSave: React.PropTypes.func
+		onCancel: PropTypes.func,
+		onSubmit: PropTypes.func,
+		onSave: PropTypes.func
 	}
 
 

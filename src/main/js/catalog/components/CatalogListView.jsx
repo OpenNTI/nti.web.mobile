@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import AcceptInvitation from 'invitations/components/Accept';
@@ -20,5 +21,5 @@ export default function CatalogListView (props) {
 }
 
 CatalogListView.propTypes = {
-	title: React.PropTypes.string
+	title: PropTypes.string
 };

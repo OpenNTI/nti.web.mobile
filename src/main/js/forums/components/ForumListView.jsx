@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -38,9 +39,9 @@ export default createReactClass({
 		/**
 		 * @type {object} Any model that implements getDiscussions() and getID()
 		 */
-		contentPackage: React.PropTypes.shape({
-			getDiscussions: React.PropTypes.func,
-			getID: React.PropTypes.func
+		contentPackage: PropTypes.shape({
+			getDiscussions: PropTypes.func,
+			getID: PropTypes.func
 		})
 	},
 

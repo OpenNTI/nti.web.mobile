@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -23,8 +24,8 @@ export default createReactClass({
 
 
 	propTypes: {
-		outlineId: React.PropTypes.string.isRequired,
-		item: React.PropTypes.object.isRequired
+		outlineId: PropTypes.string.isRequired,
+		item: PropTypes.object.isRequired
 	},
 
 

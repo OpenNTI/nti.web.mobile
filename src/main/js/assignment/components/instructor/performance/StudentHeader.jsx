@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
@@ -11,5 +12,5 @@ export default function StudentHeader ({userId}) {
 }
 
 StudentHeader.propTypes = {
-	userId: React.PropTypes.any.isRequired
+	userId: PropTypes.any.isRequired
 };

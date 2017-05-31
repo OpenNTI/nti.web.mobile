@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Store from '../Store';
@@ -14,7 +15,7 @@ export default class extends React.Component {
     static displayName = 'HeaderAssignment';
 
     static propTypes = {
-		assessment: React.PropTypes.object
+		assessment: PropTypes.object
 	};
 
     componentDidMount() {

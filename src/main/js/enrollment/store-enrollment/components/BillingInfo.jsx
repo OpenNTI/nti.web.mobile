@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
@@ -13,8 +14,8 @@ export default class extends React.Component {
     static displayName = 'BillingInfo';
 
     static propTypes = {
-		edit: React.PropTypes.any,
-		card: React.PropTypes.object
+		edit: PropTypes.any,
+		card: PropTypes.object
 	};
 
     rowIfNotEmpty = (value) => {

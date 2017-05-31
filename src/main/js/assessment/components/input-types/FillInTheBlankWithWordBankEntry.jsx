@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import WordBankEntry from '../WordBankEntry';
 
@@ -5,8 +6,8 @@ export default class extends React.Component {
     static displayName = 'FillInTheBlankWithWordBankEntry';
 
     static propTypes = {
-		input: React.PropTypes.object.isRequired,
-		onReset: React.PropTypes.func
+		input: PropTypes.object.isRequired,
+		onReset: PropTypes.func
 	};
 
     onReset = (entry, cmp) => {

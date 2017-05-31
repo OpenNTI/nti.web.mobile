@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
@@ -15,7 +16,7 @@ export default createReactClass({
 	],
 
 	propTypes: {
-		user: React.PropTypes.object.isRequired
+		user: PropTypes.object.isRequired
 	},
 
 	render () {

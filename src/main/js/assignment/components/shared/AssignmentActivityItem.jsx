@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
@@ -36,11 +37,11 @@ const GOTO_HASH = {
 };
 
 ActivityItem.propTypes = {
-	event: React.PropTypes.object.isRequired
+	event: PropTypes.object.isRequired
 };
 
 ActivityItem.contextTypes = {
-	isInstructor: React.PropTypes.bool
+	isInstructor: PropTypes.bool
 };
 
 export default function ActivityItem ({event}, {isInstructor}) {

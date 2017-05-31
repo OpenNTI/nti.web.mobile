@@ -93,6 +93,7 @@
     "numeral": "^2.0.0",
     "object-hash": "^1.1.0",
     "postcss-loader": "^1.0.0",
+    "prop-types": "^15.5.10",
     "query-string": "^4.0.0",
     "create-react-class": "^15.5.3",
     "react-transition-group": "^1.1.0",

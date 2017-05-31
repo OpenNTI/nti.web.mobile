@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
@@ -17,5 +18,5 @@ export default function Joined ({entity}) {
 }
 
 Joined.propTypes = {
-	entity: React.PropTypes.object.isRequired
+	entity: PropTypes.object.isRequired
 };

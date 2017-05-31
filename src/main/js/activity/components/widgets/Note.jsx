@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
@@ -18,7 +19,7 @@ export default class extends React.Component {
     }
 
     static propTypes = {
-		item: React.PropTypes.any.isRequired
+		item: PropTypes.any.isRequired
 	};
 
     render() {

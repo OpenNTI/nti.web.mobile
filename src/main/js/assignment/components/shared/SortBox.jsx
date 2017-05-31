@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {SelectBox} from 'nti-web-commons';
@@ -9,8 +10,8 @@ export default createReactClass({
 	mixins: [AssignmentsAccessor],
 
 	propTypes: {
-		value: React.PropTypes.any,
-		onChange: React.PropTypes.func.isRequired
+		value: PropTypes.any,
+		onChange: PropTypes.func.isRequired
 	},
 
 	componentWillMount () {

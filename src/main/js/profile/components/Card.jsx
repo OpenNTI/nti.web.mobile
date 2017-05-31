@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import cx from 'classnames';
@@ -12,7 +13,7 @@ export default function ProfileCard ({children, className, title}) {
 }
 
 ProfileCard.propTypes = {
-	title: React.PropTypes.string,
-	className: React.PropTypes.string,
-	children: React.PropTypes.any
+	title: PropTypes.string,
+	className: PropTypes.string,
+	children: PropTypes.any
 };

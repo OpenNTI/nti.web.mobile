@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import DisplayName from 'common/components/DisplayName';
@@ -23,6 +24,6 @@ export default function GroupHead ({children, entity}) {
 }
 
 GroupHead.propTypes = {
-	children: React.PropTypes.any,
-	entity: React.PropTypes.object
+	children: PropTypes.any,
+	entity: PropTypes.object
 };

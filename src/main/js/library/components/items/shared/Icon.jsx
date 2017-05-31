@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Logger from 'nti-util-logger';
 
@@ -63,7 +64,7 @@ export default class extends React.Component {
     static displayName = 'content:Icon';
 
     static propTypes = {
-		src: React.PropTypes.string
+		src: PropTypes.string
 	};
 
     state = {};

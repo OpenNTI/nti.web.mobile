@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import isFunction from 'is-function';
 
@@ -7,10 +8,10 @@ export default class extends React.Component {
     static displayName = 'forms:ToggleFieldset';
 
     static propTypes = {
-		field: React.PropTypes.object.isRequired,
-		renderField: React.PropTypes.func.isRequired,
-		translator: React.PropTypes.func.isRequired,
-		onChange: React.PropTypes.func
+		field: PropTypes.object.isRequired,
+		renderField: PropTypes.func.isRequired,
+		translator: PropTypes.func.isRequired,
+		onChange: PropTypes.func
 	};
 
     state = {};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -31,9 +32,9 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object,
-		parentPath: React.PropTypes.string,
-		topicsComponent: React.PropTypes.node
+		item: PropTypes.object,
+		parentPath: PropTypes.string,
+		topicsComponent: PropTypes.node
 	},
 
 	getInitialState () {

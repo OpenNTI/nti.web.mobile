@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {SelectBox} from 'nti-web-commons';
 
@@ -12,8 +13,8 @@ export default class extends React.Component {
     static displayName = 'ItemCategorySelect';
 
     static propTypes = {
-		value: React.PropTypes.any,
-		onChange: React.PropTypes.func.isRequired
+		value: PropTypes.any,
+		onChange: PropTypes.func.isRequired
 	};
 
     componentWillMount() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import SelectableEntity from './SelectableEntity';
 
@@ -7,15 +8,15 @@ export default class extends React.Component {
     static displayName = 'SelectableEntities';
 
     static propTypes = {
-		selection: React.PropTypes.instanceOf(Selection.EntitySelectionModel).isRequired,
+		selection: PropTypes.instanceOf(Selection.EntitySelectionModel).isRequired,
 
-		entities: React.PropTypes.any,
+		entities: PropTypes.any,
 
-		onChange: React.PropTypes.func,
+		onChange: PropTypes.func,
 
-		labels: React.PropTypes.object,
+		labels: PropTypes.object,
 
-		linkToProfile: React.PropTypes.any
+		linkToProfile: PropTypes.any
 	};
 
     onChange = (entity) => {

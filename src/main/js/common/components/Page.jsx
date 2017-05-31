@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import NavigationBar from 'navigation/components/Bar';
@@ -6,16 +7,16 @@ export default class extends React.Component {
     static displayName = 'Page';
 
     static propTypes = {
-		pageContent: React.PropTypes.any,
-		children: React.PropTypes.any
+		pageContent: PropTypes.any,
+		children: PropTypes.any
 	};
 
     static childContextTypes = {
-		PageWrapped: React.PropTypes.bool
+		PageWrapped: PropTypes.bool
 	};
 
     static contextTypes = {
-		PageWrapped: React.PropTypes.bool
+		PageWrapped: PropTypes.bool
 	};
 
     getChildContext() {

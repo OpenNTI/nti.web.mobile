@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
@@ -13,7 +14,7 @@ export default class extends React.Component {
     }
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	};
 
     render() {

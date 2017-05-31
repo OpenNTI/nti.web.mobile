@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -6,10 +7,10 @@ export default createReactClass({
 	displayName: 'Button',
 
 	propTypes: {
-		href: React.PropTypes.string,
-		className: React.PropTypes.string,
-		onClick: React.PropTypes.func,
-		enabled: React.PropTypes.bool
+		href: PropTypes.string,
+		className: PropTypes.string,
+		onClick: PropTypes.func,
+		enabled: PropTypes.bool
 	},
 
 

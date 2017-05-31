@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import cx from 'classnames';
@@ -34,11 +35,11 @@ export default class extends React.Component {
     static displayName = 'BasicInfo';
 
     static propTypes = {
-		item: React.PropTypes.object,
+		item: PropTypes.object,
 
-		schema: React.PropTypes.object,
+		schema: PropTypes.object,
 
-		error: React.PropTypes.object
+		error: PropTypes.object
 	};
 
     state = {errors: {}};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -46,13 +47,13 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object,
+		item: PropTypes.object,
 
-		contentPackage: React.PropTypes.object,
+		contentPackage: PropTypes.object,
 
-		onFocus: React.PropTypes.func,
+		onFocus: PropTypes.func,
 
-		tag: React.PropTypes.any
+		tag: PropTypes.any
 	},
 
 

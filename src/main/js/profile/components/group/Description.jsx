@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Ellipsed} from 'nti-web-commons';
 
 Description.propTypes = {
-	entity: React.PropTypes.object.isRequired
+	entity: PropTypes.object.isRequired
 };
 
 export default function Description ({entity}) {

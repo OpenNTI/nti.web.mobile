@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import cx from 'classnames';
@@ -17,20 +18,20 @@ export default class extends React.Component {
     static displayName = 'Action';
 
     static propTypes = {
-		onClick: React.PropTypes.oneOfType([
-			React.PropTypes.bool,
-			React.PropTypes.func
+		onClick: PropTypes.oneOfType([
+			PropTypes.bool,
+			PropTypes.func
 		]),
 
-		criteria: React.PropTypes.any,
+		criteria: PropTypes.any,
 
-		name: React.PropTypes.string,
+		name: PropTypes.string,
 
-		inList: React.PropTypes.bool,
+		inList: PropTypes.bool,
 
-		className: React.PropTypes.string,
+		className: PropTypes.string,
 
-		iconOnly: React.PropTypes.bool
+		iconOnly: PropTypes.bool
 	};
 
     static defaultProps = {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -34,12 +35,12 @@ export default createReactClass({
 	},
 
 	contextTypes: {
-		QuestionUniqueDNDToken: React.PropTypes.object
+		QuestionUniqueDNDToken: PropTypes.object
 	},
 
 	propTypes: {
-		item: React.PropTypes.object,
-		onDrop: React.PropTypes.func
+		item: PropTypes.object,
+		onDrop: PropTypes.func
 	},
 
 

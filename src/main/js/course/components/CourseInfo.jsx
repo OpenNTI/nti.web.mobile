@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Detail from 'catalog/components/Detail';
@@ -11,7 +12,7 @@ export default createReactClass({
 	mixins: [ContextSender],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired
+		course: PropTypes.object.isRequired
 	},
 
 	getContext () {

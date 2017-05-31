@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
@@ -18,6 +19,6 @@ export default function ProfileHead ({children, entity}) {
 }
 
 ProfileHead.propTypes = {
-	children: React.PropTypes.any,
-	entity: React.PropTypes.any.isRequired
+	children: PropTypes.any,
+	entity: PropTypes.any.isRequired
 };

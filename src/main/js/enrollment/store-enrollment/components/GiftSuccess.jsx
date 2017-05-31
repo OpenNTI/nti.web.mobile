@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {LocalizedHTML, DateTime} from 'nti-web-commons';
@@ -16,10 +17,10 @@ export default class extends React.Component {
     static displayName = 'GiftSuccess';
 
     static propTypes = {
-		purchasable: React.PropTypes.object,
-		purchaseattempt: React.PropTypes.object,
-		doneLink: React.PropTypes.string,
-		onDone: React.PropTypes.func
+		purchasable: PropTypes.object,
+		purchaseattempt: PropTypes.object,
+		doneLink: PropTypes.string,
+		onDone: PropTypes.func
 	};
 
     componentWillUnmount() {

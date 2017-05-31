@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -28,7 +29,7 @@ const CatalogBody = createReactClass({
 
 
 	propTypes: {
-		catalog: React.PropTypes.object
+		catalog: PropTypes.object
 	},
 
 

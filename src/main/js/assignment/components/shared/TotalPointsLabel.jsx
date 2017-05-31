@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 TotalPointsLabel.propTypes = {
-	assignment: React.PropTypes.object
+	assignment: PropTypes.object
 };
 
 export default function TotalPointsLabel ({assignment}) {

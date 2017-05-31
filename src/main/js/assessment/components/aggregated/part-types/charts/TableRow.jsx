@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {rawContent, Array as ArrayUtils} from 'nti-commons';
 
@@ -31,12 +32,12 @@ export default function TableRow ({columns, label, labelPrefix, series}) {
 }
 
 TableRow.propTypes = {
-	columns: React.PropTypes.array,
-	label: React.PropTypes.string,
-	labelPrefix: React.PropTypes.string,
-	series: React.PropTypes.arrayOf(React.PropTypes.shape({
-		label: React.PropTypes.string,
-		count: React.PropTypes.number,
-		percent: React.PropTypes.number.isRequired
+	columns: PropTypes.array,
+	label: PropTypes.string,
+	labelPrefix: PropTypes.string,
+	series: PropTypes.arrayOf(PropTypes.shape({
+		label: PropTypes.string,
+		count: PropTypes.number,
+		percent: PropTypes.number.isRequired
 	}))
 };

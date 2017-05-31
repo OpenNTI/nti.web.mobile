@@ -1,4 +1,4 @@
-import {PropTypes} from 'react';
+import PropTypes from 'prop-types';
 import Contributor, {ContextParent} from './ContextContributor';
 
 import Logger from 'nti-util-logger';

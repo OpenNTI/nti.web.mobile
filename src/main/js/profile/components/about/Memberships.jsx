@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -15,11 +16,11 @@ export default createReactClass({
 	mixins: [ProfileAnalytics],
 
 	propTypes: {
-		entity: React.PropTypes.shape({
-			getMemberships: React.PropTypes.func.isRequired
+		entity: PropTypes.shape({
+			getMemberships: PropTypes.func.isRequired
 		}).isRequired,
 
-		preview: React.PropTypes.bool
+		preview: PropTypes.bool
 	},
 
 	getAnalyticsMimeType () {

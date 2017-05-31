@@ -1,11 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 CompletionRatio.propTypes = {
-	course: React.PropTypes.shape({
-		enrolledTotalCount: React.PropTypes.number
+	course: PropTypes.shape({
+		enrolledTotalCount: PropTypes.number
 	}).isRequired,
-	assignment: React.PropTypes.shape({
-		submittedCount: React.PropTypes.number
+	assignment: PropTypes.shape({
+		submittedCount: PropTypes.number
 	}).isRequired
 };
 

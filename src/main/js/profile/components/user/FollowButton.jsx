@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -12,7 +13,7 @@ export default createReactClass({
 	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
-		entity: React.PropTypes.any.isRequired
+		entity: PropTypes.any.isRequired
 	},
 
 	componentDidMount () { this.setup(); },

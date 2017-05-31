@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 import {Editor} from 'modeled-content';
@@ -14,13 +15,13 @@ export default class extends React.Component {
     static displayName = 'EventItem';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired,
+		item: PropTypes.object.isRequired,
 
-		fieldNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+		fieldNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 
-		mimeType: React.PropTypes.string.isRequired,
+		mimeType: PropTypes.string.isRequired,
 
-		schema: React.PropTypes.object.isRequired
+		schema: PropTypes.object.isRequired
 	};
 
     attachPrimaryFieldRef = (x) => { this[this.props.fieldNames[0]] = x; };

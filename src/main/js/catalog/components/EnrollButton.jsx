@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -22,11 +23,11 @@ export default createReactClass({
 	mixins: [EnrollmentOptions, Mixins.BasePath],
 
 	propTypes: {
-		catalogEntry: React.PropTypes.object.isRequired,
+		catalogEntry: PropTypes.object.isRequired,
 
 		// this component is used on the course description view
 		// within the course; we never want to show the enroll button there.
-		dropOnly: React.PropTypes.bool
+		dropOnly: PropTypes.bool
 	},
 
 

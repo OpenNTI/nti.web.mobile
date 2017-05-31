@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -17,7 +18,7 @@ export default createReactClass({
 	mixins: [Mixins.BasePath, Mixins.NavigatableMixin],
 
 	propTypes: {
-		entity: React.PropTypes.object.isRequired
+		entity: PropTypes.object.isRequired
 	},
 
 	updateStatus (props = this.props) {

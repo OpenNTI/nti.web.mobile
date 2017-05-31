@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -30,10 +31,10 @@ const Panel = createReactClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired,
+		item: PropTypes.object.isRequired,
 
-		lite: React.PropTypes.bool,
-		rooted: React.PropTypes.bool
+		lite: PropTypes.bool,
+		rooted: PropTypes.bool
 	},
 
 	getHref () {

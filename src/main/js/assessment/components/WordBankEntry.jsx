@@ -1,10 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Draggable} from 'common/dnd';
 
 import Content from './Content';
-
-let {PropTypes} = React;
 
 export default class extends React.Component {
     static displayName = 'WordBankEntry';

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Link} from 'react-router-component';
@@ -11,15 +12,15 @@ export default class extends React.Component {
     static displayName = 'Community:Head';
 
     static propTypes = {
-		entity: React.PropTypes.object,
+		entity: PropTypes.object,
 
-		sections: React.PropTypes.array,
+		sections: PropTypes.array,
 
-		selected: React.PropTypes.object,
+		selected: PropTypes.object,
 
-		narrow: React.PropTypes.bool,
+		narrow: PropTypes.bool,
 
-		onMenuToggle: React.PropTypes.func
+		onMenuToggle: PropTypes.func
 	};
 
     static defaultProps = {

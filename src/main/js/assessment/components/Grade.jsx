@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'Grade';
 
     static propTypes = {
-		value: React.PropTypes.any.isRequired
+		value: PropTypes.any.isRequired
 	};
 
     state = {

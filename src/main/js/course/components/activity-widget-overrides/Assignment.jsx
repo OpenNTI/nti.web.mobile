@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -23,8 +24,8 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.any.isRequired,
-		className: React.PropTypes.any
+		item: PropTypes.any.isRequired,
+		className: PropTypes.any
 	},
 
 	render () {

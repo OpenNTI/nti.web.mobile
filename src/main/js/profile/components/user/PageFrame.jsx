@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -21,9 +22,9 @@ export default createReactClass({
 	mixins: [ContextSender],
 
 	propTypes: {
-		pageContent: React.PropTypes.any,
+		pageContent: PropTypes.any,
 
-		entity: React.PropTypes.any
+		entity: PropTypes.any
 	},
 
 	render () {

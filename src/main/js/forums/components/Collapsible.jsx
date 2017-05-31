@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -7,9 +8,9 @@ export default class extends React.Component {
     static displayName = 'Collapsible';
 
     static propTypes = {
-		title: React.PropTypes.string.isRequired,
-		children: React.PropTypes.any,
-		triangle: React.PropTypes.bool
+		title: PropTypes.string.isRequired,
+		children: PropTypes.any,
+		triangle: PropTypes.bool
 	};
 
     static defaultProps = {

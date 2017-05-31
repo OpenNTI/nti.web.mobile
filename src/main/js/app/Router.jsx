@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -60,9 +61,9 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		onBeforeNavigation: React.PropTypes.func,
-		onNavigation: React.PropTypes.func,
-		path: React.PropTypes.string
+		onBeforeNavigation: PropTypes.func,
+		onNavigation: PropTypes.func,
+		path: PropTypes.string
 	},
 
 	componentWillUnmount () {

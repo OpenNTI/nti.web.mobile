@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -27,13 +28,13 @@ export default createReactClass({
 	mixins: [CourseLinker, ContextContributor, Mixins.NavigatableMixin],
 
 	propTypes: {
-		contentPackage: React.PropTypes.object.isRequired,
+		contentPackage: PropTypes.object.isRequired,
 
-		relatedWorkRefId: React.PropTypes.string.isRequired,
+		relatedWorkRefId: PropTypes.string.isRequired,
 
 		//TODO: refactor this into two components... one generic, one with getContext.
-		outlineId: React.PropTypes.string.isRequired,
-		course: React.PropTypes.object.isRequired
+		outlineId: PropTypes.string.isRequired,
+		course: PropTypes.object.isRequired
 	},
 
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {join} from 'path';
@@ -19,7 +20,7 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		children: React.PropTypes.any
+		children: PropTypes.any
 	},
 
 

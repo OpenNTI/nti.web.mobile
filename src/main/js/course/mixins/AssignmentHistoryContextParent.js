@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const noHistory = {
@@ -7,7 +8,7 @@ const noHistory = {
 export default {
 
 	childContextTypes: {
-		assignmentsHistory: React.PropTypes.object
+		assignmentsHistory: PropTypes.object
 	},
 
 	getChildContext () {

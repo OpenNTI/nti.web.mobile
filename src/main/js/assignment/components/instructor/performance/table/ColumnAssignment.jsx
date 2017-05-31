@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {encodeForURI} from 'nti-lib-ntiids';
@@ -13,7 +14,7 @@ export default class extends React.Component {
     static sort = 'title';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	};
 
     render() {

@@ -24,6 +24,8 @@ External Links:
 import path from 'path';
 import Url from 'url';
 
+import PropTypes from 'prop-types';
+
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -74,7 +76,7 @@ export default createReactClass({
 		 *
 		 * @type {boolean}
 		 */
-		disableLink: React.PropTypes.bool,
+		disableLink: PropTypes.bool,
 
 		/**
 		 * The slug to put between the basePath and the resource
@@ -84,20 +86,20 @@ export default createReactClass({
 		 *
 		 * @type {string}
 		 */
-		slug: React.PropTypes.string,
+		slug: PropTypes.string,
 
 		/**
 		 * alternate slug for external links. See onClickDiscussion.
 		 *
 		 * @type {string}
 		 */
-		externalSlug: React.PropTypes.string,
+		externalSlug: PropTypes.string,
 
 		/**
 		 * The owning contentPackage to provide a method "resolveContentURL"
 		 * @type {Package}
 		 */
-		contentPackage: React.PropTypes.object,
+		contentPackage: PropTypes.object,
 
 		/**
 		 * The object with with all the metadata. Should have properties:
@@ -110,31 +112,31 @@ export default createReactClass({
 		 *
 		 * @type {object}
 		 */
-		item: React.PropTypes.object.isRequired,
+		item: PropTypes.object.isRequired,
 
 		/**
 		 * Allow the parent to force this card to be an "internal" link.
 		 * @type {boolean}
 		 */
-		internalOverride: React.PropTypes.bool,
+		internalOverride: PropTypes.bool,
 
 		/**
 		 * Allow the parent to have final word on the resolved url.
 		 * The functoin must take one argument, and return a string.
 		 * @type {function}
 		 */
-		resolveUrlHook: React.PropTypes.func,
+		resolveUrlHook: PropTypes.func,
 
 
-		onClick: React.PropTypes.func,
+		onClick: PropTypes.func,
 
 
-		icon: React.PropTypes.string,
+		icon: PropTypes.string,
 
 
-		commentCount: React.PropTypes.oneOfType([
-			React.PropTypes.number,
-			React.PropTypes.string
+		commentCount: PropTypes.oneOfType([
+			PropTypes.number,
+			PropTypes.string
 		])
 	},
 

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Tabs from './Tabs';
 
@@ -15,5 +16,5 @@ export default function AssignmentsPageFrame (props) {
 }
 
 AssignmentsPageFrame.propTypes = {
-	pageContent: React.PropTypes.any.isRequired
+	pageContent: PropTypes.any.isRequired
 };

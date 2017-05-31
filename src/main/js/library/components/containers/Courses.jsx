@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -12,7 +13,7 @@ export default createReactClass({
 	mixins: [SectionMixin],
 
 	propTypes: {
-		admin: React.PropTypes.bool
+		admin: PropTypes.bool
 	},
 
 	render () {

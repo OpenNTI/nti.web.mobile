@@ -1,14 +1,15 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'Score';
 
     static propTypes = {
-		title: React.PropTypes.string,
-		colors: React.PropTypes.arrayOf(React.PropTypes.string),
-		pixelDensity: React.PropTypes.number,
-		score: React.PropTypes.number,
-		inlinePercent: React.PropTypes.bool
+		title: PropTypes.string,
+		colors: PropTypes.arrayOf(PropTypes.string),
+		pixelDensity: PropTypes.number,
+		score: PropTypes.number,
+		inlinePercent: PropTypes.bool
 	};
 
     static defaultProps = {

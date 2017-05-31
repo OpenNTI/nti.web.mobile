@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function UnknownWidget ({item}) {
@@ -7,5 +8,5 @@ export default function UnknownWidget ({item}) {
 }
 
 UnknownWidget.propTypes = {
-	item: React.PropTypes.any.isRequired
+	item: PropTypes.any.isRequired
 };

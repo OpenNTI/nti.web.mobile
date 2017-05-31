@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Placeholder from './Placeholder';
 
@@ -5,7 +6,7 @@ export default class extends React.Component {
     static displayName = 'TimeLockedPlaceholder';
 
     static propTypes = {
-		assignment: React.PropTypes.object
+		assignment: PropTypes.object
 	};
 
     onBack = (e) => {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -11,7 +12,7 @@ export default createReactClass({
 	mixins: [StudentStatics],
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
+		item: PropTypes.object.isRequired // UserGradeBookSummary object
 	},
 
 	render () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function CourseOverviewUnknown ({item}) {
@@ -8,7 +9,7 @@ export default function CourseOverviewUnknown ({item}) {
 }
 
 CourseOverviewUnknown.propTypes = {
-	item: React.PropTypes.shape({
-		MimeType: React.PropTypes.string
+	item: PropTypes.shape({
+		MimeType: PropTypes.string
 	}).isRequired
 };

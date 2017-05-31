@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import hash from 'object-hash';
@@ -19,19 +20,19 @@ export default class extends React.Component {
     };
 
     static propTypes = {
-		container: React.PropTypes.shape({
-			Items: React.PropTypes.array
+		container: PropTypes.shape({
+			Items: PropTypes.array
 		}).isRequired,
 
-		emptyText: React.PropTypes.string,
+		emptyText: PropTypes.string,
 
-		groupDeleted: React.PropTypes.bool,
+		groupDeleted: PropTypes.bool,
 
-		itemProps: React.PropTypes.object,
+		itemProps: PropTypes.object,
 
-		topic: React.PropTypes.object,
+		topic: PropTypes.object,
 
-		keyFn: React.PropTypes.func
+		keyFn: PropTypes.func
 	};
 
     keyFor = (item) => {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -17,7 +18,7 @@ export default createReactClass({
 	mixins: [StoreEventsMixin],
 
 	propTypes: {
-		question: React.PropTypes.object //Poll model
+		question: PropTypes.object //Poll model
 	},
 
 	backingStore: Store,

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -23,11 +24,11 @@ export default createReactClass({
 	mixins: [StoreEventsMixin],
 
 	propTypes: {
-		index: React.PropTypes.number.isRequired,
-		part: React.PropTypes.object.isRequired,
-		viewerIsAdministrative: React.PropTypes.bool,
+		index: PropTypes.number.isRequired,
+		part: PropTypes.object.isRequired,
+		viewerIsAdministrative: PropTypes.bool,
 
-		children: React.PropTypes.any
+		children: PropTypes.any
 	},
 
 

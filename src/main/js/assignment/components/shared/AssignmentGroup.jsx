@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -15,12 +16,12 @@ export default createReactClass({
 	mixins: [AssignmentsAccessor],
 
 	propTypes: {
-		group: React.PropTypes.object.isRequired
+		group: PropTypes.object.isRequired
 	},
 
 	contextTypes: {
-		isInstructor: React.PropTypes.bool,
-		AssignmentListItem: React.PropTypes.func.isRequired
+		isInstructor: PropTypes.bool,
+		AssignmentListItem: PropTypes.func.isRequired
 	},
 
 

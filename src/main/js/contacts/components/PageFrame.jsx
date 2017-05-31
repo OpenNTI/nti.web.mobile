@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Page from 'common/components/Page';
 
@@ -5,7 +6,7 @@ export default class extends React.Component {
     static displayName = 'Contacts:PageFrame';
 
     static propTypes = {
-		pageContent: React.PropTypes.any
+		pageContent: PropTypes.any
 	};
 
     componentWillMount() {

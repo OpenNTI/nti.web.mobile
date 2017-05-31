@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Mixin from '../mixins/CourseContentLink';
@@ -7,9 +8,9 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	propTypes: {
-		courseId: React.PropTypes.string.isRequired,
-		section: React.PropTypes.string,
-		children: React.PropTypes.any
+		courseId: PropTypes.string.isRequired,
+		section: PropTypes.string,
+		children: PropTypes.any
 	},
 
 	render () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -14,7 +15,7 @@ export default class extends React.Component {
     static sort = 'completed';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	};
 
     render() {

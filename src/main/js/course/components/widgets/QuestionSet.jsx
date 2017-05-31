@@ -1,5 +1,7 @@
 import path from 'path';
 
+import PropTypes from 'prop-types';
+
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -54,9 +56,9 @@ export default createReactClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object,
-		node: React.PropTypes.instanceOf(OutlineNode),
-		assessmentCollection: React.PropTypes.object
+		item: PropTypes.object,
+		node: PropTypes.instanceOf(OutlineNode),
+		assessmentCollection: PropTypes.object
 	},
 
 

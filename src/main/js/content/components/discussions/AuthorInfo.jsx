@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {DateTime, LuckyCharms}  from 'nti-web-commons';
@@ -36,6 +37,6 @@ export default function AuthorInfo ({item, lite}) {
 }
 
 AuthorInfo.propTypes = {
-	item: React.PropTypes.object.isRequired,
-	lite: React.PropTypes.bool
+	item: PropTypes.object.isRequired,
+	lite: PropTypes.bool
 };

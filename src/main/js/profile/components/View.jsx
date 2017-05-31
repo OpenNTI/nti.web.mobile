@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {User} from 'nti-web-client';
@@ -22,7 +23,7 @@ export default class extends React.Component {
     static displayName = 'profile:View';
 
     static propTypes = {
-		entityId: React.PropTypes.string.isRequired
+		entityId: PropTypes.string.isRequired
 	};
 
     state = {};

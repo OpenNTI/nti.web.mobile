@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {OkCancelButtons, PanelButton} from 'nti-web-commons';
 import {Editor} from 'modeled-content';
@@ -14,9 +15,9 @@ export default class extends React.Component {
     static displayName = 'TopicEditor';
 
     static propTypes = {
-		item: React.PropTypes.object,
-		onSubmit: React.PropTypes.func.isRequired,
-		onCancel: React.PropTypes.func.isRequired
+		item: PropTypes.object,
+		onSubmit: PropTypes.func.isRequired,
+		onCancel: PropTypes.func.isRequired
 	};
 
     state = {

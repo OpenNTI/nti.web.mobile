@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {edit} from '../Actions';
@@ -10,8 +11,8 @@ export default class extends React.Component {
     static displayName = 'GiftInfo';
 
     static propTypes = {
-		info: React.PropTypes.object,
-		edit: React.PropTypes.any
+		info: PropTypes.object,
+		edit: PropTypes.any
 	};
 
     onEdit = (e) => {

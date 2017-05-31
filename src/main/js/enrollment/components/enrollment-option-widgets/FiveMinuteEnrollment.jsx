@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Logger from 'nti-util-logger';
@@ -17,13 +18,13 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		entryId: React.PropTypes.string.isRequired,
+		entryId: PropTypes.string.isRequired,
 
 		// catalogEntry is only used by this component to check EndDate to see if the course is archived. We shouldn't
 		// have to do this because available/enabled should be false. We're awaiting a server change for that.
-		catalogEntry: React.PropTypes.object.isRequired,
+		catalogEntry: PropTypes.object.isRequired,
 
-		enrollmentOption: React.PropTypes.object.isRequired //Model with a 'fetchLink' method
+		enrollmentOption: PropTypes.object.isRequired //Model with a 'fetchLink' method
 	},
 
 	statics: {

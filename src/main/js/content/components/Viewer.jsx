@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -62,13 +63,13 @@ export default createReactClass({
 
 
 	propTypes: {
-		rootId: React.PropTypes.string,
-		pageId: React.PropTypes.string,
-		contentPackage: React.PropTypes.object,
-		pageSource: React.PropTypes.object, //used to specify a custom pager
-		onPageLoaded: React.PropTypes.func,
+		rootId: PropTypes.string,
+		pageId: PropTypes.string,
+		contentPackage: PropTypes.object,
+		pageSource: PropTypes.object, //used to specify a custom pager
+		onPageLoaded: PropTypes.func,
 
-		className: React.PropTypes.string
+		className: PropTypes.string
 	},
 
 	backingStore: Store,

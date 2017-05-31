@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-component';
 import cx from 'classnames';
@@ -13,8 +14,8 @@ export default class extends React.Component {
     static displayName = 'PasswordResetForm';
 
     static propTypes = {
-		username: React.PropTypes.string,
-		token: React.PropTypes.string
+		username: PropTypes.string,
+		token: PropTypes.string
 	};
 
     state = {};

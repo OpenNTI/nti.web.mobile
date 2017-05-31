@@ -1,13 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'Pie';
 
     static propTypes = {
-		title: React.PropTypes.string,
-		colors: React.PropTypes.arrayOf(React.PropTypes.string),
-		pixelDensity: React.PropTypes.number,
-		series: React.PropTypes.arrayOf(React.PropTypes.object)
+		title: PropTypes.string,
+		colors: PropTypes.arrayOf(PropTypes.string),
+		pixelDensity: PropTypes.number,
+		series: PropTypes.arrayOf(PropTypes.object)
 	};
 
     static defaultProps = {

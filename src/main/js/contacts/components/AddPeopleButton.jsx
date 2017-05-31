@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function AddPeopleButton ({onClick}) {
@@ -10,5 +11,5 @@ export default function AddPeopleButton ({onClick}) {
 }
 
 AddPeopleButton.propTypes = {
-	onClick: React.PropTypes.func.isRequired
+	onClick: PropTypes.func.isRequired
 };

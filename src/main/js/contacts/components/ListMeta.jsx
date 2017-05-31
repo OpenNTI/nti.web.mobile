@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {scoped} from 'nti-lib-locale';
 
@@ -10,5 +11,5 @@ export default function ContactsListMeta ({entity}) {
 }
 
 ContactsListMeta.propTypes = {
-	entity: React.PropTypes.object.isRequired
+	entity: PropTypes.object.isRequired
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import EventEmitter from 'events';
 
@@ -24,18 +25,18 @@ export default {
 
 	childContextTypes: {
 		//Common:
-		currentDragItem: React.PropTypes.object,
-		dndEvents: React.PropTypes.object,
+		currentDragItem: PropTypes.object,
+		dndEvents: PropTypes.object,
 
 		//For Draggable
-		onDragStart: React.PropTypes.func,
-		onDragEnd: React.PropTypes.func,
-		onDrag: React.PropTypes.func,
+		onDragStart: PropTypes.func,
+		onDragEnd: PropTypes.func,
+		onDrag: PropTypes.func,
 
 		//For Droppable
-		lastDragOver: React.PropTypes.object,
-		onDragOver: React.PropTypes.func,
-		onDrop: React.PropTypes.func
+		lastDragOver: PropTypes.object,
+		onDragOver: PropTypes.func,
+		onDrop: PropTypes.func
 	},
 
 

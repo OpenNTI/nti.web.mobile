@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -20,12 +21,12 @@ export default createReactClass({
 	mixins: [StoreEventsMixin],
 
 	propTypes: {
-		className: React.PropTypes.string,
-		display: React.PropTypes.bool,
+		className: PropTypes.string,
+		display: PropTypes.bool,
 
-		item: React.PropTypes.object.isRequired,
-		topic: React.PropTypes.object.isRequired,
-		listComponent: React.PropTypes.func.isRequired // passed in as a prop to dodge circular import of List
+		item: PropTypes.object.isRequired,
+		topic: PropTypes.object.isRequired,
+		listComponent: PropTypes.func.isRequired // passed in as a prop to dodge circular import of List
 	},
 
 	backingStore: Store,

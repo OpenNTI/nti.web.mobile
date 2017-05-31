@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import classnames from 'classnames';
@@ -62,10 +63,10 @@ export default createReactClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object,
-		topic: React.PropTypes.object.isRequired,
-		asHeadline: React.PropTypes.bool,
-		detailLink: React.PropTypes.bool
+		item: PropTypes.object,
+		topic: PropTypes.object.isRequired,
+		asHeadline: PropTypes.bool,
+		detailLink: PropTypes.bool
 	},
 
 	getInitialState () {

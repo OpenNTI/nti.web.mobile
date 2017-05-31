@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Error, Loading} from 'nti-web-commons';
@@ -10,7 +11,7 @@ export default class extends React.Component {
     static displayName = 'AggregatedQuestion';
 
     static propTypes = {
-		question: React.PropTypes.object.isRequired
+		question: PropTypes.object.isRequired
 	};
 
     state = {};

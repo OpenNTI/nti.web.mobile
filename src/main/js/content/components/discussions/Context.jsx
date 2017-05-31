@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
@@ -32,9 +33,9 @@ export default class extends React.Component {
     static displayName = 'Context';
 
     static propTypes = {
-		contentPackage: React.PropTypes.object,
-		item: React.PropTypes.object,
-		className: React.PropTypes.string
+		contentPackage: PropTypes.object,
+		item: PropTypes.object,
+		className: PropTypes.string
 	};
 
     state = {

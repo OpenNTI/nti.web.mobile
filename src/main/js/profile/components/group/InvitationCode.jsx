@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {getService} from 'nti-web-client';
@@ -6,7 +7,7 @@ export default class extends React.Component {
     static displayName = 'InvitationCode';
 
     static propTypes = {
-		entity: React.PropTypes.object.isRequired
+		entity: PropTypes.object.isRequired
 	};
 
     componentWillMount() {

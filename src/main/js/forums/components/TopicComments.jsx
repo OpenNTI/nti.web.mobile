@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
@@ -34,8 +35,8 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		topicId: React.PropTypes.string,
-		currentPage: React.PropTypes.number
+		topicId: PropTypes.string,
+		currentPage: PropTypes.number
 	},
 
 	componentDidMount () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -67,7 +68,7 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		enrollment: React.PropTypes.object
+		enrollment: PropTypes.object
 	},
 
 

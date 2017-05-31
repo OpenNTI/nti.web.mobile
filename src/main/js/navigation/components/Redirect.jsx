@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
@@ -11,8 +12,8 @@ export default createReactClass({
 	mixins: [Router.NavigatableMixin],
 
 	propTypes: {
-		force: React.PropTypes.bool,
-		location: React.PropTypes.string
+		force: PropTypes.bool,
+		location: PropTypes.string
 	},
 
 	performRedirect (props) {

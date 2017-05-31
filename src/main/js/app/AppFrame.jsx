@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {addClass, removeClass} from 'nti-lib-dom';
 
@@ -17,12 +18,12 @@ export default class extends React.Component {
     static displayName = 'AppContainer';
 
     static propTypes = {
-		children: React.PropTypes.element
+		children: PropTypes.element
 	};
 
     static childContextTypes = {
-		triggerLeftMenu: React.PropTypes.func,
-		triggerRightMenu: React.PropTypes.func
+		triggerLeftMenu: PropTypes.func,
+		triggerRightMenu: PropTypes.func
 	};
 
     getChildContext() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -19,14 +20,14 @@ export default createReactClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object,
-		replyTo: React.PropTypes.object,
+		item: PropTypes.object,
+		replyTo: PropTypes.object,
 
-		value: React.PropTypes.array,
+		value: PropTypes.array,
 
-		onCancel: React.PropTypes.func,
+		onCancel: PropTypes.func,
 
-		onSubmitted: React.PropTypes.func
+		onSubmitted: PropTypes.func
 	},
 
 

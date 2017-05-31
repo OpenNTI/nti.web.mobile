@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import AddEntryButton from './AddEntryButton';
@@ -10,15 +11,15 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	propTypes: {
-		items: React.PropTypes.array,
+		items: PropTypes.array,
 
-		field: React.PropTypes.string.isRequired,
+		field: PropTypes.string.isRequired,
 
-		schema: React.PropTypes.object.isRequired,
+		schema: PropTypes.object.isRequired,
 
-		mimeType: React.PropTypes.string.isRequired,
+		mimeType: PropTypes.string.isRequired,
 
-		fieldNames: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+		fieldNames: PropTypes.arrayOf(PropTypes.string).isRequired
 	},
 
 	getRefCallback (index) {

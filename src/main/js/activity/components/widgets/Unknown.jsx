@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function Unknown (props) {
@@ -8,5 +9,5 @@ export default function Unknown (props) {
 }
 
 Unknown.propTypes = {
-	item: React.PropTypes.any.isRequired
+	item: PropTypes.any.isRequired
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Avatar from 'common/components/Avatar';
@@ -28,7 +29,7 @@ export default class extends React.Component {
     }
 
     static propTypes = {
-		item: React.PropTypes.any.isRequired
+		item: PropTypes.any.isRequired
 	};
 
     render() {
@@ -73,4 +74,4 @@ function Comment (props) {
 		</div>
 	);
 }
-Comment.propTypes = {item: React.PropTypes.object};
+Comment.propTypes = {item: PropTypes.object};

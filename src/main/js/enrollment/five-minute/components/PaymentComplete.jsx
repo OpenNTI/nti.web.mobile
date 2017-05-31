@@ -2,6 +2,8 @@ import React from 'react';
 
 import createReactClass from 'create-react-class';
 
+import PropTypes from 'prop-types';
+
 import QueryString from 'query-string';
 
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -41,9 +43,9 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		entryId: React.PropTypes.string,
-		courseId: React.PropTypes.string,
-		enrollment: React.PropTypes.object
+		entryId: PropTypes.string,
+		courseId: PropTypes.string,
+		enrollment: PropTypes.object
 	},
 
 	componentWillMount () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import FormErrors from 'forms/components/FormErrors';
@@ -14,7 +15,7 @@ export default class extends React.Component {
     static displayName = 'Invitations:Accept';
 
     static propTypes = {
-		code: React.PropTypes.string
+		code: PropTypes.string
 	};
 
     state = {

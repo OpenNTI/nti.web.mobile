@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -44,7 +45,7 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	},
 
 	getItem () { return this.props.item; },

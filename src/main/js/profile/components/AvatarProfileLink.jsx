@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -8,9 +9,9 @@ import {rawContent} from 'nti-commons';
 import ProfileLink from './ProfileLink';
 
 AvatarProfileLink.propTypes = {
-	entity: React.PropTypes.any.isRequired,
-	children: React.PropTypes.any,
-	hideFollow: React.PropTypes.bool
+	entity: PropTypes.any.isRequired,
+	children: PropTypes.any,
+	hideFollow: PropTypes.bool
 };
 
 

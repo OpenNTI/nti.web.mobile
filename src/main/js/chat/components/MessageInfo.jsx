@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -18,7 +19,7 @@ const MessageInfo = createReactClass({
 	displayName: 'MessageInfo',
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	},
 
 

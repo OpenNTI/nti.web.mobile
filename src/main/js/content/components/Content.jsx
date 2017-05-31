@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -22,11 +23,11 @@ const logger = Logger.get('content:viewer:body');
 export default class Content extends React.Component {
 
 	static propTypes = {
-		contentPackage: React.PropTypes.object,
-		page: React.PropTypes.object.isRequired,
-		pageId: React.PropTypes.string.isRequired,
-		onContentReady: React.PropTypes.func,
-		onUserSelectionChange: React.PropTypes.func
+		contentPackage: PropTypes.object,
+		page: PropTypes.object.isRequired,
+		pageId: PropTypes.string.isRequired,
+		onContentReady: PropTypes.func,
+		onUserSelectionChange: PropTypes.func
 	}
 
 

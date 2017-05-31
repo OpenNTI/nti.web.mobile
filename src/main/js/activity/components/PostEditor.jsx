@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -16,15 +17,15 @@ export default class extends React.Component {
     static displayName = 'PostEditor';
 
     static propTypes = {
-		onSubmit: React.PropTypes.func.isRequired,
-		onCancel: React.PropTypes.func.isRequired,
-		title: React.PropTypes.string,
-		value: React.PropTypes.any,
+		onSubmit: PropTypes.func.isRequired,
+		onCancel: PropTypes.func.isRequired,
+		title: PropTypes.string,
+		value: PropTypes.any,
 
-		error: React.PropTypes.object,
-		busy: React.PropTypes.bool,
+		error: PropTypes.object,
+		busy: PropTypes.bool,
 
-		showSharing: React.PropTypes.bool
+		showSharing: PropTypes.bool
 	};
 
     state = {};

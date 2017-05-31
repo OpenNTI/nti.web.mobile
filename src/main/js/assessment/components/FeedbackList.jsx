@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import ListItem from './FeedbackListItem';
 
@@ -16,9 +17,9 @@ export default function FeedbackList ({feedback, onEditItem, onDeleteItem}) {
 }
 
 FeedbackList.propTypes = {
-	feedback: React.PropTypes.shape({
-		Items: React.PropTypes.array
+	feedback: PropTypes.shape({
+		Items: PropTypes.array
 	}),
-	onDeleteItem: React.PropTypes.func,
-	onEditItem: React.PropTypes.func
+	onDeleteItem: PropTypes.func,
+	onEditItem: PropTypes.func
 };

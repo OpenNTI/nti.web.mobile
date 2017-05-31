@@ -1,15 +1,16 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'PerformanceListViewHeading';
 
     static propTypes = {
-		column: React.PropTypes.shape({
-			label: React.PropTypes.string,
-			sortOn: React.PropTypes.string
+		column: PropTypes.shape({
+			label: PropTypes.string,
+			sortOn: PropTypes.string
 		}).isRequired,
-		onClick: React.PropTypes.func,
-		className: React.PropTypes.any
+		onClick: PropTypes.func,
+		className: PropTypes.any
 	};
 
     onClick = () => {

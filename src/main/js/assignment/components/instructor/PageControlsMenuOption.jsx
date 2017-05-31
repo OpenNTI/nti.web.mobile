@@ -1,13 +1,14 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'PageControlsMenuOption';
 
     static propTypes = {
-		onClick: React.PropTypes.func,
-		page: React.PropTypes.number,
-		className: React.PropTypes.any,
-		children: React.PropTypes.any
+		onClick: PropTypes.func,
+		page: PropTypes.number,
+		className: PropTypes.any,
+		children: PropTypes.any
 	};
 
     onClick = () => {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -12,8 +13,8 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
-		courseTitle: React.PropTypes.string,
-		isGift: React.PropTypes.bool
+		courseTitle: PropTypes.string,
+		isGift: PropTypes.bool
 	},
 
 

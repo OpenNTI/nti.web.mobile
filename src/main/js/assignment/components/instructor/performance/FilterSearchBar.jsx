@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -14,7 +15,7 @@ export default createReactClass({
 	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
-		summary: React.PropTypes.object.isRequired // GradeBookSummary object
+		summary: PropTypes.object.isRequired // GradeBookSummary object
 	},
 
 

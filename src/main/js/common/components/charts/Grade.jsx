@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
@@ -10,11 +11,11 @@ export default class extends React.Component {
 		 *
 		 * @type {String/Array[String]} The color to fill the segment(s) with
 		 */
-		color: React.PropTypes.oneOfType([
+		color: PropTypes.oneOfType([
 			//Draw only one segement
-			React.PropTypes.string,
+			PropTypes.string,
 			//Draw both segments
-			React.PropTypes.arrayOf(React.PropTypes.string)
+			PropTypes.arrayOf(PropTypes.string)
 		]),
 
 		/**
@@ -22,37 +23,37 @@ export default class extends React.Component {
 		 *
 		 * @type {string}
 		 */
-		strokeColor: React.PropTypes.string,
+		strokeColor: PropTypes.string,
 
 		/**
 		 * The Value to chart.
 		 *
 		 * @type {number} Default: 90
 		 */
-		grade: React.PropTypes.number.isRequired,
+		grade: PropTypes.number.isRequired,
 
 		/**
 		 * Width of the graph
 		 *
 		 * @type {number} Default: 200
 		 */
-		width: React.PropTypes.number,
+		width: PropTypes.number,
 
 		/**
 		 * Height of the graph
 		 * @type {number} Default: 200
 		 */
-		height: React.PropTypes.number,
+		height: PropTypes.number,
 
 		/**
 		 * The pixel density to render at.
 		 *
 		 * @type {number} Default: 2
 		 */
-		pixelDensity: React.PropTypes.number,
+		pixelDensity: PropTypes.number,
 
 
-		withLetter: React.PropTypes.bool
+		withLetter: PropTypes.bool
 	};
 
     static defaultProps = {

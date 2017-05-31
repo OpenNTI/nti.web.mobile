@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -16,10 +17,10 @@ export default createReactClass({
 	mixins: [StudentStatics],
 
 	propTypes: {
-		item: React.PropTypes.shape({
-			user: React.PropTypes.any,
-			overdue: React.PropTypes.number,
-			ungraded: React.PropTypes.number
+		item: PropTypes.shape({
+			user: PropTypes.any,
+			overdue: PropTypes.number,
+			ungraded: PropTypes.number
 		}).isRequired
 	},
 

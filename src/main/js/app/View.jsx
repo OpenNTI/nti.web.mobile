@@ -1,5 +1,6 @@
+import PropTypes from 'prop-types';
 /*globals BUILD_SOURCE*/
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {environment, CaptureClicks, Link} from 'react-router-component';
 import URL from 'url';
 

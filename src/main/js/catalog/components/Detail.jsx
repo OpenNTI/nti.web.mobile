@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Title from './Title';
@@ -6,7 +7,7 @@ import Instructors from './Instructors';
 import Support from './CourseSupport';
 
 Detail.propTypes = {
-	entry: React.PropTypes.object
+	entry: PropTypes.object
 };
 
 export default function Detail ({entry}) {

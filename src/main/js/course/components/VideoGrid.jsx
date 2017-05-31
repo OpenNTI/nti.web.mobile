@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -17,7 +18,7 @@ const VideoCell = createReactClass({
     mixins: [Mixins.NavigatableMixin],
 
     propTypes: {
-		item: React.PropTypes.object
+		item: PropTypes.object
 	},
 
     getInitialState () {
@@ -68,7 +69,7 @@ export default createReactClass({
 	mixins: [ContextSender],
 
 	propTypes: {
-		MediaIndex: React.PropTypes.object
+		MediaIndex: PropTypes.object
 	},
 
 	getContext () { return Promise.resolve([]); },

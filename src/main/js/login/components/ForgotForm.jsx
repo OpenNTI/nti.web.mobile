@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-component';
 import Url from 'url';
@@ -13,7 +14,7 @@ export default class extends React.Component {
     static displayName = 'ForgotForm';
 
     static propTypes = {
-		param: React.PropTypes.string
+		param: PropTypes.string
 	};
 
     getFieldValues = () => {

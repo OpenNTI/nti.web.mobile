@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 import Avatar from 'common/components/Avatar';
@@ -11,9 +12,9 @@ export default class extends React.Component {
     static displayName = 'SwipeEntity';
 
     static propTypes = {
-		entity: React.PropTypes.object.isRequired,
-		onChange: React.PropTypes.func,
-		selection: React.PropTypes.object.isRequired
+		entity: PropTypes.object.isRequired,
+		onChange: PropTypes.func,
+		selection: PropTypes.object.isRequired
 	};
 
     association = (entity) => {

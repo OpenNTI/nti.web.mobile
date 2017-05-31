@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {getService} from 'nti-web-client';
@@ -14,10 +15,10 @@ export default class extends React.Component {
 
     static propTypes = {
 		//The note or thing that points to content the user does not have access to.
-		relatedItem: React.PropTypes.object,
+		relatedItem: PropTypes.object,
 
 		//The 403 response body
-		data: React.PropTypes.object
+		data: PropTypes.object
 	};
 
     state = {};

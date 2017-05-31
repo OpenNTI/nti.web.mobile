@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Array as ArrayUtils} from 'nti-commons';
@@ -43,7 +44,7 @@ export default class extends React.Component {
     static displayName = 'ContentIcon';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	};
 
     state = {};

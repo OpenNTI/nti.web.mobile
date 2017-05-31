@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import pad from 'zpad';
 import {Constants} from 'nti-web-commons';
@@ -12,9 +13,9 @@ export default class extends React.Component {
     static displayName = 'Instructor';
 
     static propTypes = {
-		instructor: React.PropTypes.object,
-		assetRoot: React.PropTypes.string,
-		index: React.PropTypes.number
+		instructor: PropTypes.object,
+		assetRoot: PropTypes.string,
+		index: PropTypes.number
 	};
 
     state = {

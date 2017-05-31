@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -28,12 +29,12 @@ export default createReactClass({
 	mixins: [Mixins.ItemChanges],
 
 	propTypes: {
-		item: React.PropTypes.object.isRequired,
+		item: PropTypes.object.isRequired,
 
-		onDelete: React.PropTypes.func,
-		onEdit: React.PropTypes.func.isRequired,
-		onFlag: React.PropTypes.func,
-		onReply: React.PropTypes.func.isRequired//,
+		onDelete: PropTypes.func,
+		onEdit: PropTypes.func.isRequired,
+		onFlag: PropTypes.func,
+		onReply: PropTypes.func.isRequired//,
 		// onShare: React.PropTypes.func.isRequired
 	},
 

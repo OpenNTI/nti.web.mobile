@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -41,10 +42,10 @@ export default class extends React.Component {
     static displayName = 'AssignmentStatusLabel';
 
     static propTypes = {
-		assignment: React.PropTypes.instanceOf(Assignment),
-		historyItem: React.PropTypes.instanceOf(HistoryItem),
+		assignment: PropTypes.instanceOf(Assignment),
+		historyItem: PropTypes.instanceOf(HistoryItem),
 
-		showTimeWithDate: React.PropTypes.bool
+		showTimeWithDate: PropTypes.bool
 	};
 
     state = {

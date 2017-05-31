@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -11,12 +12,12 @@ export default createReactClass({
 
 
 	propTypes: {
-		code: React.PropTypes.number,
-		message: React.PropTypes.string
+		code: PropTypes.number,
+		message: PropTypes.string
 	},
 
 	contextTypes: {
-		markNotFound: React.PropTypes.func
+		markNotFound: PropTypes.func
 	},
 
 	getDefaultProps () {

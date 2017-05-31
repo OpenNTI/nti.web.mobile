@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Selection} from 'nti-commons';
@@ -7,8 +8,8 @@ export default class extends React.Component {
     static displayName = 'Selectables';
 
     static propTypes = {
-		entities: React.PropTypes.array.isRequired,
-		linkToProfile: React.PropTypes.any
+		entities: PropTypes.array.isRequired,
+		linkToProfile: PropTypes.any
 	};
 
     componentWillMount() {

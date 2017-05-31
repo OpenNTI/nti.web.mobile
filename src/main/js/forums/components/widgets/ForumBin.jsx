@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import keyFor from '../../utils/key-for-item';
 import ForumBoard from './ForumBoard';
@@ -31,10 +32,10 @@ ForumBin.propTypes = {
 	*		}
 	*	}
 	*/
-	bin: React.PropTypes.object.isRequired,
+	bin: PropTypes.object.isRequired,
 
 	/**
 	* The localized title for this bin (e.g. "Enrolled For-Credit")
 	*/
-	title: React.PropTypes.string.isRequired
+	title: PropTypes.string.isRequired
 };

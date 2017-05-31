@@ -6,6 +6,7 @@ import Logger from 'nti-util-logger';
 
 import Path from 'path';
 import Url from 'url';
+import PropTypes from 'prop-types';
 import QueryString from 'query-string';
 
 import {WindowMessageListener as MESSAGES} from 'nti-lib-dom';
@@ -28,8 +29,8 @@ export default createReactClass({
 
 
 	propTypes: {
-		item: React.PropTypes.object,
-		contentPackage: React.PropTypes.object
+		item: PropTypes.object,
+		contentPackage: PropTypes.object
 	},
 
 

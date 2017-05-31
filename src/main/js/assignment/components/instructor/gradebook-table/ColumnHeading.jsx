@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
@@ -13,8 +14,8 @@ export default class extends React.Component {
 				return new Error(`${k} is required, and needs to be something that has a label() method.`);
 			}
 		},
-		onClick: React.PropTypes.func,
-		className: React.PropTypes.any
+		onClick: PropTypes.func,
+		className: PropTypes.any
 	};
 
     onClick = () => {

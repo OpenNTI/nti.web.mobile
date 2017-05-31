@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {rawContent} from 'nti-commons';
 
 Legend.propTypes = {
-	items: React.PropTypes.array,
-	colors: React.PropTypes.object
+	items: PropTypes.array,
+	colors: PropTypes.object
 };
 
 export default function Legend (props) {

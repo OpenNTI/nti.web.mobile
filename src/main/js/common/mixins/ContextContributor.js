@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Accessor, {ContextParent, ContextResolver} from './ContextAccessor';
 
@@ -7,8 +8,8 @@ export default {
 	mixins: [Accessor],
 
 	childContextTypes: {
-		[ContextResolver]: React.PropTypes.func,
-		[ContextParent]: React.PropTypes.any
+		[ContextResolver]: PropTypes.func,
+		[ContextParent]: PropTypes.any
 	},
 
 

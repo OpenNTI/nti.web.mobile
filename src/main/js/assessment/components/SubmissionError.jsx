@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import t from 'nti-lib-locale';
 
 SubmissionError.propTypes = {
-	onClick: React.PropTypes.func,
-	children: React.PropTypes.any,
-	error: React.PropTypes.any
+	onClick: PropTypes.func,
+	children: PropTypes.any,
+	error: PropTypes.any
 };
 
 function getErrorMessage (response) {

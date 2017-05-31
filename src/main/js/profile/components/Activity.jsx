@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -21,9 +22,9 @@ export default createReactClass({
 	mixins: [ItemsMixin, Mixins.BasePath, ProfileAnalytics],
 
 	propTypes: {
-		entity: React.PropTypes.object,
+		entity: PropTypes.object,
 
-		filterParams: React.PropTypes.object
+		filterParams: PropTypes.object
 	},
 
 	getAnalyticsMimeType () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Router from 'react-router-component';
@@ -29,5 +30,5 @@ export default function About ({entity}) {
 }
 
 About.propTypes = {
-	entity: React.PropTypes.object.isRequired
+	entity: PropTypes.object.isRequired
 };

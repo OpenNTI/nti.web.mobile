@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import Store from 'assessment/Store';
@@ -11,8 +12,8 @@ export {isAssignment};
 export default {
 
 	propTypes: {
-		assessment: React.PropTypes.object,
-		assessmentHistory: React.PropTypes.object
+		assessment: PropTypes.object,
+		assessmentHistory: PropTypes.object
 	},
 
 

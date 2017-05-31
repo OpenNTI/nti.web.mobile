@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Loading} from 'nti-web-commons';
@@ -8,8 +9,8 @@ export default class extends React.Component {
     static displayName = 'RecentReplies';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired,
-		count: React.PropTypes.number
+		item: PropTypes.object.isRequired,
+		count: PropTypes.number
 	};
 
     componentWillMount() {

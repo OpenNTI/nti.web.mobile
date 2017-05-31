@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import locale, {scoped} from 'nti-lib-locale';
@@ -25,6 +26,6 @@ export default function CreditHours ({entry, credit = []}) {
 }
 
 CreditHours.propTypes = {
-	entry: React.PropTypes.string.isRequired,
-	credit: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
+	entry: PropTypes.string.isRequired,
+	credit: PropTypes.arrayOf(PropTypes.object).isRequired
 };

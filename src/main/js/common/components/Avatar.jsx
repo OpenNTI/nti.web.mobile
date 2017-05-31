@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Avatar} from 'nti-web-commons';
@@ -9,12 +10,12 @@ export default createReactClass({
 	mixins: [ProfileLink],
 
 	propTypes: {
-		entity: React.PropTypes.oneOfType([
-			React.PropTypes.object,
-			React.PropTypes.string
+		entity: PropTypes.oneOfType([
+			PropTypes.object,
+			PropTypes.string
 		]),
 
-		suppressProfileLink: React.PropTypes.bool,
+		suppressProfileLink: PropTypes.bool,
 	},
 
 	onClick (e) {

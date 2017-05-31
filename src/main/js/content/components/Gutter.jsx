@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -20,11 +21,11 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
-		items: React.PropTypes.object, //annotation dictionary {[obj.id]: obj}
+		items: PropTypes.object, //annotation dictionary {[obj.id]: obj}
 
-		selectFilter: React.PropTypes.func,
+		selectFilter: PropTypes.func,
 
-		prefix: React.PropTypes.string
+		prefix: PropTypes.string
 	},
 
 

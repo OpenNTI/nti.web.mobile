@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -12,8 +13,8 @@ export default createReactClass({
 	mixins: [StoreAccessor],
 
 	propTypes: {
-		sort: React.PropTypes.any,
-		search: React.PropTypes.string
+		sort: PropTypes.any,
+		search: PropTypes.string
 	},
 
 	getInitialState () {

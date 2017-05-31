@@ -1,5 +1,6 @@
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -30,8 +31,8 @@ export default createReactClass({
 	mixins: [Mixin, Mixins.NavigatableMixin, ContextSender],
 
 	propTypes: {
-		course: React.PropTypes.object.isRequired,
-		outlineId: React.PropTypes.string.isRequired
+		course: PropTypes.object.isRequired,
+		outlineId: PropTypes.string.isRequired
 	},
 
 	getInitialState () {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 /*
 Internal Links:
 	NTIID:			"tag:nextthought.com,2011-10:OU-RelatedWorkRef...:digestion_and_metabolism_textbook1"
@@ -38,7 +39,7 @@ export default class extends React.Component {
     }
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired
 	};
 
     render() {

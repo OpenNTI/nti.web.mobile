@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
@@ -12,12 +13,12 @@ export default createReactClass({
 
 	propTypes: {
 		// available from Paging mixin
-		paging: React.PropTypes.shape({
-			currentPage: React.PropTypes.func,
-			pageSize: React.PropTypes.number,
-			numPages: React.PropTypes.number,
-			hasPrevious: React.PropTypes.bool,
-			hasNext: React.PropTypes.bool
+		paging: PropTypes.shape({
+			currentPage: PropTypes.func,
+			pageSize: PropTypes.number,
+			numPages: PropTypes.number,
+			hasPrevious: PropTypes.bool,
+			hasNext: PropTypes.bool
 		}).isRequired
 	},
 

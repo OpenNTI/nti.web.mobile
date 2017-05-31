@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
     static displayName = 'GlossaryEntry';
 
     static propTypes = {
-		entryid: React.PropTypes.string
+		entryid: PropTypes.string
 	};
 
     componentDidMount() {

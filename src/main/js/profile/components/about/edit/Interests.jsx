@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Mixin from './Mixin';
@@ -13,9 +14,9 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	propTypes: {
-		items: React.PropTypes.array,
+		items: PropTypes.array,
 
-		field: React.PropTypes.string
+		field: PropTypes.string
 	},
 
 	handleKeyDown (e) {

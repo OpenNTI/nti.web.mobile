@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import ActionsMenu from '../ActionsMenu';
@@ -13,7 +14,7 @@ export default class extends React.Component {
     static sort = '';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired // UserGradeBookSummary object
+		item: PropTypes.object.isRequired // UserGradeBookSummary object
 	};
 
     render() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -24,7 +25,7 @@ export default createReactClass({
 	mixins: [FormattedPriceMixin],
 
 	propTypes: {
-		purchasable: React.PropTypes.object
+		purchasable: PropTypes.object
 	},
 
 	componentWillMount () {

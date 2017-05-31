@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Router from 'react-router-component';
 import Redirect from 'navigation/components/Redirect';
@@ -19,7 +20,7 @@ export default class extends React.Component {
     static displayName = 'Assignments:Students:View';
 
     static childContextTypes = {
-		AssignmentListItem: React.PropTypes.func
+		AssignmentListItem: PropTypes.func
 	};
 
     getChildContext() {

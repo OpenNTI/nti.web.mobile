@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {AssetIcon} from 'nti-web-commons';
@@ -14,7 +15,7 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.object
+		item: PropTypes.object
 	},
 
 	render () {

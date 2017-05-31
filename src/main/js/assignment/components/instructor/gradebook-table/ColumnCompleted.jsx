@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
@@ -14,8 +15,8 @@ export default class extends React.Component {
     static sort = 'dateSubmitted';
 
     static propTypes = {
-		item: React.PropTypes.object.isRequired, // UserGradeBookSummary object
-		assignment: React.PropTypes.object.isRequired
+		item: PropTypes.object.isRequired, // UserGradeBookSummary object
+		assignment: PropTypes.object.isRequired
 	};
 
     render() {

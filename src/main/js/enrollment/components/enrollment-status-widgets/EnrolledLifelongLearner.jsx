@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function EnrolledLifelongLearner () {
@@ -11,7 +12,7 @@ export default function EnrolledLifelongLearner () {
 }
 
 EnrolledLifelongLearner.propTypes = {
-	catalogEntry: React.PropTypes.object.isRequired
+	catalogEntry: PropTypes.object.isRequired
 };
 
 EnrolledLifelongLearner.displayName = 'EnrolledLifelongLearner';

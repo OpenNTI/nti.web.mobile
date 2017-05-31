@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {scoped} from 'nti-lib-locale';
@@ -14,9 +15,9 @@ export default class extends React.Component {
     static displayName = 'course:Page';
 
     static propTypes = {
-		children: React.PropTypes.any,
+		children: PropTypes.any,
 
-		course: React.PropTypes.object.isRequired
+		course: PropTypes.object.isRequired
 	};
 
     componentWillMount() {

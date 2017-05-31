@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -16,8 +17,8 @@ export default createReactClass({
 	},
 
 	propTypes: {
-		item: React.PropTypes.any.isRequired,
-		dateFormat: React.PropTypes.string
+		item: PropTypes.any.isRequired,
+		dateFormat: PropTypes.string
 	},
 
 	getDefaultProps () {

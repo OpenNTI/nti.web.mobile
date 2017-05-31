@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Transition from 'react-transition-group/CSSTransitionGroup';
 
@@ -34,7 +35,7 @@ export default class extends React.Component {
 		 *
 		 * @type {QuestionSet/Assignment}
 		 */
-		assessment: React.PropTypes.object.isRequired
+		assessment: PropTypes.object.isRequired
 	};
 
     componentDidMount() {

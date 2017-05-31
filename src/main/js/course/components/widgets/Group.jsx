@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import createReactClass from 'create-react-class';
@@ -13,9 +14,9 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	propTypes: {
-		item: React.PropTypes.shape({
-			accentColor: React.PropTypes.string,
-			Items: React.PropTypes.arrayOf(React.PropTypes.object)
+		item: PropTypes.shape({
+			accentColor: PropTypes.string,
+			Items: PropTypes.arrayOf(PropTypes.object)
 		}).isRequired
 	},
 

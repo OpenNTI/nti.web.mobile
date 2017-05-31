@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Loading, Notice} from 'nti-web-commons';
@@ -10,8 +11,8 @@ export default class extends React.Component {
     static displayName = 'DropOpen';
 
     static propTypes = {
-		courseId: React.PropTypes.string.isRequired,
-		courseTitle: React.PropTypes.string.isRequired
+		courseId: PropTypes.string.isRequired,
+		courseTitle: PropTypes.string.isRequired
 	};
 
     state = {

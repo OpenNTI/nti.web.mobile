@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import getWidget from './enrollment-status-widgets/';
@@ -16,5 +17,5 @@ export default function EnrollmentStatus (props) {
 EnrollmentStatus.displayName = 'EnrollmentStatus';
 
 EnrollmentStatus.propTypes = {
-	catalogEntry: React.PropTypes.object.isRequired
+	catalogEntry: PropTypes.object.isRequired
 };

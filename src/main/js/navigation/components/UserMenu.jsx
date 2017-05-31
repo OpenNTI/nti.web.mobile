@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {getAppUsername} from 'nti-web-client';
@@ -7,7 +8,7 @@ import Avatar from 'common/components/Avatar';
 export default class UserMenu extends React.PureComponent {
 
 	static propTypes = {
-		onClick: React.PropTypes.func
+		onClick: PropTypes.func
 	}
 
 	onClick = (e) => {

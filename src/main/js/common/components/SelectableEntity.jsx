@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 import Avatar from 'common/components/Avatar';
@@ -9,14 +10,14 @@ export default class extends React.Component {
     static displayName = 'SelectableEntity';
 
     static propTypes = {
-		entity: React.PropTypes.object.isRequired,
-		selected: React.PropTypes.bool,
-		tag: React.PropTypes.string,
-		onChange: React.PropTypes.func,
-		removable: React.PropTypes.bool,
-		children: React.PropTypes.any,
-		labels: React.PropTypes.object, // e.g. {selected: 'Remove', unselected: 'Undo'}
-		linkToProfile: React.PropTypes.any
+		entity: PropTypes.object.isRequired,
+		selected: PropTypes.bool,
+		tag: PropTypes.string,
+		onChange: PropTypes.func,
+		removable: PropTypes.bool,
+		children: PropTypes.any,
+		labels: PropTypes.object, // e.g. {selected: 'Remove', unselected: 'Undo'}
+		linkToProfile: PropTypes.any
 	};
 
     static defaultProps = {

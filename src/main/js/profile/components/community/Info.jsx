@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 /*eslint react/no-multi-comp:0*/
 import React from 'react';
 
@@ -32,8 +33,8 @@ const Breakdown = function Breakdown ({count, ...props}) {
 };
 
 Breakdown.propTypes = {
-	count: React.PropTypes.number,
-	href: React.PropTypes.string
+	count: PropTypes.number,
+	href: PropTypes.string
 };
 
 
@@ -57,9 +58,9 @@ export default createReactClass({
 
 
 	propTypes: {
-		entity: React.PropTypes.object,
+		entity: PropTypes.object,
 
-		show: React.PropTypes.oneOf([MEMBERS, FACULTY, PEOPLE_YOU_KNOW])
+		show: PropTypes.oneOf([MEMBERS, FACULTY, PEOPLE_YOU_KNOW])
 	},
 
 	render () {

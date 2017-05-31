@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {Loading} from 'nti-web-commons';
@@ -16,6 +17,6 @@ export default function LoadMore ({store, onClick}) {
 }
 
 LoadMore.propTypes = {
-	onClick: React.PropTypes.func,
-	store: React.PropTypes.object
+	onClick: PropTypes.func,
+	store: PropTypes.object
 };

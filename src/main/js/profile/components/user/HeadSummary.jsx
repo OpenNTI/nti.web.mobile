@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 import {User} from 'nti-web-client';
@@ -13,7 +14,7 @@ export default class extends React.Component {
     static displayName = 'HeadSummary';
 
     static propTypes = {
-		entity: React.PropTypes.any.isRequired
+		entity: PropTypes.any.isRequired
 	};
 
     state = {

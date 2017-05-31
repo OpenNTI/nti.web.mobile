@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import TopicView from 'forums/components/TopicView';
 
@@ -10,5 +11,5 @@ export default function BlogEntryDetail ({id}) {
 }
 
 BlogEntryDetail.propTypes = {
-	id: React.PropTypes.string.isRequired
+	id: PropTypes.string.isRequired
 };

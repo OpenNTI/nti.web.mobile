@@ -1,10 +1,11 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import uuid from 'uuid';
 
 export default {
 	propTypes: {
-		items: React.PropTypes.array,
-		field: React.PropTypes.string
+		items: PropTypes.array,
+		field: PropTypes.string
 	},
 
 

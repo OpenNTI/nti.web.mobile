@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Router from 'react-router-component';
 
@@ -37,8 +38,8 @@ export default class extends React.Component {
     static displayName = 'Assignments:Instructor:View';
 
     static childContextTypes = {
-		isInstructor: React.PropTypes.bool,
-		AssignmentListItem: React.PropTypes.func
+		isInstructor: PropTypes.bool,
+		AssignmentListItem: PropTypes.func
 	};
 
     getChildContext() {
