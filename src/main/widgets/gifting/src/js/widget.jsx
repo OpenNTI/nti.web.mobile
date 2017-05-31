@@ -1,39 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-
 import Router, {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
 import CaptureClicks from 'react-router-component/lib/CaptureClicks';
-
 import {getService} from 'nti-web-client';
-
-import {Loading} from 'nti-web-commons';
-import {Error as ErrorComponent} from 'nti-web-commons';
+import {Loading, Error as ErrorComponent} from 'nti-web-commons';
 
 import * as Constants from 'enrollment/store-enrollment/Constants';
 import {priceItem} from 'enrollment/store-enrollment/Actions';
 import Store from 'enrollment/store-enrollment/Store';
-
 import Form from 'enrollment/store-enrollment/components/GiftView';
-
 import Confirm from 'enrollment/store-enrollment/components/PaymentConfirm';
 import Success from 'enrollment/store-enrollment/components/PaymentSuccess';
 import PaymentError from 'enrollment/store-enrollment/components/PaymentError';
 
-export default React.createClass({
-	displayName: 'GiftingWidget',
 
-	propTypes: {
-		purchasableId: React.PropTypes.string.isRequired
-	},
+export default class GiftingWidget extends React.Component {
 
-	attachRouterRef (x) { this.router = x; },
+	static propTypes = {
+		purchasableId: PropTypes.string.isRequired
+	}
 
-	getInitialState () {
-		return {
-			loading: true,
-			purchasable: null
-		};
-	},
+	state = {
+		loading: true,
+		purchasable: null
+	}
+
+
+	attachRouterRef = (x) => this.router = x
+
 
 	componentWillMount () {
 		Store.addChangeListener(this.onChange);
@@ -59,13 +54,13 @@ export default React.createClass({
 				this.setState({ loading: false, pricedItem }))
 			.catch(error =>
 				this.setState({ loading: false, error }));
-	},
+	}
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onChange);
-	},
+	}
 
-	onChange (event) {
+	onChange = (event) => {
 		let {router} = this;
 
 		switch(event.type) {
@@ -97,18 +92,15 @@ export default React.createClass({
 			router.navigate('/error/');
 			break;
 		}
-	},
+	}
 
-
-	onDone () {
+	onDone = () => {
 		window.top.location.href = 'https://historychannel.ou.edu';
-	},
+	}
 
-
-	onNavigation () {
+	onNavigation = () => {
 		parent.postMessage('{"event": "navigation"}', '*');
-	},
-
+	}
 
 	render () {
 		if(this.state.error) {
@@ -119,8 +111,8 @@ export default React.createClass({
 			return <Loading />;
 		}
 
-		let {purchasable} = this.state;
-		let {title} = purchasable;
+		const {purchasable} = this.state;
+		const {title} = purchasable;
 
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
@@ -135,4 +127,4 @@ export default React.createClass({
 			</CaptureClicks>
 		);
 	}
-});
+}

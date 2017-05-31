@@ -10,19 +10,19 @@ import {scoped} from 'nti-lib-locale';
 const t = scoped('COURSE.INFO');
 
 export default class extends React.Component {
-    static displayName = 'Instructor';
+	static displayName = 'Instructor';
 
-    static propTypes = {
+	static propTypes = {
 		instructor: PropTypes.object,
 		assetRoot: PropTypes.string,
 		index: PropTypes.number
 	};
 
-    state = {
-        photo: BLANK_AVATAR
-    };
+	state = {
+		photo: BLANK_AVATAR
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		let {assetRoot, index} = this.props;
 		let img = new Image();
 
@@ -31,11 +31,11 @@ export default class extends React.Component {
 		img.src = assetRoot + 'instructor-photos/' + pad(index + 1) + '.png';
 	}
 
-    setPhoto = (photo) => {
+	setPhoto = (photo) => {
 		this.setState({photo});
 	};
 
-    render() {
+	render () {
 		let {photo} = this.state;
 		let {instructor} = this.props;
 		let {Name, JobTitle} = instructor;

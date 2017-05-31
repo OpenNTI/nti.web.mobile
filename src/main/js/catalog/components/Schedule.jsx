@@ -4,9 +4,9 @@ import React from 'react';
 import moment from 'moment';
 
 export default class extends React.Component {
-    static displayName = 'Schedule';
+	static displayName = 'Schedule';
 
-    static propTypes = {
+	static propTypes = {
 		startDate: PropTypes.string.isRequired,
 		schedule: PropTypes.shape({
 			days: PropTypes.arrayOf(PropTypes.string),
@@ -14,14 +14,14 @@ export default class extends React.Component {
 		}).isRequired
 	};
 
-    format = (d) => {
+	format = (d) => {
 		let date = this.props.startDate.split('T')[0];//YUCK
 		date = [date, d].join('T'); //ICK!
 
 		return moment(date).format('h:mm a');
 	};
 
-    render() {
+	render () {
 		let {schedule} = this.props;
 		return (
 			<div className="value">

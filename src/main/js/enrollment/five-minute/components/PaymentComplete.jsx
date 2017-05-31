@@ -18,10 +18,10 @@ import ThankYou from '../../components/ThankYou';
 
 
 const Wrapper = createReactClass({
-    displayName: 'Wrapper',
-    mixins: [LibraryAccessor],
+	displayName: 'Wrapper',
+	mixins: [LibraryAccessor],
 
-    render () {
+	render () {
 		//If the library is loading, or reloading this will be true.
 		if (this.state.loading) {
 			return ( <Loading.Mask /> );

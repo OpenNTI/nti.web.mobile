@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
+//
 import {Array as ArrayUtils} from 'nti-commons';
-
 import {isPointWithin} from 'nti-lib-dom';
+
 import Base, {TYPE_SHAPE} from './Base';
 
 const getWrapperElementClassName = 'droppable:getWrapperElementClassName';
@@ -88,11 +88,15 @@ export default {
 	renderDropTargetWrapper () {
 		const {tag, children, className, ...otherProps} = this.props;
 		delete otherProps.accepts;
-		return React.createElement(tag || 'div', {...otherProps,
-			ref: x => this.node = x,
-			children,
-			className: cx(className, this[getWrapperElementClassName]())
-		});
+		return React.createElement(
+			tag || 'div',
+			{
+				...otherProps,
+				ref: x => this.node = x,
+				className: cx(className, this[getWrapperElementClassName]())
+			},
+			children
+		);
 	},
 
 

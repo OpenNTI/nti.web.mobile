@@ -9,37 +9,37 @@ import {Editor} from 'modeled-content';
 
 
 export default class extends React.Component {
-    static displayName = 'WriteSomething';
+	static displayName = 'WriteSomething';
 
-    static propTypes = {
+	static propTypes = {
 		entity: PropTypes.object.isRequired,
 		store: PropTypes.shape({
 			postToActivity: PropTypes.func
 		}).isRequired
 	};
 
-    state = {
-        edit: false
-    };
+	state = {
+		edit: false
+	};
 
-    showEditor = () => {
+	showEditor = () => {
 		this.setState({
 			edit: true
 		});
 	};
 
-    hideEditor = () => {
+	hideEditor = () => {
 		this.setState({
 			error: void 0,
 			edit: false
 		});
 	};
 
-    onCancel = () => {
+	onCancel = () => {
 		this.hideEditor();
 	};
 
-    onSubmit = (title, value, shareWith) => {
+	onSubmit = (title, value, shareWith) => {
 
 		if (Editor.isEmpty(value) || Editor.isEmpty(title)) {
 			return;
@@ -55,7 +55,7 @@ export default class extends React.Component {
 			});
 	};
 
-    render() {
+	render () {
 		const {state: {busy, error}, props: {entity}} = this;
 
 		if (error && error.statusCode !== 422) {

@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {DateTime, Mixins} from 'nti-web-commons';
 
 import Mixin from './mixin';
@@ -23,7 +21,7 @@ export default createReactClass({
 		return (
 			<div className="enrollment-status-credit">
 				<div>
-					<div className="heading">You're Enrolled for credit</div>
+					<div className="heading">You’re Enrolled for credit</div>
 					<div className="content">
 						Class begins <DateTime date={catalogEntry.getStartDate()} /> and will be conducted fully online.
 					</div>

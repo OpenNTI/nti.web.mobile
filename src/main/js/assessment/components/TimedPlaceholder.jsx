@@ -3,13 +3,13 @@ import React from 'react';
 import Placeholder from './Placeholder';
 
 export default class extends React.Component {
-    static displayName = 'TimedPlaceholder';
+	static displayName = 'TimedPlaceholder';
 
-    static propTypes = {
+	static propTypes = {
 		assignment: PropTypes.object
 	};
 
-    onStart = (e) => {
+	onStart = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -19,7 +19,7 @@ export default class extends React.Component {
 		history.go(-1);
 	};
 
-    render() {
+	render () {
 		//You have <strong>5 minutes</strong> to complete this Timed Assignment.
 		//<span className="red">Once you've started, the timer will not stop.</span>
 		let {assignment} = this.props;

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'PerformanceListViewHeading';
+	static displayName = 'PerformanceListViewHeading';
 
-    static propTypes = {
+	static propTypes = {
 		column: PropTypes.shape({
 			label: PropTypes.string,
 			sortOn: PropTypes.string
@@ -13,12 +13,12 @@ export default class extends React.Component {
 		className: PropTypes.any
 	};
 
-    onClick = () => {
+	onClick = () => {
 		const {onClick, column} = this.props;
 		onClick && onClick(column.sortOn);
 	};
 
-    render() {
+	render () {
 
 		const {className, column} = this.props;
 

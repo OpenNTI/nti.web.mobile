@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+
 import Accessor, {ContextParent, ContextResolver} from './ContextAccessor';
 
 export {ContextParent, ContextResolver};

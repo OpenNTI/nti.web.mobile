@@ -4,17 +4,17 @@ import React from 'react';
 import {rawContent} from 'nti-commons';
 
 export default class extends React.Component {
-    static displayName = 'StringWidget';
+	static displayName = 'StringWidget';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.string.isRequired
 	};
 
-    static handles(item) {
-        return typeof item === 'string';
-    }
+	static handles (item) {
+		return typeof item === 'string';
+	}
 
-    render() {
+	render () {
 		return <div className="string-item" {...rawContent(this.props.item)}/>;
 	}
 }

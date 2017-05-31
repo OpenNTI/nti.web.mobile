@@ -6,14 +6,14 @@ import {getService} from 'nti-web-client';
 import Entry from './Entry';
 
 export default class extends React.Component {
-    static displayName = 'ContentAcquirePrompt';
+	static displayName = 'ContentAcquirePrompt';
 
-    static shouldPrompt(error) {
-        const has = x => x && x.length > 0;
-        return error.statusCode === 403 && has(error.Items);
-    }
+	static shouldPrompt (error) {
+		const has = x => x && x.length > 0;
+		return error.statusCode === 403 && has(error.Items);
+	}
 
-    static propTypes = {
+	static propTypes = {
 		//The note or thing that points to content the user does not have access to.
 		relatedItem: PropTypes.object,
 
@@ -21,19 +21,19 @@ export default class extends React.Component {
 		data: PropTypes.object
 	};
 
-    state = {};
+	state = {};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.resolve();
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (this.props.data !== nextProps.data) {
 			this.resolve(nextProps);
 		}
 	}
 
-    resolve = (props = this.props) => {
+	resolve = (props = this.props) => {
 		let {data = {Items:[]}} = props;
 		let items = data.Items.reduce((a, x) => a.concat(x), []);
 
@@ -44,7 +44,7 @@ export default class extends React.Component {
 			.then(o => this.setState({items: o}));
 	};
 
-    render() {
+	render () {
 		let {items = []} = this.state;
 		let {length} = items;
 

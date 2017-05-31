@@ -3,9 +3,9 @@ import React from 'react';
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
 export default class extends React.Component {
-    static displayName = 'GradePerformance';
+	static displayName = 'GradePerformance';
 
-    static propTypes = {
+	static propTypes = {
 		averageColor: PropTypes.string,
 		averageWidth: PropTypes.number,
 		gradeColor: PropTypes.string,
@@ -20,18 +20,18 @@ export default class extends React.Component {
 
 	};
 
-    static defaultProps = {
-        averageColor: '#b8b8b8',
-        averageWidth: 3,
-        gradeColor: '#40b450',
-        gradeWidth: 4,
-        store: null,
-        topMargin: 30,
-        bottomMargin: 10,
-        pixelDensity: (global.devicePixelRatio || 1) * 2
-    };
+	static defaultProps = {
+		averageColor: '#b8b8b8',
+		averageWidth: 3,
+		gradeColor: '#40b450',
+		gradeWidth: 4,
+		store: null,
+		topMargin: 30,
+		bottomMargin: 10,
+		pixelDensity: (global.devicePixelRatio || 1) * 2
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		const {canvas} = this;
 		let context = canvas.getContext('2d');
 
@@ -67,18 +67,18 @@ export default class extends React.Component {
 		this.paint(context);
 	}
 
-    componentDidUpdate() {
+	componentDidUpdate () {
 		let ctx = this.canvasContext;
 		if (ctx) {
 			this.paint(ctx);
 		}
 	}
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		this.stopAnimation();
 	}
 
-    render() {
+	render () {
 		let p = this.props;
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
@@ -92,7 +92,7 @@ export default class extends React.Component {
 		);
 	}
 
-    testAnimationProperties = () => {
+	testAnimationProperties = () => {
 		if (this.state && this.state.hasOwnProperty('canAnimate')) {
 			return this.state.canAnimate;
 		}
@@ -104,20 +104,20 @@ export default class extends React.Component {
 		return hasDashOffset && hasSetLineDash;
 	};
 
-    startAnimation = () => {
+	startAnimation = () => {
 		let canAnimate = this.testAnimationProperties();
 		if (canAnimate) {
 			this.animateTask.start();//safe to call repeatedly (will noop if already started)
 		}
 	};
 
-    stopAnimation = () => {
+	stopAnimation = () => {
 		if (this.animateTask) {
 			this.animateTask.stop();
 		}
 	};
 
-    repaint = () => {
+	repaint = () => {
 		let {dashOffset = 0} = this.state || {};
 
 		dashOffset--;
@@ -125,7 +125,7 @@ export default class extends React.Component {
 		this.setState({dashOffset});
 	};
 
-    paint = (ctx) => {
+	paint = (ctx) => {
 		if (!ctx) { return; }
 
 		ctx.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
@@ -133,7 +133,7 @@ export default class extends React.Component {
 		this.drawGrades(ctx);
 	};
 
-    drawAverages = (ctx) => {
+	drawAverages = (ctx) => {
 
 		ctx.save();
 		try {
@@ -155,7 +155,7 @@ export default class extends React.Component {
 		}
 	};
 
-    drawGrades = (ctx) => {
+	drawGrades = (ctx) => {
 		ctx.save();
 		try {
 			ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -173,7 +173,7 @@ export default class extends React.Component {
 		}
 	};
 
-    drawLine = (ctx, property) => {
+	drawLine = (ctx, property) => {
 		if (!this.store || !this.store.length) {
 			this.stopAnimation();
 			return;
@@ -195,8 +195,8 @@ export default class extends React.Component {
 		ctx.stroke();
 	};
 
-    state = {
-        dashOffset: 0,
-        canAnimate: this.testAnimationProperties()
-    };
+	state = {
+		dashOffset: 0,
+		canAnimate: this.testAnimationProperties()
+	};
 }

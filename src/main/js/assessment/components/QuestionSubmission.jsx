@@ -19,25 +19,25 @@ const STATUS_MAP = {
 };
 
 export default class extends React.Component {
-    static displayName = 'QuestionSubmission';
+	static displayName = 'QuestionSubmission';
 
-    static propTypes = {
+	static propTypes = {
 		question: PropTypes.object.isRequired
 	};
 
-    componentDidMount() {
+	componentDidMount () {
 		Store.addChangeListener(this.onChange);
 	}
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.onChange);
 	}
 
-    onChange = () => {
+	onChange = () => {
 		this.forceUpdate();
 	};
 
-    onReset = (e) => {
+	onReset = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -50,7 +50,7 @@ export default class extends React.Component {
 		}
 	};
 
-    onSubmit = (e) => {
+	onSubmit = (e) => {
 		let {question} = this.props;
 
 		if (e) {
@@ -63,7 +63,7 @@ export default class extends React.Component {
 		}
 	};
 
-    dismissAssessmentError = (e) => {
+	dismissAssessmentError = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -71,7 +71,7 @@ export default class extends React.Component {
 		Store.clearError(this.props.question);
 	};
 
-    render() {
+	render () {
 		let {question} = this.props;
 
 		if (!areAssessmentsSupported()) {

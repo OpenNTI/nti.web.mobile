@@ -11,22 +11,22 @@ let getLabel = scoped('CONTENT.SECTIONS');
 
 
 export default class extends React.Component {
-    static displayName = 'course:Page';
+	static displayName = 'course:Page';
 
-    static propTypes = {
+	static propTypes = {
 		contentPackage: PropTypes.object.isRequired,
 		children: PropTypes.any
 	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.setup();
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.setup(nextProps);
 	}
 
-    setup = (props = this.props) => {
+	setup = (props = this.props) => {
 		let {contentPackage} = props;
 		let menu = [];
 
@@ -47,7 +47,7 @@ export default class extends React.Component {
 		this.setState({menu});
 	};
 
-    render() {
+	render () {
 		let {menu} = this.state || {};
 		let {children} = this.props;
 

@@ -6,23 +6,23 @@ import DisplayName from './DisplayName';
 import {getService} from 'nti-web-client';
 
 export default class extends React.Component {
-    static displayName = 'RepliedTo';
+	static displayName = 'RepliedTo';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object
 	};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.fill();
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.fill(nextProps);
 		}
 	}
 
-    fill = (props = this.props) => {
+	fill = (props = this.props) => {
 		let {item} = props;
 
 		getService()
@@ -31,7 +31,7 @@ export default class extends React.Component {
 			.then(o => this.setState({parentObjectsCreator: o}));
 	};
 
-    render() {
+	render () {
 		let {item} = this.props;
 		let {parentObjectsCreator} = this.state || {};
 

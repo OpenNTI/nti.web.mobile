@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'TimedPlaceholder';
+	static displayName = 'TimedPlaceholder';
 
-    static propTypes = {
+	static propTypes = {
 		assignment: PropTypes.object,
 		message: PropTypes.string.isRequired,
 		buttonLabel: PropTypes.string,
@@ -13,13 +13,13 @@ export default class extends React.Component {
 		onConfirm: PropTypes.func
 	};
 
-    static defaultProps = {
-        buttonLabel: 'Back',
-        className: '',
-        onConfirm: () => {}
-    };
+	static defaultProps = {
+		buttonLabel: 'Back',
+		className: '',
+		onConfirm: () => {}
+	};
 
-    render() {
+	render () {
 		let {assignment, message, buttonLabel, className, pageTitle, onConfirm} = this.props;
 
 		return (

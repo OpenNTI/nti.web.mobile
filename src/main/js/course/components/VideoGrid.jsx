@@ -14,26 +14,26 @@ import {EmptyList, Mixins} from 'nti-web-commons';
 //I want to turn this into a buffered list.
 
 const VideoCell = createReactClass({
-    displayName: 'VideoCell',
-    mixins: [Mixins.NavigatableMixin],
+	displayName: 'VideoCell',
+	mixins: [Mixins.NavigatableMixin],
 
-    propTypes: {
+	propTypes: {
 		item: PropTypes.object
 	},
 
-    getInitialState () {
+	getInitialState () {
 		return {};
 	},
 
-    componentDidMount () { this.fillIn(); },
+	componentDidMount () { this.fillIn(); },
 
-    componentWillUpdate (nextProps) {
+	componentWillUpdate (nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.fillIn(nextProps);
 		}
 	},
 
-    fillIn (props = this.props) {
+	fillIn (props = this.props) {
 		let {item} = props || {};
 
 		function fallback (x) {
@@ -46,7 +46,7 @@ const VideoCell = createReactClass({
 			.then(poster => this.setState({poster}));
 	},
 
-    render () {
+	render () {
 		const {state: {poster}, props: {item}} = this;
 		const style = poster && { backgroundImage: `url(${poster})` };
 		const thumbnail = cx('thumbnail', {resolving: !poster});

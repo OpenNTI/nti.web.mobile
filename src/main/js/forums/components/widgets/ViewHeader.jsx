@@ -21,9 +21,9 @@ function headerTextForType (localeKey) {
 }
 
 export default class extends React.Component {
-    static displayName = 'ViewHeader';
+	static displayName = 'ViewHeader';
 
-    static propTypes = {
+	static propTypes = {
 		type: PropTypes.oneOf([
 			DISCUSSIONS,
 			FORUM,
@@ -32,11 +32,11 @@ export default class extends React.Component {
 		]).isRequired
 	};
 
-    static headerTextForType(localeKey) {
-        return headerTextForType(localeKey);
-    }
+	static headerTextForType (localeKey) {
+		return headerTextForType(localeKey);
+	}
 
-    render() {
+	render () {
 		let headerText = headerTextForType(this.props.type);
 		if ((headerText || '').trim().length === 0 ) {
 			// console.warn('No view-header entry in locale/forums for type: %s', this.props.type);

@@ -4,26 +4,26 @@ import React from 'react';
 import NavigationBar from 'navigation/components/Bar';
 
 export default class extends React.Component {
-    static displayName = 'Page';
+	static displayName = 'Page';
 
-    static propTypes = {
+	static propTypes = {
 		pageContent: PropTypes.any,
 		children: PropTypes.any
 	};
 
-    static childContextTypes = {
+	static childContextTypes = {
 		PageWrapped: PropTypes.bool
 	};
 
-    static contextTypes = {
+	static contextTypes = {
 		PageWrapped: PropTypes.bool
 	};
 
-    getChildContext() {
+	getChildContext () {
 		return {PageWrapped: true};
 	}
 
-    render() {
+	render () {
 		let {children} = this.props;
 
 		let props = Object.assign({}, this.props, {
@@ -38,7 +38,7 @@ export default class extends React.Component {
 		);
 	}
 
-    renderChildren = (c) => {
+	renderChildren = (c) => {
 		let {pageContent} = this.props;
 		let props = Object.assign({}, this.props, {
 			availableSections: null,

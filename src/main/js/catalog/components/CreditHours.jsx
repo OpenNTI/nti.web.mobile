@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import locale, {scoped} from 'nti-lib-locale';
 
 const t = scoped('COURSE.INFO');
@@ -17,7 +16,7 @@ export default function CreditHours ({entry, credit = []}) {
 				return (
 					<div className="item" key={keyPrefix + i}>
 						{locale('UNITS.credits', { count: item.Hours })} {t('CREDIT.available')}<br />
-						<a href={e.url} target="_blank">{e.label}</a>
+						<a href={e.url} target="_blank" rel="noopener noreferrer">{e.label}</a>
 					</div>
 				);
 			})}

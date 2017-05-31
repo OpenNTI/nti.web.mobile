@@ -6,18 +6,18 @@ import {Loading} from 'nti-web-commons';
 import Panel from 'content/components/discussions/Panel';
 
 export default class extends React.Component {
-    static displayName = 'RecentReplies';
+	static displayName = 'RecentReplies';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired,
 		count: PropTypes.number
 	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.load();
 	}
 
-    load = (props = this.props) => {
+	load = (props = this.props) => {
 
 		const {item, count} = props;
 
@@ -36,7 +36,7 @@ export default class extends React.Component {
 			}));
 	};
 
-    render() {
+	render () {
 
 		const {loading, replies} = this.state;
 

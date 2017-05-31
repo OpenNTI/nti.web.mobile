@@ -3,18 +3,18 @@ import React from 'react';
 import {DateTime} from 'nti-web-commons';
 
 export default class extends React.Component {
-    static displayName = 'Badge';
+	static displayName = 'Badge';
 
-    static handles(item) {
-        const {MimeType = ''} = item;
-        return /change$/i.test(MimeType) && item.ChangeType === 'BadgeEarned';
-    }
+	static handles (item) {
+		const {MimeType = ''} = item;
+		return /change$/i.test(MimeType) && item.ChangeType === 'BadgeEarned';
+	}
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.any.isRequired
 	};
 
-    render() {
+	render () {
 
 		const {item} = this.props;
 		const {Item} = item;

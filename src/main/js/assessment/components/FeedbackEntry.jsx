@@ -10,18 +10,18 @@ const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
 
 export default class extends React.Component {
-    static displayName = 'FeedbackEntry';
+	static displayName = 'FeedbackEntry';
 
-    static propTypes = {
+	static propTypes = {
 		feedback: PropTypes.object.isRequired,
 		onSubmit: PropTypes.func.isRequired
 	};
 
-    state = {
-        active: false
-    };
+	state = {
+		active: false
+	};
 
-    toggleEditor = (e) => {
+	toggleEditor = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -30,7 +30,7 @@ export default class extends React.Component {
 		this.setState({ active: !this.state.active });
 	};
 
-    render() {
+	render () {
 		let {feedback} = this.props;
 		if (!feedback || !feedback.getLink('edit')) {
 			return null;
@@ -49,7 +49,7 @@ export default class extends React.Component {
 		);
 	}
 
-    onSubmit = (value) => {
+	onSubmit = (value) => {
 		let thenable = this.props.onSubmit(value);
 		if (!thenable) {
 			return;

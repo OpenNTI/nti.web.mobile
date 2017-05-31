@@ -8,22 +8,22 @@ import Content from '../Content';
 import {renderWidget} from './part-types';
 
 export default class extends React.Component {
-    static displayName = 'AggregatedQuestion';
+	static displayName = 'AggregatedQuestion';
 
-    static propTypes = {
+	static propTypes = {
 		question: PropTypes.object.isRequired
 	};
 
-    state = {};
-    componentDidMount() { this.loadData(this.props); }
+	state = {};
+	componentDidMount () { this.loadData(this.props); }
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.question !== this.props.question) {
 			this.loadData(nextProps);
 		}
 	}
 
-    loadData = (props) => {
+	loadData = (props) => {
 		const {question: item} = props;
 		this.setState({loading: true});
 
@@ -32,7 +32,7 @@ export default class extends React.Component {
 			.catch(error => this.setState({loading: false, error}));
 	};
 
-    render() {
+	render () {
 		const {props: {question}, state: {loading, data, error}} = this;
 
 		return loading ? (

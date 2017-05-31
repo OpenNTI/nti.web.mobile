@@ -4,17 +4,17 @@ import React from 'react';
 import {getService} from 'nti-web-client';
 
 export default class extends React.Component {
-    static displayName = 'InvitationCode';
+	static displayName = 'InvitationCode';
 
-    static propTypes = {
+	static propTypes = {
 		entity: PropTypes.object.isRequired
 	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.getCode();
 	}
 
-    selectCode = () => {
+	selectCode = () => {
 		const selection = window.getSelection();
 		const range = document.createRange();
 
@@ -23,7 +23,7 @@ export default class extends React.Component {
 		selection.addRange(range);
 	};
 
-    getCode = () => {
+	getCode = () => {
 		const {entity} = this.props;
 		const link = entity && entity.getLink('default-trivial-invitation-code');
 
@@ -36,7 +36,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 		const {busy, code} = this.state || {};
 		if (busy || !code) {
 			return null;

@@ -48,22 +48,22 @@ function flush (event) {
 }
 
 export default class extends React.Component {
-    static displayName = 'InvalidationListener';
+	static displayName = 'InvalidationListener';
 
-    componentDidMount() {
+	componentDidMount () {
 		this.reloadToken = AppDispatcher.register(flush);
 		CatalogStore.addChangeListener(flush);
 		EnrollmentStore.addChangeListener(flush);
 		StoreEnrollmentStore.addChangeListener(flush);
 	}
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		AppDispatcher.unregister(this.reloadToken);
 		EnrollmentStore.removeChangeListener(flush);
 		StoreEnrollmentStore.removeChangeListener(flush);
 	}
 
-    render() {
+	render () {
 		return null;
 	}
 }

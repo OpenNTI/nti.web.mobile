@@ -1,45 +1,45 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {LocalizedHTML, DateTime} from 'nti-web-commons';
-
-import Pricing from './Pricing';
-import {resetProcess} from '../Actions';
+import {scoped} from 'nti-lib-locale';
 
 import Button from 'forms/components/Button';
 
-import {scoped} from 'nti-lib-locale';
+import {resetProcess} from '../Actions';
+
+import Pricing from './Pricing';
+
 
 const t = scoped('ENROLLMENT.GIFT.SUCCESS');
 const siteString = scoped('COURSE.CONTACTINFO');
 
 export default class extends React.Component {
-    static displayName = 'GiftSuccess';
+	static displayName = 'GiftSuccess';
 
-    static propTypes = {
+	static propTypes = {
 		purchasable: PropTypes.object,
 		purchaseattempt: PropTypes.object,
 		doneLink: PropTypes.string,
 		onDone: PropTypes.func
 	};
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		resetProcess();
 	}
 
-    onNewGift = () => {
+	onNewGift = () => {
 		resetProcess({
 			gift: true
 		});
 	};
 
-    ignoreChange = () => {
+	ignoreChange = () => {
 		//replaces changes user made with current state (effectively making
 		//the field readonly, while still letting it be focusable)
 		this.forceUpdate();
 	};
 
-    render() {
+	render () {
 		const {purchasable, purchaseattempt, doneLink} = this.props;
 		const {title} = purchasable;
 		const {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
@@ -95,7 +95,7 @@ export default class extends React.Component {
 				</div>
 				<div className="actions">
 					<Button onClick={this.onNewGift}>Purchase another Gift</Button>
-					<Button onClick={onDone} href={doneLink}>I'm done</Button>
+					<Button onClick={onDone} href={doneLink}>I’m done</Button>
 				</div>
 			</div>
 		);

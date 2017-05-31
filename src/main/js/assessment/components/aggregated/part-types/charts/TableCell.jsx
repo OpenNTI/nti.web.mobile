@@ -4,9 +4,9 @@ import cx from 'classnames';
 
 
 export default class extends React.Component {
-    static displayName = 'TableCell';
+	static displayName = 'TableCell';
 
-    static propTypes = {
+	static propTypes = {
 		label: PropTypes.string,
 		count: PropTypes.number,
 		percent: PropTypes.number,
@@ -14,11 +14,11 @@ export default class extends React.Component {
 		rank: PropTypes.oneOf(['first', 'second', 'none'])
 	};
 
-    static defaultProps = {
-        rank: 'none'
-    };
+	static defaultProps = {
+		rank: 'none'
+	};
 
-    render() {
+	render () {
 		const {props: {count, rank, label}} = this;
 
 		const cls = cx({

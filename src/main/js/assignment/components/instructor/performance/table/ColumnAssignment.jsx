@@ -4,20 +4,20 @@ import React from 'react';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 export default class extends React.Component {
-    static displayName = 'GradebookColumnAssignment';
+	static displayName = 'GradebookColumnAssignment';
 
-    static label() {
-        return 'Assignment';
-    }
+	static label () {
+		return 'Assignment';
+	}
 
-    static className = 'col-assignment';
-    static sort = 'title';
+	static className = 'col-assignment';
+	static sort = 'title';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired
 	};
 
-    render() {
+	render () {
 
 		const {item} = this.props;
 

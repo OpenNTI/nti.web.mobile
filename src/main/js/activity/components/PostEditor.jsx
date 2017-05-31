@@ -14,9 +14,9 @@ const PUBLISH = {publish: true};
 const preventSubmit = e => e.preventDefault() && false;
 
 export default class extends React.Component {
-    static displayName = 'PostEditor';
+	static displayName = 'PostEditor';
 
-    static propTypes = {
+	static propTypes = {
 		onSubmit: PropTypes.func.isRequired,
 		onCancel: PropTypes.func.isRequired,
 		title: PropTypes.string,
@@ -28,21 +28,21 @@ export default class extends React.Component {
 		showSharing: PropTypes.bool
 	};
 
-    state = {};
+	state = {};
 
-    componentWillMount() {
+	componentWillMount () {
 		const {busy, value, title} = this.props;
 		this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if(['busy', 'value', 'title'].some(x => this.props[x] !== nextProps[x])) {
 			const {busy, value, title} = nextProps;
 			this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
 		}
 	}
 
-    onChange = () => {
+	onChange = () => {
 		let {busy} = this.props;
 		let value = this.editor.getValue();
 		let title = (this.title || {}).value;
@@ -52,7 +52,7 @@ export default class extends React.Component {
 		});
 	};
 
-    onCancel = (e) => {
+	onCancel = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -61,7 +61,7 @@ export default class extends React.Component {
 		this.props.onCancel(e);
 	};
 
-    doSubmit = (e) => {
+	doSubmit = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -79,7 +79,7 @@ export default class extends React.Component {
 		}
 	};
 
-    getSharingSuggestions = () => {
+	getSharingSuggestions = () => {
 		return Promise.resolve([{
 			MimeType: 'application/vnd.nextthought.community',
 			publish: true,
@@ -90,7 +90,7 @@ export default class extends React.Component {
 		}]);
 	};
 
-    render() {
+	render () {
 		let {error, busy, showSharing} = this.props;
 		let {disabled} = this.state;
 

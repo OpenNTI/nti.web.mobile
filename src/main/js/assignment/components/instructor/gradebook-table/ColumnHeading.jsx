@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'ColumnHeading';
+	static displayName = 'ColumnHeading';
 
-    static propTypes = {
+	static propTypes = {
 		column: (o, k) => {
 			try {
 				if (typeof o[k].label !== 'function') {
@@ -18,12 +18,12 @@ export default class extends React.Component {
 		className: PropTypes.any
 	};
 
-    onClick = () => {
+	onClick = () => {
 		const {column, onClick} = this.props;
 		onClick && onClick(column);
 	};
 
-    render() {
+	render () {
 
 		const {column, className} = this.props;
 

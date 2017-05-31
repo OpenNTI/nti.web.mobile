@@ -2,20 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'performance:ColumnFeedback';
+	static displayName = 'performance:ColumnFeedback';
 
-    static label() {
-        return 'Feedback';
-    }
+	static label () {
+		return 'Feedback';
+	}
 
-    static className = 'col-feedback';
-    static sort = 'feedbackCount';
+	static className = 'col-feedback';
+	static sort = 'feedbackCount';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired
 	};
 
-    render() {
+	render () {
 
 		const {item} = this.props;
 

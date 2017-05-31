@@ -4,21 +4,21 @@ import React from 'react';
 import {activateNavigationGuard, deactivateNavigationGuard} from '../Actions';
 
 export default class extends React.Component {
-    static displayName = 'NavigationGuard';
+	static displayName = 'NavigationGuard';
 
-    static propTypes = {
+	static propTypes = {
 		message: PropTypes.string
 	};
 
-    componentDidMount() {
+	componentDidMount () {
 		activateNavigationGuard(()=> this.props.message);
 	}
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		deactivateNavigationGuard();
 	}
 
-    render() {
+	render () {
 		return null;
 	}
 }

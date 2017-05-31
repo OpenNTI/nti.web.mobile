@@ -6,13 +6,13 @@ import {Draggable} from 'common/dnd';
 import Content from './Content';
 
 export default class extends React.Component {
-    static displayName = 'WordBankEntry';
+	static displayName = 'WordBankEntry';
 
-    static contextTypes = {
+	static contextTypes = {
 		QuestionUniqueDNDToken: PropTypes.object.isRequired
 	};
 
-    static propTypes = {
+	static propTypes = {
 		entry: PropTypes.object.isRequired,
 		className: PropTypes.string,
 
@@ -20,12 +20,12 @@ export default class extends React.Component {
 		onReset: PropTypes.func
 	};
 
-    static defaultProps = {
-        onReset: () => {},
-        className: ''
-    };
+	static defaultProps = {
+		onReset: () => {},
+		className: ''
+	};
 
-    onResetClicked = (e) => {
+	onResetClicked = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -36,7 +36,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 		let {content, wid} = this.props.entry;
 		let props = Object.assign({}, this.props, {entry: undefined});
 		let {locked} = props;

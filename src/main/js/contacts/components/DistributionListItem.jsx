@@ -9,19 +9,19 @@ import DisplayName from 'common/components/DisplayName';
 import ListMeta from './ListMeta';
 
 export default class extends React.Component {
-    static displayName = 'DistributionListItem';
+	static displayName = 'DistributionListItem';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired,
 		onRightClick: PropTypes.func
 	};
 
-    onRightClick = (e) => {
+	onRightClick = (e) => {
 		const {item, onRightClick} = this.props;
 		onRightClick && onRightClick(item, e);
 	};
 
-    render() {
+	render () {
 
 		const {item} = this.props;
 

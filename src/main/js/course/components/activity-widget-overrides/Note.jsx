@@ -14,17 +14,17 @@ import AddComment from './AddComment';
 const PREFIX = ['Lessons'];
 
 export default class extends React.Component {
-    static displayName = 'course:activity:Note';
+	static displayName = 'course:activity:Note';
 
-    static handles(item) {
-        return /note$/i.test(item.MimeType);
-    }
+	static handles (item) {
+		return /note$/i.test(item.MimeType);
+	}
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired
 	};
 
-    render() {
+	render () {
 		const {props: {item}} = this;
 		return (
 			<div className="course-note-activity">

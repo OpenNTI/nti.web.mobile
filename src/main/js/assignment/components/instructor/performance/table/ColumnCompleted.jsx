@@ -5,20 +5,20 @@ import cx from 'classnames';
 import {DateTime} from 'nti-web-commons';
 
 export default class extends React.Component {
-    static displayName = 'performance:ColumnCompleted';
+	static displayName = 'performance:ColumnCompleted';
 
-    static label() {
-        return 'Completed';
-    }
+	static label () {
+		return 'Completed';
+	}
 
-    static className = 'col-completed';
-    static sort = 'completed';
+	static className = 'col-completed';
+	static sort = 'completed';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired
 	};
 
-    render() {
+	render () {
 		const {item} = this.props;
 		const completedTime = item && item.completed;
 		const classes = cx({

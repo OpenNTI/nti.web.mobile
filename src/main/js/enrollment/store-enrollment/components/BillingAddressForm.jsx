@@ -11,29 +11,29 @@ const t2 = scoped('ENROLLMENT');
 const FIELDS = ['line1', 'line2', 'city', 'state', 'country', 'zip'];
 
 export default class extends React.Component {
-    static displayName = 'BillingAddressForm';
+	static displayName = 'BillingAddressForm';
 
-    static propTypes = {
+	static propTypes = {
 		className: PropTypes.string,
 		required: PropTypes.object,
 		defaultValues: PropTypes.object,
 		onChange: PropTypes.func
 	};
 
-    static defaultProps = {
-        defaultValues: {},
-        required: {line1: true, country: true}
-    };
+	static defaultProps = {
+		defaultValues: {},
+		required: {line1: true, country: true}
+	};
 
-    state = {
-        errors: {}
-    };
+	state = {
+		errors: {}
+	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.elements = {};
 	}
 
-    getValue = () => {
+	getValue = () => {
 		const getValue = x => x && x.value && x.value.trim();
 		const values = {};
 
@@ -45,7 +45,7 @@ export default class extends React.Component {
 		return values;
 	};
 
-    validate = () => {
+	validate = () => {
 		const errors = {};
 		const {props: {required}, elements} = this;
 		for (let field of Object.keys(required)) {
@@ -62,7 +62,7 @@ export default class extends React.Component {
 		return !hasErrors;
 	};
 
-    delegateError = (err) => {
+	delegateError = (err) => {
 		for (let key of Object.keys(err)) {
 			if (FIELDS.includes(key.replace(/^address_/i, ''))) {
 				this.setState({errors: {[key]: err[key]}});
@@ -71,7 +71,7 @@ export default class extends React.Component {
 		}
 	};
 
-    onChange = (e) => {
+	onChange = (e) => {
 		this.onFieldEventClearError(e);
 		let {onChange} = this.props;
 		if (onChange) {
@@ -79,7 +79,7 @@ export default class extends React.Component {
 		}
 	};
 
-    onFieldEventClearError = (e) => {
+	onFieldEventClearError = (e) => {
 		let {name} = e.target;
 		let {errors} = this.state;
 
@@ -92,7 +92,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 		const {props: {className, defaultValues, required}, state: {errors = {}}} = this;
 
 		return (

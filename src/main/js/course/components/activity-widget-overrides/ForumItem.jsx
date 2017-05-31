@@ -21,18 +21,18 @@ import AddComment from './AddComment';
 const PREFIX = [];
 
 export default class extends React.Component {
-    static displayName = 'ForumItem';
+	static displayName = 'ForumItem';
 
-    static handles(item) {
-        const {MimeType = ''} = item;
-        return /topic$/i.test(MimeType);
-    }
+	static handles (item) {
+		const {MimeType = ''} = item;
+		return /topic$/i.test(MimeType);
+	}
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.any.isRequired
 	};
 
-    render() {
+	render () {
 		const {props: {item}} = this;
 
 		return (

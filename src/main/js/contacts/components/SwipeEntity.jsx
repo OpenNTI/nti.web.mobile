@@ -9,27 +9,27 @@ import cx from 'classnames';
 
 
 export default class extends React.Component {
-    static displayName = 'SwipeEntity';
+	static displayName = 'SwipeEntity';
 
-    static propTypes = {
+	static propTypes = {
 		entity: PropTypes.object.isRequired,
 		onChange: PropTypes.func,
 		selection: PropTypes.object.isRequired
 	};
 
-    association = (entity) => {
+	association = (entity) => {
 		let {generalName, displayName, displayType} = entity;
 		let type = generalName ? displayName : entity.isUser ? null : displayType;
 
 		return type; // || entity.association;
 	};
 
-    onChange = () => {
+	onChange = () => {
 		let {entity} = this.props;
 		this.props.onChange(entity);
 	};
 
-    render() {
+	render () {
 
 		let {entity, selection} = this.props;
 		let selected = selection.isSelected(entity);

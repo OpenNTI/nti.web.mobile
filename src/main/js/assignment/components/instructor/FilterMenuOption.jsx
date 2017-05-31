@@ -2,20 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'FilterMenuOption';
+	static displayName = 'FilterMenuOption';
 
-    static propTypes = {
+	static propTypes = {
 		onClick: PropTypes.func,
 		option: PropTypes.any,
 		className: PropTypes.any
 	};
 
-    onClick = () => {
+	onClick = () => {
 		const {onClick, option} = this.props;
 		onClick && onClick(option);
 	};
 
-    render() {
+	render () {
 
 		const {option, className} = this.props;
 

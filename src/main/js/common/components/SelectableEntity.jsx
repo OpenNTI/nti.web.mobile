@@ -7,9 +7,9 @@ import {Loading} from 'nti-web-commons';
 import ProfileLink from 'profile/components/ProfileLink';
 
 export default class extends React.Component {
-    static displayName = 'SelectableEntity';
+	static displayName = 'SelectableEntity';
 
-    static propTypes = {
+	static propTypes = {
 		entity: PropTypes.object.isRequired,
 		selected: PropTypes.bool,
 		tag: PropTypes.string,
@@ -20,16 +20,16 @@ export default class extends React.Component {
 		linkToProfile: PropTypes.any
 	};
 
-    static defaultProps = {
-        tag: 'li',
-        removable: false
-    };
+	static defaultProps = {
+		tag: 'li',
+		removable: false
+	};
 
-    state = {
-        busy: false
-    };
+	state = {
+		busy: false
+	};
 
-    onClick = () => {
+	onClick = () => {
 		this.setState({ busy: true });
 
 		const {onChange, entity} = this.props;
@@ -39,19 +39,19 @@ export default class extends React.Component {
 			.then(() => this.setState({ busy: false }));
 	};
 
-    label = (selected) => {
+	label = (selected) => {
 		let {labels = {}} = this.props;
 		return selected ? labels.selected : labels.unselected;
 	};
 
-    association = (entity) => {
+	association = (entity) => {
 		let {generalName, displayName, displayType} = entity;
 		let type = generalName ? displayName : entity.isUser ? null : displayType;
 
 		return type; // || entity.association;
 	};
 
-    render() {
+	render () {
 		const {props: {children, entity, selected, tag, removable, labels, linkToProfile, ...props}, state: {busy}} = this;
 
 		let profileLinks = linkToProfile !== undefined;

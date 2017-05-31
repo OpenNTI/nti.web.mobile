@@ -3,9 +3,9 @@ import React from 'react';
 import cx from 'classnames';
 
 export default class extends React.Component {
-    static displayName = 'FormPanel';
+	static displayName = 'FormPanel';
 
-    static propTypes = {
+	static propTypes = {
 		busy: PropTypes.bool,
 		noValidate: PropTypes.bool,
 		onSubmit: PropTypes.func,
@@ -17,13 +17,13 @@ export default class extends React.Component {
 		className: PropTypes.string
 	};
 
-    static defaultProps = {
-        noValidate: true,
-        subhead: null,
-        title: null
-    };
+	static defaultProps = {
+		noValidate: true,
+		subhead: null,
+		title: null
+	};
 
-    render() {
+	render () {
 		const {props: {children, className, busy, onSubmit, noValidate, title, subhead}} = this;
 		const cssClasses = cx('form-panel', className, { busy });
 

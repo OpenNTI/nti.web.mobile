@@ -3,13 +3,13 @@ import React from 'react';
 import t from 'nti-lib-locale';
 
 export default class extends React.Component {
-    static displayName = 'ContentWidgetUnknown';
+	static displayName = 'ContentWidgetUnknown';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object
 	};
 
-    componentDidMount() {
+	componentDidMount () {
 		if (typeof document === 'undefined') { return; }
 
 		let {type} = this.props.item;
@@ -21,7 +21,7 @@ export default class extends React.Component {
 		}
 	}
 
-    render() {
+	render () {
 		return (
 			<error className="unsupported-content" ref={el => this.el = el}>
 				<span>{t('COMING_SOON.singular', {subject: 'This content'})}</span>

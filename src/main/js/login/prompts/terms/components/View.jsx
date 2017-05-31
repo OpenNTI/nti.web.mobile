@@ -10,14 +10,14 @@ import UserAgreement from './UserAgreement';
 const logger = Logger.get('terms:components:View');
 
 export default class extends React.Component {
-    static displayName = 'TermsOfServiceAcceptence';
-    state = {};
+	static displayName = 'TermsOfServiceAcceptence';
+	state = {};
 
-    onCheckChanged = (e) => {
+	onCheckChanged = (e) => {
 		this.setState({agree: e.target.checked});
 	};
 
-    acceptTermsOfService = () => {
+	acceptTermsOfService = () => {
 		if (!this.state.agree) { return; }
 
 		this.setState({busy: true});
@@ -28,7 +28,7 @@ export default class extends React.Component {
 			.then(()=> location.replace(getReturnURL()));
 	};
 
-    render() {
+	render () {
 		let {state: {agree}} = this;
 
 		let disabled = !agree;

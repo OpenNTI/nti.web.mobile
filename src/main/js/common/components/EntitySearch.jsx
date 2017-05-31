@@ -13,9 +13,9 @@ import {Selection} from 'nti-commons';
 import EntitySearchResultItem from './EntitySearchResultItem';
 
 export default class extends React.Component {
-    static displayName = 'UserSearch';
+	static displayName = 'UserSearch';
 
-    static propTypes = {
+	static propTypes = {
 		allowAny: PropTypes.bool,
 		allowContacts: PropTypes.bool,
 
@@ -28,16 +28,16 @@ export default class extends React.Component {
 		pageSize: PropTypes.number
 	};
 
-    state = {
-        page: 1
-    };
+	state = {
+		page: 1
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		const {props: {query}} = this;
 		this.search(query);
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		const {props: {query}} = this;
 		const {query: newQuery} = nextProps;
 
@@ -46,7 +46,7 @@ export default class extends React.Component {
 		}
 	}
 
-    search = (query) => {
+	search = (query) => {
 		const {props: {allowAny, allowContacts}} = this;
 		const stillValid = () => query === this.props.query;
 
@@ -66,12 +66,12 @@ export default class extends React.Component {
 
 	};
 
-    onSelectionChange = (entity) => {
+	onSelectionChange = (entity) => {
 		let {props: {onChange = ()=> {}}} = this;
 		return Promise.resolve(onChange(entity));
 	};
 
-    showMore = (e) => {
+	showMore = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -82,7 +82,7 @@ export default class extends React.Component {
 		this.setState({page});
 	};
 
-    render() {
+	render () {
 		let {props: {selection, pageSize = 10}, state: {results, error, page}} = this;
 
 		const limit = (_, i) => i < (page * pageSize);

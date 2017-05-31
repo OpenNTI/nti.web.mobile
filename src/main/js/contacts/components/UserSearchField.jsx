@@ -12,9 +12,9 @@ function listContainsEntity (list, entity) {
 
 
 export default class extends React.Component {
-    static displayName = 'UserSearchField';
+	static displayName = 'UserSearchField';
 
-    static propTypes = {
+	static propTypes = {
 		onChange: PropTypes.func,
 		selected: PropTypes.array,
 		onSave: PropTypes.func.isRequired,
@@ -25,30 +25,30 @@ export default class extends React.Component {
 		saveDisabled: PropTypes.bool
 	};
 
-    static defaultProps = {
-        selected: [],
-        saveButtonText: 'Add Selected',
-        placeholder: 'Search'
-    };
+	static defaultProps = {
+		selected: [],
+		saveButtonText: 'Add Selected',
+		placeholder: 'Search'
+	};
 
-    state = {
-        search: '',
-        selectedUsers: [],
-        searchResults: [],
-        contactsResults: [],
-        suggestedContacts: []
-    };
+	state = {
+		search: '',
+		selectedUsers: [],
+		searchResults: [],
+		contactsResults: [],
+		suggestedContacts: []
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.setUpStore();
 		this.getSuggestedContacts();
 	}
 
-    componentWillReceiveProps() {
+	componentWillReceiveProps () {
 		this.setUpStore();
 	}
 
-    componentWillUpdate(_, nextState) {
+	componentWillUpdate (_, nextState) {
 		let {store} = this.state;
 		let nextStore = nextState.store;
 
@@ -61,32 +61,32 @@ export default class extends React.Component {
 		}
 	}
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		let {store} = this.state;
 		if (store) {
 			store.removeListener('change', this.onStoreChange);
 		}
 	}
 
-    onStoreChange = () => {
+	onStoreChange = () => {
 		this.forceUpdate();
 	};
 
-    setUpStore = () => {
+	setUpStore = () => {
 		getStore(USERS)
 			.then(store => this.setState({store}));
 	};
 
-    getSuggestedContacts = () => {
+	getSuggestedContacts = () => {
 		getSuggestedContacts()
 			.then(results => this.setState({suggestedContacts: results || []}));
 	};
 
-    focus = () => {
+	focus = () => {
 		this.query.focus();
 	};
 
-    selectionChange = (user) => {
+	selectionChange = (user) => {
 		const {props: {onChange}, state: {selectedUsers}} = this;
 
 		const userId = user.getID();
@@ -107,11 +107,11 @@ export default class extends React.Component {
 		}
 	};
 
-    getSelections = () => {
+	getSelections = () => {
 		return this.state.selectedUsers.slice();
 	};
 
-    onKeyDown = (e) => {
+	onKeyDown = (e) => {
 		// on backspace in an empty field remove the last selected user
 		if (e.target.value === '' && (e.keyCode === 8 || e.keyCode === 46)) {
 			let selectedUsers = this.getSelections();
@@ -121,7 +121,7 @@ export default class extends React.Component {
 		}
 	};
 
-    queryChanged = (event) => {
+	queryChanged = (event) => {
 		let query = event ? event.target.value : '';
 		let {store} = this.state;
 
@@ -168,7 +168,7 @@ export default class extends React.Component {
 		}
 	};
 
-    renderResults = (heading, results, classes) => {
+	renderResults = (heading, results, classes) => {
 		const classnames = cx('contact-list search-results', classes);
 		const {props: {selected}, state: {selectedUsers, search}} = this;
 
@@ -181,12 +181,12 @@ export default class extends React.Component {
 				<ul className={classnames}>
 					{filtered.length > 0 ?
 						filtered.map(entity =>
-							<SelectableEntity
+							(<SelectableEntity
 								key={'selectable-' + entity.getID()}
 								entity={entity}
 								selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(selected, entity)}
 								onChange={this.selectionChange}
-							/>)
+							/>))
 						: <li className="no-results">{search.length > 2 ? 'No results' : 'Search too broad'}</li>
 					}
 				</ul>
@@ -194,7 +194,7 @@ export default class extends React.Component {
 		);
 	};
 
-    results = () => {
+	results = () => {
 		let {searchResults, contactsResults, suggestedContacts, searchLoading, search} = this.state;
 		let children = [];
 		if (searchLoading) {
@@ -218,7 +218,7 @@ export default class extends React.Component {
 		);
 	};
 
-    render() {
+	render () {
 		const {props, state: {selectedUsers = []}} = this;
 		const {onCancel, onSave, placeholder, saveButtonText, saveDisabled} = props;
 

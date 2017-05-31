@@ -10,22 +10,22 @@ const OPTIONS = [
 ];
 
 export default class extends React.Component {
-    static displayName = 'ItemCategorySelect';
+	static displayName = 'ItemCategorySelect';
 
-    static propTypes = {
+	static propTypes = {
 		value: PropTypes.any,
 		onChange: PropTypes.func.isRequired
 	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.setState({filter: this.props.value || 'all'});
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.setState({filter: nextProps.value || 'all'});
 	}
 
-    render() {
+	render () {
 
 		let {filter} = this.state;
 

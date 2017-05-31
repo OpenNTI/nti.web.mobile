@@ -20,15 +20,15 @@ const UserModel = getModel('user');
 const logger = Logger.get('profile:components:View');
 
 export default class extends React.Component {
-    static displayName = 'profile:View';
+	static displayName = 'profile:View';
 
-    static propTypes = {
+	static propTypes = {
 		entityId: PropTypes.string.isRequired
 	};
 
-    state = {};
+	state = {};
 
-    updateEntity = (props = this.props) => {
+	updateEntity = (props = this.props) => {
 		this.setState({entity: null}, () =>
 			User.resolve(props, true)
 				.catch(()=> false)
@@ -38,17 +38,17 @@ export default class extends React.Component {
 				}));
 	};
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.entityId !== this.props.entityId) {
 			this.updateEntity(nextProps);
 		}
 	}
 
-    componentDidMount() {
+	componentDidMount () {
 		this.updateEntity();
 	}
 
-    render() {
+	render () {
 		let {entity} = this.state;
 
 

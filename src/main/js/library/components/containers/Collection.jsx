@@ -6,9 +6,9 @@ import getItem from '../items';
 const isEmpty = s => s == null || s === '';
 
 export default class extends React.Component {
-    static displayName = 'Library:Collection';
+	static displayName = 'Library:Collection';
 
-    static propTypes = {
+	static propTypes = {
 		list: PropTypes.array,
 
 		title: PropTypes.string,
@@ -17,7 +17,7 @@ export default class extends React.Component {
 		children: PropTypes.any
 	};
 
-    render() {
+	render () {
 		const {props: {children, list, title, subtitle}} = this;
 
 		let titleRow = isEmpty(title) ? null : ( <h5>{title}<label>{subtitle}</label></h5> );

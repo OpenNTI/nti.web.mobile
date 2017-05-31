@@ -8,28 +8,28 @@ import Button from 'forms/components/Button';
 import {dropCourse} from '../../Actions';
 
 export default class extends React.Component {
-    static displayName = 'DropOpen';
+	static displayName = 'DropOpen';
 
-    static propTypes = {
+	static propTypes = {
 		courseId: PropTypes.string.isRequired,
 		courseTitle: PropTypes.string.isRequired
 	};
 
-    state = {
-        loading: false
-    };
+	state = {
+		loading: false
+	};
 
-    onCancel = () => {
+	onCancel = () => {
 		history.back();
 	};
 
-    onConfirm = () => {
+	onConfirm = () => {
 		this.setState({ loading: true });
 
 		dropCourse(this.props.courseId);
 	};
 
-    render() {
+	render () {
 
 		if(this.state.loading) {
 			return <Loading.Mask />;

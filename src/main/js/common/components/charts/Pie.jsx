@@ -2,31 +2,31 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'Pie';
+	static displayName = 'Pie';
 
-    static propTypes = {
+	static propTypes = {
 		title: PropTypes.string,
 		colors: PropTypes.arrayOf(PropTypes.string),
 		pixelDensity: PropTypes.number,
 		series: PropTypes.arrayOf(PropTypes.object)
 	};
 
-    static defaultProps = {
-        title: '',
-        colors: ['#40b450', /*'#b8b8b8',*/ '#3fb3f6', '#F35252'],
-        pixelDensity: (global.devicePixelRatio || 1) * 2,
-        series: [
+	static defaultProps = {
+		title: '',
+		colors: ['#40b450', /*'#b8b8b8',*/ '#3fb3f6', '#F35252'],
+		pixelDensity: (global.devicePixelRatio || 1) * 2,
+		series: [
             {value: 12, label: 'foo'},
             {value: 30, label: 'bar'},
             {value: 23, label: 'baz'}
-        ]
-    };
+		]
+	};
 
-    getCanvas = () => {
+	getCanvas = () => {
 		return this.canvas;
 	};
 
-    componentDidMount() {
+	componentDidMount () {
 		let canvas = this.getCanvas();
 		let context = canvas.getContext('2d');
 
@@ -35,16 +35,16 @@ export default class extends React.Component {
 		this.paint(context);
 	}
 
-    componentDidUpdate() {
+	componentDidUpdate () {
 		let context = this.getCanvas().getContext('2d');
 		this.paint(context);
 	}
 
-    getTotal = () => {
+	getTotal = () => {
 		return this.props.series.reduce((sum, i) => sum + i.value, 0);
 	};
 
-    render() {
+	render () {
 		let p = this.props;
 		let colors = p.colors;
 		let data = p.series;
@@ -77,7 +77,7 @@ export default class extends React.Component {
 		);
 	}
 
-    paint = (ctx) => {
+	paint = (ctx) => {
 		let centerX = ctx.canvas.width / 2,
 			centerY = ctx.canvas.height / 2 - 10,
 			len = this.props.series.length, i = 0;
@@ -105,7 +105,7 @@ export default class extends React.Component {
 		}
 	};
 
-    drawSegment = (ctx, i) => {
+	drawSegment = (ctx, i) => {
 		let radius = Math.floor(ctx.canvas.width / 4),
 			series = this.props.series[i].value,
 			total = this.getTotal(),

@@ -6,36 +6,36 @@ import MenuTransitionGroup from './MenuTransitionGroup';
 import PageControlsMenuOption from './PageControlsMenuOption';
 
 export default class extends React.Component {
-    static displayName = 'PageControls';
+	static displayName = 'PageControls';
 
-    static propTypes = {
+	static propTypes = {
 		currentPage: PropTypes.number.isRequired,
 		pageSize: PropTypes.number.isRequired,
 		total: PropTypes.number.isRequired,
 		onChange: PropTypes.func
 	};
 
-    static defaultProps = {
-        onChange () {}
-    };
+	static defaultProps = {
+		onChange () {}
+	};
 
-    state = {
-        open: false
-    };
+	state = {
+		open: false
+	};
 
-    toggleMenu = () => {
+	toggleMenu = () => {
 		this.setState({
 			open: !this.state.open
 		});
 	};
 
-    setPage = (pageNum) => {
+	setPage = (pageNum) => {
 		if (pageNum !== this.props.currentPage) {
 			this.props.onChange(pageNum);
 		}
 	};
 
-    render() {
+	render () {
 
 		const {currentPage, pageSize, total} = this.props;
 		const {open} = this.state;

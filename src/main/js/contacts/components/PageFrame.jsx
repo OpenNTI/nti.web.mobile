@@ -3,13 +3,13 @@ import React from 'react';
 import Page from 'common/components/Page';
 
 export default class extends React.Component {
-    static displayName = 'Contacts:PageFrame';
+	static displayName = 'Contacts:PageFrame';
 
-    static propTypes = {
+	static propTypes = {
 		pageContent: PropTypes.any
 	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.setState({menu: [
 			{label: 'Contacts', href: '/'},
 			{label: 'Groups', href: '/groups/'},
@@ -17,7 +17,7 @@ export default class extends React.Component {
 		]});
 	}
 
-    render() {
+	render () {
 		const {props: {pageContent: Content}, state: {menu}} = this;
 
 

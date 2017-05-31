@@ -8,20 +8,20 @@ import {rawContent} from 'nti-commons';
 let t = scoped('ENROLLMENT');
 
 export default class extends React.Component {
-    static displayName = 'TermsCheckbox';
+	static displayName = 'TermsCheckbox';
 
-    static propTypes = {
+	static propTypes = {
 		onChange: PropTypes.func
 	};
 
-    onChange = () => {
+	onChange = () => {
 		if(this.props.onChange) {
 			const checked = this.checkbox.checked;
 			this.props.onChange(checked);
 		}
 	};
 
-    render() {
+	render () {
 		const url = getUserAgreementURI();
 		if (!url) {
 			return null;

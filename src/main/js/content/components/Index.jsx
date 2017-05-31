@@ -46,9 +46,9 @@ export default createReactClass({
 
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
-				<Router.Location key={route.path} {...route}
+				(<Router.Location key={route.path} {...route}
 					contentPackage={contentPackage}
-					/>
+					/>)
 			));
 	}
 });

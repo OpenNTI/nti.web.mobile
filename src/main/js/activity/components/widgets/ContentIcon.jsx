@@ -41,19 +41,19 @@ function getThumbnail (item) {
 
 
 export default class extends React.Component {
-    static displayName = 'ContentIcon';
+	static displayName = 'ContentIcon';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired
 	};
 
-    state = {};
+	state = {};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.load();
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		let {item} = this.props;
 		let {item: nextItem} = nextProps;
 		if(getID(item) !== getID(nextItem)) {
@@ -61,7 +61,7 @@ export default class extends React.Component {
 		}
 	}
 
-    load = (props = this.props) => {
+	load = (props = this.props) => {
 		let {item} = props;
 		if (item) {
 			getThumbnail(item)
@@ -73,7 +73,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 		let {src} = this.state;
 
 		return !src ? null : (

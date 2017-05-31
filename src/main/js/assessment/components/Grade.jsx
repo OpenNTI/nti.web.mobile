@@ -2,25 +2,25 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'Grade';
+	static displayName = 'Grade';
 
-    static propTypes = {
+	static propTypes = {
 		value: PropTypes.any.isRequired
 	};
 
-    state = {
-        grade: ''
-    };
+	state = {
+		grade: ''
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.parseGrade(this.props.value);
 	}
 
-    componentWillReceiveProps(props) {
+	componentWillReceiveProps (props) {
 		this.parseGrade(props.value);
 	}
 
-    parseGrade = (grade) => {
+	parseGrade = (grade) => {
 		let n;
 		if (typeof grade === 'number') {
 			n = grade.toFixed(1);
@@ -38,7 +38,7 @@ export default class extends React.Component {
 
 	};
 
-    render() {
+	render () {
 		let {grade} = this.state;
 		return (
 			<div className="grade">{grade}</div>

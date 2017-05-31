@@ -1,34 +1,32 @@
-import PropTypes from 'prop-types';
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
-
 import React from 'react';
-import {edit} from '../Actions';
+import PropTypes from 'prop-types';
 import {scoped} from 'nti-lib-locale';
+
+import {edit} from '../Actions';
+
 let t = scoped('ENROLLMENT.CONFIRMATION');
 
-const rowIfNotEmpty = 'BillingInfo:rowIfNotEmpty';
+export default class BillingInfo extends React.Component {
 
-export default class extends React.Component {
-    static displayName = 'BillingInfo';
-
-    static propTypes = {
+	static propTypes = {
 		edit: PropTypes.any,
 		card: PropTypes.object
 	};
 
-    rowIfNotEmpty = (value) => {
+	rowIfNotEmpty = (value) => {
 		return (value || '').trim().length > 0 ? <div>{value}</div> : null;
 	};
 
-    onEdit = (e) => {
+	onEdit = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		edit(this.props.edit);
 	};
 
-    render() {
+	render () {
 		let card = this.props.card,
 			city = card.address_city ? card.address_city + ',' : '';
 

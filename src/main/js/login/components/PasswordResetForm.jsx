@@ -11,16 +11,16 @@ import {scoped} from 'nti-lib-locale';
 const t = scoped('LOGIN.forgot');
 
 export default class extends React.Component {
-    static displayName = 'PasswordResetForm';
+	static displayName = 'PasswordResetForm';
 
-    static propTypes = {
+	static propTypes = {
 		username: PropTypes.string,
 		token: PropTypes.string
 	};
 
-    state = {};
+	state = {};
 
-    onInput = () => {
+	onInput = () => {
 		let {valid} = this.state;
 		let fields = this.getFieldValues();
 		let submitEnabled = Object.values(fields).every(x => x && x.trim().length > 0);
@@ -33,7 +33,7 @@ export default class extends React.Component {
 		this.setState({submitEnabled, valid});
 	};
 
-    getFieldValues = () => {
+	getFieldValues = () => {
 		let {password, password2} = (this.form || {}).elements || {};
 
 		let fields = {password, password2};
@@ -45,7 +45,7 @@ export default class extends React.Component {
 		return fields;
 	};
 
-    handleSubmit = (e) => {
+	handleSubmit = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -70,7 +70,7 @@ export default class extends React.Component {
 		});
 	};
 
-    render() {
+	render () {
 		const {busy, submitEnabled, success, error, valid = true} = this.state;
 
 		return (

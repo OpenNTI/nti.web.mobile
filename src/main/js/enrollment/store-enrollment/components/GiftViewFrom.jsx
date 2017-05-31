@@ -10,19 +10,19 @@ let t = scoped('ENROLLMENT.forms.storeenrollment');
 let t2 = scoped('ENROLLMENT');
 
 export default class extends React.Component {
-    static displayName = 'GiftFrom';
+	static displayName = 'GiftFrom';
 
-    static propTypes = {
+	static propTypes = {
 		className: PropTypes.string,
 		defaultValues: PropTypes.object,
 		onChange: PropTypes.func
 	};
 
-    state = {
-        errors: {}
-    };
+	state = {
+		errors: {}
+	};
 
-    getValue = () => {
+	getValue = () => {
 		const getValue = x => x && x.value && x.value.trim();
 		const values = {};
 
@@ -32,7 +32,7 @@ export default class extends React.Component {
 		return values;
 	};
 
-    validate = () => {
+	validate = () => {
 		const errors = {};
 		const {from} = this;
 
@@ -54,7 +54,7 @@ export default class extends React.Component {
 		return !hasErrors;
 	};
 
-    onChange = (e) => {
+	onChange = (e) => {
 		this.onFieldEventClearError(e);
 		let {onChange} = this.props;
 		if (onChange) {
@@ -62,7 +62,7 @@ export default class extends React.Component {
 		}
 	};
 
-    onFieldEventClearError = (e) => {
+	onFieldEventClearError = (e) => {
 		let {name} = e.target;
 		let {errors} = this.state;
 
@@ -75,7 +75,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 		const {state: {errors}, props: {className, defaultValues}} = this;
 		return (
 			<fieldset className={cx('gift-from', className)}>

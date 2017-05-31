@@ -6,14 +6,14 @@ import WordEntry from './WordBankEntry';
 import Store from '../Store';
 
 export default class extends React.Component {
-    static displayName = 'WordBank';
+	static displayName = 'WordBank';
 
-    static propTypes = {
+	static propTypes = {
 		record: PropTypes.object.isRequired,
 		disabled: PropTypes.bool
 	};
 
-    render() {
+	render () {
 		let {record, disabled} = this.props;
 		if (!record) {
 			return null;
@@ -40,7 +40,7 @@ export default class extends React.Component {
 		);
 	}
 
-    getEntryState = (entry) => {
+	getEntryState = (entry) => {
 		let {record} = this.props;
 		if (!record.unique) {
 			return {};

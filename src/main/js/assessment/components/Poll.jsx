@@ -1,17 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
+import createReactClass from 'create-react-class';
 import {SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
-
 import {StoreEventsMixin} from 'nti-lib-store';
+
+import Store from '../Store';
+import {toggleAggregatedView} from '../Actions';
 
 import Question from './Question';
 import Aggregated from './aggregated/Aggregated';
 
-import Store from '../Store';
-import {toggleAggregatedView} from '../Actions';
 
 export default createReactClass({
 	displayName: 'Poll',
@@ -60,7 +59,11 @@ export default createReactClass({
 				{showLinks && (
 					<div className={cx('links', {'showing-results': showAggregation, 'individual': question.individual})}>
 						{question.hasAggregationData && ( <a href="#" onClick={this.toggleAggregatedView}>{results}</a> )}
-						{showReport && ( <a href={report} target="_blank"><span className="icon-report"/>View Report</a> )}
+						{showReport && (
+							<a href={report} target="_blank" rel="noopener noreferrer">
+								<span className="icon-report"/>View Report
+							</a>
+						)}
 					</div>
 				)}
 			</div>

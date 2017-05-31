@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
-import React from 'react';
 import EventEmitter from 'events';
+
+import PropTypes from 'prop-types';
 
 function emit (o, event, ...data) {
 	let e = o.state.dndEventEmitter;

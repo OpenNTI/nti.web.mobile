@@ -32,9 +32,9 @@ function isRequired (schema, prop) {
 }
 
 export default class extends React.Component {
-    static displayName = 'BasicInfo';
+	static displayName = 'BasicInfo';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object,
 
 		schema: PropTypes.object,
@@ -42,17 +42,17 @@ export default class extends React.Component {
 		error: PropTypes.object
 	};
 
-    state = {errors: {}};
-    attachAboutRef = (x) => { this.about = x; };
-    componentWillMount() { this.setup(); }
+	state = {errors: {}};
+	attachAboutRef = (x) => { this.about = x; };
+	componentWillMount () { this.setup(); }
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (this.props.item !== nextProps.item) {
 			this.setup(nextProps);
 		}
 	}
 
-    setup = (props = this.props) => {
+	setup = (props = this.props) => {
 		let {item} = props;
 		let state = {};
 
@@ -63,7 +63,7 @@ export default class extends React.Component {
 		this.setState(state);
 	};
 
-    onChange = (e) => {
+	onChange = (e) => {
 		let {name, value} = e.target;
 
 		value = Editor.isEmpty(value) ? null : value;
@@ -71,7 +71,7 @@ export default class extends React.Component {
 		this.setState({[name]: value});
 	};
 
-    validate = () => {
+	validate = () => {
 		const {schema} = this.props;
 		const errors = {};
 		for(let name of TEXT_FIELDS) {
@@ -84,7 +84,7 @@ export default class extends React.Component {
 		return Object.keys(errors).length === 0;
 	};
 
-    render() {
+	render () {
 		const {state, props: {schema, error}} = this;
 
 		return (
@@ -126,7 +126,7 @@ export default class extends React.Component {
 		);
 	}
 
-    getValue = () => {
+	getValue = () => {
 		const valueOrNull = x => !x || !x.length ? null : x;
 		return {
 			...this.state,

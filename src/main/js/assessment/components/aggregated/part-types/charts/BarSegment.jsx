@@ -4,9 +4,9 @@ import cx from 'classnames';
 import {rawContent} from 'nti-commons';
 
 export default class extends React.Component {
-    static displayName = 'BarSegment';
+	static displayName = 'BarSegment';
 
-    static propTypes = {
+	static propTypes = {
 		colors: PropTypes.object,
 		label: PropTypes.string,
 		count: PropTypes.number,
@@ -14,15 +14,15 @@ export default class extends React.Component {
 		total: PropTypes.number
 	};
 
-    isTipVisible = () => {
+	isTipVisible = () => {
 		return !!(this.state || {}).showTip;
 	};
 
-    toggleTip = () => {
+	toggleTip = () => {
 		this.setState({ showTip: !this.isTipVisible() });
 	};
 
-    render() {
+	render () {
 		const {props: {colors, label, count, percent}} = this;
 
 		const css = {
@@ -42,7 +42,7 @@ export default class extends React.Component {
 		);
 	}
 
-    renderTooltip = () => {
+	renderTooltip = () => {
 		const {props: {label, count, percent, total}} = this;
 		if (!this.isTipVisible()) {
 			return null;

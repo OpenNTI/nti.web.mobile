@@ -13,13 +13,13 @@ import groupDeletedItems from '../utils/group-deleted-items';
 const t = scoped('FORUMS');
 
 export default class extends React.Component {
-    static displayName = 'forums:List';
+	static displayName = 'forums:List';
 
-    static defaultProps = {
-        groupDeleted: true
-    };
+	static defaultProps = {
+		groupDeleted: true
+	};
 
-    static propTypes = {
+	static propTypes = {
 		container: PropTypes.shape({
 			Items: PropTypes.array
 		}).isRequired,
@@ -35,11 +35,11 @@ export default class extends React.Component {
 		keyFn: PropTypes.func
 	};
 
-    keyFor = (item) => {
+	keyFor = (item) => {
 		return item.getID ? item.getID() : hash(item);
 	};
 
-    render() {
+	render () {
 		const {
 			container,
 			emptyText = t('emptyList'),

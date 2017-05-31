@@ -4,20 +4,20 @@ import React from 'react';
 import ActionsMenu from '../ActionsMenu';
 
 export default class extends React.Component {
-    static displayName = 'GradebookColumnActions';
+	static displayName = 'GradebookColumnActions';
 
-    static label() {
-        return '';
-    }
+	static label () {
+		return '';
+	}
 
-    static className = 'col-actions';
-    static sort = '';
+	static className = 'col-actions';
+	static sort = '';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired // UserGradeBookSummary object
 	};
 
-    render() {
+	render () {
 
 		const {item} = this.props;
 		if(!item.grade) {

@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'ScrollLink';
+	static displayName = 'ScrollLink';
 
-    static propTypes = {
+	static propTypes = {
 		componentId: PropTypes.string.isRequired,
 
 		children: PropTypes.any
 	};
 
-    onClick = (event) => {
+	onClick = (event) => {
 		event.preventDefault();
 		event.stopPropagation();
 		let node = document.getElementById(this.props.componentId);
@@ -24,7 +24,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 		return (
 			<a className="action-link scroll-link" onClick={this.onClick}>{this.props.children}</a>
 		);

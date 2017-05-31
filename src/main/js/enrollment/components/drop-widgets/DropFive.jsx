@@ -5,17 +5,17 @@ import {Notice} from 'nti-web-commons';
 import Button from 'forms/components/Button';
 
 export default class extends React.Component {
-    static displayName = 'DropFive';
+	static displayName = 'DropFive';
 
-    static propTypes = {
+	static propTypes = {
 		courseTitle: PropTypes.string.isRequired
 	};
 
-    onCancel = () => {
+	onCancel = () => {
 		history.back();
 	};
 
-    render() {
+	render () {
 		return (
 			<div>
 				<Notice>To drop {this.props.courseTitle} please contact support.</Notice>

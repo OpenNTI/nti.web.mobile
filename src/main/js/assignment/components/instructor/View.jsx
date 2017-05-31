@@ -35,18 +35,18 @@ const ROUTES = [
 ];
 
 export default class extends React.Component {
-    static displayName = 'Assignments:Instructor:View';
+	static displayName = 'Assignments:Instructor:View';
 
-    static childContextTypes = {
+	static childContextTypes = {
 		isInstructor: PropTypes.bool,
 		AssignmentListItem: PropTypes.func
 	};
 
-    getChildContext() {
+	getChildContext () {
 		return {isInstructor: true, AssignmentListItem};
 	}
 
-    render() {
+	render () {
 		return (
 			<div>
 				{

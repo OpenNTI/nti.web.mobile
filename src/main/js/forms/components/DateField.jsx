@@ -24,27 +24,27 @@ const MONTHS = [
 const daysInMonth = (month, year) => new Date(year, month, 0).getDate();
 
 export default class extends React.Component {
-    static displayName = 'DateField';
+	static displayName = 'DateField';
 
-    static propTypes = {
+	static propTypes = {
 		name: PropTypes.string,
 		onChange: PropTypes.func,
 		field: PropTypes.object,
 		defaultValue: PropTypes.string
 	};
 
-    state = {
-    };
+	state = {
+	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.setUp();
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.setUp(nextProps);
 	}
 
-    setUp = (props = this.props) => {
+	setUp = (props = this.props) => {
 		const {defaultValue} = props;
 		if (defaultValue) {
 			// (yyyy)-(mm)-(dd)
@@ -67,7 +67,7 @@ export default class extends React.Component {
 		}
 	};
 
-    setToToday = () => {
+	setToToday = () => {
 		const today = new Date();
 		this.setState({
 			year: today.getFullYear(),
@@ -76,7 +76,7 @@ export default class extends React.Component {
 		});
 	};
 
-    onSelectChange = (event) => {
+	onSelectChange = (event) => {
 		const {onChange, name} = this.props;
 
 		// ensure that we keep the 'day' in range for the currently selected month
@@ -97,7 +97,7 @@ export default class extends React.Component {
 		});
 	};
 
-    monthSelect = () => {
+	monthSelect = () => {
 		const {month} = this.state;
 		return (
 			<DateFieldSelect name="month" onChange={this.onSelectChange} className="date-field-month" value={month}>
@@ -107,7 +107,7 @@ export default class extends React.Component {
 		);
 	};
 
-    daySelect = () => {
+	daySelect = () => {
 
 		const {day, year, month} = this.state;
 
@@ -119,7 +119,7 @@ export default class extends React.Component {
 		);
 	};
 
-    yearSelect = () => {
+	yearSelect = () => {
 		const {year = ''} = this.state;
 		return (
 			<DateFieldSelect name="year" onChange={this.onSelectChange} className="date-field-year" value={year}>
@@ -129,13 +129,13 @@ export default class extends React.Component {
 		);
 	};
 
-    composeValue = () => {
+	composeValue = () => {
 		const {month, day, year} = this.state;
 		const isValid = (v) => v > 0;
 		return [month, day, year].every(isValid) ? `${year}-${zpad(month, 2)}-${zpad(day, 2)}` : '';
 	};
 
-    render() {
+	render () {
 		const {name, field} = this.props;
 		return (
 			<div className="date-field-wrapper">

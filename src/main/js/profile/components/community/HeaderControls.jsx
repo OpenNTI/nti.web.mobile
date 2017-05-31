@@ -17,13 +17,13 @@ function canJoin (entity) {
 }
 
 export default class extends React.Component {
-    static displayName = 'GroupControls';
+	static displayName = 'GroupControls';
 
-    static propTypes = {
+	static propTypes = {
 		entity: PropTypes.object
 	};
 
-    render() {
+	render () {
 		let {entity} = this.props;
 		let controls = [
 			hasOptions(entity) && this.renderOptions(entity),
@@ -34,7 +34,7 @@ export default class extends React.Component {
 		return React.createElement('ul', {className: 'profile-top-controls-buttons'}, ...controls.filter(x=>x));
 	}
 
-    renderOptions = () => {
+	renderOptions = () => {
 		return (
 			<li>
 				<a className="gear-button"/>
@@ -43,13 +43,13 @@ export default class extends React.Component {
 		);
 	};
 
-    renderLeaveButton = (entity) => {
+	renderLeaveButton = (entity) => {
 		return (
 			<li><LeaveButton entity={entity}/></li>
 		);
 	};
 
-    renderJoinButton = (entity) => {
+	renderJoinButton = (entity) => {
 		return (
 			<li><JoinButton entity={entity}/></li>
 		);

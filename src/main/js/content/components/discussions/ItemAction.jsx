@@ -15,9 +15,9 @@ const ICON_MAP = {
 const getIconClass = x => (x = ICON_MAP[x] || x, `icon-${x} small`);
 
 export default class extends React.Component {
-    static displayName = 'Action';
+	static displayName = 'Action';
 
-    static propTypes = {
+	static propTypes = {
 		onClick: PropTypes.oneOfType([
 			PropTypes.bool,
 			PropTypes.func
@@ -34,18 +34,18 @@ export default class extends React.Component {
 		iconOnly: PropTypes.bool
 	};
 
-    static defaultProps = {
-        onClick () {}
-    };
+	static defaultProps = {
+		onClick () {}
+	};
 
-    onClick = (e) => {
+	onClick = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		this.props.onClick();
 	};
 
-    render() {
+	render () {
 		let {criteria, inList} = this.props;
 
 		if (criteria === false) {
@@ -56,7 +56,7 @@ export default class extends React.Component {
 		return inList ? (<li>{button}</li>) : button;
 	}
 
-    renderButton = () => {
+	renderButton = () => {
 		let {className, name, iconOnly} = this.props;
 		let css = cx('discussion-item-action', name, className, {'icon-only': iconOnly});
 		return (

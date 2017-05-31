@@ -12,24 +12,24 @@ import {getAppUsername} from 'nti-web-client';
 import Editor from './FeedbackEditor';
 
 export default class extends React.Component {
-    static displayName = 'FeedbackListItem';
+	static displayName = 'FeedbackListItem';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object,
 		onDelete: PropTypes.func.isRequired,
 		onEdit: PropTypes.func.isRequired
 	};
 
-    static defaultProps = {
-        onDelete: () => {},
-        onEdit: () => {}
-    };
+	static defaultProps = {
+		onDelete: () => {},
+		onEdit: () => {}
+	};
 
-    state = {
-        editing: false
-    };
+	state = {
+		editing: false
+	};
 
-    render() {
+	render () {
 		let {item} = this.props;
 		let {editing} = this.state;
 		let createdBy = item.creator;
@@ -72,12 +72,12 @@ export default class extends React.Component {
 		);
 	}
 
-    onEdit = (value) => {
+	onEdit = (value) => {
 		return this.props.onEdit(this.props.item, value)
 			.then(()=>this.setState({editing: false}));
 	};
 
-    onToggleEditor = (e) => {
+	onToggleEditor = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -86,7 +86,7 @@ export default class extends React.Component {
 		this.setState({editing: !this.state.editing});
 	};
 
-    onDelete = (e) => {
+	onDelete = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		this.setState({deleting: true});

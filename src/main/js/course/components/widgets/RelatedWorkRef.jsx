@@ -31,18 +31,18 @@ import Card from 'common/components/Card';
 import t from 'nti-lib-locale';
 
 export default class extends React.Component {
-    static displayName = 'CourseOverviewRelatedWorkRef';
-    static mimeTest = /^application\/vnd\.nextthought\.relatedworkref/i;
+	static displayName = 'CourseOverviewRelatedWorkRef';
+	static mimeTest = /^application\/vnd\.nextthought\.relatedworkref/i;
 
-    static handles(item) {
-        return this.mimeTest.test(item.MimeType);
-    }
+	static handles (item) {
+		return this.mimeTest.test(item.MimeType);
+	}
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired
 	};
 
-    render() {
+	render () {
 		let {props} = this;
 		let {item} = props;
 		let commentCount = item[Summary];

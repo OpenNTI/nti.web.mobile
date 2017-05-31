@@ -11,18 +11,18 @@ import RecentReplies from './RecentReplies';
 import ContentIcon from './ContentIcon';
 
 export default class extends React.Component {
-    static displayName = 'Note';
+	static displayName = 'Note';
 
-    static handles(item) {
-        const {MimeType = ''} = item;
-        return /note$/i.test(MimeType);
-    }
+	static handles (item) {
+		const {MimeType = ''} = item;
+		return /note$/i.test(MimeType);
+	}
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.any.isRequired
 	};
 
-    render() {
+	render () {
 
 		let {item} = this.props;
 

@@ -2,20 +2,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'PageSizeMenuOption';
+	static displayName = 'PageSizeMenuOption';
 
-    static propTypes = {
+	static propTypes = {
 		value: PropTypes.string,
 		onClick: PropTypes.func,
 		className: PropTypes.any
 	};
 
-    onClick = () => {
+	onClick = () => {
 		const {value, onClick} = this.props;
 		onClick && onClick(value);
 	};
 
-    render() {
+	render () {
 
 		const {value, className} = this.props;
 

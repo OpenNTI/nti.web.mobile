@@ -7,17 +7,17 @@ import DisplayName from 'common/components/DisplayName';
 import Link from '../../ProfileLink';
 
 export default class extends React.Component {
-    static displayName = 'MembershipListItemCommunity';
+	static displayName = 'MembershipListItemCommunity';
 
-    static handles(item) {
-        return item.isCommunity;
-    }
+	static handles (item) {
+		return item.isCommunity;
+	}
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired
 	};
 
-    render() {
+	render () {
 		let {item} = this.props;
 
 		return (

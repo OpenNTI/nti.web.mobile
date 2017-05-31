@@ -30,30 +30,30 @@ function is403 (e) {
 
 
 export default class extends React.Component {
-    static displayName = 'Context';
+	static displayName = 'Context';
 
-    static propTypes = {
+	static propTypes = {
 		contentPackage: PropTypes.object,
 		item: PropTypes.object,
 		className: PropTypes.string
 	};
 
-    state = {
-        loading: true
-    };
+	state = {
+		loading: true
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.updateContext(this.props.item);
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		let {item} = nextProps;
 		if (this.props.item !== item) {
 			this.updateContext(item);
 		}
 	}
 
-    componentDidUpdate(_, state) {
+	componentDidUpdate (_, state) {
 		let {error} = this.state;
 		if (error && !is403(error) && error !== state.error) {
 			logger.error(error);
@@ -61,7 +61,7 @@ export default class extends React.Component {
 		this.focusApplicableRange();
 	}
 
-    updateContext = (item) => {
+	updateContext = (item) => {
 		this.setState({error: null, found: false, loading: true, scoped: false, fragment: false});
 
 		item.getContextData()
@@ -72,7 +72,7 @@ export default class extends React.Component {
 			.catch(error => this.setState({error, loading: false}));
 	};
 
-    setPageContext = (item, pageInfo) => {
+	setPageContext = (item, pageInfo) => {
 		getPageContent(pageInfo)
 			.then(x => new PageDescriptor(x.pageInfo.getID(), x))
 			.then(x => {
@@ -87,7 +87,7 @@ export default class extends React.Component {
 			});
 	};
 
-    setWidgetContainerContext = (_, object) => {
+	setWidgetContainerContext = (_, object) => {
 		let {item, contentPackage} = this.props;
 		let props = {
 			record: object,
@@ -122,7 +122,7 @@ export default class extends React.Component {
 		}
 	};
 
-    findApplicableRange = () => {
+	findApplicableRange = () => {
 		let {item} = this.props;
 		let {found, fragment, pageId, contextReady} = this.state;
 
@@ -165,7 +165,7 @@ export default class extends React.Component {
 		return !!found;
 	};
 
-    focusApplicableRange = () => {
+	focusApplicableRange = () => {
 		let {root: node} = this;
 		if (node && this.findApplicableRange()) {
 
@@ -189,10 +189,10 @@ export default class extends React.Component {
 		}
 	};
 
-    attachRef = (ref) => { this.root = ref; };
-    attachWRef = (ref) => { this.widget = ref; };
+	attachRef = (ref) => { this.root = ref; };
+	attachWRef = (ref) => { this.widget = ref; };
 
-    render() {
+	render () {
 		let {error, loading, scoped, fragment, context} = this.state;
 		let {item, className: cls} = this.props;
 		let className = cx('discussion-context', cls, {scoped, fragment});

@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'Grade';
+	static displayName = 'Grade';
 
-    static propTypes = {
+	static propTypes = {
 		/**
 		 * Specifying a singular color will result in drawing only one segment.
 		 * Adding a second color will make this draw the second segment.
@@ -56,15 +56,15 @@ export default class extends React.Component {
 		withLetter: PropTypes.bool
 	};
 
-    static defaultProps = {
-        grade: 90,
-        color: '#40b450',//#a5c959
-        pixelDensity: (global.devicePixelRatio || 1) * 2,
-        width: 200,
-        height: 200
-    };
+	static defaultProps = {
+		grade: 90,
+		color: '#40b450',//#a5c959
+		pixelDensity: (global.devicePixelRatio || 1) * 2,
+		width: 200,
+		height: 200
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		const {canvas} = this;
 		let context = canvas.getContext('2d');
 
@@ -73,11 +73,11 @@ export default class extends React.Component {
 		this.paint(context);
 	}
 
-    componentDidUpdate() {
+	componentDidUpdate () {
 		this.paint(this.canvas.getContext('2d'));
 	}
 
-    render() {
+	render () {
 		let p = this.props;
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
@@ -91,7 +91,7 @@ export default class extends React.Component {
 		);
 	}
 
-    paint = (context) => {
+	paint = (context) => {
 		context.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 
 		this.drawCircle(context);
@@ -100,7 +100,7 @@ export default class extends React.Component {
 		}
 	};
 
-    getColor = () => {
+	getColor = () => {
 		let c = this.props.color;
 		if (Array.isArray(c)) {
 			c = c[0];
@@ -108,7 +108,7 @@ export default class extends React.Component {
 		return c;
 	};
 
-    getSecondaryColor = () => {
+	getSecondaryColor = () => {
 		let c = this.props.color;
 		if (!Array.isArray(c)) {
 			c = [];
@@ -116,7 +116,7 @@ export default class extends React.Component {
 		return c[1];
 	};
 
-    drawCircle = (ctx) => {
+	drawCircle = (ctx) => {
 		let node = ctx.canvas,
 			stroke = node.width * (1 / 112),
 			centerX = node.width / 2,
@@ -163,7 +163,7 @@ export default class extends React.Component {
 		}
 	};
 
-    drawDot = (ctx) => {
+	drawDot = (ctx) => {
 		let node = ctx.canvas,
 			slope = node.height / node.width,
 			centerY = (node.height / 2) + (node.width / 4),

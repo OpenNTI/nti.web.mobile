@@ -12,36 +12,36 @@ import {resetProcess} from '../Actions';
 import Store from '../Store';
 
 export default class extends React.Component {
-    static displayName = 'PaymentSuccess';
+	static displayName = 'PaymentSuccess';
 
-    static propTypes = {
+	static propTypes = {
 		courseId: PropTypes.string,
 		purchasable: PropTypes.object.isRequired,
 		giftDoneLink: PropTypes.string,
 		onDone: PropTypes.func
 	};
 
-    state = {
-        purchaseAttempt: null
-    };
+	state = {
+		purchaseAttempt: null
+	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.setState({
 			purchaseAttempt: Store.getPaymentResult()
 		});
 	}
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		resetProcess();
 	}
 
-    componentDidMount() {
+	componentDidMount () {
 		if (!this.state.purchaseAttempt) {
 			resetProcess();
 		}
 	}
 
-    _courseLink = () => {
+	_courseLink = () => {
 		return (
 			<CourseContentLink
 					className="button tiny radius column"
@@ -49,7 +49,7 @@ export default class extends React.Component {
 		);
 	};
 
-    render() {
+	render () {
 		let {purchaseAttempt} = this.state;
 		let {giftDoneLink, onDone, purchasable} = this.props;
 		let {title = 'the course'} = purchasable || {};

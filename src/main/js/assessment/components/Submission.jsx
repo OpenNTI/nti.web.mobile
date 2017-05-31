@@ -27,9 +27,9 @@ const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSu
 const forceNumber = x => typeof x === 'number' ? x : NaN;
 
 export default class extends React.Component {
-    static displayName = 'Submission';
+	static displayName = 'Submission';
 
-    static propTypes = {
+	static propTypes = {
 		/**
 		 * The QuestionSet or Assignment to be submitted.
 		 *
@@ -38,15 +38,15 @@ export default class extends React.Component {
 		assessment: PropTypes.object.isRequired
 	};
 
-    componentDidMount() {
+	componentDidMount () {
 		Store.addChangeListener(this.onChange);
 	}
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		Store.removeChangeListener(this.onChange);
 	}
 
-    onChange = (e) => {
+	onChange = (e) => {
 		if (e.type === ERROR) {
 			e = Store.getError(this.props.assessment);
 			if (e && e.statusCode === 409) {
@@ -59,7 +59,7 @@ export default class extends React.Component {
 		this.forceUpdate();
 	};
 
-    onReset = (e) => {
+	onReset = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -72,7 +72,7 @@ export default class extends React.Component {
 			);
 	};
 
-    onSubmit = (e) => {
+	onSubmit = (e) => {
 		let {assessment} = this.props;
 		if (e) {
 			e.preventDefault();
@@ -83,7 +83,7 @@ export default class extends React.Component {
 		}
 	};
 
-    dismissAssessmentError = (e) => {
+	dismissAssessmentError = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -91,7 +91,7 @@ export default class extends React.Component {
 		Store.clearError(this.props.assessment);
 	};
 
-    render() {
+	render () {
 		let {assessment} = this.props;
 
 		let admin = Store.isAdministrative(assessment);

@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {PanelButton, Mixins} from 'nti-web-commons';
 
 import Store from '../Store';
@@ -50,7 +48,7 @@ export default createReactClass({
 		return (
 			<div className="small-12 columns">
 				<PanelButton className="error" onClick={this.onClick}>
-					<p>We were unable to process your enrollment for '{courseTitle}'.</p>
+					<p>We were unable to process your enrollment for ’{courseTitle}’.</p>
 					{this.errorMessage()}
 					<p>If this issue persists contact support.</p>
 				</PanelButton>

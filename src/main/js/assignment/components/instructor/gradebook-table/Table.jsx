@@ -7,9 +7,9 @@ import ColumnHeading from './ColumnHeading';
 import {SortOrder} from 'nti-lib-interfaces';
 
 export default class extends React.Component {
-    static displayName = 'gradebook:Table';
+	static displayName = 'gradebook:Table';
 
-    static propTypes = {
+	static propTypes = {
 		className: PropTypes.string,
 		items: PropTypes.any.isRequired,
 		columns: PropTypes.array.isRequired,
@@ -18,31 +18,31 @@ export default class extends React.Component {
 		onSortChange: PropTypes.func
 	};
 
-    setSort = (sort) => {
+	setSort = (sort) => {
 		const {onSortChange} = this.props;
 		if (typeof onSortChange === 'function') {
 			onSortChange(sort);
 		}
 	};
 
-    onHeadingClick = (column) => {
+	onHeadingClick = (column) => {
 		this.setSort(column.sort);
 	};
 
-    row = (item, index) => {
+	row = (item, index) => {
 		const {columns} = this.props;
 		return (
 			<div className="gradebook-row" key={index}>
 				{columns.map(Col =>
-					<div className={Col.className} key={Col.label()}>
+					(<div className={Col.className} key={Col.label()}>
 						<Col item={item} {...this.props}/>
-					</div>
+					</div>)
 				)}
 			</div>
 		);
 	};
 
-    render() {
+	render () {
 
 		const {className, columns, items, sort, sortOrder, ...otherProps} = this.props;
 

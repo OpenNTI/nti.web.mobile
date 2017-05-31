@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
+import createReactClass from 'create-react-class';
 import {SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
-
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import Store from '../Store';
@@ -68,7 +66,11 @@ export default createReactClass({
 				{(!!report || survey.hasAggregationData) && (
 					<div className="links">
 						{survey.hasAggregationData && ( <a href="#" onClick={this.toggleAggregatedView}>{results}</a> )}
-						{!!report && ( <a href={report} target="_blank"><span className="icon-report"/>View Report</a> )}
+						{!!report && (
+							<a href={report} target="_blank" rel="noopener noreferrer">
+								<span className="icon-report"/>View Report
+							</a>
+						)}
 					</div>
 				)}
 			</div>

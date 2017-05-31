@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {Constants} from 'nti-web-commons';
-
 import {scoped} from 'nti-lib-locale';
 
 const {DataURIs: {BLANK_IMAGE}} = Constants;
@@ -14,13 +12,13 @@ const t = scoped('COURSE.CONTACTINFO');
 const f = {fallback: MISSING};
 
 export default class extends React.Component {
-    static displayName = 'CourseSupport';
+	static displayName = 'CourseSupport';
 
-    static propTypes = {
+	static propTypes = {
 		entry: PropTypes.object
 	};
 
-    shouldRender = () => {
+	shouldRender = () => {
 		return [
 			t('LINK0.label', f) !== MISSING,
 			t('LINK1.label', f) !== MISSING,
@@ -28,7 +26,7 @@ export default class extends React.Component {
 		].some(x => x);
 	};
 
-    render() {
+	render () {
 		return this.shouldRender() && (
 			<div className="course-support">
 				<img src={BLANK_IMAGE} alt="Support"/>
@@ -40,7 +38,7 @@ export default class extends React.Component {
 		);
 	}
 
-    renderLink = (index) => {
+	renderLink = (index) => {
 		const label = t(`LINK${index}.label`, f);
 		const link = t(`LINK${index}.link`, f);
 
@@ -52,7 +50,7 @@ export default class extends React.Component {
 
 		return (
 			<div className="item link" key={index}>
-				<a href={ref} target="_blank">{label}</a>
+				<a href={ref} target="_blank" rel="noopener noreferrer">{label}</a>
 			</div>
 		);
 	};

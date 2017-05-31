@@ -12,38 +12,38 @@ import Success from './AcceptSuccess';
 let t = scoped('INVITATIONS');
 
 export default class extends React.Component {
-    static displayName = 'Invitations:Accept';
+	static displayName = 'Invitations:Accept';
 
-    static propTypes = {
+	static propTypes = {
 		code: PropTypes.string
 	};
 
-    state = {
-        code: ''
-    };
+	state = {
+		code: ''
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.setUp();
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.setUp(nextProps);
 	}
 
-    setUp = (props = this.props) => {
+	setUp = (props = this.props) => {
 		const {code} = props;
 		this.setState({
 			code
 		});
 	};
 
-    onChange = (e) => {
+	onChange = (e) => {
 		this.setState({
 			code: e.target.value
 		});
 	};
 
-    onSuccess = (instance) => {
+	onSuccess = (instance) => {
 		this.setState({
 			loading: false,
 			success: true,
@@ -51,7 +51,7 @@ export default class extends React.Component {
 		});
 	};
 
-    onError = (error) => {
+	onError = (error) => {
 		function getMessage () {
 			let message = error.statusText || error.message || 'Unknown Error';
 			if(error.code) {
@@ -69,7 +69,7 @@ export default class extends React.Component {
 		});
 	};
 
-    onSubmit = (e) => {
+	onSubmit = (e) => {
 		e.preventDefault();
 
 		const {code} = this.state;
@@ -83,7 +83,7 @@ export default class extends React.Component {
 			.catch(this.onError);
 	};
 
-    form = () => {
+	form = () => {
 		const {error, code = ''} = this.state;
 		const disabled = code.trim().length === 0;
 
@@ -105,7 +105,7 @@ export default class extends React.Component {
 		);
 	};
 
-    render() {
+	render () {
 
 		const {loading, success, instance} = this.state;
 

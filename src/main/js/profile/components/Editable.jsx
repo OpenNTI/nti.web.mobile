@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'Editable';
+	static displayName = 'Editable';
 
-    static propTypes = {
+	static propTypes = {
 		tag: PropTypes.string,
 		children: PropTypes.any
 	};
 
-    focus = () => {
+	focus = () => {
 		let r = document.createRange();
 		r.selectNodeContents(this.el);
 		r.collapse();
@@ -18,10 +18,10 @@ export default class extends React.Component {
 		sel.addRange(r);
 	};
 
-    onBlur = () => {
+	onBlur = () => {
 	};
 
-    render() {
+	render () {
 		const Tag = this.props.tag || 'div';
 
 		return (

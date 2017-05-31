@@ -14,9 +14,9 @@ const isEmpty = x => !Array.isArray(x) || x.length === 0;
 const EVERYONE = 'everyone';
 
 export default class extends React.Component {
-    static displayName = 'SharedWithList';
+	static displayName = 'SharedWithList';
 
-    static propTypes = {
+	static propTypes = {
 
 		/**
 		 * Sometimes you just want the first entity and a remainder count. Ex:
@@ -40,9 +40,9 @@ export default class extends React.Component {
 		limit: PropTypes.number
 	};
 
-    state = {loading: true};
+	state = {loading: true};
 
-    isPublic = (sharedWith) => {
+	isPublic = (sharedWith) => {
 		if (isEmpty(sharedWith)) {
 			return false;
 		}
@@ -50,17 +50,17 @@ export default class extends React.Component {
 		return sharedWith.includes(EVERYONE);
 	};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.fill(this.props.item);
 	}
 
-    componentWillReceiveProps(props) {
+	componentWillReceiveProps (props) {
 		if (this.props.item !== props.item) {
 			this.fill(props.item);
 		}
 	}
 
-    fill = (item) => {
+	fill = (item) => {
 		this.setState({loading: true});
 
 		let {sharedWith = []} = item;
@@ -79,7 +79,7 @@ export default class extends React.Component {
 			});
 	};
 
-    render() {
+	render () {
 		let {short, limit, item} = this.props;
 		let {loading, users = [], others = 0} = this.state;
 		let {sharedWith = []} = item;

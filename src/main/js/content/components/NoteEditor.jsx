@@ -7,9 +7,9 @@ import {DarkMode} from 'nti-web-commons';
 import Editor from './discussions/NoteEditor';
 
 export default class extends React.Component {
-    static displayName = 'content:NoteEditor';
+	static displayName = 'content:NoteEditor';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object,
 		scope: PropTypes.object,
 
@@ -17,7 +17,7 @@ export default class extends React.Component {
 		onSave: PropTypes.func
 	};
 
-    ensureVisible = () => {
+	ensureVisible = () => {
 		let {editor: el} = this;
 		let margin = parseInt(getComputedStyle(el)['margin-top'], 10);
 
@@ -30,7 +30,7 @@ export default class extends React.Component {
 		window.scrollTo(0, top - margin + 1);
 	};
 
-    onCancel = () => {
+	onCancel = () => {
 		const {props: {onCancel}, el: {parentNode}} = this;
 
 		removeClass(parentNode, 'saving');
@@ -38,12 +38,12 @@ export default class extends React.Component {
 		onCancel();
 	};
 
-    onSubmit = () => {
+	onSubmit = () => {
 		const {el: {parentNode}} = this;
 		addClass(parentNode, 'saving');
 	};
 
-    render() {
+	render () {
 		return (
 			<div ref={x => this.el = x}>
 				<DarkMode/>

@@ -5,9 +5,9 @@ import cx from 'classnames';
 import {rawContent} from 'nti-commons';
 
 export default class extends React.Component {
-    static displayName = 'Transcript';
+	static displayName = 'Transcript';
 
-    static propTypes = {
+	static propTypes = {
 		children: PropTypes.any,
 
 		cues: PropTypes.arrayOf(
@@ -30,17 +30,17 @@ export default class extends React.Component {
 		onSlideLoaded: PropTypes.func
 	};
 
-    static defaultProps = {
-        onJumpTo: () => {},
-        onSlideLoaded: () => {}
-    };
+	static defaultProps = {
+		onJumpTo: () => {},
+		onSlideLoaded: () => {}
+	};
 
-    onJumpToCue = (e) => {
+	onJumpToCue = (e) => {
 		e.preventDefault();
 		this.props.onJumpTo(e.target.getAttribute('data-start-time'));
 	};
 
-    renderCues = (cue) => {
+	renderCues = (cue) => {
 		const divider = null;
 		const time = this.props.currentTime;
 
@@ -59,7 +59,7 @@ export default class extends React.Component {
 		)];
 	};
 
-    renderSlide = (slide) => {
+	renderSlide = (slide) => {
 		let divider = null;
 		let time = this.props.currentTime;
 
@@ -77,11 +77,11 @@ export default class extends React.Component {
 		)];
 	};
 
-    renderItem = (item) => {
+	renderItem = (item) => {
 		return ('text' in item) ? this.renderCues(item) : this.renderSlide(item);
 	};
 
-    render() {
+	render () {
 		const {cues = [], slides = [], children} = this.props;
 
 		const items = cues.concat(slides).sort((a, b) => a.startTime - b.startTime);

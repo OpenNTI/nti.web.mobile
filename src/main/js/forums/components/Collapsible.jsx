@@ -5,29 +5,29 @@ import cx from 'classnames';
 const toggle = 'Collapsible:toggle';
 
 export default class extends React.Component {
-    static displayName = 'Collapsible';
+	static displayName = 'Collapsible';
 
-    static propTypes = {
+	static propTypes = {
 		title: PropTypes.string.isRequired,
 		children: PropTypes.any,
 		triangle: PropTypes.bool
 	};
 
-    static defaultProps = {
-        triangle: true
-    };
+	static defaultProps = {
+		triangle: true
+	};
 
-    state = {
-        collapsed: true
-    };
+	state = {
+		collapsed: true
+	};
 
-    toggle = () => {
+	toggle = () => {
 		this.setState({
 			collapsed: !this.state.collapsed
 		});
 	};
 
-    render() {
+	render () {
 
 		let classes = cx({
 			'collapsible': true,

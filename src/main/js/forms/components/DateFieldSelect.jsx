@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 export default class extends React.Component {
-    static displayName = 'DateFieldSelect';
+	static displayName = 'DateFieldSelect';
 
-    static propTypes = {
+	static propTypes = {
 		children: PropTypes.any,
 		onChange: PropTypes.func,
 		name: PropTypes.string
 	};
 
-    handleChange = (event) => {
+	handleChange = (event) => {
 		const {onChange, name} = this.props;
 		const {value} = event.target;
 		if (onChange) {
@@ -18,7 +18,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 		return (
 			<select {...this.props} onChange={this.handleChange}>
 				{this.props.children}

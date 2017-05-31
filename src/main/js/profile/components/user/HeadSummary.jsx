@@ -1,41 +1,40 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {User} from 'nti-web-client';
 import {Loading} from 'nti-web-commons';
 import {Array as ArrayUtils} from 'nti-commons';
 
-import SocialLinks from './SocialLinks';
-
 import {default as DisplayName} from 'common/components/DisplayName';
+
+import SocialLinks from './SocialLinks';
 
 
 export default class extends React.Component {
-    static displayName = 'HeadSummary';
+	static displayName = 'HeadSummary';
 
-    static propTypes = {
+	static propTypes = {
 		entity: PropTypes.any.isRequired
 	};
 
-    state = {
-    };
+	state = {
+	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.setUser();
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		let {entity} = this.props;
 		if (entity !== nextProps.entity) {
 			this.setUser(nextProps);
 		}
 	}
 
-    setUser = (props = this.props) => {
+	setUser = (props = this.props) => {
 		User.resolve(props).then(user => this.setState({user}));
 	};
 
-    render() {
+	render () {
 		let {user} = this.state;
 
 		if (!user) {
@@ -72,7 +71,7 @@ export default class extends React.Component {
 					{ (location || homePage) && (
 						<li className="location">
 							{location && ( <span className="location">{location}</span> )}
-							{homePage && ( <a className="home-page" href={homePage} target="_blank">{homePage}</a> )}
+							{homePage && ( <a className="home-page" href={homePage} target="_blank" rel="noopener noreferrer">{homePage}</a> )}
 						</li>
 					)}
 				</ul>

@@ -13,30 +13,30 @@ import t from 'nti-lib-locale';
 const logger = Logger.get('assessment:components:FeedbackEditor');
 
 export default class extends React.Component {
-    static displayName = 'FeedbackEditor';
+	static displayName = 'FeedbackEditor';
 
-    static propTypes = {
+	static propTypes = {
 		onCancel: PropTypes.func,
 		onSubmit: PropTypes.func.isRequired,
 		value: PropTypes.array
 	};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.updateDisabled(this.props.value || null);
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps.value !== this.props.value) {
 			this.updateDisabled(nextProps.value);
 		}
 	}
 
-    updateDisabled = (value) => {
+	updateDisabled = (value) => {
 		let disabled = Editor.isEmpty(value);
 		this.setState({disabled});
 	};
 
-    render() {
+	render () {
 		let {disabled, busy} = this.state;
 
 		return (
@@ -58,20 +58,20 @@ export default class extends React.Component {
 		);
 	}
 
-    onChange = () => {
+	onChange = () => {
 		if (this.editor) {
 			let value = this.editor.getValue();
 			this.updateDisabled(value);
 		}
 	};
 
-    onCancel = (e) => {
+	onCancel = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 		this.props.onCancel();
 	};
 
-    onClick = (e) => {
+	onClick = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 

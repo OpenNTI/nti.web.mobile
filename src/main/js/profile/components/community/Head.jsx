@@ -9,9 +9,9 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 
 export default class extends React.Component {
-    static displayName = 'Community:Head';
+	static displayName = 'Community:Head';
 
-    static propTypes = {
+	static propTypes = {
 		entity: PropTypes.object,
 
 		sections: PropTypes.array,
@@ -23,18 +23,18 @@ export default class extends React.Component {
 		onMenuToggle: PropTypes.func
 	};
 
-    static defaultProps = {
-        onMenuToggle: () => {}
-    };
+	static defaultProps = {
+		onMenuToggle: () => {}
+	};
 
-    onMenuToggleClicked = (e) => {
+	onMenuToggleClicked = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		this.props.onMenuToggle();
 	};
 
-    render() {
+	render () {
 		let {entity, narrow, sections = [], selected} = this.props;
 
 		selected = (sections.find(x=> x.ID === selected) || {}).title || 'All Topics';

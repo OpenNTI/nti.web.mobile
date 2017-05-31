@@ -1,16 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-
-import cx from 'classnames';
-
 import {Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 import {scoped} from 'nti-lib-locale';
-let t = scoped('LOGIN.CREATE_ACCOUNT');
-
-
 import {getServer, getReturnURL} from 'nti-web-client';
 
 import UserAgreement from 'login/prompts/terms/components/UserAgreement';
@@ -19,6 +14,7 @@ import Store from '../Store';
 import {ERROR_EVENT} from '../Constants';
 import {clearErrors, preflightAndCreateAccount} from '../Actions';
 
+const t = scoped('LOGIN.CREATE_ACCOUNT');
 
 const indexArrayByKey = (array, key) => array.reduce((a, i) => (a[i[key]] = i, a), {});
 
@@ -44,6 +40,10 @@ export default createReactClass({
 	backingStoreEventHandlers: {
 		default: 'storeChanged'
 	},
+
+
+	attachRef (el) { this.form = el; },
+
 
 	getDefaultProps () {
 		return {
@@ -166,7 +166,7 @@ export default createReactClass({
 
 		return (
 			<div className="row">
-				<form ref={el => this.form = el}
+				<form ref={this.attachRef}
 					className="create-account-form medium-6 medium-centered columns"
 					autoComplete="off"
 					onSubmit={this.handleSubmit}
@@ -177,11 +177,11 @@ export default createReactClass({
 
 						{FIELDS.map( field =>
 
-							<div key={field.name}>
+							(<div key={field.name}>
 								<input name={field.name} placeholder={t(field.name)} type={field.type}
 									className={cx({required: field.required})} required={field.required}
 									onChange={this.onChange} onBlur={this.onBlur}/>
-							</div>
+							</div>)
 
 						)}
 
@@ -209,7 +209,11 @@ export default createReactClass({
 					<a id="signup:privacy:policy"
 						href={this.props.privacyUrl}
 						target="_blank"
-						className="small-12 columns text-center">Privacy Policy</a>
+						rel="noopener noreferrer"
+						className="small-12 columns text-center"
+					>
+						Privacy Policy
+					</a>
 				</form>
 			</div>
 		);

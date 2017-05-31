@@ -5,25 +5,25 @@ import isFunction from 'is-function';
 const onToggle = 'ToggleFieldset:onToggle';
 
 export default class extends React.Component {
-    static displayName = 'forms:ToggleFieldset';
+	static displayName = 'forms:ToggleFieldset';
 
-    static propTypes = {
+	static propTypes = {
 		field: PropTypes.object.isRequired,
 		renderField: PropTypes.func.isRequired,
 		translator: PropTypes.func.isRequired,
 		onChange: PropTypes.func
 	};
 
-    state = {};
+	state = {};
 
-    componentWillMount() {
+	componentWillMount () {
 		this.setState({
 			fieldset: this.props.field.fieldsetOff,
 			fieldValues: {}
 		});
 	}
 
-    onToggle = (event) => {
+	onToggle = (event) => {
 		let config = this.props.field;
 		let fs = event.target.checked ? config.fieldsetOn : config.fieldsetOff;
 		this.setState({
@@ -34,7 +34,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 
 		let fieldset = this.state.fieldset;
 		let fields = (fieldset || {}).fields || [];

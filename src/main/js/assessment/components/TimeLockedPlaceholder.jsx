@@ -3,13 +3,13 @@ import React from 'react';
 import Placeholder from './Placeholder';
 
 export default class extends React.Component {
-    static displayName = 'TimeLockedPlaceholder';
+	static displayName = 'TimeLockedPlaceholder';
 
-    static propTypes = {
+	static propTypes = {
 		assignment: PropTypes.object
 	};
 
-    onBack = (e) => {
+	onBack = (e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -19,7 +19,7 @@ export default class extends React.Component {
 		history.go(-1);
 	};
 
-    render() {
+	render () {
 		const {props:{assignment}} = this;
 		const props = {
 			assignment,

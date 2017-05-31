@@ -1,21 +1,17 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {encodeForURI} from 'nti-lib-ntiids';
-
 import {Loading, Mixins, Notice} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-
 import Breadcrumb from 'navigation/components/Breadcrumb';
-
-import TopicEditor from './TopicEditor';
 
 import * as Actions from '../Actions';
 import {TOPIC_CREATED, TOPIC_CREATION_ERROR} from '../Constants';
 import Store from '../Store';
+
+import TopicEditor from './TopicEditor';
 
 export default createReactClass({
 	displayName: 'CreateTopic',
@@ -24,6 +20,8 @@ export default createReactClass({
 	propTypes: {
 		forum: PropTypes.object.isRequired
 	},
+
+	attachRef (x) { this.editor = x; },
 
 	getInitialState () {
 		return {
@@ -96,14 +94,14 @@ export default createReactClass({
 		}
 
 		if (!this.canCreateTopic()) {
-			return <Notice>Can't create a new topic here.</Notice>;
+			return <Notice>Can’t create a new topic here.</Notice>;
 		}
 
 		return (
 			<div>
 				<Breadcrumb />
 				{this.state.error && <div className="alert-box radius">{this.state.error.message || 'An error occurred.'}</div>}
-				<TopicEditor ref={x => this.editor = x} onSubmit={this.createTopic} onCancel={this.onCancel} item={this.state.item} />
+				<TopicEditor ref={this.attachRef} onSubmit={this.createTopic} onCancel={this.onCancel} item={this.state.item} />
 			</div>
 		);
 	}

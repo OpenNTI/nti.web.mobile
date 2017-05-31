@@ -17,17 +17,17 @@ const ROUTES = [
 ];
 
 export default class extends React.Component {
-    static displayName = 'Assignments:Students:View';
+	static displayName = 'Assignments:Students:View';
 
-    static childContextTypes = {
+	static childContextTypes = {
 		AssignmentListItem: PropTypes.func
 	};
 
-    getChildContext() {
+	getChildContext () {
 		return {AssignmentListItem};
 	}
 
-    render() {
+	render () {
 
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route =>

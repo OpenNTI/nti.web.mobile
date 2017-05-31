@@ -3,9 +3,9 @@ import React from 'react';
 import cx from 'classnames';
 
 export default class extends React.Component {
-    static displayName = 'RadioGroup';
+	static displayName = 'RadioGroup';
 
-    static propTypes = {
+	static propTypes = {
 		defaultValue: PropTypes.any,
 
 		field: PropTypes.shape({
@@ -25,7 +25,7 @@ export default class extends React.Component {
 		value: PropTypes.any
 	};
 
-    renderOptions = () => {
+	renderOptions = () => {
 		return (this.props.options || []).map((option, index) => {
 			let value = this.props.value || this.props.defaultValue;
 			let checked = value && value === option.value;
@@ -43,7 +43,7 @@ export default class extends React.Component {
 		});
 	};
 
-    render() {
+	render () {
 
 		const {field, className} = this.props;
 

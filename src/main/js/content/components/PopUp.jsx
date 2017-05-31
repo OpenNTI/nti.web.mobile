@@ -9,32 +9,32 @@ import {Loading, Error} from 'nti-web-commons';
 import {parseHTML} from 'nti-lib-content-processing';
 
 export default class extends React.Component {
-    static displayName = 'PopUp';
+	static displayName = 'PopUp';
 
-    static propTypes = {
+	static propTypes = {
 		onClose: PropTypes.func.isRequired,
 		download: PropTypes.string,
 		source: PropTypes.string.isRequired
 	};
 
-    state = {
-        loading: true
-    };
+	state = {
+		loading: true
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.load();
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		this.load(nextProps);
 	}
 
-    getBody = (htmlStr) => {
+	getBody = (htmlStr) => {
 		const dom = parseHTML(htmlStr);
 		return dom.getElementsByTagName('body')[0];
 	};
 
-    load = (props = this.props) => {
+	load = (props = this.props) => {
 		let {source} = props;
 		getService()
 			.then(service => service.get(source))
@@ -48,7 +48,7 @@ export default class extends React.Component {
 			});
 	};
 
-    render() {
+	render () {
 
 		const {loading, html, error} = this.state;
 		return (

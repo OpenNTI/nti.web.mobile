@@ -23,9 +23,9 @@ const EVENTS = ['focus', 'focusin', 'click', 'touchstart'];
 const trim = x => typeof x === 'string' ? x.trim() : x;
 
 export default class extends React.Component {
-    static displayName = 'ShareWith';
+	static displayName = 'ShareWith';
 
-    static propTypes = {
+	static propTypes = {
 		defaultValue: PropTypes.array,
 
 		scope: PropTypes.object,
@@ -33,29 +33,29 @@ export default class extends React.Component {
 		onBlur: PropTypes.func
 	};
 
-    state = {};
-    attachDomRef = (x) => { this.el = x; };
-    attachEntryRef = (x) => { this.entry = x; };
-    attachSearchRef = (x) => { this.search = x; };
-    attachScrollerRef = (x) => { this.scroller = x; };
+	state = {};
+	attachDomRef = (x) => { this.el = x; };
+	attachEntryRef = (x) => { this.entry = x; };
+	attachSearchRef = (x) => { this.search = x; };
+	attachScrollerRef = (x) => { this.scroller = x; };
 
-    componentWillMount() {
+	componentWillMount () {
 		this.setup();
 	}
 
-    componentDidMount() {
+	componentDidMount () {
 		for(let e of EVENTS) {
 			document.body.addEventListener(e, this.maybeCloseDrawer, e === 'focus');
 		}
 	}
 
-    componentWillReceiveProps(nextProps) {
+	componentWillReceiveProps (nextProps) {
 		if (nextProps[KEY] !== this.props[KEY]) {
 			this.setup(nextProps);
 		}
 	}
 
-    componentWillUnmount() {
+	componentWillUnmount () {
 		for(let e of EVENTS) {
 			document.body.removeEventListener(e, this.maybeCloseDrawer, e === 'focus');
 		}
@@ -63,7 +63,7 @@ export default class extends React.Component {
 		this.setState({focused: false});
 	}
 
-    setup = (props = this.props) => {
+	setup = (props = this.props) => {
 		const stillValid = () => props[KEY] === this.props[KEY];
 		const {scope} = props;
 
@@ -117,7 +117,7 @@ export default class extends React.Component {
 			});
 	};
 
-    maybeCloseDrawer = (e) => {
+	maybeCloseDrawer = (e) => {
 		const {state: {focused}, el, entry, props: {onBlur}} = this;
 
 		if (!focused || !el) {
@@ -141,27 +141,27 @@ export default class extends React.Component {
 		}
 	};
 
-    focusSearch = () => {
+	focusSearch = () => {
 		let search = this.getSearchBoxEl();
 		if (search) {
 			search.focus();
 		}
 	};
 
-    getSearchBoxEl = () => {
+	getSearchBoxEl = () => {
 		return this.search;
 	};
 
-    onFocus = () => {
+	onFocus = () => {
 		this.setState({focused: true});
 		this.focusSearch();
 	};
 
-    onInputBlur = () => {
+	onInputBlur = () => {
 		//this.setState({focused: true, inputFocused: false});
 	};
 
-    onListScroll = () => {
+	onListScroll = () => {
 		const {scroller} = this;
 		const search = this.getSearchBoxEl();
 		if (search) {
@@ -176,12 +176,12 @@ export default class extends React.Component {
 		this.setState({focused: true, inputFocused: false});
 	};
 
-    onInputFocus = () => {
+	onInputFocus = () => {
 		clearTimeout(this.maybeCloseDrawerTimout);
 		this.setState({focused: true, inputFocused: true});
 	};
 
-    onInputChange = () => {
+	onInputChange = () => {
 		let search = (this.getSearchBoxEl() || {}).value;
 
 		if (!search || search === '') {
@@ -192,7 +192,7 @@ export default class extends React.Component {
 		this.setState({search});
 	};
 
-    onSelectionChange = (entity) => {
+	onSelectionChange = (entity) => {
 		let {state: {selection}} = this;
 		let result = selection.isSelected(entity)
 			? selection.remove(entity)
@@ -205,7 +205,7 @@ export default class extends React.Component {
 		}
 	};
 
-    onTokenTap = (e) => {
+	onTokenTap = (e) => {
 		let {state: {pendingRemove}} = this;
 
 		if (pendingRemove === e) {
@@ -215,7 +215,7 @@ export default class extends React.Component {
 		this.setState({pendingRemove: e});
 	};
 
-    onKeyPressHandleDelete = (e) => {
+	onKeyPressHandleDelete = (e) => {
 		let {state: {selection, pendingRemove}} = this;
 
 		if (e.target.value === '' && (e.keyCode === 8 || e.keyCode === 46)) {
@@ -233,7 +233,7 @@ export default class extends React.Component {
 		}
 	};
 
-    render() {
+	render () {
 		let {state: {focused, inputFocused, pendingRemove, search, selection, suggestionGroups}} = this;
 		const loading = !suggestionGroups;
 		let groupings = Object.keys(suggestionGroups || {})
@@ -251,9 +251,9 @@ export default class extends React.Component {
 
 				<div ref={this.attachEntryRef} className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e =>
-						<ShareTarget key={e.getID ? e.getID() : e} entity={e}
+						(<ShareTarget key={e.getID ? e.getID() : e} entity={e}
 							selected={pendingRemove === e}
-							onClick={this.onTokenTap}/>
+							onClick={this.onTokenTap}/>)
 					)}
 					<span className="input-field" data-value={search}>
 						<input type="text" ref={this.attachSearchRef} value={search} placeholder={placeholder}
@@ -295,13 +295,13 @@ export default class extends React.Component {
 
 						{groupings.map(o =>
 
-							<div className="suggestion-group" key={o.label}>
+							(<div className="suggestion-group" key={o.label}>
 								<h3>{o.label}</h3>
 								<SelectableEntities entities={o.list}
 									selection={selection}
 									onChange={this.onSelectionChange}
 									/>
-							</div>
+							</div>)
 
 						)}
 
@@ -313,7 +313,7 @@ export default class extends React.Component {
 		);
 	}
 
-    getValue = (valueTransformer = o => typeof o === 'object' ? o.getID() : o) => {
+	getValue = (valueTransformer = o => typeof o === 'object' ? o.getID() : o) => {
 		let {state: {selection}} = this;
 		return selection.getItems().map(valueTransformer);
 	};

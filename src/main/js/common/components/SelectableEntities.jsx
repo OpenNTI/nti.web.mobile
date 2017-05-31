@@ -5,9 +5,9 @@ import SelectableEntity from './SelectableEntity';
 import {Selection} from 'nti-commons';
 
 export default class extends React.Component {
-    static displayName = 'SelectableEntities';
+	static displayName = 'SelectableEntities';
 
-    static propTypes = {
+	static propTypes = {
 		selection: PropTypes.instanceOf(Selection.EntitySelectionModel).isRequired,
 
 		entities: PropTypes.any,
@@ -19,25 +19,25 @@ export default class extends React.Component {
 		linkToProfile: PropTypes.any
 	};
 
-    onChange = (entity) => {
+	onChange = (entity) => {
 		let {onChange = ()=> {}} = this.props;
 		return Promise.resolve(onChange(entity));
 	};
 
-    render() {
+	render () {
 		let {entities, labels, selection, linkToProfile, ...props} = this.props;
 
 		return (
 			<ul className="selectable-entities" {...props}>
 				{Array.from(entities).map(entity =>
-					<SelectableEntity
+					(<SelectableEntity
 						linkToProfile={linkToProfile}
 						key={entity.getID()}
 						entity={entity}
 						selected={selection.isSelected(entity)}
 						labels={labels}
 						onChange={this.onChange}
-					/>
+					/>)
 				)}
 			</ul>
 		);

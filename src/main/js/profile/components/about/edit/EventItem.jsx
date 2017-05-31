@@ -12,9 +12,9 @@ function isRequired (schema, prop) {
 }
 
 export default class extends React.Component {
-    static displayName = 'EventItem';
+	static displayName = 'EventItem';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired,
 
 		fieldNames: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -24,20 +24,20 @@ export default class extends React.Component {
 		schema: PropTypes.object.isRequired
 	};
 
-    attachPrimaryFieldRef = (x) => { this[this.props.fieldNames[0]] = x; };
-    attachSecondaryFieldRef = (x) => { this[this.props.fieldNames[1]] = x; };
-    attachStartYearRef = (x) => { this.startYear = x; };
-    attachEndYearRef = (x) => { this.endYear = x; };
-    attachDescriptionRef = (x) => { this.description = x; };
-    componentWillMount() { this.setup(); }
+	attachPrimaryFieldRef = (x) => { this[this.props.fieldNames[0]] = x; };
+	attachSecondaryFieldRef = (x) => { this[this.props.fieldNames[1]] = x; };
+	attachStartYearRef = (x) => { this.startYear = x; };
+	attachEndYearRef = (x) => { this.endYear = x; };
+	attachDescriptionRef = (x) => { this.description = x; };
+	componentWillMount () { this.setup(); }
 
-    ccomponentWillReceiveProps = (nextProps) => {
+	ccomponentWillReceiveProps = (nextProps) => {
 		if (this.props.item !== nextProps.item) {
 			this.setup(nextProps);
 		}
 	};
 
-    setup = (props = this.props) => {
+	setup = (props = this.props) => {
 		let {item, fieldNames} = props;
 		let state = {};
 
@@ -48,21 +48,21 @@ export default class extends React.Component {
 		this.setState(state);
 	};
 
-    editorChange = () => {
+	editorChange = () => {
 		this.validate(); // refresh error state
 	};
 
-    onChange = (event) => {
+	onChange = (event) => {
 		const {target: {name, value}} = event;
 		this.valueChanged(name, value);
 	};
 
-    valueChanged = (field, newValue) => {
+	valueChanged = (field, newValue) => {
 		this.validate(); // refresh error state
 		this.setState({[field]: newValue});
 	};
 
-    validate = () => {
+	validate = () => {
 		const {props: {fieldNames: [primaryField, secondaryField], schema}} = this;
 		const fields = [primaryField, secondaryField, 'startYear', 'endYear', 'description' ];
 		const errors = {};
@@ -78,7 +78,7 @@ export default class extends React.Component {
 		return Object.keys(errors).length === 0;
 	};
 
-    render() {
+	render () {
 		const {props: {fieldNames: [primaryField, secondaryField], schema}, state = {}} = this;
 		const {startYear, endYear, description, errors = {}} = state;
 
@@ -140,7 +140,7 @@ export default class extends React.Component {
 		);
 	}
 
-    getValue = () => {
+	getValue = () => {
 		let {mimeType, item} = this.props;
 		let {state} = this;
 		let value = {};

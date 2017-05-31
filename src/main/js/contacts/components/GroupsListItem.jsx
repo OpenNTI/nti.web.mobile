@@ -9,19 +9,19 @@ import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 import ListMeta from './ListMeta';
 
 export default class extends React.Component {
-    static displayName = 'GroupsListItem';
+	static displayName = 'GroupsListItem';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object.isRequired,
 		onRightClick: PropTypes.func
 	};
 
-    onRightClick = () => {
+	onRightClick = () => {
 		const {item, onRightClick} = this.props;
 		onRightClick && onRightClick(item);
 	};
 
-    render() {
+	render () {
 
 		const {item} = this.props;
 

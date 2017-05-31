@@ -19,19 +19,19 @@ import Card from 'common/components/Card';
 
 
 export default class extends React.Component {
-    static displayName = 'CourseOverviewTimeline';
-    static mimeTest = /ntitimeline/i;
+	static displayName = 'CourseOverviewTimeline';
+	static mimeTest = /ntitimeline/i;
 
-    static handles(item) {
-        return this.mimeTest.test(item.MimeType);
-    }
+	static handles (item) {
+		return this.mimeTest.test(item.MimeType);
+	}
 
-    static propTypes = {
+	static propTypes = {
 		course: PropTypes.object,
 		item: PropTypes.object
 	};
 
-    prefixJSONWithEmbedURL = (source) => {
+	prefixJSONWithEmbedURL = (source) => {
 		let title = (this.props.item || {}).label;
 		let params = QueryString.stringify({title, source});
 
@@ -41,7 +41,7 @@ export default class extends React.Component {
 		return '/app/resources/lib/timeline/embed/index.html?' + params;
 	};
 
-    render() {
+	render () {
 		let {course, item} = this.props;
 
 		let props = Object.assign({}, this.props, {

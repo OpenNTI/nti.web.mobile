@@ -12,36 +12,36 @@ function isValid (topicValue) {
 
 
 export default class extends React.Component {
-    static displayName = 'TopicEditor';
+	static displayName = 'TopicEditor';
 
-    static propTypes = {
+	static propTypes = {
 		item: PropTypes.object,
 		onSubmit: PropTypes.func.isRequired,
 		onCancel: PropTypes.func.isRequired
 	};
 
-    state = {
-        canSubmit: false
-    };
+	state = {
+		canSubmit: false
+	};
 
-    componentDidMount() {
+	componentDidMount () {
 		this.title.focus();
 	}
 
-    getValue = () => {
+	getValue = () => {
 		return {
 			title: this.title.value,
 			body: this.editor.getValue()
 		};
 	};
 
-    onEditorChange = () => {
+	onEditorChange = () => {
 		this.setState({
 			canSubmit: isValid(this.getValue())
 		});
 	};
 
-    render() {
+	render () {
 		const {title, body} = this.props.item || {};
 		const buttons = (
 			<OkCancelButtons
