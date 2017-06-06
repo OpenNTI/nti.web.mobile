@@ -16,7 +16,7 @@ setup:
 	@npm install
 
 test: check
-	@karma start --single-run
+	@jest --coverage
 
 check:
 	@eslint --ext .js,.jsx .

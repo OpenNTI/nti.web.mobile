@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import moment from 'moment-timezone';
 import jstz from 'jstimezonedetect';
+import {Date as DateUtils} from 'nti-commons';
 
 import AssignmentStatusLabel from '../AssignmentStatusLabel';
+
 import MockAssignment from './MockAssignment';
 import MockAssignmentHistory from './MockAssignmentHistory';
 
@@ -37,6 +38,7 @@ describe('AssignmentStatusLabel', () => {
 		});
 
 		afterEach(()=> {
+			DateUtils.MockDate.uninstall();
 			ReactDOM.unmountComponentAtNode(newNode);
 			document.body.removeChild(newNode);
 		});
@@ -124,7 +126,7 @@ describe('AssignmentStatusLabel', () => {
 
 
 		it('Base Cases: Available verbage', () => {
-			jasmine.clock().mockDate(new Date('2015-06-01T05:00:00Z'));
+			DateUtils.MockDate.install(new Date('2015-06-01T05:00:00Z'));
 			const today = new Date('2015-06-01T18:00:00Z');
 			const tomorrow = new Date('2015-06-02T05:00:00Z');
 			const yesterday = new Date('2015-05-30T05:00:00Z');

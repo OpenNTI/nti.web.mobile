@@ -1,7 +1,10 @@
 /*eslint strict:0*/
 'use strict';
+const {worker} = require('cluster');
 
 const logger = require('./logger');
+
+const first = x => Array.isArray(x) ? x[0] : x;
 
 exports.setupDeveloperMode = function setupDeveloperMode (config) {
 	const webpack = require('webpack');
@@ -9,20 +12,20 @@ exports.setupDeveloperMode = function setupDeveloperMode (config) {
 
 	const WebpackServer = require('webpack-dev-server');
 
-	const port = config.port;
+	const {debug = false, port} = config;
 	const devPort = config['webpack-dev-server'] || 0;
 
-	const webpackConfig = Object.assign({}, webpackConfigFile[0]);
+	const webpackConfig = Object.assign({}, first(webpackConfigFile));
 
 	webpackConfig.output.path = '/';
-	webpackConfig.output.publicPath = '/mobile/';
+	webpackConfig.output.publicPath = config.basepath;
 	webpackConfig.output.filename = 'js/[name].js';
-	webpackConfig.output.chunkFilename = 'js/[name].js';
-	// webpackConfig.entry = './src/main/js/index.js';
 
 	const webpackServer = new WebpackServer(webpack(webpackConfig), {
-		contentBase: port,
 		//hot: true,
+		proxy: {
+			'*': '//localhost:' + port
+		},
 
 		noInfo: false,
 		quiet: false,
@@ -30,20 +33,20 @@ exports.setupDeveloperMode = function setupDeveloperMode (config) {
 		watchOptions: {
 			aggregateTimeout: 5000
 		},
-		publicPath: '/',
 
 		stats: {
-			version: true,
-			hash: true,
-			timings: true,
+			version: debug,
+			hash: debug,
+			timings: debug,
 
 			assets: false,
 
-			chunks: true,
+			chunks: debug,
 			chunkModules: false,
 			chunkOrigins: false,
 
 			modules: false,
+			children: false,
 
 			// cached: false,
 			// cachedAssets: false,
@@ -67,6 +70,11 @@ exports.setupDeveloperMode = function setupDeveloperMode (config) {
 				}
 
 				logger.info('WebPack Dev Server Started');
+			});
+
+			worker.on('disconnect', () => {
+				logger.info('Shutting down Webpack Dev Server');
+				webpackServer.close();
 			});
 		}
 	};

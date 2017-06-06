@@ -1,4 +1,4 @@
-/*eslint strict: 0, no-console: 0*/
+/*eslint strict: 0, no-console: 0, import/no-unresolved: 0*/
 'use strict';
 const path = require('path');
 
@@ -8,7 +8,6 @@ const AppCachePlugin = require('appcache-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
 // const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const SplitByPathPlugin = require('webpack-split-by-path');
 const gitRevision = JSON.stringify(require('nti-util-git-rev'));
 
 
@@ -16,9 +15,9 @@ const publicPath = '/mobile/';
 
 const outPath = path.resolve(__dirname, 'dist') + '/';
 const root = path.resolve(__dirname, 'src', 'main', 'js');
-const sassRoot = path.resolve(__dirname, 'src', 'main', 'resources', 'scss');
 const modules = path.resolve(__dirname, 'node_modules');
-const eslintrc = path.resolve(__dirname, '.eslintrc');
+const sassRoot = path.resolve(__dirname, 'src', 'main', 'resources', 'scss');
+// const eslintrc = path.resolve(__dirname, '.eslintrc');
 
 
 const ENV = process.env.NODE_ENV || 'development';
@@ -71,54 +70,53 @@ exports = module.exports = [
 		target: 'web',
 
 		resolve: {
-			root: [root, modules],
-			extensions: ['', '.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
+			modules: [root, modules],
+			extensions: ['.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
-
-		resolveLoader: {
-			root: [modules]
-		},
-
 
 		module: {
-			preLoaders: [
+			rules: [
 				// {
 				// 	test: /src.main.js.+jsx?$/,
 				// 	loader: 'eslint',
+				// 	enforce: 'pre',
 				// 	exclude: /node_modules/
+				// 	options: {
+				// 		configFile: eslintrc,
+				// 		emitError: true,
+				// 		failOnError: true,
+				// 		quiet: true
+				// 	}
 				// },
 				{
 					test: /src.main.js.+jsx?$/,
-					loader: 'baggage-loader?[file].scss'
+					loader: 'baggage-loader',
+					options: {
+						'[file].scss':{}
+					}
 				},
 				{
 					test: /\.js(x?)$/,
-					include: /.+nti\-/,
+					enforce: 'pre',
+					include: /nti\-/,
 					loader: 'source-map-loader'
-				}
-			],
-			loaders: [
-				{ test: /\.async\.jsx$/i, loader: 'react-proxy-loader!exports-loader?exports.default' },
-
-				{
-					test: /\.js(x?)$/i,
-					exclude: /.*node_modules.*/,
-					include: /src.main.+jsx?$/,
-					loader: 'babel-loader',
-					query: {
-						sourceMaps: true
-					}
 				},
 
 				{
-					test: /\.json$/,
-					loader: 'json-loader'
+					test: /\.async\.jsx$/i,
+					loader: 'react-proxy-loader'
+				},
+
+				{
+					test: /\.js(x?)$/i,
+					exclude: /node_modules/,
+					loader: 'babel-loader'
 				},
 
 				{
 					test: /\.(ico|gif|png|jpg|svg)$/,
 					loader: 'url-loader',
-					query: {
+					options: {
 						limit: 1,
 						name: 'resources/images/[name].[ext]',
 						mimeType: 'image/[ext]'
@@ -128,46 +126,60 @@ exports = module.exports = [
 				{
 					test: /\.(eot|ttf|woff)$/,
 					loader: 'file-loader',
-					query: {
+					options: {
 						name: 'resources/fonts/[name].[ext]'
 					}
 				},
 
 				{
 					test: /\.(s?)css$/,
-					loader: ExtractTextPlugin.extract(
-						'style-loader',
-						'css-loader?-minimize!postcss-loader!resolve-url-loader!sass'
-					)
+					use: ExtractTextPlugin.extract({
+						fallback: 'style-loader',
+						use: [
+							{
+								loader: 'css-loader',
+								options: {
+									sourceMap: true
+								}
+							},
+							{
+								loader: 'postcss-loader',
+								options: {
+									sourceMap: true,
+									plugins: () => [
+										autoprefixer({ browsers: ['> 1% in US', 'last 2 versions', 'iOS > 8'] })
+									]
+								}
+							},
+							{
+								loader: 'resolve-url-loader',
+								options: {
+									// debug:true,
+									// silent: false,
+									sourceMap: true,
+									root: __dirname
+								}
+							},
+							{
+								loader: 'sass-loader',
+								options: {
+									sourceMap: true,
+									includePaths: [sassRoot]
+								}
+							}
+						]
+					})
 				}
 			]
 		},
 
-		resolveUrlLoader: {
-			silent: false,
-			sourceMap: true,
-			debug:true,
-			root: __dirname
-		},
-
-		eslint: {
-			configFile: eslintrc,
-			emitError: true,
-			failOnError: true,
-			quiet: true
-		},
-
-		postcss: [
-			autoprefixer({ browsers: ['> 1%', 'last 2 versions', 'iOS > 8'] })
-		],
-
-		sassLoader: {
-			sourceMap: true,
-			includePaths: [sassRoot]
-		},
-
 		plugins: [
-			new StatsPlugin('../server/compile-data.json'),
+			new webpack.EnvironmentPlugin({
+				NODE_ENV: PROD ? 'production' : 'development'
+			}),
+
+			PROD && new StatsPlugin('../server/compile-data.json'),
+
 			new AppCachePlugin({
 				cache: [
 					'page.html',
@@ -186,34 +198,33 @@ exports = module.exports = [
 				exclude: [],
 				output: 'manifest.appcache'
 			}),
-			new webpack.optimize.DedupePlugin(),
-			new webpack.optimize.OccurenceOrderPlugin(),
-			new SplitByPathPlugin([
-				{
-					name: 'vendor',
-					path: modules
-				}
-			], {
-				ignore: [
-					NTI_PACKAGES
-				]
+
+			new webpack.optimize.CommonsChunkPlugin({
+				name: 'vendor',
+				// names: ['vendor', 'manifest'],
+				// children: true,
+				minChunks: (module) => (
+					module.context
+					&& /node_modules/.test(module.context)
+					&& !NTI_PACKAGES.test(module.context)
+				)
 			}),
+
+			new ExtractTextPlugin({
+				filename: 'resources/styles.css',
+				allChunks: true,
+				disable: false
+			}),
+
 			new webpack.DefinePlugin({
-				'SERVER': false,
 				'BUILD_SOURCE': gitRevision,
-				'process.browser': true,
-				//Has to be set multiple ways to pickup on the ways the NODE_ENV is accessed
-				'process.env.NODE_ENV': JSON.stringify(ENV),
-				'process.env': {
-					// This has effect on the react lib size
-					'NODE_ENV': JSON.stringify(ENV)
-				}
 			}),
-			new ExtractTextPlugin('resources/styles.css', {allChunks: true}),
+
 			PROD && new webpack.optimize.UglifyJsPlugin({
 				test: /\.js(x?)($|\?)/i,
 				compress: { warnings: false }
-			})//,
+			}),
+
 			// PROD && new CompressionPlugin({ algorithm: 'gzip' })
 		].filter(x => x)
 	},
@@ -232,18 +243,15 @@ exports = module.exports = [
 		},
 		resolve: {
 			root: [root, modules],
-			extensions: ['', '.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
+			extensions: ['.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 		plugins: [
+			new webpack.EnvironmentPlugin({
+				NODE_ENV: 'production'
+			}),
+
 			new webpack.DefinePlugin({
-				'SERVER': true,
 				'BUILD_SOURCE': gitRevision,
-				'process.browser': false,
-				//Has to be set multiple ways to pickup on the ways the NODE_ENV is accessed
-				'process.env.NODE_ENV': JSON.stringify(ENV),
-				'process.env': {
-					'NODE_ENV': JSON.stringify(ENV)
-				}
 			})
 		],
 
@@ -261,7 +269,7 @@ exports = module.exports = [
 		],
 
 		module: {
-			loaders: [
+			rules: [
 				{
 					test: /\.js(x?)$/i,
 					exclude: /node_modules/,
@@ -270,7 +278,6 @@ exports = module.exports = [
 						sourceMaps: true
 					}
 				},
-				{ test: /\.json$/, loader: 'json' },
 				{ test: /\.(ico|gif|png|jpg|svg)$/, loader: 'url' },
 				{ test: /\.(s?)css$/, loader: 'null' }
 			]

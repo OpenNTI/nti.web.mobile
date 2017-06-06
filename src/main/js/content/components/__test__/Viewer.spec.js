@@ -4,9 +4,11 @@ import ReactDOM from 'react-dom';
 import {Locations, Location} from 'react-router-component';
 
 import Viewer from '../Viewer';
-
+*/
 
 describe('Content Viewer', ()=> {
+	test('TODO: write tests');
+	/*
 	let container;
 
 	beforeEach(()=> {
@@ -31,7 +33,7 @@ describe('Content Viewer', ()=> {
 
 	describe('Router Behavior', () => {
 
-		it('should understand special routes', () => {
+		test('should understand special routes', () => {
 
 			renderReaderAtPage('/foo');
 
@@ -41,11 +43,10 @@ describe('Content Viewer', ()=> {
 
 	describe('Context / Pager', () => {
 
-		it('should have the correct context', () => {
+		test('should have the correct context', () => {
 
 		});
 
 	});
-
-});
 */
+});
