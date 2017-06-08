@@ -242,7 +242,7 @@ exports = module.exports = [
 			libraryTarget: 'commonjs2'
 		},
 		resolve: {
-			root: [root, modules],
+			modules: [root, modules],
 			extensions: ['.jsx', '.async.jsx', '.js', '.json', '.css', '.scss', '.html']
 		},
 		plugins: [
