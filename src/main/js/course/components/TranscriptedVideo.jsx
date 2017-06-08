@@ -56,7 +56,7 @@ class Annotation {
 
 		if (!transcript || !transcript.node) {
 			return RETRY_AFTER_DOM_SETTLES;
-		} else if (!transcript.isComponentMounted()) {
+		} else if (transcript.unmounted) {
 			return NOT_FOUND;
 		}
 
