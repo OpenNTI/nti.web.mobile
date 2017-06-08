@@ -4,6 +4,8 @@ import cx from 'classnames';
 
 import {rawContent} from 'nti-commons';
 
+const IS_MOUNTED = Symbol('is mounted');
+
 export default class extends React.Component {
 	static displayName = 'Transcript';
 
@@ -33,6 +35,19 @@ export default class extends React.Component {
 	static defaultProps = {
 		onJumpTo: () => {},
 		onSlideLoaded: () => {}
+	};
+
+	componentDidMount = () => {
+		this[IS_MOUNTED] = true;
+	};
+
+	componentWillUnmount = () => {
+		this[IS_MOUNTED] = false;
+	};
+
+
+	isComponentMounted = () => {
+		return this[IS_MOUNTED];
 	};
 
 	onJumpToCue = (e) => {
