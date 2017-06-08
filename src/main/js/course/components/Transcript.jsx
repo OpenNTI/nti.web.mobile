@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-
 import {rawContent} from 'nti-commons';
-
-const IS_MOUNTED = Symbol('is mounted');
 
 export default class extends React.Component {
 	static displayName = 'Transcript';
@@ -30,30 +27,21 @@ export default class extends React.Component {
 
 		onJumpTo: PropTypes.func,
 		onSlideLoaded: PropTypes.func
-	};
+	}
 
 	static defaultProps = {
 		onJumpTo: () => {},
 		onSlideLoaded: () => {}
-	};
+	}
 
-	componentDidMount = () => {
-		this[IS_MOUNTED] = true;
-	};
-
-	componentWillUnmount = () => {
-		this[IS_MOUNTED] = false;
-	};
-
-
-	isComponentMounted = () => {
-		return this[IS_MOUNTED];
-	};
+	componentWillUnmount () {
+		this.unmounted = true;
+	}
 
 	onJumpToCue = (e) => {
 		e.preventDefault();
 		this.props.onJumpTo(e.target.getAttribute('data-start-time'));
-	};
+	}
 
 	renderCues = (cue) => {
 		const divider = null;
@@ -72,7 +60,7 @@ export default class extends React.Component {
 				onClick={this.onJumpToCue}
 				{...rawContent(cue.text)}/>
 		)];
-	};
+	}
 
 	renderSlide = (slide) => {
 		let divider = null;
@@ -90,11 +78,11 @@ export default class extends React.Component {
 				<img src={slide.image} className="slide" onLoad={this.props.onSlideLoaded}/>
 			</a>
 		)];
-	};
+	}
 
 	renderItem = (item) => {
 		return ('text' in item) ? this.renderCues(item) : this.renderSlide(item);
-	};
+	}
 
 	render () {
 		const {cues = [], slides = [], children} = this.props;
