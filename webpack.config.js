@@ -273,8 +273,8 @@ exports = module.exports = [
 				{
 					test: /\.js(x?)$/i,
 					exclude: /node_modules/,
-					loader: 'babel',
-					query: {
+					loader: 'babel-loader',
+					options: {
 						sourceMaps: true
 					}
 				},
