@@ -63,7 +63,7 @@ exports = module.exports = {
 		let parts = query.match(/accept\/([^\/]*)/);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'code', parts[1]);
-			logger.info('redirecting to: %s', url);
+			logger.debug('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
@@ -83,7 +83,7 @@ exports = module.exports = {
 		let parts = query.match(pattern);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'item', parts[1]);
-			logger.info('redirecting to: %s', url);
+			logger.debug('redirecting to: %s', url);
 			res.redirect(url);
 		}
 
@@ -109,7 +109,7 @@ exports = module.exports = {
 
 			url = path.join(this.basepath, trailingPath);
 
-			logger.info('redirecting to: %s', url);
+			logger.debug('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
@@ -138,7 +138,7 @@ exports = module.exports = {
 
 			let url = path.join(this.basepath, 'object', encodeForURI(decodeFromURI(ntiid)));
 
-			logger.info('redirecting to: %s', url);
+			logger.debug('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}

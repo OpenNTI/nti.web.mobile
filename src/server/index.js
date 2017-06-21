@@ -1,10 +1,11 @@
-/*eslint strict:0*/
+/*eslint strict:0, import/no-commonjs:0*/
 'use strict';
 const fs = require('fs');
 const path = require('path');
 
+const dev = require('nti-app-scripts/server/lib/devmode');
+
 const redirects = require('./lib/redirects');
-const dev = require('./lib/devmode');
 const page = require('./lib/page');
 const sessionSetup = require('./lib/session-setup');
 

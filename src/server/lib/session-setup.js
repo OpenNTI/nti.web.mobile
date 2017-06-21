@@ -12,7 +12,7 @@ module.exports = function sessionSetup (service) {
 
 		.then(user => {
 			if (user.acceptTermsOfService) {
-				logger.info('User needs to accept terms of service.');
+				logger.debug('User needs to accept terms of service.');
 				return needsAttention('onboarding/tos');
 			}
 			return user;
@@ -20,7 +20,7 @@ module.exports = function sessionSetup (service) {
 
 		.then(user => {
 			if(user.hasLink('RegistrationSurvey')) {
-				logger.info('User needs to submit registration survey.');
+				logger.debug('User needs to submit registration survey.');
 				return needsAttention('onboarding/survey');
 			}
 		})
