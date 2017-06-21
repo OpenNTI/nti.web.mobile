@@ -1,3 +1,5 @@
+/* globals spyOn */
+/* eslint-env jest */
 /**
  * This is an example unit test for a React component. Tests should be placed in __test__ folders
  * along side the components/units they will be testing.
