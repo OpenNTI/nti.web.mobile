@@ -2,10 +2,10 @@
 
 //XXX: using the locale function this way will not pickup site string changes after loading...
 //FIXME: Move string uages `t()` to the component's render method.
-var t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
-var StateSelect = require('forms/fields').StateSelect;
-var CountrySelect = require('forms/fields').CountrySelect;
-var Constants = require('../Constants');
+const t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
+const StateSelect = require('forms/fields').StateSelect;
+const CountrySelect = require('forms/fields').CountrySelect;
+const Constants = require('../Constants');
 
 module.exports = Object.freeze([
 	{
