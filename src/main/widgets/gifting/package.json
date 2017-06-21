@@ -4,10 +4,6 @@
   "description": "NextThought Gifting Widget",
   "author": "nextthought",
   "license": "UNLICENSED",
-  "engines": {
-    "node": ">=5.0.0",
-    "npm": ">=3.3.0"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/NextThought/nti.web.mobile.git"
@@ -17,7 +13,7 @@
   ],
   "scripts": {
     "prepublish": "make",
-	"postpublish": "make clean"
+    "postpublish": "make clean"
   },
   "publishConfig": {
     "registry": "https://npm.nextthought.com"
