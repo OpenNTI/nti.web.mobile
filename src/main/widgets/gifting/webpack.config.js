@@ -1,19 +1,16 @@
-/*eslint strict: 0*/
+/*eslint strict: 0, import/no-commonjs:0*/
+'use strict';
 const path = require('path');
 
 const output = path.resolve(__dirname, 'dist');
 
-const AppCachePlugin = require('appcache-webpack-plugin');
 const StatsPlugin = require('stats-webpack-plugin');
-const SplitByPathPlugin = require('webpack-split-by-path');
+const baseConfig = require('nti-app-scripts/config/webpack.config');
 
-const baseConfig = require('../../../../webpack.config')[0];
 
 function blacklistedPluginsForWidgets (o) {
 	return !(
-		o instanceof AppCachePlugin
-		|| o instanceof StatsPlugin
-		|| o instanceof SplitByPathPlugin
+		o instanceof StatsPlugin
 	);
 }
 

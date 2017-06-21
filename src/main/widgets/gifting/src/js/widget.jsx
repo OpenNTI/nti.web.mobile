@@ -99,7 +99,7 @@ export default class GiftingWidget extends React.Component {
 	}
 
 	onNavigation = () => {
-		parent.postMessage('{"event": "navigation"}', '*');
+		window.parent.postMessage('{"event": "navigation"}', '*');
 	}
 
 	render () {
