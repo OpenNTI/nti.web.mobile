@@ -1,51 +1,39 @@
-/*eslint strict:0, import/no-commonjs:0*/
+/*eslint-disable no-console, strict, import/no-commonjs*/
 'use strict';
-const fs = require('fs');
 const path = require('path');
 
-const dev = require('nti-app-scripts/server/lib/devmode');
-
 const redirects = require('./lib/redirects');
-const page = require('./lib/page');
 const sessionSetup = require('./lib/session-setup');
 
-function exists (f) {
-	try {
-		fs.accessSync(f);
-	} catch (e) {
-		return false;
+let dev;
+let assets = path.resolve(__dirname, '../client');
+
+try {
+	if (!/dist\/server/i.test(__dirname)) {
+		dev = require('nti-app-scripts/server/lib/devmode');
+		assets = require('nti-app-scripts/config/paths').assetsRoot;
 	}
-	return true;
+} catch (e) {
+	console.error(e.stack || e.message || e);
 }
-
-const distAssets = path.resolve(__dirname, '../client');
-const srcAssets = path.resolve(__dirname, '../main');
-
-const assets = exists(distAssets) ? distAssets : srcAssets;
 
 exports = module.exports = {
 
 	register (expressApp, config) {
+		const devmode = (dev) ? dev.setupDeveloperMode(config) : null;
 
-		const pageRenderer = page.getPage();
-		const devmode = (srcAssets === assets) ? dev.setupDeveloperMode(config) : null;
+		redirects.register(expressApp, config);
 
 		if (devmode) {
 			expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets
 		}
-
-		redirects.register(expressApp, config);
 
 		return {
 			devmode,
 
 			assets,
 
-			sessionSetup,
-
-			render (base, req, clientConfig) {
-				return pageRenderer(base, req, clientConfig);
-			}
+			sessionSetup
 		};
 
 	}
