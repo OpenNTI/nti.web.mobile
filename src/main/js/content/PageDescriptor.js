@@ -60,10 +60,10 @@ export default class PageDescriptor {
 	getSubmittableAssessment () {
 		let items = this.pageInfo.AssessmentItems || [];
 		let search = (v, item) => v || (
-				item.isSubmittable &&
+			item.isSubmittable &&
 				!item.isQuestion ?
-					item :
-					v);
+				item :
+				v);
 
 		return items.reduce(search,	null);
 	}

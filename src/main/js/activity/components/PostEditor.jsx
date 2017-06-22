@@ -100,31 +100,31 @@ export default class PostEditor extends React.Component {
 		return (
 			<div className="note-editor-frame editor">
 				<form onSubmit={preventSubmit}>
-				<div className="error-message">
-					{error ? t(`ERROR_MESSAGES.CODES.${error.code}`, error) : null}
-				</div>
+					<div className="error-message">
+						{error ? t(`ERROR_MESSAGES.CODES.${error.code}`, error) : null}
+					</div>
 
-				{showSharing && (
-					<ShareWith ref={this.attachSharing} scope={this} />
-				)}
+					{showSharing && (
+						<ShareWith ref={this.attachSharing} scope={this} />
+					)}
 
-				<div className="title">
-					<input type="text"
-						ref={this.attachTitle} placeholder="Title"
-						className={cx({'error': error && error.field === 'title'})}
+					<div className="title">
+						<input type="text"
+							ref={this.attachTitle} placeholder="Title"
+							className={cx({'error': error && error.field === 'title'})}
+							onChange={this.onChange}
+							defaultValue={this.props.title} />
+					</div>
+
+					<Editor ref={this.attachEditor}
+						allowInsertVideo
+						className={cx({'error': error && error.field === 'body'})}
 						onChange={this.onChange}
-						defaultValue={this.props.title} />
-				</div>
-
-				<Editor ref={this.attachEditor}
-					allowInsertVideo
-					className={cx({'error': error && error.field === 'body'})}
-					onChange={this.onChange}
-					onBlur={this.onChange}
-					initialValue={this.props.value}>
-					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-					<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Loading.Ellipse/>) : t('BUTTONS.save')}</button>
-				</Editor>
+						onBlur={this.onChange}
+						initialValue={this.props.value}>
+						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
+						<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Loading.Ellipse/>) : t('BUTTONS.save')}</button>
+					</Editor>
 				</form>
 			</div>
 		);

@@ -178,7 +178,7 @@ export default createReactClass({
 						defaultValue={defaultValues.name}
 						onFocus={this.onFieldEventClearError}
 						onChange={this.onChange}
-						/>
+					/>
 					{errors.name && <div className="error message">{errors.name.message}</div>}
 				</div>
 				<div>
@@ -191,7 +191,7 @@ export default createReactClass({
 							autoComplete="cc-number"
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
-							/>
+						/>
 					</span>
 					<span className="exp" >
 						<input name="exp" ref={this.attachExpRef}
@@ -203,7 +203,7 @@ export default createReactClass({
 							defaultValue={expDefaultValue}
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
-							/>
+						/>
 					</span>
 					<span className="cvc" >
 						<input name="cvc" ref={this.attachCvcRef}
@@ -214,7 +214,7 @@ export default createReactClass({
 							autoComplete="off"
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
-							/>
+						/>
 					</span>
 					{secondLineError && <div className="error message">{secondLineError.message}</div>}
 				</div>

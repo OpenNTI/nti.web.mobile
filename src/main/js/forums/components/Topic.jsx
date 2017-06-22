@@ -245,18 +245,18 @@ export default createReactClass({
 						canReply={showComments && topic.hasLink('add')}
 						onEdit={this.editTopic}
 						onDelete={this.deleteTopic}
-						/>
+					/>
 
 					{showComments && (
 						<div>
 							<TopicComments topicId={this.getTopicId()} currentPage={this.currentPage()} />
 
 							<CommentForm key="commentForm"
-									ref={COMMENT_FORM_ID}
-									id={COMMENT_FORM_ID}
-									onCompletion={this.hideCommentForm}
-									topic={topic}
-									parent={topic.parent()} />
+								ref={COMMENT_FORM_ID}
+								id={COMMENT_FORM_ID}
+								onCompletion={this.hideCommentForm}
+								topic={topic}
+								parent={topic.parent()} />
 						</div>
 					)}
 				</Transition>

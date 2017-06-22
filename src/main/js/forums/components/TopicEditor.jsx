@@ -53,7 +53,7 @@ export default class TopicEditor extends React.Component {
 				onCancel={this.props.onCancel}
 				okEnabled={this.state.canSubmit}
 				okText={t('editorOkButton')}
-				/>
+			/>
 		);
 		return (
 			<PanelButton className="comment-form" button={buttons}>
@@ -63,7 +63,7 @@ export default class TopicEditor extends React.Component {
 						defaultValue={title}
 						placeholder={t('topicTitlePlaceholder')}
 						onChange={this.onEditorChange}
-						/>
+					/>
 				</div>
 				<div>
 					<Editor
@@ -71,7 +71,7 @@ export default class TopicEditor extends React.Component {
 						initialValue={body}
 						onChange={this.onEditorChange}
 						allowInsertVideo
-						/>
+					/>
 				</div>
 			</PanelButton>
 		);

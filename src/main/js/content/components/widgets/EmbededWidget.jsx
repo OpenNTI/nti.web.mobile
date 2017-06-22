@@ -143,7 +143,7 @@ export default createReactClass({
 					<div onClick={this.onSplashClicked}
 						className="splash"
 						style={{backgroundImage: `url(${splash})`}}
-						/>
+					/>
 				)}
 				{skip ? null : (
 					<iframe src={source}
@@ -155,7 +155,7 @@ export default createReactClass({
 						allowTransparency
 						seamless
 						{...sandbox}
-						/>
+					/>
 				)}
 			</div>
 		);

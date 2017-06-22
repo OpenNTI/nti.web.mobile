@@ -56,10 +56,10 @@ export function getForumContents (forumId, batchStart, batchSize) {
 }
 
 export function getPagedContents (ntiid,
-									batchStart = 0,
-									batchSize = DEFAULT_BATCH_SIZE,
-									sortOrder = DEFAULT_SORT_ORDER,
-									sortOn = DEFAULT_PAGING_PARAMS.sortOn) {
+	batchStart = 0,
+	batchSize = DEFAULT_BATCH_SIZE,
+	sortOrder = DEFAULT_SORT_ORDER,
+	sortOn = DEFAULT_PAGING_PARAMS.sortOn) {
 	let params = Object.assign(
 		{},
 		DEFAULT_PAGING_PARAMS,

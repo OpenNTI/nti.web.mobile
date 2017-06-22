@@ -101,8 +101,8 @@ export default createReactClass({
 
 		if ((course && course.error) || !entry) {
 			return !course || course.notFound ?
-			(<NotFound/>) :
-			(<ErrorWidget error={course.error}/>);
+				(<NotFound/>) :
+				(<ErrorWidget error={course.error}/>);
 		}
 
 		return (
@@ -118,8 +118,8 @@ export default createReactClass({
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
-				React.createElement(Router.Location, Object.assign({course, contentPackage: course}, route)) :
-				React.createElement(Router.NotFound, {handler: Redirect, location: LESSONS})
+					React.createElement(Router.Location, Object.assign({course, contentPackage: course}, route)) :
+					React.createElement(Router.NotFound, {handler: Redirect, location: LESSONS})
 			));
 	},
 

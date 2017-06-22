@@ -34,7 +34,7 @@ export function setCourse (courseId) {
 				dispatch(SET_ACTIVE_COURSE, buildResponse(courseEnrollment)),
 			reason =>
 				dispatch(SET_ACTIVE_COURSE, buildResponse(new Error(reason.toString())))
-			);
+		);
 }
 
 

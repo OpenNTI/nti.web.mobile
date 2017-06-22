@@ -138,11 +138,11 @@ export default createReactClass({
 		return this.getChildForSide('center') ||
 			this.getMenu() || (title ? (
 
-			<a href={this.getBasePath()}>
-				<h1 className={css}>{title}</h1>
-			</a>
+				<a href={this.getBasePath()}>
+					<h1 className={css}>{title}</h1>
+				</a>
 
-		) : null);
+			) : null);
 	},
 
 
@@ -280,9 +280,9 @@ export default createReactClass({
 		let sections = availableSections.map(sectionProps);
 
 		return menuOpen && React.createElement(Menu, props,
-				...sections.map((x,i)=>
-					<li key={i} {...x}><a {...x}/></li>
-				));
+			...sections.map((x,i)=>
+				<li key={i} {...x}><a {...x}/></li>
+			));
 	}
 
 });

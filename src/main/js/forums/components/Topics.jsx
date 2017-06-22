@@ -79,7 +79,7 @@ export default createReactClass({
 					transitionAppearTimeout={500}
 					transitionEnterTimeout={500}
 					transitionLeaveTimeout={500}
-					>
+				>
 					<ViewHeader type={FORUM} />
 					<section>
 						{this.createTopicLink()}

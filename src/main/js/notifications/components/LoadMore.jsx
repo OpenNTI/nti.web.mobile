@@ -9,7 +9,7 @@ export default function LoadMore ({store, onClick}) {
 		<div className="text-center button-box">
 			{store.isBusy ?
 				<Loading.Whacky />
-			:
+				:
 				<Button onClick={onClick}>Load More</Button>
 			}
 		</div>

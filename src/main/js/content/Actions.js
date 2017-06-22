@@ -34,9 +34,9 @@ export function loadPage (ntiid, context, extra) {
 		const p = context.getPackage(id);
 
 		return p ?
-				Promise.resolve(p) :
-				context.refresh()
-					.then(() => context.getPackage(id));
+			Promise.resolve(p) :
+			context.refresh()
+				.then(() => context.getPackage(id));
 	}
 
 	function loadTOC (id) {

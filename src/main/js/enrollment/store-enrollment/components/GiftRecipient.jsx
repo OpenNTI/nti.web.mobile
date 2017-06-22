@@ -143,7 +143,7 @@ export default class Recipient extends React.Component {
 								type="checkbox"
 								checked={enabled}
 								onChange={this.onCheckedChange}
-								/>
+							/>
 							<span>{t('enable')}</span>
 						</label>
 						<div className="line">
@@ -153,14 +153,14 @@ export default class Recipient extends React.Component {
 								onChange={this.fieldChanged}
 								value={toFirstName}
 								type="text"
-								/>
+							/>
 							<input name="toLastName"
 								placeholder={t('lastName')}
 								onClick={this.fieldClicked}
 								onChange={this.fieldChanged}
 								value={toLastName}
 								type="text"
-								/>
+							/>
 							<span>
 								<input name="receiver"
 									placeholder={t('email')}
@@ -171,7 +171,7 @@ export default class Recipient extends React.Component {
 									value={receiver}
 									type="email"
 									ref={this.attachEmailRef}
-									/>
+								/>
 								{!valid && (
 									<span className="error message">
 										{this.isEmpty() ? t2('requiredField') : t2('invalidRecipient')}
@@ -184,7 +184,7 @@ export default class Recipient extends React.Component {
 							onClick={this.fieldClicked}
 							onChange={this.fieldChanged}
 							value={message}
-							/>
+						/>
 					</fieldset>
 					<fieldset>
 						<label htmlFor="sender">{t('fromLabel')}</label>

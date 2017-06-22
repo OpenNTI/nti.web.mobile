@@ -92,7 +92,7 @@ export default createReactClass({
 					placeholder={t('sendMessagePlaceholder')}
 					onChange={this.onMessageChange}
 					value={this.state.message}
-					/>
+				/>
 				{error && <FormErrors errors={{'code': error}} />}
 				<div className="button-row">
 					<input type="submit"

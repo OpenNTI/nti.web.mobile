@@ -289,7 +289,7 @@ export default createReactClass({
 				transitionName="fadeOutIn"
 				transitionEnterTimeout={TRANSITION_TIMEOUT}
 				transitionLeaveTimeout={TRANSITION_TIMEOUT}
-				>
+			>
 
 				{discussions ? (
 
@@ -297,7 +297,7 @@ export default createReactClass({
 						UserDataStoreProvider={page}
 						contentPackage={contentPackage}
 						filter={selectedDiscussions}
-						/>
+					/>
 
 				) : stagedNote ? (
 
@@ -362,9 +362,9 @@ export default createReactClass({
 				transitionAppear>
 
 				{content && (
-				<div className={`the-fixed ${key}`} key={key}>
-					{content}
-				</div>
+					<div className={`the-fixed ${key}`} key={key}>
+						{content}
+					</div>
 				)}
 
 			</TransitionGroup>

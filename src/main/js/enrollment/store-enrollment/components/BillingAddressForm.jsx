@@ -107,7 +107,7 @@ export default class extends React.Component {
 							defaultValue={defaultValues[`address_${field}`]}
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
-							/>
+						/>
 						{errors[field] && <div className="error message">{errors[field].message}</div>}
 					</div>
 				))}

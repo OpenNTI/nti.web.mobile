@@ -63,10 +63,10 @@ export default class extends React.Component {
 					<div className="inner-wrap">
 
 
-							<aside className="right-off-canvas-menu" style={height} ref={this.attachRightMenuRef}>
-								{this.getOverlayState() != null && ( <Session /> )}
-								{this.getOverlayState() != null && ( <Notifications/> )}
-							</aside>
+						<aside className="right-off-canvas-menu" style={height} ref={this.attachRightMenuRef}>
+							{this.getOverlayState() != null && ( <Session /> )}
+							{this.getOverlayState() != null && ( <Notifications/> )}
+						</aside>
 
 
 						<section className="main-section">

@@ -55,16 +55,16 @@ export default createReactClass({
 
 		this.setState({ busy: true }, () => {
 			enrollOpen(this.props.catalogEntry.getID())
-			.then((result) => this.setState({
-				busy: false,
-				enrolled: result.success
-			}))
-			.catch(reason => {
-				this.setState({
-					error: reason,
-					busy: false
+				.then((result) => this.setState({
+					busy: false,
+					enrolled: result.success
+				}))
+				.catch(reason => {
+					this.setState({
+						error: reason,
+						busy: false
+					});
 				});
-			});
 		});
 
 	},

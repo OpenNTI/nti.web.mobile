@@ -98,12 +98,12 @@ export default createReactClass({
 		const {form} = this;
 		let inputs = form && Array.from(form.elements);
 		let values = form && inputs
-							.map(valueIfChecked)
-							.filter(isTruthy)
-							.map(i => parseInt(i, 10));
+			.map(valueIfChecked)
+			.filter(isTruthy)
+			.map(i => parseInt(i, 10));
 
 		return !form ? undefined :
-					values.length === 1 ?
-						values[0] : null;
+			values.length === 1 ?
+				values[0] : null;
 	}
 });

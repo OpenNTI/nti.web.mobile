@@ -136,7 +136,7 @@ export default createReactClass({
 					: t
 						? fallback
 						: x
-				) || fallback;
+			) || fallback;
 
 			return x.title || x.Title || x.displayName;
 		}

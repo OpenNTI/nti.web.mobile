@@ -88,7 +88,7 @@ export default class GiftFrom extends React.Component {
 						type="email"
 						onChange={this.onChange}
 						onFocus={this.onFieldEventClearError}
-						/>
+					/>
 					{errors.from && <div className="error message">{errors.from.message}</div>}
 				</div>
 			</fieldset>

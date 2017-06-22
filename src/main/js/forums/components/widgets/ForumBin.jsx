@@ -11,10 +11,10 @@ export default function ForumBin ({title, bin}) {
 		<div className="bin">
 			<h2>{title}</h2>
 			<ul>
-			{Object.keys(bin).map(key => {
-				let board = bin[key];
-				return <li key={keyFor(board)}><ForumBoard title={key} board={board} /></li>;
-			})}
+				{Object.keys(bin).map(key => {
+					let board = bin[key];
+					return <li key={keyFor(board)}><ForumBoard title={key} board={board} /></li>;
+				})}
 			</ul>
 		</div>
 	);

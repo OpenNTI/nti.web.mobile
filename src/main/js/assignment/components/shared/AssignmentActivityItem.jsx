@@ -57,7 +57,7 @@ export default function ActivityItem ({event}, {isInstructor}) {
 		isInstructor && linkToStudentView(user, type)
 			? join('..', encodeForURI(assignment.getID()), 'students', encodeURIComponent(user))
 			: join('..', encodeForURI(assignment.getID()))
-		) + (GOTO_HASH[type] || '');
+	) + (GOTO_HASH[type] || '');
 
 	const titleMarkup = ReactDOMServer.renderToStaticMarkup(<span className="assignment-name">{title}</span>);
 	const getLabelWithUser = (data) => t(type, {...data, title: titleMarkup});

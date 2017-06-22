@@ -53,13 +53,13 @@ export default createReactClass({
 						total={summary.getTotal()}
 						onChange={this.onPageChange}
 					/>
-				<BufferedInput
-					className="search"
-					type="search"
-					placeholder="Search Students"
-					onChange={this.onSearchChange}
-					delay={1000}
-					defaultValue={summary.getSearch()} />
+					<BufferedInput
+						className="search"
+						type="search"
+						placeholder="Search Students"
+						onChange={this.onSearchChange}
+						delay={1000}
+						defaultValue={summary.getSearch()} />
 				</div>
 			</div>
 		);

@@ -84,23 +84,23 @@ export default createReactClass({
 				<div className="menu-label">{menuLabel} <span className="count">({Store.getTotal()})</span></div>
 				<MenuTransitionGroup>
 					{open && (
-							<ul key="filter-menu" className="filter-menu">
-								<li key="title" className="title">Display</li>
-								{OPTIONS.map(option => (
-									<FilterMenuOption
-										key={option.value}
-										option={option}
-										className={cx({'selected': option === selectedOption})}
-										onClick={this.optionClicked} />
-								))}
-								<li key="search" className="search-item" onClick={killEvent}>
-									<input type="search"
-										defaultValue={search}
-										onChange={this.searchChanged}
-										placeholder="Search Students"
-										/>
-								</li>
-							</ul>
+						<ul key="filter-menu" className="filter-menu">
+							<li key="title" className="title">Display</li>
+							{OPTIONS.map(option => (
+								<FilterMenuOption
+									key={option.value}
+									option={option}
+									className={cx({'selected': option === selectedOption})}
+									onClick={this.optionClicked} />
+							))}
+							<li key="search" className="search-item" onClick={killEvent}>
+								<input type="search"
+									defaultValue={search}
+									onChange={this.searchChanged}
+									placeholder="Search Students"
+								/>
+							</li>
+						</ul>
 					)}
 				</MenuTransitionGroup>
 			</div>

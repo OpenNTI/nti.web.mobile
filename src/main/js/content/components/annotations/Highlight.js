@@ -149,12 +149,12 @@ export default class Highlight extends Annotation {
 
 		if (!range) {
 			range = Anchors.toDomRange(
-						this.getRecordField('applicableRange'),
-						contentNode,
-						reader.getContentNodeClean(),
-						this.getRecordField('ContainerId'),
-						reader.getPageID()
-						);
+				this.getRecordField('applicableRange'),
+				contentNode,
+				reader.getContentNodeClean(),
+				this.getRecordField('ContainerId'),
+				reader.getPageID()
+			);
 		}
 
 		if (!range) {

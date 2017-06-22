@@ -168,7 +168,7 @@ export default createReactClass({
 				key={sourceIndex}
 				locked={locked}
 				type={this.state.PartLocalDNDToken}
-				>
+			>
 				<div className={classes.join(' ')} key={sourceIndex}>
 					<Content content={source}/>
 					<span className="hamburger small"><span/></span>

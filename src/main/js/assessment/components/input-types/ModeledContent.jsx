@@ -43,7 +43,7 @@ export default createReactClass({
 						onChange={this.handleInteraction}
 						onBlur={this.onBlur}
 						allowInsertImage={false}
-						/>
+					/>
 				)}
 			</form>
 		);

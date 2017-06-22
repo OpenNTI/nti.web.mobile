@@ -18,10 +18,10 @@ const PEOPLE_YOU_KNOW = 'pyk';
 const Breakdown = function Breakdown ({count, ...props}) {
 
 	const countDisplay = !count
-							? void 0
-							: (count > 9999)
-								? '9999+'
-								: count;
+		? void 0
+		: (count > 9999)
+			? '9999+'
+			: count;
 
 	return (
 		<li><Link data-count={countDisplay} {...props}/></li>

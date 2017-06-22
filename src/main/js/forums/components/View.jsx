@@ -39,12 +39,12 @@ export default createReactClass({
 						<Router.Location path="/(:forumId)/*"
 							handler={ForumView}
 							contextID={contentPackage && contentPackage.getID()}
-							/>
+						/>
 
 						<Router.Location path="/"
 							handler={ForumListView}
 							contentPackage={contentPackage}
-							/>
+						/>
 
 					</Router.Locations>
 				</div>

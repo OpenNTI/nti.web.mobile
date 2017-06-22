@@ -60,7 +60,7 @@ export default createReactClass({
 				onSortChange={this.onSort}
 				sort={sortOn}
 				sortOrder={sortOrder}
-				/>
+			/>
 		);
 	}
 });

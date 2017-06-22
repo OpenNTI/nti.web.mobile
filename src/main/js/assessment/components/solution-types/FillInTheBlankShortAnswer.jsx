@@ -39,7 +39,7 @@ export default createReactClass({
 					content={this.props.item.input}
 					strategies={strategies}
 					renderCustomWidget={this.renderInput}
-					/>
+				/>
 				<div className="explanation" {...rawContent(ex)}/>
 			</div>
 		);

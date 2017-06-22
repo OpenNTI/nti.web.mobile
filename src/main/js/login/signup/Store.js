@@ -126,7 +126,7 @@ function createAccount (fields) {
 	}
 
 	return getServer().createAccount(fields)
-	.then(success, fail);
+		.then(success, fail);
 
 }
 

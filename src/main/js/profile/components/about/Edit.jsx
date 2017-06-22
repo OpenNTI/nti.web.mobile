@@ -123,7 +123,7 @@ export default createReactClass({
 				.then(() =>
 					this.setState({loading: true}, () => this.redirectToProfile()))
 				.catch(error => this.setState({ error, busy: false })
-			));
+				));
 	},
 
 	errorMessage (error) {

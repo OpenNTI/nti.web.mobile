@@ -138,15 +138,15 @@ export default createReactClass({
 				)}
 
 				{!loading && (entity.isUser || store.more) && (
-				<li key="theend" className="activity-item end">
-					{store.more
-						? store.loading
-							? ( <Loading.Ellipse/> )
-							: ( <Button className="more" onClick={this.more}>More</Button> )
-						: (
-						<Joined entity={entity} />
-					)}
-				</li>
+					<li key="theend" className="activity-item end">
+						{store.more
+							? store.loading
+								? ( <Loading.Ellipse/> )
+								: ( <Button className="more" onClick={this.more}>More</Button> )
+							: (
+								<Joined entity={entity} />
+							)}
+					</li>
 				)}
 
 				<li><ScrollTrigger onEnterView={this.more}/></li>

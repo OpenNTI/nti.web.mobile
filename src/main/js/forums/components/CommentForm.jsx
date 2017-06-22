@@ -120,8 +120,8 @@ export default createReactClass({
 		}
 
 		const savefunc = editItem
-						? (...args) => this.onSave(this.props.editItem, ...args)
-						: this.onAddComment;
+			? (...args) => this.onSave(this.props.editItem, ...args)
+			: this.onAddComment;
 
 
 		const value = (editItem || {}).body;
@@ -134,7 +134,7 @@ export default createReactClass({
 					onChange={this.onBodyChange}
 					initialValue={value}
 					allowInsertVideo
-					>
+				>
 					<OkCancelButtons
 						onOk={savefunc}
 						okEnabled={canSubmit}

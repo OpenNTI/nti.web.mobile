@@ -199,7 +199,7 @@ export default createReactClass({
 				<div className="body">
 					{assignment ?
 						<div className="icon assignment"/>
-					: //Assessment:
+						: //Assessment:
 						<div className="icon assessmentScore">
 							<Score width="40" height="40" score={score || 0}/>
 						</div>
@@ -208,7 +208,7 @@ export default createReactClass({
 
 						<div className="tally-box">
 							<div className="message">{label}<TotalPointsLabel assignment={assignment}/></div>
-								<AssignmentStatusLabel showTimeWithDate assignment={assignment} historyItem={assignmentHistory}/>
+							<AssignmentStatusLabel showTimeWithDate assignment={assignment} historyItem={assignmentHistory}/>
 						</div>
 
 					) : ( //Assessment:
@@ -216,14 +216,14 @@ export default createReactClass({
 						<div className="tally-box">
 							<div className="message">{label}</div>
 							<div className="tally">
-							{correct && (
-								<div className="stat correct">
-									<span className="count">{correct}</span> correct </div>
-							)}
-							{incorrect && (
-								<div className="stat incorrect">
-									<span className="count">{incorrect}</span> incorrect </div>
-							)}
+								{correct && (
+									<div className="stat correct">
+										<span className="count">{correct}</span> correct </div>
+								)}
+								{incorrect && (
+									<div className="stat incorrect">
+										<span className="count">{incorrect}</span> incorrect </div>
+								)}
 								<div className="stat questions">{questionCount} questions</div>
 							</div>
 						</div>

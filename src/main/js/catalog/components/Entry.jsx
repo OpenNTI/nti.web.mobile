@@ -141,6 +141,6 @@ export default createReactClass({
 			enrolled ?
 				<a className="action drop" href={this.getDropHref()}>Drop</a> :
 				<a className="action add" href={this.getAddHref()}>Add</a>
-			;
+		;
 	}
 });

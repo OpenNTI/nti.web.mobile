@@ -123,20 +123,20 @@ export default createReactClass({
 				<Location path="/confirm/"
 					handler={PaymentConfirm}
 					{...this.props}
-					/>
+				/>
 				<Location path="/success/"
 					handler={PaymentSuccess}
 					{...this.props}
 					giftDoneLink={giftDoneLink}
-					/>
+				/>
 				<Location path="/error/"
 					handler={PaymentError}
 					courseTitle={courseTitle}
 					{...this.props}
-					/>
+				/>
 				<NotFound handler={this.props.defaultHandler}
 					{...this.props}
-					/>
+				/>
 			</Locations>
 		);
 	}

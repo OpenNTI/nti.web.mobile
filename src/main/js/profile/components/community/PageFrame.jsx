@@ -51,7 +51,7 @@ export default createReactClass({
 		this.setState(this.getInitialState(), ()=>
 			entity.getDiscussionBoardContents()
 				.then(o => this.setState({sections: o.Items}))
-			);
+		);
 	},
 
 
@@ -93,9 +93,9 @@ export default createReactClass({
 			<Page title="Community">
 				<Background className="community profile-wrapper" imgUrl={entity.backgroundURL}>
 
-				{removePageWrapping
-					? ( <Content {...this.props}/> )
-					: ( <div>
+					{removePageWrapping
+						? ( <Content {...this.props}/> )
+						: ( <div>
 							<div className="profile-top-controls">
 								{topLeft}
 								<Controls entity={entity}/>
@@ -107,19 +107,19 @@ export default createReactClass({
 										sections={sections}
 										selected={selected}
 										onMenuToggle={this.toggleMenu}
-										/>
+									/>
 								</nav>
 
 								<TransitionGroup className="coordinate-root"
 									transitionName="community-menu"
 									transitionEnterTimeout={500}
 									transitionLeaveTimeout={500}
-									>
+								>
 									{body}
 								</TransitionGroup>
 							</div>
 						</div>
-					)}
+						)}
 
 				</Background>
 			</Page>

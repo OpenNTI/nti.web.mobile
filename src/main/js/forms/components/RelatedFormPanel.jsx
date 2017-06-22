@@ -271,8 +271,8 @@ let RelatedFormPanel = createReactClass({
 		return activeInlineSubfields.map(item=>
 			item.config[0].content.map(field=>
 				this.renderField(field, values)
-				)
-			);
+			)
+		);
 	},
 
 	renderFieldset (fieldset, values, index) {

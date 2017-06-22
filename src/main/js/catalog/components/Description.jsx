@@ -21,7 +21,7 @@ Description.propTypes = {
 
 export default function Description ({entry, enrollmentStatus = 'None'}) {
 	let EnrollmentMessage = isOpenEnrolled(enrollmentStatus) ?
-			OpenEnrolledMessage : 'div';
+		OpenEnrolledMessage : 'div';
 
 	let prerequisites = entry.Prerequisites;
 	if (isEmpty(prerequisites)) {
@@ -69,20 +69,20 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 						<dd>{moment(entry.StartDate).format('LL')}</dd>
 					</dl>
 					{weeks > 0 && (
-					<dl>
-						<dt>{t('Duration')}</dt>
-						<dd>
-							{weeks} {t('DurationUnits')}
-						</dd>
-					</dl>
+						<dl>
+							<dt>{t('Duration')}</dt>
+							<dd>
+								{weeks} {t('DurationUnits')}
+							</dd>
+						</dl>
 					)}
 					<dl>
 						<dt>{t('DaysAndTimes')}</dt>
 						<dd>
-						{isEmpty(entry.Schedule && entry.Schedule.days) ?
-							<FullyOnline/> :
-							<Schedule schedule={entry.Schedule} startDate={entry.StartDate} />
-						}
+							{isEmpty(entry.Schedule && entry.Schedule.days) ?
+								<FullyOnline/> :
+								<Schedule schedule={entry.Schedule} startDate={entry.StartDate} />
+							}
 						</dd>
 					</dl>
 				</div>

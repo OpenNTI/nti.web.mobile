@@ -101,7 +101,7 @@ export default createReactClass({
 				contentPackage={this.getCourse()}
 				course={this.getCourse()}
 				explicitContext={explicitContext || this}
-				/>
+			/>
 		);
 	}
 });

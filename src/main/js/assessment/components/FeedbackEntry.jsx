@@ -37,11 +37,11 @@ export default class FeedbackEntry extends React.Component {
 		return (
 			<div className="feedback entry">
 				<div className="input-area">
-				{this.state.active ?
-					<Editor onSubmit={this.onSubmit} onCancel={this.toggleEditor}/>
-					:
-					<a href="#" className="placeholder" onClick={this.toggleEditor}>{t('entryPlaceholder')}</a>
-				}
+					{this.state.active ?
+						<Editor onSubmit={this.onSubmit} onCancel={this.toggleEditor}/>
+						:
+						<a href="#" className="placeholder" onClick={this.toggleEditor}>{t('entryPlaceholder')}</a>
+					}
 				</div>
 			</div>
 		);

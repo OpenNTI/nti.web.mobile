@@ -35,9 +35,9 @@ export default createReactClass({
 
 	render () {
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
-						...ROUTES.map(route =>
-							route.path
-							? <Router.Location {...route} />
-						: <Router.NotFound handler={Redirect} location="/users/" />));
+			...ROUTES.map(route =>
+				route.path
+					? <Router.Location {...route} />
+					: <Router.NotFound handler={Redirect} location="/users/" />));
 	}
 });

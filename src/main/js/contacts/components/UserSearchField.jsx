@@ -227,8 +227,8 @@ export default class UserSearchField extends React.Component {
 
 		const saveButtonClasses = cx('primary button', {
 			'disabled': 'saveDisabled' in props
-							? saveDisabled
-							: (selectedUsers.length === 0)
+				? saveDisabled
+				: (selectedUsers.length === 0)
 		});
 
 		return (

@@ -51,7 +51,7 @@ export default class extends React.Component {
 				sort={sort.sortOn}
 				sortOrder={sort.sortOrder}
 				onSortChange={this.sortChange}
-				/>
+			/>
 		);
 	}
 }

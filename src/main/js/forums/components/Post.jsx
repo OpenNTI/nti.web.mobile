@@ -153,7 +153,7 @@ export default createReactClass({
 						topic={topic}
 						display
 						className="visible"
-						/>
+					/>
 				}
 				{topic &&
 					<CommentForm key="commentForm"
@@ -162,7 +162,7 @@ export default createReactClass({
 						onCompletion={this.commentCompletion}
 						topic={topic}
 						parent={item}
-						/>
+					/>
 				}
 			</div>
 		);

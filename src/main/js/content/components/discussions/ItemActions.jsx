@@ -14,7 +14,7 @@ const CanEdit = (_, item) => item.isModifiable;
 const CanFlag = (_, item) => item.hasLink('flag') || item.hasLink('flag.metoo');
 const CanReply = caps => caps && caps.canShare;
 const CanShare = (caps, item) =>
-					CanEdit(caps, item)
+	CanEdit(caps, item)
 					&& item.isTopLevel
 					&& (caps && caps.canShare)
 					&& false; //disable for now
@@ -88,24 +88,24 @@ export default createReactClass({
 
 		return showMenu ? (
 
-				<div className="discussion-item-actions">
-					<Action name="reply" criteria={CanReply(capabilities, item)} onClick={this.onReply}/>
-					<Action name="share" criteria={CanShare(capabilities, item)} onClick={this.onShare}/>
-					<span className={cx('options', {open: moreOptionsOpen})}>
-						<Action name="more-options" onClick={this.toggleMenu} iconOnly/>
-						<ul ref={this.attachListRef} onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
-							<Action name="edit" criteria={CanEdit(capabilities, item)} inList onClick={this.onEdit}/>
-							<Action name={flag} criteria={CanFlag(capabilities, item)} inList onClick={this.onFlag}/>
-							<Action name="delete" criteria={CanDelete(capabilities, item)} inList onClick={this.onDelete}/>
-						</ul>
-					</span>
-				</div>
+			<div className="discussion-item-actions">
+				<Action name="reply" criteria={CanReply(capabilities, item)} onClick={this.onReply}/>
+				<Action name="share" criteria={CanShare(capabilities, item)} onClick={this.onShare}/>
+				<span className={cx('options', {open: moreOptionsOpen})}>
+					<Action name="more-options" onClick={this.toggleMenu} iconOnly/>
+					<ul ref={this.attachListRef} onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
+						<Action name="edit" criteria={CanEdit(capabilities, item)} inList onClick={this.onEdit}/>
+						<Action name={flag} criteria={CanFlag(capabilities, item)} inList onClick={this.onFlag}/>
+						<Action name="delete" criteria={CanDelete(capabilities, item)} inList onClick={this.onDelete}/>
+					</ul>
+				</span>
+			</div>
 
-			) : (
-				<div className="discussion-item-actions">
-					<Action className="flag" name={flag} item={item} criteria={CanFlag(capabilities, item)} onClick={this.onFlag}/>
-				</div>
-			);
+		) : (
+			<div className="discussion-item-actions">
+				<Action className="flag" name={flag} item={item} criteria={CanFlag(capabilities, item)} onClick={this.onFlag}/>
+			</div>
+		);
 	},
 
 
@@ -139,7 +139,7 @@ export default createReactClass({
 			.then(
 				() => item.flag(),
 				()=> {}
-				);
+			);
 	},
 
 

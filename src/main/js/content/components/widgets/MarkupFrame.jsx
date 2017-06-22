@@ -15,7 +15,7 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	statics: {
-		itemType: /nti\-data\-markup(dis|en)abled/i
+		itemType: /nti-data-markup(dis|en)abled/i
 	},
 
 
@@ -87,9 +87,9 @@ export default createReactClass({
 					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
 					{!zoomable ? null : (
 						<a title="Zoom"
-						className="zoom icon-search"
-						data-non-anchorable="true"
-						onClick={this.onZoom} />
+							className="zoom icon-search"
+							data-non-anchorable="true"
+							onClick={this.onZoom} />
 					)}
 				</span>
 

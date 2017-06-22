@@ -77,19 +77,19 @@ export default createReactClass({
 		return (
 			<div>
 				<div className="search"><input type="text" ref={this.attachRef} onChange={this.onSearchChange} /></div>
-			{sections.map(s=>
-			{
-				const list = s.items.filter(item => passesFilter(search, item));
-				return list.length > 0 && (
-					<div className="grid-container" key={s.label}>
-						<h3>{s.label}</h3>
-						<ul className={'small-block-grid-1'}>
-							{list.map(o => <Item key={o.getID()} item={o}/>)}
-						</ul>
-					</div>
-				);
-			}
-			)}
+				{sections.map(s=>
+				{
+					const list = s.items.filter(item => passesFilter(search, item));
+					return list.length > 0 && (
+						<div className="grid-container" key={s.label}>
+							<h3>{s.label}</h3>
+							<ul className={'small-block-grid-1'}>
+								{list.map(o => <Item key={o.getID()} item={o}/>)}
+							</ul>
+						</div>
+					);
+				}
+				)}
 			</div>
 		);
 	}

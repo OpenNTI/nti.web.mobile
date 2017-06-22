@@ -40,11 +40,11 @@ export default class extends React.Component {
 		return (
 			<div>
 				<div className="swipers selectable-entities">
-				{
-					this.state.original.map(entity => {
-						return <SwipeEntity key={entity.getID()} {...this.props} selection={this.state.selection} entity={entity} />;
-					})
-				}
+					{
+						this.state.original.map(entity => {
+							return <SwipeEntity key={entity.getID()} {...this.props} selection={this.state.selection} entity={entity} />;
+						})
+					}
 				</div>
 				{/* <SelectableEntities {...this.props} selection={this.state.selection} entities={this.state.original} /> */}
 			</div>

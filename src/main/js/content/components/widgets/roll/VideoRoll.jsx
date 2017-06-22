@@ -118,7 +118,7 @@ export default createReactClass({
 				.then(index => item.videos.map(v=> getVideo(v, index))))
 
 			.then(videos => Promise.all(videos.map(v => v.getPoster()))
-					.then(posters=> ({videos, posters})))
+				.then(posters=> ({videos, posters})))
 
 			.then(data => this.setState({
 				loading: false,
@@ -237,7 +237,7 @@ export default createReactClass({
 									onEnded={this.onStop}
 									onPlaying={this.onPlay}
 									context={this.state.context}
-									/>
+								/>
 							}
 
 							{playing ? null :
@@ -271,7 +271,7 @@ export default createReactClass({
 		return videos.length > 1 ?
 			React.createElement('ul', {ref: 'list'},
 				...videos.map((i, x)=>this.renderThumbnail(i, x))) :
-				null;
+			null;
 	},
 
 

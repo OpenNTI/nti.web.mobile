@@ -96,7 +96,7 @@ export default class extends React.Component {
 							className={cx({required: isRequired(schema, 'about')})}
 							allowInsertImage={false}
 							initialValue={state.about}
-							/>
+						/>
 					)}
 				</div>
 
@@ -115,7 +115,7 @@ export default class extends React.Component {
 									'error': error && error.field === name || state.errors[name]
 								})}
 								required={isRequired(schema, name)}
-								/>
+							/>
 						)}
 					</div>
 				))}

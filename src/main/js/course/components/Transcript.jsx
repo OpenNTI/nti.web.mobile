@@ -54,13 +54,13 @@ export default class Transcript extends React.Component {
 		// use: "dangerouslySetInnerHTML={{__html: ''}}"
 		return [
 			divider, (
-			<a href="#" key={cue.startTime}
-				data-start-time={cue.startTime.toFixed(3)}
-				data-end-time={cue.endTime.toFixed(3)}
-				className={cs}
-				onClick={this.onJumpToCue}
-				{...rawContent(cue.text)}/>
-		)];
+				<a href="#" key={cue.startTime}
+					data-start-time={cue.startTime.toFixed(3)}
+					data-end-time={cue.endTime.toFixed(3)}
+					className={cs}
+					onClick={this.onJumpToCue}
+					{...rawContent(cue.text)}/>
+			)];
 	}
 
 	renderSlide = (slide) => {
@@ -71,14 +71,14 @@ export default class Transcript extends React.Component {
 
 		return [
 			divider, (
-			<a href="#" key={`slide-${slide.startTime.toFixed(3)}`}
-				data-start-time={slide.startTime.toFixed(3)}
-				data-end-time={slide.endTime.toFixed(3)}
-				className={cs}
-				onClick={this.onJumpToCue}>
-				<img src={slide.image} className="slide" onLoad={this.props.onSlideLoaded}/>
-			</a>
-		)];
+				<a href="#" key={`slide-${slide.startTime.toFixed(3)}`}
+					data-start-time={slide.startTime.toFixed(3)}
+					data-end-time={slide.endTime.toFixed(3)}
+					className={cs}
+					onClick={this.onJumpToCue}>
+					<img src={slide.image} className="slide" onLoad={this.props.onSlideLoaded}/>
+				</a>
+			)];
 	}
 
 	renderItem = (item) => {

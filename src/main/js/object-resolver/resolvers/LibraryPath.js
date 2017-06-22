@@ -11,11 +11,11 @@ const logger = Logger.get('object:resolvers:LibraryPath');
 const IGNORE = Symbol();
 
 export const isPageInfo = o => typeof o !== 'string'
-								? o && isPageInfo(o.MimeType || o.mimeType || o.Class)
-								: /pageinfo$/i.test(o);
+	? o && isPageInfo(o.MimeType || o.mimeType || o.Class)
+	: /pageinfo$/i.test(o);
 
 
-const getTarget = x => x.target || x[Object.keys(x).filter(k => /target\-ntiid/i.test(k))[0]];
+const getTarget = x => x.target || x[Object.keys(x).filter(k => /target-ntiid/i.test(k))[0]];
 
 const MIME_TYPES = {
 	'contentpackage': (o) => `/content/${encode(o.getID())}/o/`,

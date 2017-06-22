@@ -144,7 +144,7 @@ export default createReactClass({
 		let {lines = {}} = this.state;
 		let linePositions = Object.keys(lines);
 		return React.createElement('div', {className: 'gutter'},
-				...linePositions.map(y => this.renderBin(y, lines[y])));
+			...linePositions.map(y => this.renderBin(y, lines[y])));
 	},
 
 

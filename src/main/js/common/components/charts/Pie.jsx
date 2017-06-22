@@ -62,16 +62,16 @@ export default class Pie extends React.Component {
 				<canvas ref={this.attachRef} style={style} width={width} height={height} />
 				<div className="label title">{p.title}</div>
 				<ul className="legend">
-				{data.map((item, i) => {
-					return (
-						<li className="series label"
-							key={item.label}
-							data-value={item.value}
-							style={{color: colors[i % colors.length]}}>
-							{item.label}
-						</li>
-					);
-				})}
+					{data.map((item, i) => {
+						return (
+							<li className="series label"
+								key={item.label}
+								data-value={item.value}
+								style={{color: colors[i % colors.length]}}>
+								{item.label}
+							</li>
+						);
+					})}
 					<li className="total label">Total: {total}</li>
 				</ul>
 			</div>
@@ -125,7 +125,7 @@ export default class Pie extends React.Component {
 		ctx.beginPath();
 
 		ctx.moveTo(endingRadius * Math.cos(startingAngle),
-					endingRadius * Math.sin(startingAngle));
+			endingRadius * Math.sin(startingAngle));
 
 		ctx.arc(0, 0, radius, startingAngle, endingAngle, false);
 		ctx.arc(0, 0, radius * 0.5, endingAngle, startingAngle, true);

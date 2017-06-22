@@ -42,12 +42,12 @@ export default createReactClass({
 				<Header {...this.props}
 					userId={user}
 					assignmentId={assignmentId}
-					/>
+				/>
 				<ContentViewer {...this.props}
 					userId={user}
 					assignmentId={assignmentId}
 					explicitContext={this}
-					/>
+				/>
 			</div>
 		);
 	}

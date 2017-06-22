@@ -48,7 +48,7 @@ export default class extends React.Component {
 		const {defaultValue} = props;
 		if (defaultValue) {
 			// (yyyy)-(mm)-(dd)
-			const re = /^([\d]{4})\-([\d]{2})\-([\d]{2})$/;
+			const re = /^([\d]{4})-([\d]{2})-([\d]{2})$/;
 			try {
 				const [, year, month, day] = defaultValue.match(re);
 				this.setState({
