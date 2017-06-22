@@ -1,16 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {decodeFromURI} from 'nti-lib-ntiids';
-
 import {Mixins} from 'nti-web-commons';
-import ContextSender from 'common/mixins/ContextSender';
 
+import ContextSender from 'common/mixins/ContextSender';
 import Redirect from 'navigation/components/Redirect';
 import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
-
 import NotFound from 'notfound/components/View';
 
 import StoreEnrollmentView from '../store-enrollment/components/View';

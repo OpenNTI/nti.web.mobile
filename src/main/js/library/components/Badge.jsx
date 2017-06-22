@@ -1,7 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
 import {DateTime} from 'nti-web-commons';
 
 import Filters, {ARCHIVED, UPCOMING} from '../Filters';

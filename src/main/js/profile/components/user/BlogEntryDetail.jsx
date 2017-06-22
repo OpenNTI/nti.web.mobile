@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import TopicView from 'forums/components/TopicView';
 
 export default function BlogEntryDetail ({id}) {

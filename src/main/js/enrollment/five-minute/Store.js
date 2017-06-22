@@ -1,7 +1,6 @@
 import EventEmitter from 'events';
 
 import {FiveMinuteEnrollmentInterface} from 'nti-lib-interfaces';
-
 import {getService} from 'nti-web-client';
 import AppDispatcher from 'nti-lib-dispatcher';
 import {CHANGE_EVENT} from 'nti-lib-store';

@@ -6,7 +6,6 @@ import Communities from './containers/Communities';
 import Courses from './containers/Courses';
 import Books from './containers/Books';
 import Features from './containers/Features';
-
 import Branding from './Branding';
 
 export default function Root () {

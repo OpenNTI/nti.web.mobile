@@ -1,15 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import isEmpty from 'isempty';
-
 import {getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
-
 import {Error, Loading} from 'nti-web-commons';
 import {ExternalLibraryManager} from 'nti-web-client';
+
 import {clearLoadingFlag, setError} from 'common/utils/react-state';
 
 import Mixin, {stopEvent} from './Mixin';
@@ -79,6 +76,9 @@ export default createReactClass({
 	propTypes: {
 		item: PropTypes.object
 	},
+
+
+	attachRef (x) { this.input = x; },
 
 
 	componentWillMount () {
@@ -158,7 +158,7 @@ export default createReactClass({
 		return (
 			<form className="symbolic-math" onKeyUp={this.onKeyUp} onPaste={block} onSubmit={stopEvent}>
 				<div className="input" onClick={this.focusInput}>
-					<span ref={x => this.input = x} data-label={item.answerLabel}/>
+					<span ref={this.attachRef} data-label={item.answerLabel}/>
 				</div>
 				<div className="shortcuts" onClick={this.insertSymbol}>
 					<a href="#" className="mathsymbol sqrt" data-latex="\surd" title="Insert square root"/>

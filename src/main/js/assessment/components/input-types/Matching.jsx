@@ -1,14 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import InputType, {stopEvent} from './Mixin';
+import {getEventTarget} from 'nti-lib-dom';
+//import isEmpty from 'isempty';
+
+import {Mixin, Draggable, DropTarget} from 'common/dnd';
 
 import Content from '../Content';
 
-import {getEventTarget} from 'nti-lib-dom';
-import {Mixin, Draggable, DropTarget} from 'common/dnd';
+import InputType, {stopEvent} from './Mixin';
 
-//let isEmpty from 'isempty';
 
 const SetValueRaw = 'matching:SetValueRaw';
 

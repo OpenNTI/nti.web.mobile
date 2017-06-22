@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class extends React.Component {
-	static displayName = 'Grade';
+export default class Grade extends React.Component {
 
 	static propTypes = {
 		/**
@@ -54,7 +53,7 @@ export default class extends React.Component {
 
 
 		withLetter: PropTypes.bool
-	};
+	}
 
 	static defaultProps = {
 		grade: 90,
@@ -62,7 +61,9 @@ export default class extends React.Component {
 		pixelDensity: (global.devicePixelRatio || 1) * 2,
 		width: 200,
 		height: 200
-	};
+	}
+
+	attachRef = x => this.canvas = x
 
 	componentDidMount () {
 		const {canvas} = this;
@@ -87,7 +88,7 @@ export default class extends React.Component {
 		};
 
 		return (
-			<canvas ref={x => this.canvas = x} {...this.props} className="grade" style={style} width={width} height={height} />
+			<canvas ref={this.attachRef} {...this.props} className="grade" style={style} width={width} height={height} />
 		);
 	}
 
@@ -98,7 +99,7 @@ export default class extends React.Component {
 		if (this.props.withLetter) {
 			this.drawDot(context);
 		}
-	};
+	}
 
 	getColor = () => {
 		let c = this.props.color;
@@ -106,7 +107,7 @@ export default class extends React.Component {
 			c = c[0];
 		}
 		return c;
-	};
+	}
 
 	getSecondaryColor = () => {
 		let c = this.props.color;
@@ -114,7 +115,7 @@ export default class extends React.Component {
 			c = [];
 		}
 		return c[1];
-	};
+	}
 
 	drawCircle = (ctx) => {
 		let node = ctx.canvas,
@@ -161,7 +162,7 @@ export default class extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	};
+	}
 
 	drawDot = (ctx) => {
 		let node = ctx.canvas,
@@ -205,7 +206,7 @@ export default class extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	};
+	}
 }
 
 

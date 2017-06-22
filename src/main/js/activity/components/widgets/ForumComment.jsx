@@ -1,13 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {DateTime, LuckyCharms} from 'nti-web-commons';
 
 import {Panel as ModeledContent} from 'modeled-content';
-
 import Avatar from 'common/components/Avatar';
 import Breadcrumb from 'common/components/BreadcrumbPath';
-import {DateTime, LuckyCharms} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 
 import Mixin from './Mixin';

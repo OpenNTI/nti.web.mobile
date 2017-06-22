@@ -1,6 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import keyFor from '../../utils/key-for-item';
+
 import ForumBoard from './ForumBoard';
 
 

@@ -1,9 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import Router from 'react-router-component';
+import {Mixins} from 'nti-web-commons';
+
+import ContextContributor from 'common/mixins/ContextContributor';
+
+import {LESSONS} from '../Sections';
 
 import Content from './Content';
 import External from './ExternalContent';
@@ -11,10 +14,6 @@ import Media from './Media';
 import Outline from './OutlineView';
 import Overview from './Overview';
 
-import {LESSONS} from '../Sections';
-
-import ContextContributor from 'common/mixins/ContextContributor';
-import {Mixins} from 'nti-web-commons';
 
 const ROUTES = [
 	{path: '/:outlineId/content/:rootId(/*)',	handler: Content },

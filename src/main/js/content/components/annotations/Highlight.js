@@ -1,13 +1,10 @@
 import cx from 'classnames';
-
 import Logger from 'nti-util-logger';
 import * as Anchors from 'nti-lib-anchorjs';
 import * as RangeUtils from 'nti-lib-ranges';
-
 import {mixin} from 'nti-commons';
 
 import Annotation, {RENDERED} from './Annotation';
-
 import RangeWrapperMixin from './RangeWrapperMixin';
 
 const logger = Logger.get('content:components:annotations:Highlight');

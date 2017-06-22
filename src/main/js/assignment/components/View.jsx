@@ -1,12 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Student from './student/View';
-import Instructor from './instructor/View';
 import {Loading, Mixins} from 'nti-web-commons';
+
 import ContextContributor from 'common/mixins/ContextContributor';
 
 import AssignmentsHolder from '../mixins/AssignmentCollectionHolder';
+
+import Student from './student/View';
+import Instructor from './instructor/View';
+
 
 export default createReactClass({
 	displayName: 'Assignments:View',

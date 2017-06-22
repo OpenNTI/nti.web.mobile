@@ -100,7 +100,7 @@ export default {
 
 
 	getScrollTargetIdFromHash () {
-		let {hash} = location;
+		let {hash} = global.location;
 		return hash && decodeURIComponent(hash.substr(1));
 	},
 
@@ -146,6 +146,7 @@ export default {
 				logger.debug('Scrolling to %s...', id);
 				this.scrollToTarget(id);
 				try {
+					const {history, location} = global;
 					//SOOoooo dirty! This is removing the fragment from the address bar:
 					history.replaceState(
 						history.state,

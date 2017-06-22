@@ -1,18 +1,16 @@
-import React from 'react';
-
-import createReactClass from 'create-react-class';
-
-import QueryString from 'query-string';
 import Url from 'url';
+
+import React from 'react';
+import createReactClass from 'create-react-class';
+import {getAppUser} from 'nti-web-client';
+import QueryString from 'query-string';
 
 const isNextThoughtAccount = RegExp.prototype.test.bind(/@nextthought\.com$/);
 const LINK = 'logon.nti.impersonate';
 
-import {getAppUser} from 'nti-web-client';
 
 export default createReactClass({
 	displayName: 'Impersonate',
-
 
 	getInitialState () {
 		return {};
@@ -39,12 +37,12 @@ export default createReactClass({
 								QueryString.parse(url.search),
 								{
 									username,
-									success: location.pathname
+									success: global.location.pathname
 								}));
 
 
 
-			location.replace(url.format());
+			global.location.replace(url.format());
 		}
 	},
 

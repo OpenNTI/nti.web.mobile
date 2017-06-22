@@ -1,18 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
 import Logger from 'nti-util-logger';
+import {Selection} from 'nti-commons';
+import {Loading} from 'nti-web-commons';
+import {getService} from 'nti-web-client';
 
 import ShareTarget from './ShareTarget';
 import SelectableEntities from './SelectableEntities';
 import Search from './EntitySearch';
 
-import {Loading} from 'nti-web-commons';
-
-import {Selection} from 'nti-commons';
-
-import {getService} from 'nti-web-client';
 
 const logger = Logger.get('common:components:ShareWith');
 
@@ -22,8 +19,7 @@ const EVENTS = ['focus', 'focusin', 'click', 'touchstart'];
 
 const trim = x => typeof x === 'string' ? x.trim() : x;
 
-export default class extends React.Component {
-	static displayName = 'ShareWith';
+export default class ShareWith extends React.Component {
 
 	static propTypes = {
 		defaultValue: PropTypes.array,
@@ -135,7 +131,7 @@ export default class extends React.Component {
 				//When this is used on a desktop environment and the
 				//list is "out of flow"/positioned... don't assume
 				//inline-mobile-styles.
-				scrollBy(0, -dy);
+				global.scrollBy(0, -dy);
 
 			}, 500);
 		}

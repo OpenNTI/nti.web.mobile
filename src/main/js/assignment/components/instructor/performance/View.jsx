@@ -1,14 +1,14 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
+import {Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
+
+import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
 
 import FilterSearchBar from './FilterSearchBar';
 import SummaryTable from './SummaryTable';
 
-import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
 
 export default createReactClass({
 	displayName: 'Performance',

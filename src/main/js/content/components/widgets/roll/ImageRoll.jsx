@@ -1,11 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import cx from 'classnames';
 
 import Mixin from '../Mixin';
+
 import RollCommon, {stop} from './Mixin';
 
 

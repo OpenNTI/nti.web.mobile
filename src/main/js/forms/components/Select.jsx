@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {Loading} from 'nti-web-commons';
+
 import {loadSelectOptionsFromUserLinkRel} from '../Actions';
 import Store from '../Store';
 import * as Constants from '../Constants';
-import {Loading} from 'nti-web-commons';
 
 export default class extends React.Component {
 	static displayName = 'forms:Select';

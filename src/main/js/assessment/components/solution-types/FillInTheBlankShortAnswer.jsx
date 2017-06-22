@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {rawContent} from 'nti-commons';
+
+import Content from '../Content';
 
 import Mixin from './Mixin';
 
-import Content from '../Content';
 
 const strategies = {
 	'input[type=blankfield]': (x)=>({name: x.getAttribute('name')})

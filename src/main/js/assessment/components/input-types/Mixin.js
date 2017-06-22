@@ -1,5 +1,4 @@
 import Store from '../../Store';
-
 import {partInteracted} from '../../Actions';
 import {SYNC} from '../../Constants';
 

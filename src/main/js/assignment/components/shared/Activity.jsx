@@ -1,7 +1,5 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {
 	EmptyList,
 	Loading,
@@ -11,9 +9,10 @@ import {
 
 import ContextSender from 'common/mixins/ContextSender';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+
 import AssignmentActivityItem from './AssignmentActivityItem';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 
 export default createReactClass({

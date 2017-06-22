@@ -1,7 +1,6 @@
 import {join} from 'path';
 
 import {Service} from 'nti-lib-interfaces';
-
 import {encodeForURI as encode} from 'nti-lib-ntiids';
 
 import LibraryPath, {isPageInfo} from './LibraryPath';

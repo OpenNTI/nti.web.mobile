@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import AddEntryButton from './AddEntryButton';
 import EventItem from './EventItem';
 import Mixin from './Mixin';

@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Prompt} from 'nti-web-commons';
+import {Prompt, Mixins} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
-import {Mixins} from 'nti-web-commons';
 import cx from 'classnames';
 
 let t = scoped('CONTACTS');
@@ -16,6 +15,10 @@ export default createReactClass({
 	propTypes: {
 		list: PropTypes.object.isRequired
 	},
+
+
+	attachRef (x) { this.newName = x; },
+
 
 	getInitialState () {
 		return {
@@ -78,7 +81,7 @@ export default createReactClass({
 
 		return (
 			<header className="item-detail-header">
-				<h1>{renaming ? <input type="text" ref={x => this.newName = x} defaultValue={list.displayName} onChange={this.nameInputChanged} /> : list.displayName}</h1>
+				<h1>{renaming ? <input type="text" ref={this.attachRef} defaultValue={list.displayName} onChange={this.nameInputChanged} /> : list.displayName}</h1>
 				{renaming
 					?
 					<div className="rename controls">

@@ -1,13 +1,11 @@
 import path from 'path';
-import PropTypes from 'prop-types';
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {encodeForURI} from 'nti-lib-ntiids';
-
 import {getService} from 'nti-web-client';
-
 import {Loading, Mixins} from 'nti-web-commons';
 
 export default createReactClass({

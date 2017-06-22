@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import WordBankEntry from '../WordBankEntry';
 
 export default class extends React.Component {

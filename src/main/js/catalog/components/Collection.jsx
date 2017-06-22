@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {CollectionFilter as Filter} from 'nti-web-commons';
 
 import filters from 'library/Filters';

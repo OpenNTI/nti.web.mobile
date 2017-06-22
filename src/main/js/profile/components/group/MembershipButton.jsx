@@ -1,14 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-
-import createReactClass from 'create-react-class';
-
 import {join} from 'path';
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import {Mixins} from 'nti-web-commons';
 
 import Button from 'forms/components/Button';
-
 import {makeHref as profileLink} from 'profile/components/ProfileLink';
 
 

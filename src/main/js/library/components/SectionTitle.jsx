@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-component';
-
 import t from 'nti-lib-locale';
+
 
 SectionTitle.propTypes = {
 	section: PropTypes.string.isRequired,

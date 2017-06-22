@@ -1,16 +1,17 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import Redirect from 'navigation/components/Redirect';
-import Page from './PageFrame';
+import {Mixins} from 'nti-web-commons';
 
+import ContextContributor from 'common/mixins/ContextContributor';
+import Redirect from 'navigation/components/Redirect';
+
+import Page from './PageFrame';
 import Groups from './Groups';
 import Users from './Users';
 import ListsView from './ListsView';
 import ListDetail from './ListDetail';
 import CreateList from './CreateList';
-import ContextContributor from 'common/mixins/ContextContributor';
-import {Mixins} from 'nti-web-commons';
 
 const ROUTES = [
 	{path: '/users(/*)', handler: Page, pageContent: Users},

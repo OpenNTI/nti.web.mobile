@@ -1,12 +1,15 @@
 import moment from 'moment';
+import {scoped} from 'nti-lib-locale';
+
+import Constants from 'forms/Constants';
+
+import concurrentForm from './ConcurrentEnrollmentForm';
+import admissionForm from './AdmissionForm';
+
+const t = scoped('ENROLLMENT.forms.fiveminute');
 
 //XXX: using the locale function this way will not pickup site string changes after loading...
 //FIXME: Move string uages `t()` to the component's render method.
-const t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
-const concurrentForm = require('./ConcurrentEnrollmentForm');
-const admissionForm = require('./AdmissionForm');
-const Constants = require('forms/Constants');
-
 let okResidentQuestion = [{
 	fields: [
 		{

@@ -1,13 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class extends React.Component {
-	static displayName = 'Editable';
+export default class Editable extends React.Component {
 
 	static propTypes = {
 		tag: PropTypes.string,
 		children: PropTypes.any
-	};
+	}
+
+	attachRef = el => this.el = el
 
 	focus = () => {
 		let r = document.createRange();
@@ -16,16 +17,15 @@ export default class extends React.Component {
 		let sel = window.getSelection();
 		sel.removeAllRanges();
 		sel.addRange(r);
-	};
+	}
 
-	onBlur = () => {
-	};
+	onBlur = () => {}
 
 	render () {
 		const Tag = this.props.tag || 'div';
 
 		return (
-			<Tag ref={el => this.el = el} contentEditable="true" onTouchEnd={this.focus} onBlur={this.onBlur}>{this.props.children}</Tag>
+			<Tag ref={this.attachRef} contentEditable="true" onTouchEnd={this.focus} onBlur={this.onBlur}>{this.props.children}</Tag>
 		);
 	}
 }

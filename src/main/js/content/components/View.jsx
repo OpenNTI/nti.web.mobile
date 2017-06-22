@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-
 import {decodeFromURI} from 'nti-lib-ntiids';
-
 import {
 	Error as ErrorWidget,
 	Loading,
@@ -12,17 +10,16 @@ import {
 } from 'nti-web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
-
 import Redirect from 'navigation/components/Redirect';
-
 import NotFound from 'notfound/components/View';
-
-import Index from './Index';
 import Discussions from 'forums/components/View';
-import Page from './Page';
 
 import {getPackage} from '../Actions';
 import {PACKAGE_NOT_FOUND} from '../Constants';
+
+import Index from './Index';
+import Page from './Page';
+
 
 const ROUTES = [
 	// {path: '/v(/*)', pageContent: Media},

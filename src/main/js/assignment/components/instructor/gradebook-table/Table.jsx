@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {SortOrder} from 'nti-lib-interfaces';
 
 import ColumnHeading from './ColumnHeading';
 
-import {SortOrder} from 'nti-lib-interfaces';
 
 export default class extends React.Component {
 	static displayName = 'gradebook:Table';

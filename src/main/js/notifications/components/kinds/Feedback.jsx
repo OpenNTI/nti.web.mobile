@@ -1,10 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import NoteableMixin from '../mixins/Noteable';
+import {DateTime} from 'nti-web-commons';
+
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {DateTime} from 'nti-web-commons';
+
+import NoteableMixin from '../mixins/Noteable';
 
 export default createReactClass({
 	displayName: 'ForumCommentType',

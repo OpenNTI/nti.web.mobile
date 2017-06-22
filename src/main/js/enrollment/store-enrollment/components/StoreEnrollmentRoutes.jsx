@@ -1,22 +1,24 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import createReactClass from 'create-react-class';
 import path from 'path';
 
-import Router from 'react-router-component';
-let {Locations, Location, NotFound} = Router;
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import {Locations, Location, NotFound} from 'react-router-component';
+import {Mixins} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
+
+import ContextSender from 'common/mixins/ContextSender';
 
 import * as Constants from '../Constants';
 import Store from '../Store';
+
 import PaymentSuccess from './PaymentSuccess';
 import PaymentError from './PaymentError';
 import PaymentConfirm from './PaymentConfirm';
-import {Mixins} from 'nti-web-commons';
-import ContextSender from 'common/mixins/ContextSender';
 
-import {scoped} from 'nti-lib-locale';
 
-let t = scoped('ENROLLMENT');
+const t = scoped('ENROLLMENT');
+
 /**
  * Used by both store-enrollment/components/View and store-enrollment/components/GiftPurchaseView.
  */
@@ -37,6 +39,8 @@ export default createReactClass({
 			isGift: false
 		};
 	},
+
+	attachRouterRef (x) { this.router = x; },
 
 	getContext () {
 		return Promise.resolve([
@@ -115,7 +119,7 @@ export default createReactClass({
 		const courseTitle = (this.props.purchasable || {}).title || '';
 
 		return (
-			<Locations contextual ref={x => this.router = x}>
+			<Locations contextual ref={this.attachRouterRef}>
 				<Location path="/confirm/"
 					handler={PaymentConfirm}
 					{...this.props}

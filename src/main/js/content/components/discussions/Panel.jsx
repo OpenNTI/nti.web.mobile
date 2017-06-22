@@ -1,23 +1,19 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {encodeForURI} from 'nti-lib-ntiids';
-
+import {scoped} from 'nti-lib-locale';
 import {
 	DateTime,
 	Mixins
 } from 'nti-web-commons';
 
-import {scoped} from 'nti-lib-locale';
 
 import {Panel as Body} from 'modeled-content';
 
 import ItemActions from './ItemActions';
 import ReplyEditor from './ReplyEditor';
 import AuthorInfo from './AuthorInfo';
-
 import NotePanelBehavior from './NotePanelBehavior';
 
 const t = scoped('UNITS');

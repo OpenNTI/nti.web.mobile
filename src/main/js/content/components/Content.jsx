@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-
 import Logger from 'nti-util-logger';
 import {declareCustomElement, getEventTarget} from 'nti-lib-dom';
 import isTouchDevice from 'nti-util-detection-touch';
-
 import {rawContent} from 'nti-commons';
 
 import {getWidget} from './widgets';

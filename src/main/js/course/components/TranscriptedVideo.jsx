@@ -1,37 +1,29 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 /* See: https://github.com/mozilla/vtt.js#usage */
 import {
 	WebVTT,
 	VTTCue/*, VTTRegion*/
 } from 'vtt.js';
-
-import PropTypes from 'prop-types';
-
-import React from 'react';
-
-import createReactClass from 'create-react-class';
-
+import {WatchVideoEvent, toAnalyticsPath} from 'nti-analytics';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
-
-import {WatchVideoEvent, toAnalyticsPath} from 'nti-analytics';
-
-import Discussions from 'content/components/discussions';
-import Gutter from 'content/components/Gutter';
-
 import {
 	DarkMode,
 	Error,
 	Loading,
 	Mixins
 } from 'nti-web-commons';
-
-import ContextSender from 'common/mixins/ContextSender';
-
 import {Component as Video} from 'nti-web-video';
+
+import Discussions from 'content/components/discussions';
+import Gutter from 'content/components/Gutter';
+import ContextSender from 'common/mixins/ContextSender';
+import {NOT_FOUND, RETRY_AFTER_DOM_SETTLES} from 'content/components/annotations/Annotation';
 
 import Transcript from './Transcript';
 
-import {NOT_FOUND, RETRY_AFTER_DOM_SETTLES} from 'content/components/annotations/Annotation';
 
 const logger = Logger.get('course:transcripted-video');
 
@@ -83,6 +75,10 @@ export default createReactClass({
 
 		showDiscussions: PropTypes.bool
 	},
+
+	attachVideoRef (x) { this.video = x; },
+	attachTranscriptRef (x) { this.transcript = x; },
+	attachGutterRef (x) { this.gutter = x; },
 
 	getInitialState () {
 		return {
@@ -380,7 +376,7 @@ export default createReactClass({
 			<div className="transcripted-video">
 				<DarkMode/>
 				{!video ? None : (
-				<Video ref={x => this.video = x}
+				<Video ref={this.attachVideoRef}
 						src={video}
 						onTimeUpdate={this.onVideoTimeTick}
 						newWatchEventFactory={this.onNewWatchEventFactory}
@@ -392,7 +388,7 @@ export default createReactClass({
 							Transcript not available
 						</div>
 					) : (
-						<Transcript ref={x => this.transcript = x}
+						<Transcript ref={this.attachTranscriptRef}
 							onSlideLoaded={this.redrawGutter}
 							onJumpTo={this.onJumpTo}
 							currentTime={currentTime}
@@ -401,7 +397,7 @@ export default createReactClass({
 							slides={slides}
 							/>
 					)}
-					<Gutter ref={x => this.gutter = x} items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
+					<Gutter ref={this.attachGutterRef} items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
 				</div>
 
 			</div>

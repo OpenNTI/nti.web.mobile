@@ -1,12 +1,12 @@
 import React from 'react';
-
 import isFunction from 'is-function';
+import t from 'nti-lib-locale';
+
 import radiogroup from 'forms/components/RadioGroup';
 import Select from 'forms/components/Select';
 import Checkbox from 'forms/components/Checkbox';
-import ToggleFieldset from '../components/ToggleFieldset';
 
-import t from 'nti-lib-locale';
+import ToggleFieldset from '../components/ToggleFieldset';
 import {RENDERED_FORM_EVENT_HANDLERS as Events} from '../Constants';
 
 const prefix = 'RenderFormConfig:';

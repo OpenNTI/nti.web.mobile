@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	login: 'Sign In',
 	PasswordPlaceholder: 'Password',
 	UsernamePlaceholder: 'Username',

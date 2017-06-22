@@ -1,16 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import t from 'nti-lib-locale';
+import {Prompt} from 'nti-web-commons';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
-
 import TopicHeadline from 'forums/components/TopicHeadline';
 import ActionsComp from 'forums/components/Actions';
-
-import {Prompt} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 

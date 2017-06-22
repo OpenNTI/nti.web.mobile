@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import createReactClass from 'create-react-class';
 import {join} from 'path';
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import Logger from 'nti-util-logger';
-
 import {
 	Error as Err,
 	Loading,
@@ -14,12 +13,13 @@ import {
 import ContextSender from 'common/mixins/ContextSender';
 import Page from 'common/components/Page';
 
+import {getDistributionList} from '../Api';
+
 import AddPeopleButton from './AddPeopleButton';
 import ItemDetailHeader from './ItemDetailHeader';
 import Selectables from './Selectables';
 import UserSearchField from './UserSearchField';
 
-import {getDistributionList} from '../Api';
 
 const logger = Logger.get('contacts:components:ListDetail');
 
@@ -29,6 +29,8 @@ export default createReactClass({
 	propTypes: {
 		id: PropTypes.string.isRequired
 	},
+
+	attachRef (x) { this.searchField = x; },
 
 	getInitialState () {
 		return {
@@ -154,7 +156,7 @@ export default createReactClass({
 					<ItemDetailHeader list={list} />
 					<div className="contacts-page-content">
 						{this.state.adding ?
-							<UserSearchField ref={x => this.searchField = x}
+							<UserSearchField ref={this.attachRef}
 								selected={list.friends}
 								onCancel={this.cancelSearch}
 								onSave={this.saveSearch}

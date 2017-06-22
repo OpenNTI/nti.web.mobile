@@ -1,12 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import {isAssignment, isSurvey, areAssessmentsSupported} from '../utils';
 
 import AssignmentHeader from './HeaderAssignment';
 import ScoreboardHeader from './HeaderScoreboard';
 import SurveyHeader from './HeaderSurvey';
 import UnsupportedPlaceholder from './UnsupportedPlaceholder';
 
-import {isAssignment, isSurvey, areAssessmentsSupported} from '../utils';
 
 export default function SetHeader ({assessment}) {
 	let Component = isAssignment(assessment)

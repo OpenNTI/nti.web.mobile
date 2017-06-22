@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import Contributor, {ContextParent} from './ContextContributor';
-
 import Logger from 'nti-util-logger';
+
+import Contributor, {ContextParent} from './ContextContributor';
 
 const logger = Logger.get('ContextSender');
 

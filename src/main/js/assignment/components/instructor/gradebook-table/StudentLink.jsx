@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 

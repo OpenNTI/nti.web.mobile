@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {encodeForURI} from 'nti-lib-ntiids';
+import {Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
 
 import ReplyEditor from './ReplyEditor';
 

@@ -1,11 +1,9 @@
-import React from 'react';
-import createReactClass from 'create-react-class';
 import Url from 'url';
 
+import React from 'react';
+import createReactClass from 'create-react-class';
 import {Error, Loading, Mixins} from 'nti-web-commons';
-
 import {WindowMessageListener as Messages} from 'nti-lib-dom';
-
 import {getAppUser, getReturnURL} from 'nti-web-client';
 
 
@@ -26,7 +24,7 @@ export default createReactClass({
 	componentWillMount () { //constructor
 		this.METHODS = {
 			['survey-complete']: () => {
-				location.replace(getReturnURL() || this.getBasePath());
+				global.location.replace(getReturnURL() || this.getBasePath());
 			},
 
 			resize: ({value}) => {
@@ -42,7 +40,7 @@ export default createReactClass({
 		Messages.add(this.onMessage);
 		return getAppUser()
 			.then(u => u.getLink('RegistrationSurvey') || Promise.reject('No Link'))
-			.then(link => Url.resolve(location.href, link))
+			.then(link => Url.resolve(global.location.href, link))
 			.then(src => this.setState({src}))
 			.catch(error => this.setState({error}))
 			.then(() => this.setState({busy: false}));

@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {Error as ErrorWidget} from 'nti-web-commons';
 
 import CourseContentLink from 'library/components/CourseContentLink';
 
-import GiftSuccess from './GiftSuccess';
 import EnrollmentSuccess from '../../components/EnrollmentSuccess';
-
 import {resetProcess} from '../Actions';
 import Store from '../Store';
+
+import GiftSuccess from './GiftSuccess';
+
 
 export default class extends React.Component {
 	static displayName = 'PaymentSuccess';

@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {User} from 'nti-web-client';
 import {Loading} from 'nti-web-commons';
-
 import t from 'nti-lib-locale';
 
 import DisplayName from './DisplayName';
@@ -13,8 +11,7 @@ const isEmpty = x => !Array.isArray(x) || x.length === 0;
 
 const EVERYONE = 'everyone';
 
-export default class extends React.Component {
-	static displayName = 'SharedWithList';
+export default class SharedWithList extends React.Component {
 
 	static propTypes = {
 
@@ -38,9 +35,9 @@ export default class extends React.Component {
 		 * @type {number}
 		 */
 		limit: PropTypes.number
-	};
+	}
 
-	state = {loading: true};
+	state = {loading: true}
 
 	isPublic = (sharedWith) => {
 		if (isEmpty(sharedWith)) {
@@ -48,7 +45,7 @@ export default class extends React.Component {
 		}
 
 		return sharedWith.includes(EVERYONE);
-	};
+	}
 
 	componentDidMount () {
 		this.fill(this.props.item);
@@ -77,7 +74,7 @@ export default class extends React.Component {
 
 				this.setState({users, others, loading: false});
 			});
-	};
+	}
 
 	render () {
 		let {short, limit, item} = this.props;

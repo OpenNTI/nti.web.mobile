@@ -1,18 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
-import GroupControls from './Controls';
-
 import {ActiveLink, Background} from 'nti-web-commons';
 
 import Page from 'common/components/Page';
-import Breadcrumb from './Breadcrumb';
-
 import ContextSender from 'common/mixins/ContextSender';
 
+import GroupControls from './Controls';
+import Breadcrumb from './Breadcrumb';
 import Head from './Head';
+
 
 export default createReactClass({
 	displayName: 'Group:Page',

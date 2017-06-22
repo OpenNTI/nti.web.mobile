@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {scoped} from 'nti-lib-locale';
 import {isFlag} from 'nti-web-client';
 

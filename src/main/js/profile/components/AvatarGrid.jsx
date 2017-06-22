@@ -1,7 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import AvatarProfileLink from './AvatarProfileLink';
+import PropTypes from 'prop-types';
+
 import {classesFor} from '../mixins/HasMembers';
+
+import AvatarProfileLink from './AvatarProfileLink';
 
 AvatarGrid.propTypes = {
 	entities: PropTypes.shape({

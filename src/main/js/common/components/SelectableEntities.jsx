@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import SelectableEntity from './SelectableEntity';
-
+import PropTypes from 'prop-types';
 import {Selection} from 'nti-commons';
+
+import SelectableEntity from './SelectableEntity';
 
 export default class extends React.Component {
 	static displayName = 'SelectableEntities';

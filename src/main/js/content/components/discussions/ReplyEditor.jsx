@@ -1,14 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
+import createReactClass from 'create-react-class';
 import Logger from 'nti-util-logger';
-
 import {Loading} from 'nti-web-commons';
-import ContextAccessor from 'common/mixins/ContextAccessor';
 import t from 'nti-lib-locale';
 
+import ContextAccessor from 'common/mixins/ContextAccessor';
 import {Editor} from 'modeled-content';
 
 const logger = Logger.get('content:components:discussions:ReplyEditor');
@@ -30,6 +28,7 @@ export default createReactClass({
 		onSubmitted: PropTypes.func
 	},
 
+	attachEditorRef (x) { this.editor = x; },
 
 	getInitialState () {
 		return {};
@@ -105,7 +104,7 @@ export default createReactClass({
 
 		return (
 			<div className={cx('discussion-reply-editor editor', {busy})}>
-				<Editor ref={x => this.editor = x} initialValue={this.props.value} onChange={this.onChange}>
+				<Editor ref={this.attachEditorRef} initialValue={this.props.value} onChange={this.onChange}>
 					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
 					<button onClick={this.onSubmit} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
 				</Editor>

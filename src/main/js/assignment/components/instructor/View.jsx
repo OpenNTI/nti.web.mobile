@@ -6,16 +6,13 @@ import Redirect from 'navigation/components/Redirect';
 
 import Activity from '../shared/Activity';
 import Assignments from '../shared/Assignments';
-
 import PageFrame from '../shared/PageFrame';
 
 import Performance from './performance/View';
 import PerformanceViewStudent from './performance/Student.jsx';
 import AssignmentView from './AssignmentView';
-
 import AssignmentViewForStudent from './AssignmentViewForStudent';
 import AssignmentViewForStudentPerf from './performance/AssignmentViewForStudent';
-
 import AssignmentListItem from './AssignmentListItem';
 
 const ROUTES = [

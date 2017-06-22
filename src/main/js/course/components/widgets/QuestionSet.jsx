@@ -1,26 +1,19 @@
 import path from 'path';
 
-import PropTypes from 'prop-types';
-
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import cx from 'classnames';
-
 import {getModel} from 'nti-lib-interfaces';
-
 import {Mixins} from 'nti-web-commons';
+import {getService} from 'nti-web-client';
+import {encodeForURI} from 'nti-lib-ntiids';
 
 import Score from 'common/components/charts/Score';
-
 import TotalPointsLabel from 'assignment/components/shared/TotalPointsLabel';
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import {loadPreviousState} from 'assessment/Api';
 
-import {getService} from 'nti-web-client';
-
-import {encodeForURI} from 'nti-lib-ntiids';
 
 const SUBMITTED_QUIZ = 'application/vnd.nextthought.assessment.assessedquestionset';
 

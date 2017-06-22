@@ -1,18 +1,17 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {StoreEventsMixin} from 'nti-lib-store';
 import {isFlag} from 'nti-web-client';
+
 import {Mixin as DragDropOrchestrator} from 'common/dnd';
+
+import Store from '../Store';
 
 import Content from './Content';
 import QuestionSubmission from './QuestionSubmission';
 import WordBank from './WordBank';
-
-import Store from '../Store';
-
 import Part from './Part';
 
 const STATUS_MAP = {

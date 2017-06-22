@@ -1,14 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/CSSTransitionGroup';
-
 import {scoped} from 'nti-lib-locale';
-const t = scoped('ASSESSMENT');
-
-import {Loading} from 'nti-web-commons';
-
-import Saving from './Saving';
-import SubmissionError from './SubmissionError';
+import {Prompt, Loading} from 'nti-web-commons';
 
 import Store from '../Store';
 import {areAssessmentsSupported, getMainSubmittable} from '../utils';
@@ -20,7 +14,10 @@ import {
 	ERROR
 } from '../Constants';
 
-import {Prompt} from 'nti-web-commons';
+import Saving from './Saving';
+import SubmissionError from './SubmissionError';
+
+const t = scoped('ASSESSMENT');
 
 const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSubmit();
 
@@ -52,7 +49,7 @@ export default class extends React.Component {
 			if (e && e.statusCode === 409) {
 				Store.clearError(this.props.assessment);
 				Prompt.alert('This assignment has changed, and needs to reload.')
-					.then(() => location.reload());
+					.then(() => global.location.reload());
 				return;
 			}
 		}

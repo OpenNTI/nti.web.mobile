@@ -1,12 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Router from 'react-router-component';
+
 import Redirect from 'navigation/components/Redirect';
-import Performance from './Performance';
+
 import Activity from '../shared/Activity';
 import Assignments from '../shared/Assignments';
 import PageFrame from '../shared/PageFrame';
 
+import Performance from './Performance';
 import AssignmentListItem from './AssignmentListItem';
 
 const ROUTES = [

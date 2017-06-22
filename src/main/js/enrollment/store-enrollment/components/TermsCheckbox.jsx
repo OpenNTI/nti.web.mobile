@@ -1,18 +1,18 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {scoped} from 'nti-lib-locale';
 import {getUserAgreementURI} from 'nti-web-client';
 import {rawContent} from 'nti-commons';
 
-let t = scoped('ENROLLMENT');
+const t = scoped('ENROLLMENT');
 
-export default class extends React.Component {
-	static displayName = 'TermsCheckbox';
+export default class TermsCheckbox extends React.Component {
 
 	static propTypes = {
 		onChange: PropTypes.func
 	};
+
+	attachCheckboxRef = x => this.checkbox = x
 
 	onChange = () => {
 		if(this.props.onChange) {
@@ -31,7 +31,7 @@ export default class extends React.Component {
 		return (
 			<div className="terms-checkbox">
 				<label className="terms-label">
-					<input type="checkbox" ref={x => this.checkbox = x} onChange={this.onChange} />
+					<input type="checkbox" ref={this.attachCheckboxRef} onChange={this.onChange} />
 					<span {...rawContent(html)} />
 				</label>
 			</div>

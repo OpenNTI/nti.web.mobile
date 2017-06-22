@@ -1,23 +1,21 @@
-import PropTypes from 'prop-types';
+import path from 'path';
+
 import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import Transition from 'react-transition-group/CSSTransitionGroup';
-
-import path from 'path';
-import cx from 'classnames';
-
-import Logger from 'nti-util-logger';
 import {buffer} from 'nti-commons';
-
+import Logger from 'nti-util-logger';
 import {Pager, Mixins} from 'nti-web-commons';
-
 import {StoreEventsMixin} from 'nti-lib-store';
+
+import NavStore from '../Store';
 
 import Menu from './Menu';
 import UserMenu from './UserMenu';
 import ReturnTo from './ReturnTo';
 
-import NavStore from '../Store';
 
 const logger = Logger.get('NavigationBar');
 const menuOpenBodyClass = 'nav-menu-open';

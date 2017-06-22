@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
 	Error as Err,
 	Loading,

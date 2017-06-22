@@ -1,17 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import cx from 'classnames';
-
 import {Error, Loading} from 'nti-web-commons';
+import {Component as Video} from 'nti-web-video';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
-import {Component as Video} from 'nti-web-video';
-
 import Mixin from '../Mixin';
+
 import RollCommon from './Mixin';
 
 
@@ -38,6 +35,10 @@ export default createReactClass({
 		contentPackage: PropTypes.object.isRequired,
 		item: PropTypes.object
 	},
+
+	attachCurrentRef (x) { this.current = x; },
+	attachStageRef (x) { this.stage = x; },
+	attachVideoRef (x) { this.video = x; },
 
 
 	getItemCount () { return this.getVideos().length; },
@@ -213,7 +214,7 @@ export default createReactClass({
 		return (
 			<div className="media-roll video-roll">
 				<label>{title}</label>
-				<div ref={x => this.stage = x} className={stageClasses}>
+				<div ref={this.attachStageRef} className={stageClasses}>
 
 					{ loading ? (
 
@@ -229,10 +230,10 @@ export default createReactClass({
 
 					) : (
 
-						<div ref={x => this.current = x} className="item video current content-video" style={style}>
+						<div ref={this.attachCurrentRef} className="item video current content-video" style={style}>
 
 							{!video ? null :
-								<Video ref={x => this.video = x} src={video}
+								<Video ref={this.attachVideoRef} src={video}
 									onEnded={this.onStop}
 									onPlaying={this.onPlay}
 									context={this.state.context}
@@ -284,11 +285,22 @@ export default createReactClass({
 
 		return (
 			<li className={cx('thumbnail video', {active})}
-				ref={x=> this['thumbnail' + index] = x}
+				ref={this.getThumbnailRef(index)}
 				data-index={index}
 				style={thumb}>
 				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="icon fi-play-circle"/></a>
 			</li>
 		);
+	},
+
+
+	getThumbnailRef (index) {
+		const fnName = `attachThumbnail:${index}`;
+		let fn = this[fnName];
+		if (!fn) {
+			fn = this[fnName] = (x => this['thumbnail' + index] = x);
+		}
+
+		return fn;
 	}
 });

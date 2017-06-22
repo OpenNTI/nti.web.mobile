@@ -1,19 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
-
-import Card from 'common/components/Card';
 import {Loading, Mixins} from 'nti-web-commons';
-
-import ContextContributor from 'common/mixins/ContextContributor';
-
 import {getService} from 'nti-web-client';
 
+import Card from 'common/components/Card';
+import ContextContributor from 'common/mixins/ContextContributor';
 import Discussions from 'content/components/discussions';
 import CourseLinker from 'library/mixins/CourseContentLink';
 

@@ -1,30 +1,21 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
-import {Link} from 'react-router-component';
-
-import {addHistory} from 'nti-analytics';
-
 import Transition from 'react-transition-group/CSSTransitionGroup';
-
-import {Error as Err, Loading, Mixins} from 'nti-web-commons';
-
+import {Link} from 'react-router-component';
+import {addHistory} from 'nti-analytics';
 import {scoped} from 'nti-lib-locale';
-
-import {StoreEventsMixin} from 'nti-lib-store';
-
 import {decodeFromURI} from 'nti-lib-ntiids';
+import {StoreEventsMixin} from 'nti-lib-store';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import paging from '../mixins/Paging';
 import LoadForum from '../mixins/LoadForum';
-
 import Store from '../Store';
+import {FORUM} from '../Constants';
 
 import TopicList from './TopicList';
 import ViewHeader from './widgets/ViewHeader';
-import {FORUM} from '../Constants';
 
 
 const t = scoped('FORUMS');

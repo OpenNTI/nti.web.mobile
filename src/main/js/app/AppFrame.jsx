@@ -1,15 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {addClass, removeClass} from 'nti-lib-dom';
-
-import Session from './Session';
+import {addClass, removeClass, getViewportHeight} from 'nti-lib-dom';
 import {Footer, LockScroll, ConflictResolutionHandler} from 'nti-web-commons';
 
 import Notifications from 'notifications/components/View';
-
-import {getViewportHeight} from 'nti-lib-dom';
-
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
+
+import Session from './Session';
 
 const LEFT_MENU_OPEN = 'offcanvas-overlap-right';
 const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
@@ -40,13 +37,13 @@ export default class extends React.Component {
 	onNavChange = () => { this.onCloseMenus(); };
 
 	componentDidMount () {
-		addEventListener('hashchange', this.onNavChange, false);
-		addEventListener('popstate', this.onNavChange, false);
+		global.addEventListener('hashchange', this.onNavChange, false);
+		global.addEventListener('popstate', this.onNavChange, false);
 	}
 
 	componentWillUnmount () {
-		removeEventListener('hashchange', this.onNavChange, false);
-		removeEventListener('popstate', this.onNavChange, false);
+		global.removeEventListener('hashchange', this.onNavChange, false);
+		global.removeEventListener('popstate', this.onNavChange, false);
 	}
 
 	getOverlayState = () => { return (this.state || {}).overlay; };

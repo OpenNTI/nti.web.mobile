@@ -1,20 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import Logger from 'nti-util-logger';
 import {getLink as getLinkFn} from 'nti-lib-interfaces';
-
 import {Error as Err, Loading} from 'nti-web-commons';
-
 import {StoreEventsMixin} from 'nti-lib-store';
+import {scoped} from 'nti-lib-locale';
 
 import Redirect from 'navigation/components/Redirect';
-
-import FiveMinuteEnrollmentForm from './FiveMinuteEnrollmentForm';
-
-import Payment from './Payment';
 
 import Store from '../Store';
 import {
@@ -27,7 +20,9 @@ import {
 	RECEIVED_PAY_AND_ENROLL_LINK
 } from '../Constants';
 
-import {scoped} from 'nti-lib-locale';
+import FiveMinuteEnrollmentForm from './FiveMinuteEnrollmentForm';
+import Payment from './Payment';
+
 
 const logger = Logger.get('enrollment:five-minute:components:Admission');
 const t = scoped('ENROLLMENT');

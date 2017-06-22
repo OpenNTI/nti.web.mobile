@@ -1,17 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Locations, Location, NotFound as Default} from 'react-router-component';
-
 // import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
 import {Paging} from 'nti-commons';
 // import {decodeFromURI} from 'nti-lib-ntiids';
+import {Loading} from 'nti-web-commons';
 
 import ContextMixin from 'common/mixins/ContextSender';
-import {Loading} from 'nti-web-commons';
 
 import List from './List';
 import View from './View';

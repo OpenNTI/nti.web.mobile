@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import PropTypes from 'prop-types';
+import {rawContent} from 'nti-commons';
 import {FollowButton} from 'nti-web-commons';
 
-import {rawContent} from 'nti-commons';
+import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
+
 
 import ProfileLink from './ProfileLink';
 

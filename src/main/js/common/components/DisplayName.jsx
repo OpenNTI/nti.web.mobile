@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {DisplayName} from 'nti-web-commons';
+
 import ProfileLink from 'profile/mixins/ProfileLink';
 
 function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }

@@ -1,22 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import Transition from 'react-transition-group/CSSTransitionGroup';
-
 import Logger from 'nti-util-logger';
-
 import {Error as Err, Loading, Mixins} from 'nti-web-commons';
-
 import {StoreEventsMixin} from 'nti-lib-store';
-
 import {scoped} from 'nti-lib-locale';
 
 import {clearLoadingFlag} from 'common/utils/react-state';
 
 import keyFor from '../utils/key-for-item';
-
 import Store from '../Store';
 import {loadDiscussions} from '../Api';
 import {DISCUSSIONS_CHANGED} from '../Constants';

@@ -1,18 +1,19 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import SelectableEntity from 'common/components/SelectableEntity';
-import {getStore, getSuggestedContacts} from '../Api';
-import {USERS} from '../Constants';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {Loading} from 'nti-web-commons';
+
+import SelectableEntity from 'common/components/SelectableEntity';
+
+import {getStore, getSuggestedContacts} from '../Api';
+import {USERS} from '../Constants';
 
 function listContainsEntity (list, entity) {
 	return (list || []).findIndex((user) => user.getID && user.getID() === entity.getID()) > -1;
 }
 
 
-export default class extends React.Component {
-	static displayName = 'UserSearchField';
+export default class UserSearchField extends React.Component {
 
 	static propTypes = {
 		onChange: PropTypes.func,
@@ -23,13 +24,13 @@ export default class extends React.Component {
 		saveButtonText: PropTypes.string,
 		placeholder: PropTypes.string,
 		saveDisabled: PropTypes.bool
-	};
+	}
 
 	static defaultProps = {
 		selected: [],
 		saveButtonText: 'Add Selected',
 		placeholder: 'Search'
-	};
+	}
 
 	state = {
 		search: '',
@@ -37,7 +38,9 @@ export default class extends React.Component {
 		searchResults: [],
 		contactsResults: [],
 		suggestedContacts: []
-	};
+	}
+
+	attachInputRef = x => this.query = x
 
 	componentDidMount () {
 		this.setUpStore();
@@ -70,21 +73,21 @@ export default class extends React.Component {
 
 	onStoreChange = () => {
 		this.forceUpdate();
-	};
+	}
 
 	setUpStore = () => {
 		getStore(USERS)
 			.then(store => this.setState({store}));
-	};
+	}
 
 	getSuggestedContacts = () => {
 		getSuggestedContacts()
 			.then(results => this.setState({suggestedContacts: results || []}));
-	};
+	}
 
 	focus = () => {
 		this.query.focus();
-	};
+	}
 
 	selectionChange = (user) => {
 		const {props: {onChange}, state: {selectedUsers}} = this;
@@ -105,11 +108,11 @@ export default class extends React.Component {
 		if (onChange) {
 			onChange(user);
 		}
-	};
+	}
 
 	getSelections = () => {
 		return this.state.selectedUsers.slice();
-	};
+	}
 
 	onKeyDown = (e) => {
 		// on backspace in an empty field remove the last selected user
@@ -119,7 +122,7 @@ export default class extends React.Component {
 				return this.selectionChange(selectedUsers[selectedUsers.length - 1]);
 			}
 		}
-	};
+	}
 
 	queryChanged = (event) => {
 		let query = event ? event.target.value : '';
@@ -166,9 +169,9 @@ export default class extends React.Component {
 					}
 				});
 		}
-	};
+	}
 
-	renderResults = (heading, results, classes) => {
+	renderResults (heading, results, classes) {
 		const classnames = cx('contact-list search-results', classes);
 		const {props: {selected}, state: {selectedUsers, search}} = this;
 
@@ -192,9 +195,9 @@ export default class extends React.Component {
 				</ul>
 			</section>
 		);
-	};
+	}
 
-	results = () => {
+	results () {
 		let {searchResults, contactsResults, suggestedContacts, searchLoading, search} = this.state;
 		let children = [];
 		if (searchLoading) {
@@ -216,7 +219,7 @@ export default class extends React.Component {
 				{children.map((child, index) => <li key={index}>{child}</li>)}
 			</ul>
 		);
-	};
+	}
 
 	render () {
 		const {props, state: {selectedUsers = []}} = this;
@@ -235,7 +238,7 @@ export default class extends React.Component {
 					<li key="input-field" className="input-field">
 						<input type="text"
 							className="search-input"
-							ref={x => this.query = x}
+							ref={this.attachInputRef}
 							onChange={this.queryChanged}
 							onKeyDown={this.onKeyDown}
 							placeholder={placeholder}

@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {validate as isEmail} from 'email-validator';
-
+import {scoped} from 'nti-lib-locale';
 import {Loading, Notice} from 'nti-web-commons';
+
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
 
-import {scoped} from 'nti-lib-locale';
 
 import {send, canSend} from '../Api';
 

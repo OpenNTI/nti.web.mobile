@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
+import HasMembers, {classesFor} from '../mixins/HasMembers';
+
 import AvatarGrid from './AvatarGrid';
 import ProfileBodyContainer from './ProfileBodyContainer';
-import HasMembers, {classesFor} from '../mixins/HasMembers';
 
 export default createReactClass({
 	displayName: 'Members',

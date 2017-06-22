@@ -1,25 +1,25 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-
 import Logger from 'nti-util-logger';
+import {Loading} from 'nti-web-commons';
+import t from 'nti-lib-locale';
 
 import {Editor} from 'modeled-content';
 
-import {Loading} from 'nti-web-commons';
-
-import t from 'nti-lib-locale';
-
 const logger = Logger.get('assessment:components:FeedbackEditor');
 
-export default class extends React.Component {
-	static displayName = 'FeedbackEditor';
+export default class FeedbackEditor extends React.Component {
 
 	static propTypes = {
 		onCancel: PropTypes.func,
 		onSubmit: PropTypes.func.isRequired,
 		value: PropTypes.array
 	};
+
+
+	attachRef = x => this.editor = x
+
 
 	componentWillMount () {
 		this.updateDisabled(this.props.value || null);
@@ -42,7 +42,7 @@ export default class extends React.Component {
 		return (
 			<div className={cx('feedback editor', {busy})}>
 
-				<Editor ref={x => this.editor = x}
+				<Editor ref={this.attachRef}
 					initialValue={this.props.value}
 					onChange={this.onChange}
 					onBlur={this.onChange}

@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
-import Container from './Container';
 import SectionMixin from '../../mixins/SectionAware';
+
+import Container from './Container';
 
 const isOpen = RegExp.prototype.test.bind(/open/i);
 

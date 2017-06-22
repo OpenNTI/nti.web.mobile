@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {scoped} from 'nti-lib-locale';
 
 import {Editor, Panel} from 'modeled-content';
-
-import {scoped} from 'nti-lib-locale';
 
 const TYPE_OVERRIDE = {email: 'email'};
 

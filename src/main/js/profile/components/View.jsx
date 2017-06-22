@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {User} from 'nti-web-client';
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
-
 import {Loading} from 'nti-web-commons';
 
 import NotFound from 'notfound/components/View';

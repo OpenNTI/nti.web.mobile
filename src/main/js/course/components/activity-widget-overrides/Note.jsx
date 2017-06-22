@@ -1,11 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import t from 'nti-lib-locale';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
 import GotoItem from 'common/components/GotoItem';
-
-import t from 'nti-lib-locale';
-
 import Context from 'content/components/discussions/Context';
 import Detail from 'content/components/discussions/Detail';
 

@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
-import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
+
 import ListMeta from './ListMeta';
 
 export default class extends React.Component {

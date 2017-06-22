@@ -1,17 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {encodeForURI} from 'nti-lib-ntiids';
-
 import {Mixins} from 'nti-web-commons';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 import TotalPointsLabel from '../shared/TotalPointsLabel';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 export default createReactClass({
 	displayName: 'AssignmentItem',

@@ -1,12 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Loading, EmptyList} from 'nti-web-commons';
 
-import AssignmentGroup from './AssignmentGroup';
 import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';
+
+import AssignmentGroup from './AssignmentGroup';
 
 export default createReactClass({
 	displayName: 'AssignmentsList',

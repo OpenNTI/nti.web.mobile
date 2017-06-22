@@ -1,27 +1,23 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Locations, Location} from 'react-router-component';
-
-import CatalogListView from './CatalogListView';
-import EntryDetail from './EntryDetail';
-
-import CatalogAccessor from '../mixins/CatalogAccessor';
-
-import ContextMixin from 'common/mixins/ContextContributor';
 import {Loading, Mixins} from 'nti-web-commons';
 
 import Page from 'common/components/Page';
-
+import ContextMixin from 'common/mixins/ContextContributor';
 import Enrollment from 'enrollment/components/View';
 import PaymentComplete from 'enrollment/five-minute/components/PaymentComplete';
 import Enroll from 'enrollment/components/Enroll';
 import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchaseView';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
-import GiftRedeem from './GiftRedeem';
 import AcceptInvitation from 'invitations/components/View';
+
+import CatalogAccessor from '../mixins/CatalogAccessor';
+
+import CatalogListView from './CatalogListView';
+import EntryDetail from './EntryDetail';
+import GiftRedeem from './GiftRedeem';
 
 const CatalogBody = createReactClass({
 	displayName: 'CatalogBody',
@@ -45,28 +41,34 @@ const CatalogBody = createReactClass({
 		return true;
 	},
 
+	attachRouter (x) { this.router = x; },
+	attachPaymentComplete (x) { this.paymentcomplete = x; },
+	attachEnrollmentEntry (x) { this.enroll = x; },
+	attachEnrollment (x) { this.enrollment = x; },
+	attachGift (x) { this.gift = x; },
+
 
 	render () {
 		let {catalog} = this.props;
 		return (
-			<Locations contextual ref={x => this.router = x}>
+			<Locations contextual ref={this.attachRouter}>
 				<Location
-					ref={x => this.paymentcomplete = x}
+					ref={this.attachPaymentComplete}
 					path="/enroll/:enrollmentType/paymentcomplete/"
 					handler={PaymentComplete}
 				/>
 				<Location
-					ref={x => this.enroll = x}
+					ref={this.attachEnrollment}
 					path="/enroll/:enrollmentType/:entryId(/*)"
 					handler={Enrollment}
 				/>
 				<Location
-					ref={x => this.gift = x}
+					ref={this.attachGift}
 					path="/gift/purchase/:entryId(/*)"
 					handler={GiftPurchaseView}
 				/>
 				<Location
-					ref={x => this.enrollment = x}
+					ref={this.attachEnrollment}
 					path="/item/:entryId/enrollment(/*)"
 					handler={Enroll}
 				/>

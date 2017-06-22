@@ -1,9 +1,11 @@
+import StorePrototype from 'nti-lib-store';
+
 import {LOADED_LIBRARY} from './Constants';
 
-import StorePrototype from 'nti-lib-store';
 
 const data = Symbol('data');
 const SetData = Symbol('set:data');
+
 
 class Store extends StorePrototype {
 

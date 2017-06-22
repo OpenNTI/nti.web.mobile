@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {Loading} from 'nti-web-commons';
+
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {Loading} from 'nti-web-commons';
 import ProfileLink from 'profile/components/ProfileLink';
 
-export default class extends React.Component {
-	static displayName = 'SelectableEntity';
+export default class SelectableEntity extends React.Component {
 
 	static propTypes = {
 		entity: PropTypes.object.isRequired,
@@ -18,16 +18,16 @@ export default class extends React.Component {
 		children: PropTypes.any,
 		labels: PropTypes.object, // e.g. {selected: 'Remove', unselected: 'Undo'}
 		linkToProfile: PropTypes.any
-	};
+	}
 
 	static defaultProps = {
 		tag: 'li',
 		removable: false
-	};
+	}
 
 	state = {
 		busy: false
-	};
+	}
 
 	onClick = () => {
 		this.setState({ busy: true });
@@ -37,19 +37,19 @@ export default class extends React.Component {
 		Promise.resolve(onChange && onChange(entity))
 			.catch(error => this.setState({ error }))
 			.then(() => this.setState({ busy: false }));
-	};
+	}
 
 	label = (selected) => {
 		let {labels = {}} = this.props;
 		return selected ? labels.selected : labels.unselected;
-	};
+	}
 
 	association = (entity) => {
 		let {generalName, displayName, displayType} = entity;
 		let type = generalName ? displayName : entity.isUser ? null : displayType;
 
 		return type; // || entity.association;
-	};
+	}
 
 	render () {
 		const {props: {children, entity, selected, tag, removable, labels, linkToProfile, ...props}, state: {busy}} = this;

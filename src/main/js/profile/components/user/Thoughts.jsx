@@ -1,10 +1,10 @@
+import {join} from 'path';
+
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import {join} from 'path';
 
 import ContextSender from 'common/mixins/ContextSender';
-
 import NotFoundPage from 'notfound/components/View';
 
 import ProfileLink from '../../mixins/ProfileLink';

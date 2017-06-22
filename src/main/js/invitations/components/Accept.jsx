@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
-import FormErrors from 'forms/components/FormErrors';
+import PropTypes from 'prop-types';
 import {Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
+
+import FormErrors from 'forms/components/FormErrors';
 
 import {accept} from '../Api';
 
 import Success from './AcceptSuccess';
 
-let t = scoped('INVITATIONS');
+const t = scoped('INVITATIONS');
 
 export default class extends React.Component {
 	static displayName = 'Invitations:Accept';

@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Avatar from 'common/components/Avatar';
+
 import HeadSummary from './HeadSummary';
 
 export default function ProfileHead ({children, entity}) {

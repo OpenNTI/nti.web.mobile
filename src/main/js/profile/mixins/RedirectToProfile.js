@@ -1,6 +1,8 @@
-import {Mixins} from 'nti-web-commons';
-import {profileHref} from './ProfileLink';
 import {join} from 'path';
+
+import {Mixins} from 'nti-web-commons';
+
+import {profileHref} from './ProfileLink';
 
 
 export default {

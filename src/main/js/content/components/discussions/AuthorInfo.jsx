@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {DateTime, LuckyCharms}  from 'nti-web-commons';
 
 import Avatar from 'common/components/Avatar';

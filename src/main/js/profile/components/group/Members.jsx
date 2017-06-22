@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import AvatarGrid from '../AvatarGrid';
 import {Link} from 'react-router-component';
+
 import HasMembers from '../../mixins/HasMembers';
+import AvatarGrid from '../AvatarGrid';
 
 export default createReactClass({
 	displayName: 'Group:Members',

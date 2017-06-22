@@ -1,22 +1,21 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import Router from 'react-router-component';
-
 import {Mixins} from 'nti-web-commons';
+
 import ContextSender from 'common/mixins/ContextSender';
+import Redirect from 'navigation/components/Redirect';
+
+import {profileHref} from '../../mixins/ProfileLink';
+import Activity from '../Activity';
+import ForumView from '../ForumView';
 
 import Page from './PageFrame';
 import Info from './Info';
-
-import Activity from '../Activity';
 import Members from './Members';
-import {profileHref} from '../../mixins/ProfileLink';
-import ForumView from '../ForumView';
 
-import Redirect from 'navigation/components/Redirect';
+
 
 const ROUTES = [
 	{path: '/activity/discussions/:forumId(/*)', handler: ForumView },

@@ -1,20 +1,18 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-
 import {Loading, Mixins} from 'nti-web-commons';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {StoreEventsMixin} from 'nti-lib-store';
+
+import LoadForum from '../mixins/LoadForum';
+import Store from '../Store';
 
 import CreateTopic from './CreateTopic';
 import Topics from './Topics';
 import TopicView from './TopicView';
-
-import LoadForum from '../mixins/LoadForum';
-
-import Store from '../Store';
 
 let Location = Router.Location;
 

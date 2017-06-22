@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
 import {Mixins} from 'nti-web-commons';
@@ -24,7 +24,7 @@ export default createReactClass({
 
 
 	[goToPage] ({target}) {
-		scrollTo(0, 0); // solves an issue in firefox on android in which navigating to a short page from the bottom of a long one results in a blank screen.
+		global.scrollTo(0, 0); // solves an issue in firefox on android in which navigating to a short page from the bottom of a long one results in a blank screen.
 		const {value: page} = target;
 		setTimeout(() => this.navigate('/?p=' + page), 1);
 	},

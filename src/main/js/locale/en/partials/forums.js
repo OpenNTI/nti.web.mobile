@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	groupTitles: {
 		Section: 'My Section',
 		Parent: 'All Sections',

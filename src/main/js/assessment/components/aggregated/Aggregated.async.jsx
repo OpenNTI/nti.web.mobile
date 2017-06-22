@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {Error, Loading} from 'nti-web-commons';
 
 import Content from '../Content';

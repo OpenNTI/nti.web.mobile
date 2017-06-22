@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {getEventTarget} from 'nti-lib-dom';
+import {rawContent} from 'nti-commons';
+
 import Mixin, {stopEvent} from './Mixin';
 
-import {getEventTarget} from 'nti-lib-dom';
-
-import {rawContent} from 'nti-commons';
 
 const isTruthy = x => x;
 
@@ -30,6 +30,7 @@ export default createReactClass({
 		item: PropTypes.object
 	},
 
+	attachRef (x) { this.form = x; },
 
 	render () {
 		let item = this.props.item;
@@ -38,7 +39,7 @@ export default createReactClass({
 		let solution = submitted && this.getSolution();
 
 		return (
-			<form className="multiple-choice" ref={x => this.form = x} onSubmit={stopEvent}>
+			<form className="multiple-choice" ref={this.attachRef} onSubmit={stopEvent}>
 				{choices.map((x, i) => {
 					return this.renderChoice(x, i, solution);
 				})}

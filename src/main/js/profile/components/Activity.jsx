@@ -1,17 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {EmptyList, Loading, Mixins, ScrollTrigger} from 'nti-web-commons';
-
-import Button from 'forms/components/Button';
+import {PROFILE_ACTIVITY_VIEWED} from 'nti-analytics';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
 import Joined from 'activity/components/widgets/Joined';
+import Button from 'forms/components/Button';
 
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
-import {PROFILE_ACTIVITY_VIEWED} from 'nti-analytics';
 
 import WriteSomething from './WriteSomething';
 

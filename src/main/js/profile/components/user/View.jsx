@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
 import ContextSender from 'common/mixins/ContextSender';
-
 import Redirect from 'navigation/components/Redirect';
+
+import ProfileLink from '../../mixins/ProfileLink';
+import Memberships from '../about/Memberships';
+import Activity from '../Activity';
 
 import Page from './PageFrame';
 import About from './About';
 import Achievements from './Achievements';
-
-import Activity from '../Activity';
 import Thoughts from './Thoughts';
-import Memberships from '../about/Memberships';
 
-import ProfileLink from '../../mixins/ProfileLink';
+
 
 const ROUTES = [
 	{path: '/thoughts(/*)',			handler: Thoughts},

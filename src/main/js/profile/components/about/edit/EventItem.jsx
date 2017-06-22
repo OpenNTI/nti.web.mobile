@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-import {Editor} from 'modeled-content';
-
 import {scoped} from 'nti-lib-locale';
+
+import {Editor} from 'modeled-content';
 
 const t = scoped('PROFILE.EDIT.EVENT_ITEM');
 

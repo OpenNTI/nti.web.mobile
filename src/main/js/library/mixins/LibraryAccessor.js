@@ -1,7 +1,8 @@
+import {StoreEventsMixin} from 'nti-lib-store';
+
 import LibraryStore from '../Store';
 import {load} from '../Actions';
 
-import {StoreEventsMixin} from 'nti-lib-store';
 
 export default {
 	mixins: [StoreEventsMixin],

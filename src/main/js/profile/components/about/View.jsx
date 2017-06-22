@@ -1,14 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {PROFILE_VIEWED} from 'nti-analytics';
-import ProfileAnalytics from '../../mixins/AnalyticsMixin';
-
 import {ActiveState, Loading} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
+import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 import Card from '../Card';
 import Mixin from '../about/Mixin';
 

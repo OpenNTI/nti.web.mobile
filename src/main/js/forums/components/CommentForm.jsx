@@ -1,17 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Editor} from 'modeled-content';
-
 import {Notice, OkCancelButtons, Loading} from 'nti-web-commons';
-
 import {StoreEventsMixin} from 'nti-lib-store';
+import {scoped} from 'nti-lib-locale';
+
+import {Editor} from 'modeled-content';
 
 import * as Actions from '../Actions';
 import Store from '../Store';
 import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
 
-import {scoped} from 'nti-lib-locale';
 
 let t = scoped('FORUMS');
 
@@ -68,7 +67,7 @@ export default createReactClass({
 		});
 
 		if (this.props.onCompletion) {
-			this.props.onCompletion(event);
+			this.props.onCompletion();
 		}
 	},
 

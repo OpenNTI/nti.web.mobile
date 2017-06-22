@@ -1,15 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Loading, Mixins} from 'nti-web-commons';
 
 import NotFound from 'notfound/components/View';
 import ContextSender from 'common/mixins/ContextSender';
-
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
 

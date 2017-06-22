@@ -1,12 +1,12 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import createReactClass from 'create-react-class';
 import {join} from 'path';
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import {decodeFromURI} from 'nti-lib-ntiids';
+import {Mixins} from 'nti-web-commons';
 
 import ContextMixin from 'common/mixins/ContextContributor';
-import {Mixins} from 'nti-web-commons';
 
 import AssignmentViewer from './AssignmentViewerWrapper';
 

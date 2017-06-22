@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {Component as Video} from 'nti-web-video';
-
 import {Mixins} from 'nti-web-commons';
+import {Component as Video} from 'nti-web-video';
 
 
 export default createReactClass({

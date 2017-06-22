@@ -1,10 +1,10 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import {rawContent} from 'nti-commons';
+import {addHistory} from 'nti-analytics';
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
-import PropTypes from 'prop-types';
-import React from 'react';
-
-import createReactClass from 'create-react-class';
-
 import {
 	DateTime,
 	Loading,
@@ -15,9 +15,6 @@ import {
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import {rawContent} from 'nti-commons';
-
-import {addHistory} from 'nti-analytics';
 
 // This is an example of the correct way to aquire a reference to
 // this mixin from outside of the `widgets` package. If this comment

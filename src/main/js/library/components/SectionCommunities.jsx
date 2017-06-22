@@ -1,13 +1,10 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {Link} from 'react-router-component';
-
-import NavigationBar from 'navigation/components/Bar';
-
 import {EmptyList, Mixins} from 'nti-web-commons';
 import {getService} from 'nti-web-client';
+
+import NavigationBar from 'navigation/components/Bar';
 
 import Collection from './containers/Collection';
 import SectionTitle from './SectionTitle';

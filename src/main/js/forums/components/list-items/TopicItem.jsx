@@ -1,17 +1,20 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {Link} from 'react-router-component';
 import createReactClass from 'create-react-class';
-import {mimeTypes, TOPIC, POST} from '../../Constants';
-import Store from '../../Store';
+import {DateTime, LuckyCharms} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
+import {encodeForURI} from 'nti-lib-ntiids';
+import {StoreEventsMixin} from 'nti-lib-store';
+
 import DisplayName from 'common/components/DisplayName';
 import Avatar from 'common/components/Avatar';
-import {DateTime, LuckyCharms} from 'nti-web-commons';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {Link} from 'react-router-component';
-import Mixin, {isMimeType} from './Mixin';
+
 import KeepItemInState from '../../mixins/KeepItemInState';
-import {StoreEventsMixin} from 'nti-lib-store';
-import {scoped} from 'nti-lib-locale';
+import {mimeTypes, TOPIC, POST} from '../../Constants';
+import Store from '../../Store';
+
+import Mixin, {isMimeType} from './Mixin';
 
 const t = scoped('FORUMS');
 

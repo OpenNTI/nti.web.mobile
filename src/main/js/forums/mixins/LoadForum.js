@@ -1,9 +1,10 @@
+import {decodeFromURI} from 'nti-lib-ntiids';
+import Logger from 'nti-util-logger';
+
 import {getForumContents} from '../Api';
 import Store from '../Store';
 import {ITEM_CONTENTS_CHANGED} from '../Constants';
 
-import {decodeFromURI} from 'nti-lib-ntiids';
-import Logger from 'nti-util-logger';
 import paging from './Paging';
 
 const ChangedHandler = 'LoadForum:ChangedHandler';

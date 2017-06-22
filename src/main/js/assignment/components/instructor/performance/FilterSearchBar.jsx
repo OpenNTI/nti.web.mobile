@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {BufferedInput, Mixins} from 'nti-web-commons';
 
 import PageControls from '../PageControls';

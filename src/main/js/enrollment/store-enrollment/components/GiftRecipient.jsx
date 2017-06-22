@@ -8,8 +8,7 @@ import Store from '../Store';
 const t = scoped('ENROLLMENT.GIFT.RECIPIENT');
 const t2 = scoped('ENROLLMENT');
 
-export default class extends React.Component {
-	static displayName = 'Recipient';
+export default class Recipient extends React.Component {
 
 	state = {
 		valid: true,
@@ -20,6 +19,9 @@ export default class extends React.Component {
 		toFirstName: null,
 		toLastName: null
 	};
+
+	attachFormRef = x => this.elements.form = x
+	attachEmailRef = x => this.elements.email = x
 
 	componentWillMount () {
 		this.elements = {};
@@ -134,7 +136,7 @@ export default class extends React.Component {
 
 		return (
 			<div className={css}>
-				<form ref={x => this.elements.form = x} className="">
+				<form ref={this.attachFormRef} className="">
 					<fieldset className="recipient-info">
 						<label>
 							<input name="enable_recipient"
@@ -168,7 +170,7 @@ export default class extends React.Component {
 									className={requiredIfEnabled}
 									value={receiver}
 									type="email"
-									ref={x => this.elements.email = x}
+									ref={this.attachEmailRef}
 									/>
 								{!valid && (
 									<span className="error message">

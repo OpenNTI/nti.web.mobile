@@ -1,8 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import isEmpty from 'isempty';
+
 import Mixin, {stopEvent} from './Mixin';
 
-import isEmpty from 'isempty';
 
 
 /**
@@ -19,6 +20,7 @@ export default createReactClass({
 		]
 	},
 
+	attachRef (x) { this.input = x; },
 
 	onChange ({target: {value}}) {
 		this.handleInteraction();
@@ -31,7 +33,7 @@ export default createReactClass({
 
 		return (
 			<form className="free-response" onSubmit={stopEvent}>
-				<input ref={x => this.input = x} value={value || ''} onChange={this.onChange} onBlur={this.onBlur} readOnly={this.isSubmitted()}/>
+				<input ref={this.attachRef} value={value || ''} onChange={this.onChange} onBlur={this.onBlur} readOnly={this.isSubmitted()}/>
 			</form>
 		);
 	},

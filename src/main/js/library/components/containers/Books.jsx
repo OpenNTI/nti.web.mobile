@@ -1,9 +1,9 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
 
-import Container from './Container';
 import SectionMixin from '../../mixins/SectionAware';
+
+import Container from './Container';
 
 export default createReactClass({
 	displayName: 'Books',

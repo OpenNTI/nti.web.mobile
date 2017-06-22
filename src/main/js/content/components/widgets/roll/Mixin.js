@@ -1,8 +1,6 @@
 import ReactTransitionEvents from 'react/lib/ReactTransitionEvents';
-
-import {addClass, removeClass} from 'nti-lib-dom';
+import {addClass, removeClass, getEventTarget} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
-import {getEventTarget} from 'nti-lib-dom';
 
 const logger = Logger.get('content:components:widgets:roll:Mixin');
 

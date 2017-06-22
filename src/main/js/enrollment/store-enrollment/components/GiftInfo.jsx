@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {scoped} from 'nti-lib-locale';
 
 import {edit} from '../Actions';
 
-import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ENROLLMENT.CONFIRMATION');
 

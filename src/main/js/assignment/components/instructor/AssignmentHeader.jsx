@@ -1,11 +1,8 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {DateTime} from 'nti-web-commons';
 
 import Accessor from './mixins/AssignmentSummaryAccessor';
-
 import FilterMenu from './FilterMenu';
 import PageControls from './PageControls';
 import OptionsMenu from './OptionsMenu';

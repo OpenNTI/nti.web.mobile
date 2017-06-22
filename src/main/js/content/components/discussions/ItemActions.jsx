@@ -1,14 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
-import createReactClass from 'create-react-class';
-
-import {Mixins} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
-
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
-import {Prompt} from 'nti-web-commons';
+import createReactClass from 'create-react-class';
+import {Mixins, Prompt} from 'nti-web-commons';
+import {getService} from 'nti-web-client';
 
 import Action from './ItemAction';
 
@@ -42,6 +37,9 @@ export default createReactClass({
 	getInitialState () {
 		return {};
 	},
+
+
+	attachListRef (x) { this.list = x; },
 
 
 	componentWillMount () {
@@ -95,7 +93,7 @@ export default createReactClass({
 					<Action name="share" criteria={CanShare(capabilities, item)} onClick={this.onShare}/>
 					<span className={cx('options', {open: moreOptionsOpen})}>
 						<Action name="more-options" onClick={this.toggleMenu} iconOnly/>
-						<ul ref={x => this.list = x} onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
+						<ul ref={this.attachListRef} onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
 							<Action name="edit" criteria={CanEdit(capabilities, item)} inList onClick={this.onEdit}/>
 							<Action name={flag} criteria={CanFlag(capabilities, item)} inList onClick={this.onFlag}/>
 							<Action name="delete" criteria={CanDelete(capabilities, item)} inList onClick={this.onDelete}/>

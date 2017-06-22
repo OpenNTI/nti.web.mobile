@@ -1,6 +1,7 @@
-import {ITEM_LOADED} from '../Constants';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
+
+import {ITEM_LOADED} from '../Constants';
 
 const LoadedHandler = 'KeepItemInState:LoadedHandler';
 const logger = Logger.get('forums:mixins:KeepItemInState');

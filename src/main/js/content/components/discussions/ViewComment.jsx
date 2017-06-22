@@ -1,10 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
-
 import {
 	Error as Err,
 	Loading,

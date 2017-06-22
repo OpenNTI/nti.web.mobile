@@ -1,14 +1,13 @@
-import PropTypes from 'prop-types';
 /* globals Stripe jQuery */
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {Loading} from 'nti-web-commons';
-
 import {ExternalLibraryManager} from 'nti-web-client';
-import {clearLoadingFlag} from 'common/utils/react-state';
 import {scoped} from 'nti-lib-locale';
+
+import {clearLoadingFlag} from 'common/utils/react-state';
 
 //These strings should probably move into a more generic place in the strings.
 const t = scoped('ENROLLMENT.forms.storeenrollment');
@@ -25,6 +24,12 @@ export default createReactClass({
 		onChange: PropTypes.func,
 		defaultValues: PropTypes.object
 	},
+
+
+	attachNameRef (x) { this.elements.name = x; },
+	attachNumberRef (x) { this.elements.number = x; },
+	attachExpRef (x) { this.elements.exp = x; },
+	attachCvcRef (x) { this.elements.cvc = x; },
 
 
 	getInitialState () {
@@ -166,7 +171,7 @@ export default createReactClass({
 			<fieldset className={cx('credit-card-form', className)}>
 				<legend>Credit Card</legend>
 				<div className="name">
-					<input name="name" ref={x => this.elements.name = x}
+					<input name="name" ref={this.attachNameRef}
 						placeholder={t('name')}
 						className={cx('required', {error: errors.name})}
 						type="text"
@@ -178,7 +183,7 @@ export default createReactClass({
 				</div>
 				<div>
 					<span className="number" >
-						<input name="number" ref={x => this.elements.number = x}
+						<input name="number" ref={this.attachNumberRef}
 							placeholder={t('number')}
 							className={cx('required', {error: errors.number})}
 							type="text"
@@ -189,7 +194,7 @@ export default createReactClass({
 							/>
 					</span>
 					<span className="exp" >
-						<input name="exp" ref={x => this.elements.exp = x}
+						<input name="exp" ref={this.attachExpRef}
 							placeholder={t('exp_')}
 							className={cx('required', {error: errors.exp})}
 							type="text"
@@ -201,7 +206,7 @@ export default createReactClass({
 							/>
 					</span>
 					<span className="cvc" >
-						<input name="cvc" ref={x => this.elements.cvc = x}
+						<input name="cvc" ref={this.attachCvcRef}
 							placeholder={t('cvc')}
 							className={cx('required', {error: errors.cvc})}
 							type="text"

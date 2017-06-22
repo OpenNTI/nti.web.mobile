@@ -1,15 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import isEmpty from 'isempty';
 
 import Store from '../Store';
 
 import AssignmentStatusLabel from './AssignmentStatusLabel';
 import Grade from './Grade';
-
 import TimedPlaceholder from './TimedPlaceholder';
 import TimeLockedPlaceholder from './TimeLockedPlaceholder';
 
-import isEmpty from 'isempty';
 
 export default class extends React.Component {
 	static displayName = 'HeaderAssignment';

@@ -1,7 +1,5 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {ActiveState, Mixins, ListHeader as Header} from 'nti-web-commons';
 
 import Accessor from '../../mixins/AssignmentCollectionAccessor';

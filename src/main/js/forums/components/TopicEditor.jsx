@@ -1,8 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {OkCancelButtons, PanelButton} from 'nti-web-commons';
-import {Editor} from 'modeled-content';
 import {scoped} from 'nti-lib-locale';
+
+import {Editor} from 'modeled-content';
 
 const t = scoped('FORUMS');
 
@@ -11,18 +12,21 @@ function isValid (topicValue) {
 }
 
 
-export default class extends React.Component {
-	static displayName = 'TopicEditor';
+export default class TopicEditor extends React.Component {
 
 	static propTypes = {
 		item: PropTypes.object,
 		onSubmit: PropTypes.func.isRequired,
 		onCancel: PropTypes.func.isRequired
-	};
+	}
 
 	state = {
 		canSubmit: false
-	};
+	}
+
+	attachEditorRef = c => this.editor = c
+	attachTitleRef = el => this.title = el
+
 
 	componentDidMount () {
 		this.title.focus();
@@ -55,7 +59,7 @@ export default class extends React.Component {
 			<PanelButton className="comment-form" button={buttons}>
 				<div>
 					<input
-						ref={el => this.title = el}
+						ref={this.attachTitleRef}
 						defaultValue={title}
 						placeholder={t('topicTitlePlaceholder')}
 						onChange={this.onEditorChange}
@@ -63,7 +67,7 @@ export default class extends React.Component {
 				</div>
 				<div>
 					<Editor
-						ref={c => this.editor = c}
+						ref={this.attachEditorRef}
 						initialValue={body}
 						onChange={this.onEditorChange}
 						allowInsertVideo

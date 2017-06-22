@@ -3,37 +3,31 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import cx from 'classnames';
-
 import {RouterMixin} from 'react-router-component';
-
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
-
 import {Loading, Error as Err, Pager} from 'nti-web-commons';
-
 import {StoreEventsMixin} from 'nti-lib-store';
-import ContextSender from 'common/mixins/ContextSender';
-
-
-import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
-
-import Store from '../Store';
-import {loadPage, resolveNewContext} from '../Actions';
-import PageDescriptor from '../PageDescriptor';
-
 import {
 	ASSIGNMENT_VIEWED,
 	RESOURCE_VIEWED,
 	SELFASSESSMENT_VIEWED,
 	Mixin as AnalyticsBehavior
 } from 'nti-analytics';
+
+import ContextSender from 'common/mixins/ContextSender';
+import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
+
+import Store from '../Store';
+import {loadPage, resolveNewContext} from '../Actions';
+import PageDescriptor from '../PageDescriptor';
+
 import AnnotationFeature from './viewer-parts/annotations';
 import AssessmentFeature, {isAssignment} from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
 import PopUpFeature from './viewer-parts/popup';
-
 import AnnotationBar from './AnnotationBar';
 import NoteEditor from './NoteEditor';
 import BodyContent from './Content';

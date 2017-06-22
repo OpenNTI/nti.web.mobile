@@ -1,18 +1,16 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import createReactClass from 'create-react-class';
 import path from 'path';
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
 import {NestableLink as Link, Mixins} from 'nti-web-commons';
-
-import t from 'nti-lib-locale';
-
-import {getModel} from 'nti-lib-interfaces';
+import {scoped} from 'nti-lib-locale';
+import {getModel, SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
 import {encodeForURI} from 'nti-lib-ntiids';
-import {SURVEY_REPORT_LINK} from 'nti-lib-interfaces';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
+const t = scoped('UNITS');
 
 export default createReactClass({
 	displayName: 'CourseOverviewSurveyReference',
@@ -55,9 +53,9 @@ export default createReactClass({
 						<div className="message">{label}</div>
 						<div className="tally">
 							<div className="stat questions">
-								{t('UNITS.questions', {count: questionCount})}
+								{t('questions', {count: questionCount})}
 							</div>
-							<div className="stat submissions">{t('UNITS.submissions', {count: submissions})}</div>
+							<div className="stat submissions">{t('submissions', {count: submissions})}</div>
 							{submitted && ( <div className="stat submitted">Submitted!</div> )}
 							{report && (
 								<div className="stat submitted">

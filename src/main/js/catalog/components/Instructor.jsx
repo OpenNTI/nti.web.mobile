@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import pad from 'zpad';
+import {scoped} from 'nti-lib-locale';
 import {Constants} from 'nti-web-commons';
+
 const {DataURIs: {BLANK_AVATAR, BLANK_IMAGE}} = Constants;
 
-
-import {scoped} from 'nti-lib-locale';
-
 const t = scoped('COURSE.INFO');
+
 
 export default class extends React.Component {
 	static displayName = 'Instructor';

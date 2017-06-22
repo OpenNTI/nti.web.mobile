@@ -1,34 +1,29 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import classnames from 'classnames';
+import {DateTime, Loading, LuckyCharms, Mixins, Prompt} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
+import {encodeForURI} from 'nti-lib-ntiids';
+import {StoreEventsMixin} from 'nti-lib-store';
+import {Placeholder as Video} from 'nti-web-video';
+
+import Avatar from 'common/components/Avatar';
+import DisplayName from 'common/components/DisplayName';
+import {Panel as ModeledContentPanel} from 'modeled-content';
+
+import KeepItemInState from '../../mixins/KeepItemInState';
+import ToggleState from '../../mixins/ToggleState';
 import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
 import * as Actions from '../../Actions';
 import Store from '../../Store';
-
-import Avatar from 'common/components/Avatar';
-
-import {DateTime, Loading, LuckyCharms, Mixins} from 'nti-web-commons';
-
-import DisplayName from 'common/components/DisplayName';
-
-import {Panel as ModeledContentPanel} from 'modeled-content';
-
-import {Placeholder as Video} from 'nti-web-video';
-
 import CommentForm from '../CommentForm';
 import ActionsComp from '../Actions';
 
-import {Prompt} from 'nti-web-commons';
-
 import Mixin from './Mixin';
-import {StoreEventsMixin} from 'nti-lib-store';
-import KeepItemInState from '../../mixins/KeepItemInState';
-import ToggleState from '../../mixins/ToggleState';
 
-import {encodeForURI} from 'nti-lib-ntiids';
 
-const t = require('nti-lib-locale').scoped('FORUMS');
+const t = scoped('FORUMS');
 const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';

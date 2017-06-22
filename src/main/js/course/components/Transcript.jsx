@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {rawContent} from 'nti-commons';
 
-export default class extends React.Component {
-	static displayName = 'Transcript';
+export default class Transcript extends React.Component {
 
 	static propTypes = {
 		children: PropTypes.any,
@@ -33,6 +32,8 @@ export default class extends React.Component {
 		onJumpTo: () => {},
 		onSlideLoaded: () => {}
 	}
+
+	attachRef = x => this.node = x
 
 	componentWillUnmount () {
 		this.unmounted = true;
@@ -90,7 +91,7 @@ export default class extends React.Component {
 		const items = cues.concat(slides).sort((a, b) => a.startTime - b.startTime);
 
 		return (
-			<div className="cues" ref={x => this.node = x}>
+			<div className="cues" ref={this.attachRef}>
 				{items.map(this.renderItem)}
 				{children}
 			</div>

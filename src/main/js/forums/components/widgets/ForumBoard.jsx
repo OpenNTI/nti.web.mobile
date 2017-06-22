@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
-import ForumItem from '../list-items/ForumItem';
-import keyFor from '../../utils/key-for-item';
+import PropTypes from 'prop-types';
 import {scoped} from 'nti-lib-locale';
+
+import keyFor from '../../utils/key-for-item';
+import ForumItem from '../list-items/ForumItem';
 
 const t = scoped('FORUMS.groupTitles');
 

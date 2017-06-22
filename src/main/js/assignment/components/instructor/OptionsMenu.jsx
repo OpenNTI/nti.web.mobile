@@ -4,7 +4,6 @@ import cx from 'classnames';
 
 import Accessor from './mixins/AssignmentSummaryAccessor';
 import ShowAvatars from './mixins/ShowAvatarsChild';
-
 import MenuTransitionGroup from './MenuTransitionGroup';
 import PageSizeMenuOption from './PageSizeMenuOption';
 

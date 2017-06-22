@@ -1,14 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
-let t = scoped('ENROLLMENT.GIFT.PRICING');
 import {DateTime} from 'nti-web-commons';
+
+import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 import Store from '../Store';
 import {updateCoupon} from '../Actions';
 import * as Constants from '../Constants';
-import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+
+const t = scoped('ENROLLMENT.GIFT.PRICING');
 
 const getDiscountString = 'Pricing:getDiscountString';
 const onChange = 'Pricing:onChange';
@@ -22,6 +24,10 @@ export default createReactClass({
 		purchasable: PropTypes.object.isRequired,
 		locked: PropTypes.bool
 	},
+
+
+	attachCouponRef (x) { this.coupon = x; },
+
 
 	getInitialState () {
 		return {
@@ -238,7 +244,7 @@ export default createReactClass({
 							<div className="cell coupon">
 								<span className={'label ' + couponLabelCls}>{couponLabel}</span>
 								<input type="text"
-									ref={x => this.coupon = x}
+									ref={this.attachCouponRef}
 									name="coupon"
 									disabled={locked} readOnly={locked}
 									placeholder={t('couponPlaceholder')}

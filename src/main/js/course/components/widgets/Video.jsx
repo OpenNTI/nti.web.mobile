@@ -1,16 +1,14 @@
 import path from 'path';
-import PropTypes from 'prop-types';
+
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
+import {Progress} from 'nti-lib-interfaces';
+import {encodeForURI} from 'nti-lib-ntiids';
 import {Error as Err, Loading, Mixins} from 'nti-web-commons';
+import {Component as Video} from 'nti-web-video';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
-
-import {Component as Video} from 'nti-web-video';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {Progress} from 'nti-lib-interfaces';
 
 export default createReactClass({
 	displayName: 'CourseOverviewVideo',
@@ -34,6 +32,9 @@ export default createReactClass({
 			return this.mimeTest.test(item.MimeType);
 		}
 	},
+
+
+	attachVideoRef (x) { this.video = x; },
 
 
 	getInitialState () {
@@ -191,7 +192,7 @@ export default createReactClass({
 					<Err error={error}/>
 				)}
 				{(!video || !renderVideoFully) ? null :
-					<Video ref={x => this.video = x} src={this.state.video}
+					<Video ref={this.attachVideoRef} src={this.state.video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
 						context={this.state.context}

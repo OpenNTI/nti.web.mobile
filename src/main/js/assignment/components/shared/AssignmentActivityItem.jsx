@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import cx from 'classnames';
 import {join} from 'path';
 
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 import {rawContent} from 'nti-commons';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {DateTime, DisplayName} from 'nti-web-commons';

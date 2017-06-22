@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Placeholder from './Placeholder';
 
 export default class extends React.Component {
@@ -16,7 +17,7 @@ export default class extends React.Component {
 		}
 
 		//Temp:
-		history.go(-1);
+		global.history.go(-1);
 	};
 
 	render () {

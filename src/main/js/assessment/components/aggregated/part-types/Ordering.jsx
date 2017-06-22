@@ -1,7 +1,5 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {Toggle} from 'nti-web-commons';
 
 import BarChart from './charts/BarChart';

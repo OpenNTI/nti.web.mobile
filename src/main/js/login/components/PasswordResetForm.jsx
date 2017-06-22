@@ -1,24 +1,23 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-component';
 import cx from 'classnames';
-
 import {Loading} from 'nti-web-commons';
-
 import {getServer} from 'nti-web-client';
 import {scoped} from 'nti-lib-locale';
 
 const t = scoped('LOGIN.forgot');
 
-export default class extends React.Component {
-	static displayName = 'PasswordResetForm';
+export default class PasswordResetForm extends React.Component {
 
 	static propTypes = {
 		username: PropTypes.string,
 		token: PropTypes.string
-	};
+	}
 
-	state = {};
+	state = {}
+
+	attachFormRef = el => this.form = el
 
 	onInput = () => {
 		let {valid} = this.state;
@@ -31,7 +30,7 @@ export default class extends React.Component {
 		}
 
 		this.setState({submitEnabled, valid});
-	};
+	}
 
 	getFieldValues = () => {
 		let {password, password2} = (this.form || {}).elements || {};
@@ -43,7 +42,7 @@ export default class extends React.Component {
 		}
 
 		return fields;
-	};
+	}
 
 	handleSubmit = (e) => {
 		e.preventDefault();
@@ -68,14 +67,14 @@ export default class extends React.Component {
 				})
 				.then(() => this.setState({busy: false}));
 		});
-	};
+	}
 
 	render () {
 		const {busy, submitEnabled, success, error, valid = true} = this.state;
 
 		return (
 			<div className="login-wrapper">
-				<form ref={el => this.form = el} className={cx('login-form', {'remove-animation': success})} onSubmit={this.handleSubmit}>
+				<form ref={this.attachFormRef} className={cx('login-form', {'remove-animation': success})} onSubmit={this.handleSubmit}>
 					<div className="header">next thought</div>
 					{!busy && !success &&
 						<div>

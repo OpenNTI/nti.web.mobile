@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {getService} from 'nti-web-client';
 
 import DisplayName from './DisplayName';
 
-import {getService} from 'nti-web-client';
 
 export default class extends React.Component {
 	static displayName = 'RepliedTo';

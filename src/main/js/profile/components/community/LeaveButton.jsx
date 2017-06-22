@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {PromiseButton} from 'nti-web-commons';
+
 import RedirectToProfile from '../../mixins/RedirectToProfile';
 
 export default createReactClass({

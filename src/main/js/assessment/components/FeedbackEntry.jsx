@@ -1,16 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {scoped} from 'nti-lib-locale';
 
 import Editor from './FeedbackEditor';
-
-import {scoped} from 'nti-lib-locale';
 
 const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
 
 
 
-export default class extends React.Component {
-	static displayName = 'FeedbackEntry';
+export default class FeedbackEntry extends React.Component {
 
 	static propTypes = {
 		feedback: PropTypes.object.isRequired,

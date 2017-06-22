@@ -1,17 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import cx from 'classnames';
-
 import isEmpty from 'isempty';
+import {rawContent} from 'nti-commons';
+import {Zoomable} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 
-import {rawContent} from 'nti-commons';
 
-import {Zoomable} from 'nti-web-commons';
 
 export default createReactClass({
 	displayName: 'ContentMarkupEnabled',
@@ -25,6 +22,9 @@ export default createReactClass({
 	propTypes: {
 		item: PropTypes.object
 	},
+
+
+	attachRef (x) { this.image = x; },
 
 
 	getInitialState () {
@@ -84,7 +84,7 @@ export default createReactClass({
 			<span itemProp={itemprop} className={cx('markupframe', {bare})}>
 
 				<span className="wrapper">
-					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={x => this.image = x} onLoad={this.onLoad}/>
+					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
 					{!zoomable ? null : (
 						<a title="Zoom"
 						className="zoom icon-search"

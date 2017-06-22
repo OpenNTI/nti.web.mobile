@@ -1,23 +1,17 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {decodeFromURI} from 'nti-lib-ntiids';
+import {scoped} from 'nti-lib-locale';
 import Logger from 'nti-util-logger';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
-import {Error as Err, Loading, Mixins} from 'nti-web-commons';
-
 import ContextSender from 'common/mixins/ContextSender';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
-
-import {scoped} from 'nti-lib-locale';
-
 import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
-
 import {redeemGift} from '../Actions';
 
 const logger = Logger.get('catalog:components:GiftRedeem');
@@ -31,6 +25,8 @@ export default createReactClass({
 		entryId: PropTypes.string.isRequired,
 		code: PropTypes.string
 	},
+
+	attachRef (x) { this.key = x; },
 
 	getInitialState () {
 		return {
@@ -138,7 +134,7 @@ export default createReactClass({
 			<FormPanel title={title} onSubmit={this.handleSubmit}>
 
 				<div className="access-code">
-					<input name="accessKey" ref={x => this.key = x}
+					<input name="accessKey" ref={this.attachRef}
 						placeholder={t('accessKey')}
 						className="required"
 						type="text"
