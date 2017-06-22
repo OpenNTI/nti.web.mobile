@@ -6,7 +6,7 @@ import createReactClass from 'create-react-class';
 import {Mixins} from 'nti-web-commons';
 
 import Button from 'forms/components/Button';
-import {makeHref as profileLink} from 'profile/components/ProfileLink';
+import {profileHref} from 'profile/mixins/ProfileLink';
 
 
 export default createReactClass({
@@ -31,7 +31,7 @@ export default createReactClass({
 	},
 
 	redirectToProfile () {
-		let link = profileLink();
+		let link = profileHref();
 		let memberships = join(this.getBasePath(), link, 'memberships/');
 		this.navigateRoot(memberships);
 	},
