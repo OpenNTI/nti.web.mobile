@@ -72,7 +72,7 @@ export default createReactClass({
 					<Avatar entity={username} width="32" height="32"/>
 					<div className="wrap">
 						<DisplayName entity={username}/>
-							{ note && note.isReply() ? ' commented on a note' : ' shared a note: ' + preview}
+						{ note && note.isReply() ? ' commented on a note' : ' shared a note: ' + preview}
 						<DateTime date={this.getEventTime()} relative/>
 					</div>
 				</a>

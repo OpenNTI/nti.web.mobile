@@ -46,7 +46,7 @@ export default createReactClass({
 			...ROUTES.map(route=>
 				(<Router.Location key={route.path} {...route}
 					contentPackage={contentPackage}
-					/>)
+				/>)
 			));
 	}
 });

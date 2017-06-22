@@ -98,11 +98,11 @@ export default createReactClass({
 						<div className="tally">
 							<div className="tally-box">
 								<h4>Results:</h4>
-							{state.correct &&
+								{state.correct &&
 								<div className="stat correct">
 									<span className="count">{state.correct}</span> correct </div>
 								}
-							{state.incorrect &&
+								{state.incorrect &&
 								<div className="stat incorrect">
 									<span className="count">{state.incorrect}</span> incorrect </div>
 								}

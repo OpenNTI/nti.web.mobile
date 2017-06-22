@@ -49,9 +49,9 @@ export default {
 		// are presently defined as not being administered.)
 		const role = contentPackage && contentPackage.parent('isAdministrative');
 		const admin = Boolean(
-						role && role.isInstructor &&
+			role && role.isInstructor &&
 						assess && isAssignment(assess)
-					);
+		);
 
 		Store.setupAssessment(assess, assessmentHistory, admin);
 	},

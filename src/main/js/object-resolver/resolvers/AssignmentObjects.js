@@ -44,14 +44,14 @@ export default class AssignmentsResolver {
 		//	/students/<userid>
 
 		return this.getCourse().then(course =>
-				join(
-					'course',
-					encodeForURI(course.getID()),
-					'assignments',
-					encodeForURI(this.getAssignmentId()),
-					'/'
-				)
-			);
+			join(
+				'course',
+				encodeForURI(course.getID()),
+				'assignments',
+				encodeForURI(this.getAssignmentId()),
+				'/'
+			)
+		);
 	}
 
 }

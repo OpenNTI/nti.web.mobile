@@ -32,8 +32,8 @@ export default class extends React.Component {
 				key={column.label()}
 				onClick={this.onClick}
 				className={className}>
-					<span className="heading">{column.label()}</span>
-					<span className="sort-arrow" />
+				<span className="heading">{column.label()}</span>
+				<span className="sort-arrow" />
 			</div>
 		);
 	}

@@ -282,7 +282,7 @@ export default {
 				y: 0
 			} : {
 			}
-		));
+			));
 
 		this[removeListeners]();
 	},
@@ -383,7 +383,7 @@ export default {
 		let direction = initial < axisInt ? -1 : 1;
 
 		return Math.abs(initial - axisInt) >= grid[axId] ?
-				(axisInt + (grid[axId] * direction)) : state[axis];
+			(axisInt + (grid[axId] * direction)) : state[axis];
 	},
 
 

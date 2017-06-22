@@ -13,10 +13,10 @@ export default class extends React.Component {
 		}).isRequired,
 
 		options: PropTypes.arrayOf(
-				PropTypes.shape({
-					label: PropTypes.string,
-					value: PropTypes.string
-				})),
+			PropTypes.shape({
+				label: PropTypes.string,
+				value: PropTypes.string
+			})),
 
 		name: PropTypes.string,
 
@@ -33,10 +33,10 @@ export default class extends React.Component {
 			return (
 				<label className="radio" key={'option' + index} htmlFor={id}>
 					<input {...this.props} type="radio"
-								id={id}
-								name={this.props.name}
-								checked={checked}
-								value={option.value} />
+						id={id}
+						name={this.props.name}
+						checked={checked}
+						value={option.value} />
 					<span className="htmlLabel">{option.label}</span>
 				</label>
 			);

@@ -119,7 +119,7 @@ export default createReactClass({
 					onBlur={this.onBlur}
 					onChange={this.onChange}
 					onFocus={this.onFocus}
-					/>
+				/>
 				{showLetter &&
 					(<select defaultValue={(grade && grade.letter) || ''} onChange={this.onLetterChange}>
 						{Grade.getPossibleGradeLetters().map(letter => <option key={letter} value={letter}>{letter}</option>)}

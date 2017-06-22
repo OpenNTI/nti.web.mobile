@@ -67,7 +67,7 @@ export default createReactClass({
 				courseId={courseId}
 				isGift={isGift}
 				defaultHandler={Form}
-				/>
+			/>
 		);
 	}
 

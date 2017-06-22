@@ -33,11 +33,11 @@ export default createReactClass({
 
 		href = Url.parse(href);
 		href.search = QueryString.stringify(
-							Object.assign(
-								QueryString.parse(href.search), {
-									success: getReturnURL() || base,
-									failure: Path.join(base, 'login/')
-								}));
+			Object.assign(
+				QueryString.parse(href.search), {
+					success: getReturnURL() || base,
+					failure: Path.join(base, 'login/')
+				}));
 
 		href = href.format();
 

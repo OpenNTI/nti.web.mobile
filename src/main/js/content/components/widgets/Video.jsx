@@ -212,7 +212,7 @@ export default createReactClass({
 						onPaused={this.onStop}
 						onPlaying={this.onPlay}
 						context={this.state.context}
-						/>
+					/>
 				}
 
 				{(playing || requestPlay) ? null :

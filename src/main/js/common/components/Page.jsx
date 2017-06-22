@@ -31,10 +31,10 @@ export default class extends React.Component {
 		});
 
 		return React.createElement('div', {},
-				this.context.PageWrapped ?
-					null :
-					React.createElement(NavigationBar, props),
-				...this.renderChildren(children)
+			this.context.PageWrapped ?
+				null :
+				React.createElement(NavigationBar, props),
+			...this.renderChildren(children)
 		);
 	}
 

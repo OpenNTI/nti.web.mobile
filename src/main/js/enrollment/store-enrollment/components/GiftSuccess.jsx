@@ -76,13 +76,13 @@ export default class extends React.Component {
 					<p className="alert">{alert}</p>
 
 					<LocalizedHTML className="prompt"
-							stringId={`ENROLLMENT.GIFT.SUCCESS.${(date ? 'info' : 'infoNoDate')}`}
-							courseTitle={title}
-							startDate={date}/>
+						stringId={`ENROLLMENT.GIFT.SUCCESS.${(date ? 'info' : 'infoNoDate')}`}
+						courseTitle={title}
+						startDate={date}/>
 
 					<LocalizedHTML className="support"
-							stringId="ENROLLMENT.GIFT.SUCCESS.support"
-							email={support} />
+						stringId="ENROLLMENT.GIFT.SUCCESS.support"
+						email={support} />
 
 					<div className="token">
 						<span className="label">{t('accessKey')}</span>

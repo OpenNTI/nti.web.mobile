@@ -139,7 +139,7 @@ export default class Score extends React.Component {
 		ctx.beginPath();
 
 		ctx.moveTo(endingRadius * Math.cos(startingAngle),
-					endingRadius * Math.sin(startingAngle));
+			endingRadius * Math.sin(startingAngle));
 
 		ctx.arc(0, 0, radius, startingAngle, endingAngle, false);
 		ctx.arc(0, 0, endingRadius, endingAngle, startingAngle, true);

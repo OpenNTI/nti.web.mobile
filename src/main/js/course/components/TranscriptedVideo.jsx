@@ -376,11 +376,11 @@ export default createReactClass({
 			<div className="transcripted-video">
 				<DarkMode/>
 				{!video ? None : (
-				<Video ref={this.attachVideoRef}
+					<Video ref={this.attachVideoRef}
 						src={video}
 						onTimeUpdate={this.onVideoTimeTick}
 						newWatchEventFactory={this.onNewWatchEventFactory}
-						/>
+					/>
 				)}
 				<div className="transcript">
 					{error ? (
@@ -395,7 +395,7 @@ export default createReactClass({
 							regions={regions}
 							cues={cues}
 							slides={slides}
-							/>
+						/>
 					)}
 					<Gutter ref={this.attachGutterRef} items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
 				</div>

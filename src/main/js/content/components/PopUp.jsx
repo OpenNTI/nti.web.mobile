@@ -54,7 +54,7 @@ export default class extends React.Component {
 				{error ? <Error error={error} /> :
 					loading ?
 						<Loading.Mask /> :
-							<div className="content" {...rawContent(html)} />
+						<div className="content" {...rawContent(html)} />
 				}
 			</div>
 		);

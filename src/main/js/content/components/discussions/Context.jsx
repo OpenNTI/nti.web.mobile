@@ -206,10 +206,10 @@ export default class extends React.Component {
 					? ( <div ref={this.attachRef} {...props} {...rawContent(context)}/> )
 					: (
 						<div ref={this.attachRef} {...props}>
-						{
-							React.createElement(context.type,
-								{...context.props, ref: this.attachWRef})
-						}
+							{
+								React.createElement(context.type,
+									{...context.props, ref: this.attachWRef})
+							}
 						</div>
 					);
 	}

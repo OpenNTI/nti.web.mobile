@@ -4,5 +4,5 @@ import {getService} from 'nti-web-client';
 
 export function getLibrary (reload) {
 	return getService()
-			.then(service => Library.get(service, 'Main', reload));
+		.then(service => Library.get(service, 'Main', reload));
 }

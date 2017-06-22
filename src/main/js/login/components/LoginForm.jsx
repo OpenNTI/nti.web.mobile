@@ -28,8 +28,8 @@ const t = scoped('LOGIN');
 
 // if we have a confirmation message show the confirmation view, otherwise go directly to signup
 const signupLink = () => t(MESSAGE_SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing'
-							? '/signup/'
-							: '/signup/confirm';
+	? '/signup/'
+	: '/signup/confirm';
 
 export default createReactClass({
 	displayName: 'LoginForm',

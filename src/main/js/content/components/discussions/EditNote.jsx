@@ -54,7 +54,7 @@ export default createReactClass({
 				scope={contentPackage}
 				onCancel={this.onCancel}
 				onSave={this.onSave}
-				/>
+			/>
 		);
 	}
 });

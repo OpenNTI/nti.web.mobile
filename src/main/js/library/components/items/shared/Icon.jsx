@@ -110,7 +110,7 @@ export default class extends React.Component {
 				src={icon}
 				onLoad={this.onFinish}
 				onError={this.onFinish}
-				/>
+			/>
 		);
 	}
 }

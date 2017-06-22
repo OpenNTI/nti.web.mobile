@@ -27,14 +27,14 @@ export default class extends React.Component {
 				{titleRow}
 				{children}
 				<ul>
-				{list.map(item => {
-					let Item = getItem(item);
-					return Item && (
-						<li key={item.NTIID || item.href}>
-							<Item item={item}/>
-						</li>
-					);
-				})}
+					{list.map(item => {
+						let Item = getItem(item);
+						return Item && (
+							<li key={item.NTIID || item.href}>
+								<Item item={item}/>
+							</li>
+						);
+					})}
 				</ul>
 			</div>
 		);

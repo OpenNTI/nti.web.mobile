@@ -11,10 +11,10 @@ import UnsupportedPlaceholder from './UnsupportedPlaceholder';
 
 export default function SetHeader ({assessment}) {
 	let Component = isAssignment(assessment)
-						? AssignmentHeader
-						: isSurvey(assessment)
-							? SurveyHeader
-							: ScoreboardHeader;
+		? AssignmentHeader
+		: isSurvey(assessment)
+			? SurveyHeader
+			: ScoreboardHeader;
 
 	if (!areAssessmentsSupported()) {
 		return (

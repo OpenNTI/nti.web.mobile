@@ -66,11 +66,11 @@ export default class extends React.Component {
 			<div className={wrapperclasses} onClick={this.toggleMenu}>
 				<div className="menu-label">{itemContent(currentPage, true)}</div>
 				<MenuTransitionGroup>
-				{open && (
-					<ul className={classes} key="pager">
-						{Array.from({length: numPages}).map((_, i) => item(i + 1))}
-					</ul>
-				)}
+					{open && (
+						<ul className={classes} key="pager">
+							{Array.from({length: numPages}).map((_, i) => item(i + 1))}
+						</ul>
+					)}
 				</MenuTransitionGroup>
 			</div>
 		);

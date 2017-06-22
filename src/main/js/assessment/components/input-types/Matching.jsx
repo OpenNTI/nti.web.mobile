@@ -187,7 +187,7 @@ export default createReactClass({
 				key={sourceIndex}
 				locked={locked}
 				type={this.state.PartLocalDNDToken}
-				>
+			>
 				<div className={classes.join(' ')} key={sourceIndex} data-source={sourceIndex}>
 					{!locked && (
 						<a href="#" className="reset" title="Reset" onClick={this.onDragReset}/>

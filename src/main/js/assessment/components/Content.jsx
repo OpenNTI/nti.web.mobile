@@ -69,7 +69,7 @@ export default class Content extends React.Component {
 					(typeof part === 'string')
 						? part
 						: `<widget id="${part.guid}">--x--</widget>`
-					).join('');
+				).join('');
 
 				return {widgets, content: htmlToReact(markup, (n, a)=>isWidget(n, a, widgets))};
 			};

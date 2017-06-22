@@ -31,9 +31,9 @@ export default class extends React.Component {
 							<DateTime
 								date={assignment.getDueDate()}
 								format={dateFormat}
-								/>
+							/>
 						</div>
-				)}
+					)}
 			</div>
 		);
 	}

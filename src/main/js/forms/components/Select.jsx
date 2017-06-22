@@ -81,8 +81,8 @@ export default class extends React.Component {
 		}
 	};
 
-    // if our options are simple strings turn them into objects
-    // with name and value properties.
+	// if our options are simple strings turn them into objects
+	// with name and value properties.
 	makeOption = (option) => {
 		return typeof option === 'string' ? { name: option, value: option } : option;
 	};

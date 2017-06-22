@@ -260,8 +260,8 @@ export default createReactClass({
 	getTranslation () {
 		let {active = 0, touch, offsetWidth = 0} = this.state;
 		let offset = touch ?
-				touch.pixelOffset :
-				(active * -offsetWidth);
+			touch.pixelOffset :
+			(active * -offsetWidth);
 
 		return 'translate3d(' + offset + 'px,0,0)';
 	},

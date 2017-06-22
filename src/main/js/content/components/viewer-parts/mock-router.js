@@ -95,7 +95,7 @@ export default {
 		if (typeof route !== 'string') {
 			throw new Error('Invalid Argument');
 		}
-		let page = /^\/\:pageId/;
+		let page = /^\/:pageId/;
 
 		let routes = [
 			makeRoute('/:pageId' + route, extra),

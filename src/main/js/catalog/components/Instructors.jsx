@@ -13,9 +13,9 @@ export default function Instructors ({entry}) {
 
 	return (
 		<div className="course-instructors">
-		{instructors.map((i, index) =>
-			<Instructor key={i.Name} index={index} assetRoot={root} instructor={i}/>
-		)}
+			{instructors.map((i, index) =>
+				<Instructor key={i.Name} index={index} assetRoot={root} instructor={i}/>
+			)}
 		</div>
 	);
 }

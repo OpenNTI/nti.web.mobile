@@ -46,21 +46,21 @@ export default createReactClass({
 				<i className="icon-gear-menu" />
 				<MenuTransitionGroup>
 					{open && (
-							<ul className="options-menu">
-								<li key="title" className="title">Display</li>
-								{values.map(value => (
-									<PageSizeMenuOption
-										key={value}
-										value={value}
-										onClick={this.setPageSize}
-										className={cx({'selected': Store.getPageSize() === value})}
-									/>
-								))}
-								<li onClick={this.toggleAvatars}>
-									<input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} />
-									<span> Show Avatars</span>
-								</li>
-							</ul>
+						<ul className="options-menu">
+							<li key="title" className="title">Display</li>
+							{values.map(value => (
+								<PageSizeMenuOption
+									key={value}
+									value={value}
+									onClick={this.setPageSize}
+									className={cx({'selected': Store.getPageSize() === value})}
+								/>
+							))}
+							<li onClick={this.toggleAvatars}>
+								<input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} />
+								<span> Show Avatars</span>
+							</li>
+						</ul>
 					)}
 				</MenuTransitionGroup>
 			</div>

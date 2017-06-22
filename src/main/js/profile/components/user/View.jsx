@@ -62,11 +62,11 @@ export default createReactClass({
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
-				<Router.Location {...route}
-					handler={Page} pageContent={route.handler}
-					entity={entity}
+					<Router.Location {...route}
+						handler={Page} pageContent={route.handler}
+						entity={entity}
 					/> :
-				<Router.NotFound handler={Redirect} location="/about/"/>
+					<Router.NotFound handler={Redirect} location="/about/"/>
 			));
 	}
 });

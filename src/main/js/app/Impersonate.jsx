@@ -33,12 +33,12 @@ export default createReactClass({
 
 			let url = Url.parse(link);
 			url.search = QueryString.stringify(
-							Object.assign(
-								QueryString.parse(url.search),
-								{
-									username,
-									success: global.location.pathname
-								}));
+				Object.assign(
+					QueryString.parse(url.search),
+					{
+						username,
+						success: global.location.pathname
+					}));
 
 
 

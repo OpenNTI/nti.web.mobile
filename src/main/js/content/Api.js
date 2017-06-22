@@ -10,8 +10,8 @@ export function getPageInfo (ntiid, context, extras) {
 		.then(service => {
 			return service.getPageInfo(ntiid, {parent: context, params})
 				.catch(error => error.statusCode === 405
-						? generatePageInfoFrom(ntiid, service, context, extras)
-						: Promise.reject(error));
+					? generatePageInfoFrom(ntiid, service, context, extras)
+					: Promise.reject(error));
 		});
 }
 

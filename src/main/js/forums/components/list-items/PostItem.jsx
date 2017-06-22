@@ -211,7 +211,7 @@ export default createReactClass({
 							canReply={asHeadline && topic.hasLink('add')}
 							onEdit={this.onEditClick}
 							onDelete={this.onDeleteComment}
-							/>
+						/>
 					</div>
 				</div>
 			</div>

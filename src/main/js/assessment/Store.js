@@ -54,7 +54,7 @@ function getQuestion (thing, part) {
 		thing.getQuestion ?
 			thing.getQuestion(id) :
 			thing
-		);
+	);
 }
 
 
@@ -300,7 +300,7 @@ class Store extends StorePrototype {
 			return found || (
 				//Find in Assignments/QuestionSets
 				(//or find the top-level question:
-                item.getQuestion && item.getQuestion(questionId) || item.getID() === questionId && item)
+					item.getQuestion && item.getQuestion(questionId) || item.getID() === questionId && item)
 			);
 		}
 		return Object.values(this.active).reduce(find, null);
@@ -356,8 +356,8 @@ class Store extends StorePrototype {
 		this.emitChange({type: BUSY_LOADING});
 
 		const load = typeof progress === 'object'
-						? Promise.resolve(progress)
-						: loadPreviousState(assessment); //eslint-disable-line no-use-before-define
+			? Promise.resolve(progress)
+			: loadPreviousState(assessment); //eslint-disable-line no-use-before-define
 
 		return load
 			.then(submission => this[ApplySubmission](assessment, submission))

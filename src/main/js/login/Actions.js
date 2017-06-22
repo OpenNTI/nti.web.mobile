@@ -46,8 +46,8 @@ export function login (username, password) {
 
 export function logout () {
 	endAnalyticsSession()
-	.then( () => getService().then(s => {
-		let url = s.getLogoutURL('/mobile/login/');
-		global.location.replace(url);
-	}));
+		.then( () => getService().then(s => {
+			let url = s.getLogoutURL('/mobile/login/');
+			global.location.replace(url);
+		}));
 }

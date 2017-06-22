@@ -27,7 +27,7 @@ export default createReactClass({
 					<Avatar entity={username} width="32" height="32"/>
 					<div className="wrap">
 						<DisplayName entity={username}/>
-							{thestring}
+						{thestring}
 						<DateTime date={this.getEventTime()} relative/>
 					</div>
 				</a>

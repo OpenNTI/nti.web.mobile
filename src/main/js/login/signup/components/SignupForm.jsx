@@ -170,7 +170,7 @@ export default createReactClass({
 					className="create-account-form medium-6 medium-centered columns"
 					autoComplete="off"
 					onSubmit={this.handleSubmit}
-					>
+				>
 
 					<fieldset>
 						<legend>Create Account</legend>
@@ -201,10 +201,10 @@ export default createReactClass({
 					</div>
 
 					<input type="submit"
-							id="signup:submit"
-							className="small-12 columns tiny button"
-							disabled={!enabled}
-							value="Create Account" />
+						id="signup:submit"
+						className="small-12 columns tiny button"
+						disabled={!enabled}
+						value="Create Account" />
 
 					<a id="signup:privacy:policy"
 						href={this.props.privacyUrl}

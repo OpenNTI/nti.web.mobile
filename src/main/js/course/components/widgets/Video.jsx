@@ -199,17 +199,17 @@ export default createReactClass({
 						deferred />
 				}
 				{playing ? null :
-				<Loading.Mask style={style} loading={this.state.loading}
-					tag="a" onFocus={onFocus}
-					className="overview-tap-area" href={link}>
-					{viewed && <div className="viewed">Viewed</div>}
-					<div className="wrapper">
-						<div className="buttons">
-							<span className="play" title="Play" onClick={this.onPlayClicked}/>
-							<span className="label" title={label}>{label}</span>
+					<Loading.Mask style={style} loading={this.state.loading}
+						tag="a" onFocus={onFocus}
+						className="overview-tap-area" href={link}>
+						{viewed && <div className="viewed">Viewed</div>}
+						<div className="wrapper">
+							<div className="buttons">
+								<span className="play" title="Play" onClick={this.onPlayClicked}/>
+								<span className="label" title={label}>{label}</span>
+							</div>
 						</div>
-					</div>
-				</Loading.Mask>
+					</Loading.Mask>
 				}
 			</Tag>
 		);

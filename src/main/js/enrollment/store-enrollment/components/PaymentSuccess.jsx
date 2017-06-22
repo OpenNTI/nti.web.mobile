@@ -44,8 +44,8 @@ export default class extends React.Component {
 	_courseLink = () => {
 		return (
 			<CourseContentLink
-					className="button tiny radius column"
-					courseId={this.props.courseId}>Go to course</CourseContentLink>
+				className="button tiny radius column"
+				courseId={this.props.courseId}>Go to course</CourseContentLink>
 		);
 	};
 

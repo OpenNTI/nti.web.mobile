@@ -42,7 +42,7 @@ export default createReactClass({
 			//do not import other sheets.
 			.replace(/@import[^;]*;/g, '')
 			//do not allow margin rules:
-			.replace(/(margin)([^\:]*):([^;]*);/g, '');
+			.replace(/(margin)([^:]*):([^;]*);/g, '');
 
 		this.setState({
 			styles: alteredStyles,

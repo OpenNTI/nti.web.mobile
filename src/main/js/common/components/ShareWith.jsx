@@ -92,7 +92,7 @@ export default class ShareWith extends React.Component {
 			])
 
 			.then(stores => Promise.all(stores.map(store=> store.waitForPending()))
-							.then(()=> stores))
+				.then(()=> stores))
 
 			.then(stores => Promise.all([getSuggestions(), ...stores]))
 
@@ -233,11 +233,11 @@ export default class ShareWith extends React.Component {
 		let {state: {focused, inputFocused, pendingRemove, search, selection, suggestionGroups}} = this;
 		const loading = !suggestionGroups;
 		let groupings = Object.keys(suggestionGroups || {})
-							.filter(x => suggestionGroups[x])
-							.map(k => ({
-								label: k,
-								list: suggestionGroups[k]
-							}));
+			.filter(x => suggestionGroups[x])
+			.map(k => ({
+				label: k,
+				list: suggestionGroups[k]
+			}));
 
 		let placeholder = selection.empty ? 'Share with' : null;
 
@@ -257,7 +257,7 @@ export default class ShareWith extends React.Component {
 							onFocus={this.onInputFocus}
 							onChange={this.onInputChange}
 							onKeyDown={this.onKeyPressHandleDelete}
-							/>
+						/>
 					</span>
 				</div>
 
@@ -274,35 +274,35 @@ export default class ShareWith extends React.Component {
 								query={trim(search)}
 								selection={selection}
 								onChange={this.onSelectionChange}
-								/>
+							/>
 						</div>
 					</div>
 
 				) : (
 					<div className="suggestions">
-					{!focused ? null : loading ? (
-						<Loading.Ellipse />
-					) : (
+						{!focused ? null : loading ? (
+							<Loading.Ellipse />
+						) : (
 
-						<div ref={this.attachScrollerRef}
-							onTouchStart={this.onListScroll}
-							onScroll={this.onListScroll}
-							className={cx('scroller', 'visible', {'restrict': inputFocused})}>
+							<div ref={this.attachScrollerRef}
+								onTouchStart={this.onListScroll}
+								onScroll={this.onListScroll}
+								className={cx('scroller', 'visible', {'restrict': inputFocused})}>
 
-						{groupings.map(o =>
+								{groupings.map(o =>
 
-							(<div className="suggestion-group" key={o.label}>
-								<h3>{o.label}</h3>
-								<SelectableEntities entities={o.list}
-									selection={selection}
-									onChange={this.onSelectionChange}
-									/>
-							</div>)
+									(<div className="suggestion-group" key={o.label}>
+										<h3>{o.label}</h3>
+										<SelectableEntities entities={o.list}
+											selection={selection}
+											onChange={this.onSelectionChange}
+										/>
+									</div>)
 
+								)}
+
+							</div>
 						)}
-
-						</div>
-					)}
 					</div>
 				)}
 			</div>

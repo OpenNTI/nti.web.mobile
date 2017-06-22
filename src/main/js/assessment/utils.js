@@ -35,8 +35,8 @@ export function updatePartsWithAssessedParts (part, assessed) {
 	questions.forEach(q => {
 		let x = q.parts.length - 1;
 		let question = main.getQuestion ?
-						main.getQuestion(q.getID()) :
-						(main.getID() === q.getID() ? main : null);
+			main.getQuestion(q.getID()) :
+			(main.getID() === q.getID() ? main : null);
 
 		if (!question || q.parts.length !== question.parts.length) {
 			logger.error('We have an assessed value, but no where to put it. (Question is missing or has the wrong number of parts)');

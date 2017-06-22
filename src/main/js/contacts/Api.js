@@ -22,5 +22,5 @@ export function getSuggestedContacts () {
 export function getDistributionList (id) {
 	const listId = decodeFromURI(id);
 	return getStore(LISTS).then(store =>
-			store.getLists().find(list => decodeFromURI(list.getID()) === listId) || null);
+		store.getLists().find(list => decodeFromURI(list.getID()) === listId) || null);
 }

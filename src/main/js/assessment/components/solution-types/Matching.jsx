@@ -38,8 +38,8 @@ export default createReactClass({
 			<div className="matching solutions">
 				<div className="matching">
 					<form className="box">
-					{values.map((x, i)=>
-						this.renderDropTarget(x, i, solution) )}
+						{values.map((x, i)=>
+							this.renderDropTarget(x, i, solution) )}
 					</form>
 				</div>
 				<div className="explanation" {...rawContent(ex)}/>
