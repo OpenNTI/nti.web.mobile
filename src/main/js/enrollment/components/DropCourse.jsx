@@ -9,7 +9,7 @@ import {scoped} from 'nti-lib-locale';
 import ContextSender from 'common/mixins/ContextSender';
 import CatalogStore from 'catalog/Store';
 
-import Actions from '../Actions';
+import * as Actions from '../Actions';
 import {DROP_COURSE} from '../Constants';
 import Store from '../Store';
 

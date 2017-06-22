@@ -47,7 +47,6 @@ class Store extends StorePrototype {
 			},
 
 			[Constants.SAVE_COMMENT]: saveComment,
-			[Constants.SAVE_TOPIC_HEADLINE]: saveComment,
 
 			[Constants.CREATE_TOPIC] (payload) {
 				let {forum, topic} = payload.action;

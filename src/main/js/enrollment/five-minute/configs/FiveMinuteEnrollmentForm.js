@@ -1,7 +1,7 @@
 import moment from 'moment';
 import {scoped} from 'nti-lib-locale';
 
-import Constants from 'forms/Constants';
+import * as Constants from 'forms/Constants';
 
 import concurrentForm from './ConcurrentEnrollmentForm';
 import admissionForm from './AdmissionForm';
