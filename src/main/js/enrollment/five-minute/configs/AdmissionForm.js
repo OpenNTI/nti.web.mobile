@@ -1,14 +1,14 @@
-/*eslint-disable*/
-
 //XXX: using the locale function this way will not pickup site string changes after loading...
 //FIXME: Move string uages `t()` to the component's render method.
-const t = require('nti-lib-locale').scoped('ENROLLMENT.forms.fiveminute');
-const Constants = require('forms/Constants');
-const StateSelect = require('forms/fields').StateSelect;
-const CountrySelect = require('forms/fields').CountrySelect;
+import {scoped} from 'nti-lib-locale';
+
+import * as Constants from 'forms/Constants';
+import {StateSelect, CountrySelect} from 'forms/fields';
+
+const t = scoped('ENROLLMENT.forms.fiveminute');
 
 
-var yesNoOptions = [
+const yesNoOptions = [
 	{
 		label: 'Yes',
 		value: 'Y'
@@ -19,7 +19,8 @@ var yesNoOptions = [
 	}
 ];
 
-var mailingAddressFieldset = {
+
+const mailingAddressFieldset = {
 	title: 'Mailing Address',
 	fields: [
 		{
@@ -62,7 +63,7 @@ var mailingAddressFieldset = {
 	]
 };
 
-const admissionForm = [
+export default [
 	{
 		fields: [
 			{
@@ -241,7 +242,7 @@ const admissionForm = [
 								{
 									type: 'hidden',
 									ref: 'years_of_oklahoma_residency',
-									defaultValue: "0"
+									defaultValue: '0'
 								}
 							]
 						}]
@@ -295,5 +296,3 @@ const admissionForm = [
 		]
 	}
 ];
-
-module.exports = admissionForm;
