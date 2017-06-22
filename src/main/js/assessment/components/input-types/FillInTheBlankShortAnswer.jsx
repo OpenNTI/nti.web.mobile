@@ -1,13 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
-import InputType, {stopEvent} from './Mixin';
+import isEmpty from 'isempty';
 
 import Content from '../Content';
 
-import isEmpty from 'isempty';
+import InputType, {stopEvent} from './Mixin';
 
 const hasValue = x => x && !isEmpty(x.value);
 
@@ -37,6 +35,11 @@ export default createReactClass({
 	},
 
 
+	attachRef (x) {
+		this.form = x;
+	},
+
+
 	componentWillUnmount () {
 		delete this.form;
 	},
@@ -44,7 +47,7 @@ export default createReactClass({
 
 	render () {
 		return (
-			<form ref={x => this.form = x} className="fill-in-the-blank" onSubmit={stopEvent}>
+			<form ref={this.attachRef} className="fill-in-the-blank" onSubmit={stopEvent}>
 				<Content
 					content={this.props.item.input}
 					strategies={strategies}

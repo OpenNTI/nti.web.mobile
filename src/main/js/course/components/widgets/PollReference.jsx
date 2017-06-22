@@ -1,24 +1,18 @@
 import path from 'path';
-import PropTypes from 'prop-types';
+
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Mixins} from 'nti-web-commons';
-
-import t from 'nti-lib-locale';
-
-import {getModel} from 'nti-lib-interfaces';
-import {ASSESSMENT_HISTORY_LINK} from 'nti-lib-interfaces';
+import {scoped} from 'nti-lib-locale';
+import {getModel, ASSESSMENT_HISTORY_LINK} from 'nti-lib-interfaces';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
+const isSubmitted = (item) => !!((item || {}).Links || []).find(x=> x.rel === ASSESSMENT_HISTORY_LINK);
 
-function isSubmitted (item) {
-	return !!((item || {}).Links || []).find(x=> x.rel === ASSESSMENT_HISTORY_LINK);
-}
-
+const t = scoped('UNITS');
 
 export default createReactClass({
 	displayName: 'CourseOverviewPollReference',
@@ -60,7 +54,7 @@ export default createReactClass({
 					<div className="tally-box">
 						<div className="message">{label}</div>
 						<div className="tally">
-							<div className="stat submissions">{t('UNITS.submissions', {count: submissions})}</div>
+							<div className="stat submissions">{t('submissions', {count: submissions})}</div>
 							{submitted && ( <div className="stat submitted">Submitted!</div> )}
 						</div>
 					</div>

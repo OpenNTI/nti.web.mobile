@@ -1,16 +1,12 @@
-//node modules imports (react is always first), react components second, others after.
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
-
-//intra-app module imports (ordered LocalName)
 import {
 	EmptyList,
 	Error as Err,
 	Loading
 } from 'nti-web-commons';
 
-//local-relative modules (grouped by depth)
 import mixin from '../mixins/Mixin';
 import {LISTS} from '../Constants';
 

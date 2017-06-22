@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {addClass, removeClass} from 'nti-lib-dom';
 import {DarkMode} from 'nti-web-commons';
 
@@ -15,9 +14,12 @@ export default class extends React.Component {
 
 		onCancel: PropTypes.func,
 		onSave: PropTypes.func
-	};
+	}
 
-	ensureVisible = () => {
+	attachRef = x => this.el = x
+	attachEditorRef = x => this.editor = x
+
+	ensureVisible () {
 		let {editor: el} = this;
 		let margin = parseInt(getComputedStyle(el)['margin-top'], 10);
 
@@ -28,7 +30,7 @@ export default class extends React.Component {
 		}
 
 		window.scrollTo(0, top - margin + 1);
-	};
+	}
 
 	onCancel = () => {
 		const {props: {onCancel}, el: {parentNode}} = this;
@@ -36,18 +38,18 @@ export default class extends React.Component {
 		removeClass(parentNode, 'saving');
 
 		onCancel();
-	};
+	}
 
 	onSubmit = () => {
 		const {el: {parentNode}} = this;
 		addClass(parentNode, 'saving');
-	};
+	}
 
 	render () {
 		return (
-			<div ref={x => this.el = x}>
+			<div ref={this.attachRef}>
 				<DarkMode/>
-				<Editor ref={x => this.editor = x} {...this.props} onCancel={this.onCancel} onSubmit={this.onSubmit}/>
+				<Editor ref={this.attachEditorRef} {...this.props} onCancel={this.onCancel} onSubmit={this.onSubmit}/>
 			</div>
 		);
 	}

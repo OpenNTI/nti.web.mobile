@@ -1,17 +1,18 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {scoped} from 'nti-lib-locale';
-import ObjectLink from 'common/mixins/ObjectLink';
 import {Ellipsed} from 'nti-web-commons';
 
-import Footer from './AssignmentFooter';
+import ObjectLink from 'common/mixins/ObjectLink';
 
 import AssignmentHistoryContextChild from '../../mixins/AssignmentHistoryContextChild';
 
-let t = scoped('UNITS');
+import Footer from './AssignmentFooter';
+
+const t = scoped('UNITS');
+
 
 export default createReactClass({
 	displayName: 'Assignment',

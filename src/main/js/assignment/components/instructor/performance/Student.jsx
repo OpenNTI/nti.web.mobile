@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {Mixins} from 'nti-web-commons';
+
+import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
 
 import StudentHeader from './StudentHeader';
 import StudentAssignmentsTable from './table/StudentAssignmentsTable';
 
-import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
 
 export default createReactClass({
 	displayName: 'Performance:Student',

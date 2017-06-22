@@ -1,8 +1,8 @@
 import {getModel} from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
+import StorePrototype from 'nti-lib-store';
 
 import {loadPreviousState, saveProgress} from './Api';
-
 import {
 	BUSY_LOADING,
 	BUSY_SUBMITTING,
@@ -22,7 +22,6 @@ import {
 	updatePartsWithAssessedParts
 } from './utils';
 
-import StorePrototype from 'nti-lib-store';
 
 const logger = Logger.get('assessment:store');
 
@@ -118,7 +117,7 @@ class Store extends StorePrototype {
 		}
 
 		if (!isIndividual) {
-			scrollTo(0, 0);
+			global.scrollTo(0, 0);
 		}
 
 		this[ApplySubmission](assessment, response);

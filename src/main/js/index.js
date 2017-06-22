@@ -1,16 +1,12 @@
-import 'babel-polyfill';//applies hooks into global
-
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import {addFeatureCheckClasses} from 'nti-lib-dom';
+import {addFeatureCheckClasses, VisibilityMonitor, Orientation} from 'nti-lib-dom';
 import {initAnalytics, endSession, resumeSession} from 'nti-analytics';
 import {init as initLocale} from 'nti-lib-locale';
-
-import {VisibilityMonitor, Orientation} from 'nti-lib-dom';
-import {ensureTopFrame} from 'common/utils/iframe-buster';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfigFor} from 'nti-web-client';
 
+
+import {ensureTopFrame} from 'common/utils/iframe-buster';
 /**
  * Login Store State Change listener.
  * This is only responsible for reloading the APP on the home url once logged in.
@@ -71,7 +67,7 @@ function onAppMount (APP) {
 		if (evt && evt.type === LOGIN_STATE_CHANGED) {
 			if (LoginStore.isLoggedIn) {
 				//APP.navigate(RETURN_URL || basePath, {replace:true});
-				location.replace(RETURN_URL || basePath);
+				window.location.replace(RETURN_URL || basePath);
 			}
 
 			//Future idea: if we ever broadcast a login state changed event and

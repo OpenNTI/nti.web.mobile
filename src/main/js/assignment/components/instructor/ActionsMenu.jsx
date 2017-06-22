@@ -1,17 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 import createReactClass from 'create-react-class';
-
 import {PropType as NTIID} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
+import {Mixins, Prompt} from 'nti-web-commons';
 
-import cx from 'classnames';
-
-import {Mixins} from 'nti-web-commons';
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
-
-import {Prompt} from 'nti-web-commons';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 

@@ -1,12 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Mixin from './Mixin';
+import {scoped} from 'nti-lib-locale';
+
+import Avatar from 'common/components/Avatar';
+
+import {mimeTypes, DELETED_ITEM_GROUP} from '../../Constants';
 import Collapsible from '../Collapsible';
 import List from '../List';
-import Avatar from 'common/components/Avatar';
-import {mimeTypes, DELETED_ITEM_GROUP} from '../../Constants';
-import {scoped} from 'nti-lib-locale';
+
+import Mixin from './Mixin';
+
 const t = scoped('FORUMS');
 
 export default createReactClass({

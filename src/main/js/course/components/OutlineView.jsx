@@ -1,18 +1,17 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import Logger from 'nti-util-logger';
-
 import {ActiveState, Banner, Ellipsed, CalendarCard, ListHeader as Header, Loading} from 'nti-web-commons';
+import isEmpty from 'isempty';
 
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
-
-import isEmpty from 'isempty';
 import CourseLinker from 'library/mixins/CourseContentLink';
+
 import {LESSONS} from '../Sections';
+
 
 const logger = Logger.get('course:components:OutlineView');
 

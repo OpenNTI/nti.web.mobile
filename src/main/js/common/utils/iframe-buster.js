@@ -3,9 +3,9 @@ const optOuts = [];
 export function ensureTopFrame () {
 	if (typeof window !== 'undefined' && window.top !== window) {
 		if (optOuts.every(f => f())) {
-			window.top.location.href = location.href;
+			window.top.location.href = window.location.href;
 			//If the frame busting code is blocked, tell them embedding is not supported.
-			location.replace('iframe.html');
+			window.location.replace('iframe.html');
 		}
 	}
 }

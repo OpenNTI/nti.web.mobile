@@ -1,14 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Paging} from 'nti-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
 import CatalogAccessor from '../mixins/CatalogAccessor';
-
 import passesFilter from '../catalog-list-search';
 
 import Item from './Entry';
@@ -30,6 +27,8 @@ export default createReactClass({
 			})
 		])
 	},
+
+	attachRef (x) { this.search = x; },
 
 	getInitialState () {
 		return {sections: []};
@@ -77,7 +76,7 @@ export default createReactClass({
 
 		return (
 			<div>
-				<div className="search"><input type="text" ref={x => this.search = x} onChange={this.onSearchChange} /></div>
+				<div className="search"><input type="text" ref={this.attachRef} onChange={this.onSearchChange} /></div>
 			{sections.map(s=>
 			{
 				const list = s.items.filter(item => passesFilter(search, item));

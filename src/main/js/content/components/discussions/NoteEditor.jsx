@@ -1,14 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {Loading, HideNavigation} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
 
 import {Editor} from 'modeled-content';
-
-import {Loading, HideNavigation} from 'nti-web-commons';
-
 import ShareWith from 'common/components/ShareWith';
 
-import t from 'nti-lib-locale';
+const t = scoped('BUTTONS');
 
 export default class NoteEditor extends React.Component {
 
@@ -99,8 +98,8 @@ export default class NoteEditor extends React.Component {
 					</div>
 
 					<Editor ref={this.attachEditorBodyRef} onChange={this.detectContent} initialValue={body}>
-						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss small"/>{t('BUTTONS.post')}</button>
+						<button onClick={this.onCancel} className={'cancel'}>{t('cancel')}</button>
+						<button onClick={this.onSubmit} className={cx('save', {disabled})}><i className="icon-discuss small"/>{t('post')}</button>
 					</Editor>
 				</form>
 				{busy ? ( <Loading.Mask message="Saving..."/> ) : null}

@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
+
 import Redirect from 'navigation/components/Redirect';
 
 import Terms from './terms/components/View';

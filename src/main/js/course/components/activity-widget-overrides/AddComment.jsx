@@ -1,10 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {scoped} from 'nti-lib-locale';
 
 import ObjectLink from 'common/mixins/ObjectLink';
-import {scoped} from 'nti-lib-locale';
+
 const t = scoped('ACTIVITY.REPLYABLE');
 
 export default createReactClass({

@@ -1,25 +1,20 @@
 import React from 'react';
 import Logger from 'nti-util-logger';
-
 import AppDispatcher from 'nti-lib-dispatcher';
 
-import {
-	STRIPE_PAYMENT_SUCCESS
-} from 'enrollment/store-enrollment/Constants';
-
+import {STRIPE_PAYMENT_SUCCESS} from 'enrollment/store-enrollment/Constants';
 import {GIFT_CODE_REDEEMED} from 'catalog/Constants';
-
 import EnrollmentStore from 'enrollment/Store';
 import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';
 import CatalogStore from 'catalog/Store';
-
-import {reload as reloadLibrary} from '../Actions';
 import {reload as reloadCatalog} from 'catalog/Actions';
 import {reload as reloadNotifications} from 'notifications/Actions';
 
+import {reload as reloadLibrary} from '../Actions';
+import {RELOAD} from '../Constants';
+
 const logger = Logger.get('InvalidationListener');
 
-import {RELOAD} from '../Constants';
 
 const INVALIDATION_EVENTS = {
 	[STRIPE_PAYMENT_SUCCESS]: true,

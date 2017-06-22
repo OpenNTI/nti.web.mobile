@@ -1,5 +1,4 @@
 import Logger from 'nti-util-logger';
-
 import {safeBoundingBoxForRange, isZeroRect} from 'nti-lib-dom';
 import iOSversion from 'nti-util-ios-version';
 

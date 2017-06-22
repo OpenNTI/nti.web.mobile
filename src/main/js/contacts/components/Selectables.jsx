@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {Selection} from 'nti-commons';
+
 import SwipeEntity from './SwipeEntity';
 
 export default class extends React.Component {

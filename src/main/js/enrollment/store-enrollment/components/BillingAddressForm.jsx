@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-
 import {scoped} from 'nti-lib-locale';
 
 //These strings should probably move into a more generic place in the strings.
@@ -43,7 +42,7 @@ export default class extends React.Component {
 		}
 
 		return values;
-	};
+	}
 
 	validate = () => {
 		const errors = {};
@@ -60,7 +59,7 @@ export default class extends React.Component {
 		this.setState({errors});
 
 		return !hasErrors;
-	};
+	}
 
 	delegateError = (err) => {
 		for (let key of Object.keys(err)) {
@@ -69,7 +68,7 @@ export default class extends React.Component {
 				return true;
 			}
 		}
-	};
+	}
 
 	onChange = (e) => {
 		this.onFieldEventClearError(e);
@@ -77,7 +76,7 @@ export default class extends React.Component {
 		if (onChange) {
 			onChange();
 		}
-	};
+	}
 
 	onFieldEventClearError = (e) => {
 		let {name} = e.target;
@@ -90,7 +89,7 @@ export default class extends React.Component {
 
 			this.setState({errors});
 		}
-	};
+	}
 
 	render () {
 		const {props: {className, defaultValues, required}, state: {errors = {}}} = this;
@@ -101,7 +100,7 @@ export default class extends React.Component {
 				{FIELDS.map(field => (
 					<div className={`address_${field}`} key={field}>
 						<input name={`address_${field}`}
-							ref={x => this.elements[field] = x}
+							ref={this.getFieldRefAttachment(field)}
 							placeholder={t(`address_${field}`)}
 							className={cx({required: required[field], error: errors[field]})}
 							type="text"
@@ -114,5 +113,15 @@ export default class extends React.Component {
 				))}
 			</fieldset>
 		);
+	}
+
+	getFieldRefAttachment (field) {
+		const fnName = `attachFieldRef:${field}`;
+		let fn = this[fnName];
+		if (!fn) {
+			fn = this[fnName] = (x => this.elements[field] = x);
+		}
+
+		return fn;
 	}
 }

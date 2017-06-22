@@ -1,20 +1,17 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
-
 import {Loading, Mixins} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
-import {scoped} from 'nti-lib-locale';
+import CatalogStore from 'catalog/Store';
 
 import Actions from '../Actions';
 import {DROP_COURSE} from '../Constants';
 import Store from '../Store';
-import CatalogStore from 'catalog/Store';
 
 import DropOpen from './drop-widgets/DropOpen';
 import DropStore from './drop-widgets/DropStore';
@@ -48,7 +45,7 @@ export default createReactClass({
 	},
 
 	onCancelClicked () {
-		history.back();
+		global.history.back();
 	},
 
 	onConfirmClicked () {

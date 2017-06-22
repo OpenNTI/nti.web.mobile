@@ -1,22 +1,19 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Link} from 'react-router-component';
-
+import {scoped} from 'nti-lib-locale';
 import {Loading} from 'nti-web-commons';
 
 import NavigationGuard from 'navigation/components/NavigationGuard';
+
+import RedirectToProfile from '../../mixins/RedirectToProfile';
+import Card from '../Card';
 
 import BasicInfo from './edit/BasicInfo';
 import Events from './edit/Events';
 import Interests from './edit/Interests';
 
-import Card from '../Card';
-import RedirectToProfile from '../../mixins/RedirectToProfile';
-
-import {scoped} from 'nti-lib-locale';
 
 let t = scoped('ERROR_MESSAGES');
 
@@ -35,6 +32,10 @@ export default createReactClass({
 		entity: PropTypes.object.isRequired
 	},
 
+	attachAboutRef (c) { this.about = c; },
+	attachEducationRef (c) { this.education = c; },
+	attachPositionsRef (c) { this.positions = c; },
+	attachInterestsRef (c) { this.interests = c; },
 
 	getInitialState () {
 		return {loading: true};
@@ -143,7 +144,6 @@ export default createReactClass({
 		this.setState({error: void 0});
 	},
 
-
 	render () {
 		const {busy, editObject, error, schema, loading} = this.state;
 
@@ -158,19 +158,19 @@ export default createReactClass({
 							<ul className="profile-cards">
 
 								<Card className="about" title="About">
-									<BasicInfo item={editObject} ref={c => this.about = c} schema={schema} error={error}/>
+									<BasicInfo item={editObject} ref={this.attachAboutRef} schema={schema} error={error}/>
 								</Card>
 
 								<Card className="education" title="Education">
-									<Events schema={schema} items={editObject.education} ref={c => this.education = c} field="education" fieldNames={['school', 'degree']} mimeType={EDUCATION}/>
+									<Events schema={schema} items={editObject.education} ref={this.attachEducationRef} field="education" fieldNames={['school', 'degree']} mimeType={EDUCATION}/>
 								</Card>
 
 								<Card className="positions" title="Professional">
-									<Events schema={schema} items={editObject.positions} ref={c => this.positions = c} field="positions" fieldNames={['companyName', 'title']} mimeType={PROFESSIONAL}/>
+									<Events schema={schema} items={editObject.positions} ref={this.attachPositionsRef} field="positions" fieldNames={['companyName', 'title']} mimeType={PROFESSIONAL}/>
 								</Card>
 
 								<Card className="interests" title="Interests">
-									<Interests schema={schema} items={editObject.interests} ref={c => this.interests = c} field="interests"/>
+									<Interests schema={schema} items={editObject.interests} ref={this.attachInterestsRef} field="interests"/>
 								</Card>
 
 							</ul>

@@ -1,11 +1,9 @@
 import path from 'path';
-import PropTypes from 'prop-types';
+
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {encodeForURI} from 'nti-lib-ntiids';
-
 import {Mixins} from 'nti-web-commons';
 import {Mixin as ResourceLoaded} from 'nti-analytics';
 

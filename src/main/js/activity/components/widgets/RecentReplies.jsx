@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {Loading} from 'nti-web-commons';
 
 import Panel from 'content/components/discussions/Panel';
 
-export default class extends React.Component {
-	static displayName = 'RecentReplies';
+export default class RecentReplies extends React.Component {
 
 	static propTypes = {
 		item: PropTypes.object.isRequired,

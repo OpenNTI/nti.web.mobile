@@ -1,16 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {SortOrder} from 'nti-lib-interfaces';
-
 import {Loading} from 'nti-web-commons';
 
 import Table from '../gradebook-table/Table';
 import ColumnStudentActionItems from '../gradebook-table/ColumnStudentActionItems';
 import ColumnGrade from '../gradebook-table/ColumnGrade';
-
 import ShowAvatars from '../mixins/ShowAvatarsContainer';
 
 export default createReactClass({

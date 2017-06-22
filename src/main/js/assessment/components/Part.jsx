@@ -1,13 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
+import createReactClass from 'create-react-class';
 import {StoreEventsMixin} from 'nti-lib-store';
 import {rawContent} from 'nti-commons';
-
-import Content from './Content';
-import WordBank from './WordBank';
 
 import Store from '../Store';
 import {
@@ -17,6 +13,8 @@ import {
 
 import {getInputWidget} from './input-types';
 import {getSolutionWidget} from './solution-types';
+import WordBank from './WordBank';
+import Content from './Content';
 
 
 export default createReactClass({
@@ -36,6 +34,9 @@ export default createReactClass({
 	backingStoreEventHandlers: {
 		default: 'synchronizeFromStore'
 	},
+
+
+	attachRef (x) { this.container = x; },
 
 
 	getInitialState () {
@@ -121,7 +122,7 @@ export default createReactClass({
 				{wordbank && (
 					<WordBank record={wordbank} disabled={viewerIsAdministrative}/>
 				)}
-				<div ref={x => this.container = x}>
+				<div ref={this.attachRef}>
 					<div className={css}>
 						{getInputWidget(part, index)}
 					</div>

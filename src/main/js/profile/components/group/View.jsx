@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types';
+import {join} from 'path';
+
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import Router from 'react-router-component';
-
 import {Mixins} from 'nti-web-commons';
-import ContextSender from 'common/mixins/ContextSender';
+import {encodeForURI} from 'nti-lib-ntiids';
 
-import Page from './PageFrame';
-import Activity from './Activity';
+import ContextSender from 'common/mixins/ContextSender';
+import Redirect from 'navigation/components/Redirect';
+
 import Members from '../Members'; //This seems backwards. The Group-specific Members view should be in the folder and wrap the generic Members view.
 import ForumView from '../ForumView';
 
-import Redirect from 'navigation/components/Redirect';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {join} from 'path';
+import Page from './PageFrame';
+import Activity from './Activity';
+
 
 const ROUTES = [
 	{path: '/activity/discussions/:forumId(/*)', handler: ForumView },

@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import Tabs from './Tabs';
 
 export default function AssignmentsPageFrame (props) {

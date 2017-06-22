@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-
 import {validate as isEmail} from 'email-validator';
-
 import {scoped} from 'nti-lib-locale';
 
-let t = scoped('ENROLLMENT.forms.storeenrollment');
-let t2 = scoped('ENROLLMENT');
+const t = scoped('ENROLLMENT.forms.storeenrollment');
+const t2 = scoped('ENROLLMENT');
 
-export default class extends React.Component {
-	static displayName = 'GiftFrom';
+export default class GiftFrom extends React.Component {
 
 	static propTypes = {
 		className: PropTypes.string,
@@ -21,6 +18,8 @@ export default class extends React.Component {
 	state = {
 		errors: {}
 	};
+
+	attachFormRef = x => this.from = x
 
 	getValue = () => {
 		const getValue = x => x && x.value && x.value.trim();
@@ -82,7 +81,7 @@ export default class extends React.Component {
 				<div className="fromLabel">{t('fromLabel')}</div>
 				<div className="from">
 					<input name="from"
-						ref={x => this.from = x}
+						ref={this.attachFormRef}
 						placeholder={t('from')}
 						className={cx('required', {error: errors.from})}
 						defaultValue={defaultValues.from}

@@ -1,6 +1,7 @@
+import StorePrototype from 'nti-lib-store';
+
 import {LOADED_NOTIFICATIONS} from './Constants';
 
-import StorePrototype from 'nti-lib-store';
 
 const data = Symbol('data');
 const SetData = Symbol('set:data');

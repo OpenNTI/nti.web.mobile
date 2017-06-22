@@ -1,13 +1,10 @@
 import React from 'react';
 
 import Unknown from './Unknown';
-
 import FreeResponse from './FreeResponse';
 import ModeledContent from './ModeledContent';
-
 import MultipleChoice from './MultipleChoice';
 // import MultipleChoiceMultipleAnswer from './MultipleChoiceMultipleAnswer';
-
 // import Matching from './Matching';
 import Ordering from './Ordering';
 

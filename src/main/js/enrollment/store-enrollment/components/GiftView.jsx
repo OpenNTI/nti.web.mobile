@@ -1,24 +1,18 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {scoped} from 'nti-lib-locale';
-import {getAppUser, getUserAgreementURI} from 'nti-web-client';
-import {clearLoadingFlag} from 'common/utils/react-state';
-
-let t = scoped('ENROLLMENT');
-let tGift = scoped('ENROLLMENT.GIFT');
-
+import {StoreEventsMixin} from 'nti-lib-store';
+import {getAppUser, getUserAgreementURI, ExternalLibraryManager} from 'nti-web-client';
 import {Error as Err, Loading, LocalizedHTML as Localized} from 'nti-web-commons';
 
+import {clearLoadingFlag} from 'common/utils/react-state';
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
-
-import {ExternalLibraryManager} from 'nti-web-client';
-import {StoreEventsMixin} from 'nti-lib-store';
-
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+
+const t = scoped('ENROLLMENT');
+const tGift = scoped('ENROLLMENT.GIFT');
 
 import Store from '../Store';
 import {verifyBillingInfo} from '../Actions';
@@ -46,6 +40,12 @@ export default createReactClass({
 	propTypes: {
 		purchasable: PropTypes.object.isRequired
 	},
+
+	attachPricingRef (x) { this.elements.Pricing = x; },
+	attachFromRef (x) { this.elements.from = x; },
+	attachCardRef (x) { this.elements.card = x; },
+	attachBillingRef (x) { this.elements.billing = x; },
+	attachRecipientRef (x) { this.elements.recipient = x; },
 
 
 	getInitialState () {
@@ -216,16 +216,16 @@ export default createReactClass({
 
 		return (
 			<div className="gift enrollment">
-				<Pricing ref={x => this.elements.Pricing = x} purchasable={purchasable} />
+				<Pricing ref={this.attachPricingRef} purchasable={purchasable} />
 
 				<FormPanel title={tGift('PAYMENT.title')} subhead={tGift('PAYMENT.sub')} styled={false}>
-					<From ref={x => this.elements.from = x} defaultValues={defaultValues} />
-					<CreditCardForm ref={x => this.elements.card = x} defaultValues={defaultValues} className="payment-fields"/>
-					<BillingAddressForm ref={x => this.elements.billing = x} defaultValues={defaultValues} className="payment-fields"/>
+					<From ref={this.attachFromRef} defaultValues={defaultValues} />
+					<CreditCardForm ref={this.attachCardRef} defaultValues={defaultValues} className="payment-fields"/>
+					<BillingAddressForm ref={this.attachBillingRef} defaultValues={defaultValues} className="payment-fields"/>
 				</FormPanel>
 
 				<Header />
-				<Recipient ref={x => this.elements.recipient = x} />
+				<Recipient ref={this.attachRecipientRef} />
 
 				<FormErrors errors={errors}/>
 

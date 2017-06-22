@@ -1,13 +1,11 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {Mixins, PanelButton} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
 
 
-import {scoped} from 'nti-lib-locale';
 let t = scoped('ENROLLMENT.forms.fiveminute');
 
 export default createReactClass({

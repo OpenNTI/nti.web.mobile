@@ -24,9 +24,8 @@ External Links:
 import path from 'path';
 import Url from 'url';
 
-import PropTypes from 'prop-types';
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {eventStarted, toAnalyticsPath, ExternalResourceEvent} from 'nti-analytics';
@@ -35,7 +34,6 @@ import {AssetIcon, Constants, Mixins} from 'nti-web-commons';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 import {scoped} from 'nti-lib-locale';
-
 import {Progress} from 'nti-lib-interfaces';
 
 import ContextAccessor from '../mixins/ContextAccessor';
@@ -154,6 +152,9 @@ export default createReactClass({
 			resolveUrlHook: x => x
 		};
 	},
+
+
+	attachRef (x) { this.anchor = x; },
 
 
 	isExternal (props = this.props) {
@@ -346,7 +347,7 @@ export default createReactClass({
 		return (
 			<a className={cx('content-link', 'related-work-ref', classes)}
 				href={ref} target={external ? '_blank' : null}
-				onClick={this.onClick} ref={x => this.anchor = x}>
+				onClick={this.onClick} ref={this.attachRef}>
 
 				<AssetIcon src={iconSrc} mimeType={this.getType()} href={href}>
 					{external && <div className="external"/>}

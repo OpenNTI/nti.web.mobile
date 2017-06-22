@@ -1,14 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {getModel} from 'nti-lib-interfaces';
 import {PropType as NTIID} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
-import isEmpty from 'isempty';
-
 import {Mixins} from 'nti-web-commons';
+import isEmpty from 'isempty';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 

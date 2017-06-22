@@ -1,14 +1,12 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Loading} from 'nti-web-commons';
-
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import Store from '../Store';
-
 import {load, loadMore} from '../Actions';
-import {getNotificationItem} from './kinds';
 
+import {getNotificationItem} from './kinds';
 import Empty from './Empty';
 import LoadMore from './LoadMore';
 

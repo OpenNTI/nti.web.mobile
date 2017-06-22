@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
 import Accessor from '../../../mixins/AssignmentCollectionAccessor';
-
 import GradeBox from '../GradeBox';
 
 export default createReactClass({

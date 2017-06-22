@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {DateTime} from 'nti-web-commons';
+import {getEventTarget} from 'nti-lib-dom';
 
 import Score from 'common/components/charts/Score';
-import {DateTime} from 'nti-web-commons';
-
-import {getEventTarget} from 'nti-lib-dom';
 
 import Store from '../Store';
 import {clearAssessmentAnswers} from '../Actions';

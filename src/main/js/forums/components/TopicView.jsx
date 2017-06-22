@@ -1,25 +1,23 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {encodeForURI, isNTIID} from 'nti-lib-ntiids';
+import Router, {Location} from 'react-router-component';
+import {Error as Err, Loading, Mixins} from 'nti-web-commons';
+import {StoreEventsMixin} from 'nti-lib-store';
 
+import ContextSender from 'common/mixins/ContextSender';
+
+import KeepItemInState from '../mixins/KeepItemInState';
+import ToggleState from '../mixins/ToggleState';
+import Paging from '../mixins/Paging';
 import Store from '../Store';
 import {ITEM_CONTENTS_CHANGED} from '../Constants';
-import {encodeForURI, isNTIID} from 'nti-lib-ntiids';
-import Router from 'react-router-component';
-let {Location} = Router;
 
 import Topic from './Topic';
 import Post from './Post';
 
-import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 
-// mixins
-import {StoreEventsMixin} from 'nti-lib-store';
-import KeepItemInState from '../mixins/KeepItemInState';
-import ToggleState from '../mixins/ToggleState';
-import ContextSender from 'common/mixins/ContextSender';
-import Paging from '../mixins/Paging';
 
 export default createReactClass({
 	displayName: 'TopicView',

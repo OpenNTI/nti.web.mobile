@@ -1,11 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {DateTime, Loading, LuckyCharms} from 'nti-web-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {DateTime, Loading, LuckyCharms} from 'nti-web-commons';
-
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
 export default function TopicHeadline ({className, item}) {

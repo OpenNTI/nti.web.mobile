@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
-import createReactClass from 'create-react-class';
-
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
+import createReactClass from 'create-react-class';
+import isEmpty from 'isempty';
+import {encodeForURI} from 'nti-lib-ntiids';
 import {
 	ActiveState,
 	Banner,
@@ -17,8 +16,6 @@ import {
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import isEmpty from 'isempty';
-import {encodeForURI} from 'nti-lib-ntiids';
 
 
 const TYPE_TAG_MAP = {

@@ -1,21 +1,19 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Loading, PanelButton, LocalizedHTML as Localized} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
+
+import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+
+import {resetProcess, submitPayment} from '../Actions';
+import Store from '../Store';
 
 import BillingInfo from './BillingInfo';
 import GiftInfo from './GiftInfo';
 import Pricing from './Pricing';
 
-import Store from '../Store';
-import {resetProcess, submitPayment} from '../Actions';
-
-import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
-
-import {scoped} from 'nti-lib-locale';
-let t = scoped('ENROLLMENT.CONFIRMATION');
+const t = scoped('ENROLLMENT.CONFIRMATION');
 
 
 export default createReactClass({
@@ -27,6 +25,10 @@ export default createReactClass({
 	propTypes: {
 		purchasable: PropTypes.object
 	},
+
+
+	attachSubscribeCheckboxRef (x) { this.subscribeToUpdates = x; },
+
 
 	componentWillMount () {
 		try {
@@ -115,7 +117,7 @@ export default createReactClass({
 							{!AllowVendorUpdates ? '' :
 								<div className="subscribe">
 									<label>
-										<input type="checkbox" ref={x => this.subscribeToUpdates = x} name="subscribe" />
+										<input type="checkbox" ref={this.attachSubscribeCheckboxRef} name="subscribe" />
 										<Localized tag="span" stringId="ENROLLMENT.SUBSCRIBE.label" />
 										<Localized tag="p" stringId="ENROLLMENT.SUBSCRIBE.legal" />
 									</label>

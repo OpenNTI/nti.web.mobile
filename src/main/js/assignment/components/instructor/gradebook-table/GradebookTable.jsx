@@ -1,7 +1,5 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {SortOrder} from 'nti-lib-interfaces';
 
 import Accessor from '../mixins/AssignmentSummaryAccessor';

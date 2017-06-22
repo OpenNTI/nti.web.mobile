@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import Segment from './BarSegment';
+import PropTypes from 'prop-types';
 import {rawContent} from 'nti-commons';
+
+import Segment from './BarSegment';
 
 Bar.propTypes = {
 	colors: PropTypes.object,

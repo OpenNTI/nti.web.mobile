@@ -1,21 +1,19 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
-
 import Transition from 'react-transition-group/CSSTransitionGroup';
-
 import {Error as Err, Loading, Notice} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import Paging from '../mixins/Paging';
+import {getTopicContents} from '../Api';
+import {COMMENT_ADDED} from '../Constants';
+import Store from '../Store';
 
 import List from './List';
 import PageControls from './PageControls';
 
-import {getTopicContents} from '../Api';
-import {COMMENT_ADDED} from '../Constants';
-import Store from '../Store';
 
 const loadData = 'TopicComments:load';
 const commentAdded = 'TopicComments:commentAdded';

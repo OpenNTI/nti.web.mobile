@@ -1,21 +1,21 @@
+import Url from 'url';
+
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-component';
-import Url from 'url';
-
 import {scoped} from 'nti-lib-locale';
-
 import {getServer} from 'nti-web-client';
 
 const t = scoped('LOGIN.forgot');
 
 
-export default class extends React.Component {
-	static displayName = 'ForgotForm';
+export default class ForgotForm extends React.Component {
 
 	static propTypes = {
 		param: PropTypes.string
 	};
+
+	attachFormRef = el => this.form = el
 
 	getFieldValues = () => {
 		let {email, username} = (this.form || {}).elements || {};
@@ -70,7 +70,7 @@ export default class extends React.Component {
 
 		return (
 			<div className="login-wrapper">
-				<form ref={el => this.form = el} className="login-form no-zoom" onSubmit={this.handleSubmit}>
+				<form ref={this.attachFormRef} className="login-form no-zoom" onSubmit={this.handleSubmit}>
 					<div className="header">next thought</div>
 					{!!error && <div className="message">{error}</div>}
 

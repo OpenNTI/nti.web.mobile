@@ -1,29 +1,23 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import QueryString from 'query-string';
-
 import {Link} from 'react-router-component';
-
 import Logger from 'nti-util-logger';
-
 import {Loading} from 'nti-web-commons';
-
 import {StoreEventsMixin} from 'nti-lib-store';
-
 import {scoped} from 'nti-lib-locale';
-
-import OAuthButtons from './OAuthButtons';
-import RecoveryLinks from './RecoveryLinks';
-import SupportLinks from './SupportLinks';
 
 import {
 	LINK_ACCOUNT_CREATE,
 	MESSAGE_SIGNUP_CONFIRMATION
 } from '../Constants';
-
 import Store from '../Store';
-
 import {updateWithNewUsername, login} from '../Actions';
+
+import OAuthButtons from './OAuthButtons';
+import RecoveryLinks from './RecoveryLinks';
+import SupportLinks from './SupportLinks';
+
 
 const logger = Logger.get('login:components:LoginForm');
 
@@ -48,6 +42,9 @@ export default createReactClass({
 		}
 	},
 
+	attachFormRef (el) { this.form = el; },
+	attachUsernameInputRef (el) { this.username = el; },
+	attachPasswordInputRef (el) { this.password = el; },
 
 	getInitialState () {
 		return {};
@@ -61,6 +58,7 @@ export default createReactClass({
 
 
 	componentWillMount () {
+		const {location} = global;
 		if (typeof location !== 'undefined' && location.search) {
 			let query = QueryString.parse(location.search);
 			if (query.error) {
@@ -96,7 +94,7 @@ export default createReactClass({
 
 		return (
 			<div className="login-wrapper">
-				<form ref={el => this.form = el} className="login-form" onSubmit={this.handleSubmit} noValidate>
+				<form ref={this.attachFormRef} className="login-form" onSubmit={this.handleSubmit} noValidate>
 					{busy ? ( <Loading.Mask /> ) : (
 						<div>
 							<div className="header">next thought</div>
@@ -105,7 +103,7 @@ export default createReactClass({
 							}
 							<fieldset>
 								<div className="field-container" data-title="Username">
-									<input ref={el => this.username = el}
+									<input ref={this.attachUsernameInputRef}
 										name="username"
 										type="text"
 										placeholder="Username"
@@ -118,7 +116,7 @@ export default createReactClass({
 										onChange={this.updateUsername}/>
 								</div>
 								<div className="field-container" data-title="Password">
-									<input ref={el => this.password = el}
+									<input ref={this.attachPasswordInputRef}
 										name="password"
 										type="password"
 										autoComplete="off"

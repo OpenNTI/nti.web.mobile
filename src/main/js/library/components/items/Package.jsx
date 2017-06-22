@@ -1,15 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {encodeForURI} from 'nti-lib-ntiids';
 import {getModel} from 'nti-lib-interfaces';
-
 import {Mixins} from 'nti-web-commons';
 
 import Icon from './shared/Icon';
+
 const PackageClass = getModel('ContentPackage');
+
 
 export default createReactClass({
 	displayName: 'Package',

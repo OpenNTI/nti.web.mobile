@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
 import ContextSender from 'common/mixins/ContextSender';
+
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 import AssignmentsListView from './AssignmentsListView';
 import Assignment from './AssignmentViewer';
 import PageFrame from './PageFrame';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 export default createReactClass({
 	displayName: 'Assignments',

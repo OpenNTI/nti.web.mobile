@@ -1,7 +1,5 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {rawContent} from 'nti-commons';
 
 import Mixin from './Mixin';

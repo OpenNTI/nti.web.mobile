@@ -1,14 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {DateTime, Loading} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
 
 import DisplayName from 'common/components/DisplayName';
-import {DateTime, Loading} from 'nti-web-commons';
-
 import Transcript from 'chat/components/Transcript';
 
-import {scoped} from 'nti-lib-locale';
 let t = scoped('UNITS');
 
 import Mixin from './Mixin';

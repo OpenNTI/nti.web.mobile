@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
-import MembershipList from './MembershipList';
 import {EmptyList} from 'nti-web-commons';
+import {PROFILE_MEMBERSHIP_VIEWED} from 'nti-analytics';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
-import {PROFILE_MEMBERSHIP_VIEWED} from 'nti-analytics';
+
+import MembershipList from './MembershipList';
 
 
 export default createReactClass({

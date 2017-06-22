@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
 /*globals BUILD_SOURCE*/
-import React from 'react';
-import {environment, CaptureClicks, Link} from 'react-router-component';
 import URL from 'url';
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import {environment, CaptureClicks, Link} from 'react-router-component';
+import {Loading} from 'nti-web-commons';
 import Logger from 'nti-util-logger';
 import {
 	addChangeListener as addLocaleChangeListener,
@@ -11,12 +12,9 @@ import {
 } from 'nti-lib-locale';
 import 'locale';
 
-import Router from './Router';
-import {Loading} from 'nti-web-commons';
-
-
 import * as NavigationActions from 'navigation/Actions';
 
+import Router from './Router';
 import AppContainer from './AppFrame';
 
 const SET_PAGESOURCE = 'navigation:setPageSource';
@@ -96,7 +94,7 @@ export default class App extends React.Component {
 
 	render () {
 		const {state: {mask}, props: {path}} = this;
-		const isGated = /\/(login|onboarding)/i.test(path || location.href);
+		const isGated = /\/(login|onboarding)/i.test(path || global.location.href);
 
 		const Wrapper = isGated ? 'div' : AppContainer;
 

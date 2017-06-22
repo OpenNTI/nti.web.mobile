@@ -1,18 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {DateTime, Report} from 'nti-web-commons';
+import t from 'nti-lib-locale';
 
 import Avatar from 'common/components/Avatar';
 import Breadcrumb from 'common/components/BreadcrumbPath';
-import {DateTime} from 'nti-web-commons';
 import DisplayName from 'common/components/DisplayName';
 import GotoItem from 'common/components/GotoItem';
-import {Report} from 'nti-web-commons';
-
-import t from 'nti-lib-locale';
-
 import TopicHeadline from 'forums/components/TopicHeadline';
 // import ActionsComp from 'forums/components/Actions';
-
 import {Panel as ModeledContentPanel} from 'modeled-content';
 
 import AddComment from './AddComment';

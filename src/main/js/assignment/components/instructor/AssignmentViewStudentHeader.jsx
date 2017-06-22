@@ -1,17 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {PropType as NTIID} from 'nti-lib-ntiids';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
+
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 import ActionsMenu from './ActionsMenu';
 import GradeBox from './GradeBox';
 import Status from './AssignmentStatus';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 export default createReactClass({
 	displayName: 'instructor:AssignmentViewStudentHeader',

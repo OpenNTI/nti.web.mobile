@@ -1,18 +1,15 @@
-import React from 'react';
-
-import createReactClass from 'create-react-class';
-
 import Path from 'path';
 import Url from 'url';
+
+import React from 'react';
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
-
-import Button from 'forms/components/Button';
-
 import {scoped} from 'nti-lib-locale';
 import {getReturnURL} from 'nti-web-client';
-
 import {Mixins} from 'nti-web-commons';
+
+import Button from 'forms/components/Button';
 
 const t = scoped('LOGIN.oauth');
 
@@ -62,6 +59,6 @@ export default createReactClass({
 		e.preventDefault();
 		e.stopPropagation();
 
-		location.replace(e.target.getAttribute('href'));
+		global.location.replace(e.target.getAttribute('href'));
 	}
 });

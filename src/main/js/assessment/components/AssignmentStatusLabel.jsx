@@ -1,12 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
 import {getModel} from 'nti-lib-interfaces';
 import {DateTime} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 import {getEventTarget} from 'nti-lib-dom';
-
 import moment from 'moment';
 
 const toUnitString = scoped('UNITS');

@@ -1,18 +1,12 @@
 import React from 'react';
 
 import Unknown from './Unknown';
-
-
 import Solution from './String';
-
 import MultipleChoice from './MultipleChoice';
-
 // import NumericMath from './NumericMath';
 // import SymbolicMath from './SymbolicMath';
-
 import Matching from './Matching';
 import Ordering from './Ordering';
-
 import FillInTheBlankShortAnswer from './FillInTheBlankShortAnswer';
 import FillInTheBlankWithWordBank from './FillInTheBlankWithWordBank';
 

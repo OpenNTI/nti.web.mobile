@@ -1,7 +1,6 @@
 import path from 'path';
 
 import {encodeForURI} from 'nti-lib-ntiids';
-
 import {Mixins} from 'nti-web-commons';
 
 export default {

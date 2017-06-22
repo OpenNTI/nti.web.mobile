@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types';
-import Base, {TYPE_SHAPE} from './Base';
-
 import {PointerEvents} from 'nti-util-detection-touch';
-
 import {
 	isMultiTouch,
 	addEventListener as _addEventListener,
@@ -14,6 +11,9 @@ import {
 	matches,
 	getScrollParent
 } from 'nti-lib-dom';
+
+import Base, {TYPE_SHAPE} from './Base';
+
 
 const addListeners = 'dnd:behaviours:draggable:addListeners';
 const removeListeners = 'dnd:behaviours:draggable:removeListeners';

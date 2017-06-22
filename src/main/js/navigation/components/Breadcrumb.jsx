@@ -1,12 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {buffer} from 'nti-commons';
-
 import {ActiveState} from 'nti-web-commons';
-
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import NavStore from '../Store';

@@ -1,17 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
+import {Prompt, Mixins} from 'nti-web-commons';
 import {
 	environment,
 	Locations,
 	Location,
 	NotFound
 } from 'react-router-component';
-
-const ENVIRONMENT = environment.defaultEnvironment;
-
 import Logger from 'nti-util-logger';
 
 //Main View Handlers
@@ -27,13 +23,11 @@ import Profile from 'profile/components/View';
 import NotFoundPage from 'notfound/components/View';
 import ObjectResolver from 'object-resolver/components/View';
 import Welcome from 'login/prompts/View';
-
 import NavStore from 'navigation/Store';
-import {Prompt} from 'nti-web-commons';
-
-import {Mixins} from 'nti-web-commons';
 
 import RouteMap from './routes';
+
+const ENVIRONMENT = environment.defaultEnvironment;
 
 const logger = Logger.get('root:router');
 

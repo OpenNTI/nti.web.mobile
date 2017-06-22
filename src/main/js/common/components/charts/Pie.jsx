@@ -1,30 +1,31 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class extends React.Component {
-	static displayName = 'Pie';
+export default class Pie extends React.Component {
 
 	static propTypes = {
 		title: PropTypes.string,
 		colors: PropTypes.arrayOf(PropTypes.string),
 		pixelDensity: PropTypes.number,
 		series: PropTypes.arrayOf(PropTypes.object)
-	};
+	}
 
 	static defaultProps = {
 		title: '',
 		colors: ['#40b450', /*'#b8b8b8',*/ '#3fb3f6', '#F35252'],
 		pixelDensity: (global.devicePixelRatio || 1) * 2,
 		series: [
-            {value: 12, label: 'foo'},
-            {value: 30, label: 'bar'},
-            {value: 23, label: 'baz'}
+			{value: 12, label: 'foo'},
+			{value: 30, label: 'bar'},
+			{value: 23, label: 'baz'}
 		]
-	};
+	}
+
+	attachRef = x => this.canvas = x
 
 	getCanvas = () => {
 		return this.canvas;
-	};
+	}
 
 	componentDidMount () {
 		let canvas = this.getCanvas();
@@ -42,7 +43,7 @@ export default class extends React.Component {
 
 	getTotal = () => {
 		return this.props.series.reduce((sum, i) => sum + i.value, 0);
-	};
+	}
 
 	render () {
 		let p = this.props;
@@ -58,7 +59,7 @@ export default class extends React.Component {
 
 		return (
 			<div>
-				<canvas ref={x => this.canvas = x} style={style} width={width} height={height} />
+				<canvas ref={this.attachRef} style={style} width={width} height={height} />
 				<div className="label title">{p.title}</div>
 				<ul className="legend">
 				{data.map((item, i) => {
@@ -103,7 +104,7 @@ export default class extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	};
+	}
 
 	drawSegment = (ctx, i) => {
 		let radius = Math.floor(ctx.canvas.width / 4),
@@ -140,7 +141,7 @@ export default class extends React.Component {
 		ctx.stroke();
 
 		ctx.restore();
-	};
+	}
 }
 
 

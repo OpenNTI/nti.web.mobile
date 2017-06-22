@@ -1,15 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
-import ContextSender from 'common/mixins/ContextSender';
 import {Mixins} from 'nti-web-commons';
 
-import PageFrame from '../shared/PageFrame';
-import Assignment from '../shared/AssignmentViewer';
+import ContextSender from 'common/mixins/ContextSender';
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import PageFrame from '../shared/PageFrame';
+import Assignment from '../shared/AssignmentViewer';
 
 import PerformanceListView from './PerformanceListView';
 

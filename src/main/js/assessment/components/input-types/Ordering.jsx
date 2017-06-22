@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import Logger from 'nti-util-logger';
 
 import {Mixin, Draggable, DropTarget} from 'common/dnd';

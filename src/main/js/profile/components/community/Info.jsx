@@ -1,15 +1,11 @@
-import PropTypes from 'prop-types';
-/*eslint react/no-multi-comp:0*/
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Link} from 'react-router-component';
-
-import {Mixins} from 'nti-web-commons';
-import ContextSender from 'common/mixins/ContextSender';
-
 import {rawContent} from 'nti-commons';
+import {Mixins} from 'nti-web-commons';
+
+import ContextSender from 'common/mixins/ContextSender';
 
 import {profileHref} from '../../mixins/ProfileLink';
 
@@ -22,7 +18,7 @@ const PEOPLE_YOU_KNOW = 'pyk';
 const Breakdown = function Breakdown ({count, ...props}) {
 
 	const countDisplay = !count
-							? void 0 
+							? void 0
 							: (count > 9999)
 								? '9999+'
 								: count;

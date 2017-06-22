@@ -1,13 +1,12 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import Logger from 'nti-util-logger';
+import {DateTime} from 'nti-web-commons';
 
-import NoteableMixin from '../mixins/Noteable';
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {DateTime} from 'nti-web-commons';
+
+import NoteableMixin from '../mixins/Noteable';
 
 const logger = Logger.get('notifications:kinds:Note');
 

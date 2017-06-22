@@ -1,15 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {scoped} from 'nti-lib-locale';
-
 import {StoreEventsMixin} from 'nti-lib-store';
 import {Report} from 'nti-web-commons';
 
 import {COMMENT_FORM_ID, EDIT_STARTED, EDIT_ENDED} from '../Constants';
 import Store from '../Store';
+
 import ScrollLink from './ScrollLink';
 
 

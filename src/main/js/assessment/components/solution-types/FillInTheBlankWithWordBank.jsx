@@ -1,15 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {rawContent} from 'nti-commons';
 import Logger from 'nti-util-logger';
 
-import Mixin from './Mixin';
-
 import Content from '../Content';
 import WordBankEntry from '../WordBankEntry';
+
+import Mixin from './Mixin';
 
 const logger = Logger.get('assessment:components:solution-types:FillInTheBlankWithWordBank');
 

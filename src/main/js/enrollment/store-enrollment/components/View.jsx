@@ -1,16 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {Error as ErrorComponent, Loading, Mixins} from 'nti-web-commons';
 
 import {priceItem} from '../Actions';
 import Store from '../Store';
 
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
-
-import {Error as ErrorComponent, Loading, Mixins} from 'nti-web-commons';
-
 import Form from './PaymentForm';
+
 
 export default createReactClass({
 	displayName: 'StoreEnrollmentView',

@@ -1,11 +1,13 @@
-import List from './List';
-import PageControls from './PageControls';
-import Paging from '../mixins/Paging';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
 
-let t = scoped('FORUMS');
+import Paging from '../mixins/Paging';
+
+import List from './List';
+import PageControls from './PageControls';
+
+const t = scoped('FORUMS');
 
 export default createReactClass({
 	displayName: 'TopicList',

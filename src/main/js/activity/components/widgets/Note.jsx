@@ -1,17 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import Breadcrumb from 'common/components/BreadcrumbPath';
 import {isFlag} from 'nti-web-client';
 
+import Breadcrumb from 'common/components/BreadcrumbPath';
 import Detail from 'content/components/discussions/Detail';
 import Context from 'content/components/discussions/Context';
 
 import RecentReplies from './RecentReplies';
 import ContentIcon from './ContentIcon';
 
-export default class extends React.Component {
-	static displayName = 'Note';
+export default class Note extends React.Component {
 
 	static handles (item) {
 		const {MimeType = ''} = item;

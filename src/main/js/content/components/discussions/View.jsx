@@ -1,15 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Locations, Location, NotFound as Default} from 'react-router-component';
-
 import {decodeFromURI} from 'nti-lib-ntiids';
-
-import ContextSender from 'common/mixins/ContextSender';
 import {Mixins} from 'nti-web-commons';
 
+import ContextSender from 'common/mixins/ContextSender';
 import NotFound from 'notfound/components/View';
 
 import Edit from './EditNote';

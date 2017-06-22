@@ -1,14 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Ellipsed} from 'nti-web-commons';
 
 import * as COURSE_SECTIONS from 'course/Sections';
 
 import CourseLinker from '../../mixins/CourseContentLink';
-
 import CourseContentLink from '../CourseContentLink';
 import Badge from '../Badge';
 

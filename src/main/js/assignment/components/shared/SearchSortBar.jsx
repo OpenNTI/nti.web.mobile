@@ -1,7 +1,5 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {BufferedInput} from 'nti-web-commons';
 
 import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';

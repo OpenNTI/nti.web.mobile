@@ -1,9 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {scoped} from 'nti-lib-locale';
 
 import {DISCUSSIONS, FORUM, TOPIC, POST} from '../../Constants';
-import {scoped} from 'nti-lib-locale';
-let t = scoped('FORUMS.viewHeaders');
+
+const t = scoped('FORUMS.viewHeaders');
 
 // map symbols to the corresponding lookup keys in locale/forums
 const localeKeys = {

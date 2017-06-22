@@ -1,12 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class extends React.Component {
-	static displayName = 'GlossaryEntry';
+export default class GlossaryEntry extends React.Component {
 
 	static propTypes = {
 		entryid: PropTypes.string
 	};
+
+	attachRef = x => this.content = x
 
 	componentDidMount () {
 		let entryEl = document.getElementById(this.props.entryid);
@@ -19,7 +20,7 @@ export default class extends React.Component {
 	render () {
 		return (
 			<div {...this.props} className="glossary-entry">
-				<div ref={x => this.content = x} className="def small-9 columns small-centered"/>
+				<div ref={this.attachRef} className="def small-9 columns small-centered"/>
 			</div>
 		);
 	}

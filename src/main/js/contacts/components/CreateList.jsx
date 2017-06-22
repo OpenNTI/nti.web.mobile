@@ -1,10 +1,8 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import {Loading, Mixins} from 'nti-web-commons';
-import Page from 'common/components/Page';
 
+import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';
 
 import ContactsCommon from '../mixins/Mixin';
@@ -17,6 +15,9 @@ export default createReactClass({
 	mixins: [ContextSender, ContactsCommon, Mixins.NavigatableMixin],
 
 	storeType: LISTS,
+
+	attachInputRef (x) { this.newListName = x; },
+	attachSearchRef (x) { this.userSearchField = x; },
 
 	getInitialState () {
 		return {
@@ -85,9 +86,9 @@ export default createReactClass({
 		return (
 			<Page title="Create List">
 				<div id="create-list">
-					<div><input ref={x => this.newListName = x} type="text" placeholder="Title" onChange={this.validateTitle}/></div>
+					<div><input ref={this.attachInputRef} type="text" placeholder="Title" onChange={this.validateTitle}/></div>
 					<UserSearchField
-						ref={x => this.userSearchField = x}
+						ref={this.attachSearchRef}
 						onCancel={this.navigateToLists}
 						onSave={this.onSave}
 						saveDisabled={!this.state.validTitle}

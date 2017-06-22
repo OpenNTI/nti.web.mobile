@@ -1,17 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
 import {Loading} from 'nti-web-commons';
-
 import {scoped} from 'nti-lib-locale';
-const t = scoped('ASSESSMENT');
+
+import {areAssessmentsSupported} from '../utils';
+import {submit, clearAssessmentAnswers} from '../Actions';
+import Store from '../Store';
 
 import SubmissionError from './SubmissionError';
 
-import Store from '../Store';
-import {areAssessmentsSupported} from '../utils';
-import {submit, clearAssessmentAnswers} from '../Actions';
+const t = scoped('ASSESSMENT');
 
 const STATUS_MAP = {
 	'true': 'Correct',

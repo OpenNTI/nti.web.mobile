@@ -1,20 +1,18 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
+import {Loading} from 'nti-web-commons';
+import t from 'nti-lib-locale';
 
 import ShareWith from 'common/components/ShareWith';
-import {Loading} from 'nti-web-commons';
-
 import {Editor} from 'modeled-content';
 
-import t from 'nti-lib-locale';
 
 const PUBLISH = {publish: true};
 
 const preventSubmit = e => e.preventDefault() && false;
 
-export default class extends React.Component {
-	static displayName = 'PostEditor';
+export default class PostEditor extends React.Component {
 
 	static propTypes = {
 		onSubmit: PropTypes.func.isRequired,
@@ -41,6 +39,10 @@ export default class extends React.Component {
 			this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
 		}
 	}
+
+	attachEditor = x => this.editor = x
+	attachSharing = x => this.sharing = x
+	attachTitle = x => this.title = x
 
 	onChange = () => {
 		let {busy} = this.props;
@@ -103,18 +105,18 @@ export default class extends React.Component {
 				</div>
 
 				{showSharing && (
-					<ShareWith ref={x => this.sharing = x} scope={this} />
+					<ShareWith ref={this.attachSharing} scope={this} />
 				)}
 
 				<div className="title">
 					<input type="text"
-						ref={x => this.title = x} placeholder="Title"
+						ref={this.attachTitle} placeholder="Title"
 						className={cx({'error': error && error.field === 'title'})}
 						onChange={this.onChange}
 						defaultValue={this.props.title} />
 				</div>
 
-				<Editor ref={x => this.editor = x}
+				<Editor ref={this.attachEditor}
 					allowInsertVideo
 					className={cx({'error': error && error.field === 'body'})}
 					onChange={this.onChange}

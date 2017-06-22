@@ -1,8 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
-
 import Logger from 'nti-util-logger';
-
 import {getAppUser, getReturnURL} from 'nti-web-client';
 
 import UserAgreement from './UserAgreement';
@@ -25,7 +23,7 @@ export default class extends React.Component {
 		getAppUser()
 			.then(u => u.acceptTermsOfService())
 			.catch(e => logger.error(e.stack || e.message || e))
-			.then(()=> location.replace(getReturnURL()));
+			.then(()=> global.location.replace(getReturnURL()));
 	};
 
 	render () {

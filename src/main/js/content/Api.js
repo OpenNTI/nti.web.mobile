@@ -1,4 +1,5 @@
 import {getService} from 'nti-web-client';
+
 import GENERATORS from './page-generators';
 
 

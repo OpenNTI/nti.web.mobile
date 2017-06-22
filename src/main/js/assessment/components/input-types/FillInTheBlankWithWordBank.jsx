@@ -1,16 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
-import InputType, {stopEvent} from './Mixin';
+import {Mixin, DropTarget} from 'common/dnd';
 
-import Content from '../Content';
 import Store from '../../Store';
+import Content from '../Content';
 
+import InputType, {stopEvent} from './Mixin';
 import FillInTheBlankWithWordBankEntry from './FillInTheBlankWithWordBankEntry';
 
-import {Mixin, DropTarget} from 'common/dnd';
 
 const strategies = {
 	'input[type=blankfield]': x => ({

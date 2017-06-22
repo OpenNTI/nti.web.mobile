@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Logger from 'nti-util-logger';
+
 import Card from '../Card';
 
 const logger = Logger.get('profile:components:user:Achievements');

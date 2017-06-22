@@ -1,8 +1,10 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 import {decodeFromURI} from 'nti-lib-ntiids';
+
+import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
+
 import GiftView from './GiftView';
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
 

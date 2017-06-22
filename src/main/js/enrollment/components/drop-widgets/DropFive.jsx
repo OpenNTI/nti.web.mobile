@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {Notice} from 'nti-web-commons';
+
 import Button from 'forms/components/Button';
 
 export default class extends React.Component {
@@ -12,7 +12,7 @@ export default class extends React.Component {
 	};
 
 	onCancel = () => {
-		history.back();
+		global.history.back();
 	};
 
 	render () {

@@ -1,17 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import cx from 'classnames';
 import {Link} from 'react-router-component';
+import {EmptyList} from 'nti-web-commons';
 
 import NavigationBar from 'navigation/components/Bar';
 
-import {EmptyList} from 'nti-web-commons';
-
 import SectionMixin from '../mixins/SectionAware';
-
 
 import Collection from './containers/Collection';
 import SectionTitle from './SectionTitle';

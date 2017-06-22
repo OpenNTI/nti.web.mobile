@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
-import AcceptInvitation from 'invitations/components/Accept';
+import PropTypes from 'prop-types';
 import {CollectionFilter as Filter} from 'nti-web-commons';
 
+import AcceptInvitation from 'invitations/components/Accept';
 import filters from 'library/Filters';
 
 import ListView from './ListView';

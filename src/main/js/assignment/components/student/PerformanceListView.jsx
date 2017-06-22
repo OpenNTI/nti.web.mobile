@@ -1,16 +1,15 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {SortOrder} from 'nti-lib-interfaces';
-
 import {EmptyList, Mixins} from 'nti-web-commons';
+
+import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 import PerformanceHeader from './PerformanceHeader';
 import PerformanceItem from './PerformanceItem';
 import PerformanceListViewHeading from './PerformanceListViewHeading';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 
 const columns = [
 	{

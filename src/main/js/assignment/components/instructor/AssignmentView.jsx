@@ -1,15 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Loading, Mixins} from 'nti-web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
 import ShowAvatars from './mixins/ShowAvatarsContainer';
 import Accessor from './mixins/AssignmentSummaryAccessor';
-
 import AssignmentHeader from './AssignmentHeader';
 import GradebookTable from './gradebook-table/GradebookTable';
 

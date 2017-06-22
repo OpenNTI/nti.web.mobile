@@ -1,12 +1,13 @@
 import React from 'react';
 
-import OAuthButton from './OAuthButton';
-
 import Store from '../Store';
 
+import OAuthButton from './OAuthButton';
+
+
 export default function OAuthButtons () {
-	let links = Store.getAvailableOAuthLinks();
-	let rels = Object.keys(links);
+	const links = Store.getAvailableOAuthLinks();
+	const rels = Object.keys(links);
 
 	return rels.length === 0 ? <div/> : (
 		<div className="oauth-login">

@@ -1,11 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {EmptyList} from 'nti-web-commons';
 
-import Collection from './Collection';
 import AddButton from '../AddButton';
 import Heading from '../SectionHeading';
+
+import Collection from './Collection';
 
 export default function Container ({section, items}) {
 	return !items || items.length === 0 ?

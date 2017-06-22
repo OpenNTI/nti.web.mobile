@@ -1,15 +1,13 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
+import {Error as ErrorWidget, Loading} from 'nti-web-commons';
 import Logger from 'nti-util-logger';
 
 import WidgetsMixin from './Mixin';
 
-import {Error as ErrorWidget, Loading} from 'nti-web-commons';
-
 const logger = Logger.get('course:components:widgets:Videos');
+
 
 export default createReactClass({
 	displayName: 'CourseOverviewVideos',

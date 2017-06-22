@@ -1,8 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+import isEmpty from 'isempty';
+
 import Mixin, {stopEvent} from './Mixin';
 
-import isEmpty from 'isempty';
 
 const isValid = /^[0-9\-\/\\,\.\*¼-¾]*$/;
 
@@ -19,13 +20,15 @@ export default createReactClass({
 		]
 	},
 
+	attachRef (x) { this.input = x; },
+
 	render () {
 		let {value} = this.state;
 		let submitted = this.isSubmitted();
 
 		return (
 			<form className="free-response" onSubmit={stopEvent}>
-				<input ref={x => this.input = x} value={value} onChange={this.handleInteraction} readOnly={submitted}/>
+				<input ref={this.attachRef} value={value} onChange={this.handleInteraction} readOnly={submitted}/>
 			</form>
 		);
 	},

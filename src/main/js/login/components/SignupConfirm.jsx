@@ -1,7 +1,5 @@
 import React from 'react';
-
 import {Link} from 'react-router-component';
-
 import {scoped} from 'nti-lib-locale';
 
 const t = scoped('LOGIN');

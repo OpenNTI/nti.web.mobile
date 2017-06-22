@@ -1,32 +1,28 @@
-import PropTypes from 'prop-types';
 // tell eslint that Stripe is declared elsewhere
 // we're naming fields to line up with the stripe api which uses lowercase
 // with underscores (e.g. exp_month vs. expMonth) so don't enforce camel case
 // in this file.
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
+import {Loading} from 'nti-web-commons';
+import {ExternalLibraryManager, getAppUser} from 'nti-web-client';
+import {StoreEventsMixin} from 'nti-lib-store';
 
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
-
-import {Loading} from 'nti-web-commons';
-
 import {clearLoadingFlag} from 'common/utils/react-state';
 
-
-import {ExternalLibraryManager, getAppUser} from 'nti-web-client';
-import {StoreEventsMixin} from 'nti-lib-store';
+import Store from '../Store';
+import {verifyBillingInfo} from '../Actions';
+import {BILLING_INFO_REJECTED} from '../Constants';
 
 import BillingAddress from './BillingAddressForm';
 import CreditCardForm from './CreditCardForm';
 import TermsCheckbox from './TermsCheckbox';
 import Pricing from './Pricing';
 
-import Store from '../Store';
-import {verifyBillingInfo} from '../Actions';
-import {BILLING_INFO_REJECTED} from '../Constants';
 
 const t = scoped('ENROLLMENT');
 
@@ -42,6 +38,11 @@ export default createReactClass({
 	propTypes: {
 		purchasable: PropTypes.object.isRequired
 	},
+
+
+	attachPricingRef (x) { this.pricing = x; },
+	attachCardRef (x) { this.card = x; },
+	attachBillingRef (x) { this.billing = x; },
 
 
 	componentWillMount () {
@@ -157,9 +158,9 @@ export default createReactClass({
 
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} className="payment-form">
-				<Pricing ref={x => this.pricing = x} purchasable={purch} />
-				<CreditCardForm defaultValues={defaultValues} ref={x => this.card = x}/>
-				<BillingAddress defaultValues={defaultValues} ref={x => this.billing = x}/>
+				<Pricing ref={this.attachPricingRef} purchasable={purch} />
+				<CreditCardForm defaultValues={defaultValues} ref={this.attachCardRef}/>
+				<BillingAddress defaultValues={defaultValues} ref={this.attachBillingRef}/>
 				{errors && ( <FormErrors errors={errors} /> )}
 				<TermsCheckbox onChange={this.termsCheckboxChange}/>
 				{busy ? (

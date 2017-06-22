@@ -1,14 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import hash from 'object-hash';
-
 import {Notice} from 'nti-web-commons';
-
 import {scoped} from 'nti-lib-locale';
 
-import ListItem from './list-items';
 import groupDeletedItems from '../utils/group-deleted-items';
+
+import ListItem from './list-items';
 
 const t = scoped('FORUMS');
 

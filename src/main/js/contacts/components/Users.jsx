@@ -1,20 +1,20 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
-import ContextSender from 'common/mixins/ContextSender';
 import {
 	EmptyList,
 	Error as Err,
 	Loading
 } from 'nti-web-commons';
 
+import ContextSender from 'common/mixins/ContextSender';
+
+import mixin from '../mixins/Mixin';
+import {USERS} from '../Constants';
+
 import Selectables from './Selectables';
 import UserSearchField from './UserSearchField';
 import AddPeopleButton from './AddPeopleButton';
 
-import mixin from '../mixins/Mixin';
-import {USERS} from '../Constants';
 
 export default createReactClass({
 	displayName: 'Contacts:Users',
@@ -23,6 +23,8 @@ export default createReactClass({
 
 	listName: 'Contacts',
 	undos: {},
+
+	attachSearchRef (x) { this.searchField = x; },
 
 	getContext () {
 		return Promise.resolve({
@@ -112,7 +114,7 @@ export default createReactClass({
 				{adding ? (
 					<div className="list-user-search">
 						<UserSearchField
-							ref={x => this.searchField = x}
+							ref={this.attachSearchRef}
 							excludeContacts
 							selected={items}
 							onCancel={this.cancelSearch}

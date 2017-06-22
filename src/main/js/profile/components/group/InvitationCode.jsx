@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {getService} from 'nti-web-client';
 
-export default class extends React.Component {
-	static displayName = 'InvitationCode';
+export default class InvitationCode extends React.Component {
 
 	static propTypes = {
 		entity: PropTypes.object.isRequired
-	};
+	}
+
+	attachCodeRef = el => this.code = el
 
 	componentWillMount () {
 		this.getCode();
@@ -21,7 +21,7 @@ export default class extends React.Component {
 		range.selectNodeContents(this.code);
 		selection.removeAllRanges();
 		selection.addRange(range);
-	};
+	}
 
 	getCode = () => {
 		const {entity} = this.props;
@@ -34,7 +34,7 @@ export default class extends React.Component {
 				.then(result => this.setState({ code: result.invitation_code }));
 
 		}
-	};
+	}
 
 	render () {
 		const {busy, code} = this.state || {};
@@ -44,7 +44,7 @@ export default class extends React.Component {
 		return (
 			<div className="invitation-code" onClick={this.selectCode}>
 				<label>Invitation Code:</label>
-				<span ref={el => this.code = el} className="invitation-code-text">{code}</span>
+				<span ref={this.attachCodeRef} className="invitation-code-text">{code}</span>
 			</div>
 		);
 	}

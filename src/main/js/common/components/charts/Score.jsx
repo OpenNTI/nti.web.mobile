@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class extends React.Component {
-	static displayName = 'Score';
+export default class Score extends React.Component {
 
 	static propTypes = {
 		title: PropTypes.string,
@@ -10,7 +9,7 @@ export default class extends React.Component {
 		pixelDensity: PropTypes.number,
 		score: PropTypes.number,
 		inlinePercent: PropTypes.bool
-	};
+	}
 
 	static defaultProps = {
 		inlinePercent: true,
@@ -18,15 +17,17 @@ export default class extends React.Component {
 		colors: ['#40b450', '#b8b8b8'],
 		pixelDensity: (global.devicePixelRatio || 1) * 2,
 		score: 90
-	};
+	}
 
 	state = {
 		series: []
-	};
+	}
+
+	attachRef = x => this.canvas = x
 
 	getCanvas = () => {
 		return this.canvas;
-	};
+	}
 
 	updateSeries = (props = this.props) => {
 		let score = Math.max(0, Math.min(100, parseInt(props.score, 10)));
@@ -38,7 +39,7 @@ export default class extends React.Component {
 				{value: 100 - score, label: ''}
 			]
 		});
-	};
+	}
 
 	componentWillMount () { this.updateSeries(); }
 	componentWillReceiveProps (nextProps) { this.updateSeries(nextProps); }
@@ -67,7 +68,7 @@ export default class extends React.Component {
 		};
 
 		return (
-			<canvas ref={x => this.canvas = x} style={style} width={width} height={height} />
+			<canvas ref={this.attachRef} style={style} width={width} height={height} />
 		);
 	}
 
@@ -100,23 +101,23 @@ export default class extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	};
+	}
 
 	getTotal = () => {
 		return this.state.series.reduce((sum, i) => sum + i.value, 0);
-	};
+	}
 
 	getRadius = (ctx) => {
 		let {width, height} = ctx.canvas;
 		let leg = Math.min(width, height) + this.getStrokeWidth();
 
 		return Math.ceil(leg / 2);
-	};
+	}
 
 	getStrokeWidth = () => {
 		let {pixelDensity} = this.props;
 		return 3 * pixelDensity;
-	};
+	}
 
 	drawSegment = (ctx, i) => {
 		let {series} = this.state;
@@ -154,7 +155,7 @@ export default class extends React.Component {
 		ctx.stroke();
 
 		ctx.restore();
-	};
+	}
 
 	drawLabel = (ctx) => {
 		const draw = (text, f, ...xy) => {
@@ -219,7 +220,7 @@ export default class extends React.Component {
 		finally {
 			ctx.restore();
 		}
-	};
+	}
 }
 
 

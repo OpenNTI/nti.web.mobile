@@ -8,8 +8,8 @@ import {StoreEventsMixin} from 'nti-lib-store';
 import Store from '../Store';
 import {toggleAggregatedView} from '../Actions';
 
-import Question from './Question';
 import Aggregated from './aggregated/Aggregated';
+import Question from './Question';
 
 
 export default createReactClass({

@@ -1,6 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import Detail from 'catalog/components/Detail';
 import InviteButton from 'invitations/components/InviteButton';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';

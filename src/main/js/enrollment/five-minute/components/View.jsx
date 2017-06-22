@@ -1,26 +1,25 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import createReactClass from 'create-react-class';
-import Router from 'react-router-component';
-
 import path from 'path';
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import Router from 'react-router-component';
 import {Mixins, PanelButton} from 'nti-web-commons';
-
-import ContextSender from 'common/mixins/ContextSender';
 import {scoped} from 'nti-lib-locale';
 
-const t = scoped('ENROLLMENT');
-
+import ContextSender from 'common/mixins/ContextSender';
 import CourseContentLink from 'library/mixins/CourseContentLink';
+
+import Store from '../Store';
+import {CONCURRENT_ENROLLMENT_SUCCESS} from '../Constants';
 
 import PaymentComplete from './PaymentComplete';
 import ConcurrentSent from './ConcurrentSent';
 import Admission from './Admission';
 import Policy from './Policy';
 
-import Store from '../Store';
-import {CONCURRENT_ENROLLMENT_SUCCESS} from '../Constants';
+
+const t = scoped('ENROLLMENT');
 
 
 export default createReactClass({
@@ -33,6 +32,8 @@ export default createReactClass({
 		entryId: PropTypes.string.isRequired,
 		enrollment: PropTypes.object.isRequired
 	},
+
+	attachRef (x) { this.router = x; },
 
 	componentDidMount () {
 		Store.addChangeListener(this.onStoreChange);
@@ -76,7 +77,7 @@ export default createReactClass({
 		}
 
 		return (
-			<Router.Locations contextual ref={x => this.router = x}>
+			<Router.Locations contextual ref={this.attachRef}>
 
 				<Router.Location
 					path="/concurrent/*"

@@ -1,9 +1,3 @@
-/* FIXME inconsistent character casing all over this thing
-
-	The convention GOING forward: Containers ALL_CAPS, leaf properties/pluralized-
-	forms(and their states one, other, zero etc) are camelCased. {@see UNITS block}.
-*/
-
 import UNITS from './partials/units';
 import ACTIVITY from './partials/activity';
 import ASSESSMENTS from './partials/assessments';

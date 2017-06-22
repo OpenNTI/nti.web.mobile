@@ -1,9 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import t from 'nti-lib-locale';
+import {Notice, LocalizedHTML} from 'nti-web-commons';
+import hash from 'object-hash';
+
+import Select from 'forms/components/Select';
+import Checkbox from 'forms/components/Checkbox';
 
 import * as Constants from '../Constants';
 import FieldValuesStore from '../FieldValuesStore';
@@ -11,13 +14,7 @@ import FieldValuesStore from '../FieldValuesStore';
 import RadioGroup from './RadioGroup';
 import ToggleFieldset from './ToggleFieldset';
 import SocialSecurityNumberField from './SocialSecurityNumberField';
-import Select from 'forms/components/Select';
-import Checkbox from 'forms/components/Checkbox';
 import DateField from './DateField';
-
-import {Notice, LocalizedHTML} from 'nti-web-commons';
-
-import hash from 'object-hash';
 
 // components that render their own label:
 let labelIsRenderedByComponent = new Set();

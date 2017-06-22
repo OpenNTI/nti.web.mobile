@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Mixin from './Mixin';
 
+import Mixin from './Mixin';
 import RemoveIcon from './RemoveIcon';
 
 const COMMA = 188;

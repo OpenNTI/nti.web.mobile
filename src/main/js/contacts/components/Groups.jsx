@@ -1,16 +1,14 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
-
 import Logger from 'nti-util-logger';
-
 import {scoped} from 'nti-lib-locale';
-import ContextSender from 'common/mixins/ContextSender';
 import {
 	EmptyList,
 	Error as Err,
 	Loading
 } from 'nti-web-commons';
+
+import ContextSender from 'common/mixins/ContextSender';
 
 import mixin from '../mixins/Mixin';
 import {GROUPS} from '../Constants';
@@ -25,6 +23,8 @@ export default createReactClass({
 	mixins: [mixin, ContextSender],
 	storeType: GROUPS,
 	listName: 'Groups',
+
+	attachCreationFieldRef (x) { this.creationfield = x; },
 
 	getContext () {
 		return Promise.resolve({
@@ -61,7 +61,7 @@ export default createReactClass({
 	creationField () {
 		return (
 			<div className="inline-creation-form">
-				<input type="text" ref={x => this.creationfield = x} placeholder={t('newGroupPlaceholder')}/>
+				<input type="text" ref={this.attachCreationFieldRef} placeholder={t('newGroupPlaceholder')}/>
 				<button className="tiny add-button" onClick={this.addGroup}>Add</button>
 			</div>
 		);

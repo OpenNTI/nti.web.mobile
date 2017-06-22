@@ -1,4 +1,6 @@
+import StorePrototype from 'nti-lib-store';
 import Logger from 'nti-util-logger';
+
 import {
 	LINK_LOGIN_CONTINUE,
 	LINK_LOGIN_PASSWORD,
@@ -9,7 +11,6 @@ import {
 	LOGIN_SUCCESS
 } from './Constants';
 
-import StorePrototype from 'nti-lib-store';
 
 const logger = Logger.get('login:store');
 

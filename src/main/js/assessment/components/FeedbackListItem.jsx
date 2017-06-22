@@ -1,18 +1,16 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import {DateTime, Loading} from 'nti-web-commons';
+import {getAppUsername} from 'nti-web-client';
 
 import Avatar from 'common/components/Avatar';
-import {DateTime, Loading} from 'nti-web-commons';
-
-import {Panel} from 'modeled-content';
 import DisplayName from 'common/components/DisplayName';
+import {Panel} from 'modeled-content';
 
-import {getAppUsername} from 'nti-web-client';
 
 import Editor from './FeedbackEditor';
 
-export default class extends React.Component {
-	static displayName = 'FeedbackListItem';
+export default class FeedbackListItem extends React.Component {
 
 	static propTypes = {
 		item: PropTypes.object,

@@ -1,23 +1,20 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
-
 import Logger from 'nti-util-logger';
 import {getModel} from 'nti-lib-interfaces';
-
-import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
-
 import {Loading} from 'nti-web-commons';
 import {rawContent} from 'nti-commons';
 
-import Content from '../Content';
-
-import {select as getAnnotation} from '../viewer-parts/annotations';
-import {getWidget} from '../widgets';
+import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import {getPageContent} from '../../Actions';
 import PageDescriptor from '../../PageDescriptor';
+import {select as getAnnotation} from '../viewer-parts/annotations';
+import Content from '../Content';
+import {getWidget} from '../widgets';
+
 
 const logger = Logger.get('content:components:discussions:Context');
 

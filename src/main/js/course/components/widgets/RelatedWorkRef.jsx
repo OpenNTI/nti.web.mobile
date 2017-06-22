@@ -1,4 +1,10 @@
+import React from 'react';
 import PropTypes from 'prop-types';
+import {Summary} from 'nti-lib-interfaces';
+import {scoped} from 'nti-lib-locale';
+
+import Card from 'common/components/Card';
+
 /*
 Internal Links:
 	NTIID:			"tag:nextthought.com,2011-10:OU-RelatedWorkRef...:digestion_and_metabolism_textbook1"
@@ -22,13 +28,8 @@ External Links:
 	targetMimeType:	"application/vnd.nextthought.externallink"
 	visibility:		"everyone"
 */
-import React from 'react';
 
-import {Summary} from 'nti-lib-interfaces';
-
-import Card from 'common/components/Card';
-
-import t from 'nti-lib-locale';
+const t = scoped('DISCUSSIONS');
 
 export default class extends React.Component {
 	static displayName = 'CourseOverviewRelatedWorkRef';
@@ -52,7 +53,7 @@ export default class extends React.Component {
 		}
 
 		if (typeof commentCount !== 'number') {
-			commentCount = t('DISCUSSIONS.viewComments');
+			commentCount = t('viewComments');
 		}
 
 		return (

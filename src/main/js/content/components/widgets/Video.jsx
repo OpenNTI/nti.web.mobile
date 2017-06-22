@@ -1,15 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Progress} from 'nti-lib-interfaces';
 import {getScreenHeight, getScrollParent} from 'nti-lib-dom';
-
 import {Loading} from 'nti-web-commons';
-import ContextAccessor from 'common/mixins/ContextAccessor';
-
 import {Component as Video} from 'nti-web-video';
+
+import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import Mixin from './Mixin';
 
@@ -55,6 +52,10 @@ export default createReactClass({
 
 		tag: PropTypes.any
 	},
+
+
+	attachRef (x) { this.el = x; },
+	attachVideoRef (x) { this.video = x; },
 
 
 	getInitialState () {
@@ -204,9 +205,9 @@ export default createReactClass({
 		const posterRule = poster && {backgroundImage: `url(${poster})`};
 
 		return (
-			<Tag ref={el => this.el = el} className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
+			<Tag ref={this.attachRef} className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
 				{!video || !requestPlay ? null :
-					<Video ref={x => this.video = x} src={video}
+					<Video ref={this.attachVideoRef} src={video}
 						onEnded={this.onStop}
 						onPaused={this.onStop}
 						onPlaying={this.onPlay}

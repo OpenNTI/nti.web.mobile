@@ -2,19 +2,26 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Transition from 'react-transition-group/CSSTransitionGroup';
-
 import {
 	Mixin as ResourceLoaded,
 	TOPIC_VIEWED,
 	addHistory,
 	getHistory
 } from 'nti-analytics';
-
 import {decodeFromURI} from 'nti-lib-ntiids';
+import {Error as Err, Loading, Mixins, Notice, Prompt} from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
+import {StoreEventsMixin} from 'nti-lib-store';
 
-import {Error as Err, Loading, Mixins, Notice} from 'nti-web-commons';
-
-import {Prompt} from 'nti-web-commons';
+// mixins
+import KeepItemInState from '../mixins/KeepItemInState';
+import Paging from '../mixins/Paging';
+import ToggleState from '../mixins/ToggleState';
+//
+import * as Actions from '../Actions';
+import {getTopicContents} from '../Api';
+import {ITEM_CONTENTS_CHANGED, COMMENT_ADDED, ITEM_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
+import Store from '../Store';
 
 import ActionsComp from './Actions';
 import CommentForm from './CommentForm';
@@ -23,20 +30,7 @@ import TopicEditor from './TopicEditor';
 import TopicHeadline from './TopicHeadline';
 import ViewHeader from './widgets/ViewHeader';
 
-import * as Actions from '../Actions';
-import {getTopicContents} from '../Api';
-import {ITEM_CONTENTS_CHANGED, COMMENT_ADDED, ITEM_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
-import Store from '../Store';
-
-// mixins
-import KeepItemInState from '../mixins/KeepItemInState';
-import Paging from '../mixins/Paging';
-
-import {StoreEventsMixin} from 'nti-lib-store';
-import ToggleState from '../mixins/ToggleState';
-
-import {scoped} from 'nti-lib-locale';
-let t = scoped('FORUMS');
+const t = scoped('FORUMS');
 
 
 export default createReactClass({

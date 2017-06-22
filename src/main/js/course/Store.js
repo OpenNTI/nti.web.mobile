@@ -1,6 +1,6 @@
-import {SET_ACTIVE_COURSE, NOT_FOUND} from './Constants';
-
 import StorePrototype from 'nti-lib-store';
+
+import {SET_ACTIVE_COURSE, NOT_FOUND} from './Constants';
 
 const data = Symbol('data');
 const SetData = Symbol('set:data');

@@ -1,11 +1,10 @@
 import Logger from 'nti-util-logger';
-
 import AppDispatcher from 'nti-lib-dispatcher';
 import {getService} from 'nti-web-client';
 
+import {LOAD_CATALOG, LOADED_CATALOG, GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from './Constants';
 import {getCatalog} from './Api';
 
-import {LOAD_CATALOG, LOADED_CATALOG, GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from './Constants';
 
 const logger = Logger.get('catalog:actions');
 

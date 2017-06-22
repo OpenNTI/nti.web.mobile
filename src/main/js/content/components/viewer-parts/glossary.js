@@ -1,4 +1,5 @@
 import React from 'react';
+
 import GlossaryEntry from '../GlossaryEntry';
 
 export default {

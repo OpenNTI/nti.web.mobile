@@ -1,13 +1,12 @@
 import Logger from 'nti-util-logger';
-
+import {decodeFromURI} from 'nti-lib-ntiids';
 import StorePrototype from 'nti-lib-store';
+import hash from 'object-hash';
 
 import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
-import {decodeFromURI} from 'nti-lib-ntiids';
 import {getForumItem, DEFAULT_PAGING_PARAMS} from './Api';
 
-import hash from 'object-hash';
 
 const logger = Logger.get('forums:store');
 

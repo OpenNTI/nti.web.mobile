@@ -1,15 +1,11 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import Logger from 'nti-util-logger';
-
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import QuestionWidget from 'assessment/components/Question';
 import PollWidget from 'assessment/components/Poll';
-
 import Store from 'assessment/Store';
 import {SYNC} from 'assessment/Constants';
 

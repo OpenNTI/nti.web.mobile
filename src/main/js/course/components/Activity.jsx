@@ -1,15 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Banner, ScrollTrigger, Loading, Mixins} from 'nti-web-commons';
 
-import ActivityBucket from './ActivityBucket';
+import ContextSender from 'common/mixins/ContextSender';
+
+import ContextParent from '../mixins/AssignmentHistoryContextParent';
 import {ACTIVITY} from '../Sections';
 
-import ContextSender from 'common/mixins/ContextSender';
-import ContextParent from '../mixins/AssignmentHistoryContextParent';
+import ActivityBucket from './ActivityBucket';
 
 
 export default createReactClass({

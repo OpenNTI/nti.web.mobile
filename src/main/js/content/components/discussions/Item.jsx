@@ -1,17 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import {encodeForURI} from 'nti-lib-ntiids';
-
-import DisplayName from 'common/components/DisplayName';
+import {scoped} from 'nti-lib-locale';
 import {DateTime} from 'nti-web-commons';
 
-import {scoped} from 'nti-lib-locale';
-
+import DisplayName from 'common/components/DisplayName';
 import {Panel} from 'modeled-content';
 
 
 const t = scoped('UNITS');
+
 
 export default function DiscussionsItem ({item}) {
 	let {body, creator, title, replyCount = 0} = item;

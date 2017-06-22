@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
 import {Error as ErrorWidget} from 'nti-web-commons';
 
 // This is an exmaple of a widget needing the mixin because it has children,

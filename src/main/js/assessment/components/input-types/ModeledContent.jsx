@@ -1,8 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import Mixin, {stopEvent} from './Mixin';
 
 import {Panel, Editor} from 'modeled-content';
+
+import Mixin, {stopEvent} from './Mixin';
+
 
 /**
  * This input type represents Modeled Body Content
@@ -17,6 +19,8 @@ export default createReactClass({
 			'ModeledContent'
 		]
 	},
+
+	attachRef (x) { this.input = x; },
 
 	shouldComponentUpdate () {
 		return this.shouldUpdate;
@@ -34,7 +38,7 @@ export default createReactClass({
 				{submitted && (<Panel body={value}/>)}
 				{!submitted && (
 					<Editor
-						ref={x => this.input = x}
+						ref={this.attachRef}
 						initialValue={value}
 						onChange={this.handleInteraction}
 						onBlur={this.onBlur}

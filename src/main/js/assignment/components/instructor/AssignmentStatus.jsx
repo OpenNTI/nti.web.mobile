@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
-
+import createReactClass from 'create-react-class';
 import {DateTime, Mixins} from 'nti-web-commons';
 
 

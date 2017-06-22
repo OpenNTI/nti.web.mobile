@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
-export default class extends React.Component {
-	static displayName = 'GradePerformance';
+export default class GradePerformance extends React.Component {
 
 	static propTypes = {
 		averageColor: PropTypes.string,
@@ -18,7 +17,7 @@ export default class extends React.Component {
 		width: PropTypes.number,
 		height: PropTypes.number
 
-	};
+	}
 
 	static defaultProps = {
 		averageColor: '#b8b8b8',
@@ -29,7 +28,15 @@ export default class extends React.Component {
 		topMargin: 30,
 		bottomMargin: 10,
 		pixelDensity: (global.devicePixelRatio || 1) * 2
-	};
+	}
+
+	state = {
+		dashOffset: 0,
+		canAnimate: this.testAnimationProperties()
+	}
+
+
+	attachRef = x => this.canvas = x
 
 	componentDidMount () {
 		const {canvas} = this;
@@ -88,7 +95,7 @@ export default class extends React.Component {
 		};
 
 		return (
-			<canvas ref={x => this.canvas = x} {...this.props} className="grade" style={style} width={width} height={height} />
+			<canvas ref={this.attachRef} {...this.props} className="grade" style={style} width={width} height={height} />
 		);
 	}
 
@@ -102,20 +109,20 @@ export default class extends React.Component {
 			hasSetLineDash = !!ctx.setLineDash;
 
 		return hasDashOffset && hasSetLineDash;
-	};
+	}
 
 	startAnimation = () => {
 		let canAnimate = this.testAnimationProperties();
 		if (canAnimate) {
 			this.animateTask.start();//safe to call repeatedly (will noop if already started)
 		}
-	};
+	}
 
 	stopAnimation = () => {
 		if (this.animateTask) {
 			this.animateTask.stop();
 		}
-	};
+	}
 
 	repaint = () => {
 		let {dashOffset = 0} = this.state || {};
@@ -123,7 +130,7 @@ export default class extends React.Component {
 		dashOffset--;
 
 		this.setState({dashOffset});
-	};
+	}
 
 	paint = (ctx) => {
 		if (!ctx) { return; }
@@ -131,7 +138,7 @@ export default class extends React.Component {
 		ctx.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 		this.drawAverages(ctx);
 		this.drawGrades(ctx);
-	};
+	}
 
 	drawAverages = (ctx) => {
 
@@ -153,7 +160,7 @@ export default class extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	};
+	}
 
 	drawGrades = (ctx) => {
 		ctx.save();
@@ -171,7 +178,7 @@ export default class extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	};
+	}
 
 	drawLine = (ctx, property) => {
 		if (!this.store || !this.store.length) {
@@ -193,10 +200,5 @@ export default class extends React.Component {
 		});
 
 		ctx.stroke();
-	};
-
-	state = {
-		dashOffset: 0,
-		canAnimate: this.testAnimationProperties()
-	};
+	}
 }

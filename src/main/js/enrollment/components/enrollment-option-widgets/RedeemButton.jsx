@@ -1,10 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-
 import {Mixins} from 'nti-web-commons';
-
 import {encodeForURI} from 'nti-lib-ntiids';
 import {scoped} from 'nti-lib-locale';
 

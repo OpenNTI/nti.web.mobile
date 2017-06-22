@@ -10,9 +10,7 @@
 */
 
 import React from 'react';
-
 import PropTypes from 'prop-types';
-
 import QueryString from 'query-string';
 
 import Card from 'common/components/Card';

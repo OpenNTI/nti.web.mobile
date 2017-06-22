@@ -1,11 +1,10 @@
 import React from 'react';
-
 import createReactClass from 'create-react-class';
+import {getService} from 'nti-web-client';
+import {Mixins} from 'nti-web-commons';
 
 import Container from './Container';
 
-import {getService} from 'nti-web-client';
-import {Mixins} from 'nti-web-commons';
 
 export default createReactClass({
 	displayName: 'Community',

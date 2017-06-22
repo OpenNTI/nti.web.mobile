@@ -2,6 +2,9 @@ import React from 'react';
 
 export default class SocialSecurityNumberField extends React.Component {
 
+	attachRef = x => this.input = x
+
+
 	onKeyUp = () => {
 		const {input} = this;
 
@@ -33,7 +36,7 @@ export default class SocialSecurityNumberField extends React.Component {
 
 	render () {
 		return (
-			<input ref={x => this.input = x} type="tel" pattern="\d*" onKeyUp={this.onKeyUp} />
+			<input ref={this.attachRef} type="tel" pattern="\d*" onKeyUp={this.onKeyUp} />
 		);
 	}
 }

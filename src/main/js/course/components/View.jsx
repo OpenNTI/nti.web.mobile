@@ -1,33 +1,27 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-
 import {decodeFromURI} from 'nti-lib-ntiids';
-
-import NotFound from 'notfound/components/View';
-
-import Redirect from 'navigation/components/Redirect';
-
 import {Background, Error as ErrorWidget, Loading, Mixins} from 'nti-web-commons';
-
-import ContextContributor from 'common/mixins/ContextContributor';
 import {StoreEventsMixin} from 'nti-lib-store';
 
-import Page from './Page';
-
-import {LESSONS} from '../Sections';
-
 import Assignments from 'assignment/components/View';
-//import Reports
-import CourseInfo from './CourseInfo';
+import NotFound from 'notfound/components/View';
+import Redirect from 'navigation/components/Redirect';
+import ContextContributor from 'common/mixins/ContextContributor';
+import Invite from 'invitations/components/Send';
 import Discussions from 'forums/components/View';
+
+import {setCourse} from '../Actions';
+import {LESSONS} from '../Sections';
+import Store from '../Store';
+
+import Page from './Page';
+import CourseInfo from './CourseInfo';
 import Lessons from './Lessons';
 import Activity from './Activity';
 import Media from './Media';
-import Invite from 'invitations/components/Send';
-import {setCourse} from '../Actions';
-import Store from '../Store';
 
 
 const ROUTES = [

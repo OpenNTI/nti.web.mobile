@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
-import WordEntry from './WordBankEntry';
 import Store from '../Store';
+
+import WordEntry from './WordBankEntry';
 
 export default class extends React.Component {
 	static displayName = 'WordBank';

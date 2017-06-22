@@ -1,8 +1,7 @@
 import React from 'react';
-
 import {scoped} from 'nti-lib-locale';
 
-let t = scoped('ENROLLMENT.GIFT.HEADER');
+const t = scoped('ENROLLMENT.GIFT.HEADER');
 
 export default function GiftViewHeader () {
 	return (

@@ -1,19 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-
-// import EditButton from './EditButton';
-
+import {getAppUsername} from 'nti-web-client';
 import {ActiveState, Background} from 'nti-web-commons';
-import DisplayName from 'common/components/DisplayName';
 
 import Page from 'common/components/Page';
-
+import DisplayName from 'common/components/DisplayName';
 import ContextSender from 'common/mixins/ContextSender';
 
-import {getAppUsername} from 'nti-web-client';
-
+// import EditButton from './EditButton';
 import FollowButton from './FollowButton';
 import Head from './Head';
 
