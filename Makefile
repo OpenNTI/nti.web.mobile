@@ -21,14 +21,14 @@ test: check
 check:
 	@eslint --ext .js,.jsx . || true
 
-build: test compile
+build: clean test compile
 ##Pre-Compress
 	@find $(DIST)client -type f \( -name '*.js' -o -name '*.css' -o -name '*.svg' -o -name '*.map' \) -exec gzip -k -v -f -9 {} \;
 ## Capture versions
 	@npm la 2>/dev/null > $(DIST)client/js/versions.txt || true
 	@npm ls 2>/dev/null | grep nti- | sed -e 's/^[\│\├\─\┬\└\ ]\{1,\}/z /g' | sort | sed -e 's/^z/-/g' > $(DIST)client/js/nti-versions.txt || true
 
-compile: clean
+compile:
 	@mkdir -p $(DIST)
 ##the server code doesn't compile, just copy it.
 	@cp -r $(SRC)server/ $(DIST)server/
