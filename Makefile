@@ -19,7 +19,7 @@ test: check
 	@jest --coverage
 
 check:
-	@eslint --ext .js,.jsx .
+	@eslint --ext .js,.jsx . || true
 
 build: test compile
 ##Pre-Compress
