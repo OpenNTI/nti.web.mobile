@@ -135,9 +135,10 @@ export default createReactClass({
 
 		let title = (current || {}).label || this.props.title;
 
-		return this.getChildForSide('center') ||
-			this.getMenu() || (title ? (
-
+		return this.getChildForSide('center')
+			|| this.getMenu()
+			|| (title ?
+			(
 				<a href={this.getBasePath()}>
 					<h1 className={css}>{title}</h1>
 				</a>
