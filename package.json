@@ -50,7 +50,7 @@
     "moment-timezone": "^0.5.0",
     "node-natural-sort": "^0.8.3",
     "nti-analytics": "^1.1.0",
-    "nti-app-scripts": "^1.0.6",
+    "nti-app-scripts": "^1.0.22",
     "nti-lib-anchorjs": "^1.0.0",
     "nti-lib-content-processing": "^1.0.0",
     "nti-lib-dispatcher": "^1.0.0",

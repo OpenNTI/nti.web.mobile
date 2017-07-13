@@ -4,13 +4,13 @@ const path = require('path');
 
 const output = path.resolve(__dirname, 'dist');
 
-const StatsPlugin = require('stats-webpack-plugin');
+const {StatsWriterPlugin} = require('webpack-stats-plugin');
 const baseConfig = require('nti-app-scripts/config/webpack.config');
 
 
 function blacklistedPluginsForWidgets (o) {
 	return !(
-		o instanceof StatsPlugin
+		o instanceof StatsWriterPlugin
 	);
 }
 
