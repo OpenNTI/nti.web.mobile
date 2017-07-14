@@ -31,13 +31,13 @@ describe('FooBar', ()=> {
 		document.body.removeChild(container);
 	});
 
-	it('should create a new instance of Button', ()=> {
+	test('should create a new instance of Button', ()=> {
 		expect(component).toBeDefined();
 		expect(container.textContent).toBe('Test');
 	});
 
 
-	it('should call preventDefault onClick', ()=> {
+	test('should call preventDefault onClick', ()=> {
 		let event = {
 			preventDefault: ()=> {}
 		};

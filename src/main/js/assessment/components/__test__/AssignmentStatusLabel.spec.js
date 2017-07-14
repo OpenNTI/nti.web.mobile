@@ -46,7 +46,7 @@ describe('AssignmentStatusLabel', () => {
 	}
 
 
-	function test (props) {
+	function testRender (props) {
 		//TODO: convert to async style. ReactDOM.render() return value is deprecated.
 		return [
 			ReactDOM.render(
@@ -70,7 +70,7 @@ describe('AssignmentStatusLabel', () => {
 
 		bookkeeping();
 
-		it('Unpublished', () => {
+		test('Unpublished', () => {
 			const assignment = MockAssignment({
 				[START]: '2014-08-16T05:00:00Z',
 				[END]: '2015-08-29T04:59:59Z'
@@ -81,11 +81,11 @@ describe('AssignmentStatusLabel', () => {
 
 			assignment.isPublished = () => false;
 
-			test({assignment})
+			testRender({assignment})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(value));
 
-			test({assignment: overtime})
+			testRender({assignment: overtime})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(value));
 		});
@@ -96,7 +96,7 @@ describe('AssignmentStatusLabel', () => {
 
 		bookkeeping();
 
-		it('Base Cases: overdue / overtime should not change until submitted.', () => {
+		test('Base Cases: overdue / overtime should not change until submitted.', () => {
 			const assignment = MockAssignment({
 				[START]: '2014-08-16T05:00:00Z',
 				[END]: '2015-08-29T04:59:59Z'
@@ -108,25 +108,25 @@ describe('AssignmentStatusLabel', () => {
 			const value = `Due()${due}`;
 			const overtime = Object.assign(Object.create(assignment), {isOverTime: ()=> true});
 
-			test({assignment})
+			testRender({assignment})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(value));
 
-			test({assignment: overtime})
+			testRender({assignment: overtime})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(value));
 
-			test({assignment, historyItem})
+			testRender({assignment, historyItem})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(`Completed(Overdue)${completed}`));
 
-			test({assignment: overtime, historyItem})
+			testRender({assignment: overtime, historyItem})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(`Completed(OvertimeOverdue)${completed}`));
 		});
 
 
-		it('Base Cases: Available verbage', () => {
+		test('Base Cases: Available verbage', () => {
 			DateUtils.MockDate.install(new Date('2015-06-01T05:00:00Z'));
 			const today = new Date('2015-06-01T18:00:00Z');
 			const tomorrow = new Date('2015-06-02T05:00:00Z');
@@ -136,7 +136,7 @@ describe('AssignmentStatusLabel', () => {
 			let assignment = MockAssignment({ [START]: tomorrow, [END]: void 0 });
 			let time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
 
-			test({assignment})
+			testRender({assignment})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(`Available()${time}`));
 
@@ -145,7 +145,7 @@ describe('AssignmentStatusLabel', () => {
 			assignment = MockAssignment({ [START]: today, [END]: void 0 });
 			let hours = moment(today).tz(tz).format('h:mm A z');
 
-			test({assignment})
+			testRender({assignment})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(`Available()Today at ${hours}`));
 
@@ -154,7 +154,7 @@ describe('AssignmentStatusLabel', () => {
 			assignment = MockAssignment({ [START]: yesterday, [END]: void 0 });
 			time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
 
-			test({assignment})
+			testRender({assignment})
 				.map(getText)
 				.forEach(text => expect(text).toEqual('Available Now()'));
 
@@ -162,7 +162,7 @@ describe('AssignmentStatusLabel', () => {
 			assignment = MockAssignment({ [START]: yesterday, [END]: tomorrow });
 			let past = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAY_FORMAT);
 
-			test({assignment})
+			testRender({assignment})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(`Due()${past}`));
 
@@ -171,7 +171,7 @@ describe('AssignmentStatusLabel', () => {
 			//no submit
 			assignment = MockNoSubmitAssignment({ [START]: tomorrow, [END]: void 0 });
 			time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
-			test({assignment})
+			testRender({assignment})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(`Available()${time}`));
 		});
@@ -189,12 +189,12 @@ describe('AssignmentStatusLabel', () => {
 		bookkeeping();
 
 
-		it('Base Cases: overdue', () => {
+		test('Base Cases: overdue', () => {
 			// const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAY_FORMAT);
 			const completed = moment(historyItem.getCreatedTime()).tz(tz).format(EXPECTED_DAY_FORMAT);
 			const value = `Completed(Overdue)${completed}`;
 
-			const [A, B] = test({assignment, historyItem});
+			const [A, B] = testRender({assignment, historyItem});
 
 			expect(getText(A)).toEqual(value);
 			expect(getText(B)).toEqual(value);
@@ -202,12 +202,12 @@ describe('AssignmentStatusLabel', () => {
 		});
 
 
-		it('Base Cases: should show time with date', () => {
+		test('Base Cases: should show time with date', () => {
 			// const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAYTIME_FORMAT);
 			const completed = moment(historyItem.getCreatedTime()).tz(tz).format(EXPECTED_DAYTIME_FORMAT);
 			const value = `Completed(Overdue)${completed}`;
 
-			const [A, B] = test({assignment, historyItem, showTimeWithDate: true});
+			const [A, B] = testRender({assignment, historyItem, showTimeWithDate: true});
 
 			expect(getText(A).trim()).toEqual(value);
 			expect(getText(B).trim()).toEqual(value);
@@ -215,8 +215,8 @@ describe('AssignmentStatusLabel', () => {
 		});
 
 
-		it('should contain an .info-part child element with an \'overdue\' class', () => {
-			const [A, B] = test({assignment, historyItem});
+		test('should contain an .info-part child element with an \'overdue\' class', () => {
+			const [A, B] = testRender({assignment, historyItem});
 
 			let infoPart = getNode(A).querySelector('.info-part');
 			expect(infoPart.classList.contains('overdue')).toBe(true);
