@@ -137,8 +137,8 @@ export default createReactClass({
 
 		return this.getChildForSide('center')
 			|| this.getMenu()
-			|| (title ?
-			(
+			|| (title ? (
+
 				<a href={this.getBasePath()}>
 					<h1 className={css}>{title}</h1>
 				</a>
