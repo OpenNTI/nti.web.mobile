@@ -12,7 +12,6 @@ export default {
 		other: '%(count)s contacts'
 	},
 	deleteListPrompt: 'Delete this list?',
-	unfollowPrompt: 'Remove this contact?',
 	searchFieldPlaceholder: 'Search',
 	newGroupPlaceholder: 'Create a new group',
 	newListPlaceholder: 'Create a new list'
