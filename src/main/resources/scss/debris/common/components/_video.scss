@@ -63,6 +63,10 @@ video::-webkit-media-controls-start-playback-button {
 			right:0;
 		}
 	}
+
+	.video-controls-overlay .nti-slider input[type="range"] {
+		border: none;
+	}
 }
 
 .video-placeholder {
