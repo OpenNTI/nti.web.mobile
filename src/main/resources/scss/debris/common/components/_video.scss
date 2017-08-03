@@ -33,6 +33,14 @@ video::-webkit-media-controls-start-playback-button {
 		margin: 0;
 		top: 0;
 	}
+
+	.kaltura-wrapper {
+		position: static;
+	}
+
+	.video-wrapper .video-controls-overlay {
+		bottom: 0;
+	}
 }
 
 
