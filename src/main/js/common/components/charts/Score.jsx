@@ -191,7 +191,7 @@ export default class Score extends React.Component {
 			let centerX = width / 2;
 			let centerY = height / 2;
 			let radius = this.getRadius(ctx) * 0.68;
-			let font = { size: Math.floor(radius), weight: '600' };
+			let font = { size: Math.floor(radius) * 0.75, weight: '600' };
 			let percent = { size: font.size * 0.6, weight: '700' };
 
 			ctx.save();
