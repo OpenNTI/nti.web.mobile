@@ -26,7 +26,6 @@ export default createReactClass({
 		index: PropTypes.number.isRequired,
 		part: PropTypes.object.isRequired,
 		viewerIsAdministrative: PropTypes.bool,
-		submitted: PropTypes.bool,
 
 		children: PropTypes.any
 	},
@@ -141,7 +140,7 @@ export default createReactClass({
 
 
 	renderHelpButton (label) {
-		let {part, submitted} = this.props;
+		let {part} = this.props;
 		let {helpVisible} = this.state;
 		let hints = part && Store.getHints(part);
 		let solution = part && Store.getSolution(part);
@@ -152,7 +151,7 @@ export default createReactClass({
 		}
 		else {
 
-			if (solution && (submitted || isAssignment(part))) {
+			if (solution && (Store.isSubmitted(part) || isAssignment(part))) {
 				handler = this.onShowSolution;
 				label = 'Show Solution';
 			}

@@ -90,10 +90,9 @@ export default createReactClass({
 		let a = Store.getAssessedQuestion(question, question.getID());
 		let parts = question.parts;
 		let title = '';
-		let submitted = Store.isSubmitted(question);
 
 		//correct, incorrect, blank
-		let status = (submitted && a) ?
+		let status = (Store.isSubmitted(question) && a) ?
 			STATUS_MAP[a.isCorrect()] : '';
 
 		//Ripped from the WebApp:
@@ -119,7 +118,7 @@ export default createReactClass({
 					<WordBank record={question.wordbank} disabled={admin}/>
 				)}
 				{parts.map((part, i) =>
-					(<Part key={`part-${i}`} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin} submitted={submitted} >
+					(<Part key={`part-${i}`} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin} >
 						{this.renderSubmission(i)}
 					</Part>)
 				)}
