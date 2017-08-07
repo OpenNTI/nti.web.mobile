@@ -6,6 +6,7 @@ import {StoreEventsMixin} from 'nti-lib-store';
 import {rawContent} from 'nti-commons';
 
 import Store from '../Store';
+import {isAssignment} from '../utils';
 import {
 	HELP_VIEW_HINT,
 	HELP_VIEW_SOLUTION
@@ -25,6 +26,7 @@ export default createReactClass({
 		index: PropTypes.number.isRequired,
 		part: PropTypes.object.isRequired,
 		viewerIsAdministrative: PropTypes.bool,
+		submitted: PropTypes.bool,
 
 		children: PropTypes.any
 	},
@@ -139,7 +141,7 @@ export default createReactClass({
 
 
 	renderHelpButton (label) {
-		let {part} = this.props;
+		let {part, submitted} = this.props;
 		let {helpVisible} = this.state;
 		let hints = part && Store.getHints(part);
 		let solution = part && Store.getSolution(part);
@@ -150,7 +152,7 @@ export default createReactClass({
 		}
 		else {
 
-			if (solution) {
+			if (solution && (submitted || isAssignment(part))) {
 				handler = this.onShowSolution;
 				label = 'Show Solution';
 			}
