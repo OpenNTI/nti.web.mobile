@@ -6,7 +6,7 @@ You'll need to have the following items installed before continuing.
 
   * [Node.js](http://nodejs.org):
     * Use [nvm](https://github.com/creationix/nvm) to install NodeJS.
-        * `nvm install v6.9.4`
+        * `nvm install v8`
         * Setup default node:
           ```bash
           nvm alias default stable
