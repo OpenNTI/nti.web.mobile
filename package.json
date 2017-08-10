@@ -4,7 +4,7 @@
   "description": "NextThought Web Application",
   "author": "nextthought",
   "license": "UNLICENSED",
-  "homepage": "proxy://localhost:8083/mobile/",
+  "homepage": "proxy://localhost:8083/app/",
   "repository": {
     "type": "git",
     "url": "https://github.com/NextThought/nti.web.mobile.git"
@@ -19,7 +19,8 @@
     "build": "nti-app-scripts build",
     "clean": "nti-app-scripts clean",
     "check": "nti-app-scripts check",
-    "release": "nti-app-scripts release"
+    "release": "nti-app-scripts release",
+    "install-snapshots": "nti-app-scripts install-snapshots"
   },
   "main": "dist/server/index.js",
   "publishConfig": {
@@ -40,11 +41,11 @@
     "isempty": "0.0.1",
     "jstimezonedetect": "^1.0.6",
     "mime-types": "^2.1.0",
-    "moment-timezone": "^0.5.0",
     "moment": "^2.8.3",
+    "moment-timezone": "^0.5.0",
     "node-natural-sort": "^0.8.3",
     "nti-analytics": "^1.1.0",
-    "nti-app-scripts": "^1.0.22",
+    "nti-app-scripts": "^1.0.47",
     "nti-commons": "^2.0.0",
     "nti-lib-anchorjs": "^1.0.0",
     "nti-lib-content-processing": "^1.0.0",
@@ -63,17 +64,16 @@
     "nti-util-logger": "^1.0.0",
     "nti-web-client": "^1.1.0",
     "nti-web-commons": "0.x.x",
-    "nti-web-service": "^1.2.0",
     "nti-web-video": "^1.2.0",
     "numeral": "^2.0.0",
     "object-hash": "^1.1.0",
     "prop-types": "^15.5.10",
     "query-string": "^4.0.0",
+    "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "react-router-component": "0.x.x",
     "react-swipe-to-reveal-options": "^0.3.3",
     "react-transition-group": "^1.1.0",
-    "react": "^15.5.3",
     "uuid": "^3.0.0",
     "vtt.js": "^0.13.0",
     "zpad": "^0.5.0"
