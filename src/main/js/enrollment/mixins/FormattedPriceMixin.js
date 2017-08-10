@@ -1,7 +1,7 @@
-import Price from 'format-price';
+import {Currency} from 'nti-web-commons';
 
 export default {
 	getFormattedPrice (currency, price) {
-		return Price.format('en-US', currency, price);
+		return Currency.format(price, false, 'en-US', currency);
 	}
 };
