@@ -4,7 +4,7 @@
   "description": "NextThought Web Application",
   "author": "nextthought",
   "license": "UNLICENSED",
-  "homepage": "proxy://localhost:8083/mobile/",
+  "homepage": "proxy://localhost:8083/app/",
   "repository": {
     "type": "git",
     "url": "https://github.com/NextThought/nti.web.mobile.git"
@@ -44,7 +44,7 @@
     "moment-timezone": "^0.5.0",
     "node-natural-sort": "^0.8.3",
     "nti-analytics": "^1.1.0",
-    "nti-app-scripts": "^1.0.47",
+    "nti-app-scripts": "^1.0.51",
     "nti-commons": "^2.7.0",
     "nti-lib-anchorjs": "^1.0.0",
     "nti-lib-content-processing": "^1.0.0",
@@ -63,7 +63,6 @@
     "nti-util-logger": "^1.0.0",
     "nti-web-client": "^1.1.0",
     "nti-web-commons": "0.x.x",
-    "nti-web-service": "^1.2.0",
     "nti-web-video": "^1.7.4",
     "numeral": "^2.0.0",
     "object-hash": "^1.1.0",
