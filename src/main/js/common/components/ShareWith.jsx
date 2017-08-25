@@ -26,7 +26,9 @@ export default class ShareWith extends React.Component {
 
 		scope: PropTypes.object,
 
-		onBlur: PropTypes.func
+		onBlur: PropTypes.func,
+
+		readOnly: PropTypes.bool
 	};
 
 	state = {};
@@ -230,7 +232,7 @@ export default class ShareWith extends React.Component {
 	};
 
 	render () {
-		let {state: {focused, inputFocused, pendingRemove, search, selection, suggestionGroups}} = this;
+		let {state: {focused, inputFocused, pendingRemove, search, selection, suggestionGroups}, props: {readOnly}} = this;
 		const loading = !suggestionGroups;
 		let groupings = Object.keys(suggestionGroups || {})
 			.filter(x => suggestionGroups[x])
@@ -243,7 +245,7 @@ export default class ShareWith extends React.Component {
 
 
 		return (
-			<div ref={this.attachDomRef} className={cx('share-with', {'active': focused})}>
+			<div ref={this.attachDomRef} className={cx('share-with', {'active': focused && !readOnly, 'read-only': readOnly})}>
 
 				<div ref={this.attachEntryRef} className="share-with-entry" onClick={this.onFocus}>
 					{selection.getItems().map(e =>
@@ -253,6 +255,7 @@ export default class ShareWith extends React.Component {
 					)}
 					<span className="input-field" data-value={search}>
 						<input type="text" ref={this.attachSearchRef} value={search} placeholder={placeholder}
+							readOnly={readOnly}
 							onBlur={this.onInputBlur}
 							onFocus={this.onInputFocus}
 							onChange={this.onInputChange}
@@ -261,7 +264,7 @@ export default class ShareWith extends React.Component {
 					</span>
 				</div>
 
-				{focused && search ? (
+				{focused && search && !readOnly ? (
 
 					<div className="search-results">
 						<div ref={this.attachScrollerRef}
@@ -280,7 +283,7 @@ export default class ShareWith extends React.Component {
 
 				) : (
 					<div className="suggestions">
-						{!focused ? null : loading ? (
+						{!focused || readOnly ? null : loading ? (
 							<Loading.Ellipse />
 						) : (
 

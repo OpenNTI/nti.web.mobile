@@ -49,6 +49,19 @@ export default class NoteEditor extends React.Component {
 	}
 
 
+	get canEditSharing () {
+		const {item} = this.props;
+
+		if (!item) { return false; }
+
+		if (!item.isModifiable) { return true; }
+
+		const refCount = item.ReferencedByCount;
+
+		return refCount != null && refCount > 0;
+	}
+
+
 	detectContent () {
 		const {body} = this;
 		let disabled = body && Editor.isEmpty(body.getValue());
@@ -67,6 +80,7 @@ export default class NoteEditor extends React.Component {
 
 	render () {
 		const {
+			canEditSharing,
 			props: {
 				scope,
 				item
@@ -88,7 +102,7 @@ export default class NoteEditor extends React.Component {
 				<HideNavigation/>
 
 				<form onSubmit={this.stopFormSubmit}>
-					<ShareWith scope={scope} defaultValue={sharedWith} ref={this.attachShareWithRef} onBlur={this.ensureVisible}/>
+					<ShareWith scope={scope} defaultValue={sharedWith} ref={this.attachShareWithRef} onBlur={this.ensureVisible} readOnly={canEditSharing} />
 
 					<div className={cx('title', {error})} data-error-message={errorMessage}>
 						<input type="text" name="title" ref={this.attachTitleRef} placeholder="Title"
