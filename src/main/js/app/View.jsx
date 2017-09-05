@@ -1,4 +1,3 @@
-/*globals BUILD_SOURCE*/
 import URL from 'url';
 
 import React from 'react';
@@ -19,8 +18,6 @@ import AppContainer from './AppFrame';
 
 const SET_PAGESOURCE = 'navigation:setPageSource';
 const SET_CONTEXT = 'navigation:setContext';
-
-export const revision = typeof BUILD_SOURCE === 'undefined' ? 'nah' : BUILD_SOURCE;
 
 const logger = Logger.get('root:app:View');
 
