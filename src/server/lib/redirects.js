@@ -85,6 +85,7 @@ exports = module.exports = {
 			let url = path.join(this.basepath, 'catalog', 'item', parts[1]);
 			logger.debug('redirecting to: %s', url);
 			res.redirect(url);
+			return;
 		}
 
 		next();
