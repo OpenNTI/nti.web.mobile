@@ -1,14 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {getService} from 'nti-web-client';
 import {Progress} from 'nti-lib-interfaces';
 import {getScreenHeight, getScrollParent} from 'nti-lib-dom';
 import {Loading} from 'nti-web-commons';
 import {Component as Video} from 'nti-web-video';
+import {scoped} from 'nti-lib-locale';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import Mixin from './Mixin';
+
+const REF_CLASS = 'ntivideoref';
+
+const DEFAULT_TEXT = {
+	error: 'Video not found.'
+};
+
+const t = scoped('content.widgets.video', DEFAULT_TEXT);
 
 
 function getVideo (object, index) {
@@ -19,6 +29,13 @@ function getVideo (object, index) {
 	}
 
 	return NTIID ? index.get(NTIID) : index.mediaFrom(object);
+}
+
+
+async function getVideoRef (object) {
+	const service = await getService();
+
+	return service.getObject(object.NTIID || object.ntiid);
 }
 
 
@@ -40,7 +57,7 @@ export default createReactClass({
 
 	statics: {
 		interactiveInContext: true,
-		itemType: /ntivideo$/i
+		itemType: /ntivideo(ref)?$/i
 	},
 
 	propTypes: {
@@ -107,6 +124,8 @@ export default createReactClass({
 				return;
 			}
 
+			if (item.class === REF_CLASS) { return this.fillInVideoRef(props); }
+
 			this.setState({loading: true});
 
 
@@ -131,6 +150,26 @@ export default createReactClass({
 		} catch (e) {
 			this.onError(e);
 		}
+	},
+
+
+	fillInVideoRef (props) {
+		const {item} = props;
+
+		this.resolveContext()
+			.then(context => this.setState({context}))
+			.then(() => getVideoRef(item))
+			.then((v) => {
+				v.getPoster()
+					.then(poster => {
+						this.setState({
+							video: v,
+							loading: false,
+							poster
+						});
+					});
+			})
+			.catch(this.onError);
 	},
 
 
@@ -192,10 +231,10 @@ export default createReactClass({
 	render () {
 		const {
 			props: {item, tag = 'div', onFocus},
-			state: {loading, playing, poster, video, requestPlay}
+			state: {loading, playing, poster, video, requestPlay, error}
 		} = this;
 
-		const label = item.label || item.title;
+		const label = item.label || item.title || (video && video.title);
 
 		const Tag = tag || 'div';
 
@@ -206,7 +245,13 @@ export default createReactClass({
 
 		return (
 			<Tag ref={this.attachRef} className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
-				{!video || !requestPlay ? null :
+				{error && (
+					<div className="error">
+						<span>{t('error')}</span>
+					</div>
+				)}
+
+				{!video || !requestPlay || error ? null :
 					<Video ref={this.attachVideoRef} src={video}
 						onEnded={this.onStop}
 						onPaused={this.onStop}
@@ -215,7 +260,7 @@ export default createReactClass({
 					/>
 				}
 
-				{(playing || requestPlay) ? null :
+				{(playing || requestPlay || error) ? null :
 					<Loading.Mask style={posterRule} loading={loading}
 						tag="a" onFocus={onFocus} onClick={this.onPosterClicked}
 						className="content-video-tap-area" href="#">
