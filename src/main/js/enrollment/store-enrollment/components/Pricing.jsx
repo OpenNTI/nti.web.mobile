@@ -169,7 +169,7 @@ export default createReactClass({
 		const {props: {locked}} = this;
 
 		let type = 'Lifelong Learner';
-		let vendorInfo = this.props.purchasable.VendorInfo;
+		let vendorInfo = this.props.purchasable.vendorInfo;
 		let startDate = vendorInfo && vendorInfo.StartDate;
 		let endDate = vendorInfo && vendorInfo.EndDate;
 		let creditHours = 'No College Credit';//t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
