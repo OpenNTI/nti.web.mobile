@@ -106,7 +106,7 @@ export default createReactClass({
 		}
 
 		return (
-			<Background imgUrl={course.getPresentationProperties().background}>
+			<Background imgUrl={course.getPresentationProperties().background || '/mobile/resources/images/default-course/background.png'}>
 				{this.renderContent()}
 			</Background>
 		);
