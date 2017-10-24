@@ -158,7 +158,7 @@ export default createReactClass({
 		return (
 			<form className="symbolic-math" onKeyUp={this.onKeyUp} onPaste={block} onSubmit={stopEvent}>
 				<div className="input" onClick={this.focusInput}>
-					<span ref={this.attachRef} data-label={item.answerLabel}/>
+					<span ref={this.attachRef} data-label={item.answerLabel}>{value}</span>
 				</div>
 				<div className="shortcuts" onClick={this.insertSymbol}>
 					<a href="#" className="mathsymbol sqrt" data-latex="\surd" title="Insert square root"/>
