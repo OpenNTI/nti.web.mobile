@@ -57,6 +57,9 @@ export default createReactClass({
 		let {item} = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
 		let {icon, title, label, author} = presentation;
+
+		icon = icon || '/mobile/resources/images/default-course/contentpackage-landing-232x170.png';
+
 		this.setState({ icon, title, label, author });
 	},
 
