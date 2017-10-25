@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Ellipsed} from 'nti-web-commons';
+import {Ellipsed, Presentation} from 'nti-web-commons';
 
 import * as COURSE_SECTIONS from 'course/Sections';
 
@@ -57,8 +57,6 @@ export default createReactClass({
 		let {item} = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
 		let {icon, title, label, author} = presentation;
-
-		icon = icon || '/mobile/resources/images/default-course/contentpackage-landing-232x170.png';
 
 		this.setState({ icon, title, label, author });
 	},
@@ -148,7 +146,9 @@ export default createReactClass({
 		return (
 			<div className="library-item course">
 				<CourseContentLink courseId={courseId} section={defaultSection}>
-					<Icon src={icon}/>
+					<Presentation.Asset content={item.CourseInstance.CatalogEntry} propName="src" type="landing">
+						<Icon src={icon}/>
+					</Presentation.Asset>
 					<div className="badges">
 						{preview && <div className="preview">Preview</div>}
 						<Badge item={item}/>
