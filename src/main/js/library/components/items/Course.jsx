@@ -146,7 +146,7 @@ export default createReactClass({
 		return (
 			<div className="library-item course">
 				<CourseContentLink courseId={courseId} section={defaultSection}>
-					<Presentation.Asset content={item.CourseInstance.CatalogEntry} propName="src" type="landing">
+					<Presentation.Asset contentPackage={item.CourseInstance.CatalogEntry} propName="src" type="landing">
 						<Icon src={icon}/>
 					</Presentation.Asset>
 					<div className="badges">

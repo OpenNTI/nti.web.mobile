@@ -106,7 +106,7 @@ export default createReactClass({
 		}
 
 		return (
-			<Presentation.Asset propName="imgUrl" type="background" content={entry}>
+			<Presentation.Asset propName="imgUrl" type="background" contentPackage={entry}>
 				<Background imgUrl={course.getPresentationProperties().background || '/mobile/resources/images/default-course/background.png'}>
 					{this.renderContent()}
 				</Background>
