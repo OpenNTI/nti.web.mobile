@@ -39,9 +39,7 @@ export default createReactClass({
 					</div>
 
 				) : promo ? (
-					<Presentation.Asset propName="src" contentPackage={entry} type="promo">
-						<PromoImage/>
-					</Presentation.Asset>
+					<Presentation.AssetBackground contentPackage={entry} type="promo"/>
 				) :
 					null
 				}
@@ -53,13 +51,3 @@ export default createReactClass({
 		);
 	}
 });
-
-PromoImage.propTypes = {
-	src: PropTypes.string
-};
-
-function PromoImage ({src}) {
-	return (
-		<div className="promo-image" style={{backgroundImage: `url(${src})`}}/>
-	);
-}
