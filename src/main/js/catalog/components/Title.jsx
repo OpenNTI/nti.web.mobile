@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {Mixins} from 'nti-web-commons';
+import {Mixins, Presentation} from 'nti-web-commons';
 import {Component as Video} from 'nti-web-video';
 
 
@@ -39,9 +39,9 @@ export default createReactClass({
 					</div>
 
 				) : promo ? (
-
-					<div className="promo-image" style={{backgroundImage: `url(${promo})`}}/>
-
+					<Presentation.Asset propName="src" contentPackage={entry} type="promo">
+						<PromoImage/>
+					</Presentation.Asset>
 				) :
 					null
 				}
@@ -53,3 +53,13 @@ export default createReactClass({
 		);
 	}
 });
+
+PromoImage.propTypes = {
+	src: PropTypes.string
+};
+
+function PromoImage ({src}) {
+	return (
+		<div className="promo-image" style={{backgroundImage: `url(${src})`}}/>
+	);
+}
