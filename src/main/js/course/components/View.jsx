@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import {decodeFromURI} from 'nti-lib-ntiids';
-import {Background, Error as ErrorWidget, Loading, Mixins} from 'nti-web-commons';
+import {Background, Error as ErrorWidget, Loading, Mixins, Presentation} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
 import Assignments from 'assignment/components/View';
@@ -106,9 +106,11 @@ export default createReactClass({
 		}
 
 		return (
-			<Background imgUrl={course.getPresentationProperties().background || '/mobile/resources/images/default-course/background.png'}>
-				{this.renderContent()}
-			</Background>
+			<Presentation.Asset propName="imgUrl" type="background" content={entry}>
+				<Background imgUrl={course.getPresentationProperties().background || '/mobile/resources/images/default-course/background.png'}>
+					{this.renderContent()}
+				</Background>
+			</Presentation.Asset>
 		);
 	},
 
