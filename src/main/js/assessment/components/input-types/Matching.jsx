@@ -153,7 +153,11 @@ export default createReactClass({
 		let sources = this.props.item.labels || [];
 		let value = Array.from(Object.assign({length: sources.length}, this.state.value || {}));
 		let correct = '';
-		let dragSourceIndex = value.indexOf(targetIndex);
+
+		// we are seeing string values (of numbers) so we shouldn't assume the array is already numeric
+		const coercedValue = ([ ...(value || [])]).map(x => parseInt(x, 10));
+
+		let dragSourceIndex = coercedValue.indexOf(targetIndex);
 
 		if (dragSourceIndex < 0) {
 			return null;
