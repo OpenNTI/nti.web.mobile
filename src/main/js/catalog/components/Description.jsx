@@ -79,7 +79,7 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 					<dl>
 						<dt>{t('DaysAndTimes')}</dt>
 						<dd>
-							{isEmpty(entry.Schedule && entry.Schedule.days) ?
+							{isEmpty(entry.Schedule && entry.Schedule.days) || !entry.StartDate ?
 								<FullyOnline/> :
 								<Schedule schedule={entry.Schedule} startDate={entry.StartDate} />
 							}
