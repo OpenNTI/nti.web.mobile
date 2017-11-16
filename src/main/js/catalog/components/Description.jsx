@@ -24,9 +24,6 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 		OpenEnrolledMessage : 'div';
 
 	let prerequisites = entry.Prerequisites;
-	if (isEmpty(prerequisites)) {
-		prerequisites = [{title: t('NoPrerequisites')}];
-	}
 
 	let weeks = Math.floor(moment.duration(entry.Duration).asWeeks());
 
@@ -45,14 +42,14 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 					<dt>{entry.ProviderUniqueID}</dt>
 					<dd>{entry.Title}</dd>
 				</dl>
-				<dl>
+				{entry.ProviderDepartmentTitle && (<dl>
 					<dt>{t('SchoolLabel')}</dt>
 					<dd>{entry.ProviderDepartmentTitle}</dd>
-				</dl>
-				<dl>
+				</dl>)}
+				{prerequisites && prerequisites.length > 0 && (<dl>
 					<dt>Prerequisites</dt>
 					{(prerequisites || []).map((x, i) => (<dd key={x.id || i}>{x.title}</dd>))}
-				</dl>
+				</dl>)}
 				{EnrollmentMessage !== 'div' || !isEmpty(entry.Credit) && (
 					<dl>
 						<dt>{t('CreditHours')}</dt>
@@ -63,11 +60,11 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 						</dd>
 					</dl>
 				)}
-				<div className="cols">
-					<dl>
+				<div className="cols last">
+					{entry.StartDate && (<dl>
 						<dt>{t('StartDate')}</dt>
 						<dd>{moment(entry.StartDate).format('LL')}</dd>
-					</dl>
+					</dl>)}
 					{weeks > 0 && (
 						<dl>
 							<dt>{t('Duration')}</dt>

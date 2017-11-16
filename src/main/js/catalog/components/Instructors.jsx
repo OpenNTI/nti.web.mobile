@@ -11,6 +11,10 @@ export default function Instructors ({entry}) {
 		root = entry.getAssetRoot() || root;
 	}
 
+	if(instructors.length === 0) {
+		return null;
+	}
+
 	return (
 		<div className="course-instructors">
 			{instructors.map((i, index) =>
