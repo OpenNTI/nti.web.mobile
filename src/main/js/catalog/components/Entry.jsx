@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {encodeForURI} from 'nti-lib-ntiids';
-import {Mixins} from 'nti-web-commons';
+import {Mixins, Presentation} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
 const t = scoped('COURSE.INFO.CATALOG_ENTRY');
@@ -89,7 +89,7 @@ export default createReactClass({
 		return (
 			<li className="catalog-item">
 				<a href={this.getDetailHref()}>
-					<div className="thumbnail" style={{backgroundImage: icon && `url(${icon})`}}/>
+					<Presentation.AssetBackground className="thumbnail" contentPackage={item} type="landing" />
 					<label>
 						<h3>{item.Title}</h3>
 						<div>
