@@ -84,8 +84,6 @@ export default createReactClass({
 
 		let {status} = this.getStatus();
 
-		let icon = item && item.icon;
-
 		return (
 			<li className="catalog-item">
 				<a href={this.getDetailHref()}>
