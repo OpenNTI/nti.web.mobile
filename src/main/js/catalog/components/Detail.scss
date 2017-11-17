@@ -16,4 +16,25 @@
 	.footer {
 		margin-bottom: 3rem;
 	}
+
+	.course-inline-editor.view-only {
+		padding: 0;
+
+		.course-info-editor-section {
+			padding: 0 0.9375rem;
+
+			.contents {
+				padding-bottom: 20px;
+				padding-top: 14px;
+
+				.columned .field-info {
+					margin-bottom: 10px;
+				}
+			}
+		}
+
+		.facilitator-info {
+			padding-top: 0;
+		}
+	}
 }

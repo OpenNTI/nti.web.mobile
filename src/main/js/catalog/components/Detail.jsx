@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Info } from 'nti-web-course';
 
-import Title from './Title';
-import Description from './Description';
-import Instructors from './Instructors';
 import Support from './CourseSupport';
 
 Detail.propTypes = {
@@ -13,9 +11,7 @@ Detail.propTypes = {
 export default function Detail ({entry}) {
 	return (
 		<div className="course-detail-view">
-			<Title entry={entry} />
-			<Description entry={entry} />
-			<Instructors entry={entry}/>
+			<Info catalogEntry={entry}/>
 			<Support entry={entry}/>
 			<div className="footer"/>
 		</div>
