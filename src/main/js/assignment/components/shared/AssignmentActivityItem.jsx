@@ -36,42 +36,68 @@ const GOTO_HASH = {
 	'you-feedback': '#feedback'
 };
 
-ActivityItem.propTypes = {
-	event: PropTypes.object.isRequired
-};
+const getTitle = e => e && e.title;
+const getType = e => e && e.type;
 
-ActivityItem.contextTypes = {
-	isInstructor: PropTypes.bool
-};
-
-export default function ActivityItem ({event}, {isInstructor}) {
-	const {feedbackAuthor, date, title, type, unread, user, assignment} = event;
-	const today = new Date((new Date()).setHours(0, 0, 0, 0));
-
-	let format = 'MMM D'; // "Jan 2" ... Short month, Day of month without zero padding
-	if (date > today) {
-		format = 'h:mm a'; // "8:05 pm" ...Hours without zero padding, ":", minutes with zero padding, lower-case "am/pm"
+export default class ActivityItem extends React.Component {
+	static propTypes = {
+		event: PropTypes.object.isRequired
 	}
 
-	const href = (
-		isInstructor && linkToStudentView(user, type)
-			? join('..', encodeForURI(assignment.getID()), 'students', encodeURIComponent(user))
-			: join('..', encodeForURI(assignment.getID()))
-	) + (GOTO_HASH[type] || '');
+	static contextTypes = {
+		isInstructor: PropTypes.bool
+	}
 
-	const titleMarkup = ReactDOMServer.renderToStaticMarkup(<span className="assignment-name">{title}</span>);
-	const getLabelWithUser = (data) => t(type, {...data, title: titleMarkup});
+	state = {}
 
-	return (
-		<div className={cx('item', {unread})}>
-			<a href={href}>
-				<DateTime date={date} format={format}/>
-				{hasName(type) ? (
-					<DisplayName entity={feedbackAuthor || user} usePronoun localeKey={getLabelWithUser}/>
-				) : (
-					<span {...rawContent(t(type, {title: titleMarkup}))}/>
-				)}
-			</a>
-		</div>
-	);
+	componentWillMount () {
+		this.setState({
+			titleMarkup: this.getTitleMarkup(this.props.event)
+		});
+	}
+
+	componentWillReceiveProps (nextProps) {
+		if (getTitle(this.props.event) !== getTitle(nextProps.event)) {
+			this.setState({
+				titleMarkup: this.getTitleMarkup(nextProps.event)
+			});
+		}
+	}
+
+
+	getTitleMarkup = (ev) => ReactDOMServer.renderToStaticMarkup(<span className="assignment-name">{getTitle(ev)}</span>);
+
+
+	getLabelWithUser = (data) => t(getType(this.props.event), {...data, title: this.state.titleMarkup});
+
+
+	render () {
+		const {props: {event}, context: {isInstructor}, state: {titleMarkup}} = this;
+		const {feedbackAuthor, date, type, unread, user, assignment} = event;
+		const today = new Date((new Date()).setHours(0, 0, 0, 0));
+
+		let format = 'MMM D'; // "Jan 2" ... Short month, Day of month without zero padding
+		if (date > today) {
+			format = 'h:mm a'; // "8:05 pm" ...Hours without zero padding, ":", minutes with zero padding, lower-case "am/pm"
+		}
+
+		const href = (
+			isInstructor && linkToStudentView(user, type)
+				? join('..', encodeForURI(assignment.getID()), 'students', encodeURIComponent(user))
+				: join('..', encodeForURI(assignment.getID()))
+		) + (GOTO_HASH[type] || '');
+
+		return (
+			<div className={cx('item', {unread})}>
+				<a href={href}>
+					<DateTime date={date} format={format}/>
+					{hasName(type) ? (
+						<DisplayName entity={feedbackAuthor || user} usePronoun localeKey={this.getLabelWithUser}/>
+					) : (
+						<span {...rawContent(t(type, {title: titleMarkup}))}/>
+					)}
+				</a>
+			</div>
+		);
+	}
 }

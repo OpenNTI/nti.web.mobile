@@ -403,8 +403,12 @@ export default createReactClass({
 	},
 
 
+	cancelNote () {
+		this.setState({stagedNote: void 0});
+	},
+
+
 	renderNoteEditor () {
-		const cancel = ()=> this.setState({stagedNote: void 0});
 		const {stagedNote} = this.state;
 
 		if (!stagedNote) {
@@ -415,7 +419,7 @@ export default createReactClass({
 			<NoteEditor key="note-editor"
 				scope={this.props.contentPackage}
 				item={stagedNote}
-				onCancel={cancel}
+				onCancel={this.cancelNote}
 				onSave={this.saveNote}/>
 		);
 	},
