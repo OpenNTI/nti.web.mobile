@@ -19,6 +19,7 @@
 
 	.course-inline-editor.view-only {
 		padding: 0;
+		max-width: 100%;
 
 		.course-info-editor-section {
 			padding: 0 0.9375rem;
@@ -29,6 +30,10 @@
 
 				.columned .field-info {
 					margin-bottom: 10px;
+				}
+
+				.content-column {
+					max-width: 100%;
 				}
 			}
 		}
