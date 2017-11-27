@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {EmptyList} from 'nti-web-commons';
-import {PROFILE_MEMBERSHIP_VIEWED} from 'nti-analytics';
+import {ViewEvent} from 'nti-web-session';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 
@@ -22,8 +22,8 @@ export default createReactClass({
 		preview: PropTypes.bool
 	},
 
-	getAnalyticsMimeType () {
-		return PROFILE_MEMBERSHIP_VIEWED;
+	getAnalyticsType () {
+		return 'ProfileMembershipView';
 	},
 
 	getInitialState () {
@@ -105,6 +105,7 @@ export default createReactClass({
 
 		return (
 			<div className="profile-memberships">
+				{!preview && ( <ViewEvent {...this.getAnalyticsData()}/> )}
 				<MembershipList list={communities} title="Communities" preview={preview}/>
 				<MembershipList list={groups} title="Groups" preview={preview}/>
 			</div>

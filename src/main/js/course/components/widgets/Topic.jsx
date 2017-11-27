@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {Mixins} from 'nti-web-commons';
-import {Mixin as ResourceLoaded} from 'nti-analytics';
 
 /**
  * This is not to be confused with Forum topics.
@@ -15,7 +14,7 @@ import {Mixin as ResourceLoaded} from 'nti-analytics';
 
 export default createReactClass({
 	displayName: 'CourseOverviewTopic',
-	mixins: [Mixins.NavigatableMixin, ResourceLoaded],
+	mixins: [Mixins.NavigatableMixin],
 
 	statics: {
 		mimeTest: /topic$/i,

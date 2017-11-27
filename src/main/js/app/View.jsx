@@ -3,6 +3,7 @@ import URL from 'url';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {environment, CaptureClicks, Link} from 'react-router-component';
+import {Session} from 'nti-web-session';
 import {Loading} from 'nti-web-commons';
 import Logger from 'nti-util-logger';
 import {
@@ -101,11 +102,13 @@ export default class App extends React.Component {
 
 
 		return (
-			<CaptureClicks gotoURL={this.gotoURL}>
-				<Wrapper ref={this.attachRef}>
-					<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
-				</Wrapper>
-			</CaptureClicks>
+			<Session>
+				<CaptureClicks gotoURL={this.gotoURL}>
+					<Wrapper ref={this.attachRef}>
+						<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
+					</Wrapper>
+				</CaptureClicks>
+			</Session>
 		);
 	}
 }

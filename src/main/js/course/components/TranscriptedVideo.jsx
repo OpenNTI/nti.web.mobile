@@ -6,7 +6,6 @@ import {
 	WebVTT,
 	VTTCue/*, VTTRegion*/
 } from 'vtt.js';
-import {WatchVideoEvent, toAnalyticsPath} from 'nti-analytics';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 import {
@@ -276,20 +275,18 @@ export default createReactClass({
 	},
 
 
-	onNewWatchEventFactory (e) {
+	getAnalyticsData () {
 		let {context, cues, regions, video} = this.state;
 		let {course} = this.props;
 
 		let courseId = course.getID();
 
-		return new WatchVideoEvent(
-			video.ntiid,
-			courseId,
-			toAnalyticsPath(context || []),
-			e.currentTime,
-			e.duration,
-			Boolean(cues || regions)
-		);
+		return {
+			resourceId: video.ntiid,
+			rootContextId: courseId,
+			context: context || [],
+			withTranscript: Boolean(cues || regions)
+		};
 	},
 
 
@@ -379,7 +376,7 @@ export default createReactClass({
 					<Video ref={this.attachVideoRef}
 						src={video}
 						onTimeUpdate={this.onVideoTimeTick}
-						newWatchEventFactory={this.onNewWatchEventFactory}
+						analyticsData={this.getAnalyticsData()}
 					/>
 				)}
 				<div className="transcript">

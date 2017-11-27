@@ -28,7 +28,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {eventStarted, toAnalyticsPath, ExternalResourceEvent} from 'nti-analytics';
+import {toAnalyticsPath} from 'nti-analytics';
 import {rawContent} from 'nti-commons';
 import {AssetIcon, Constants, Mixins} from 'nti-web-commons';
 import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
@@ -136,6 +136,11 @@ export default createReactClass({
 			PropTypes.number,
 			PropTypes.string
 		])
+	},
+
+
+	contextTypes: {
+		analyticsManager: PropTypes.object.isRequired
 	},
 
 
@@ -267,9 +272,9 @@ export default createReactClass({
 			return;
 		}
 
-		const {contentPackage, item, onClick} = this.props;
+		const {context: {analyticsManager}, props: {item, onClick}} = this;
 		const resourceId = item.NTIID || item.ntiid; //Cards built from DOM have lowercase.
-		const contentId = contentPackage.getID();//this can be a CourseInstance, ContentBundle, or ContentPackage
+		// const contentId = contentPackage.getID();//this can be a CourseInstance, ContentBundle, or ContentPackage
 
 		if (onClick) {
 			onClick(e);
@@ -281,13 +286,9 @@ export default createReactClass({
 
 		if (this.isExternal()) {
 			this.resolveContext().then(context => {
-				const viewEvent = new ExternalResourceEvent(
-					resourceId,
-					contentId,
-					toAnalyticsPath(context, resourceId)
-				);
-
-				eventStarted(viewEvent);
+				analyticsManager.ExternalResourceView.send(resourceId, {
+					context: toAnalyticsPath(context, resourceId)
+				});
 			});
 		}
 	},

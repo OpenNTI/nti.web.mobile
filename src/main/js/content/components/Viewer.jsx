@@ -8,12 +8,7 @@ import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Loading, Error as Err, Pager} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
-import {
-	ASSIGNMENT_VIEWED,
-	RESOURCE_VIEWED,
-	SELFASSESSMENT_VIEWED,
-	Mixin as AnalyticsBehavior
-} from 'nti-analytics';
+import {ViewEvent} from 'nti-web-session';
 
 import ContextSender from 'common/mixins/ContextSender';
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
@@ -43,7 +38,6 @@ const TRANSITION_TIMEOUT = 300;
 export default createReactClass({
 	displayName: 'content:Viewer',
 	mixins: [
-		AnalyticsBehavior,
 		AnnotationFeature,
 		AssessmentFeature,
 		ContextSender,
@@ -75,10 +69,10 @@ export default createReactClass({
 	attachNodeRef (x) { this.node = x; },
 
 
-	signalResourceLoaded () {
+	getAnalyticsData () {
 		const {contentPackage} = this.props;
 		const quiz = this.getAssessment();
-		const mimeType = quiz ? (isAssignment(quiz) ? ASSIGNMENT_VIEWED : SELFASSESSMENT_VIEWED) : RESOURCE_VIEWED;
+		const type = quiz ? (isAssignment(quiz) ? 'AssignmentView' : 'AssessmentView') : 'ResourceView';
 
 		const assessmentId = quiz && quiz.getID();
 		const rootContextId = contentPackage.getID();
@@ -86,20 +80,15 @@ export default createReactClass({
 		const course = getCourse(contentPackage);
 		const courseId = course && course.getID();
 
-		const resourceId = assessmentId
-			? [ assessmentId, this.getPageID() ]
-			: this.getPageID();
+		const resourceId = this.getPageID();
 
-		this.resourceLoaded(
+		return {
+			type,
 			resourceId,
-			courseId || rootContextId,
-			mimeType
-		);
-	},
-
-
-	resumeAnalyticsEvents () {
-		this.signalResourceLoaded();
+			assessmentId,
+			rootContextId: courseId || rootContextId,
+			context: this.resolveContext() //<= async (Promise)
+		};
 	},
 
 
@@ -216,9 +205,7 @@ export default createReactClass({
 				pageSource,
 				pageTitle,
 				error
-			},
-
-			()=> this.signalResourceLoaded());
+			});
 
 		});
 	},
@@ -305,6 +292,7 @@ export default createReactClass({
 
 				) : (
 					<div key="content" ref={this.attachNodeRef}>
+						<ViewEvent {...this.getAnalyticsData()}/>
 						<div className="content-body">
 							{this.renderAssessmentHeader()}
 							<div className="coordinate-root">

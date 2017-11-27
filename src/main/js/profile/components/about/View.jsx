@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {PROFILE_VIEWED} from 'nti-analytics';
-import {ActiveState, Loading} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import { ActiveState, Loading } from 'nti-web-commons';
+import { ViewEvent } from 'nti-web-session';
+import { scoped } from 'nti-lib-locale';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 import Card from '../Card';
@@ -22,8 +22,8 @@ export default createReactClass({
 		entity: PropTypes.object.isRequired
 	},
 
-	getAnalyticsMimeType () {
-		return PROFILE_VIEWED;
+	getAnalyticsType () {
+		return 'ProfileAboutView';
 	},
 
 	render () {
@@ -38,6 +38,7 @@ export default createReactClass({
 
 		return (
 			<div className="profile-view">
+				<ViewEvent {...this.getAnalyticsData()}/>
 				<ul className="profile-cards">
 					{sections.map((s, index) => {
 						return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {addFeatureCheckClasses, VisibilityMonitor, Orientation} from 'nti-lib-dom';
-import {initAnalytics, endSession, resumeSession} from 'nti-analytics';
+import {addFeatureCheckClasses, Orientation} from 'nti-lib-dom';
 import {init as initLocale} from 'nti-lib-locale';
 import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfigFor} from 'nti-web-client';
 
@@ -47,16 +46,6 @@ ReactDOM.render(
 );
 
 function onAppMount (APP) {
-
-	initAnalytics();
-	window.addEventListener('beforeunload', ()=> endSession());
-	VisibilityMonitor.addChangeListener(visible => {
-		const fn = visible
-			? resumeSession
-			: endSession;
-
-		fn('visiblity changed');
-	});
 
 	Orientation.init(APP);
 	global.onbeforeunload = () => { APP.setState({mask: 'Reloading...'}); };

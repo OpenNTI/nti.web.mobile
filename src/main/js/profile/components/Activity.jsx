@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {EmptyList, Loading, Mixins, ScrollTrigger} from 'nti-web-commons';
-import {PROFILE_ACTIVITY_VIEWED} from 'nti-analytics';
+import { EmptyList, Loading, Mixins, ScrollTrigger } from 'nti-web-commons';
+import { ViewEvent } from 'nti-web-session';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
 import Joined from 'activity/components/widgets/Joined';
@@ -25,8 +25,8 @@ export default createReactClass({
 		filterParams: PropTypes.object
 	},
 
-	getAnalyticsMimeType () {
-		return PROFILE_ACTIVITY_VIEWED;
+	getAnalyticsType () {
+		return 'ProfileActivityView';
 	},
 
 	getInitialState () {
@@ -118,6 +118,7 @@ export default createReactClass({
 
 		return (
 			<ul className="activity">
+				<ViewEvent {...this.getAnalyticsData()}/>
 				{canPost && <li key="editor" className="activity-item card-write-something"><WriteSomething entity={entity} store={store}/></li> }
 				{!loading && store.length === 0 && !entity.isUser && <li key="activity-item emptyList"><EmptyList type="activity"/></li>}
 				{!loading && store.map((a, index) => {

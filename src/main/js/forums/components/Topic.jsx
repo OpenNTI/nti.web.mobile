@@ -2,16 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Transition from 'react-transition-group/CSSTransitionGroup';
-import {
-	Mixin as ResourceLoaded,
-	TOPIC_VIEWED,
-	addHistory,
-	getHistory
-} from 'nti-analytics';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {Error as Err, Loading, Mixins, Notice, Prompt} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
-import {StoreEventsMixin} from 'nti-lib-store';
+import { addHistory, getHistory } from 'nti-analytics';
+import { decodeFromURI } from 'nti-lib-ntiids';
+import { Error as Err, Loading, Mixins, Notice, Prompt } from 'nti-web-commons';
+import { scoped } from 'nti-lib-locale';
+import { StoreEventsMixin } from 'nti-lib-store';
+import { ViewEvent } from 'nti-web-session';
 
 // mixins
 import KeepItemInState from '../mixins/KeepItemInState';
@@ -19,8 +15,8 @@ import Paging from '../mixins/Paging';
 import ToggleState from '../mixins/ToggleState';
 //
 import * as Actions from '../Actions';
-import {getTopicContents} from '../Api';
-import {ITEM_CONTENTS_CHANGED, COMMENT_ADDED, ITEM_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID} from '../Constants';
+import { getTopicContents } from '../Api';
+import { ITEM_CONTENTS_CHANGED, COMMENT_ADDED, ITEM_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID } from '../Constants';
 import Store from '../Store';
 
 import ActionsComp from './Actions';
@@ -38,7 +34,6 @@ export default createReactClass({
 
 	mixins: [
 		StoreEventsMixin,
-		ResourceLoaded,
 		Mixins.NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
@@ -50,6 +45,7 @@ export default createReactClass({
 		topicId: PropTypes.string,
 		showComments: PropTypes.bool
 	},
+
 
 	getDefaultProps () {
 		return {
@@ -95,6 +91,7 @@ export default createReactClass({
 		}
 	},
 
+
 	getInitialState () {
 		return {
 			loading: true,
@@ -102,26 +99,37 @@ export default createReactClass({
 		};
 	},
 
-	startAnalyticsEvent () {
-		let {topicId} = this.props;
-		this.resourceLoaded(topicId, Store.getContextID(), TOPIC_VIEWED);
+
+	getAnalyticsData () {
+		const {topicId} = this.props;
+
+		const analyticsContext = () => {
+			let h = getHistory() || [];
+			if (h.length > 0 && h[h.length - 1] === this.getTopicId()) {
+				h.length--; // don't include ourselves in the context
+			}
+			return h;
+		};
+
+		return {
+			type: 'TopicView',
+			resourceId: topicId,
+			rootContextId: Store.getContextID(),
+			context: analyticsContext()
+		};
 	},
 
-	resumeAnalyticsEvents () {
-		this.startAnalyticsEvent();
-	},
 
 	componentDidMount () {
-		let {topicId} = this.props;
+		const {topicId} = this.props;
 		this.loadData(topicId);
-		this.startAnalyticsEvent();
-
 	},
+
 
 	componentWillUnmount () {
 		addHistory(this.getTopicId(this.props));
-		this.resourceUnloaded();
 	},
+
 
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.topicId !== this.props.topicId) {
@@ -137,9 +145,11 @@ export default createReactClass({
 		}
 	},
 
+
 	getTopicId (props = this.props) {
 		return decodeFromURI(props.topicId);
 	},
+
 
 	loadData (topicId = this.props.topicId) {
 		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
@@ -160,13 +170,6 @@ export default createReactClass({
 			);
 	},
 
-	analyticsContext () {
-		let h = getHistory() || [];
-		if (h.length > 0 && h[h.length - 1] === this.getTopicId()) {
-			h.length--; // don't include ourselves in the context
-		}
-		return Promise.resolve(h);
-	},
 
 	editTopic () {
 		Store.startEdit();
@@ -175,6 +178,7 @@ export default createReactClass({
 		});
 	},
 
+
 	deleteTopic () {
 		Prompt.areYouSure(t('deleteTopicPrompt')).then(() => {
 			Actions.deleteTopic(this.getTopic());
@@ -182,13 +186,16 @@ export default createReactClass({
 		()=> {});
 	},
 
+
 	getTopic () {
 		return this.getItem() || Store.getForumItem(this.props.topicId);
 	},
 
+
 	getPropId () {
 		return this.props.topicId;
 	},
+
 
 	saveEdit () {
 		let val = this.headline.getValue();
@@ -196,12 +203,14 @@ export default createReactClass({
 		Store.endEdit();
 	},
 
+
 	hideEditForm () {
 		Store.endEdit();
 		this.setState({
 			editing: false
 		});
 	},
+
 
 	render () {
 
@@ -232,6 +241,7 @@ export default createReactClass({
 
 		return (
 			<div>
+				<ViewEvent {...this.getAnalyticsData()}/>
 				<Transition transitionName="fadeOutIn"
 					transitionAppear
 					transitionAppearTimeout={500}
@@ -263,5 +273,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-
 });

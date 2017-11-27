@@ -1,6 +1,5 @@
 import AppDispatcher from 'nti-lib-dispatcher';
 import {getServer, getService} from 'nti-web-client';
-import {endSession as endAnalyticsSession} from 'nti-analytics';
 
 import Store from './Store'; //ONLY READ from the store!!
 import {
@@ -44,10 +43,8 @@ export function login (username, password) {
 		);
 }
 
-export function logout () {
-	endAnalyticsSession()
-		.then( () => getService().then(s => {
-			let url = s.getLogoutURL('/mobile/login/');
-			global.location.replace(url);
-		}));
+export async function logout () {
+	const service = await getService();
+	const url = service.getLogoutURL('/mobile/login/');
+	global.location.replace(url);
 }
