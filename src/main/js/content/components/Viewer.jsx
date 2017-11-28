@@ -120,11 +120,6 @@ export default createReactClass({
 	},
 
 
-	componentWillUnmount () {
-		this.resourceUnloaded();
-	},
-
-
 	componentWillReceiveProps (props) {
 		this.getDataIfNeeded(props);
 	},
