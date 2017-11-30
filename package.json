@@ -20,7 +20,8 @@
     "clean": "nti-app-scripts clean",
     "check": "nti-app-scripts check",
     "release": "nti-app-scripts release",
-    "install-snapshots": "nti-app-scripts install-snapshots"
+    "install-snapshots": "nti-app-scripts install-snapshots",
+    "fix": "nti-app-scripts fix"
   },
   "main": "dist/server/index.js",
   "publishConfig": {
