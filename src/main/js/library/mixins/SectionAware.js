@@ -57,6 +57,10 @@ export default {
 	},
 
 
+	isSection (section) {
+		return SECTION_FILTERS_MAP.hasOwnProperty(section);
+	},
+
 
 	getBinnedData (section) {
 		let bins = [];

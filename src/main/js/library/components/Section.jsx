@@ -6,6 +6,7 @@ import {Link} from 'react-router-component';
 import {EmptyList} from 'nti-web-commons';
 
 import NavigationBar from 'navigation/components/Bar';
+import NotFound from 'notfound/components/View';
 
 import SectionMixin from '../mixins/SectionAware';
 
@@ -23,11 +24,17 @@ export default createReactClass({
 	},
 
 	render () {
-		let {props: {section}} = this;
+		const {props: {section}} = this;
 
-		let bins = section ? this.getBinnedData(section) : [];
+		if (!this.isSection(section)) {
+			return (
+				<NotFound/>
+			);
+		}
 
-		let props = {
+		const bins = section ? this.getBinnedData(section) : [];
+
+		const props = {
 			className: cx('library-view', { 'single-section': bins.length === 1 })
 		};
 
@@ -44,10 +51,15 @@ export default createReactClass({
 					<AddButton section={section}/>
 				</div>
 
-				{bins && bins.length > 0
-					? React.createElement('div', props, ...bins.map((b, i)=>
-						<Collection key={b.name + (b.label || i)} title={b.name} subtitle={b.label} list={b.items}/>))
-					: ( <EmptyList type={`library-${section}`}/> )}
+				{bins && bins.length > 0 ? (
+					<div {...props}>
+						{bins.map((b, i) => (
+							<Collection key={b.name + (b.label || i)} title={b.name} subtitle={b.label} list={b.items}/>
+						))}
+					</div>
+				) : (
+					<EmptyList type={`library-${section}`}/>
+				)}
 			</div>
 		);
 	}
