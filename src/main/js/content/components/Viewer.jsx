@@ -18,7 +18,7 @@ import {loadPage, resolveNewContext} from '../Actions';
 import PageDescriptor from '../PageDescriptor';
 
 import AnnotationFeature from './viewer-parts/annotations';
-import AssessmentFeature, {isAssignment} from './viewer-parts/assessment';
+import AssessmentFeature, {isAssignment, isSurvey} from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
@@ -72,7 +72,13 @@ export default createReactClass({
 	getAnalyticsData () {
 		const {contentPackage} = this.props;
 		const quiz = this.getAssessment();
-		const type = quiz ? (isAssignment(quiz) ? 'AssignmentView' : 'AssessmentView') : 'ResourceView';
+		const type = !quiz ? 'ResourceView' : (
+			isAssignment(quiz)
+				? 'AssignmentView'
+				: isSurvey(quiz)
+					? 'SurveyView'
+					: 'AssessmentView'
+		);
 
 		const assessmentId = quiz && quiz.getID();
 		const rootContextId = contentPackage.getID();
@@ -84,8 +90,8 @@ export default createReactClass({
 
 		return {
 			type,
-			resourceId,
-			assessmentId,
+			resourceId: assessmentId || resourceId,
+			ContentID: resourceId,
 			rootContextId: courseId || rootContextId,
 			context: this.resolveContext() //<= async (Promise)
 		};
