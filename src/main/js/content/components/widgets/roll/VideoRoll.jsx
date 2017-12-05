@@ -236,7 +236,9 @@ export default createReactClass({
 								<Video ref={this.attachVideoRef} src={video}
 									onEnded={this.onStop}
 									onPlaying={this.onPlay}
-									context={this.state.context}
+									analyticsData={{
+										context: this.state.context
+									}}
 								/>
 							}
 

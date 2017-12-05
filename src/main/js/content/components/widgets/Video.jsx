@@ -256,7 +256,9 @@ export default createReactClass({
 						onEnded={this.onStop}
 						onPaused={this.onStop}
 						onPlaying={this.onPlay}
-						context={this.state.context}
+						analyticsData={{
+							context: this.state.context
+						}}
 					/>
 				}
 

@@ -192,11 +192,15 @@ export default createReactClass({
 					<Err error={error}/>
 				)}
 				{(!video || !renderVideoFully) ? null :
-					<Video ref={this.attachVideoRef} src={this.state.video}
+					<Video deferred
+						ref={this.attachVideoRef}
+						src={this.state.video}
 						onEnded={this.onStop}
 						onPlaying={this.onPlay}
-						context={this.state.context}
-						deferred />
+						analyticsData={{
+							context: this.state.context
+						}}
+					/>
 				}
 				{playing ? null :
 					<Loading.Mask style={style} loading={this.state.loading}

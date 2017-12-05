@@ -35,7 +35,7 @@ export default createReactClass({
 				{video ? (
 
 					<div className="video-wrap">
-						<Video src={video} context={context}/>
+						<Video src={video} analyticsData={{context}}/>
 					</div>
 
 				) : promo ? (
