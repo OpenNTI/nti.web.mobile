@@ -103,6 +103,17 @@ nti\:content {
 			color: grey;
 		}
 
+		&.code span.error {
+			background: inherit;
+			padding: 0;
+			color: inherit;
+			font-size: inherit;
+			display: inline;
+			margin: 0;
+			font-weight: inherit;
+			font-style: inherit;
+		}
+
 		&.code, code {
 			background-color: #eee;
 		}
