@@ -95,10 +95,46 @@ nti\:content {
 		padding-bottom: 0.3125rem;
 		font-family: Monaco, "Courier New", Courier, fixed;
 		padding-left: 4ex;
-
 		overflow: auto;
 		word-wrap: normal;
 		-webkit-overflow-scrolling: touch;
+
+		&.code .ln {
+			color: grey;
+		}
+
+		&.code, code {
+			background-color: #eee;
+		}
+
+		&.code .comment, code .comment {
+			color: #5c6576;
+		}
+
+		&.code .keyword, code .keyword {
+			color: #3b0d06;
+			font-weight: bold;
+		}
+
+		&.code .literal.string, code .literal.string {
+			color: #0c5404;
+		}
+
+		&.code .name.builtin, code .name.builtin {
+			color: #352b84;
+		}
+
+		&.code .deleted, code .deleted {
+			background-color: #deb0a1;
+		}
+
+		&.code .inserted, code .inserted {
+			background-color: #a3d289;
+		}
+
+		&.code {
+			overflow: scroll;
+		}
 	}
 
 	sup {
