@@ -18,7 +18,7 @@ const SEGMENT_HANDLERS = {
 
 const HANDLERS = {
 	handleObjectRedirects: /(\/id|ntiid)\//i,
-	handleInvitationRedirects: /invitations\/accept/i,
+	handleInvitationRedirects: /invitations\/accept|catalog\/redeem/i,
 	handleLibraryRedirects: /^library/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
 	handleLibraryPathRedirects: /^\/[^\/]+\/library/i
