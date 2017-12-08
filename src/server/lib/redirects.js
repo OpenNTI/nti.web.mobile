@@ -18,7 +18,7 @@ const SEGMENT_HANDLERS = {
 
 const HANDLERS = {
 	handleObjectRedirects: /(\/id|ntiid)\//i,
-	handleInvitationRedirects: /invitations\/accept|catalog\/redeem/i,
+	handleInvitationRedirects: /(invitations\/accept)|(catalog\/redeem)/i,
 	handleLibraryRedirects: /^library/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
 	handleLibraryPathRedirects: /^\/[^\/]+\/library/i
@@ -54,13 +54,15 @@ exports = module.exports = {
 		/*
 		 *	from:
 		 *	library/courses/available/invitations/accept/<token>
+		 *	or:
+		 *	/app/catalog/redeem/<token>
 		 *
 		 *	to:
 		 *	<basepath>/catalog/code/<token>
 		 */
 
 		// [full match, token]
-		let parts = query.match(/accept\/([^\/]*)/);
+		let parts = query.match(/(accept|redeem)\/([^\/]*)/);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'code', parts[1]);
 			logger.debug('redirecting to: %s', url);
