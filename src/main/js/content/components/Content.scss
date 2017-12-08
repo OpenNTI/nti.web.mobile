@@ -146,6 +146,12 @@ nti\:content {
 		&.code {
 			line-height: 1em;
 			overflow: scroll;
+			margin-bottom: 10px;
+
+			* {
+				word-wrap: normal;
+				word-break: normal;
+			}
 		}
 	}
 
