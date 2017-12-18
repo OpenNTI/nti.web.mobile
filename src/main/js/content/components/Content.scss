@@ -97,6 +97,8 @@ nti\:content {
 		padding-left: 4ex;
 		overflow: auto;
 		word-wrap: normal;
+		word-break: normal;
+		white-space: pre;
 		-webkit-overflow-scrolling: touch;
 
 		&.code .ln {
