@@ -80,11 +80,12 @@ export default {
 			if (isNTIID(id)) {
 				let {pageSource, page} = this.state;
 				let ref = encodeForURI(id);
+				const toc = page.getTableOfContents();
 
 				href = pageSource.contains(id)
 					? this.makeHref(ref) //the ID is in the pageSource... just page
 					//ID is not in the pageSource, reroot:
-					: page.getTableOfContents().getNode(id) != null
+					: (toc && toc.getNode(id) != null)
 						? this.makeHrefNewRoot(ref)
 						//ID is not in the current toc, resolve:
 						: this.makeObjectHref(ref);

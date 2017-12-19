@@ -8,7 +8,11 @@ export function buildPageInfoForContents (service, context, assessment, contents
 	const parent = assessment.parent('ContentPackageBundle');
 	const Bundle = parent && parent.ContentPackageBundle;
 	const Package = Bundle && Bundle.ContentPackages[0];
-	const ContentPackageNTIID = Package && Package.NTIID;
+	/*
+	* NTI-4705: Placeholder is there for courses that are newly created with no content packages.
+	* This allows for assignments to be opened in an empty course.
+	*/
+	const ContentPackageNTIID = (Package && Package.NTIID) || 'placeholder' ;
 
 	const content = `
 		<head>

@@ -43,7 +43,10 @@ export default class PageDescriptor {
 	}
 
 
-	getPageSource (id) { return this.tableOfContents.getPageSource(id); }
+	getPageSource (id) {
+		const toc = this.tableOfContents;
+		return toc && toc.getPageSource(id); 
+	}
 
 
 	getPageStyles () { return this.styles; }
