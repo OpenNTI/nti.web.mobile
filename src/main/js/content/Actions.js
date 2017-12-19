@@ -40,6 +40,10 @@ export function loadPage (ntiid, context, extra) {
 	}
 
 	function loadTOC (id) {
+		if (!id || id === 'placeholder') {
+			return null;
+		}
+
 		return loadPackage(id)
 			.then(p => (p && p.getTableOfContents()) || Promise.reject('No Package for Page!'));
 	}
