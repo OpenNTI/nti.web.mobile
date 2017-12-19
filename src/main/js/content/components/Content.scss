@@ -44,6 +44,15 @@ nti\:content {
 		hyphens: manual;
 	}
 
+	.question-content > pre {
+		line-height: 0.8em;
+		overflow: auto;
+		word-wrap: normal;
+		word-break: normal;
+		white-space: pre;
+		-webkit-overflow-scrolling: touch;
+	}
+
 	.label {
 		font-family: inherit;
 		line-height: inherit;
@@ -95,11 +104,7 @@ nti\:content {
 		padding-bottom: 0.3125rem;
 		font-family: Monaco, "Courier New", Courier, fixed;
 		padding-left: 4ex;
-		overflow: auto;
-		word-wrap: normal;
-		word-break: normal;
-		white-space: pre;
-		-webkit-overflow-scrolling: touch;
+
 
 		&.code .ln {
 			color: grey;
