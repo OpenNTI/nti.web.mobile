@@ -6,6 +6,8 @@ import {declareCustomElement, getEventTarget} from 'nti-lib-dom';
 import isTouchDevice from 'nti-util-detection-touch';
 import {rawContent} from 'nti-commons';
 
+import ContextAccessor from 'common/mixins/ContextAccessor';
+
 import {getWidget} from './widgets';
 
 function getComparable (o) {
@@ -29,7 +31,8 @@ export default class Content extends React.Component {
 	}
 
 	static contextTypes = {
-		analyticsManager: PropTypes.object.isRequired
+		...ContextAccessor.contextTypes,
+		analyticsManager: PropTypes.object.isRequired,
 	}
 
 
