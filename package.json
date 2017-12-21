@@ -72,7 +72,7 @@
     "nti-web-commons": "^0.21.0",
     "nti-web-course": "^1.6.0",
     "nti-web-session": "^1.0.0",
-    "nti-web-video": "^1.15.0",
+    "nti-web-video": "^1.15.1",
     "numeral": "^2.0.0",
     "object-hash": "^1.1.0",
     "prop-types": "^15.5.10",
