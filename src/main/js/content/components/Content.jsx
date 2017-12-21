@@ -28,6 +28,10 @@ export default class Content extends React.Component {
 		onUserSelectionChange: PropTypes.func
 	}
 
+	static contextTypes = {
+		analyticsManager: PropTypes.object.isRequired
+	}
+
 
 	static defaultProps = {
 		onContentReady: () => {},
@@ -128,7 +132,8 @@ export default class Content extends React.Component {
 				widgetData,
 				this.props.page,
 				{...this.props, id: void 0},
-				this.context);
+				this.context
+			);
 		}
 	}
 
