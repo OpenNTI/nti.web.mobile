@@ -57,7 +57,7 @@ function getContentsForAssessment (assessment) {
 	}
 
 	if (content) {
-		contents.push(`<div class="sidebar">${content}</div>`);
+		contents.push(`<div class="sidebar assignment-description">${content}</div>`);
 	}
 
 	for (let index = 0; index < questions.length; index++) {

@@ -11,7 +11,7 @@ function getBaseContents (assignment) {
 	}
 
 	if (content) {
-		contents.push(`<div class="sidebar">${content}</div>`);
+		contents.push(`<div class="sidebar assignment-description">${content}</div>`);
 	}
 
 	return contents;
@@ -42,4 +42,3 @@ export default function (service, context, assignment) {
 			return buildPageInfoForContents(service, context, assignment, contents.join(''));
 		});
 }
-

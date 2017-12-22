@@ -12,6 +12,9 @@ import Mixin from '../Mixin';
 import RollCommon from './Mixin';
 
 
+const getVideoID = item => item.NTIID || (item.dataset || {}).ntiid;
+
+
 function getVideo (object, index) {
 	let {NTIID = object.ntiid} = object;
 
@@ -237,6 +240,7 @@ export default createReactClass({
 									onEnded={this.onStop}
 									onPlaying={this.onPlay}
 									analyticsData={{
+										resourceId: getVideoID(video),
 										context: this.state.context
 									}}
 								/>

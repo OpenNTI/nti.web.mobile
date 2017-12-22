@@ -74,14 +74,10 @@ export default class Content extends React.Component {
 				return {widgets, content: htmlToReact(markup, (n, a)=>isWidget(n, a, widgets))};
 			};
 
-			work = processContent({content}, strategies);
 
-			if (work && work.then) {
-				work = work.then(postProcess)
-					.catch(()=> ({content, widgets: void 0}));
-			} else {
-				work = postProcess(work);
-			}
+			processContent({content}, strategies)
+				.then(postProcess)
+				.catch(()=> ({content, widgets: void 0}));
 		}
 
 		if (work && work.then) {

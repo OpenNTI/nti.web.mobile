@@ -44,7 +44,7 @@ nti\:content {
 		hyphens: manual;
 	}
 
-	.question-content > pre {
+	.question-content > pre, .assignment-description > pre {
 		margin-bottom: 10px;
 		overflow: auto;
 		word-wrap: normal;

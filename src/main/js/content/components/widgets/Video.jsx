@@ -257,6 +257,7 @@ export default createReactClass({
 						onPaused={this.onStop}
 						onPlaying={this.onPlay}
 						analyticsData={{
+							resourceId: this.getVideoID(),
 							context: this.state.context
 						}}
 					/>
