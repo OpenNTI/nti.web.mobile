@@ -1,24 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {CollectionFilter as Filter} from 'nti-web-commons';
+import createReactClass from 'create-react-class';
+import Catalog from 'nti-web-catalog';
 
-import AcceptInvitation from 'invitations/components/Accept';
-import filters from 'library/Filters';
+import ContextSender from 'common/mixins/ContextSender';
 
-import ListView from './ListView';
-
-
-export default function CatalogListView (props) {
-	return (
-		<div className="catalog">
-			<Filter {...props} filters={filters} localStorageKey="catalog">
-				<ListView title={props.title} />
-			</Filter>
-			<AcceptInvitation />
-		</div>
-	);
+function getRouteFor (obj) {
+	//Check if the object is a catalog entry and handle it appropriately
 }
 
-CatalogListView.propTypes = {
-	title: PropTypes.string
-};
+export default createReactClass({
+	displayName: 'CatalogListView',
+
+	mixins: [ContextSender],
+
+	contextTypes: {
+		router: PropTypes.object
+	},
+
+
+	childContextTypes: {
+		router: PropTypes.object
+	},
+
+	getChildContext () {
+		return {
+			router: {
+				...(this.context.router || {}),
+				baseroute: '/mobile/catalog/',
+				getRouteFor
+			}
+		};
+	},
+
+
+	render () {
+		return (
+			<div className="catalog">
+				<Catalog />
+			</div>
+		);
+	}
+});

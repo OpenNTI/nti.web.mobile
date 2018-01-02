@@ -33,7 +33,8 @@
   ],
   "dependencies": {
     "nti-lib-ntiids": "^1.0.0",
-    "nti-util-logger": "^1.0.0"
+    "nti-util-logger": "^1.0.0",
+    "nti-web-catalog": "^0.5.1"
   },
   "devDependencies": {
     "array-range": "^1.0.1",
