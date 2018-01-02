@@ -34,7 +34,6 @@
   "dependencies": {
     "nti-lib-ntiids": "^1.0.0",
     "nti-util-logger": "^1.0.0",
-    "nti-web-catalog": "^0.5.1"
   },
   "devDependencies": {
     "array-range": "^1.0.1",
@@ -69,9 +68,11 @@
     "nti-style-common": "^1.4.0",
     "nti-util-detection-touch": "^1.0.0",
     "nti-util-ios-version": "^1.0.0",
+    "nti-web-catalog": "^0.5.1",
     "nti-web-client": "^1.1.0",
     "nti-web-commons": "0.x.x",
     "nti-web-course": "^1.6.0",
+    "nti-web-routing": "^0.3.0",
     "nti-web-session": "^1.0.0",
     "nti-web-video": "^1.15.1",
     "numeral": "^2.0.0",

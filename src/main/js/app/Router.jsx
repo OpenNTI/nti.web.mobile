@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Prompt, Mixins} from 'nti-web-commons';
+import {getHistory} from 'nti-web-routing';
 import {
 	environment,
 	Locations,
@@ -48,6 +49,7 @@ const HANDLER_BY_NAME = {
 const SendGAEvent = 'Router:SendGAEvent';
 const SetPath = '_original:SetPath';
 
+const routerHistory = getHistory();
 
 
 export default createReactClass({
@@ -71,9 +73,15 @@ export default createReactClass({
 
 		Object.assign(ENVIRONMENT, {
 			[SetPath]: setPath,
-			setPath: (...args) => {
-				let [, options = {}] = args;
-				let continueSetPath = () => ENVIRONMENT[SetPath](...args);
+			setPath: (path, navigation, cb) => {
+				let {options = {}} = navigation;
+				let continueSetPath = () => {
+					ENVIRONMENT[SetPath](path, navigation, cb);
+
+					setTimeout(() => {
+						routerHistory.replace(path);
+					}, 100);
+				};
 
 				if (options.isPopState || !this.maybeBlockNavigation(continueSetPath)) {
 					continueSetPath();

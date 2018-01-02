@@ -37,6 +37,11 @@ export default createReactClass({
 	render () {
 		return (
 			<div className="catalog">
+				<div className="header">
+					<a href="/mobile/catalog/">Courses</a>
+					<a href="/mobile/catalog/purchased">History</a>
+					<a href="/mobile/catalog/redeem">Redeem</a>
+				</div>
 				<Catalog />
 			</div>
 		);
