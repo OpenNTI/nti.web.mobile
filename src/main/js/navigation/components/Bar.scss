@@ -71,8 +71,47 @@ nav.nav-bar {
 	background: #fff;
 	z-index: 1002;
 
+	&.border {
+		box-shadow: 0 1px 0 0 $border-grey;
+	}
+
 	.hide-nav & {
 		display: none;
+	}
+
+	.search-container {
+		position: absolute;
+		top: 0; bottom: 0;
+		left: 0; right: 0;
+		padding: 0 0 0 0.5rem;
+		background: white;
+
+		display: flex;
+		align-items: center;
+
+		.icon-search {
+			flex: 0 0 auto;
+		}
+
+		input {
+			flex: 1 1 auto;
+			margin: 0;
+			border: 0;
+		}
+
+
+		.close-search {
+			width: 2rem;
+			height: 2rem;
+			line-height: 2rem;
+			text-align: center;
+			flex: 0 0 auto;
+			color: $primary-grey;
+		}
+	}
+
+	.launch-search {
+		color: $primary-grey;
 	}
 
 	h1 {

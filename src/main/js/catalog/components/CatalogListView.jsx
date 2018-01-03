@@ -44,7 +44,7 @@ export default createReactClass({
 
 	render () {
 		return (
-			<Page title="Catalog" availableSections={this.availableSections}>
+			<Page title="Catalog" availableSections={this.availableSections} supportsSearch border>
 				<Catalog />
 			</Page>
 		);

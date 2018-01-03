@@ -9,6 +9,7 @@ import {buffer} from 'nti-commons';
 import Logger from 'nti-util-logger';
 import {Pager, Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
+import {Input} from 'nti-web-search';
 
 import NavStore from '../Store';
 
@@ -52,7 +53,9 @@ export default createReactClass({
 		title: PropTypes.string,
 
 		children: PropTypes.any,
-		availableSections: PropTypes.array
+		availableSections: PropTypes.array,
+		supportsSearch: PropTypes.bool,
+		border: PropTypes.bool
 	},
 
 	backingStore: NavStore,
@@ -219,6 +222,23 @@ export default createReactClass({
 	},
 
 
+	launchSearch () {
+		this.setState({
+			searchOpen: true,
+			menuOpen: false
+		});
+	},
+
+
+	closeSearch (e) {
+		e.preventDefault();
+
+		this.setState({
+			searchOpen: false
+		});
+	},
+
+
 	render () {
 		let {menuOpen} = this.state;
 
@@ -239,10 +259,11 @@ export default createReactClass({
 
 
 	renderBar () {
-		let {pageSource, currentPage, context, resolving} = this.state;
+		const {supportsSearch, border} = this.props;
+		let {pageSource, currentPage, context, resolving, searchOpen} = this.state;
 
 		return (
-			<nav className="nav-bar">
+			<nav className={cx('nav-bar', {border})}>
 				{this.getLeft()}
 				{!resolving && (
 					<section className={cx('middle', {'has-pager': pageSource})}>
@@ -251,8 +272,10 @@ export default createReactClass({
 				)}
 				<section>
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
+					{supportsSearch && (<a href="#"><i className="icon-search launch-search" onClick={this.launchSearch} /></a>)}
 					{this.getRight()}
 				</section>
+				{searchOpen && this.renderSearch()}
 			</nav>
 		);
 	},
@@ -284,6 +307,19 @@ export default createReactClass({
 			...sections.map((x,i)=>
 				<li key={i} {...x}><a {...x}/></li>
 			));
+	},
+
+
+	renderSearch () {
+		return (
+			<div className="search-container">
+				<i className="icon-search" />
+				<Input />
+				<a href="#" className="close-search" onClick={this.closeSearch}>
+					<i className="icon-bold-x"/>
+				</a>
+			</div>
+		);
 	}
 
 });
