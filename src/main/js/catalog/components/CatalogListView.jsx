@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Catalog from 'nti-web-catalog';
 
+import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';
 
 function getRouteFor (obj) {
@@ -34,16 +35,18 @@ export default createReactClass({
 	},
 
 
+	availableSections: [
+		{label: 'Courses', href: '/'},
+		{label: 'History', href: '/purchased/'},
+		{label: 'Redeem', href: '/redeem/'}
+	],
+
+
 	render () {
 		return (
-			<div className="catalog">
-				<div className="header">
-					<a href="/mobile/catalog/">Courses</a>
-					<a href="/mobile/catalog/purchased">History</a>
-					<a href="/mobile/catalog/redeem">Redeem</a>
-				</div>
+			<Page title="Catalog" availableSections={this.availableSections}>
 				<Catalog />
-			</div>
+			</Page>
 		);
 	}
 });

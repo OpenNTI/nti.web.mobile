@@ -73,14 +73,11 @@ export default createReactClass({
 
 		Object.assign(ENVIRONMENT, {
 			[SetPath]: setPath,
-			setPath: (path, navigation, cb) => {
-				let {options = {}} = navigation;
+			setPath: (...args) => {
+				let [path, options = {}] = args;
 				let continueSetPath = () => {
-					ENVIRONMENT[SetPath](path, navigation, cb);
-
-					setTimeout(() => {
-						routerHistory.replace(path);
-					}, 100);
+					ENVIRONMENT[SetPath](...args);
+					routerHistory.replace(path);
 				};
 
 				if (options.isPopState || !this.maybeBlockNavigation(continueSetPath)) {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Locations, Location} from 'react-router-component';
-import {Loading, Mixins} from 'nti-web-commons';
+import {Mixins} from 'nti-web-commons';
 
 import Page from 'common/components/Page';
 import ContextMixin from 'common/mixins/ContextContributor';
@@ -13,20 +13,13 @@ import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchas
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import AcceptInvitation from 'invitations/components/View';
 
-import CatalogAccessor from '../mixins/CatalogAccessor';
-
 import CatalogListView from './CatalogListView';
 import EntryDetail from './EntryDetail';
 import GiftRedeem from './GiftRedeem';
 
-const CatalogBody = createReactClass({
+export default createReactClass({
 	displayName: 'CatalogBody',
 	mixins: [Mixins.BasePath, ContextMixin],
-
-
-	propTypes: {
-		catalog: PropTypes.object
-	},
 
 
 	shouldComponentUpdate (_, newState) {
@@ -49,9 +42,8 @@ const CatalogBody = createReactClass({
 
 
 	render () {
-		let {catalog} = this.props;
 		return (
-			<Locations contextual ref={this.attachRouter}>
+			<Locations contextual ref={this.attachRouter} component={renderCatalogPage}>
 				<Location
 					ref={this.attachPaymentComplete}
 					path="/enroll/:enrollmentType/paymentcomplete/"
@@ -91,8 +83,6 @@ const CatalogBody = createReactClass({
 				<Location
 					path="*"
 					handler={CatalogListView}
-					list={catalog}
-					section="catalog"
 				/>
 			</Locations>
 		);
@@ -121,19 +111,19 @@ const CatalogBody = createReactClass({
 	}
 });
 
+renderCatalogPage.propTypes = {
+	children: PropTypes.any
+};
+function renderCatalogPage ({children}) {
+	const child = React.Children.only(children);
 
-export default createReactClass({//eslint-disable-line react/no-multi-comp
-	displayName: 'CatalogView',
-	mixins: [CatalogAccessor],
-
-
-	render () {
-		let catalog = this.getCatalog();
-
-		return (
-			<Page title="Catalog">
-				{!catalog ? <Loading.Mask/> : <CatalogBody catalog={catalog}/>}
-			</Page>
-		);
+	if (child.type === CatalogListView) {
+		return child;
 	}
-});
+
+	return (
+		<Page title="Catalog">
+			{child}
+		</Page>
+	);
+}
