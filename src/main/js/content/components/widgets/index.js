@@ -7,7 +7,7 @@ import Unknown from './Unknown';
 const req = require.context('./', true, /.jsx$/);
 const WIDGETS = req.keys().map(m => req(m).default);
 
-export function getWidget (item, page, ownerProps, context) {
+export function getWidget (item, page, ownerProps, context = {}) {
 	let Item = Unknown;
 
 	class ContextWrapper extends React.Component {

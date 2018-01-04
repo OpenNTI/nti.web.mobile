@@ -93,7 +93,7 @@ export default class extends React.Component {
 		};
 
 		try {
-			let widget = getWidget(object, undefined, props);
+			let widget = getWidget(object, undefined, props, this.context);
 			let {type = {}} = widget || {};
 
 			let context;
