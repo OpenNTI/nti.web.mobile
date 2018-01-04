@@ -20,6 +20,23 @@ declareCustomElement('widget');
 
 const logger = Logger.get('content:viewer:body');
 
+function getContextWrapper (context) {
+	return class ContextWrapper extends React.Component {
+		static propTypes = { children: PropTypes.any }
+
+		static childContextTypes = Object.keys(context).reduce((_,p) => (_[p] = PropTypes.any, _), {})
+
+		getChildContext () {
+			return context;
+		}
+
+		render () {
+			return this.props.children;
+		}
+	};
+}
+
+
 export default class Content extends React.Component {
 
 	static propTypes = {
@@ -87,6 +104,7 @@ export default class Content extends React.Component {
 					logger.debug('Mounting Widget... %o', el);
 					try {
 						shouldUpdate = true;
+						//XXX: Use React 16 portals instead
 						ReactDOM.render(w, el);
 						el.setAttribute('mounted', 'true');
 					} catch (e) {
@@ -131,11 +149,15 @@ export default class Content extends React.Component {
 		let widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// logger.debug('Content View: Creating widget for %s', widgetData.guid);
-			widgets[widgetData.guid] = getWidget(
-				widgetData,
-				this.props.page,
-				{...this.props, id: void 0},
-				this.context
+			const Wrapper = getContextWrapper(this.context);
+			widgets[widgetData.guid] = (
+				<Wrapper>
+					{getWidget(
+						widgetData,
+						this.props.page,
+						{...this.props, id: void 0}
+					)}
+				</Wrapper>
 			);
 		}
 	}
