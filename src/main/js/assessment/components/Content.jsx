@@ -75,7 +75,7 @@ export default class Content extends React.Component {
 			};
 
 
-			processContent({content}, strategies)
+			work = processContent({content}, strategies)
 				.then(postProcess)
 				.catch(()=> ({content, widgets: void 0}));
 		}
