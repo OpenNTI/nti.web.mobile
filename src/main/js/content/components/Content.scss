@@ -51,6 +51,11 @@ nti\:content {
 		word-break: normal;
 		white-space: pre;
 		-webkit-overflow-scrolling: touch;
+
+		a {
+			word-wrap: normal;
+			word-break: normal;
+		}
 	}
 
 	.label {
