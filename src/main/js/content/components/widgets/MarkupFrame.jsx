@@ -54,10 +54,7 @@ export default createReactClass({
 	onLoad () {
 		const {image: i} = this;
 		if (i) {
-			let w = i.naturalWidth || i.width;
-			if (w > i.offsetWidth) {//image width vs on-screen width
-				this.setState({forceZoomable: true});
-			}
+			this.setState({forceZoomable: true});
 		}
 	},
 
