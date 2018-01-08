@@ -66,6 +66,10 @@ export default createReactClass({
 		//reset back to normal.
 		delete ENVIRONMENT.setPath;
 		delete ENVIRONMENT[SetPath];
+
+		if (this.removeRouterHistoryListener) {
+			this.removeRouterHistoryListener();
+		}
 	},
 
 	componentDidMount () {
@@ -77,7 +81,10 @@ export default createReactClass({
 				let [path, options = {}] = args;
 				let continueSetPath = () => {
 					ENVIRONMENT[SetPath](...args);
-					routerHistory.replace(path);
+
+					if (routerHistory && routerHistory.location && routerHistory.location.pathname !== path) {
+						routerHistory.replace(path);
+					}
 				};
 
 				if (options.isPopState || !this.maybeBlockNavigation(continueSetPath)) {
@@ -85,6 +92,15 @@ export default createReactClass({
 				}
 			}
 		});
+
+		this.removeRouterHistoryListener = routerHistory.listen((...args) => this.onRouterHistoryChange(...args));
+	},
+
+
+	onRouterHistoryChange ({pathname}) {
+		if (ENVIRONMENT.path !== pathname) {
+			ENVIRONMENT.setPath(pathname, {isPopState: false, replace: true});
+		}
 	},
 
 
