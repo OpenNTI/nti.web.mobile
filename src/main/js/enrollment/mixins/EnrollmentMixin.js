@@ -6,6 +6,7 @@ import {Loading, Mixins} from 'nti-web-commons';
 import CatalogStore from 'catalog/Store';
 
 import EnrollmentStore from '../Store';
+import {LOADED_CATALOG} from '../../catalog/Constants';
 import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 import {getWidget} from '../components/enrollment-option-widgets';
 import NoOptions from '../components/enrollment-option-widgets/NoOptions';
@@ -39,13 +40,44 @@ export default {
 	componentDidMount () {
 		let entry = this.getEntry();
 		EnrollmentStore.addChangeListener(this.storeChange);
-		if (entry) {
+		if (entry && !entry.loading) {
 			EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
+
+			this.setState({
+				catalogLoaded: true
+			});
 		}
+
+		CatalogStore.addChangeListener(this.catalogStoreChange);
 	},
 
 	componentWillUnmount () {
 		EnrollmentStore.removeChangeListener(this.storeChange);
+		CatalogStore.removeChangeListener(this.catalogStoreChange);
+	},
+
+	catalogStoreChange (event) {
+		let action = (event || {}).type;
+
+		const handlers = {
+			[LOADED_CATALOG]: () => {
+				EnrollmentStore.loadEnrollmentStatus(this.getEntry().CourseNTIID);
+
+				this.setState({
+					catalogLoaded: true
+				});
+			}
+		};
+
+		if(action) {
+			let handler = handlers[action];
+			if (handler) {
+				handler();
+			}
+			else {
+				logger.debug('Unrecognized CatalogStore change event: %o', event);
+			}
+		}
 	},
 
 	storeChange (event) {
@@ -96,7 +128,7 @@ export default {
 
 	enrollmentWidgets () {
 		let catalogEntry = this.getEntry();
-		if (!this.state.enrollmentStatusLoaded) {
+		if (!this.state.enrollmentStatusLoaded || !this.state.catalogLoaded) {
 			return <Loading.Mask />;
 		}
 
