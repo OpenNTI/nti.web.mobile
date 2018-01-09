@@ -30,7 +30,8 @@ export default createReactClass({
 
 
 	childContextTypes: {
-		router: PropTypes.object
+		router: PropTypes.object,
+		setRouteViewTitle: PropTypes.func
 	},
 
 	getChildContext () {
@@ -39,7 +40,8 @@ export default createReactClass({
 				...(this.context.router || {}),
 				baseroute: '/mobile/catalog/',
 				getRouteFor
-			}
+			},
+			setRouteViewTitle: () => {}
 		};
 	},
 
