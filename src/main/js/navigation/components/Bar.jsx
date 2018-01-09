@@ -69,6 +69,8 @@ export default createReactClass({
 	},
 
 
+	attachSearchRef (x) { this.search = x; },
+
 
 	getInitialState () {
 		return {
@@ -233,6 +235,10 @@ export default createReactClass({
 	closeSearch (e) {
 		e.preventDefault();
 
+		if (this.search) {
+			this.search.clear();
+		}
+
 		this.setState({
 			searchOpen: false
 		});
@@ -314,7 +320,7 @@ export default createReactClass({
 		return (
 			<div className="search-container">
 				<i className="icon-search" />
-				<Input />
+				<Input ref={this.attachSearchRef} />
 				<a href="#" className="close-search" onClick={this.closeSearch}>
 					<i className="icon-bold-x"/>
 				</a>
