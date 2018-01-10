@@ -98,8 +98,9 @@ export default createReactClass({
 
 
 	onRouterHistoryChange ({pathname}) {
-		const currentPath = ENVIRONMENT.path.split('?')[0];
-		const newPath = pathname.split('?')[0];
+		const splitRegex = /(\?|#)/;
+		const currentPath = ENVIRONMENT.path.split(splitRegex)[0];
+		const newPath = pathname.split(splitRegex)[0];
 
 		if (currentPath !== newPath) {
 			ENVIRONMENT.setPath(pathname, {isPopState: false, replace: true});
