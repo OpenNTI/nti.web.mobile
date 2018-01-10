@@ -29,7 +29,7 @@ export default createReactClass({
 
 		return (
 			<div className="enrollment-status-none">
-				{hasOptions && (<a className="button tiny" href={href}>Enroll</a>)}
+				{hasOptions && (<a className="button large" href={href}>Enroll</a>)}
 			</div>
 		);
 	}
