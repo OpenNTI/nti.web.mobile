@@ -39,7 +39,7 @@ export default class extends React.Component {
 				<Notice>Drop {this.props.courseTitle}?</Notice>
 				<div className="small-12 columns">
 					<Button onClick={this.onCancel} className="small-5 columns">Cancel</Button>
-					<Button onClick={this.onConfirm} className="small-5 columns">Drop course</Button>
+					<Button onClick={this.onConfirm} className="small-5 columns drop-course-confirmation">Drop course</Button>
 				</div>
 			</div>
 		);

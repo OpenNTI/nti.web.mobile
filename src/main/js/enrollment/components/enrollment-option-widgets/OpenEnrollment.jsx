@@ -73,7 +73,7 @@ export default createReactClass({
 		const {catalogEntry} = this.props;
 		const base = this.getBasePath();
 		const entry = encodeForURI(catalogEntry.getID());
-		return (<a className="button" href={`${base}catalog/enroll/drop/${entry}/`}>Drop This Course</a>);
+		return (<a className="button drop-course" href={`${base}catalog/enroll/drop/${entry}/`}>Drop This Course</a>);
 	},
 
 	render () {
