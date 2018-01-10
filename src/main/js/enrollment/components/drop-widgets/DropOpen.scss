@@ -2,4 +2,8 @@
 
 .button.drop-course-confirmation {
 	background-color: $primary-red;
+
+	&:hover {
+		background-color: $primary-red;
+	}
 }

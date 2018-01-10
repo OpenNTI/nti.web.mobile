@@ -11,5 +11,9 @@
 
 	.drop-course {
 		background-color: $primary-red;
+
+		&:hover {
+			background-color: $primary-red;
+		}
 	}
 }
