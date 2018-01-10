@@ -8,6 +8,7 @@ import {scoped} from 'nti-lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
 import CatalogStore from 'catalog/Store';
+import {LOADED_CATALOG} from 'catalog/Constants';
 
 import * as Actions from '../Actions';
 import {DROP_COURSE} from '../Constants';
@@ -32,7 +33,8 @@ export default createReactClass({
 	getInitialState () {
 		return {
 			loading: false,
-			dropped: false
+			dropped: false,
+			catalogLoaded: false
 		};
 	},
 
@@ -42,6 +44,42 @@ export default createReactClass({
 				label: 'Drop'
 			}
 		]);
+	},
+
+	componentDidMount () {
+		let entryId = decodeFromURI(this.props.entryId);
+		let entry = CatalogStore.getEntry(entryId);
+
+		if (entry && !entry.loading) {
+			this.setState({
+				catalogLoaded: true
+			});
+		}
+
+		Store.addChangeListener(this.onEnrollmentChanged);
+		CatalogStore.addChangeListener(this.catalogStoreChange);
+	},
+
+	catalogStoreChange (event) {
+		let action = (event || {}).type;
+
+		const handlers = {
+			[LOADED_CATALOG]: () => {
+				this.setState({
+					catalogLoaded: true
+				});
+			}
+		};
+
+		if(action) {
+			let handler = handlers[action];
+			if (handler) {
+				handler();
+			}
+			else {
+				logger.debug('Unrecognized CatalogStore change event: %o', event);
+			}
+		}
 	},
 
 	onCancelClicked () {
@@ -117,12 +155,9 @@ export default createReactClass({
 		return result;
 	},
 
-	componentDidMount () {
-		Store.addChangeListener(this.onEnrollmentChanged);
-	},
-
 	componentWillUnmount () {
 		Store.removeChangeListener(this.onEnrollmentChanged);
+		CatalogStore.removeChangeListener(this.catalogStoreChange);
 	},
 
 	renderPanel (body) {
@@ -140,9 +175,9 @@ export default createReactClass({
 	},
 
 	render () {
-		let {dropped, loading, error} = this.state;
+		let {dropped, loading, catalogLoaded, error} = this.state;
 
-		if (loading) {
+		if (loading || !catalogLoaded) {
 			return <Loading.Mask />;
 		}
 
