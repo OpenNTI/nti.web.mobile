@@ -26,6 +26,7 @@ class Store extends StorePrototype {
 
 	[SetLoading] () {
 		this.loading = true;
+		this[data] = null;
 		this.emitChange({type: LOAD_CATALOG});
 	}
 
