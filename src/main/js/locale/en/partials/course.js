@@ -12,6 +12,10 @@ export default {
 		LINK2: {
 			label: 'NextThought Website',
 			link: 'http://nextthought.com'
+		},
+		LINK3: {
+			label: 'Help Site',
+			link: 'https://help.nextthought.com/'
 		}
 	},
 

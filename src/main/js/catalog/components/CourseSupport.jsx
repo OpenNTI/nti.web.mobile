@@ -22,7 +22,8 @@ export default class extends React.Component {
 		return [
 			t('LINK0.label', f) !== MISSING,
 			t('LINK1.label', f) !== MISSING,
-			t('LINK2.label', f) !== MISSING
+			t('LINK2.label', f) !== MISSING,
+			t('LINK3.label', f) !== MISSING,
 		].some(x => x);
 	};
 
@@ -32,7 +33,7 @@ export default class extends React.Component {
 				<img src={BLANK_IMAGE} alt="Support"/>
 				<div className="meta">
 					<div className="label">{t('label')}</div>
-					{[0,1,2].map(x => this.renderLink(x))}
+					{[0,1,2,3].map(x => this.renderLink(x))}
 				</div>
 			</div>
 		);
