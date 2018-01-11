@@ -62,7 +62,7 @@ exports = module.exports = {
 		 */
 
 		// [full match, token]
-		let parts = query.match(/(accept|redeem)\/([^\/]*)/);
+		let parts = query.match(/(?:accept|redeem)\/([^\/]*)/);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'redeem', parts[1]);
 			logger.debug('redirecting to: %s', url);
