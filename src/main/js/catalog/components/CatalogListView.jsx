@@ -7,6 +7,9 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';
 
+import {load as loadCatalog} from '../Actions';
+import {load as loadLibrary} from '../../library/Actions';
+
 const CATALOG_MIME_TYPES = {
 	'application/vnd.nextthought.courses.catalogentry': true,
 	'application/vnd.nextthought.courses.coursecataloglegacyentry': true,
@@ -45,6 +48,18 @@ export default createReactClass({
 		};
 	},
 
+	componentWillUnmount () {
+		if (this.dirty) {
+			loadCatalog(true);
+			loadLibrary(true);
+		}
+	},
+
+
+	markDirty () {
+		this.dirty = true;
+	},
+
 
 	availableSections: [
 		{label: 'Courses', href: '/'},
@@ -56,7 +71,7 @@ export default createReactClass({
 	render () {
 		return (
 			<Page title="Catalog" availableSections={this.availableSections} supportsSearch border>
-				<Catalog />
+				<Catalog markDirty={this.markDirty}/>
 			</Page>
 		);
 	}
