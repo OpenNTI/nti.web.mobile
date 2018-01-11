@@ -68,7 +68,7 @@
     "nti-style-common": "^1.4.0",
     "nti-util-detection-touch": "^1.0.0",
     "nti-util-ios-version": "^1.0.0",
-    "nti-web-catalog": "^0.6.1",
+    "nti-web-catalog": "0.x.x",
     "nti-web-client": "^1.1.0",
     "nti-web-commons": "^0.23.0",
     "nti-web-course": "^1.7.0",
