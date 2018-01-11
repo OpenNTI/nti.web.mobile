@@ -177,11 +177,11 @@ export default createReactClass({
 	render () {
 		let {dropped, loading, catalogLoaded, error} = this.state;
 
-		if (loading || !catalogLoaded) {
+		let title = this.getCourseTitle();
+
+		if (loading || !catalogLoaded || !title) {
 			return <Loading.Mask />;
 		}
-
-		let title = this.getCourseTitle();
 
 		if (dropped) {
 			return this.renderPanel(title + ' dropped.');
