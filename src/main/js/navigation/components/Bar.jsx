@@ -228,6 +228,10 @@ export default createReactClass({
 		this.setState({
 			searchOpen: true,
 			menuOpen: false
+		}, () => {
+			if (this.search) {
+				this.search.focus();
+			}
 		});
 	},
 
