@@ -33,7 +33,8 @@
   ],
   "dependencies": {
     "nti-lib-ntiids": "^1.0.0",
-    "nti-util-logger": "^1.0.0"
+    "nti-util-logger": "^1.0.0",
+    "nti-web-help": "0.0.1"
   },
   "devDependencies": {
     "array-range": "^1.0.1",
@@ -62,7 +63,7 @@
     "nti-lib-interfaces": "^1.72.0",
     "nti-lib-locale": "^1.0.5",
     "nti-lib-ranges": "^1.0.0",
-    "nti-lib-store": "^1.1.0",
+    "nti-lib-store": "^1.2.0",
     "nti-lib-whiteboardjs": "^1.3.0",
     "nti-modeled-content": "^1.5.0",
     "nti-style-common": "^1.4.0",
@@ -70,7 +71,7 @@
     "nti-util-ios-version": "^1.0.0",
     "nti-web-catalog": "0.x.x",
     "nti-web-client": "^1.1.0",
-    "nti-web-commons": "^0.23.0",
+    "nti-web-commons": "^0.24.0",
     "nti-web-course": "^1.7.3",
     "nti-web-routing": "0.x.x",
     "nti-web-search": "^0.4.0",
