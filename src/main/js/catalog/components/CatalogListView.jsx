@@ -20,6 +20,10 @@ function getRouteFor (obj) {
 	if (CATALOG_MIME_TYPES[obj.MimeType]) {
 		return `./item/${encodeForURI(obj.NTIID)}`;
 	}
+
+	if (obj === 'contact-us') {
+		return '/mobile/contact-us';
+	}
 }
 
 export default createReactClass({

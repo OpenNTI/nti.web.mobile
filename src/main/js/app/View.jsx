@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {environment, CaptureClicks, Link} from 'react-router-component';
 import {Session} from 'nti-web-session';
-import {Loading} from 'nti-web-commons';
+import {Loading, Layouts} from 'nti-web-commons';
 import Logger from 'nti-util-logger';
 import {
 	addChangeListener as addLocaleChangeListener,
@@ -21,6 +21,8 @@ const SET_PAGESOURCE = 'navigation:setPageSource';
 const SET_CONTEXT = 'navigation:setContext';
 
 const logger = Logger.get('root:app:View');
+
+Layouts.Responsive.setMobileContext();
 
 export default class App extends React.Component {
 

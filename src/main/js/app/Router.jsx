@@ -13,6 +13,7 @@ import Logger from 'nti-util-logger';
 
 //Main View Handlers
 import Catalog from 'catalog/components/View';
+import ContactUs from 'contact-us/components/View';
 import Contacts from 'contacts/components/View';
 import Content from 'content/components/View';
 import Course from 'course/components/View';
@@ -34,6 +35,7 @@ const logger = Logger.get('root:router');
 
 const HANDLER_BY_NAME = {
 	Catalog,
+	ContactUs,
 	Contacts,
 	Content,
 	Course,
