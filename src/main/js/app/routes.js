@@ -27,6 +27,7 @@ export default [
 	{handler: 'Login',			path: '/login/*'},
 	{handler: 'Catalog',		path: '/catalog(/*)'},
 	{handler: 'Contacts',		path: '/contacts/*'},
+	{handler: 'ContactUs',      path: '/contact-us(/*)'},
 	{handler: 'Content',		path: '/content/:contentId/*'},
 	{handler: 'Course',			path: '/course/:course/*'},
 	{handler: 'Enrollment',		path: '/enroll/:course/*'},
