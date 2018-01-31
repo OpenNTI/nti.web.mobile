@@ -287,7 +287,7 @@ nav.nav-bar {
 	}
 
 	&.nav-menu-exit {
-		transition: all 0.25s $leave-timing;
+		transition: all 0.25s $exit-timing;
 		transition-delay: 0s !important;
 		transform: translate3d(0, 0, 0);
 
@@ -321,7 +321,7 @@ nav.nav-bar {
 	}
 
 	&.nav-menu-exit {
-		transition: opacity 0.25s $leave-timing;
+		transition: opacity 0.25s $exit-timing;
 		transition-delay: 0s !important;
 		opacity: 0.7;
 
