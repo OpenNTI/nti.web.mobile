@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import Transition from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { addHistory, getHistory } from 'nti-analytics';
 import { decodeFromURI } from 'nti-lib-ntiids';
 import { Error as Err, Loading, Mixins, Notice, Prompt } from 'nti-web-commons';
@@ -242,34 +242,31 @@ export default createReactClass({
 		return (
 			<div>
 				<ViewEvent {...this.getAnalyticsData()}/>
-				<Transition transitionName="fadeOutIn"
-					transitionAppear
-					transitionAppearTimeout={500}
-					transitionEnterTimeout={500}
-					transitionLeaveTimeout={500}
-				>
-					<ViewHeader type={TOPIC} />
-					{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline topic={topic} {...props} />}
-					<ActionsComp
-						item={topic}
-						canReply={showComments && topic.hasLink('add')}
-						onEdit={this.editTopic}
-						onDelete={this.deleteTopic}
-					/>
+				<TransitionGroup>
+					<CSSTransition key="topic" appear classNames="fade-out-in" timeout={500}>
+						<ViewHeader type={TOPIC} />
+						{this.state.editing ? <TopicEditor {...props} /> : <TopicHeadline topic={topic} {...props} />}
+						<ActionsComp
+							item={topic}
+							canReply={showComments && topic.hasLink('add')}
+							onEdit={this.editTopic}
+							onDelete={this.deleteTopic}
+						/>
 
-					{showComments && (
-						<div>
-							<TopicComments topicId={this.getTopicId()} currentPage={this.currentPage()} />
+						{showComments && (
+							<div>
+								<TopicComments topicId={this.getTopicId()} currentPage={this.currentPage()} />
 
-							<CommentForm key="commentForm"
-								ref={COMMENT_FORM_ID}
-								id={COMMENT_FORM_ID}
-								onCompletion={this.hideCommentForm}
-								topic={topic}
-								parent={topic.parent()} />
-						</div>
-					)}
-				</Transition>
+								<CommentForm key="commentForm"
+									ref={COMMENT_FORM_ID}
+									id={COMMENT_FORM_ID}
+									onCompletion={this.hideCommentForm}
+									topic={topic}
+									parent={topic.parent()} />
+							</div>
+						)}
+					</CSSTransition>
+				</TransitionGroup>
 			</div>
 		);
 	}

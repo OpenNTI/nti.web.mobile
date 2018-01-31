@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
-import Transition from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {buffer} from 'nti-commons';
 import Logger from 'nti-util-logger';
 import {Pager, Mixins} from 'nti-web-commons';
@@ -17,6 +17,7 @@ import Menu from './Menu';
 import UserMenu from './UserMenu';
 import ReturnTo from './ReturnTo';
 
+const Transition = (props) => ( <CSSTransition classNames="nav-menu" timeout={350} {...props}/> );
 
 const logger = Logger.get('NavigationBar');
 const menuOpenBodyClass = 'nav-menu-open';
@@ -258,10 +259,14 @@ export default createReactClass({
 
 		return (
 			<div className={css}>
-				<Transition transitionName="nav-menu" transitionEnterTimeout={350} transitionLeaveTimeout={350}>
-					{menuOpen && <a href="#" className="nav-menu-mask" onClick={this.closeMenu} key="mask"/>}
+				<TransitionGroup>
+					{menuOpen && (
+						<Transition key="mask">
+							<a href="#" className="nav-menu-mask" onClick={this.closeMenu} />
+						</Transition>
+					)}
 					{this.renderMenu()}
-				</Transition>
+				</TransitionGroup>
 				{this.renderBar()}
 			</div>
 		);
@@ -296,7 +301,6 @@ export default createReactClass({
 		let {availableSections} = this.props;
 		let props = {
 			className: 'title-bar-menu',
-			key: 'menu'
 		};
 
 		let active = this.getActiveSection();
@@ -313,10 +317,15 @@ export default createReactClass({
 
 		let sections = availableSections.map(sectionProps);
 
-		return menuOpen && React.createElement(Menu, props,
-			...sections.map((x,i)=>
-				<li key={i} {...x}><a {...x}/></li>
-			));
+		return menuOpen && (
+			<Transition key="menu">
+				<Menu {...props}>
+					{sections.map((x,i)=>
+						<li key={i} {...x}><a {...x}/></li>
+					)}
+				</Menu>
+			</Transition>
+		);
 	},
 
 

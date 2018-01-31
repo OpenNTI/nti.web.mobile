@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Transition from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {scoped} from 'nti-lib-locale';
 import {Prompt, Loading} from 'nti-web-commons';
 
@@ -111,11 +111,13 @@ export default class extends React.Component {
 
 		return (
 			<div>
-				<Transition transitionName="savepoint" transitionEnterTimeout={700} transitionLeaveTimeout={1000}>
+				<TransitionGroup>
 					{savePoint && (
-						<Saving key="savepoint"/>
+						<CSSTransition key="savepoint" classNames="savepoint" timeout={{enter: 700, exit:1000}}>
+							<Saving />
+						</CSSTransition>
 					)}
-				</Transition>
+				</TransitionGroup>
 				<div className={'set-submission ' + status}>
 					{!error ? null : (
 						<SubmissionError onClick={this.dismissAssessmentError} error={error}/>

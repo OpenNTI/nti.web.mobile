@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import cx from 'classnames';
 import {RouterMixin} from 'react-router-component';
 import Logger from 'nti-util-logger';
@@ -29,11 +29,14 @@ import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
 
+
 const logger = Logger.get('content:components:Viewer');
 
 const getCourse = x => (!x || x.isCourse) ? x : x.parent('isCourse');
 
 const TRANSITION_TIMEOUT = 300;
+
+const Fade = (props) => ( <CSSTransition classNames="fade-out-in" timeout={TRANSITION_TIMEOUT} {...props}/> );
 
 export default createReactClass({
 	displayName: 'content:Viewer',
@@ -273,50 +276,52 @@ export default createReactClass({
 
 
 		return (
-			<TransitionGroup {...props} component="div"
-				transitionName="fadeOutIn"
-				transitionEnterTimeout={TRANSITION_TIMEOUT}
-				transitionLeaveTimeout={TRANSITION_TIMEOUT}
-			>
+			<TransitionGroup {...props}>
 
 				{discussions ? (
 
-					<Discussions key="discussions"
-						UserDataStoreProvider={page}
-						contentPackage={contentPackage}
-						filter={selectedDiscussions}
-					/>
+					<Fade key="discussions">
+						<Discussions
+							UserDataStoreProvider={page}
+							contentPackage={contentPackage}
+							filter={selectedDiscussions}
+						/>
+					</Fade>
 
 				) : stagedNote ? (
 
-					this.renderNoteEditor()
+					<Fade key="note-editor">
+						{this.renderNoteEditor()}
+					</Fade>
 
 				) : (
-					<div key="content" ref={this.attachNodeRef}>
-						<ViewEvent {...this.getAnalyticsData()}/>
-						<div className="content-body">
-							{this.renderAssessmentHeader()}
-							<div className="coordinate-root">
-								<BodyContent ref={this.attachContentRef}
-									onClick={this.onContentClick}
-									onUserSelectionChange={this.maybeOfferAnnotations}
-									contentPackage={contentPackage}
-									pageId={page.getCanonicalID()}
-									page={page}/>
+					<Fade key="content">
+						<div ref={this.attachNodeRef}>
+							<ViewEvent {...this.getAnalyticsData()}/>
+							<div className="content-body">
+								{this.renderAssessmentHeader()}
+								<div className="coordinate-root">
+									<BodyContent ref={this.attachContentRef}
+										onClick={this.onContentClick}
+										onUserSelectionChange={this.maybeOfferAnnotations}
+										contentPackage={contentPackage}
+										pageId={page.getCanonicalID()}
+										page={page}/>
 
-								{this.renderAssessmentFeedback()}
+									{this.renderAssessmentFeedback()}
 
-								{this.renderGlossaryEntry()}
+									{this.renderGlossaryEntry()}
 
-								{this.renderPopUp()}
+									{this.renderPopUp()}
 
-								{this.renderBottomPager()}
+									{this.renderBottomPager()}
 
-								<Gutter items={gutterItems} selectFilter={this.setDiscussionFilter}/>
+									<Gutter items={gutterItems} selectFilter={this.setDiscussionFilter}/>
+								</div>
 							</div>
+							{this.renderDockedToolbar()}
 						</div>
-						{this.renderDockedToolbar()}
-					</div>
+					</Fade>
 				)}
 
 			</TransitionGroup>
@@ -343,19 +348,14 @@ export default createReactClass({
 		const content = annotation || submission;
 
 		return (
-			<TransitionGroup component="div"
-				transitionName="toast" className={`fixed-footer ${key}`}
-				transitionAppearTimeout={500}
-				transitionEnterTimeout={500}
-				transitionLeaveTimeout={500}
-				transitionAppear>
-
-				{content && (
-					<div className={`the-fixed ${key}`} key={key}>
-						{content}
-					</div>
-				)}
-
+			<TransitionGroup className={`fixed-footer ${key}`}>
+				<CSSTransition appear classNames="toast" timeout={500} key={key}>
+					{content && (
+						<div className={`the-fixed ${key}`}>
+							{content}
+						</div>
+					)}
+				</CSSTransition>
 			</TransitionGroup>
 		);
 	},
@@ -405,7 +405,7 @@ export default createReactClass({
 		}
 
 		return (
-			<NoteEditor key="note-editor"
+			<NoteEditor
 				scope={this.props.contentPackage}
 				item={stagedNote}
 				onCancel={this.cancelNote}

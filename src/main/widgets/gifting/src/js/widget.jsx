@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Router, {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
 import CaptureClicks from 'react-router-component/lib/CaptureClicks';
 import {getService} from 'nti-web-client';
@@ -116,14 +116,16 @@ export default class GiftingWidget extends React.Component {
 
 		return (
 			<CaptureClicks environment={Router.environment.hashEnvironment}>
-				<ReactCSSTransitionGroup transitionEnterTimeout={500} transitionLeaveTimeout={500} transitionName="fadeOutIn">
-					<Locations hash ref={this.attachRouterRef} onNavigation={this.onNavigation}>
-						<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
-						<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this.onDone} />
-						<Location path="/error/*" handler={PaymentError} courseTitle={title} />
-						<DefaultRoute handler={Form} purchasable={purchasable}/>
-					</Locations>
-				</ReactCSSTransitionGroup>
+				<TransitionGroup>
+					<CSSTransition timeout={500} classNames="fade-out-in" key={window.location.hash}>
+						<Locations hash ref={this.attachRouterRef} onNavigation={this.onNavigation}>
+							<Location path="/confirm/*" handler={Confirm} purchasable={purchasable}/>
+							<Location path="/success/*" handler={Success} purchasable={purchasable} onDone={this.onDone} />
+							<Location path="/error/*" handler={PaymentError} courseTitle={title} />
+							<DefaultRoute handler={Form} purchasable={purchasable}/>
+						</Locations>
+					</CSSTransition>
+				</TransitionGroup>
 			</CaptureClicks>
 		);
 	}

@@ -3,11 +3,10 @@
 
 $duration: 0.35s;
 $enter-timing: cubic-bezier(0.25, 0.8, 0.25, 1);
-$leave-timing: cubic-bezier(0.55, 0, 0.55, 0.2);
+$exit-timing: cubic-bezier(0.55, 0, 0.55, 0.2);
 
 // $ease-out-quad: cubic-bezier(0.250, 0.460, 0.450, 0.940);
 // $ease-out-cubic: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-
 
 %back-button {
 	display: inline-block;
@@ -21,7 +20,6 @@ $leave-timing: cubic-bezier(0.55, 0, 0.55, 0.2);
 	max-width: 100%;
 	// @include viewportWidth(max-width, 35);
 }
-
 
 a.toolbar-button-left {
 	padding: 0 0.5rem;
@@ -64,7 +62,6 @@ a.right-off-canvas-toggle {
 	}
 }
 
-
 nav.nav-bar {
 	position: relative;
 	display: flex;
@@ -81,11 +78,12 @@ nav.nav-bar {
 
 	.search-container {
 		position: absolute;
-		top: 0; bottom: 0;
-		left: 0; right: 0;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
 		padding: 0 0 0 0.5rem;
 		background: white;
-
 		display: flex;
 		align-items: center;
 
@@ -98,7 +96,6 @@ nav.nav-bar {
 			margin: 0;
 			border: 0;
 		}
-
 
 		.close-search {
 			width: 2rem;
@@ -121,7 +118,7 @@ nav.nav-bar {
 		margin: 0;
 	}
 
- 	section {
+	section {
 		flex: 1 1 2.8125rem;
 		height: 2.8125rem;
 		line-height: 2.8125rem;
@@ -158,8 +155,7 @@ nav.nav-bar {
 				max-width: calc(100% - 16.1rem);
 			}
 
-
-			.menu{
+			.menu {
 				overflow: visible;
 				display: inline-block;
 				max-width: calc(100% - 1rem);//% total screen width
@@ -168,15 +164,17 @@ nav.nav-bar {
 
 				&::after {
 
-					$size: .75rem;
+					$size: 0.75rem;
 
 					backface-visibility: hidden;
 					transition: transform $duration $enter-timing;
 					// content: '';
 					@extend %chevron-down;
+
 					.nav-menu-open & {
-						transform: rotate3d(0,0,1,180deg);
+						transform: rotate3d(0, 0, 1, 180deg);
 					}
+
 					position: absolute;
 					width: $size;
 					height: $size;
@@ -184,7 +182,6 @@ nav.nav-bar {
 					top: 50%;
 					line-height: 1;
 					right: -1rem;
-					top: 50%;
 					margin-top: -$size/2;
 				}
 			}
@@ -200,11 +197,12 @@ nav.nav-bar {
 		}
 	}
 
-
 	.nav-menu-open & {
-		top: 0; left: 0; right: 0;
+		top: 0;
+		left: 0;
+		right: 0;
 		border-radius: 0 0 1px 1px;//iOS hack to show box-shadow
-		box-shadow: 0 0 1px 0px #222;
+		box-shadow: 0 0 1px 0 #222;
 
 		.darkmode & {
 			background: #525252;
@@ -216,6 +214,7 @@ nav.nav-bar {
 
 		&::before {
 			@extend %chevron-left;
+
 			.darkmode & {
 				@extend %chevron-left-white;
 			}
@@ -223,12 +222,9 @@ nav.nav-bar {
 	}
 }
 
-
-
 .title-bar-menu {
 	backface-visibility: hidden;
 	perspective: 1000;
-
 	position: absolute;
 	background: $panel-background;
 	top: 2.8125rem;
@@ -252,6 +248,7 @@ nav.nav-bar {
 			weight: 400;
 			size: 0.9rem;
 		}
+
 		line-height: 2.8;
 		padding: 0 0.35em 0 1.39em;
 	}
@@ -262,61 +259,60 @@ nav.nav-bar {
 		text-overflow: ellipsis;
 		white-space: nowrap;
 		color: $tertiary-grey;
+
 		&[href] {
 			color: $secondary-grey;
 		}
 	}
 
-
 	.active {
 		background: #3fb3f6;
 		box-shadow: inset 3px 0 0 0 #107eed;
-		&, a[href] {
-			color: #ffffff;
+
+		&,
+		a[href] {
+			color: #fff;
 			font-weight: 600;
 		}
 	}
 
-
 	&.nav-menu-enter {
 		transition: all $duration $enter-timing;
 		transition-delay: 0s !important;
-		transform: scale3d(0.95,0.95,1) translate3d(0, -150%, 0);
+		transform: scale3d(0.95, 0.95, 1) translate3d(0, -150%, 0);
 
 		&.nav-menu-enter-active {
 			transform: translate3d(0, 0, 0);
 		}
 	}
 
-	&.nav-menu-leave {
+	&.nav-menu-exit {
 		transition: all 0.25s $leave-timing;
 		transition-delay: 0s !important;
-
 		transform: translate3d(0, 0, 0);
 
-		&.nav-menu-leave-active {
-			transform: scale3d(0.95,0.95,1) translate3d(0, -150%, 0);
+		&.nav-menu-exit-active {
+			transform: scale3d(0.95, 0.95, 1) translate3d(0, -150%, 0);
 		}
 	}
 }
 
-
 .nav-menu-mask {
 	backface-visibility: hidden;
 	perspective: 1000;
-	transform: translate3d(0,0,0);
-
+	transform: translate3d(0, 0, 0);
 	background: #000;
 	opacity: 0.7;
 	position: absolute;
-	top: 0; left: 0;
-	right: 0; bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	z-index: 1000;
 
-	&.nav-menu-enter{
+	&.nav-menu-enter {
 		transition: opacity $duration $enter-timing;
 		transition-delay: 0s !important;
-
 		opacity: 0;
 
 		&.nav-menu-enter-active {
@@ -324,12 +320,12 @@ nav.nav-bar {
 		}
 	}
 
-	&.nav-menu-leave {
+	&.nav-menu-exit {
 		transition: opacity 0.25s $leave-timing;
 		transition-delay: 0s !important;
 		opacity: 0.7;
 
-		&.nav-menu-leave-active {
+		&.nav-menu-exit-active {
 			opacity: 0;
 		}
 	}

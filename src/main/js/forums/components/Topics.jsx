@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Transition from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {Link} from 'react-router-component';
 import {addHistory} from 'nti-analytics';
 import {scoped} from 'nti-lib-locale';
@@ -74,19 +74,16 @@ export default createReactClass({
 
 		return (
 			<div>
-				<Transition transitionName="fadeOutIn"
-					transitionAppear
-					transitionAppearTimeout={500}
-					transitionEnterTimeout={500}
-					transitionLeaveTimeout={500}
-				>
-					<ViewHeader type={FORUM} />
-					<section>
-						{this.createTopicLink()}
-						<div className="group-heading"><h3>Topics</h3></div>
-						<TopicList container={forumContents}/>
-					</section>
-				</Transition>
+				<TransitionGroup>
+					<CSSTransition key="topics" appear classNames="fade-out-in" timeout={500}>
+						<ViewHeader type={FORUM} />
+						<section>
+							{this.createTopicLink()}
+							<div className="group-heading"><h3>Topics</h3></div>
+							<TopicList container={forumContents}/>
+						</section>
+					</CSSTransition>
+				</TransitionGroup>
 			</div>
 		);
 	}

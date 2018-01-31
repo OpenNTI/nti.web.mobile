@@ -99,7 +99,7 @@ export default createReactClass({
 				<i className="icon-more-options small" />
 				{open &&
 					<MenuTransitionGroup>
-						<ul>
+						<ul key="menu">
 							<li onClick={this.resetAssignment}>Reset Assignment</li>
 							<li onClick={this.excuse}>{excuseAction}</li>
 						</ul>

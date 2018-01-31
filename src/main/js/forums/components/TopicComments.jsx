@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
-import Transition from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {Error as Err, Loading, Notice} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 
@@ -122,14 +122,11 @@ export default createReactClass({
 				) : (container.Items || []).length > 0 ? (
 					<div>
 						<section className="comments">
-							<Transition transitionName="fadeOutIn"
-								transitionAppear
-								transitionAppearTimeout={500}
-								transitionEnterTimeout={500}
-								transitionLeaveTimeout={500}
-							>
-								<List className="forum-replies" container={container} itemProps={{topic: topic}} />
-							</Transition>
+							<TransitionGroup>
+								<CSSTransition key="replies" appear classNames="fade-out-in" timeout={500}>
+									<List className="forum-replies" container={container} itemProps={{topic: topic}} />
+								</CSSTransition>
+							</TransitionGroup>
 						</section>
 						{this.state[showJumpToLastPage] && this.jumpToLastPageMessage()}
 						<PageControls paging={pageInfo} />

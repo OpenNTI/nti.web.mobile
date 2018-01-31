@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import TransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 // import {getViewportWidth} from 'nti-lib-dom';
 import {Background, ActiveLink as Link, Loading} from 'nti-web-commons';
 
@@ -12,7 +12,7 @@ import Controls from './HeaderControls';
 import Head from './Head';
 import Invite from './Invite';
 
-
+const Transition = (props) => ( <CSSTransition classNames="community-menu" timeout={500} {...props}/> );
 
 export default createReactClass({
 	displayName: 'Community:Page',
@@ -83,10 +83,6 @@ export default createReactClass({
 			? ( <Invite entity={entity}/> )
 			: ( <h1>{entity.displayName}</h1> );
 
-		let body = narrow && showMenu
-			? this.renderMenu()
-			: ( <section key="content"><Content {...this.props} filterParams={filterParams}/></section> );
-
 		let {removePageWrapping} = Content || {};
 
 		return (
@@ -110,12 +106,18 @@ export default createReactClass({
 									/>
 								</nav>
 
-								<TransitionGroup className="coordinate-root"
-									transitionName="community-menu"
-									transitionEnterTimeout={500}
-									transitionLeaveTimeout={500}
-								>
-									{body}
+								<TransitionGroup className="coordinate-root">
+									<CSSTransition classNames="community-menu" timeout={500}>
+										{narrow && showMenu ? (
+											<Transition key="menu">
+												{this.renderMenu()}
+											</Transition>
+										) : (
+											<Transition key="content">
+												<section><Content {...this.props} filterParams={filterParams}/></section>
+											</Transition>
+										)}
+									</CSSTransition>
 								</TransitionGroup>
 							</div>
 						</div>
@@ -133,13 +135,18 @@ export default createReactClass({
 
 		let animationDelay = i => ({animationDelay: (i * 100) + 'ms'});
 
-		let items = [all].concat(sections).map((x, i)=> (
-			x.title !== 'Forum' && <Link href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')}
-				style={animationDelay(i)}
-				onClick={this.toggleMenu}>{x.title}</Link>
-		));
+		let items = [all].concat(sections);
 
-		return React.createElement('nav', {key: 'menu', className: 'fullscreen-sections'}, ...items);
-
+		return (
+			<nav className="fullscreen-sections">
+				{items.map((x, i)=> (
+					x.title !== 'Forum' && (
+						<Link key={i} href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')}
+							style={animationDelay(i)}
+							onClick={this.toggleMenu}>{x.title}</Link>
+					)
+				))}
+			</nav>
+		);
 	}
 });

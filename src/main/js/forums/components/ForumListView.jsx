@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Transition from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Logger from 'nti-util-logger';
 import {Error as Err, Loading, Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
@@ -102,13 +102,8 @@ export default createReactClass({
 		}
 
 		return (
-			<div>
-				<Transition transitionName="fadeOutIn"
-					transitionAppear
-					transitionAppearTimeout={500}
-					transitionEnterTimeout={500}
-					transitionLeaveTimeout={500}
-				>
+			<TransitionGroup>
+				<CSSTransition appear classNames="fade-out-in" timeout={500} key="forum">
 					<nav className="forum">
 						<ul>
 							{
@@ -121,8 +116,8 @@ export default createReactClass({
 							}
 						</ul>
 					</nav>
-				</Transition>
-			</div>
+				</CSSTransition>
+			</TransitionGroup>
 		);
 	}
 });

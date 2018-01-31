@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 FormErrors.propTypes = {
 	errors: PropTypes.object
@@ -11,21 +11,21 @@ export default function FormErrors ({errors}) {
 	const messages = new Set();
 
 	return (
-		<ReactCSSTransitionGroup
-			className="errors"
-			transitionName="fadeOutIn"
-			transitionEnterTimeout={500}
-			transitionLeaveTimeout={500}>
+		<TransitionGroup className="errors">
 			{Object.keys(errors).map(ref => {
 				const error = errors[ref];
 
 				if (error.message && !messages.has(error.message)) {
 					messages.add(error.message);
-					return React.createElement('small', {key: ref, className: 'error'}, error.message);
+					return (
+						<CSSTransition classNames="fade-out-in" timeout={500} key={ref}>
+							<small className="error">error.message</small>
+						</CSSTransition>
+					);
 				}
 
 				return null;
 			})}
-		</ReactCSSTransitionGroup>
+		</TransitionGroup>
 	);
 }

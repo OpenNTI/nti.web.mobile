@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
-import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {Mixins} from 'nti-web-commons';
 import {StoreEventsMixin} from 'nti-lib-store';
 import {scoped} from 'nti-lib-locale';
@@ -191,13 +191,13 @@ export default createReactClass({
 					<UserAgreement />
 
 					<div className="errors">
-						<ReactCSSTransitionGroup transitionName="fadeOutIn"
-							transitionEnterTimeout={500}
-							transitionLeaveTimeout={500}>
-							{Object.keys(errors).map(ref =>
-								<small key={ref} className="error">{errors[ref].message}</small>
-							)}
-						</ReactCSSTransitionGroup>
+						<TransitionGroup>
+							{Object.keys(errors).map(ref => (
+								<CSSTransition key={ref} classNames="fade-out-in" timeout={500}>
+									<small className="error">{errors[ref].message}</small>
+								</CSSTransition>
+							))}
+						</TransitionGroup>
 					</div>
 
 					<input type="submit"
