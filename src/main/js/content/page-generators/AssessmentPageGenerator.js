@@ -12,7 +12,7 @@ export function buildPageInfoForContents (service, context, assessment, contents
 	* NTI-4705: Placeholder is there for courses that are newly created with no content packages.
 	* This allows for assignments to be opened in an empty course.
 	*/
-	const ContentPackageNTIID = (Package && Package.NTIID && (!Package.isRenderable || Package.isRendered)) || 'placeholder' ;
+	const ContentPackageNTIID = Package && (!Package.isRenderable || Package.isRendered) ? Package.NTIID : 'placeholder';
 
 	const content = `
 		<head>
