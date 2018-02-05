@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {addClass, removeClass, getViewportHeight} from 'nti-lib-dom';
-import {Footer, LockScroll, ConflictResolutionHandler} from 'nti-web-commons';
+import {Footer, LockScroll, ConflictResolutionHandler, Updates} from 'nti-web-commons';
 
 import Notifications from 'notifications/components/View';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
@@ -16,6 +16,10 @@ export default class extends React.Component {
 
 	static propTypes = {
 		children: PropTypes.element
+	};
+
+	static contextTypes = {
+		basePath: PropTypes.string
 	};
 
 	static childContextTypes = {
@@ -57,6 +61,7 @@ export default class extends React.Component {
 			<div className="app-container">
 				<ConflictResolutionHandler/>
 				<LibraryInvalidationListener />
+				<Updates.Monitor baseUrl={this.context.basePath}/>
 				{this.getOverlayState() != null && (<LockScroll/> )}
 
 				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
