@@ -1,5 +1,4 @@
-import ReactTransitionEvents from 'react/lib/ReactTransitionEvents';
-import {addClass, removeClass, getEventTarget} from 'nti-lib-dom';
+import {addClass, removeClass, getEventTarget, TransitionEvents} from 'nti-lib-dom';
 import Logger from 'nti-util-logger';
 
 const logger = Logger.get('content:components:widgets:roll:Mixin');
@@ -84,7 +83,7 @@ export default {
 
 
 		let transitionEnded = () => {
-			ReactTransitionEvents.removeEndEventListener(current, transitionEnded);
+			TransitionEvents.removeEndEventListener(current, transitionEnded);
 			removeClass(stage, 'transitioning');
 			removeClass(stage, action);
 			finish();
@@ -97,7 +96,7 @@ export default {
 		}
 
 
-		ReactTransitionEvents.addEndEventListener(current, transitionEnded);
+		TransitionEvents.addEndEventListener(current, transitionEnded);
 
 		addClass(stage, 'transitioning');
 
