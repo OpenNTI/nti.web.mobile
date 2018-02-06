@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
+import SwipeToRevealOptions from 'common/components/SwipeToRevealOptions';
 import ProfileLink from 'profile/components/ProfileLink';
 
 

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-import SwipeToRevealOptions from 'react-swipe-to-reveal-options';
 
+import SwipeToRevealOptions from 'common/components/SwipeToRevealOptions';
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
 import ListMeta from './ListMeta';

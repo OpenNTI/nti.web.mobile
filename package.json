@@ -84,7 +84,6 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-component": "0.x.x",
-    "react-swipe-to-reveal-options": "^0.3.3",
     "react-transition-group": "^2.2.1",
     "uuid": "^3.0.0",
     "vtt.js": "^0.13.0",
