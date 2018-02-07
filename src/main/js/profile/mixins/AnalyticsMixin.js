@@ -1,4 +1,4 @@
-import { getHistory } from 'nti-analytics';
+import { addHistory, getHistory } from 'nti-analytics';
 
 const getEntityId = 'Profile:getEntityId';
 
@@ -8,6 +8,11 @@ export default {
 		let {entity} = this.props;
 		return entity && entity.getID();
 	},
+
+	componentDidMount () {
+		addHistory(this[getEntityId]());
+	},
+
 
 	getAnalyticsData () {
 		const analyticsContext = () => {
