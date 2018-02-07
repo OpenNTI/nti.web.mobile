@@ -107,17 +107,15 @@ export default createReactClass({
 								</nav>
 
 								<TransitionGroup className="coordinate-root">
-									<CSSTransition classNames="community-menu" timeout={500}>
-										{narrow && showMenu ? (
-											<Transition key="menu">
-												{this.renderMenu()}
-											</Transition>
-										) : (
-											<Transition key="content">
-												<section><Content {...this.props} filterParams={filterParams}/></section>
-											</Transition>
-										)}
-									</CSSTransition>
+									{narrow && showMenu ? (
+										<Transition key="menu">
+											{this.renderMenu()}
+										</Transition>
+									) : (
+										<Transition key="content">
+											<section><Content {...this.props} filterParams={filterParams}/></section>
+										</Transition>
+									)}
 								</TransitionGroup>
 							</div>
 						</div>
