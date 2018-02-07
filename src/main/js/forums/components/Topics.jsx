@@ -19,6 +19,7 @@ import ViewHeader from './widgets/ViewHeader';
 
 
 const t = scoped('FORUMS');
+const Transition = x => <CSSTransition appear classNames="fade-out-in" timeout={500}><div {...x}/></CSSTransition>;
 
 
 export default createReactClass({
@@ -75,14 +76,14 @@ export default createReactClass({
 		return (
 			<div>
 				<TransitionGroup>
-					<CSSTransition key="topics" appear classNames="fade-out-in" timeout={500}>
+					<Transition key="topics">
 						<ViewHeader type={FORUM} />
 						<section>
 							{this.createTopicLink()}
 							<div className="group-heading"><h3>Topics</h3></div>
 							<TopicList container={forumContents}/>
 						</section>
-					</CSSTransition>
+					</Transition>
 				</TransitionGroup>
 			</div>
 		);
