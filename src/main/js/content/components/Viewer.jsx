@@ -240,16 +240,77 @@ export default createReactClass({
 		this.setState({selectedDiscussions});
 	},
 
-
-	render () {
-		const {contentPackage, className} = this.props;
+	renderGroupContents () {
+		const {contentPackage} = this.props;
 
 		const {
-			annotations, stagedNote, error, loading, page,
-			selectedDiscussions, style
+			annotations, stagedNote, page,
+			selectedDiscussions
 		} = this.state;
 
 		const {discussions} = this.getPropsFromRoute();
+
+		if(discussions) {
+			return (
+				<Fade key="discussions">
+					<Discussions
+						UserDataStoreProvider={page}
+						contentPackage={contentPackage}
+						filter={selectedDiscussions}
+					/>
+				</Fade>
+			);
+		}
+
+		if(stagedNote) {
+			return (
+				<Fade key="note-editor">
+					{this.renderNoteEditor()}
+				</Fade>
+			);
+		}
+
+		//Annotations cannot resolve their anchors if the
+		//content ref is not present... so don't even try.
+		const gutterItems = this.content ? annotations : void 0;
+
+		return (
+			<Fade key="content">
+				<div ref={this.attachNodeRef}>
+					<ViewEvent {...this.getAnalyticsData()}/>
+					<div className="content-body">
+						{this.renderAssessmentHeader()}
+						<div className="coordinate-root">
+							<BodyContent ref={this.attachContentRef}
+								onClick={this.onContentClick}
+								onUserSelectionChange={this.maybeOfferAnnotations}
+								contentPackage={contentPackage}
+								pageId={page.getCanonicalID()}
+								page={page}/>
+
+							{this.renderAssessmentFeedback()}
+
+							{this.renderGlossaryEntry()}
+
+							{this.renderPopUp()}
+
+							{this.renderBottomPager()}
+
+							<Gutter items={gutterItems} selectFilter={this.setDiscussionFilter}/>
+						</div>
+					</div>
+					{this.renderDockedToolbar()}
+				</div>
+			</Fade>
+		);
+	},
+
+	render () {
+		const {className} = this.props;
+
+		const {
+			stagedNote, error, loading, style
+		} = this.state;
 
 		if (loading) {
 			return (<Loading.Mask />);
@@ -269,61 +330,9 @@ export default createReactClass({
 			style
 		};
 
-
-		//Annotations cannot resolve their anchors if the
-		//content ref is not present... so don't even try.
-		const gutterItems = this.content ? annotations : void 0;
-
-
 		return (
 			<TransitionGroup {...props}>
-
-				{discussions ? (
-
-					<Fade key="discussions">
-						<Discussions
-							UserDataStoreProvider={page}
-							contentPackage={contentPackage}
-							filter={selectedDiscussions}
-						/>
-					</Fade>
-
-				) : stagedNote ? (
-
-					<Fade key="note-editor">
-						{this.renderNoteEditor()}
-					</Fade>
-
-				) : (
-					<Fade key="content">
-						<div ref={this.attachNodeRef}>
-							<ViewEvent {...this.getAnalyticsData()}/>
-							<div className="content-body">
-								{this.renderAssessmentHeader()}
-								<div className="coordinate-root">
-									<BodyContent ref={this.attachContentRef}
-										onClick={this.onContentClick}
-										onUserSelectionChange={this.maybeOfferAnnotations}
-										contentPackage={contentPackage}
-										pageId={page.getCanonicalID()}
-										page={page}/>
-
-									{this.renderAssessmentFeedback()}
-
-									{this.renderGlossaryEntry()}
-
-									{this.renderPopUp()}
-
-									{this.renderBottomPager()}
-
-									<Gutter items={gutterItems} selectFilter={this.setDiscussionFilter}/>
-								</div>
-							</div>
-							{this.renderDockedToolbar()}
-						</div>
-					</Fade>
-				)}
-
+				{this.renderGroupContents()}
 			</TransitionGroup>
 		);
 	},
@@ -347,17 +356,17 @@ export default createReactClass({
 
 		const content = annotation || submission;
 
-		return (
-			<TransitionGroup className={`fixed-footer ${key}`}>
-				<CSSTransition appear classNames="toast" timeout={500} key={key}>
-					{content && (
+		if(content) {
+			return (
+				<TransitionGroup className={`fixed-footer ${key}`}>
+					<CSSTransition appear classNames="toast" timeout={500} key={key}>
 						<div className={`the-fixed ${key}`}>
 							{content}
 						</div>
-					)}
-				</CSSTransition>
-			</TransitionGroup>
-		);
+					</CSSTransition>
+				</TransitionGroup>
+			);
+		}
 	},
 
 
