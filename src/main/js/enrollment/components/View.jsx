@@ -75,19 +75,26 @@ export default createReactClass({
 
 
 	getEnrollmentOptionFor (suffix) {
-		let e = this.getEntry();
-		e = e && e.getEnrollmentOptions();
+		const getter = 'getEnrollmentOptions';
+		const method = `getEnrollmentOptionFor${suffix}`;
+		const e = (x => x && x[getter] && x[getter]())(
+			//Why did we make this return a truthy object while loading that DOES NOT implement the interface??
+			this.getEntry()
+		);
 
-		return e ? e[`getEnrollmentOptionFor${suffix}`]() : null;
+		return (e && e[method]) ? e[method]() : null;
 	},
 
 
 	render () {
-
-		let {enrollmentType, entryId} = this.props;
+		const {props: {enrollmentType, entryId}, state: {catalogLoading}} = this;
 		let courseId = this.getCourseId();
 
-		if (!this.state.catalogLoading && !courseId) {
+		if (catalogLoading) {
+			return null;
+		}
+
+		if (!catalogLoading && !courseId) {
 			return (
 				<NotFound/>
 			);

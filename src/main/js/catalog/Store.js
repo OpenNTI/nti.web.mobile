@@ -44,6 +44,7 @@ class Store extends StorePrototype {
 
 	getEntry (id) {
 		let d = this[data];
+		//FIXME: this should return null even when loading... consumers should query the store if its loading or not.
 		let entry = {loading: true};
 		if (d && d.findEntry) {
 			entry = d.findEntry(id);
