@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import t from 'nti-lib-locale';
+import {scoped} from 'nti-lib-locale';
+
+const t = scoped('common.comingSoon');
+
 
 export default class ContentWidgetUnknown extends React.Component {
 
@@ -25,7 +28,7 @@ export default class ContentWidgetUnknown extends React.Component {
 	render () {
 		return (
 			<error className="unsupported-content" ref={this.attachRef}>
-				<span>{t('COMING_SOON.singular', {subject: 'This content'})}</span>
+				<span>{t('singular', {subject: 'This content'})}</span>
 			</error>
 		);
 	}

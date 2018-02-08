@@ -5,8 +5,21 @@ import {validate as isEmail} from 'email-validator';
 
 import Store from '../Store';
 
-const t = scoped('ENROLLMENT.GIFT.RECIPIENT');
-const t2 = scoped('ENROLLMENT');
+const t2 = scoped('enrollment.forms', {
+	requiredField: 'Field is required.',
+});
+
+const t = scoped('enrollment.gift.recipient', {
+	invalidRecipient: 'Invalid Recipient Email.',
+	enable: 'Send a gift notification to:',
+	firstName: 'First Name',
+	lastName: 'Last Name',
+	email: 'Email Address',
+	message: 'Enter your message here...',
+	fromLabel: 'From:',
+	from: 'Your Name',
+	sendDate: 'This notification will be sent upon completion of purchase.'
+});
 
 export default class Recipient extends React.Component {
 
@@ -174,7 +187,7 @@ export default class Recipient extends React.Component {
 								/>
 								{!valid && (
 									<span className="error message">
-										{this.isEmpty() ? t2('requiredField') : t2('invalidRecipient')}
+										{this.isEmpty() ? t2('requiredField') : t('invalidRecipient')}
 									</span>
 								)}
 							</span>

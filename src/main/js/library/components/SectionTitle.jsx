@@ -1,7 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-component';
-import t from 'nti-lib-locale';
+import {scoped} from 'nti-lib-locale';
+
+const t = scoped('library.sections', {
+	admin: 'Administered Courses',
+	courses: 'Courses',
+	communities: 'Communities',
+	books: 'Books'
+});
 
 
 SectionTitle.propTypes = {
@@ -15,7 +22,7 @@ export default function SectionTitle (props) {
 
 	let p = {
 		className: 'library-section-title',
-		children: t(`LIBRARY.SECTIONS.${section}`),
+		children: t(section),
 		href
 	};
 

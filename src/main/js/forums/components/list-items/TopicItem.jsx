@@ -16,7 +16,21 @@ import Store from '../../Store';
 
 import Mixin, {isMimeType} from './Mixin';
 
-const t = scoped('FORUMS');
+const DEFAULT_TEXT = {
+	posted: 'posted',
+	replied: 'replied',
+	likes: {
+		zero: '0 Likes',
+		one: '1 Like',
+		other: '%(count)s Likes'
+	},
+	replies: {
+		one: '1 Comment',
+		other: '%(count)s Comments'
+	},
+};
+
+const t = scoped('forums.topic', DEFAULT_TEXT);
 
 /**
  * For lists of Topics, this is the row item.

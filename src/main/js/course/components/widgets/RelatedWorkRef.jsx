@@ -29,7 +29,11 @@ External Links:
 	visibility:		"everyone"
 */
 
-const t = scoped('DISCUSSIONS');
+const DEFAULT_TEXT = {
+	viewComments: 'View Comments'
+};
+
+const t = scoped('relatedwork.item', DEFAULT_TEXT);
 
 export default class extends React.Component {
 	static displayName = 'CourseOverviewRelatedWorkRef';

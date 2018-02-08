@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {scoped} from 'nti-lib-locale';
 
-const t = scoped('DISCUSSIONS.ACTIONS');
+const DEFAULT_TEXT = {
+	reply: 'Reply',
+	share: 'Share',
+	edit: 'Edit',
+	flag: 'Report',
+	flagged: 'Reported',
+	delete: 'Delete'
+};
+
+const t = scoped('discussions.actions', DEFAULT_TEXT);
 
 const ICON_MAP = {
 	'delete': 'trash',

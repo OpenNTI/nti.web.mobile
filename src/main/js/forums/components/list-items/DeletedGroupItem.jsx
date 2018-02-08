@@ -11,7 +11,14 @@ import List from '../List';
 
 import Mixin from './Mixin';
 
-const t = scoped('FORUMS');
+const DEFAULT_TEXT = {
+	deleted: {
+		one: 'This comment has been deleted.',
+		other: '%(count)s comments deleted.'
+	}
+};
+
+const t = scoped('forums.comment', DEFAULT_TEXT);
 
 export default createReactClass({
 	displayName: 'list-items:DeletedGroupItem',
@@ -45,7 +52,7 @@ export default createReactClass({
 		return (
 			<div className="deleteditemgroup">
 				<Avatar />
-				<Collapsible triangle={numItems > 1 || referenced} title={t('deletedItemsMessage', {count: numItems})}>
+				<Collapsible triangle={numItems > 1 || referenced} title={t('deleted', {count: numItems})}>
 					<List container={container} groupDeleted={false} topic={topic} />
 				</Collapsible>
 			</div>

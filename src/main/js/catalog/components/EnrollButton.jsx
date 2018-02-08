@@ -9,7 +9,9 @@ import Button from 'forms/components/Button';
 import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 
-let t = scoped('ENROLLMENT');
+const t = scoped('enrollment.buttons', {
+	enroll: 'Enroll'
+});
 
 
 /**
@@ -45,7 +47,7 @@ export default createReactClass({
 
 		if (!enrolled && !dropOnly && this.enrollmentOptions(this.getEntry()).length > 0) {
 			return (
-				<Button href={`${base}catalog/item/${entry}/enrollment/`} className="columns">{t('BUTTONS.enrollButtonLabel')}</Button>
+				<Button href={`${base}catalog/item/${entry}/enrollment/`} className="columns">{t('enroll')}</Button>
 			);
 		}
 

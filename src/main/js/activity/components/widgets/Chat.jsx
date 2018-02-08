@@ -7,7 +7,7 @@ import {scoped} from 'nti-lib-locale';
 import DisplayName from 'common/components/DisplayName';
 import Transcript from 'chat/components/Transcript';
 
-let t = scoped('UNITS');
+let t = scoped('common.units');
 
 import Mixin from './Mixin';
 

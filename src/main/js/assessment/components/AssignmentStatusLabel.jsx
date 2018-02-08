@@ -7,8 +7,8 @@ import {scoped} from 'nti-lib-locale';
 import {getEventTarget} from 'nti-lib-dom';
 import moment from 'moment';
 
-const toUnitString = scoped('UNITS');
-const toUnitSingularString = scoped('UNITS.SINGULARS');
+const toUnitString = scoped('common.units');
+const toUnitSingularString = scoped('common.units.SINGULARS');
 
 const Assignment = getModel('assessment.assignment');
 const HistoryItem = getModel('assessment.assignmenthistoryitem');

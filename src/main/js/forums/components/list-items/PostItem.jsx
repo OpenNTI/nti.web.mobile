@@ -22,8 +22,17 @@ import ActionsComp from '../Actions';
 
 import Mixin from './Mixin';
 
+const DEFAULT_TEXT = {
+	post: {
+		deletePrompt: 'Delete this comment?'
+	},
+	replies: {
+		one: '1 Comment',
+		other: '%(count)s Comments'
+	},
+};
 
-const t = scoped('FORUMS');
+const t = scoped('forums.topic', DEFAULT_TEXT);
 const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
@@ -105,7 +114,7 @@ export default createReactClass({
 	},
 
 	onDeleteComment () {
-		Prompt.areYouSure(t('deleteCommentPrompt')).then(
+		Prompt.areYouSure(t('post.deletePrompt')).then(
 			()=> {
 				this.setState({
 					busy: true

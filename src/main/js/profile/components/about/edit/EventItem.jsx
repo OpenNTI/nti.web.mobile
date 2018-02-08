@@ -5,7 +5,12 @@ import {scoped} from 'nti-lib-locale';
 
 import {Editor} from 'modeled-content';
 
-const t = scoped('PROFILE.EDIT.EVENT_ITEM');
+const t = scoped('profile.edit.event_item', {
+	'school': 'School',
+	'degree': 'Degree',
+	'companyName': 'Company Name',
+	'title': 'Title'
+});
 
 function isRequired (schema, prop) {
 	return ((schema || {})[prop] || {}).required;

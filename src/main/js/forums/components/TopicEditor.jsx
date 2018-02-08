@@ -5,7 +5,13 @@ import {scoped} from 'nti-lib-locale';
 
 import {Editor} from 'modeled-content';
 
-const t = scoped('FORUMS');
+
+const DEFAULT_TEXT = {
+	save: 'Save',
+	titlePlaceholder: 'Title'
+};
+
+const t = scoped('forums.topic.editor', DEFAULT_TEXT);
 
 function isValid (topicValue) {
 	return topicValue.title.trim().length > 0 && !Editor.isEmpty(topicValue.body);
@@ -52,7 +58,7 @@ export default class TopicEditor extends React.Component {
 				onOk={this.props.onSubmit}
 				onCancel={this.props.onCancel}
 				okEnabled={this.state.canSubmit}
-				okText={t('editorOkButton')}
+				okText={t('save')}
 			/>
 		);
 		return (
@@ -61,7 +67,7 @@ export default class TopicEditor extends React.Component {
 					<input
 						ref={this.attachTitleRef}
 						defaultValue={title}
-						placeholder={t('topicTitlePlaceholder')}
+						placeholder={t('titlePlaceholder')}
 						onChange={this.onEditorChange}
 					/>
 				</div>

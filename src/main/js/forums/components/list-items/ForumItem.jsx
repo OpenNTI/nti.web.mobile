@@ -10,7 +10,16 @@ import {mimeTypes, FORUM} from '../../Constants';
 
 import ForumMixin from './Mixin';
 
-const t = scoped('FORUMS');
+const DEFAULT_TEXT = {
+	count: {
+		zero: 'No Discussions',
+		one: '1 Discussion',
+		other: '%(count)s Discussions'
+	},
+	recentActivity: 'Recent Activity',
+};
+
+const t = scoped('forums.topic', DEFAULT_TEXT);
 
 /**
  * For lists of Forums, this is the row item.
@@ -117,7 +126,7 @@ export default createReactClass({
 							<h3>
 								<span className="title">{item.title}</span>
 								<div className="meta">
-									<span className="see-all count" href={this.getHref()}>{t('topicCount', {count: totalItemCount})}</span>
+									<span className="see-all count" href={this.getHref()}>{t('count', {count: totalItemCount})}</span>
 								</div>
 								<span className="arrow-right"/>
 

@@ -16,7 +16,7 @@ import ReplyEditor from './ReplyEditor';
 import AuthorInfo from './AuthorInfo';
 import NotePanelBehavior from './NotePanelBehavior';
 
-const t = scoped('UNITS');
+const t = scoped('common.units');
 
 const Panel = createReactClass({
 	displayName: 'content:discussions:Panel',

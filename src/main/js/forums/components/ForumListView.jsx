@@ -18,7 +18,13 @@ import ForumBin from './widgets/ForumBin';
 
 const logger = Logger.get('forums:components:ForumListView');
 
-const t = scoped('FORUMS.groupTitles');
+const DEFAULT_TEXT = {
+	forcredit: 'Enrolled For-Credit',
+	open: 'Open Discussions',
+	other: 'Other Discussions'
+};
+
+const t = scoped('forums.groups.sections', DEFAULT_TEXT);
 const discussionsChanged = 'ForumListView:discussionsChangedHandler';
 
 export default createReactClass({

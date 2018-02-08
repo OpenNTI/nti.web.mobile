@@ -4,7 +4,9 @@ import {scoped} from 'nti-lib-locale';
 
 import Editor from './FeedbackEditor';
 
-const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
+const t = scoped('assessment.assignment.feedback', {
+	entryPlaceholder: 'Add a comment'
+});
 
 
 

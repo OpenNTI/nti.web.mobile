@@ -8,7 +8,15 @@ import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
 
 import GiftOptions from './GiftOptions';
 
-const t = scoped('ENROLLMENT');
+const t = scoped('enrollment.store', {
+	title: 'Enroll as a Lifelong Learner',
+	access: 'Gain complete access to interact with all course content, including lectures, course materials, quizzes, and discussions once the class is in session.',
+	NotRefundable: 'Enrollment is not refundable.',
+
+	enroll: 'Enroll as a Lifelong Learner',
+	enrollWithPrice: 'Enroll as a Lifelong Learner: %(price)s',
+});
+
 const getPurchasable = 'StoreEnrollment:getPurchasable';
 
 export default createReactClass({
@@ -52,10 +60,10 @@ export default createReactClass({
 		return (
 			<div>
 				<div className="enrollment store-enrollment">
-					<h2 className="title">{t('storeEnrollmentTitle')}</h2>
+					<h2 className="title">{t('title')}</h2>
 					<p className="price">{formattedPrice}</p>
-					<p className="description">{t('storeEnrollmentGainAccess')}</p>
-					<small>{t('enrollmentNotRefundable')}</small>
+					<p className="description">{t('access')}</p>
+					<small>{t('NotRefundable')}</small>
 					{enrolled
 						?
 						(<div className="enrollment-status">
@@ -65,7 +73,7 @@ export default createReactClass({
 						</div>)
 						:
 						(<div className="actions">
-							<a href={href}>{t('enrollAsLifelongLearner')}</a>
+							<a href={href}>{t('enroll')}</a>
 						</div>)
 					}
 

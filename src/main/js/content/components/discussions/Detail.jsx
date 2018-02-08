@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Mixins} from 'nti-web-commons';
-// import {scoped} from 'nti-lib-locale';
 
 import {Panel as Body} from 'modeled-content';
 
@@ -13,7 +12,6 @@ import ReplyEditor from './ReplyEditor';
 import Reply from './Panel';
 import NotePanelBehavior from './NotePanelBehavior';
 
-// const t = scoped('DISCUSSIONS');
 
 export default createReactClass({
 	displayName: 'content:discussions:Detail',

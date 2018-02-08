@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import t from 'nti-lib-locale';
+import {scoped} from 'nti-lib-locale';
 import {Prompt} from 'nti-web-commons';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
@@ -9,6 +9,12 @@ import TopicHeadline from 'forums/components/TopicHeadline';
 import ActionsComp from 'forums/components/Actions';
 
 import Mixin from './Mixin';
+
+const DEFAULT_TEXT = {
+	deletePrompt: 'Delete this discussion?',
+};
+
+const t = scoped('forums.topic', DEFAULT_TEXT);
 
 export default createReactClass({
 	displayName: 'ForumTopic',
@@ -26,7 +32,7 @@ export default createReactClass({
 	onDelete () {
 		const {props: {item}} = this;
 
-		Prompt.areYouSure(t('FORUMS.deleteTopicPrompt'))
+		Prompt.areYouSure(t('deletePrompt'))
 			.then(() => item.delete());
 	},
 

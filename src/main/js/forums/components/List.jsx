@@ -8,7 +8,11 @@ import groupDeletedItems from '../utils/group-deleted-items';
 
 import ListItem from './list-items';
 
-const t = scoped('FORUMS');
+const DEFAULT_TEXT = {
+	empty: 'There is nothing here.'
+};
+
+const t = scoped('forums.list', DEFAULT_TEXT);
 
 export default class extends React.Component {
 	static displayName = 'forums:List';
@@ -40,7 +44,7 @@ export default class extends React.Component {
 	render () {
 		const {
 			container,
-			emptyText = t('emptyList'),
+			emptyText = t('empty'),
 			groupDeleted,
 			itemProps,
 			keyFn = this.keyFor,

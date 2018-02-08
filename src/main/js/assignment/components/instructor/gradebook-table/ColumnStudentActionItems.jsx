@@ -8,7 +8,7 @@ import {rawContent} from 'nti-commons';
 import StudentLink from './StudentLink';
 import StudentStatics from './StudentStaticsMixin';
 
-const t = scoped('UNITS');
+const t = scoped('common.units');
 
 export default createReactClass({
 	displayName: 'ColumnStudentActionItems',

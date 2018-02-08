@@ -10,7 +10,26 @@ import Store from '../Store';
 import {updateCoupon} from '../Actions';
 import * as Constants from '../Constants';
 
-const t = scoped('ENROLLMENT.GIFT.PRICING');
+const t = scoped('enrollment.gift.pricing', {
+	begins: 'Course Begins',
+	checkingCoupon: 'Checking Coupon',
+	coupon: 'I have a coupon',
+	couponPlaceholder: 'Coupon Code',
+	ends: 'Course Ends',
+	hours: 'Credit Hours',
+	invalidCoupon: 'Invalid Coupon',
+	lockedCoupon: 'Coupon',
+	noCoupon: 'No Coupon',
+	noRefunds: 'Not Refundable',
+	refunds: 'Refunds',
+	subType: 'Enrollment Type',
+	total: 'total',
+	validCoupon: 'Coupon Accepted: %(discount)s off',
+	'x_creditHours': {
+		one: '%(count)s Credit Hour',
+		other: '%(count)s Credit Hours'
+	}
+});
 
 const getDiscountString = 'Pricing:getDiscountString';
 const onChange = 'Pricing:onChange';

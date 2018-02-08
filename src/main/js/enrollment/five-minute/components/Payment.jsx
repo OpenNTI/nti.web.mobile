@@ -10,7 +10,9 @@ import Store from '../Store';
 import {PAY_AND_ENROLL_ERROR} from '../Constants';
 
 const logger = Logger.get('enrollment:five-minute:components:Payment');
-const t = scoped('ENROLLMENT');
+const t = scoped('enrollment.fiveMinuteEnrollment', {
+	proceedToPayment: 'Proceed to payment',
+});
 
 export default createReactClass({
 	displayName: 'Payment',

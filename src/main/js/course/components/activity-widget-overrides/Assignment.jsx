@@ -11,7 +11,7 @@ import AssignmentHistoryContextChild from '../../mixins/AssignmentHistoryContext
 
 import Footer from './AssignmentFooter';
 
-const t = scoped('UNITS');
+const t = scoped('common.units');
 
 
 export default createReactClass({

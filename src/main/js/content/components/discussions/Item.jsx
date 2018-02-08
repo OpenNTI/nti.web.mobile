@@ -8,7 +8,7 @@ import DisplayName from 'common/components/DisplayName';
 import {Panel} from 'modeled-content';
 
 
-const t = scoped('UNITS');
+const t = scoped('common.units');
 
 
 export default function DiscussionsItem ({item}) {

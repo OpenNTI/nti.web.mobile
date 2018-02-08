@@ -7,7 +7,9 @@ import {Mixins} from 'nti-web-commons';
 
 import {canSend} from '../Api';
 
-const t = scoped('INVITATIONS');
+const t = scoped('invitations.view', {
+	inviteButton: 'Invite someone to this course',
+});
 
 export default createReactClass({
 	displayName: 'Invitations:InviteButton',

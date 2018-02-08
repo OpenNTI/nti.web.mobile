@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {DateTime, Report} from 'nti-web-commons';
-import t from 'nti-lib-locale';
+import {scoped} from 'nti-lib-locale';
 
 import Avatar from 'common/components/Avatar';
 import Breadcrumb from 'common/components/BreadcrumbPath';
@@ -13,6 +13,18 @@ import {Panel as ModeledContentPanel} from 'modeled-content';
 
 import AddComment from './AddComment';
 
+
+const t = scoped('activity.item', {
+	goto: 'Read More',
+	reply: 'Reply',
+});
+
+const unit = scoped('common.units', {
+	comments: {
+		one: '%(count)s Comment',
+		other: '%(count)s Comments'
+	}
+});
 
 const PREFIX = [];
 
@@ -37,8 +49,8 @@ export default class extends React.Component {
 				<TopicHeadline item={item} />
 
 				<ul className="action-links">
-					<li className="action-link"><GotoItem item={item}>{t('ACTIVITY.goto')}</GotoItem></li>
-					<li className="">{t('UNITS.comments', {count: item.PostCount})}</li>
+					<li className="action-link"><GotoItem item={item}>{t('goto')}</GotoItem></li>
+					<li className="">{unit('comments', {count: item.PostCount})}</li>
 				</ul>
 
 				<div className="replies">
@@ -64,7 +76,7 @@ function Comment (props) {
 			</div>
 			<ModeledContentPanel body={item.body} />
 			<ul className="action-links">
-				<li className="action-link"><GotoItem item={item}>{t('DISCUSSIONS.ACTIONS.reply')}</GotoItem></li>
+				<li className="action-link"><GotoItem item={item}>{t('reply')}</GotoItem></li>
 				<li className="action-link"><Report item={item}/></li>
 			</ul>
 		</div>

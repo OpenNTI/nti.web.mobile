@@ -4,8 +4,15 @@ import cx from 'classnames';
 import {scoped} from 'nti-lib-locale';
 
 //These strings should probably move into a more generic place in the strings.
-const t = scoped('ENROLLMENT.forms.storeenrollment');
-const t2 = scoped('ENROLLMENT');
+const t2 = scoped('enrollment.forms');
+const t = scoped('enrollment.forms.storeenrollment', {
+	'address_line1': 'Address',
+	'address_line2': 'Address Continued',
+	'address_city': 'City',
+	'address_state': 'State/Province/Territory/Region',
+	'address_zip': 'Zip/Postal Code',
+	'address_country': 'Country',
+});
 
 const FIELDS = ['line1', 'line2', 'city', 'state', 'country', 'zip'];
 

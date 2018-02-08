@@ -12,7 +12,10 @@ import FeedbackList from './FeedbackList';
 import FeedbackEntry from './FeedbackEntry';
 
 const logger = Logger.get('assessment:components:Feedback');
-const t = scoped('ASSESSMENT.ASSIGNMENTS.FEEDBACK');
+const t = scoped('assessment.assignment.feedback', {
+	title: 'Feedback',
+	description: 'The comments below will only be visible to you and your instructor.',
+});
 
 const logError = error=>logger.warn(error.message || error);
 

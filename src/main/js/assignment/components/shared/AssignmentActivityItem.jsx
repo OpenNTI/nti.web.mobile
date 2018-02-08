@@ -23,7 +23,7 @@ const DEFAULT_TEXT = {
 	'you-feedback': 'You commented on: %(title)s'
 };
 
-const t = scoped('COURSE.ASSIGNMENTS.ACTIVITY', DEFAULT_TEXT);
+const t = scoped('course.assignments.activity', DEFAULT_TEXT);
 
 
 const hasName = type => (t(type, {name: type, title: ''}) || '').indexOf(type) >= 0;

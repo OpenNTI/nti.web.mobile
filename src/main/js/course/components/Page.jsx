@@ -7,7 +7,14 @@ import Page from 'common/components/Page';
 
 import * as Sections from '../Sections';
 
-let getLabel = scoped('COURSE.SECTIONS');
+const getLabel = scoped('course.sections', {
+	activity: 'Activity',
+	assignments: 'Assignments',
+	discussions: 'Discussions',
+	lessons: 'Lessons',
+	info: 'Course Info',
+	videos: 'Videos'
+});
 
 
 export default class extends React.Component {

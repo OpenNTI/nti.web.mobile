@@ -7,7 +7,9 @@ import Redirect from 'navigation/components/Redirect';
 
 import EnrollmentOptions from '../mixins/EnrollmentMixin';
 
-let t = scoped('ENROLLMENT');
+const t = scoped('enrollment.view', {
+	title: 'Enroll',
+});
 
 export default createReactClass({
 	displayName: 'Enroll',
@@ -22,7 +24,7 @@ export default createReactClass({
 	getContext () {
 		return Promise.resolve([
 			{
-				label: t('enrollTitle')
+				label: t('title')
 			}
 		]);
 	},

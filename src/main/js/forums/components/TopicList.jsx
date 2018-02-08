@@ -7,7 +7,11 @@ import Paging from '../mixins/Paging';
 import List from './List';
 import PageControls from './PageControls';
 
-const t = scoped('FORUMS');
+const DEFAULT_TEXT = {
+	empty: 'There are no active discussions.'
+};
+
+const t = scoped('forums.topic.list', DEFAULT_TEXT);
 
 export default createReactClass({
 	displayName: 'TopicList',

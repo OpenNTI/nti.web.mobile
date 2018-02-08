@@ -9,7 +9,12 @@ import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 import Card from '../Card';
 import Mixin from '../about/Mixin';
 
-const t = scoped('PROFILE.ABOUT.SECTIONTITLES');
+const t = scoped('profile.about.sectiontitles', {
+	'about': 'About',
+	'education': 'Education',
+	'positions': 'Professional',
+	'interests': 'Interests'
+});
 
 let sections = ['about', 'education', 'positions', 'interests'];
 

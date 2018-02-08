@@ -5,7 +5,10 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import {Mixins, Presentation} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
-const t = scoped('COURSE.INFO.CATALOG_ENTRY');
+const t = scoped('course.info.catalogEntry', {
+	ForCredit: 'For Credit',
+	Open: 'Not For Credit'
+});
 
 const OPEN = Symbol();
 const FOR_CREDIT = Symbol();

@@ -5,7 +5,11 @@ import {Prompt, Mixins} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 import cx from 'classnames';
 
-let t = scoped('CONTACTS');
+const DEFAULT_TEXT = {
+	deleteListPrompt: 'Delete this list?'
+};
+
+const t = scoped('contacts.lists', DEFAULT_TEXT);
 
 export default createReactClass({
 	displayName: 'ItemDetailHeader',

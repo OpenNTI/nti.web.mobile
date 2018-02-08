@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {LocalizedHTML, DateTime} from 'nti-web-commons';
+import {DateTime} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
+import {rawContent} from 'nti-commons';
 
 import Button from 'forms/components/Button';
 
@@ -10,8 +11,22 @@ import {resetProcess} from '../Actions';
 import Pricing from './Pricing';
 
 
-const t = scoped('ENROLLMENT.GIFT.SUCCESS');
-const siteString = scoped('COURSE.CONTACTINFO');
+const siteString = scoped('course.contactInfo');
+const t = scoped('enrollment.gift.success', {
+	title: 'Gift Purchase Successful',
+	info: '<strong>%(courseTitle)s</strong> starts on <strong>%(startDate)s</strong> and will be conducted fully online.',
+	infoNoDate: '<strong>%(courseTitle)s</strong> will be conducted fully online.',
+	toSender: 'We’ve sent an email of this transaction to you at <a>%(sender)s</a>. ' +
+				'We’ve also sent a separate email that contains instructions on how to redeem this gift.',
+	alert: 'Please be sure to pass this information along to the gift recipient in time to take advantage of the course.',
+	toRecipient: 'We’ve sent an email of this transaction to you at <a>%(sender)s</a>. ' +
+					'We’ve also sent you a copy of the gift notification that was sent to <a>%(receiver)s</a> ' +
+					'with instructions on how to redeem this gift.',
+	support: 'Please contact %(email)s if you have any issues.',
+	transactionID: 'Transaction ID:',
+	accessKey: 'Access Key:',
+	supportPrompt: 'Please contact tech support if you have any issues.'
+});
 
 export default class extends React.Component {
 	static displayName = 'GiftSuccess';
@@ -46,7 +61,7 @@ export default class extends React.Component {
 		const {VendorInfo: {StartDate} = {}} = purchasable || {};
 
 		const date = DateTime.format(StartDate);
-		const support = siteString('GIFTSUPPORT');
+		const support = siteString('GiftSupport');
 
 		let {onDone} = this.props;
 		if (typeof onDone !== 'function') {
@@ -72,17 +87,14 @@ export default class extends React.Component {
 				{!thankYouURL ? null : (<iframe src={thankYouURL} className="thankyou" frameBorder="0"/>)}
 				<div className="panel">
 					<h3 className="header">{t('title')}</h3>
-					<LocalizedHTML className="gift" stringId={`ENROLLMENT.GIFT.SUCCESS.${infoKey}`} sender={sender} receiver={receiver} />
+					<div className="gift" {...rawContent(t(infoKey, {sender, receiver}))} />
 					<p className="alert">{alert}</p>
 
-					<LocalizedHTML className="prompt"
-						stringId={`ENROLLMENT.GIFT.SUCCESS.${(date ? 'info' : 'infoNoDate')}`}
-						courseTitle={title}
-						startDate={date}/>
+					<div className="prompt"
+						{...rawContent(t(date ? 'info' : 'infoNoDate', {courseTitle: title, startDate: date}))} />
 
-					<LocalizedHTML className="support"
-						stringId="ENROLLMENT.GIFT.SUCCESS.support"
-						email={support} />
+					<div className="support"
+						{...rawContent(t('support', {email: support}))} />
 
 					<div className="token">
 						<span className="label">{t('accessKey')}</span>

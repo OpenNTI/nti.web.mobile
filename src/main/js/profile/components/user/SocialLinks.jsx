@@ -3,7 +3,12 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
 
-let t = scoped('PROFILE.ABOUT.SOCIAL');
+const t = scoped('profile.about.social', {
+	'twitter': 'Twitter',
+	'googlePlus': 'Google+',
+	'linkedIn': 'LinkedIn',
+	'facebook': 'Facebook'
+});
 
 export default createReactClass({
 	displayName: 'SocialLinks',

@@ -11,7 +11,15 @@ import FormErrors from 'forms/components/FormErrors';
 
 import {send, canSend} from '../Api';
 
-const t = scoped('INVITATIONS');
+const t = scoped('invitations.send', {
+	heading: 'Send Invitation',
+	button: 'Send',
+	namePlaceholder: 'Name',
+	emailPlaceholder: 'Email',
+	messagePlaceholder: 'Message',
+	successMessage: 'Invitation sent.',
+	cannotSend: 'Can’t send invitations for this course.',
+});
 
 export default createReactClass({
 	displayName: 'Invitations:SendForm',
@@ -77,7 +85,7 @@ export default createReactClass({
 
 	form () {
 		const {error} = this.state;
-		const heading = t('sendHeading');
+		const heading = t('heading');
 		const disabled = !this.validate();
 
 		return (
@@ -86,10 +94,10 @@ export default createReactClass({
 					type="email"
 					value={this.state.email}
 					onChange={this.onEmailChange}
-					placeholder={t('sendEmailPlaceholder')} />
+					placeholder={t('emailPlaceholder')} />
 				<textarea
 					name="message"
-					placeholder={t('sendMessagePlaceholder')}
+					placeholder={t('messagePlaceholder')}
 					onChange={this.onMessageChange}
 					value={this.state.message}
 				/>
@@ -100,7 +108,7 @@ export default createReactClass({
 						disabled={disabled}
 						id="redeem-submit"
 						className="button"
-						value={t('sendButton')} />
+						value={t('button')} />
 				</div>
 			</FormPanel>
 		);
@@ -113,7 +121,7 @@ export default createReactClass({
 	successMessage () {
 		return (
 			<div className="success">
-				<Notice>{t('sendSuccessMessage')}</Notice>
+				<Notice>{t('successMessage')}</Notice>
 				<div className="button-row">
 					<button onClick={this.reset}>Send Another</button>
 				</div>

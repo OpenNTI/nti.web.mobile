@@ -4,7 +4,9 @@ import {scoped} from 'nti-lib-locale';
 import {getUserAgreementURI} from 'nti-web-client';
 import {rawContent} from 'nti-commons';
 
-const t = scoped('ENROLLMENT');
+const t = scoped('enrollment.terms', {
+	agreement: 'I have read and agree to the <a href="%(url)s" target="_blank">licensing terms</a>'
+});
 
 export default class TermsCheckbox extends React.Component {
 
@@ -27,7 +29,7 @@ export default class TermsCheckbox extends React.Component {
 			return null;
 		}
 
-		const html = t('agreeToTerms', {url});
+		const html = t('agreement', {url});
 		return (
 			<div className="terms-checkbox">
 				<label className="terms-label">

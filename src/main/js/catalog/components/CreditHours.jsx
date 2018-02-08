@@ -1,21 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import locale, {scoped} from 'nti-lib-locale';
+import {scoped} from 'nti-lib-locale';
 
-const t = scoped('COURSE.INFO');
+const units = scoped('common.units');
+const t = scoped('course.info', {
+	credit: {
+		available: 'available'
+	},
+});
 
 export default function CreditHours ({entry, credit = []}) {
-	let keyPrefix = entry + '-credit-';
-	//let hours = (credit[0] || {}).Hours;
+	const keyPrefix = entry + '-credit-';
 
 	return (
 		<div className="enroll-for-credit">
-			{/*{locale('UNITS.credits', { count: hours  })} {t('CREDIT.available')}<br />*/}
 			{credit.map((item, i) => {
-				let e = item.Enrollment || {};
+				const e = item.Enrollment || {};
 				return (
 					<div className="item" key={keyPrefix + i}>
-						{locale('UNITS.credits', { count: item.Hours })} {t('CREDIT.available')}<br />
+						{units('credits', { count: item.Hours })} {t('credit.available')}<br />
 						<a href={e.url} target="_blank" rel="noopener noreferrer">{e.label}</a>
 					</div>
 				);

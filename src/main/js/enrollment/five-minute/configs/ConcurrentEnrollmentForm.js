@@ -6,7 +6,20 @@ import {StateSelect, CountrySelect} from 'forms/fields';
 
 import * as Constants from '../Constants';
 
-const t = scoped('ENROLLMENT.forms.fiveminute');
+const t = scoped('enrollment.forms.fiveminute', {
+	'name':                 'Full Name',
+	'telephone_number':     'Phone Number',
+	'email':                'Email Address',
+
+	'mailing_street_line1': 'Address',
+	'mailing_street_line2': 'Address Continued',
+	'city':                 'City',
+	'state':                'State',
+	'country':              'Country',
+	'postal_code':          'Zip',
+
+	'contact_me':           'I want someone from the University of Oklahoma to contact me.',
+});
 
 export default Object.freeze([
 	{
@@ -73,7 +86,7 @@ export default Object.freeze([
 			{
 				ref: 'contactme',
 				type: 'checkbox',
-				label: t('contactMe'),
+				label: t('contact_me'),
 				htmlLabel: true,
 				value: 'Y'
 			}

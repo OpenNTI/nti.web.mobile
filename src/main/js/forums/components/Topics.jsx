@@ -17,8 +17,11 @@ import {FORUM} from '../Constants';
 import TopicList from './TopicList';
 import ViewHeader from './widgets/ViewHeader';
 
+const DEFAULT_TEXT = {
+	create: 'Create a discussion',
+};
 
-const t = scoped('FORUMS');
+const t = scoped('forums.topic', DEFAULT_TEXT);
 const Transition = x => <CSSTransition appear classNames="fade-out-in" timeout={500} {...x}/>;
 
 
@@ -56,7 +59,7 @@ export default createReactClass({
 		if (!this.canCreateTopic()) {
 			return null;
 		}
-		return <Link className="action-link create-topic" href="/newtopic/">{t('createTopic')}</Link>;
+		return <Link className="action-link create-topic" href="/newtopic/">{t('create')}</Link>;
 	},
 
 	render () {

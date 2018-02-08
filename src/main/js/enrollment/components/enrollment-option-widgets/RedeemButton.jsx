@@ -6,7 +6,9 @@ import {Mixins} from 'nti-web-commons';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {scoped} from 'nti-lib-locale';
 
-const t = scoped('ENROLLMENT.BUTTONS');
+const t = scoped('enrollment.buttons', {
+	redeemGift: 'Redeem a gift',
+});
 
 export default createReactClass({
 	displayName: 'RedeemButton',

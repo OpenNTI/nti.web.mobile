@@ -10,7 +10,15 @@ import CreditHours from './CreditHours';
 import FullyOnline from './FullyOnline';
 import Schedule from './Schedule';
 
-const t = scoped('COURSE.INFO');
+const t = scoped('course.info', {
+	CreditHours: 'Credit Hours',
+	NoPrerequisites: 'There are no prerequisites for this course.',
+	SchoolLabel: 'School / Department',
+	StartDate: 'Start Date',
+	Duration: 'Duration',
+	DurationUnits: 'Weeks',
+	DaysAndTimes: 'Day & Time',
+});
 
 const isOpenEnrolled = RegExp.prototype.test.bind(/open/i);
 
@@ -42,14 +50,18 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 					<dt>{entry.ProviderUniqueID}</dt>
 					<dd>{entry.Title}</dd>
 				</dl>
-				{entry.ProviderDepartmentTitle && (<dl>
-					<dt>{t('SchoolLabel')}</dt>
-					<dd>{entry.ProviderDepartmentTitle}</dd>
-				</dl>)}
-				{prerequisites && prerequisites.length > 0 && (<dl>
-					<dt>Prerequisites</dt>
-					{(prerequisites || []).map((x, i) => (<dd key={x.id || i}>{x.title}</dd>))}
-				</dl>)}
+				{entry.ProviderDepartmentTitle && (
+					<dl>
+						<dt>{t('SchoolLabel')}</dt>
+						<dd>{entry.ProviderDepartmentTitle}</dd>
+					</dl>
+				)}
+				{prerequisites && prerequisites.length > 0 && (
+					<dl>
+						<dt>Prerequisites</dt>
+						{(prerequisites || []).map((x, i) => (<dd key={x.id || i}>{x.title}</dd>))}
+					</dl>
+				)}
 				{EnrollmentMessage !== 'div' || !isEmpty(entry.Credit) && (
 					<dl>
 						<dt>{t('CreditHours')}</dt>
@@ -61,10 +73,12 @@ export default function Description ({entry, enrollmentStatus = 'None'}) {
 					</dl>
 				)}
 				<div className="cols last">
-					{entry.StartDate && (<dl>
-						<dt>{t('StartDate')}</dt>
-						<dd>{moment(entry.StartDate).format('LL')}</dd>
-					</dl>)}
+					{entry.StartDate && (
+						<dl>
+							<dt>{t('StartDate')}</dt>
+							<dd>{moment(entry.StartDate).format('LL')}</dd>
+						</dl>
+					)}
 					{weeks > 0 && (
 						<dl>
 							<dt>{t('Duration')}</dt>

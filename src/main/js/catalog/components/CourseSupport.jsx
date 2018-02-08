@@ -7,7 +7,25 @@ const {DataURIs: {BLANK_IMAGE}} = Constants;
 
 const MISSING = '~~missing~~';
 
-const t = scoped('COURSE.CONTACTINFO');
+const t = scoped('course.contactInfo', {
+	label: 'Tech Support',
+	link0: {
+		label: 'Support',
+		link: 'mailto:support@nextthought.com'
+	},
+	link1: {
+		label: 'Info',
+		link: 'mailto:info@nextthought.com'
+	},
+	link2: {
+		label: 'NextThought Website',
+		link: 'http://nextthought.com'
+	},
+	link3: {
+		label: 'Help Site',
+		link: 'https://help.nextthought.com/'
+	}
+});
 
 const f = {fallback: MISSING};
 
@@ -20,10 +38,10 @@ export default class extends React.Component {
 
 	shouldRender = () => {
 		return [
-			t('LINK0.label', f) !== MISSING,
-			t('LINK1.label', f) !== MISSING,
-			t('LINK2.label', f) !== MISSING,
-			t('LINK3.label', f) !== MISSING,
+			t('link0.label', f) !== MISSING,
+			t('link1.label', f) !== MISSING,
+			t('link2.label', f) !== MISSING,
+			t('link3.label', f) !== MISSING,
 		].some(x => x);
 	};
 
@@ -40,8 +58,8 @@ export default class extends React.Component {
 	}
 
 	renderLink = (index) => {
-		const label = t(`LINK${index}.label`, f);
-		const link = t(`LINK${index}.link`, f);
+		const label = t(`link${index}.label`, f);
+		const link = t(`link${index}.link`, f);
 
 		if (label === MISSING) {
 			return;

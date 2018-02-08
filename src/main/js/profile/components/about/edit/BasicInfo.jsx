@@ -19,7 +19,18 @@ const TEXT_FIELDS = [
 	'googlePlus'
 ];
 
-const t = scoped('PROFILE.EDIT');
+const t = scoped('profile.edit', {
+	'about': 'Write something about yourself.',
+	'email': 'Email',
+	'home_page': 'Home page',
+	'location': 'Location',
+	'twitter': 'Twitter Profile',
+	'facebook': 'Facebook Profile',
+	'googlePlus': 'Google+ Profile',
+	'linkedIn': 'LinkedIn Profile',
+	'alias': 'Display Name',
+	'realname': 'Name',
+});
 
 function isReadOnly (schema, prop) {
 	return ((schema || {})[prop] || {}).readonly;

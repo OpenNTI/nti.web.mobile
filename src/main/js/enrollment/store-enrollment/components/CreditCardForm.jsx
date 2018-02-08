@@ -9,9 +9,19 @@ import {scoped} from 'nti-lib-locale';
 
 import {clearLoadingFlag} from 'common/utils/react-state';
 
-//These strings should probably move into a more generic place in the strings.
-const t = scoped('ENROLLMENT.forms.storeenrollment');
-const t2 = scoped('ENROLLMENT');
+const t = scoped('enrollment.forms', {
+	invalidExpiration: 'Expiration is invalid.',
+	invalidCardNumber: 'Card number is invalid.',
+	invalidCVC: 'CVC is invalid.',
+	requiredField: 'Field is required.',
+
+	storeenrollment: {
+		cvc: 'Code',
+		name: 'Name on Card',
+		number: '1234 1234 1234 1234',
+		exp_: 'MM / YY',
+	}
+});
 
 const EXP_PATTERN = /\d+ \/ \d+/;
 
@@ -72,7 +82,8 @@ export default createReactClass({
 			name: getValue(nameEl),
 			number: getValue(numberEl),
 			cvc: getValue(cvcEl),
-			exp_month: month, exp_year: year // eslint-disable-line camelcase
+			'exp_month': month,
+			'exp_year': year
 		};
 	},
 
@@ -83,7 +94,8 @@ export default createReactClass({
 			number: 'number',
 			cvc: 'cvc',
 			exp: 'exp',
-			exp_month: 'exp', exp_year: 'exp' // eslint-disable-line camelcase
+			'exp_month': 'exp',
+			'exp_year': 'exp'
 		};
 
 		for (let key of Object.keys(err)) {
@@ -101,19 +113,19 @@ export default createReactClass({
 		const hasValue = x => (x || '').length > 0 || !ignoreEmpty;
 
 		if(name.length === 0) {
-			errors.name = {message: t2('requiredField')};
+			errors.name = {message: t('requiredField')};
 		}
 
 		if(hasValue(number) && !Stripe.card.validateCardNumber(number)) {
-			errors.number = {message: t2('invalidCardNumber')};
+			errors.number = {message: t('invalidCardNumber')};
 		}
 
 		if(hasValue(cvc) && !Stripe.card.validateCVC(cvc)) {
-			errors.cvc = {message: t2('invalidCVC')};
+			errors.cvc = {message: t('invalidCVC')};
 		}
 
 		if(hasValue(mon) && hasValue(year) && !Stripe.card.validateExpiry(mon, year)) {
-			errors.exp = {message: t2('invalidExpiration')};
+			errors.exp = {message: t('invalidExpiration')};
 		}
 
 		const hasErrors = Object.keys(errors).length > 0;
@@ -172,7 +184,7 @@ export default createReactClass({
 				<legend>Credit Card</legend>
 				<div className="name">
 					<input name="name" ref={this.attachNameRef}
-						placeholder={t('name')}
+						placeholder={t('storeenrollment.name')}
 						className={cx('required', {error: errors.name})}
 						type="text"
 						defaultValue={defaultValues.name}
@@ -184,7 +196,7 @@ export default createReactClass({
 				<div>
 					<span className="number" >
 						<input name="number" ref={this.attachNumberRef}
-							placeholder={t('number')}
+							placeholder={t('storeenrollment.number')}
 							className={cx('required', {error: errors.number})}
 							type="text"
 							pattern="[0-9]*"
@@ -195,7 +207,7 @@ export default createReactClass({
 					</span>
 					<span className="exp" >
 						<input name="exp" ref={this.attachExpRef}
-							placeholder={t('exp_')}
+							placeholder={t('storeenrollment.exp_')}
 							className={cx('required', {error: errors.exp})}
 							type="text"
 							pattern="[0-9]*"
@@ -207,7 +219,7 @@ export default createReactClass({
 					</span>
 					<span className="cvc" >
 						<input name="cvc" ref={this.attachCvcRef}
-							placeholder={t('cvc')}
+							placeholder={t('storeenrollment.cvc')}
 							className={cx('required', {error: errors.cvc})}
 							type="text"
 							pattern="[0-9]*"

@@ -13,7 +13,7 @@ const DEFAULT_TEXT = {
 	noAccess: 'You do not have access to this discussion.'
 };
 
-const t = scoped('TOPIC_EMBED_WIDGET', DEFAULT_TEXT);
+const t = scoped('content.widgets.TopicEmbed', DEFAULT_TEXT);
 
 
 export default createReactClass({

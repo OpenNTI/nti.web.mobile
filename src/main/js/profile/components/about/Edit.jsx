@@ -15,7 +15,7 @@ import Events from './edit/Events';
 import Interests from './edit/Interests';
 
 
-let t = scoped('ERROR_MESSAGES');
+const t = scoped('common.errorMessages');
 
 const EDUCATION = 'application/vnd.nextthought.profile.educationalexperience';
 const PROFESSIONAL = 'application/vnd.nextthought.profile.professionalposition';
@@ -128,7 +128,7 @@ export default createReactClass({
 
 	errorMessage (error) {
 		if (error.code === ERROR_REQUIRED_MISSING) {
-			let localizedFieldName = t(`FIELDNAMES.${error.field}`, {fallback: error.field});
+			let localizedFieldName = t(`fieldNames.${error.field}`, {fallback: error.field});
 			return t('requiredField', {field: localizedFieldName});
 		}
 		return (error || {}).message || `An unrecognized error occurred: ${error.code}.`;

@@ -12,7 +12,7 @@ const OutlineNode = getModel('courses.courseoutlinenode');
 
 const isSubmitted = (item) => !!((item || {}).Links || []).find(x=> x.rel === ASSESSMENT_HISTORY_LINK);
 
-const t = scoped('UNITS');
+const t = scoped('common.units');
 
 export default createReactClass({
 	displayName: 'CourseOverviewPollReference',

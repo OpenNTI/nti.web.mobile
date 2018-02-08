@@ -6,7 +6,13 @@ import Page from 'common/components/Page';
 
 import * as Sections from '../Sections';
 
-let getLabel = scoped('CONTENT.SECTIONS');
+const getLabel = scoped('content.sections', {
+	activity: 'Activity',
+	discussions: 'Discussions',
+	index: 'Book',
+	info: 'Info',
+	videos: 'Videos'
+});
 
 
 export default class extends React.Component {

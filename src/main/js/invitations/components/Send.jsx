@@ -9,7 +9,9 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import SendForm from './SendForm';
 
-const t = scoped('INVITATIONS');
+const t = scoped('invitations.view', {
+	title: 'Invitation',
+});
 
 export default createReactClass({
 	displayName: 'Invitations:Send',

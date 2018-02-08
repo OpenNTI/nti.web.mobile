@@ -105,8 +105,8 @@ export default createReactClass({
 		return (
 			<div className={cx('discussion-reply-editor editor', {busy})}>
 				<Editor ref={this.attachEditorRef} initialValue={this.props.value} onChange={this.onChange}>
-					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-					<button onClick={this.onSubmit} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
+					<button onClick={this.onCancel} className={'cancel'}>{t('common.buttons.cancel')}</button>
+					<button onClick={this.onSubmit} className={cx('save', {disabled})}>{t('common.buttons.save')}</button>
 				</Editor>
 
 				{busy ? ( <Loading.Mask message="Saving..."/> ) : null}

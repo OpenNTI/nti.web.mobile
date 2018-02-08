@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import t from 'nti-lib-locale';
+import {scoped} from 'nti-lib-locale';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
 import GotoItem from 'common/components/GotoItem';
@@ -8,6 +8,10 @@ import Context from 'content/components/discussions/Context';
 import Detail from 'content/components/discussions/Detail';
 
 import AddComment from './AddComment';
+
+const t = scoped('activity.item', {
+	goto: 'Read More'
+});
 
 const PREFIX = ['Lessons'];
 
@@ -31,8 +35,8 @@ export default class extends React.Component {
 				<Detail item={item} lite/>
 
 				<ul className="action-links">
-					<li className="action-link"><GotoItem item={item}>{t('ACTIVITY.goto')}</GotoItem></li>
-					<li className="">{t('UNITS.comments', {count: item.replyCount})}</li>
+					<li className="action-link"><GotoItem item={item}>{t('goto')}</GotoItem></li>
+					<li className="">{t('common.units.comments', {count: item.replyCount})}</li>
 				</ul>
 
 				<AddComment item={item}/>

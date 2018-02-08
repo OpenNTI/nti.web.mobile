@@ -11,8 +11,12 @@ import * as Actions from '../Actions';
 import Store from '../Store';
 import {COMMENT_ADDED, COMMENT_SAVED, COMMENT_ERROR} from '../Constants';
 
+const DEFAULT_TEXT = {
+	placeholder: 'Add a Comment',
+	save: 'Save',
+};
 
-let t = scoped('FORUMS');
+const t = scoped('forums.comment', DEFAULT_TEXT);
 
 export default createReactClass({
 	displayName: 'CommentForm',
@@ -129,7 +133,7 @@ export default createReactClass({
 		return topic && topic.hasLink('add') ? (
 			<div className="comment-form" id={id}>
 				{error && <Notice className="err">{error.message || 'An error occurred.'}</Notice>}
-				<div className="comment-form-heading">{t('entryPlaceholder')}</div>
+				<div className="comment-form-heading">{t('placeholder')}</div>
 				<Editor ref={this.attachEditorRef}
 					onChange={this.onBodyChange}
 					initialValue={value}
@@ -139,7 +143,7 @@ export default createReactClass({
 						onOk={savefunc}
 						okEnabled={canSubmit}
 						onCancel={onCancel}
-						okText={t('editorOkButton')} />
+						okText={t('save')} />
 				</Editor>
 			</div>
 		) : null;

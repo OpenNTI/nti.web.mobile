@@ -5,7 +5,9 @@ import {scoped} from 'nti-lib-locale';
 
 import ObjectLink from 'common/mixins/ObjectLink';
 
-const t = scoped('ACTIVITY.REPLYABLE');
+const t = scoped('activity.item.replyable', {
+	placeholder: 'Add a comment'
+});
 
 export default createReactClass({
 	displayName: 'AddComment',
@@ -19,7 +21,7 @@ export default createReactClass({
 		const {item} = this.props;
 		return (
 			<div className="add-comment">
-				<a href={this.objectLink(item)} className="placeholder">{t('entryPlaceholder')}</a>
+				<a href={this.objectLink(item)} className="placeholder">{t('placeholder')}</a>
 			</div>
 		);
 	}

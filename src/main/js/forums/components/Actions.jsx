@@ -11,7 +11,13 @@ import Store from '../Store';
 import ScrollLink from './ScrollLink';
 
 
-const t = scoped('FORUMS');
+const DEFAULT_TEXT = {
+	placeholder: 'Add a Comment',
+	edit: 'Edit',
+	delete: 'Delete',
+};
+
+const t = scoped('forums.comment', DEFAULT_TEXT);
 
 export default createReactClass({
 	displayName: 'Actions',
@@ -68,16 +74,16 @@ export default createReactClass({
 			<ul key="control-links" className="action-links">
 				{canReply &&
 					<li key="reply-link">
-						<ScrollLink componentId={COMMENT_FORM_ID}>{t('entryPlaceholder')}</ScrollLink>
+						<ScrollLink componentId={COMMENT_FORM_ID}>{t('placeholder')}</ScrollLink>
 					</li>
 				}
 				{canEdit && onEdit &&
 					<li key="edit-link">
-						<a onClick={onEdit}>{t('editComment')}</a>
+						<a onClick={onEdit}>{t('edit')}</a>
 					</li>}
 				{canDelete && onDelete &&
 					<li key="delete-link">
-						<a onClick={onDelete}>{t('deleteComment')}</a>
+						<a onClick={onDelete}>{t('delete')}</a>
 					</li>}
 				{canReport &&
 					<li key="report-link">

@@ -7,7 +7,9 @@ import ContextSender from 'common/mixins/ContextSender';
 
 import AcceptInvitation from './Accept';
 
-const t = scoped('INVITATIONS');
+const t = scoped('invitations.view', {
+	title: 'Invitation',
+});
 
 export default createReactClass({
 	displayName: 'InvitationsView',

@@ -10,7 +10,14 @@ import Store from '../Store';
 
 import SubmissionError from './SubmissionError';
 
-const t = scoped('ASSESSMENT');
+const t = scoped('assessment.question.submission', {
+	'naquestion-reset': 'Try Again',
+	'naquestion-submit': 'Check It!',
+	'naquestionfillintheblankwordbank-reset': 'Try Again',
+	'naquestionfillintheblankwordbank-submit': 'Check It!',
+	'napoll-reset': 'Submitted',
+	'napoll-submit': 'Submit',
+});
 
 const STATUS_MAP = {
 	'true': 'Correct',

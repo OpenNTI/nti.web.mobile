@@ -7,7 +7,11 @@ import {scoped} from 'nti-lib-locale';
 
 import {edit} from '../Actions';
 
-let t = scoped('ENROLLMENT.CONFIRMATION');
+const t = scoped('enrollment.confirmation', {
+	paymentInfo: 'Payment Information',
+	billingInfo: 'Billing Address',
+	expires: 'Expires:',
+});
 
 export default class BillingInfo extends React.Component {
 

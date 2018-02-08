@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-component';
 import {scoped} from 'nti-lib-locale';
 
-let t = scoped('LOGIN');
+let t = scoped('app.login');
 
 export default function RecoveryLinks () {
 	let username = {

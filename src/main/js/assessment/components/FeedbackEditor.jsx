@@ -48,8 +48,8 @@ export default class FeedbackEditor extends React.Component {
 					onBlur={this.onChange}
 					allowInsertImage={false}
 				>
-					<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-					<button onClick={this.onClick} className={cx('save', {disabled})}>{t('BUTTONS.save')}</button>
+					<button onClick={this.onCancel} className={'cancel'}>{t('common.buttons.cancel')}</button>
+					<button onClick={this.onClick} className={cx('save', {disabled})}>{t('common.buttons.save')}</button>
 				</Editor>
 
 				{busy ?

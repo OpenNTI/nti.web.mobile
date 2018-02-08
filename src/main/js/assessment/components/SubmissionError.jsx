@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import t from 'nti-lib-locale';
+import {scoped} from 'nti-lib-locale';
+
+const t = scoped('assessment.errors', {
+	submission404: 'A required resource could not be found. This assignment may have been deleted.'
+});
 
 SubmissionError.propTypes = {
 	onClick: PropTypes.func,
@@ -10,7 +14,7 @@ SubmissionError.propTypes = {
 
 function getErrorMessage (response) {
 	if (response.statusCode === 404) {
-		return t('ASSESSMENTS.ERRORS.submission404');
+		return t('submission404');
 	}
 	return (response || {}).message || 'An error occurred.';
 }

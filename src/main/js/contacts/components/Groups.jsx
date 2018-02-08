@@ -16,7 +16,12 @@ import {GROUPS} from '../Constants';
 import GroupsListItem from './GroupsListItem';
 
 const logger = Logger.get('contacts:components:Groups');
-const t = scoped('CONTACTS');
+
+const DEFAULT_TEXT = {
+	newGroupPlaceholder: 'Create a new group',
+};
+
+const t = scoped('contacts.groups', DEFAULT_TEXT);
 
 export default createReactClass({
 	displayName: 'Contacts:Groups',

@@ -24,7 +24,7 @@ const logger = Logger.get('login:components:LoginForm');
 const UPDATE_DELAY = Symbol();
 const UPDATE_DELAY_TIME = 150;
 
-const t = scoped('LOGIN');
+const t = scoped('app.login');
 
 // if we have a confirmation message show the confirmation view, otherwise go directly to signup
 const signupLink = () => t(MESSAGE_SIGNUP_CONFIRMATION, {fallback: 'missing'}) === 'missing'

@@ -9,7 +9,15 @@ import {accept} from '../Api';
 
 import Success from './AcceptSuccess';
 
-const t = scoped('INVITATIONS');
+const t = scoped('invitations.accept', {
+	AlreadyEnrolledException: 'You’re already enrolled.',
+	button: 'Accept',
+	title: 'Accept Invitation',
+	placeholder: 'Enter invitation code',
+
+
+	successMessage: 'Enrollment Complete',
+});
 
 export default class extends React.Component {
 	static displayName = 'Invitations:Accept';
@@ -90,14 +98,14 @@ export default class extends React.Component {
 		return (
 			<div>
 				<form onSubmit={this.onSubmit} className="invitation-accept-form">
-					<input onChange={this.onChange} value={code} placeholder={t('acceptInputPlaceholder')} />
+					<input onChange={this.onChange} value={code} placeholder={t('placeholder')} />
 					<div className="button-row">
 						<input type="submit"
 							key="submit"
 							disabled={disabled}
 							id="redeem-submit"
 							className="button tiny"
-							value={t('acceptButton')} />
+							value={t('button')} />
 					</div>
 				</form>
 				{error && <FormErrors errors={{'code': error}} />}
@@ -113,7 +121,7 @@ export default class extends React.Component {
 			return <Loading.Mask />;
 		}
 
-		const heading = success ? t('successMessage') : t('formHeading');
+		const heading = success ? t('successMessage') : t('title');
 
 		return (
 			<div className="invitation-accept">

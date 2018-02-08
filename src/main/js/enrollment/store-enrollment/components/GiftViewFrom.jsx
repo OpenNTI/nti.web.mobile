@@ -4,8 +4,15 @@ import cx from 'classnames';
 import {validate as isEmail} from 'email-validator';
 import {scoped} from 'nti-lib-locale';
 
-const t = scoped('ENROLLMENT.forms.storeenrollment');
-const t2 = scoped('ENROLLMENT');
+const t = scoped('enrollment.forms', {
+	incompleteForm: 'Please complete all required fields.',
+	invalidEmail: 'Invalid Email.',
+
+	storeenrollment: {
+		from: 'Email Address',
+		fromLabel: 'This is where we will send your purchase confirmation.',
+	}
+});
 
 export default class GiftFrom extends React.Component {
 
@@ -37,11 +44,11 @@ export default class GiftFrom extends React.Component {
 
 		let {value = ''} = from;
 		if (value.length === 0) {
-			errors[from.name] = {message: t2('incompleteForm')};
+			errors[from.name] = {message: t('incompleteForm')};
 		}
 		else if (!isEmail(value)) {
 			errors[from.name] = {
-				message: t2('invalidEmail'),
+				message: t('invalidEmail'),
 				error: 'not an email address'
 			};
 		}
@@ -78,11 +85,11 @@ export default class GiftFrom extends React.Component {
 		const {state: {errors}, props: {className, defaultValues}} = this;
 		return (
 			<fieldset className={cx('gift-from', className)}>
-				<div className="fromLabel">{t('fromLabel')}</div>
+				<div className="fromLabel">{t('storeenrollment.fromLabel')}</div>
 				<div className="from">
 					<input name="from"
 						ref={this.attachFormRef}
-						placeholder={t('from')}
+						placeholder={t('storeenrollment.from')}
 						className={cx('required', {error: errors.from})}
 						defaultValue={defaultValues.from}
 						type="email"

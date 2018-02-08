@@ -19,7 +19,9 @@ import DropStore from './drop-widgets/DropStore';
 import DropFive from './drop-widgets/DropFive';
 
 const logger = Logger.get('enrollment:components:DropCourse');
-const t = scoped('ENROLLMENT.BUTTONS');
+const t = scoped('enrollment.buttons', {
+	viewCatalog: 'View Catalog',
+});
 
 export default createReactClass({
 	displayName: 'DropCourseDialog',

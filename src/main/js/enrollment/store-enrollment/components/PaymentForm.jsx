@@ -24,7 +24,9 @@ import TermsCheckbox from './TermsCheckbox';
 import Pricing from './Pricing';
 
 
-const t = scoped('ENROLLMENT');
+const t = scoped('enrollment.forms', {
+	invalidForm: 'Please correct the errors above.',
+});
 
 export default createReactClass({
 	displayName: 'PaymentForm',

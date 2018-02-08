@@ -4,7 +4,14 @@ import {scoped} from 'nti-lib-locale';
 
 import {DISCUSSIONS, FORUM, TOPIC, POST} from '../../Constants';
 
-const t = scoped('FORUMS.viewHeaders');
+const DEFAULT_TEXT = {
+	discussions: 'Discussions',
+	forum: 'Forum',
+	topic: 'Topic',
+	post: 'Comment'
+};
+
+const t = scoped('forums.headers', DEFAULT_TEXT);
 
 // map symbols to the corresponding lookup keys in locale/forums
 const localeKeys = {

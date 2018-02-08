@@ -17,7 +17,15 @@ import {
 import Saving from './Saving';
 import SubmissionError from './SubmissionError';
 
-const t = scoped('ASSESSMENT');
+const t = scoped('assessment.submission', {
+	submit: 'I\'m Finished!',
+	reset: 'Cancel',
+	unanswered: {
+		zero: 'All questions answered',
+		one: '%(count)s question unanswered',
+		other: '%(count)s questions unanswered'
+	},
+});
 
 const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSubmit();
 

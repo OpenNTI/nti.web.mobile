@@ -7,7 +7,7 @@ import {scoped} from 'nti-lib-locale';
 import {Editor} from 'modeled-content';
 import ShareWith from 'common/components/ShareWith';
 
-const t = scoped('BUTTONS');
+const t = scoped('common.buttons');
 
 export default class NoteEditor extends React.Component {
 

@@ -14,7 +14,7 @@ import Store from '../Store';
 import {ERROR_EVENT} from '../Constants';
 import {clearErrors, preflightAndCreateAccount} from '../Actions';
 
-const t = scoped('LOGIN.CREATE_ACCOUNT');
+const t = scoped('app.login.CREATE_ACCOUNT');
 
 const indexArrayByKey = (array, key) => array.reduce((a, i) => (a[i[key]] = i, a), {});
 

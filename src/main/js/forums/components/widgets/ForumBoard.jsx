@@ -5,7 +5,12 @@ import {scoped} from 'nti-lib-locale';
 import keyFor from '../../utils/key-for-item';
 import ForumItem from '../list-items/ForumItem';
 
-const t = scoped('FORUMS.groupTitles');
+const DEFAULT_TEXT = {
+	Section: 'My Section',
+	Parent: 'All Sections'
+};
+
+const t = scoped('forums.groups.groupings', DEFAULT_TEXT);
 
 export default function ForumBoard ({title, board}) {
 

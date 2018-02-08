@@ -6,7 +6,7 @@ import {Link} from 'react-router-component';
 import {scoped} from 'nti-lib-locale';
 import {getServer} from 'nti-web-client';
 
-const t = scoped('LOGIN.forgot');
+const t = scoped('app.login.forgot');
 
 
 export default class ForgotForm extends React.Component {

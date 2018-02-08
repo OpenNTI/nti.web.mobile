@@ -11,7 +11,7 @@ import {Mixins} from 'nti-web-commons';
 
 import Button from 'forms/components/Button';
 
-const t = scoped('LOGIN.oauth');
+const t = scoped('app.login.oauth');
 
 function getServiceName (k) {
 	return k.split('.')[1].toLowerCase();

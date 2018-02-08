@@ -25,8 +25,10 @@ import Payment from './Payment';
 
 
 const logger = Logger.get('enrollment:five-minute:components:Admission');
-const t = scoped('ENROLLMENT');
-const tt = scoped('BUTTONS');
+const tt = scoped('common.buttons');
+const t = scoped('enrollment.admission', {
+	PendingMessage: 'Your application has been received. An admissions counselor will contact you soon.',
+});
 
 function getLink (o, k) {
 	logger.error('Object should be a model and then use the getLink method off of it. %o', o);
@@ -156,7 +158,7 @@ export default createReactClass({
 			break;
 
 		case ADMISSION_PENDING:
-			view = this.renderPanel(t('admissionPendingMessage'), tt('ok'));
+			view = this.renderPanel(t('PendingMessage'), tt('ok'));
 			break;
 
 		default:

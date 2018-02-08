@@ -21,7 +21,11 @@ import {
 } from '../Constants';
 
 const logger = Logger.get('enrollment:five-minute:components:FiveMinuteEnrollmentForm');
-const t = scoped('ENROLLMENT.forms.fiveminute');
+const t = scoped('enrollment.forms.fiveminute', {
+	admissionTitle: 'Admission to OU Janux',
+	admissionDescription: 'Before you can earn college credit from the University of Oklahoma, we need you to answer some questions. Don’t worry, the admission process is free and should only take a few minutes.',
+	submit: 'Submit Application',
+});
 
 const arrayToMap = (arr, field) => {
 	let result = {};

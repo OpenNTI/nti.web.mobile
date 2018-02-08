@@ -7,7 +7,18 @@ import {scoped} from 'nti-lib-locale';
 import {Loading, Mixins} from 'nti-web-commons';
 
 const logger = Logger.get('enrollment:components:enrollment-option-widgets:FiveMinuteEnrollment');
-const t = scoped('ENROLLMENT');
+const t = scoped('enrollment.fiveMinuteEnrollment', {
+	title: 'Enroll for Credit',
+	description: 'Earn transcripted college credit from the University of Oklahoma.',
+	button: 'Enroll for Credit',
+	howToDropHead: 'How do I drop?',
+	howToDropBody: '',
+	SeatsAvailable: {
+		zero: 'No Seats Remaining',
+		one: '%(count)s Seat Available',
+		other: '%(count)s Seats Available'
+	},
+});
 
 const DETAILS = 'fmaep.course.details';
 
@@ -83,8 +94,8 @@ export default createReactClass({
 	},
 
 	howToDrop () {
-		const dropHead = t('howToDropHead', {fallback: 'How do I drop?'});
-		const dropBody = t('howToDropBody', {fallback: ''});
+		const dropHead = t('howToDropHead');
+		const dropBody = t('howToDropBody');
 		if(dropBody.length > 0) {
 			return (
 				<div className="how-to-drop">
@@ -111,17 +122,17 @@ export default createReactClass({
 			return ( <Loading.Whacky/> );
 		}
 
-		const actions = error ? null : <div className="actions"><a href={href}>{t('fiveMinuteEnrollmentButton')}</a></div>;
+		const actions = error ? null : <div className="actions"><a href={href}>{t('button')}</a></div>;
 
 		return (
 			<div>
 				<div className="enrollment five-minute">
-					<h2 className="title">{t('fiveMinuteEnrollmentTitle')}</h2>
-					<p className="description">{t('fiveMinuteEnrollmentDescription')}</p>
+					<h2 className="title">{t('title')}</h2>
+					<p className="description">{t('description')}</p>
 					{error ? (
 						<small className="error">{error.Message}</small>
 					) : count < 10 ? (
-						<small>{t('fiveMinuteEnrollmentSeatAvailable', {count})}</small>
+						<small>{t('SeatsAvailable', {count})}</small>
 					) :
 						null
 					}

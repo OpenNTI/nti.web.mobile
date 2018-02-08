@@ -6,7 +6,9 @@ import {Constants} from 'nti-web-commons';
 
 const {DataURIs: {BLANK_AVATAR, BLANK_IMAGE}} = Constants;
 
-const t = scoped('COURSE.INFO');
+const t = scoped('course.info', {
+	Instructor: 'Course Instructor',
+});
 
 
 export default class extends React.Component {

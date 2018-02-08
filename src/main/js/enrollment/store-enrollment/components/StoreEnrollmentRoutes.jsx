@@ -17,7 +17,9 @@ import PaymentError from './PaymentError';
 import PaymentConfirm from './PaymentConfirm';
 
 
-const t = scoped('ENROLLMENT');
+const t = scoped('enrollment.store', {
+	title: 'Enroll as a Lifelong Learner',
+});
 
 /**
  * Used by both store-enrollment/components/View and store-enrollment/components/GiftPurchaseView.
@@ -49,7 +51,7 @@ export default createReactClass({
 				href: this.makeHref(path.join('item', this.props.entryId, 'enrollment'))
 			},
 			{
-				label: t('storeEnrollmentTitle')
+				label: t('title')
 			}
 		]);
 	},

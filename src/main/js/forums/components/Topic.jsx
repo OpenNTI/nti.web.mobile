@@ -26,7 +26,11 @@ import TopicEditor from './TopicEditor';
 import TopicHeadline from './TopicHeadline';
 import ViewHeader from './widgets/ViewHeader';
 
-const t = scoped('FORUMS');
+const DEFAULT_TEXT = {
+	deletePrompt: 'Delete this discussion?',
+};
+
+const t = scoped('forums.topic', DEFAULT_TEXT);
 
 const Transition = x => <CSSTransition appear classNames="fade-out-in" timeout={500} {...x}/>;
 
@@ -181,7 +185,7 @@ export default createReactClass({
 
 
 	deleteTopic () {
-		Prompt.areYouSure(t('deleteTopicPrompt')).then(() => {
+		Prompt.areYouSure(t('deletePrompt')).then(() => {
 			Actions.deleteTopic(this.getTopic());
 		},
 		()=> {});

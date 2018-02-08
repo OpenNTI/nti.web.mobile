@@ -6,7 +6,7 @@ import {Loading} from 'nti-web-commons';
 import {getServer} from 'nti-web-client';
 import {scoped} from 'nti-lib-locale';
 
-const t = scoped('LOGIN.forgot');
+const t = scoped('app.login.forgot');
 
 export default class PasswordResetForm extends React.Component {
 

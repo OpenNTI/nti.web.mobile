@@ -10,7 +10,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 
 const OutlineNode = getModel('courses.courseoutlinenode');
 
-const t = scoped('UNITS');
+const t = scoped('common.units');
 
 export default createReactClass({
 	displayName: 'CourseOverviewSurveyReference',

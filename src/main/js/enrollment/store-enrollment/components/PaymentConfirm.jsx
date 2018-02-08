@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Loading, PanelButton, LocalizedHTML as Localized} from 'nti-web-commons';
+import {Loading, PanelButton} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
+import {rawContent} from 'nti-commons';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
@@ -13,7 +14,13 @@ import BillingInfo from './BillingInfo';
 import GiftInfo from './GiftInfo';
 import Pricing from './Pricing';
 
-const t = scoped('ENROLLMENT.CONFIRMATION');
+const t = scoped('enrollment.confirmation', {
+	header: 'Review and Pay',
+	review: 'Please take a moment to review your order and submit your payment.',
+	salesFinal: 'All sales are final.',
+});
+
+const t2 = scoped('enrollment.subscribe');
 
 
 export default createReactClass({
@@ -118,8 +125,8 @@ export default createReactClass({
 								<div className="subscribe">
 									<label>
 										<input type="checkbox" ref={this.attachSubscribeCheckboxRef} name="subscribe" />
-										<Localized tag="span" stringId="ENROLLMENT.SUBSCRIBE.label" />
-										<Localized tag="p" stringId="ENROLLMENT.SUBSCRIBE.legal" />
+										<span {...rawContent(t2('label'))} />
+										<p {...rawContent(t2('legal'))} />
 									</label>
 								</div>
 							}

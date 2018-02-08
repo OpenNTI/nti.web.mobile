@@ -5,7 +5,12 @@ import {scoped} from 'nti-lib-locale';
 import {edit} from '../Actions';
 
 
-const t = scoped('ENROLLMENT.CONFIRMATION');
+const t = scoped('enrollment.confirmation', {
+	giftInfo: 'Gift Information',
+	from: 'From:',
+	to: 'To:',
+	message: 'Message:'
+});
 
 export default class extends React.Component {
 	static displayName = 'GiftInfo';

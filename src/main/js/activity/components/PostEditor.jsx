@@ -101,7 +101,7 @@ export default class PostEditor extends React.Component {
 			<div className="note-editor-frame editor">
 				<form onSubmit={preventSubmit}>
 					<div className="error-message">
-						{error ? t(`ERROR_MESSAGES.CODES.${error.code}`, error) : null}
+						{error ? t(`common.errorMessages.codes.${error.code}`, error) : null}
 					</div>
 
 					{showSharing && (
@@ -122,8 +122,8 @@ export default class PostEditor extends React.Component {
 						onChange={this.onChange}
 						onBlur={this.onChange}
 						initialValue={this.props.value}>
-						<button onClick={this.onCancel} className={'cancel'}>{t('BUTTONS.cancel')}</button>
-						<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Loading.Ellipse/>) : t('BUTTONS.save')}</button>
+						<button onClick={this.onCancel} className={'cancel'}>{t('common.buttons.cancel')}</button>
+						<button onClick={this.doSubmit} className={cx('save', {disabled})}>{busy ? (<Loading.Ellipse/>) : t('common.buttons.save')}</button>
 					</Editor>
 				</form>
 			</div>

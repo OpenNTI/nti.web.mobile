@@ -5,7 +5,54 @@ import {scoped} from 'nti-lib-locale';
 import * as Constants from 'forms/Constants';
 import {StateSelect, CountrySelect} from 'forms/fields';
 
-const t = scoped('ENROLLMENT.forms.fiveminute');
+const t = scoped('enrollment.forms.fiveminute', {
+	'first_name':              'First Name',
+	'middle_name':             'Middle Name',
+	'last_name':               'Last Name',
+	'former_name':             'What is your former last name?',
+	'date_of_birth':           'Birthdate',
+	'genderPrompt':            'What is your gender?',
+
+	'social_security_number':  'Social Security Number',
+	'ssn_helptext':            'Your social security number is not requried for admission, but it is used for submission of a <a href="http://www.irs.gov/uac/Form-1098-T,-Tuition-Statement">1098T</a> to the IRS.',
+
+
+	'street_line1':            'Address',
+	'street_line2':            'Address Continued',
+	'address1':                'Address',
+	'address2':                'Address Continued',
+	'city':                    'City',
+	'state':                   'State',
+	'postal_code':             'Zip',
+	'zip':                     'Zip',
+	'nation_code':             'Country',
+	'country':                 'Country',
+
+	'telephone_number':        'Phone Number',
+	'email':                   'Email Address',
+
+	'mailing_address_different': 'My mailing address is different.',
+	'mailingAddressLabel':     'Mailing Address',
+	'mailing_street_line1':    'Address',
+	'mailing_street_line2':    'Address Continued',
+	'mailing_city':            'City',
+	'mailing_state':           'State',
+	'mailing_postal_code':     'Zip',
+	'mailing_nation_code':     'Country',
+
+	'citizen':                 'Are you a U.S. citizen?',
+	'resident_of':             'I am a resident of',
+	'ok_resident':             'Are you a resident of Oklahoma?',
+	'years_of_oklahoma_residency':             'How many years have you been an Oklahoma resident?',
+	'years_of_oklahoma_residency_placeholder': 'How many years?',
+
+	'hs_graduate':             'Are you a high school graduate?',
+	'attended_ou':             'Have you ever attended the University of Oklahoma?',
+	'sooner_id':               'What was your Sooner ID? (Leave this field blank if you do not remember.)',
+
+	'signature':               'Signature',
+	'signature_agreement':     'I affirm that I am not <a href="policy/">prohibited</a> from enrolling in any University of Oklahoma program. I understand that submitting any false information to the University, including but not limited to, any information contained on this form, or withholding information about my previous academic history will make my application for admission to the University, as well as any future applications, subject to denial, or will result in expulsion from the University. I pledge to conduct myself with academic integrity and abide by the tenets of The University of Oklahoma’s <a href="http://integrity.ou.edu/" target="_blank">Integrity Pledge.</a>',
+});
 
 
 const yesNoOptions = [
@@ -199,7 +246,7 @@ export default [
 							content: [
 								CountrySelect.withProps({
 									ref: 'country_of_citizenship',
-									label: t('residentOf'),
+									label: t('resident_of'),
 									required: true
 								})
 							]
@@ -214,7 +261,7 @@ export default [
 			{
 				ref: 'okResident',
 				type: 'radiogroup',
-				label: t('okResident'),
+				label: t('ok_resident'),
 				required: true,
 				options: [
 					{
@@ -253,14 +300,14 @@ export default [
 				ref: 'high_school_graduate',
 				type: 'radiogroup',
 				required: true,
-				label: t('hsGraduate'),
+				label: t('hs_graduate'),
 				options: yesNoOptions
 			},
 			{
 				ref: 'attendedOU',
 				type: 'radiogroup',
 				required: true,
-				label: t('attendedOU'),
+				label: t('attended_ou'),
 				options: [
 					{
 						label: 'Yes',
@@ -289,7 +336,7 @@ export default [
 			{
 				ref: 'signature',
 				type: 'checkbox',
-				label: t('signatureAgreement'),
+				label: t('signature_agreement'),
 				htmlLabel: true,
 				value: 'Y'
 			}

@@ -42,7 +42,7 @@ const {DataURIs: {BLANK_IMAGE}} = Constants;
 
 const logger = Logger.get('common:components:card');
 
-const t = scoped('UNITS');
+const t = scoped('common.units');
 
 const Seen = Symbol('Seen');
 

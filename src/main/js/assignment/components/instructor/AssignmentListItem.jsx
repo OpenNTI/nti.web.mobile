@@ -16,7 +16,7 @@ const DEFAULT_TEXT = {
 	emptyTitle: '(No Title)'
 };
 
-const t = scoped('EMPTY_ASSIGNMENT_LIST_ITEM', DEFAULT_TEXT);
+const t = scoped('assessment.assignments.list.item', DEFAULT_TEXT);
 
 export default createReactClass({
 	displayName: 'AssignmentItem',

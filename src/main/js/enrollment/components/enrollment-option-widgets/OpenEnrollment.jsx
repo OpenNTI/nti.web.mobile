@@ -7,7 +7,9 @@ import {Loading, Mixins} from 'nti-web-commons';
 
 import {enrollOpen} from '../../Api';
 
-const t = scoped('ENROLLMENT.BUTTONS');
+const t = scoped('enrollment.buttons', {
+	OpenEnrollment: 'Enroll in the open course',
+});
 
 export default createReactClass({
 	displayName: 'OpenEnrollmentWidget',

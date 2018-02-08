@@ -19,7 +19,9 @@ import Admission from './Admission';
 import Policy from './Policy';
 
 
-const t = scoped('ENROLLMENT');
+const t = scoped('enrollment.fiveMinuteEnrollment', {
+	title: 'Enroll for Credit',
+});
 
 
 export default createReactClass({
@@ -52,7 +54,7 @@ export default createReactClass({
 
 		return Promise.resolve([
 			{ label: 'Enroll', href: enrollmentOptionsHref},
-			{ label: t('fiveMinuteEnrollmentTitle'), href }
+			{ label: t('title'), href }
 		]);
 	},
 

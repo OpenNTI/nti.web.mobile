@@ -5,7 +5,11 @@ import cx from 'classnames';
 import {DateTime, EmptyList} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
-const t = scoped('ASSESSMENT.ASSIGNMENTS.GROUP_LABELS');
+const t = scoped('assessment.assignment.group_labels', {
+	Unknown: 'Other Assignments',
+	'no-due-date': 'Other',
+	unset: ''
+});
 
 import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
 

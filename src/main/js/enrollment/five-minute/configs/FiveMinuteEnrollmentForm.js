@@ -6,10 +6,22 @@ import * as Constants from 'forms/Constants';
 import concurrentForm from './ConcurrentEnrollmentForm';
 import admissionForm from './AdmissionForm';
 
-const t = scoped('ENROLLMENT.forms.fiveminute');
+const t = scoped('enrollment.forms.fiveminute', {
+	'attendedAnotherUniversity':    'Have you ever attended another college or university?',
+	'attendingHighschool':          'Are you currently attending high school?',
+	'concurrentFormIntro':          '<h2>You may qualify for concurrent enrollment.<h2><p>Through Concurrent Enrollment (CE), high school juniors and seniors can enroll in college classes and earn college credit while still in high school. Submit your contact info and date of birth below and a Concurrent Enrollment Counselor will be in touch to guide you through the <a href="http://www.ou.edu/concurrent/admission.html">Concurrent Enrollment Process.</a></p>',
+	'currentlyAttending':           'Are you currently attending the University of Oklahoma?',
+	'goodAcademicStanding':         'I am in good academic standing.',
+	'goodAcademicStandingRequired': 'The class you are attempting to enroll in is a For-Credit Janux course. Only students who are currently in good academic standing may enroll in for credit Janux courses.',
+	'historyEnrollViaOzone':        'Please sign up for the course using your <a href="http://ozone.ou.edu" target="_blank">Ozone</a> account. Note: not all Janux courses are available for credit to OU students.',
+	'obtainedDegree':               'I have obtained a Bachelor’s degree or higher.',
+	'oklahomaResident':             'Are you an Oklahoma resident?',
+	'stillAttending':               'I am still attending.',
+	'under13':                      'Persons under the age of 13 may not enroll in this course.',
+});
 
 //XXX: using the locale function this way will not pickup site string changes after loading...
-//FIXME: Move string uages `t()` to the component's render method.
+
 let okResidentQuestion = [{
 	fields: [
 		{
@@ -24,7 +36,7 @@ let okResidentQuestion = [{
 					related: [
 						{
 							type: Constants.MESSAGE,
-							content: 'ENROLLMENT.forms.fiveminute.concurrentFormIntro'
+							content: t('concurrentFormIntro')
 						},
 						{
 							type: Constants.FORM_CONFIG,
@@ -127,7 +139,7 @@ const otherUniversityQuestion = [{
 										related: [
 											{
 												type: Constants.MESSAGE,
-												content: 'ENROLLMENT.forms.fiveminute.goodAcademicStandingRequired'
+												content: t('goodAcademicStandingRequired')
 											}
 										]
 									}
@@ -163,7 +175,7 @@ let attendingOU = [{
 					value: 'Y',
 					related: [{
 						type: Constants.MESSAGE,
-						content: 'ENROLLMENT.forms.fiveminute.historyEnrollViaOzone'
+						content: t('historyEnrollViaOzone')
 					}]
 				},
 				{
@@ -186,7 +198,7 @@ const birthdateQuestion = [{
 			type: 'date',
 			required: true,
 			label: t('date_of_birth'),
-			predicateFunc: function is13 (value) {
+			predicateFunc (value) {
 				return moment().subtract(13, 'years').isSameOrAfter(value);
 			},
 			ifTrue: [
@@ -198,7 +210,7 @@ const birthdateQuestion = [{
 			ifFalse: [
 				{
 					type: Constants.MESSAGE,
-					content: 'ENROLLMENT.forms.fiveminute.under13'
+					content: t('under13')
 				}
 			]
 		}

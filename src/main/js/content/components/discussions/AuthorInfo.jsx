@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {DateTime, LuckyCharms}  from 'nti-web-commons';
+import {scoped} from 'nti-lib-locale';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import RepliedTo from 'common/components/RepliedTo';
 import SharedWithList from 'common/components/SharedWithList';
+
+const t = scoped('discussion.item', {
+	postedBy: 'Posted by %(name)s',
+});
 
 export default function AuthorInfo ({item, lite}) {
 	const {creator, title} = item;
@@ -25,7 +30,7 @@ export default function AuthorInfo ({item, lite}) {
 					</div>
 				) : (
 					<div className="name-wrapper">
-						<DisplayName entity={creator} localeKey={lite ? void 0 : 'DISCUSSIONS.postedBy'}/>
+						<DisplayName entity={creator} localeKey={lite ? void 0 : () => t('postedBy')}/>
 						<DateTime date={date} relative/>
 						<SharedWithList item={item}/>
 					</div>

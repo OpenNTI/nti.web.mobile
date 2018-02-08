@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import t from 'nti-lib-locale';
-import {Notice, LocalizedHTML} from 'nti-web-commons';
+import {Notice} from 'nti-web-commons';
+import {rawContent} from 'nti-commons';
 import hash from 'object-hash';
 
 import Select from 'forms/components/Select';
@@ -297,7 +298,10 @@ let RelatedFormPanel = createReactClass({
 						related.push(this[renderFormConfig](conf.content, values));
 						break;
 					case Constants.MESSAGE:
-						related.push(<Notice key={conf.content}><LocalizedHTML stringId={conf.content} /></Notice>);
+						related.push(
+							<Notice key={conf.content}>
+								<div {...rawContent(conf.content)} />
+							</Notice>);
 						break;
 					case Constants.SUBFIELDS:
 						// inline subfields will be rendered with the field itself;
@@ -327,7 +331,7 @@ let RelatedFormPanel = createReactClass({
 		let args = ['div', {className: 'form-render', key: hash(config)}].concat(
 			config.map((fieldset, index)=>this.renderFieldset(fieldset, values, index)));
 
-		return React.createElement.apply(null, args);
+		return React.createElement(...args);
 	},
 
 	getRelatedConfigs (fieldConfig) {

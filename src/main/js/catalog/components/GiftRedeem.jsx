@@ -15,7 +15,11 @@ import {GIFT_CODE_REDEEMED, INVALID_GIFT_CODE} from '../Constants';
 import {redeemGift} from '../Actions';
 
 const logger = Logger.get('catalog:components:GiftRedeem');
-const t = scoped('ENROLLMENT.GIFT.REDEEM');
+const t = scoped('enrollment.gift.redeem', {
+	'formTitle': 'Redeem this course with an Access Key',
+	'accessKey': 'Access Key',
+	'redeemButton': 'Redeem'
+});
 
 export default createReactClass({
 	displayName: 'GiftRedeem',
