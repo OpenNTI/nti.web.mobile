@@ -152,7 +152,6 @@ export default createReactClass({
 						frameBorder="no"
 						scrolling="no"
 						allowFullscreen
-						allowTransparency
 						seamless
 						{...sandbox}
 					/>

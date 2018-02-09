@@ -81,7 +81,7 @@ export default createReactClass({
 					<h3>Registration Survey</h3>
 					<div className="subtext"/>
 				</header>
-				<iframe src={src} height={height} frameBorder="no" scrolling="no" allowTransparency="true" seamless/>
+				<iframe src={src} height={height} frameBorder="no" scrolling="no" seamless/>
 			</div>
 		);
 	}
