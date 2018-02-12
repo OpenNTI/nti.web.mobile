@@ -41,7 +41,7 @@ export function select (item, index, list, props, node, assessmentCollection) {
 
 	return render &&
 		React.createElement(Item, Object.assign({}, props || {}, {
-			key: item.NTIID || ('overview-' + item.MimeType + '-' + index),
+			key: ('overview-' + item.MimeType + '-' + index) + '-' + item.NTIID,
 			item: item,
 			index: index,
 			ref: x => this['container-item-' + Item.displayName + '-' + index] = x,

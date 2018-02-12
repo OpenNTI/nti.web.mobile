@@ -30,7 +30,7 @@ export default function AuthorInfo ({item, lite}) {
 					</div>
 				) : (
 					<div className="name-wrapper">
-						<DisplayName entity={creator} localeKey={lite ? void 0 : () => t('postedBy')}/>
+						<DisplayName entity={creator} localeKey={lite ? void 0 : (data) => t('postedBy', data)}/>
 						<DateTime date={date} relative/>
 						<SharedWithList item={item}/>
 					</div>
