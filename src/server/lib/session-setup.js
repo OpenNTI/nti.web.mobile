@@ -1,3 +1,4 @@
+/*eslint import/no-commonjs:0*/
 const logger = require('./logger');
 // const {
 // 	// Catalog,

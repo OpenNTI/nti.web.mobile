@@ -1,4 +1,4 @@
-/*eslint strict:0*/
+/*eslint strict:0, import/no-commonjs:0, import/order:0*/
 'use strict';
 const path = require('path');
 const {encodeForURI, decodeFromURI} = require('nti-lib-ntiids');
@@ -21,7 +21,7 @@ const HANDLERS = {
 	handleInvitationRedirects: /(invitations\/accept)|(catalog\/redeem)/i,
 	handleLibraryRedirects: /^library/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
-	handleLibraryPathRedirects: /^\/[^\/]+\/library/i
+	handleLibraryPathRedirects: /^\/[^/]+\/library/i
 };
 
 
@@ -62,7 +62,7 @@ exports = module.exports = {
 		 */
 
 		// [full match, token]
-		let parts = query.match(/(?:accept|redeem)\/([^\/]*)/);
+		let parts = query.match(/(?:accept|redeem)\/([^/]*)/);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'redeem', parts[1]);
 			logger.debug('redirecting to: %s', url);
@@ -95,7 +95,7 @@ exports = module.exports = {
 
 	handleLibraryRedirects (query, res, next) {
 		let url = query;
-		let catalog = /library\/availablecourses\/([^\/]*)\/?(.*)/;
+		let catalog = /library\/availablecourses\/([^/]*)\/?(.*)/;
 
 		/* From:
 		 * ?q=library/availablecourses/IUB0YWc6bmV4dHRob3VnaHQuY29tLDIwMTEtMTA6TlRJLUNvdXJzZUluZm8tU3ByaW5nMjAxNV9MU1REXzExNTM/redeem/code
@@ -133,7 +133,7 @@ exports = module.exports = {
 
 
 		logger.debug('\n\n\nTesting %s\n\n\n', query);
-		let object = /(?:(?:id|ntiid)\/)([^\/]*)\/?(.*)/;
+		let object = /(?:(?:id|ntiid)\/)([^/]*)\/?(.*)/;
 		let match = decodeURIComponent(query).match(object);
 
 		if (match) {
@@ -162,8 +162,8 @@ function translatePath (catalogId, trailingPath) {
 
 function translateCatalogId (input) {
 	let catalogId = input
-				.replace(/-/g, '+')
-				.replace(/_/g, '/');
+		.replace(/-/g, '+')
+		.replace(/_/g, '/');
 
 	catalogId = new Buffer(catalogId, 'base64').toString();
 	catalogId = catalogId.replace(/^!@/, '');//strip off the WebApp's 'salt'

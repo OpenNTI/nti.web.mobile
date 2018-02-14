@@ -1,3 +1,4 @@
+/*eslint import/no-commonjs:0*/
 const {default: Logger} = require('nti-util-logger');
 
 const logger = Logger.get('server-side:mobile');
