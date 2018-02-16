@@ -46,7 +46,7 @@ export default createReactClass({
 		// Enrollment can trigger a catalog reload. If we started on one catalog entry,
 		// but the service mapped us to a different one on completing enrollment, the
 		// catalog will contain a new and different Entry that represents the same thing,
-		// but the ID will not map, and thus, we will have a nill `e` variable. So, to
+		// but the ID will not map, and thus, we will have a null `e` variable. So, to
 		// make sure routes continue to work while we are wrapping up the enrollment
 		// proccess save the last-known-good Entry, if it fails to come back on a
 		// subsequent call, use the cached one IF (AND ONLY IF) the ID matches.
