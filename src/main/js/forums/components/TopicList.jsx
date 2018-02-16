@@ -36,7 +36,7 @@ export default createReactClass({
 	},
 
 	render () {
-		let emptyText = t('emptyTopicList');
+		let emptyText = t('empty');
 
 		let pageInfo = this.pagingInfo();
 
