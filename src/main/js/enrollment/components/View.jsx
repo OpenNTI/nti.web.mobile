@@ -86,6 +86,13 @@ export default createReactClass({
 	},
 
 
+	shouldComponentUpdate (nextProps, nextState) {
+		const {catalog: curr} = this.state;
+		const {catalog: next} = nextState;
+		return !curr || (curr && next && curr !== next);
+	},
+
+
 	render () {
 		const {props: {enrollmentType, entryId}, state: {catalogLoading}} = this;
 		let courseId = this.getCourseId();
