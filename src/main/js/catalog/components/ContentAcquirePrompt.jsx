@@ -33,8 +33,8 @@ export default class extends React.Component {
 	}
 
 	resolve = (props = this.props) => {
-		let {data = {Items:[]}} = props;
-		let items = (data.Items || []).reduce((a, x) => a.concat(x), []);
+		const {data = {Items:[]}} = props;
+		const items = (data.Items || []).reduce((a, x) => a.concat(x), []);
 
 		getService()
 			.then(service =>
@@ -44,8 +44,8 @@ export default class extends React.Component {
 	};
 
 	render () {
-		let {items = []} = this.state;
-		let {length} = items;
+		const {items = []} = this.state;
+		const {length} = items;
 
 		return (
 			<div className="missing-content content-aquire-prompt">
