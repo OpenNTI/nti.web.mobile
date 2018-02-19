@@ -34,7 +34,7 @@ export default class extends React.Component {
 
 	resolve = (props = this.props) => {
 		let {data = {Items:[]}} = props;
-		let items = data.Items.reduce((a, x) => a.concat(x), []);
+		let items = (data.Items || []).reduce((a, x) => a.concat(x), []);
 
 		getService()
 			.then(service =>
