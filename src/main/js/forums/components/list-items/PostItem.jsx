@@ -22,7 +22,8 @@ import ActionsComp from '../Actions';
 
 import Mixin from './Mixin';
 
-const DEFAULT_TEXT = {
+
+const t = scoped('forums.topic', {
 	post: {
 		deletePrompt: 'Delete this comment?'
 	},
@@ -30,9 +31,8 @@ const DEFAULT_TEXT = {
 		one: '1 Comment',
 		other: '%(count)s Comments'
 	},
-};
+});
 
-const t = scoped('forums.topic', DEFAULT_TEXT);
 const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
@@ -141,7 +141,7 @@ export default createReactClass({
 	},
 
 	getNumberOfComments () {
-		return this.state.replyCount || this.props.item.ReferencedByCount;
+		return this.state.replyCount || this.props.item.ReferencedByCount || 0;
 	},
 
 	render () {
