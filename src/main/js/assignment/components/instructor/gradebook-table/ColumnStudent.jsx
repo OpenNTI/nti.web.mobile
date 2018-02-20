@@ -1,20 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 
 import StudentLink from './StudentLink';
-import StudentStatics from './StudentStaticsMixin';
 
-export default createReactClass({
-	displayName: 'GradebookColumnStudent',
-
-	mixins: [StudentStatics],
-
-	propTypes: {
+export default class GradebookColumnStudent extends React.Component {
+	static propTypes = {
 		item: PropTypes.object.isRequired // UserGradeBookSummary object
-	},
+	}
+
+	static label = () => 'Student'
+	static className = 'col-student'
+	static sort = 'LastName'
+
 
 	render () {
 		return <StudentLink item={this.props.item}/>;
 	}
-});
+}

@@ -1,27 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import createReactClass from 'create-react-class';
 import {scoped} from 'nti-lib-locale';
 import {rawContent} from 'nti-commons';
 
 import StudentLink from './StudentLink';
-import StudentStatics from './StudentStaticsMixin';
 
 const t = scoped('common.units');
 
-export default createReactClass({
-	displayName: 'ColumnStudentActionItems',
+export default class ColumnStudentActionItems extends React.Component {
 
-	mixins: [StudentStatics],
-
-	propTypes: {
+	static propTypes = {
 		item: PropTypes.shape({
 			user: PropTypes.any,
 			overdue: PropTypes.number,
 			ungraded: PropTypes.number
 		}).isRequired
-	},
+	}
+
+	static label = () => 'Student'
+	static className = 'col-student'
+	static sort = 'LastName'
 
 	render () {
 		const {item} = this.props;
@@ -52,4 +51,4 @@ export default createReactClass({
 			</StudentLink>
 		);
 	}
-});
+}
