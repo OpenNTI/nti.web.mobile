@@ -1,67 +1,64 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import {
 	EmptyList,
 	Loading,
 	Notice,
-	ScrollTrigger
+	ScrollTrigger,
+	HOC
 } from 'nti-web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
+import {Component as ContextSender} from 'common/mixins/ContextSender';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 
 import AssignmentActivityItem from './AssignmentActivityItem';
 
 
+export default
+@Assignments.connect
+class Activity extends React.Component {
+	static propTypes = {
+		assignments: PropTypes.object.isRequired
+	}
 
-export default createReactClass({
-	displayName: 'Activity',
-	mixins: [AssignmentsAccessor, ContextSender],
+	state = {}
 
-	getInitialState () {
-		return {};
-	},
+
+	componentDidMount () {
+		this.loadActivity();
+	}
+
+
+	componentWillReceiveProps (nextProps) {
+		if (this.props.assignments !== nextProps.assignments) {
+			this.loadActivity(nextProps);
+		}
+	}
 
 
 	componentWillUnmount () {
 		const {activity} = this.state;
-		if (this.unsubscribe) {
-			this.unsubscribe();
-		}
 
 		if(activity && activity.markSeen) {
 			activity.markSeen();
 		}
-	},
-
-	componentReceivedAssignments (assignments = this.getAssignments()) {
-		assignments.getActivity()
-			.catch(error => (this.setState({ error }), []))
-			.then(activity => this.setState({ activity }));
-	},
+	}
 
 
-	componentDidUpdate (_, prevState) {
-		const {activity} = this.state;
-
-		const changed = () => this.forceUpdate();
-
-		if (prevState.activity !== activity) {
-
-			if (this.unsubscribe) {
-				this.unsubscribe();
-			}
-
-			if (activity && activity.addListener) {
-				activity.addListener('change', changed);
-				this.unsubscribe = ()=> activity.removeListener('change', changed);
-			}
+	async loadActivity ({assignments} = this.props) {
+		let activity = [];
+		try {
+			activity = await assignments.getActivity();
+		} catch (error) {
+			this.setState({ error });
+		} finally {
+			this.setState({ activity });
 		}
-	},
+	}
 
 
-	loadMore (e) {
+	loadMore = (e) => {
 		if(e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -73,7 +70,12 @@ export default createReactClass({
 		if (store.more && store.nextBatch) {
 			store.nextBatch();
 		}
-	},
+	}
+
+
+	onActivityChanged = () => {
+		this.forceUpdate();
+	}
 
 
 	render () {
@@ -89,11 +91,16 @@ export default createReactClass({
 		}
 
 		if (activity.length === 0) {
+			//TODO: update empty list with label & sublabel props instead of a type.
 			return <EmptyList type="activity" />;
 		}
 
 		return (
 			<div className="assignments-activity">
+				<ContextSender/>
+				{activity && activity.addListener && (
+					<HOC.ItemChanges item={activity} onItemChanged={this.onActivityChanged}/>
+				)}
 				{activity.map((event, index) =>
 					<AssignmentActivityItem key={`activity-item-${index}`} event={event} />
 				)}
@@ -108,4 +115,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

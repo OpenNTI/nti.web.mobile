@@ -1,31 +1,35 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import {DateTime} from 'nti-web-commons';
 
-import Accessor from './mixins/AssignmentSummaryAccessor';
+import AssignmentSummary from '../bindings/AssignmentSummary';
+
 import FilterMenu from './FilterMenu';
 import PageControls from './PageControls';
 import OptionsMenu from './OptionsMenu';
 
-export default createReactClass({
-	displayName: 'instructor:AssignmentHeader',
-	mixins: [Accessor],
+export default
+@AssignmentSummary.connect
+class InstructorAssignmentHeader extends React.Component {
+	static propTypes = {
+		assignment: PropTypes.object,
+		store: PropTypes.object,
+	}
 
-	setPage (page) {
-		this.getStore().loadPage(page);
-	},
+	setPage = (page) => {
+		this.props.store.loadPage(page);
+	}
 
 	render () {
-		const assignment = this.getAssignment();
-		const Store = this.getStore();
+		const {assignment, store} = this.props;
 
 		return (
 			<div className="gradebook-assignment-header">
 				<OptionsMenu {...this.props}/>
 				<PageControls
-					currentPage={Store.getCurrentPage()}
-					pageSize={Store.getPageSize()}
-					total={Store.getTotal()}
+					currentPage={store.getCurrentPage()}
+					pageSize={store.getPageSize()}
+					total={store.getTotal()}
 					onChange={this.setPage}
 				/>
 				<div className="gradebook-assignment-title">{assignment.title}</div>
@@ -37,4 +41,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

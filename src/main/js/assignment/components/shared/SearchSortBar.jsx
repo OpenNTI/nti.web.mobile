@@ -1,36 +1,39 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import {BufferedInput} from 'nti-web-commons';
 
-import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';
+import AssignmentGroups from '../bindings/AssignmentGroups';
 
 import SortBox from './SortBox';
 
-export default createReactClass({
-	displayName: 'SearchSortBar',
-	mixins: [StoreAccessor],
+export default
+@AssignmentGroups.connect
+class SearchSortBar extends React.Component {
+	static propTypes = {
+		store: PropTypes.object
+	}
 
 
-	onOrderChange (order) {
-		const store = this.getStore();
+	onOrderChange = (order) => {
+		const {store} = this.props;
 		if (store) {
 			store.setOrder(order);
 		}
-	},
+	}
 
 
-	onSearchChange (event) {
-		const store = this.getStore();
+	onSearchChange = (event) => {
+		const {store} = this.props;
 		const {target: {value: search}} = event;
 
 		if (store) {
 			store.setSearch(search);
 		}
-	},
+	}
 
 
 	render () {
-		const store = this.getStore();
+		const {store} = this.props;
 
 		return (
 			<div className="search-sort-bar">
@@ -43,4 +46,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

@@ -1,9 +1,10 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
+import AssignmentSummary from '../bindings/AssignmentSummary';
+
 import MenuTransitionGroup from './MenuTransitionGroup';
-import Accessor from './mixins/AssignmentSummaryAccessor';
 import FilterMenuOption from './FilterMenuOption';
 
 const OPTIONS = [
@@ -16,63 +17,57 @@ const killEvent = (e) => {
 	e.preventDefault();
 };
 
-export default createReactClass({
-	displayName: 'FilterMenu',
-	mixins: [Accessor],
+export default
+@AssignmentSummary.connect
+class FilterMenu extends React.Component {
+	static propTypes = {
+		store: PropTypes.object
+	}
 
-	getInitialState () {
-		return {
-			open: false
-		};
-	},
+	state = {
+		open: false
+	}
 
-	optionClicked (option) {
+
+	optionClicked = (option) => {
 		this.setFilter(option.value);
 		this.hideMenu();
-	},
+	}
 
-	searchChanged (event) {
-		let {searchTimeout} = this.state;
-		if (searchTimeout) {
-			clearTimeout(searchTimeout);
-		}
-		searchTimeout = setTimeout(this.setSearch.bind(this, event.target.value), 1000);
-		this.setState({
-			searchTimeout
-		});
-	},
 
-	setSearch (value) {
-		this.getStore().setSearch(value);
-	},
+	searchChanged = ({target: {value}}) => {
+		clearTimeout(this.searchTimeout);
+		this.searchTimeout = setTimeout(() => this.setSearch(value), 1000);
+	}
 
-	setFilter (value) {
-		this.getStore().setFilter(value);
-	},
 
-	showMenu () {
-		this.setState({
-			open: true
-		});
-	},
+	setSearch = (value) => {
+		this.props.store.setSearch(value);
+	}
 
-	hideMenu () {
+
+	setFilter = (value) => {
+		this.props.store.setFilter(value);
+	}
+
+
+	hideMenu = () => {
 		this.setState({
 			open: false
 		});
-	},
+	}
 
-	toggleMenu () {
-		this.setState({
-			open: !this.state.open
-		});
-	},
+
+	toggleMenu = () => {
+		this.setState(({open}) => ({open: !open}));
+	}
+
 
 	render () {
-		const Store = this.getStore();
-		const filterValue = Store.getFilter();
+		const {store} = this.props;
+		const filterValue = store.getFilter();
 		const selectedOption = OPTIONS.find(option => option.value === filterValue) || OPTIONS[0];
-		const search = Store.getSearch() || '';
+		const search = store.getSearch() || '';
 		const menuLabel = search.length > 0 ? `Search ${selectedOption.label}: ${search}` : selectedOption.label;
 
 		const {state: {open}} = this;
@@ -81,7 +76,7 @@ export default createReactClass({
 
 		return (
 			<div className={wrapperClasses} onClick={this.toggleMenu}>
-				<div className="menu-label">{menuLabel} <span className="count">({Store.getTotal()})</span></div>
+				<div className="menu-label">{menuLabel} <span className="count">({store.getTotal()})</span></div>
 				<MenuTransitionGroup>
 					{open && (
 						<ul key="filter-menu" className="filter-menu">
@@ -107,4 +102,4 @@ export default createReactClass({
 
 		);
 	}
-});
+}

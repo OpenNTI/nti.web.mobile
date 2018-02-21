@@ -1,34 +1,41 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 
-import ContextSender from 'common/mixins/ContextSender';
+import {Component as ContextSender} from 'common/mixins/ContextSender';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 
 import AssignmentsListView from './AssignmentsListView';
 import Assignment from './AssignmentViewer';
 import PageFrame from './PageFrame';
 
 
-export default createReactClass({
-	displayName: 'Assignments',
-	mixins: [AssignmentsAccessor, ContextSender],
+export default
+@Assignments.connect
+class AssignmentsView extends React.Component {
 
-	propTypes: {
+	static propTypes = {
+		assignments: PropTypes.object.isRequired,
 		rootId: PropTypes.string // assignmentId, present when viewing an individual assignment
-	},
+	}
 
 	componentWillMount () {
-		this.setState({store: this.getAssignments().getGroupedStore()});
-	},
+		this.setState({store: this.props.assignments.getGroupedStore()});
+	}
 
 
 	render () {
 		const {props: {rootId}, state: {store}} = this;
 
-		return rootId
-			? <Assignment {...this.props} pageSource={store.pageSource} />
-			: <PageFrame pageContent={AssignmentsListView} {...this.props} />;
+		return (
+			<Fragment>
+				<ContextSender/>
+				{rootId  ? (
+					<Assignment {...this.props} pageSource={store.pageSource} />
+				) : (
+					<PageFrame pageContent={AssignmentsListView} {...this.props} />
+				)}
+			</Fragment>
+		);
 	}
-});
+}

@@ -1,42 +1,57 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import Accessor from './mixins/AssignmentSummaryAccessor';
-import ShowAvatars from './mixins/ShowAvatarsChild';
+import AssignmentSummary from '../bindings/AssignmentSummary';
+import {Receiver as ShowAvatars} from '../bindings/ShowAvatars';
+
 import MenuTransitionGroup from './MenuTransitionGroup';
 import PageSizeMenuOption from './PageSizeMenuOption';
 
-export default createReactClass({
-	displayName: 'OptionsMenu',
+export default
+@AssignmentSummary.connect
+@ShowAvatars.connect
+class OptionsMenu extends React.Component {
 
-	mixins: [Accessor, ShowAvatars],
+	static propTypes = {
+		showAvatars: PropTypes.bool,
+		setShowAvatars: PropTypes.func,
+		store: PropTypes.object,
+	}
 
-	getInitialState () {
-		return {
-			open: false
-		};
-	},
-
-	toggleMenu () {
-		const {open} = this.state;
-		this.setState({ open: !open });
-	},
-
-
-	setPageSize (num) {
-		this.getStore().setPageSize(num);
-	},
+	state = {
+		open: false
+	}
 
 
-	toggleAvatars (event) {
+	toggleMenu = () => {
+		this.setState(({open}) => ({ open: !open }));
+	}
+
+
+	setPageSize = (num) => {
+		this.props.store.setPageSize(num);
+	}
+
+
+	toggleAvatars = (event) => {
+		const {showAvatars, setShowAvatars} = this.props;
+
 		event.stopPropagation(); // leave the menu open
-		this.setShowAvatars(!this.getShowAvatars());
-	},
+
+		setShowAvatars(!showAvatars);
+	}
 
 	render () {
-		const Store = this.getStore();
-		const {open} = this.state;
+		const {
+			props: {
+				store
+			},
+			state: {
+				open
+			}
+		} = this;
+
 		const classes = cx('options-menu-wrapper', {open});
 
 		const values = [50, 75, 100];
@@ -53,7 +68,7 @@ export default createReactClass({
 									key={value}
 									value={value}
 									onClick={this.setPageSize}
-									className={cx({'selected': Store.getPageSize() === value})}
+									className={cx({'selected': store.getPageSize() === value})}
 								/>
 							))}
 							<li onClick={this.toggleAvatars}>
@@ -66,4 +81,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

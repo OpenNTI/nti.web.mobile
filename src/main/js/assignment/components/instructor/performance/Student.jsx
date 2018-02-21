@@ -1,45 +1,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import {Mixins} from 'nti-web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
+import {Component as ContextSender} from 'common/mixins/ContextSender';
 
-import AssignmentsAccessor from '../../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../../bindings/Assignments';
 
 import StudentHeader from './StudentHeader';
 import StudentAssignmentsTable from './table/StudentAssignmentsTable';
 
 
-export default createReactClass({
-	displayName: 'Performance:Student',
-	mixins: [AssignmentsAccessor, ContextSender, Mixins.NavigatableMixin],
+export default
+@Assignments.connect
+class PerformanceStudent extends React.Component {
 
-	propTypes: {
+	static propTypes = {
+		assignments: PropTypes.object,
 		userId: PropTypes.string
-	},
-
-	getContext () {
-		const {userId} = this.props;
-		return [{
-			label: 'Students',
-			href: this.makeHref('/performance/')
-		}, {
-			label: 'Student',//This is good enough
-			href: this.makeHref('/performance/' + userId)
-		}];
-	},
+	}
 
 	render () {
-
-		const userId = decodeURIComponent(this.props.userId);
-		const summary = this.getAssignments().getStudentSummary(userId);
+		const {assignments, userId} = this.props;
+		const summary = assignments.getStudentSummary(userId);
 
 		return (
 			<div>
+				<ContextSender getContext={getContext} data={this.props}/>
 				<StudentHeader userId={userId} />
-				<StudentAssignmentsTable  userId={userId} items={summary || []} />
+				<StudentAssignmentsTable  userId={decodeURIComponent(userId)} items={summary || []} />
 			</div>
 		);
 	}
-});
+}
+
+
+async function getContext () {
+	const contextSender = this;//this will be called with the contextSender's context ("this")
+
+	const {data: {userId}} = contextSender.props;
+	return [{
+		label: 'Students',
+		href: contextSender.makeHref('/performance/')
+	}, {
+		label: 'Student',//This is good enough
+		href: contextSender.makeHref('/performance/' + userId)
+	}];
+}

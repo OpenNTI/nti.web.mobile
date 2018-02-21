@@ -1,35 +1,34 @@
 import {join} from 'path';
 
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {decodeFromURI} from 'nti-lib-ntiids';
-import {Mixins} from 'nti-web-commons';
 
-import ContextMixin from 'common/mixins/ContextContributor';
+import {Component as ContextContributor} from 'common/mixins/ContextContributor';
 
 import AssignmentViewer from './AssignmentViewerWrapper';
 
-export default createReactClass({
-	displayName: 'AssignmentViewForStudent',
-	mixins: [ContextMixin, Mixins.NavigatableMixin],
-
-	propTypes: {
+export default class AssignmentViewForStudent {
+	static propTypes = {
 		rootId: PropTypes.string
-	},
-
-	getContext () {
-		const {rootId} = this.props;
-		return {
-			label: 'Students',
-			ntiid: decodeFromURI(rootId),
-			href: this.makeHref(join(rootId, '/students/'))
-		};
-	},
+	}
 
 	render () {
 		return (
-			<AssignmentViewer {...this.props} />
+			<Fragment>
+				<ContextContributor getContext={getContext} {...this.props}/>
+				<AssignmentViewer {...this.props} />
+			</Fragment>
 		);
 	}
-});
+}
+
+async function getContext () {
+	const context = this;//this will be called with the ContextContributor's context ("this")
+	const {rootId} = context.props;
+	return {
+		label: 'Students',
+		ntiid: decodeFromURI(rootId),
+		href: context.makeHref(join(rootId, '/students/'))
+	};
+}

@@ -1,33 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {getModel} from 'nti-lib-interfaces';
+import {Models} from 'nti-lib-interfaces';
 import {PropType as NTIID} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
-import {Mixins} from 'nti-web-commons';
+import {HOC} from 'nti-web-commons';
 import isEmpty from 'isempty';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 
 const logger = Logger.get('assignment:components:instructor:GradeBox');
-const Grade = getModel('grade');
 
-export default createReactClass({
-	displayName: 'GradeBox',
-	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
+export default
+@Assignments.connect
+@HOC.ItemChanges.compose
+class GradeBox extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		grade: PropTypes.object,
 		userId: PropTypes.string.isRequired,
 		assignmentId: NTIID.isRequired,
 		showLetter: PropTypes.bool
-	},
+	}
+
+
+	static getItem (props = this.props) { return props.grade; }
+
+
+	state = {
+		value: ''
+	}
 
 
 	componentWillMount () {
 		this.onItemChanged();
-	},
+	}
 
 
 	componentWillReceiveProps (nextProps) {
@@ -37,37 +44,27 @@ export default createReactClass({
 		if (oldGrade !== newGrade) {
 			this.onItemChanged(nextProps);
 		}
-	},
+	}
 
 
-	getInitialState () {
-		return {
-			value: ''
-		};
-	},
-
-
-	getItem (props = this.props) { return props.grade; },
-
-
-	onItemChanged (props = this.props) {
-		const {value = ''} = props.grade || {};
+	onItemChanged = ({grade} = this.props) => {
+		const {value = ''} = grade || {};
 		this.setState({value});
-	},
+	}
 
 
-	onFocus (e) {
+	onFocus = (e) => {
 		e.target.select();
-	},
+	}
 
 
-	onBlur (e) {
+	onBlur = (e) => {
 		const value = e.target.value.trim();
 		this.maybeSetGrade(value);
-	},
+	}
 
 
-	onChange (e) {
+	onChange = (e) => {
 		const value = e.target.value.trim();
 
 		if (this.state.busy) {
@@ -80,13 +77,14 @@ export default createReactClass({
 
 		clearTimeout(this.timerGradeChanging);
 		this.timerGradeChanging = setTimeout(()=> this.maybeSetGrade(value), 1000);
-	},
+	}
 
-	onLetterChange (e) {
+
+	onLetterChange = (e) => {
 		const {value} = this.state;
 		const letter = e.target.value;
 		this.maybeSetGrade(value, letter);
-	},
+	}
 
 
 	maybeSetGrade (newValue, newLetter) {
@@ -106,7 +104,7 @@ export default createReactClass({
 				(e) => logger.error( e ? (e.stack || e.message || e) : 'Error')
 			)
 			.then(()=> this.setState({busy: false}));
-	},
+	}
 
 
 	render () {
@@ -122,10 +120,10 @@ export default createReactClass({
 				/>
 				{showLetter &&
 					(<select defaultValue={(grade && grade.letter) || ''} onChange={this.onLetterChange}>
-						{Grade.getPossibleGradeLetters().map(letter => <option key={letter} value={letter}>{letter}</option>)}
+						{Models.course.Grade.getPossibleGradeLetters().map(letter => <option key={letter} value={letter}>{letter}</option>)}
 					</select>)
 				}
 			</div>
 		);
 	}
-});
+}

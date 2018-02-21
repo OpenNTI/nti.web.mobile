@@ -1,10 +1,10 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {SortOrder} from 'nti-lib-interfaces';
-import {EmptyList, Mixins} from 'nti-web-commons';
+import {EmptyList, HOC} from 'nti-web-commons';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 
 import PerformanceHeader from './PerformanceHeader';
 import PerformanceItem from './PerformanceItem';
@@ -39,21 +39,27 @@ const columns = [
 	}
 ];
 
-export default createReactClass({
-	displayName: 'PerformanceListView',
-	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
+export default
+@Assignments.connect
+class PerformanceListView extends React.Component {
 
-	componentWillMount () {
-		this.setState({ summary: this.getAssignments().getStudentSummary() });
-	},
-
-
-	getItem () { //getItem is for the mixin
-		return this.state.summary;
-	},
+	static propTypes = {
+		assignments: PropTypes.object.isRequired
+	}
 
 
-	changeSort (column) {
+	getSummary ({assignments} = this.props) {
+		return assignments && assignments.getStudentSummary();
+	}
+
+
+	constructor (props) {
+		super(props);
+		this.state = { summary: this.getSummary(props) };
+	}
+
+
+	changeSort = (column) => {
 		const {ASC, DESC} = SortOrder;
 		const {state: {summary}} = this;
 		const {sortOn, sortOrder} = summary.getSort();
@@ -61,13 +67,17 @@ export default createReactClass({
 		const direction = (sortOn !== column || sortOrder === DESC) ? ASC : DESC;
 
 		summary.setSort(column, direction);
-	},
+	}
+
+
+	onSummaryUpdated = () => {
+		this.forceUpdate();
+	}
 
 
 	render () {
-		const {state: {summary}} = this;
+		const {props: {assignments}, state: {summary}} = this;
 		const {sortOn, sortOrder} = summary.getSort();
-		const assignments = this.getAssignments();
 
 		if(summary.length === 0) {
 			return <EmptyList type="assignments"/>;
@@ -75,6 +85,7 @@ export default createReactClass({
 
 		return (
 			<div className="performance">
+				<HOC.ItemChanges item={summary} onItemChanged={this.onSummaryUpdated}/>
 				<PerformanceHeader assignments={assignments}/>
 				<div className="performance-headings">
 					{columns.map((col, index) => {
@@ -93,4 +104,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

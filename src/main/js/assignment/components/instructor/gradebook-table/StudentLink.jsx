@@ -1,27 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 
-import ShowAvatars from '../mixins/ShowAvatarsChild';
+import {Receiver as ShowAvatars} from '../../bindings/ShowAvatars';
 
-export default createReactClass({
-	displayName: 'StudentLink',
+export default
+@ShowAvatars.connect
+class StudentLink extends React.Component {
 
-	mixins: [ShowAvatars],
-
-	propTypes: {
+	static propTypes = {
 		item: PropTypes.shape({
 			username: PropTypes.string
 		}).isRequired,
-		children: PropTypes.any
-	},
+		children: PropTypes.any,
+		showAvatars: PropTypes.bool
+	}
 
 	render () {
-		const {children, item} = this.props;
-		const showAvatars = this.getShowAvatars();
+		const {children, item, showAvatars} = this.props;
+
 		return (
 			<a className="student-link" href={`./${encodeURIComponent(item.username)}/`}>
 				{showAvatars && (<Avatar entity={item.user} suppressProfileLink />)}
@@ -32,4 +31,4 @@ export default createReactClass({
 			</a>
 		);
 	}
-});
+}

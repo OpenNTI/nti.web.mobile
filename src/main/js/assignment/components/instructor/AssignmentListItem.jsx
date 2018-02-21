@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {scoped} from 'nti-lib-locale';
 import {encodeForURI} from 'nti-lib-ntiids';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 import TotalPointsLabel from '../shared/TotalPointsLabel';
 
 import CompletionRatio from './CompletionRatio';
@@ -18,16 +17,17 @@ const DEFAULT_TEXT = {
 
 const t = scoped('assessment.assignments.list.item', DEFAULT_TEXT);
 
-export default createReactClass({
-	displayName: 'AssignmentItem',
-	mixins: [AssignmentsAccessor],
+export default
+@Assignments.connect
+class AssignmentItem extends React.Component {
 
-	propTypes: {
-		assignment: PropTypes.object.isRequired
-	},
+	static propTypes = {
+		assignment: PropTypes.object.isRequired,
+		course: PropTypes.object.isRequired
+	}
 
 	render () {
-		const {props: {assignment}} = this;
+		const {props: {assignment, course}} = this;
 		const late = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
 		const classes = cx('assignment-item', { complete: assignment.hasSubmission, late });
 		return (
@@ -39,8 +39,8 @@ export default createReactClass({
 					</div>
 					<AssignmentStatusLabel assignment={assignment} />
 				</div>
-				<CompletionRatio course={this.getCourse()} assignment={assignment} />
+				<CompletionRatio course={course} assignment={assignment} />
 			</a>
 		);
 	}
-});
+}

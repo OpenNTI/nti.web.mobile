@@ -1,26 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {encodeForURI} from 'nti-lib-ntiids';
-import {DateTime, Mixins} from 'nti-web-commons';
+import {DateTime, HOC} from 'nti-web-commons';
 
 const DATE_FORMAT = 'MM/DD';
 
-export default createReactClass({
-	displayName: 'PerformanceItem',
-	mixins: [Mixins.ItemChanges],
+export default
+@HOC.ItemChanges.compose
+class PerformanceItem extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		item: PropTypes.object.isRequired,
 		sortedOn: PropTypes.string
-	},
-
-
-	getInitialState () {
-		return {};
-	},
-
+	}
 
 	render () {
 
@@ -52,4 +45,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

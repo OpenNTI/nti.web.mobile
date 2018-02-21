@@ -1,43 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {SortOrder} from 'nti-lib-interfaces';
-import {Loading} from 'nti-web-commons';
+import {Loading, HOC} from 'nti-web-commons';
 
 import Table from '../gradebook-table/Table';
 import ColumnStudentActionItems from '../gradebook-table/ColumnStudentActionItems';
 import ColumnGrade from '../gradebook-table/ColumnGrade';
-import ShowAvatars from '../mixins/ShowAvatarsContainer';
+import {Provider as ShowAvatars} from '../../bindings/ShowAvatars';
 
-export default createReactClass({
-	displayName: 'Performance:SummaryTable',
+export default
+@ShowAvatars.connect
+@HOC.ItemChanges.compose
+class PerformanceSummaryTable extends React.Component {
 
-	mixins: [ShowAvatars],
-
-	propTypes: {
+	static propTypes = {
 		summary: PropTypes.object.isRequired
-	},
+	}
 
-	componentWillMount () {
-		const {summary} = this.props;
-		summary.addListener('change', this.storeChange);
-	},
 
-	componentWillUnmount () {
-		const {summary} = this.props;
-		summary.removeListener('change', this.storeChange);
-	},
+	static getItem = ({summary}) => summary
 
-	storeChange () {
-		this.forceUpdate();
-	},
 
-	onSort (sort) {
+	onSort = (sort) => {
 		const {summary} = this.props;
 		const current = summary.getSort();
 		const direction = current.sortOn === sort ? SortOrder.reverse(current.sortOrder) : SortOrder.ASC;
 		summary.setSort(sort, direction);
-	},
+	}
+
 
 	render () {
 		const {summary} = this.props;
@@ -63,4 +53,4 @@ export default createReactClass({
 			/>
 		);
 	}
-});
+}

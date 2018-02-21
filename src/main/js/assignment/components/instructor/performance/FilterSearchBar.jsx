@@ -1,40 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import {BufferedInput, Mixins} from 'nti-web-commons';
+import {BufferedInput, HOC} from 'nti-web-commons';
 
 import PageControls from '../PageControls';
 
 import EnrollmentSelect from './EnrollmentSelect';
 import CategorySelect from './CategorySelect';
 
-export default createReactClass({
-	displayName: 'SearchSortBar',
-	mixins: [Mixins.ItemChanges],
+export default
+@HOC.ItemChanges.compose
+class SearchSortBar extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		summary: PropTypes.object.isRequired // GradeBookSummary object
-	},
+	}
 
+	static getItem = ({summary}) => summary //Item that changes
 
-	getItem () { return this.props.summary; },
+	getStore (props = this.props) {
+		return props.summary;
+	}
 
+	onSearchChange = (event) => {
+		this.getStore().setSearch(event.target.value);
+	}
 
-	onSearchChange (event) {
-		this.getItem().setSearch(event.target.value);
-	},
+	onEnrollmentChange = (value) => {
+		this.getStore().setScopeFilter(value);
+	}
 
-	onEnrollmentChange (value) {
-		this.getItem().setScopeFilter(value);
-	},
+	onCategoryChange = (value) => {
+		this.getStore().setCategoryFilter(value);
+	}
 
-	onCategoryChange (value) {
-		this.getItem().setCategoryFilter(value);
-	},
-
-	onPageChange (value)  {
-		this.getItem().loadPage(value);
-	},
+	onPageChange = (value) => {
+		this.getStore().loadPage(value);
+	}
 
 	render () {
 
@@ -64,4 +65,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

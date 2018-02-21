@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import createReactClass from 'create-react-class';
 import {PropType as NTIID} from 'nti-lib-ntiids';
+import {HOC, Prompt} from 'nti-web-commons';
 import Logger from 'nti-util-logger';
-import {Mixins, Prompt} from 'nti-web-commons';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 
 const logger = Logger.get('assignment:components:instructor:ActionsMenu');
 
-export default createReactClass({
-	displayName: 'instructor:ActionsMenu',
-	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
+export default
+@Assignments.connect
+@HOC.ItemChanges.compose
+class InstructorActionsMenu extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		userId: PropTypes.string.isRequired,
 
+		assignments: PropTypes.object,
 		assignmentId: NTIID, //when the row item does not specify the assignment... #smh
 
 		/**
@@ -30,39 +31,38 @@ export default createReactClass({
 		 * 		.grade
 		 */
 		item: PropTypes.object.isRequired
-	},
+	}
 
-	getInitialState () {
-		return {
-			open: false
-		};
-	},
+
+	state = {
+		open: false
+	}
 
 
 	getAssignmentId () {
 		const {item, assignmentId} = this.props;
 		return item.assignmentId || assignmentId;
-	},
+	}
 
 
-	getItem (props = this.props) {
+	static getItem (props = {}) {
 		const {grade} = props.item || {};
 		return grade;
-	},
+	}
 
 
-	excuse () {
+	excuse = () => {
 		this.closeMenu();
 		this.getItem().excuseGrade();
-	},
+	}
 
 
-	resetAssignment () {
+	resetAssignment = () => {
 		this.closeMenu();
-		const {item, userId} = this.props;
+		const {assignments, item, userId} = this.props;
 
 		const reset = () => {
-			return this.getAssignments().resetAssignment(this.getAssignmentId(), userId);
+			return assignments.resetAssignment(this.getAssignmentId(), userId);
 		};
 
 		const msg = !item.isCreatedByAppUser
@@ -74,17 +74,17 @@ export default createReactClass({
 			.then(
 				()=> logger.log('Assignment Reset'),
 				e => logger.error('Could not reset', e.stack || e.message || e));
-	},
+	}
 
 
-	toggleMenu () {
+	toggleMenu = () => {
 		this.setState({open: !this.state.open});
-	},
+	}
 
 
 	closeMenu () {
 		this.setState({open: false});
-	},
+	}
 
 
 	render () {
@@ -108,4 +108,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

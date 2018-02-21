@@ -1,21 +1,21 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import {SelectBox} from 'nti-web-commons';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 
-export default createReactClass({
-	displayName: 'SortBox',
-	mixins: [AssignmentsAccessor],
+export default
+@Assignments.connect
+class SortBox extends React.Component {
 
-	propTypes: {
+	static propTypes = {
+		assignments: PropTypes.object,
+		onChange: PropTypes.func.isRequired,
 		value: PropTypes.any,
-		onChange: PropTypes.func.isRequired
-	},
+	}
 
 	componentWillMount () {
-		const {ORDER_BY_COMPLETION, ORDER_BY_DUE_DATE, ORDER_BY_LESSON} = this.getAssignments();
+		const {ORDER_BY_COMPLETION, ORDER_BY_DUE_DATE, ORDER_BY_LESSON} = this.props.assignments;
 
 		const sortOptions = [
 			{ label: 'By Due Date', value: ORDER_BY_DUE_DATE},
@@ -24,13 +24,13 @@ export default createReactClass({
 		];
 
 		this.setState({sortOptions, sortBy: this.props.value || ORDER_BY_LESSON});
-	},
+	}
 
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.value) {
 			this.setState({sortBy: nextProps.value});
 		}
-	},
+	}
 
 	render () {
 
@@ -40,4 +40,4 @@ export default createReactClass({
 			<SelectBox options={sortOptions} onChange={this.props.onChange} value={sortBy} />
 		);
 	}
-});
+}

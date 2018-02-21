@@ -2,35 +2,30 @@ import {join} from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {decodeFromURI} from 'nti-lib-ntiids';
-import {Mixins} from 'nti-web-commons';
 
-import ContextMixin from 'common/mixins/ContextContributor';
+import {Component as ContextContributor} from 'common/mixins/ContextContributor';
 
 import ContentViewer from '../shared/AssignmentViewer';
 
 import Header from './AssignmentViewStudentHeader';
 
-export default createReactClass({
-	displayName: 'AssignmentViewStudent',
-	mixins: [Mixins.BasePath, ContextMixin, Mixins.NavigatableMixin],
+export default class AssignmentViewStudent extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		userId: PropTypes.string.isRequired,
 		rootId: PropTypes.string.isRequired
-	},
+	}
 
+	attachContextProvider = x => this.contextProvider = x
 
-	getContext () {
-		const {rootId, userId} = this.props;
-		return {
-			label: decodeURIComponent(userId),
-			ntiid: decodeFromURI(rootId),
-			href: this.makeHref(join(rootId, userId, '/'))
-		};
-	},
+	resolveContext (...args) {
+		return this.contextProvider.resolveContext(...args);
+	}
 
+	makeHref (...args) {
+		return this.contextProvider.makeHref(...args);
+	}
 
 	render () {
 		const {rootId, userId} = this.props;
@@ -39,6 +34,7 @@ export default createReactClass({
 
 		return (
 			<div className="assignment-view-student">
+				<ContextContributor ref={this.attachContextProvider} getContext={getContext} {...this.props}/>
 				<Header {...this.props}
 					userId={user}
 					assignmentId={assignmentId}
@@ -51,4 +47,14 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}
+
+async function getContext () {
+	const context = this;//this will be called with the ContextContributor's context ("this")
+	const {rootId, userId} = context.props;
+	return {
+		label: decodeURIComponent(userId),
+		ntiid: decodeFromURI(rootId),
+		href: context.makeHref(join(rootId, userId, '/'))
+	};
+}

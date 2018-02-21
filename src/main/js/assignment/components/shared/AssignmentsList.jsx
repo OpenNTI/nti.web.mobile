@@ -1,27 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {Loading, EmptyList} from 'nti-web-commons';
 
-import StoreAccessor from '../../mixins/AssignmentsListViewStoreAccessor';
+import AssignmentGroups from '../bindings/AssignmentGroups';
 
 import AssignmentGroup from './AssignmentGroup';
 
-export default createReactClass({
-	displayName: 'AssignmentsList',
-	mixins: [StoreAccessor],
+export default
+@AssignmentGroups.connect
+class AssignmentsList extends React.Component {
 
-	propTypes: {
+	static propTypes = {
+		store: PropTypes.any,
 		sort: PropTypes.any,
 		search: PropTypes.string
-	},
-
-	getInitialState () {
-		return {};
-	},
+	}
 
 	render () {
-		const store = this.getStore();
+		const {store} = this.props;
 
 		if(!store || store.loading) {
 			return <Loading.Mask />;
@@ -41,4 +37,4 @@ export default createReactClass({
 			</ul>
 		);
 	}
-});
+}

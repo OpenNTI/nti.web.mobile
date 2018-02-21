@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {DateTime, EmptyList} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
+
 
 const t = scoped('assessment.assignment.group_labels', {
 	Unknown: 'Other Assignments',
@@ -11,33 +11,46 @@ const t = scoped('assessment.assignment.group_labels', {
 	unset: ''
 });
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+const isDate = (d) => !!(d || {}).toDateString;
 
-export default createReactClass({
-	displayName: 'AssignmentGroup',
-	mixins: [AssignmentsAccessor],
+export default class AssignmentGroup extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		group: PropTypes.object.isRequired
-	},
+	}
 
-	contextTypes: {
+	static contextTypes = {
 		isInstructor: PropTypes.bool,
 		AssignmentListItem: PropTypes.func.isRequired
-	},
-
+	}
 
 	render () {
-		const {context: {isInstructor: instructor, AssignmentListItem: Item}, props: {group}} = this;
+		const {
+			context: {
+				isInstructor: instructor,
+				AssignmentListItem: Item
+			},
+			props: {
+				group
+			}
+		} = this;
+
 		const classes = cx( 'assignment-group', {instructor});
+
+		if (!Item) {
+			return <div>Missing Row Spec</div>;
+		}
 
 		return (
 			<div className={classes}>
 				<h2>
-					<span>{
-						isDate(group.label)
-							? ( <DateTime date={group.label}/> )
-							: t(group.label || 'unset', {fallback: group.label})}</span>
+					<span>
+						{
+							isDate(group.label)
+								? ( <DateTime date={group.label}/> )
+								: t(group.label || 'unset', {fallback: group.label})
+						}
+					</span>
 					{instructor && <span className="column-heading">Completion</span>}
 				</h2>
 				<ul>
@@ -55,9 +68,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
-
-
-function isDate (d) {
-	return !!(d || {}).toDateString;
 }

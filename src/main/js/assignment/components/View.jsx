@@ -1,66 +1,54 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import {Loading, Mixins} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
 
-import ContextContributor from 'common/mixins/ContextContributor';
+import {Component as ContextContributor} from 'common/mixins/ContextContributor';
 
-import AssignmentsHolder from '../mixins/AssignmentCollectionHolder';
-
+import AssignmentsProvider from './bindings/AssignmentsProvider';
 import Student from './student/View';
 import Instructor from './instructor/View';
 
 
-export default createReactClass({
-	displayName: 'Assignments:View',
+export default
+@AssignmentsProvider.connect
+class AssignmentsView extends React.Component {
 
-	mixins: [AssignmentsHolder, Mixins.NavigatableMixin, ContextContributor],
-
-	propTypes: {
-		course: PropTypes.object.isRequired
-	},
-
-	getInitialState () {
-		return {
-			loading: true
-		};
-	},
-
-	componentDidMount () {
-		this.getData();
-	},
-
-	componentWillReceiveProps (nextProps) {
-		if (this.props.course !== nextProps.course) {
-			this.getData(nextProps);
-		}
-	},
-
-	getContext () {
-		let href = this.makeHref('/assignments/');
-
-		return Promise.resolve({ href, label: 'Assignments' });
-	},
-
-	getData (props = this.props) {
-		this.setState({ loading: true }, () => {
-
-			props.course.getAssignments().then(assignments => {
-				this.setState({ assignments, loading: false });
-			});
-
-		});
-	},
+	static propTypes = {
+		assignments: PropTypes.object,
+		course: PropTypes.object,
+		loading: PropTypes.bool,
+	}
 
 	render () {
-		let {course} = this.props;
-		let {loading, assignments} = this.state;
+		const {
+			assignments,
+			course,
+			loading,
+		} = this.props;
 
 		if(loading) {
 			return ( <Loading.Mask /> );
 		}
 
-		let Comp = course.isAdministrative && course.GradeBook ? Instructor : Student;
-		return ( <Comp {...this.props} assignments={assignments} /> );
+		const Comp = course.isAdministrative && course.GradeBook
+			? Instructor
+			: Student;
+
+		return (
+			<Fragment>
+				<ContextContributor getContext={getContext}/>
+				<Comp {...this.props} assignments={assignments} />
+			</Fragment>
+		);
+
 	}
-});
+}
+
+async function getContext () {
+	const context = this;//this will be called with the ContextContributor's context ("this")
+
+	return {
+		href: context.makeHref('/assignments/'),
+		label: 'Assignments'
+	};
+}

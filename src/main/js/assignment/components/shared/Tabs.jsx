@@ -1,30 +1,42 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
-import {ActiveState, Mixins, ListHeader as Header} from 'nti-web-commons';
+import PropTypes from 'prop-types';
+import {
+	ActiveState,
+	ActiveStateContainer,
+	ListHeader as Header
+} from 'nti-web-commons';
 
-import Accessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 
-export default createReactClass({
-	displayName: 'Tabs',
-	mixins: [Accessor, Mixins.ActiveStateSelector],
+export default
+@Assignments.connect
+class Tabs extends React.Component {
+
+	static propTypes = {
+		course: PropTypes.object.isRequired
+	}
+
 
 	render () {
-		const course = this.getCourse();
+		const {course} = this.props;
+		if (!course) {return null;}
 
 		const disablePerfView = course.isAdministrative && !course.GradeBook;
 
-		const PerformanceViewTag = disablePerfView ? 'a' : ActiveState;
-		const PerformanceViewProps = disablePerfView ? {className: 'disabled'} : {tag: 'a', href:'/performance/', hasChildren: true};
+		const PerformanceLink = disablePerfView ? 'a' : ActiveState;
+		const PerformanceLinkProps = disablePerfView ? {className: 'disabled'} : {tag: 'a', href:'/performance/', hasChildren: true};
 
 		return (
 			<div className="assignments-nav">
 				<Header>Assignments</Header>
-				<ul className="filters">
-					<li><ActiveState tag="a" href="/" hasChildren>Assignments</ActiveState></li>
-					<li><PerformanceViewTag {...PerformanceViewProps}>Grades &amp; Performance</PerformanceViewTag></li>
-					<li><ActiveState tag="a" href="/activity/">Activity</ActiveState></li>
-				</ul>
+				<ActiveStateContainer>
+					<ul className="filters">
+						<li><ActiveState tag="a" href="/" hasChildren>Assignments</ActiveState></li>
+						<li><PerformanceLink {...PerformanceLinkProps}>Grades &amp; Performance</PerformanceLink></li>
+						<li><ActiveState tag="a" href="/activity/">Activity</ActiveState></li>
+					</ul>
+				</ActiveStateContainer>
 			</div>
 		);
 	}
-});
+}

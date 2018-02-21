@@ -18,8 +18,7 @@ const ROUTES = [
 	{}//not found
 ];
 
-export default class extends React.Component {
-	static displayName = 'Assignments:Students:View';
+export default class AssignmentsStudentsView extends React.Component {
 
 	static childContextTypes = {
 		AssignmentListItem: PropTypes.func

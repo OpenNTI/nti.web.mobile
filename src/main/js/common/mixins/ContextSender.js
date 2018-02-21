@@ -1,5 +1,7 @@
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Logger from 'nti-util-logger';
+import {Mixins} from 'nti-web-commons';
 
 import Contributor, {ContextParent} from './ContextContributor';
 
@@ -15,7 +17,7 @@ const CONTEXT_DATA = Symbol();
 const SET_PAGESOURCE = 'navigation:setPageSource';
 const SET_CONTEXT = 'navigation:setContext';
 
-export default {
+const ContextSender = {
 	mixins: [Contributor],
 
 	contextTypes: {
@@ -96,3 +98,23 @@ export default {
 		}
 	}
 };
+
+export const Component = createReactClass({
+	displayName: 'ContextSender',
+	propTypes: {
+		children: PropTypes.node,
+		getContext: PropTypes.func
+	},
+	mixins: [ContextSender, Mixins.NavigatableMixin],
+	async getContext () {
+		const {getContext} = this.props;
+		return getContext
+			? getContext.call(this)
+			: [];
+	},
+	render () {
+		return this.props.children || null;
+	}
+});
+
+export default ContextSender;

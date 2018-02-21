@@ -1,44 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {encodeForURI} from 'nti-lib-ntiids';
-import {Mixins} from 'nti-web-commons';
+import {HOC} from 'nti-web-commons';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 import TotalPointsLabel from '../shared/TotalPointsLabel';
 
 
-export default createReactClass({
-	displayName: 'AssignmentItem',
-	mixins: [AssignmentsAccessor, Mixins.ItemChanges],
+export default
+@Assignments.connect
+@HOC.ItemChanges.compose
+class AssignmentItem extends React.Component {
 
-	propTypes: {
-		assignment: PropTypes.object.isRequired
-	},
+	static propTypes = {
+		assignment: PropTypes.object.isRequired,
+		assignments: PropTypes.object.isRequired
+	}
 
-	getInitialState () {
-		return {};
-	},
 
-	getItem (props = this.props) {
-		return props.assignment;
-	},
+	static getItem = ({assessment: item} = this.props) => item
+
+
+	state = {}
 
 
 	componentWillMount () {
 		this.onItemChanged();
-	},
+	}
 
 
-	onItemChanged () {
-		const {assignment} = this.props;
+	onItemChanged = async () => {
+		const {assignment, assignments} = this.props;
 
-		this.getAssignments().getHistoryItem(assignment.getID())
-			.then(history => this.setState({history}));
-	},
+		const history = await assignments.getHistoryItem(assignment.getID());
+
+		this.setState({history});
+	}
 
 
 	render () {
@@ -54,4 +54,4 @@ export default createReactClass({
 			</a>
 		);
 	}
-});
+}

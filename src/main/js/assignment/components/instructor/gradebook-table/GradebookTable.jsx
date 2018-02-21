@@ -1,8 +1,8 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import {SortOrder} from 'nti-lib-interfaces';
 
-import Accessor from '../mixins/AssignmentSummaryAccessor';
+import AssignmentSummary from '../../bindings/AssignmentSummary';
 
 import Table from './Table';
 import Student from './ColumnStudent';
@@ -13,21 +13,25 @@ import Actions from './ColumnActions';
 
 const COLUMNS = [Student, Completed, Score, Feedback, Actions];
 
-export default createReactClass({
-	displayName: 'GradebookTable',
-	mixins: [Accessor],
+export default
+@AssignmentSummary.connect
+class GradebookTable extends React.Component {
 
-	setSort (sort) {
-		const store = this.getStore();
+	static propTypes = {
+		assignment: PropTypes.object,
+		store: PropTypes.object
+	}
+
+	setSort = (sort) => {
+		const {store} = this.props;
 		const current = store.getSort();
 		const direction = current.sortOn === sort ? SortOrder.reverse(current.sortOrder) : SortOrder.ASC;
 
 		store.setSort(sort, direction);
-	},
+	}
 
 	render () {
-		const assignment = this.getAssignment();
-		const store = this.getStore();
+		const {assignment, store} = this.props;
 
 		const {sortOn, sortOrder} = store.getSort();
 
@@ -44,4 +48,4 @@ export default createReactClass({
 			/>
 		);
 	}
-});
+}

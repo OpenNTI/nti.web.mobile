@@ -1,43 +1,48 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import {Mixins} from 'nti-web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
+import {Component as ContextSender} from 'common/mixins/ContextSender';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 import PageFrame from '../shared/PageFrame';
 import Assignment from '../shared/AssignmentViewer';
 
 import PerformanceListView from './PerformanceListView';
 
-export default createReactClass({
-	displayName: 'Performance',
+export default
+@Assignments.connect
+class Performance extends React.Component {
 
-	mixins: [AssignmentsAccessor, ContextSender, Mixins.NavigatableMixin],
-
-	getContext () {
-		return Promise.resolve({
-			label: 'Performance',
-			href: this.makeHref('/performance/')
-		});
-	},
-
-	propTypes: {
+	static propTypes = {
+		assignments: PropTypes.object,
 		rootId: PropTypes.string // assignmentId, present when viewing an individual assignment
-	},
+	}
 
 
 	componentWillMount () {
-		this.setState({summary: this.getAssignments().getStudentSummary()});
-	},
+		this.setState({summary: this.props.assignments.getStudentSummary()});
+	}
 
 
 	render () {
 		const {props: {rootId}, state: {summary}} = this;
 
-		return rootId
-			? <Assignment {...this.props} pageSource={summary.getPageSource()} />
-			: <PageFrame pageContent={PerformanceListView} {...this.props} />;
+		return (
+			<Fragment>
+				<ContextSender getContext={getContext}/>
+				{rootId ? (
+					<Assignment {...this.props} pageSource={summary.getPageSource()} />
+				) : (
+					<PageFrame pageContent={PerformanceListView} {...this.props} />
+				)}
+			</Fragment>
+		);
 	}
-});
+}
+
+async function getContext () {
+	return {
+		label: 'Performance',
+		href: this.makeHref('/performance/')
+	};
+}

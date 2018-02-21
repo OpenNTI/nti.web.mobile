@@ -1,35 +1,60 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {PropType as NTIID} from 'nti-lib-ntiids';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
-import AssignmentsAccessor from '../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../bindings/Assignments';
 
 import ActionsMenu from './ActionsMenu';
 import GradeBox from './GradeBox';
 import Status from './AssignmentStatus';
 
 
-export default createReactClass({
-	displayName: 'instructor:AssignmentViewStudentHeader',
-	mixins: [AssignmentsAccessor],
+export default
+@Assignments.connect
+class InstructorAssignmentViewStudentHeader extends React.Component {
 
-	propTypes: {
+	static propTypes = {
+		assignmentId: NTIID,
+		assignments: PropTypes.object.isRequired,
 		userId: PropTypes.any.isRequired,
-		assignmentId: NTIID
-	},
+	}
 
-	getInitialState () {
-		return {};
-	},
+
+	state = {}
+
+
+	componentWillMount () {
+		this.setup();
+	}
+
 
 	componentWillReceiveProps (nextProps) {
 		this.setup(nextProps);
-	},
+	}
 
-	componentReceivedAssignments (collection) {
+
+	componentWillUnmount () {
+		if (this.unsubcribe) {
+			this.unsubcribe();
+		}
+	}
+
+
+	async setup (props = this.props) {
+		const {assignments, assignmentId, userId} = props;
+
+		this.subscribe(assignments);
+
+		const assignment = assignments.getAssignment(assignmentId);
+		const history = await assignments.getHistoryItem(assignment.getID(), userId);
+
+		this.setState({history, assignment});
+	}
+
+
+	subscribe (collection) {
 		const changed = (assignmentIdWithNewGrade) => {
 			if (assignmentIdWithNewGrade === this.props.assignmentId) {
 				this.setup();
@@ -48,25 +73,8 @@ export default createReactClass({
 			collection.removeListener('new-grade', changed);
 			collection.removeListener('reset-grade', changed);
 		};
+	}
 
-		this.setup();
-	},
-
-	componentWillUnmount () {
-		if (this.unsubcribe) {
-			this.unsubcribe();
-		}
-	},
-
-	setup (props = this.props) {
-		const {assignmentId, userId} = props;
-
-		const collection = this.getAssignments();
-		const assignment = collection.getAssignment(assignmentId);
-
-		collection.getHistoryItem(assignment.getID(), userId)
-			.then(history => this.setState({history, assignment})); //eslint-disable-line
-	},
 
 	render () {
 
@@ -93,4 +101,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

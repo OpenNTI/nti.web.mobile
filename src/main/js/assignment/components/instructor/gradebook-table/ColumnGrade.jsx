@@ -1,34 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 
-import Accessor from '../../../mixins/AssignmentCollectionAccessor';
+import Assignments from '../../bindings/Assignments';
 import GradeBox from '../GradeBox';
 
-export default createReactClass({
-	displayName: 'GradebookColumnGrade',
-	mixins: [Accessor],
+export default
+@Assignments.connect
+class GradebookColumnGrade extends React.Component {
 
-	statics: {
-		label () {
-			return 'Grade';
-		},
-		className: 'col-grade',
-		sort: 'Grade'
-	},
-
-	propTypes: {
+	static propTypes = {
+		assignments: PropTypes.object.isRequired,
 		item: PropTypes.shape({
 			grade: PropTypes.object
 		}).isRequired
-	},
+	}
+
+	static className = 'col-grade'
+	static label = () => 'Grade'
+	static sort = 'Grade'
+
 
 	render () {
 		//"Final_Grade" only
-		const {props: {item: {grade, user, hasFinalGrade}}} = this;
+		const {props: {assignments, item: {grade, user, hasFinalGrade}}} = this;
 
 		const userId = user && user.getID();
-		const finalGradeId = this.getAssignments().getFinalGradeAssignmentId();
+		const finalGradeId = assignments.getFinalGradeAssignmentId();
 
 		return (
 			<div className="grade">
@@ -38,4 +35,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

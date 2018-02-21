@@ -1,24 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import createReactClass from 'create-react-class';
-import {DateTime, Mixins} from 'nti-web-commons';
+import {DateTime, HOC} from 'nti-web-commons';
 
 
-export default createReactClass({
-	displayName: 'AssignmentStatus',
+export default
+@HOC.ItemChanges.compose
+class AssignmentStatus extends React.Component {
 
-	mixins: [Mixins.ItemChanges],
-
-	propTypes: {
+	static propTypes = {
 		assignment: PropTypes.object.isRequired,
 		history: PropTypes.object
-	},
+	}
 
-	getItem () {
-		const {history = {}} = this.props;
-		return history.grade;
-	},
+	static getItem ({history}) {
+		return (history || {}).grade;
+	}
 
 	render () {
 
@@ -58,4 +55,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}
