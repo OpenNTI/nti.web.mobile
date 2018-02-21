@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
 	EmptyList,
+	Error,
 	Loading,
-	Notice,
 	ScrollTrigger,
 	HOC
 } from 'nti-web-commons';
@@ -82,8 +82,8 @@ class Activity extends React.Component {
 
 		const {error, activity} = this.state;
 
-		if (error === 'Not Implemented') {
-			return <Notice >Coming Soon</Notice>;
+		if (error) {
+			return <Error error={error}/>;
 		}
 
 		if (!activity) {
