@@ -3,20 +3,16 @@ import React from 'react';
 
 import GradeBox from '../GradeBox';
 
-export default class extends React.Component {
-	static displayName = 'GradebookColumnScore';
-
-	static label () {
-		return 'Score';
-	}
-
-	static className = 'col-score';
-	static sort = 'Grade';
-
+export default class GradebookColumnScore extends React.Component {
 	static propTypes = {
 		item: PropTypes.object.isRequired, // UserGradeBookSummary object
 		assignmentId: PropTypes.string.isRequired
-	};
+	}
+
+	static label = () => 'Score'
+	static className = 'col-score'
+	static sort = 'Grade'
+
 
 	render () {
 

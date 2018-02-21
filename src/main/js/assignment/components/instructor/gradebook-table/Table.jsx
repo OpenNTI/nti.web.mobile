@@ -6,8 +6,7 @@ import {SortOrder} from 'nti-lib-interfaces';
 import ColumnHeading from './ColumnHeading';
 
 
-export default class extends React.Component {
-	static displayName = 'gradebook:Table';
+export default class GradebookTableImpl extends React.Component {
 
 	static propTypes = {
 		className: PropTypes.string,

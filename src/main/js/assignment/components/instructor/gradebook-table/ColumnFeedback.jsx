@@ -1,19 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class extends React.Component {
-	static displayName = 'GradebookColumnFeedback';
-
-	static label () {
-		return 'Feedback';
-	}
-
-	static className = 'col-feedback';
-	static sort = 'feedbackCount';
-
+export default class GradebookColumnFeedback extends React.Component {
 	static propTypes = {
 		item: PropTypes.object.isRequired // UserGradeBookSummary object
-	};
+	}
+
+	static label = () => 'Feedback'
+	static className = 'col-feedback'
+	static sort = 'feedbackCount'
 
 	render () {
 

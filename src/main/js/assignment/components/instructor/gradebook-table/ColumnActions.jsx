@@ -3,19 +3,15 @@ import React from 'react';
 
 import ActionsMenu from '../ActionsMenu';
 
-export default class extends React.Component {
-	static displayName = 'GradebookColumnActions';
-
-	static label () {
-		return '';
-	}
-
-	static className = 'col-actions';
-	static sort = '';
-
+export default class GradebookColumnActions extends React.Component {
 	static propTypes = {
 		item: PropTypes.object.isRequired // UserGradeBookSummary object
-	};
+	}
+
+	static label = () => ''
+	static className = 'col-actions'
+	static sort = ''
+
 
 	render () {
 

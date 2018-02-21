@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default class extends React.Component {
-	static displayName = 'ColumnHeading';
-
+export default class ColumnHeading extends React.Component {
 	static propTypes = {
 		column: (o, k) => {
 			try {
