@@ -1,7 +1,6 @@
 import {join} from 'path';
 
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {rawContent} from 'nti-commons';
@@ -9,8 +8,7 @@ import {encodeForURI} from 'nti-lib-ntiids';
 import {DateTime, DisplayName} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 
-
-const DEFAULT_TEXT = {
+const t = scoped('course.assignments.activity', {
 	'grade-received': 'Grade Received:  %(title)s',
 	'late-assignment': 'Assignment Past Due:  %(title)s',
 	'new-assignment': 'New Assignment:  %(title)s',
@@ -21,9 +19,7 @@ const DEFAULT_TEXT = {
 	'they-feedback': '%(name)s left feedback on: %(title)s',
 	'you-feedback-theirs': 'You commented on %(title)s (%(name)s)',
 	'you-feedback': 'You commented on: %(title)s'
-};
-
-const t = scoped('course.assignments.activity', DEFAULT_TEXT);
+});
 
 
 const hasName = type => (t(type, {name: type, title: ''}) || '').indexOf(type) >= 0;
@@ -36,6 +32,7 @@ const GOTO_HASH = {
 	'you-feedback': '#feedback'
 };
 
+const htmlEncode = str => String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const getTitle = e => e && e.title;
 const getType = e => e && e.type;
 
@@ -65,7 +62,8 @@ export default class ActivityItem extends React.Component {
 	}
 
 
-	getTitleMarkup = (ev) => ReactDOMServer.renderToStaticMarkup(<span className="assignment-name">{getTitle(ev)}</span>);
+	getTitleMarkup = (ev) =>
+		`<span class="assignment-name">${htmlEncode(getTitle(ev))}</span>`
 
 
 	getLabelWithUser = (data) => t(getType(this.props.event), {...data, title: this.state.titleMarkup});
