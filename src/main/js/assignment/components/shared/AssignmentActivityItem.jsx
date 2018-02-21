@@ -45,32 +45,16 @@ export default class ActivityItem extends React.Component {
 		isInstructor: PropTypes.bool
 	}
 
-	state = {}
 
-	componentWillMount () {
-		this.setState({
-			titleMarkup: this.getTitleMarkup(this.props.event)
-		});
-	}
-
-	componentWillReceiveProps (nextProps) {
-		if (getTitle(this.props.event) !== getTitle(nextProps.event)) {
-			this.setState({
-				titleMarkup: this.getTitleMarkup(nextProps.event)
-			});
-		}
-	}
+	getTitleMarkup = ({event} = this.props) =>
+		`<span class="assignment-name">${htmlEncode(getTitle(event))}</span>`
 
 
-	getTitleMarkup = (ev) =>
-		`<span class="assignment-name">${htmlEncode(getTitle(ev))}</span>`
-
-
-	getLabelWithUser = (data) => t(getType(this.props.event), {...data, title: this.state.titleMarkup});
+	getLabelWithUser = (data) => t(getType(this.props.event), {...data, title: this.getTitleMarkup()});
 
 
 	render () {
-		const {props: {event}, context: {isInstructor}, state: {titleMarkup}} = this;
+		const {props: {event}, context: {isInstructor}} = this;
 		const {feedbackAuthor, date, type, unread, user, assignment} = event;
 		const today = new Date((new Date()).setHours(0, 0, 0, 0));
 
@@ -92,7 +76,7 @@ export default class ActivityItem extends React.Component {
 					{hasName(type) ? (
 						<DisplayName entity={feedbackAuthor || user} usePronoun localeKey={this.getLabelWithUser}/>
 					) : (
-						<span {...rawContent(t(type, {title: titleMarkup}))}/>
+						<span {...rawContent(t(type, {title: this.getTitleMarkup()}))}/>
 					)}
 				</a>
 			</div>
