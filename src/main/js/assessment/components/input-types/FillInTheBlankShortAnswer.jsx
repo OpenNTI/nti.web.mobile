@@ -60,7 +60,7 @@ export default createReactClass({
 
 	renderInput (tag, props) {
 		let {name, maxLength} = props; //eslint-disable-line react/prop-types
-		let value = (this.state.value || {})[name];
+		let value = (this.state.value || {})[name] || '';
 		let submitted = this.isSubmitted();
 
 		return (

@@ -94,10 +94,14 @@ export default class Content extends React.Component {
 		const props = {
 			...this.props,
 			className,
-			content: void 0,
 			onClick: this.onClick,
 			ref: 'el'
 		};
+
+
+		delete props.content;
+		delete props.renderCustomWidget;
+
 
 		let dynamicRender = () => {};
 		if (isFunction(this.state.content)) {
