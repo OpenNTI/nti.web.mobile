@@ -120,7 +120,7 @@ class GradeBox extends React.Component {
 				/>
 				{showLetter &&
 					(<select defaultValue={(grade && grade.letter) || ''} onChange={this.onLetterChange}>
-						{Models.course.Grade.getPossibleGradeLetters().map(letter => <option key={letter} value={letter}>{letter}</option>)}
+						{Models.courses.Grade.getPossibleGradeLetters().map(letter => <option key={letter} value={letter}>{letter}</option>)}
 					</select>)
 				}
 			</div>
