@@ -89,7 +89,7 @@ export default createReactClass({
 			}
 
 			return (
-				<div>
+				<div className="markup-card">
 					<img style={{display: 'none'}} id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
 					<Card
 						internalOverride

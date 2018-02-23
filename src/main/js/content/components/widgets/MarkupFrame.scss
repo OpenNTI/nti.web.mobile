@@ -1,5 +1,20 @@
 @import "utils/variables";
 
+.markup-card {
+	height: 152px;
+
+	a.content-link.related-work-ref {
+		height: 100%;
+		padding: 15px 0 0 165px;
+
+		.file-type.icon {
+			background-size: cover;
+			width: 152px;
+			height: 100%;
+		}
+	}
+}
+
 .markupframe {
 	display: block;
 	border: 1px solid $border-grey;//#dadada;
