@@ -53,7 +53,7 @@ class InstructorActionsMenu extends React.Component {
 
 	excuse = () => {
 		this.closeMenu();
-		this.getItem().excuseGrade();
+		InstructorActionsMenu.getItem(this.props).excuseGrade();
 	}
 
 
@@ -88,7 +88,7 @@ class InstructorActionsMenu extends React.Component {
 
 
 	render () {
-		const grade = this.getItem();
+		const grade = InstructorActionsMenu.getItem(this.props);
 		const {open} = this.state;
 		const classes = cx('gradebook-actions-menu', { open });
 

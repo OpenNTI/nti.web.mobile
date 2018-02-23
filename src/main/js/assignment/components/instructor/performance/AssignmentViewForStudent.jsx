@@ -7,7 +7,7 @@ import {Component as ContextContributor} from 'common/mixins/ContextContributor'
 
 import AssignmentViewer from '../AssignmentViewerWrapper';
 
-export default class AssignmentViewForStudentPerformance {
+export default class AssignmentViewForStudentPerformance extends React.Component {
 
 	static propTypes = {
 		userId: PropTypes.string
