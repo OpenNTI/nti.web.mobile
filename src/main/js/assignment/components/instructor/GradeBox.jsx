@@ -20,7 +20,9 @@ class GradeBox extends React.Component {
 		grade: PropTypes.object,
 		userId: PropTypes.string.isRequired,
 		assignmentId: NTIID.isRequired,
-		showLetter: PropTypes.bool
+		showLetter: PropTypes.bool,
+		assignments: PropTypes.arrayOf(PropTypes.object),
+		course: PropTypes.object
 	}
 
 
@@ -42,12 +44,12 @@ class GradeBox extends React.Component {
 		const {grade: oldGrade} = this.props;
 
 		if (oldGrade !== newGrade) {
-			this.onItemChanged(nextProps);
+			this.onItemChanged(newGrade);
 		}
 	}
 
 
-	onItemChanged = ({grade} = this.props) => {
+	onItemChanged = (grade = this.props.grade) => {
 		const {value = ''} = grade || {};
 		this.setState({value});
 	}
@@ -88,8 +90,7 @@ class GradeBox extends React.Component {
 
 
 	maybeSetGrade (newValue, newLetter) {
-		const {assignmentId, userId, grade} = this.props;
-		const collection = this.getAssignments();
+		const {assignments: collection, assignmentId, userId, grade} = this.props;
 		const currentValue = grade && grade.value;
 		const currentLetter = grade && grade.letter;
 

@@ -45,6 +45,7 @@ class OptionsMenu extends React.Component {
 	render () {
 		const {
 			props: {
+				showAvatars,
 				store
 			},
 			state: {
@@ -72,7 +73,7 @@ class OptionsMenu extends React.Component {
 								/>
 							))}
 							<li onClick={this.toggleAvatars}>
-								<input type="checkbox" onChange={this.toggleAvatars} checked={this.getShowAvatars()} />
+								<input type="checkbox" onChange={this.toggleAvatars} checked={showAvatars} />
 								<span> Show Avatars</span>
 							</li>
 						</ul>
