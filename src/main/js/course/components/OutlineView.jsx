@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import Logger from 'nti-util-logger';
-import {ActiveState, Banner, Ellipsed, CalendarCard, ListHeader as Header, Loading} from 'nti-web-commons';
+import {
+	ActiveState,
+	ActiveStateContainer,
+	Banner,
+	Ellipsed,
+	CalendarCard,
+	ListHeader as Header,
+	Loading
+} from 'nti-web-commons';
 import isEmpty from 'isempty';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -103,9 +111,11 @@ export default createReactClass({
 				{this.props.children}
 
 				<Header>Outline</Header>
-				<ul className="outline">
-					<li>{this.renderTree(outline.contents)}</li>
-				</ul>
+				<ActiveStateContainer>
+					<ul className="outline">
+						<li>{this.renderTree(outline.contents)}</li>
+					</ul>
+				</ActiveStateContainer>
 			</div>
 		);
 	},
