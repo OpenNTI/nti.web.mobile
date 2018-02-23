@@ -34,6 +34,13 @@ class InstructorActionsMenu extends React.Component {
 	}
 
 
+	//This refocuses ItemChanges to the grade, instead of the summary item (since the grade is what changes)
+	static getItem (props = {}) {
+		const {grade} = props.item || {};
+		return grade;
+	}
+
+
 	state = {
 		open: false
 	}
@@ -45,15 +52,19 @@ class InstructorActionsMenu extends React.Component {
 	}
 
 
-	static getItem (props = {}) {
-		const {grade} = props.item || {};
-		return grade;
+	getGrade () {
+		const {item} = this.props;
+		return (item || {}).grade;
 	}
 
 
 	excuse = () => {
 		this.closeMenu();
-		InstructorActionsMenu.getItem(this.props).excuseGrade();
+		const grade = this.getGrade();
+
+		if (grade) {
+			grade.excuseGrade();
+		}
 	}
 
 
@@ -88,7 +99,7 @@ class InstructorActionsMenu extends React.Component {
 
 
 	render () {
-		const grade = InstructorActionsMenu.getItem(this.props);
+		const grade = this.getGrade();
 		const {open} = this.state;
 		const classes = cx('gradebook-actions-menu', { open });
 
