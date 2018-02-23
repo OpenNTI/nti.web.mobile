@@ -24,7 +24,7 @@ class InstructorAssignmentView extends React.Component {
 
 	componentWillMount () {
 		const SECOND_AGO = 1000;
-		const store = this.getStore();
+		const {store} = this.props;
 		const {loading = true, loaded} = store || {};
 
 		const lastLoad = Date.now() - loaded;
