@@ -6,9 +6,11 @@ import isEmpty from 'isempty';
 import {rawContent} from 'nti-commons';
 import {Zoomable} from 'nti-web-commons';
 
+import Card from '../../../common/components/Card';
+
 import Mixin from './Mixin';
 
-
+const PRESENTATION_CARD = 'presentation-card';
 
 export default createReactClass({
 	displayName: 'ContentMarkupEnabled',
@@ -60,7 +62,7 @@ export default createReactClass({
 
 
 	render () {
-		let {item, itemprop, isSlide} = this.props.item;
+		let {item, itemprop, isSlide, parentType} = this.props.item;
 
 		let {zoomable, markable} = item;
 
@@ -70,6 +72,8 @@ export default createReactClass({
 		let noDetails = isEmpty(title) && isEmpty(caption);
 		let bare = noDetails && !markable && !isSlide;
 
+		const isCard = parentType === PRESENTATION_CARD;
+
 		//force zoom if the image has been scaled down and only if the frame will show.
 		if (this.state.forceZoomable) {
 			zoomable = true;
@@ -77,32 +81,57 @@ export default createReactClass({
 
 		//FIXME: The Item may not be an image, it could also be a video embed, a slide, or an iframe.
 
+		const className = cx('markupframe', {bare, card: isCard});
+
+		if(isCard) {
+			if(this.state.zoomed) {
+				return <Zoomable src={item.src} onClose={this.unZoom} />;
+			}
+
+			return (
+				<div>
+					<img style={{display: 'none'}} id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
+					<Card
+						internalOverride
+						onClick={this.onZoom}
+						icon={item.src}
+						item={{
+							title,
+							desc: caption,
+							icon: item.src
+						}}
+					/>
+					{markable && ( <a href="#mark" className="mark"/> )}
+				</div>
+			);
+		}
+
 		return (
-			<span itemProp={itemprop} className={cx('markupframe', {bare})}>
-
-				<span className="wrapper">
-					<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
-					{!zoomable ? null : (
-						<a title="Zoom"
-							className="zoom icon-search"
-							data-non-anchorable="true"
-							onClick={this.onZoom} />
-					)}
-				</span>
-
-				{bare ? null : (
-					<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
-						{!isSlide ? null : ( <a href="#slide" className="bar-cell slide"/> )}
-						{noDetails && !markable ? null : (
-							<span className="bar-cell">
-								<span className="image-title" {...rawContent(title)}/>
-								<span className="image-caption" {...rawContent(caption)}/>
-								{markable && ( <a href="#mark" className="mark"/> )}
-							</span>
+			<span itemProp={itemprop} className={className}>
+				<span onClick={isCard && this.onZoom}>
+					<span className="wrapper">
+						<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
+						{!zoomable || isCard ? null : (
+							<a title="Zoom"
+								className="zoom icon-search"
+								data-non-anchorable="true"
+								onClick={this.onZoom} />
 						)}
 					</span>
-				)}
 
+					{bare ? null : (
+						<span className="bar" data-non-anchorable="true" data-no-anchors-within="true" unselectable="true">
+							{!isSlide ? null : ( <a href="#slide" className="bar-cell slide"/> )}
+							{noDetails && !markable ? null : (
+								<span className="bar-cell">
+									<span className="image-title" {...rawContent(title)}/>
+									<span className="image-caption" {...rawContent(caption)}/>
+									{markable && ( <a href="#mark" className="mark"/> )}
+								</span>
+							)}
+						</span>
+					)}
+				</span>
 				{this.state.zoomed && <Zoomable src={item.src} onClose={this.unZoom} />}
 			</span>
 		);
