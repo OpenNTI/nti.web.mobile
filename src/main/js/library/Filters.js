@@ -24,7 +24,8 @@ const getLabel = scoped('library.category', {
 		8: 'September %(year)s',
 		9: 'October %(year)s',
 		10: 'November %(year)s',
-		11: 'December %(year)s'
+		11: 'December %(year)s',
+		'not-set': ' ',
 	}
 });
 
@@ -48,8 +49,8 @@ function splitBySemester (list) {
 	list.forEach(item=> {
 		try {
 			let start = item.getStartDate();
-			let key = 'archivedGroup.' + start.getMonth();
-			let bin = getLabel(key, {year: start.getFullYear()});
+			let key = `archivedGroup.${start ? start.getMonth() : 'not-set'}`;
+			let bin = getLabel(key, {year: start ? start.getFullYear() : ' '});
 
 			add(start, bin, item);
 
