@@ -45,7 +45,7 @@ export class Provider extends React.Component {
 		const {children, _component, ...props} = this.props;
 
 		return _component
-			? React.createElement(_component, props)
+			? React.createElement(_component, props, children)
 			: React.cloneElement(React.Children.only(children), props);
 	}
 }
@@ -81,7 +81,7 @@ export class Receiver extends React.Component {
 		Object.assign(props, this.context);
 
 		return _component
-			? React.createElement(_component, props)
+			? React.createElement(_component, props, children)
 			: React.cloneElement(React.Children.only(children), props);
 	}
 }
