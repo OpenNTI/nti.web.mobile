@@ -24,7 +24,7 @@ export default class AssignmentViewStudent extends React.Component {
 	}
 
 	makeHref (...args) {
-		return this.contextProvider.makeHref(...args);
+		return this.contextProvider ? this.contextProvider.makeHref(...args) : null;
 	}
 
 	render () {
