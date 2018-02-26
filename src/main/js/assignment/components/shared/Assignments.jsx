@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
@@ -28,14 +28,13 @@ class AssignmentsView extends React.Component {
 		const {props: {rootId}, state: {store}} = this;
 
 		return (
-			<Fragment>
-				<ContextSender/>
+			<ContextSender>
 				{rootId  ? (
 					<Assignment {...this.props} pageSource={store.pageSource} />
 				) : (
 					<PageFrame pageContent={AssignmentsListView} {...this.props} />
 				)}
-			</Fragment>
+			</ContextSender>
 		);
 	}
 }

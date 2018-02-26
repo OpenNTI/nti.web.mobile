@@ -26,7 +26,7 @@ const Mixin = {
 export default Mixin;
 
 export const Component = createReactClass({
-	displayName: 'ContextSender',
+	displayName: 'ContextContributor',
 	propTypes: {
 		children: PropTypes.node,
 		getContext: PropTypes.func

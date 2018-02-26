@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
@@ -28,14 +28,13 @@ class Performance extends React.Component {
 		const {props: {rootId}, state: {summary}} = this;
 
 		return (
-			<Fragment>
-				<ContextSender getContext={getContext}/>
+			<ContextSender getContext={getContext}>
 				{rootId ? (
 					<Assignment {...this.props} pageSource={summary.getPageSource()} />
 				) : (
 					<PageFrame pageContent={PerformanceListView} {...this.props} />
 				)}
-			</Fragment>
+			</ContextSender>
 		);
 	}
 }

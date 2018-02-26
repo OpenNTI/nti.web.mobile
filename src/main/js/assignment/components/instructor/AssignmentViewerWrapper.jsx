@@ -34,16 +34,17 @@ export default class AssignmentViewStudent extends React.Component {
 
 		return (
 			<div className="assignment-view-student">
-				<ContextContributor ref={this.attachContextProvider} getContext={getContext} {...this.props}/>
-				<Header {...this.props}
-					userId={user}
-					assignmentId={assignmentId}
-				/>
-				<ContentViewer {...this.props}
-					userId={user}
-					assignmentId={assignmentId}
-					explicitContext={this}
-				/>
+				<ContextContributor ref={this.attachContextProvider} getContext={getContext} {...this.props}>
+					<Header {...this.props}
+						userId={user}
+						assignmentId={assignmentId}
+					/>
+					<ContentViewer {...this.props}
+						userId={user}
+						assignmentId={assignmentId}
+						explicitContext={this}
+					/>
+				</ContextContributor>
 			</div>
 		);
 	}

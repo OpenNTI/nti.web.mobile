@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Loading} from 'nti-web-commons';
 
@@ -35,10 +35,9 @@ class AssignmentsView extends React.Component {
 			: Student;
 
 		return (
-			<Fragment>
-				<ContextContributor getContext={getContext}/>
+			<ContextContributor getContext={getContext}>
 				<Comp {...this.props} assignments={assignments} />
-			</Fragment>
+			</ContextContributor>
 		);
 
 	}

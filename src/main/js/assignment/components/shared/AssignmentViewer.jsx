@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Error as Err, Loading} from 'nti-web-commons';
@@ -113,8 +113,7 @@ class AssignmentViewer extends React.Component {
 		} = this;
 
 		return (
-			<Fragment>
-				<ContextContributor ref={this.attachContextProvider} getContext={getContext} rootId={rootId}/>
+			<ContextContributor ref={this.attachContextProvider} getContext={getContext} rootId={rootId}>
 				{error ? (
 					<Err error={error}/>
 				) : loading ? (
@@ -130,7 +129,7 @@ class AssignmentViewer extends React.Component {
 						explicitContext={explicitContext || this}
 					/>
 				)}
-			</Fragment>
+			</ContextContributor>
 		);
 	}
 }

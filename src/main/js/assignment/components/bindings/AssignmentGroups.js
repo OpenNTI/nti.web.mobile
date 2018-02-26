@@ -66,7 +66,7 @@ export default class AssignmentGroups extends React.Component {
 		return (
 			<HOC.ItemChanges item={store} onItemChanged={this.onStoreUpdate}>
 				{_component
-					? React.createElement(_component, props)
+					? React.createElement(_component, props, children)
 					: React.cloneElement(React.Children.only(children), props)
 				}
 			</HOC.ItemChanges>

@@ -69,7 +69,7 @@ export default class AssignmentsProvider extends React.Component {
 		Object.assign(props, this.state);
 
 		return _component
-			? React.createElement(_component, props)
+			? React.createElement(_component, props, children)
 			: React.cloneElement(React.Children.only(children), props);
 	}
 }

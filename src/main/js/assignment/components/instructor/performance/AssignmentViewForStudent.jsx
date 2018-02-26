@@ -1,6 +1,6 @@
 import {join} from 'path';
 
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Component as ContextContributor} from 'common/mixins/ContextContributor';
@@ -15,10 +15,9 @@ export default class AssignmentViewForStudentPerformance extends React.Component
 
 	render () {
 		return (
-			<Fragment>
-				<ContextContributor getContext={getContext} {...this.props}/>
+			<ContextContributor getContext={getContext} {...this.props}>
 				<AssignmentViewer {...this.props} />
-			</Fragment>
+			</ContextContributor>
 		);
 	}
 }
