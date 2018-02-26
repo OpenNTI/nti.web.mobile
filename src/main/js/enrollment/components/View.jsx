@@ -39,8 +39,8 @@ export default createReactClass({
 	},
 
 
-	getEntry () {
-		let id = decodeFromURI(this.props.entryId);
+	getEntry ({entryId} = this.props, stash = true) {
+		let id = decodeFromURI(entryId);
 		let e = this.getCatalogEntry(id);
 
 		// Enrollment can trigger a catalog reload. If we started on one catalog entry,
@@ -55,7 +55,7 @@ export default createReactClass({
 			if (!e || e.getID() !== id) {
 				e = null;
 			}
-		} else {
+		} else if (stash) {
 			this[entry] = e;
 		}
 
@@ -87,9 +87,11 @@ export default createReactClass({
 
 
 	shouldComponentUpdate (nextProps, nextState) {
-		const {catalog: curr} = this.state;
-		const {catalog: next} = nextState;
-		return !curr || (curr && next && curr !== next);
+		const currEntry = this.getEntry();
+		const nextEntry = this.getEntry(nextProps, false);
+		const hasEntry = Boolean(currEntry || nextEntry);
+
+		return !hasEntry || nextProps.entryId !== this.props.entryId;
 	},
 
 
