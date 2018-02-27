@@ -4,14 +4,13 @@ import React from 'react';
 import FinalGrade from './FinalGrade';
 import CompletionRatio from './CompletionRatio';
 
-export default class extends React.Component {
-	static displayName = 'PerformanceHeader';
+export default class PerformanceHeader extends React.Component {
 
 	static propTypes = {
 		assignments: PropTypes.object.isRequired
-	};
+	}
 
-	state = {};
+	state = {}
 
 	componentWillMount () {
 		this.getFinalGrade();
@@ -27,14 +26,14 @@ export default class extends React.Component {
 			const id = assignments.getFinalGradeAssignmentId();
 			if(id) {
 				assignments.getHistoryItem(id)
-					.then(historyItem => {
-						this.setState({
+					.then(historyItem =>
+						historyItem && this.setState({
 							grade: historyItem.grade
-						});
-					});
+						})
+					);
 			}
 		}
-	};
+	}
 
 	render () {
 
