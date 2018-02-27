@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import {
 	EmptyList,
@@ -14,6 +14,7 @@ import Assignments from '../bindings/Assignments';
 
 import AssignmentActivityItem from './AssignmentActivityItem';
 
+const Child = ({children}) => children;
 
 export default
 @Assignments.connect
@@ -79,14 +80,29 @@ class Activity extends React.Component {
 
 
 	render () {
+		const {activity: item} = this.state;
+		const Wrapper = (item && item.addListener) ? HOC.ItemChanges : Child;
+
+		return (
+			<Wrapper item={item} onItemChanged={this.onActivityChanged}>
+				<div className="assignments-activity">
+					<ContextSender/>
+					{this.renderContent()}
+				</div>
+			</Wrapper>
+		);
+	}
+
+
+	renderContent () {
 
 		const {error, activity} = this.state;
 
-		if (error) {
-			return <Error error={error}/>;
+		if (error || (activity && activity.error)) {
+			return <Error error={error || 'There was an error loading activity.'}/>;
 		}
 
-		if (!activity) {
+		if (!activity || activity.loading) {
 			return <Loading.Mask />;
 		}
 
@@ -96,23 +112,17 @@ class Activity extends React.Component {
 		}
 
 		return (
-			<div className="assignments-activity">
-				<ContextSender/>
-				{activity && activity.addListener && (
-					<HOC.ItemChanges item={activity} onItemChanged={this.onActivityChanged}/>
-				)}
+			<Fragment>
 				{activity.map((event, index) =>
 					<AssignmentActivityItem key={`activity-item-${index}`} event={event} />
 				)}
-				{activity.loading && (
-					<Loading.Ellipse />
-				)}
+
 				{activity.more && !activity.loading && (
 					<a className="more" href="#" onClick={this.loadMore}>More</a>
 				)}
 
 				<ScrollTrigger onEnterView={this.loadMore} />
-			</div>
+			</Fragment>
 		);
 	}
 }
