@@ -10,7 +10,9 @@ export default class extends React.Component {
 		className: PropTypes.any
 	};
 
-	onClick = () => {
+	onClick = (e) => {
+		e.stopPropagation();
+		e.preventDefault();
 		const {onClick, option} = this.props;
 		onClick && onClick(option);
 	};
