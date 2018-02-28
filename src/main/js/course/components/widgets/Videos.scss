@@ -8,7 +8,7 @@
 	margin: 0.3rem -0.5rem;
 
 	.prev, .next {
-		background: rgba(0,0,0,0);
+		background: rgba(0, 0, 0, 0);
 		position: absolute;
 		overflow: hidden;
 		line-height: 2;
@@ -17,8 +17,10 @@
 		bottom: 0;
 		margin: 0;
 		padding: 0;
+
 		&:focus {
 			outline: 0;
+
 			&::before {
 				outline: 5px auto $primary-blue;
 			}
@@ -31,14 +33,13 @@
 		}
 	}
 	.prev { left: 0; }
-	.next {	right: 0; }
-
-
+	.next { right: 0; }
 }
 
 .videos-carousel, .videos-carousel-dots {
 	margin: 0;
 	list-style-type: none;
+
 	li {
 		display: inline-block;
 	}
@@ -73,12 +74,13 @@
 		height: 0.75rem;
 		background: $quad-grey;
 		border-radius: 100%;
+
 		&.active {
 			background: $primary-blue;
 		}
 	}
 
 	li {
-		margin: 0 .5rem;
+		margin: 0 0.5rem;
 	}
 }
