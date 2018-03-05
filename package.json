@@ -42,7 +42,7 @@
     "create-react-class": "^15.5.3",
     "email-validator": "^1.0.4",
     "foundation-sites": "5.5.3",
-    "html-reactifier": "^1.0.0",
+    "html-reactifier": "^2.0.0",
     "invariant": "^2.1.0",
     "is-function": "^1.0.1",
     "isempty": "0.0.1",
