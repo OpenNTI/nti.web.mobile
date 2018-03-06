@@ -19,7 +19,7 @@ export default function FormErrors ({errors}) {
 					messages.add(error.message);
 					return (
 						<CSSTransition classNames="fade-out-in" timeout={500} key={ref}>
-							<small className="error">error.message</small>
+							<small className="error">{error.message}</small>
 						</CSSTransition>
 					);
 				}
