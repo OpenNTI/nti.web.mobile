@@ -107,7 +107,9 @@ class Store extends StorePrototype {
 			'logon.google',
 			'logon.linkedin.oauth1',
 			'logon.openid',
-			'logon.ou.sso'
+			'logon.ou.sso',
+			'logon.ats.imis',
+			'logon.ensync.imis',
 		];
 
 		return whiteList
