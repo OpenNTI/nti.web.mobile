@@ -24,6 +24,7 @@ const MIME_TYPES = {
 	'courses.legacycommunitybasedcourseinstance': 'courses.courseinstance',
 	'courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
 	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getContentId())}/`,
+	'courses.scormcourseinstance': (o) => `/course/${encode(o.getID())}`,
 	'community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
 	'dynamicfriendslist': 'community',
 	'forums.dflboard': 'forums.communityboard',
