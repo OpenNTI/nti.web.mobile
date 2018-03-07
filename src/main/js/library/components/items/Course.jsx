@@ -65,6 +65,7 @@ export default createReactClass({
 	resolveSections (item) {
 		let items = [];
 		let courseId = item.getCourseID();
+		const { CourseInstance } = item;
 
 		if (!this.isPreview(item)) {
 
@@ -74,12 +75,20 @@ export default createReactClass({
 			// 	// href: this.courseHref(courseId, COURSE_SECTIONS.ACTIVITY),
 			// });
 
-			//Lessons
-			items.push({
-				title: 'Lessons',
-				href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS)
-				// hasChildren: true
-			});
+			if (CourseInstance.isScormInstance) {
+				items.push({
+					title: 'Content',
+					href: this.courseHref(courseId, COURSE_SECTIONS.SCORMCONTENT)
+				});
+			} else {
+				//Lessons
+				items.push({
+					title: 'Lessons',
+					href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS)
+					// hasChildren: true
+				});
+			}
+
 
 			// Assignments
 			// items.push({
@@ -135,13 +144,22 @@ export default createReactClass({
 		return CatalogEntry && CatalogEntry.Preview;
 	},
 
+	getDefaultSection (preview, item) {
+		if (preview) {
+			return COURSE_SECTIONS.INFO;
+		} else if (item.CourseInstance.isScormInstance) {
+			return COURSE_SECTIONS.SCORMCONTENT;
+		} else {
+			return COURSE_SECTIONS.LESSONS;
+		}
+	},
 
 	render () {
 		let {item} = this.props;
 		let {icon, title, label, author} = this.state;
 		let courseId = item.getCourseID();
 		const preview = this.isPreview(item);
-		let defaultSection = preview ? COURSE_SECTIONS.INFO : COURSE_SECTIONS.LESSONS;
+		let defaultSection = this.getDefaultSection(preview, item);
 
 		return (
 			<div className="library-item course">

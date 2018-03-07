@@ -22,7 +22,7 @@ import CourseInfo from './CourseInfo';
 import Lessons from './Lessons';
 import Activity from './Activity';
 import Media from './Media';
-
+import ScormContent from './ScormContent';
 
 const ROUTES = [
 	{path: '/videos(/*)', handler: Page, pageContent: Media},
@@ -32,6 +32,7 @@ const ROUTES = [
 	{path: '/activity(/*)', handler: Page, pageContent: Activity},
 	{path: '/assignments(/*)', handler: Page, pageContent: Assignments},
 	{path: '/invite(/*)', handler: Page, pageContent: Invite},
+	{path: '/scormcontent(/*)', handler: Page, pageContent: ScormContent},
 	{}//not found
 ];
 

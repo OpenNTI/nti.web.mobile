@@ -13,7 +13,8 @@ const getLabel = scoped('course.sections', {
 	discussions: 'Discussions',
 	lessons: 'Lessons',
 	info: 'Course Info',
-	videos: 'Videos'
+	videos: 'Videos',
+	scormcontent: 'Content',
 });
 
 
@@ -56,6 +57,12 @@ export default class extends React.Component {
 
 		if (!isFlag('course-activity')) {
 			menu = menu.filter(x => x.href !== Sections.ACTIVITY);
+		}
+
+		if(course.isScormInstance) {
+			menu = menu.filter(x => x.href !== Sections.LESSONS);
+		} else {
+			menu = menu.filter(x => x.href !== Sections.SCORMCONTENT);
 		}
 
 		this.setState({menu});
