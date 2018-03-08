@@ -54,7 +54,7 @@
     "nti-analytics": "^2.0.9",
     "nti-app-scripts": "^1.0.89",
     "nti-commons": "^2.7.0",
-    "nti-content": "^1.18.1",
+    "nti-content": "^1.18.2",
     "nti-lib-anchorjs": "^1.0.0",
     "nti-lib-content-processing": "^1.5.0",
     "nti-lib-dispatcher": "^1.0.0",
