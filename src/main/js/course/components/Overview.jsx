@@ -1,104 +1,83 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import {rawContent} from 'nti-commons';
 import {addHistory} from 'nti-analytics';
 import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
+import {Overview} from 'nti-web-course';
 import {
-	DateTime,
 	Loading,
 	Error as ErrorWidget,
 	EmptyList,
-	Mixins
 } from 'nti-web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
-
-
-// This is an example of the correct way to aquire a reference to
-// this mixin from outside of the `widgets` package. If this comment
-// strikes you odd, see the comment block with the `./widgets/Mixin.js`
-import {Mixin} from './widgets';
+import {Component as ContextSender} from 'common/mixins/ContextSender';
 
 const logger = Logger.get('course:components:Overview');
 
-export default createReactClass({
-	displayName: 'CourseOverview',
-	mixins: [Mixin, Mixins.NavigatableMixin, ContextSender],
 
-	propTypes: {
+export default class CourseLessonOverview extends React.Component {
+
+	static propTypes = {
 		course: PropTypes.object.isRequired,
 		outlineId: PropTypes.string.isRequired
-	},
+	}
 
-	getInitialState () {
+	static contextTypes = {
+		router: PropTypes.object
+	}
+
+
+	static childContextTypes = {
+		router: PropTypes.object,
+		setRouteViewTitle: PropTypes.func
+	}
+
+
+	state = {}
+
+
+	attachContextProvider = x => this.contextProvider = x
+
+
+	getChildContext () {
 		return {
-			assignments: null,
-			loading: true,
-			error: false,
-			data: null
+			router: {
+				...(this.context.router || {}),
+				baseroute: '/mobile/catalog/',
+				getRouteFor: this.getRouteFor,
+				history: {
+					push () {},
+					replace () {},
+					createHref () {
+
+					}
+				}
+			},
+			setRouteViewTitle: () => {}
 		};
-	},
+	}
 
 
-	getContext () {
-		let {outlineId, course} = this.props;
-		let href = this.makeHref(outlineId);
-		let id = this.getOutlineID();
-
-		return course.getOutlineNode(id)
-			.then(node=>({
-				label: node.title,
-				ntiid: id,
-				ref: node.ref,
-				scope: node,//for UGD
-				href
-			}),
-			//error
-			() => {
-				logger.warn('Could not find outline node: %s in course: %s', id, course.getID());
-			});
-	},
+	getRouteFor = (obj) => {
+		console.log(obj);//eslint-disable-line
+	}
 
 
 	componentDidMount () {
 		this.getDataIfNeeded(this.props);
-	},
+	}
 
 
 	componentWillUnmount () {
-		addHistory(this.getOutlineID(this.props));
-	},
+		addHistory(decodeFromURI(this.props.outlineId));
+	}
 
 
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.outlineId !== this.props.outlineId) {
 			this.getDataIfNeeded(nextProps);
 		}
-	},
-
-
-	getOutlineNodeContents (node) {
-		try {
-			let currentPage = this.getOutlineID();
-			let pages = node.getPageSource();
-
-			this.setPageSource(pages, currentPage);
-
-			node.getContent()
-				.then(data=>
-					this.setState({
-						node, data,
-						loading: false,
-						error: false
-					})
-				)
-				.catch(this.onError);
-		} catch (e) {
-			this.onError(e);
-		}
-	},
+	}
 
 
 	onError (error) {
@@ -110,63 +89,83 @@ export default createReactClass({
 			data: null
 		});
 
-	},
+	}
 
 
-	getDataIfNeeded (props) {
-		const {course} = props;
-		this.setState(this.getInitialState());
+	async getDataIfNeeded ({course, outlineId}) {
+		this.setState({loading: true});
+		this.task = outlineId;
+
 		try {
-			Promise.all([
-				course.getOutlineNode(this.getOutlineID(props)),
-				course.getAssignments().catch(()=> null)
-			])
-				.then(results => {
-					let [node, assignments] = results;
-					this.setState({assignments});
-					return node;
-				})
+			const node = await course.getOutlineNode(decodeFromURI(outlineId));
+			if (this.task === outlineId) {
+				this.setState({node});
+			}
 
-				.then(this.getOutlineNodeContents)
-				.catch(this.onError);
-
+			const overview = await node.getContent();
+			if (this.task === outlineId) {
+				this.setState({overview});
+			}
 		}
 		catch (e) {
-			this.onError(e);
+			if (this.task === outlineId) {
+				this.onError(e);
+			}
+		} finally {
+			if (this.task === outlineId) {
+				this.setState({loading: false});
+				delete this.task;
+			}
 		}
-	},
-
-
-	getOutlineID  (props) {
-		return decodeFromURI((props || this.props).outlineId);
-	},
+	}
 
 
 	render () {
-		let {data, node, loading, error} = this.state;
+		const {
+			props: {course},
+			state: {node, overview, loading, error}
+		} = this;
 
-		if (loading) { return (<Loading.Mask />); }
-		if (error) { return (<ErrorWidget error={error}/>); }
+		const render = () => {
 
-		let title = (data || {}).title || '';
-		let items = (data || {}).Items;
+			if (loading) { return (<Loading.Mask />); }
+			if (error) { return (<ErrorWidget error={error}/>); }
 
-		try {
-			return (
-				<div className="course-overview row">
-					<DateTime date={node.AvailableBeginning} className="label" format="dddd, MMMM Do"/>
-					<h1 {...rawContent(title)}/>
-					{items && this.renderItems(items, {node})}
-				</div>
-			);
-		} catch (e) {
-			if (e.message !== 'No Items to render') {
-				return (<ErrorWidget error={e}/>);
+			try {
+				return (
+					<Overview.Lesson course={course} outlineNode={node} overview={overview}/>
+				);
+			} catch (e) {
+				if (e.message !== 'No Items to render') {
+					return (<ErrorWidget error={e}/>);
+				}
 			}
-		}
+
+			return (
+				<EmptyList type="lesson-overview"/>
+			);
+		};
 
 		return (
-			<EmptyList type="lesson-overview"/>
+			<ContextSender ref={this.attachContextProvider} getContext={getContext} node={node} {...this.props}>
+				{render()}
+			</ContextSender>
 		);
 	}
-});
+}
+
+
+async function getContext () {
+	const context = this; //called in the scope of the context provider.
+	const {outlineId, node} = context.props;
+	const href = context.makeHref(outlineId);
+	const id = decodeFromURI(outlineId);
+
+	return {
+		label: node && node.title,
+		ntiid: id,
+		ref: node && node.ref,
+		scope: node,//for UGD
+		href
+	};
+}
