@@ -1,21 +1,18 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import {decodeFromURI} from 'nti-lib-ntiids';
-import {Background, Error as ErrorWidget, Loading, Mixins, Presentation} from 'nti-web-commons';
-import {StoreEventsMixin} from 'nti-lib-store';
+import {Background, Error as ErrorWidget, Loading, Presentation} from 'nti-web-commons';
 
 import Assignments from 'assignment/components/View';
 import NotFound from 'notfound/components/View';
 import Redirect from 'navigation/components/Redirect';
-import ContextContributor from 'common/mixins/ContextContributor';
+import {Component as ContextContributor} from 'common/mixins/ContextContributor';
 import Invite from 'invitations/components/Send';
 import Discussions from 'forums/components/View';
 
-import {setCourse} from '../Actions';
+import {getCourse} from '../Actions';
 import {LESSONS} from '../Sections';
-import Store from '../Store';
 
 import Page from './Page';
 import CourseInfo from './CourseInfo';
@@ -37,59 +34,46 @@ const ROUTES = [
 ];
 
 
-export default createReactClass({
-	displayName: 'CourseView',
-	mixins: [Mixins.BasePath, ContextContributor, StoreEventsMixin],
-
-	backingStore: Store,
-	backingStoreEventHandlers: {
-		default: 'synchronizeFromStore'
-	},
-
-
-	propTypes: {
+export default class CourseView extends React.Component {
+	static propTypes = {
 		course: PropTypes.string.isRequired
-	},
+	}
+
+	state = { loading: true }
 
 
-	getInitialState () { return { loading: true }; },
-
-
-	synchronizeFromStore () {
-		this.setState({loading: false, course: Store.getData()});
-	},
-
-
-	componentDidMount () { this.getDataIfNeeded(this.props); },
-
-
-	componentWillUnmount () {
-		setCourse(null);
-	},
+	componentDidMount () { this.getDataIfNeeded(this.props); }
 
 
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.course !== this.props.course) {
 			this.getDataIfNeeded(nextProps);
 		}
-	},
+	}
 
 
-	getDataIfNeeded (props) {
-		const {course} = this.state;
-		const currentId = course && course.getID();
-		let courseId = decodeFromURI(props.course);
-		if (courseId !== currentId) {
-			this.setState({loading: true});
-			setCourse(courseId);
-		}
-	},
-
-
-	getCourse (strict = true) {
+	async getDataIfNeeded (props) {
 		let {course} = this.state;
-		return (course || {}).CourseInstance || (strict ? null : course);
-	},
+		const currentId = course && course.getID();
+		const courseId = decodeFromURI(props.course);
+
+		if (courseId !== currentId) {
+			this.currentCourseId = courseId;
+			this.setState({loading: true});
+			try {
+				course = await getCourse(courseId);
+			} catch (e) {
+				course = {notFound: e.code === 404, error: e};
+			}
+
+			if (this.currentCourseId === courseId) {
+				this.setState({course, loading: false});
+			}
+		}
+	}
+
+
+	getCourse = () => this.state.course;
 
 
 	render () {
@@ -107,13 +91,16 @@ export default createReactClass({
 		}
 
 		return (
-			<Presentation.Asset propName="imgUrl" type="background" contentPackage={entry}>
-				<Background imgUrl={course.getPresentationProperties().background || '/mobile/resources/images/default-course/background.png'}>
-					{this.renderContent()}
-				</Background>
-			</Presentation.Asset>
+			<Fragment>
+				<ContextContributor getContext={getContext} course={course}/>
+				<Presentation.Asset propName="imgUrl" type="background" contentPackage={entry}>
+					<Background imgUrl={course.getPresentationProperties().background || '/mobile/resources/images/default-course/background.png'}>
+						{this.renderContent()}
+					</Background>
+				</Presentation.Asset>
+			</Fragment>
 		);
-	},
+	}
 
 
 	renderContent () {
@@ -124,21 +111,23 @@ export default createReactClass({
 					React.createElement(Router.Location, Object.assign({course, contentPackage: course}, route)) :
 					React.createElement(Router.NotFound, {handler: Redirect, location: LESSONS})
 			));
-	},
-
-
-	getContext () {
-		return Promise.resolve([
-			{
-				source: 'course/components/View',
-				label: 'Courses',
-				href: this.getBasePath(),
-				//You may be asking why is this on this context node, instead of on the next level down...
-				//The reason is to not repeat ourselves. Each route below this point would just echo this value,
-				//so while this node points back to the library, it allows us a common point to supply a scope
-				//for saving UGD.
-				scope: this.getCourse(true)
-			}
-		]);
 	}
-});
+
+
+}
+
+function getContext () {
+	const context = this;//called with ContextContributor's scope.
+	return [
+		{
+			source: 'course/components/View',
+			label: 'Courses',
+			href: context.getBasePath(),
+			//You may be asking why is this on this context node, instead of on the next level down...
+			//The reason is to not repeat ourselves. Each route below this point would just echo this value,
+			//so while this node points back to the library, it allows us a common point to supply a scope
+			//for saving UGD.
+			scope: context.props.course
+		}
+	];
+}
