@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'react-router-component';
 import {decodeFromURI} from 'nti-lib-ntiids';
@@ -80,25 +80,30 @@ export default class CourseView extends React.Component {
 		const course = this.getCourse();
 		const entry = course && course.CatalogEntry;
 
-		if (this.state.loading) {
-			return (<Loading.Mask />);
-		}
+		const render = () => {
+			if (this.state.loading) {
+				return (<Loading.Mask />);
+			}
 
-		if ((course && course.error) || !entry) {
-			return !course || course.notFound ?
-				(<NotFound/>) :
-				(<ErrorWidget error={course.error}/>);
-		}
+			if ((course && course.error) || !entry) {
+				return !course || course.notFound ?
+					(<NotFound/>) :
+					(<ErrorWidget error={course.error}/>);
+			}
 
-		return (
-			<Fragment>
-				<ContextContributor getContext={getContext} course={course}/>
+			return (
 				<Presentation.Asset propName="imgUrl" type="background" contentPackage={entry}>
 					<Background imgUrl={course.getPresentationProperties().background || '/mobile/resources/images/default-course/background.png'}>
 						{this.renderContent()}
 					</Background>
 				</Presentation.Asset>
-			</Fragment>
+			);
+		};
+
+		return (
+			<ContextContributor getContext={getContext} course={course}>
+				{render()}
+			</ContextContributor>
 		);
 	}
 
@@ -116,7 +121,7 @@ export default class CourseView extends React.Component {
 
 }
 
-function getContext () {
+async function getContext () {
 	const context = this;//called with ContextContributor's scope.
 	return [
 		{

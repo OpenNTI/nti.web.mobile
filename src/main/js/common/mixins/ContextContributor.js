@@ -31,7 +31,7 @@ export const Component = createReactClass({
 		children: PropTypes.node,
 		getContext: PropTypes.func
 	},
-	mixins: [Mixin, Mixins.NavigatableMixin],
+	mixins: [Mixin, Mixins.BasePath, Mixins.NavigatableMixin],
 	async getContext () {
 		const {getContext} = this.props;
 		return getContext
