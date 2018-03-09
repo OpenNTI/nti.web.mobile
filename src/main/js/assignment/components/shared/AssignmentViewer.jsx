@@ -42,21 +42,23 @@ class AssignmentViewer extends React.Component {
 
 
 	componentWillReceiveProps (nextProps) {
-		if (this.unsubcribe && this.props.rootId !== nextProps.rootId) {
+		if (this.unsubscribe && this.props.rootId !== nextProps.rootId) {
 			this.setup(nextProps);
 		}
 	}
 
 
 	componentWillUnmount () {
-		if (this.unsubcribe) {
-			this.unsubcribe();
+		if (this.unsubscribe) {
+			this.unsubscribe();
 		}
 	}
 
 
 	async setup ({assignments, rootId, userId} = this.props) {
 		const id = decodeFromURI(rootId);
+
+		this.subscribe(assignments);
 
 		const state = {};
 
@@ -77,7 +79,7 @@ class AssignmentViewer extends React.Component {
 	}
 
 
-	subcribe (collection) {
+	subscribe (collection) {
 		const changed = (assignmentId) => {
 			if (assignmentId === decodeFromURI(this.props.rootId)) {
 				this.setup();
@@ -86,12 +88,12 @@ class AssignmentViewer extends React.Component {
 
 		collection.on('reset-grade', changed);
 
-		if (this.unsubcribe) {
-			this.unsubcribe();
+		if (this.unsubscribe) {
+			this.unsubscribe();
 		}
 
-		this.unsubcribe = () => {
-			delete this.unsubcribe;
+		this.unsubscribe = () => {
+			delete this.unsubscribe;
 			collection.removeListener('reset-grade', changed);
 		};
 	}
