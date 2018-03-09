@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Mixins} from 'nti-web-commons';
+import {Mixins, Presentation} from 'nti-web-commons';
 import {encodeForURI} from 'nti-lib-ntiids';
-
-import Icon from './shared/Icon';
 
 export default createReactClass({
 	displayName: 'Bundle',
@@ -37,12 +35,14 @@ export default createReactClass({
 	render () {
 		let item = this.getItem();
 		let id = encodeForURI(item.getID());
-		let {author, icon, title} = item || {};
+		let {author, title} = item || {};
 
 		return (
 			<div className="library-item bundle">
 				<a href={this.getBasePath() + 'content/' + id + '/'}>
-					<Icon src={icon}/>
+					<Presentation.Asset contentPackage={item} propName="src" type="landing">
+						<img />
+					</Presentation.Asset>
 					<label>
 						<h3>{title}</h3>
 						<address className="author">{author}</address>

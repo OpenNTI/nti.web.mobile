@@ -9,8 +9,6 @@ import CourseLinker from '../../mixins/CourseContentLink';
 import CourseContentLink from '../CourseContentLink';
 import Badge from '../Badge';
 
-import Icon from './shared/Icon';
-
 export default createReactClass({
 	displayName: 'Course',
 	mixins: [CourseLinker],
@@ -56,9 +54,9 @@ export default createReactClass({
 	itemChanged () {
 		let {item} = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
-		let {icon, title, label, author} = presentation;
+		let {title, label, author} = presentation;
 
-		this.setState({ icon, title, label, author });
+		this.setState({ title, label, author });
 	},
 
 
@@ -156,7 +154,7 @@ export default createReactClass({
 
 	render () {
 		let {item} = this.props;
-		let {icon, title, label, author} = this.state;
+		let {title, label, author} = this.state;
 		let courseId = item.getCourseID();
 		const preview = this.isPreview(item);
 		let defaultSection = this.getDefaultSection(preview, item);
@@ -164,8 +162,8 @@ export default createReactClass({
 		return (
 			<div className="library-item course">
 				<CourseContentLink courseId={courseId} section={defaultSection}>
-					<Presentation.Asset contentPackage={item.CourseInstance.CatalogEntry} propName="src" type="landing">
-						<Icon src={icon}/>
+					<Presentation.Asset contentPackage={item.CatalogEntry} propName="src" type="landing">
+						<img/>
 					</Presentation.Asset>
 					<div className="badges">
 						{preview && <div className="preview">Preview</div>}

@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {getModel} from 'nti-lib-interfaces';
-import {Mixins} from 'nti-web-commons';
+import {Mixins, Presentation} from 'nti-web-commons';
 
-import Icon from './shared/Icon';
 
 const PackageClass = getModel('ContentPackage');
 
@@ -41,12 +40,14 @@ export default createReactClass({
 	render () {
 		let item = this.getItem();
 		let id = encodeForURI(item.getID());
-		let {author, icon, title} = item;
+		let {author, title} = item;
 
 		return (
 			<div className="library-item package">
 				<a href={this.getBasePath() + 'content/' + id + '/'}>
-					<Icon src={icon}/>
+					<Presentation.Asset contentPackage={item} propName="src" type="landing">
+						<img />
+					</Presentation.Asset>
 					<label>
 						<h3>{title}</h3>
 						<address className="author">{author}</address>
