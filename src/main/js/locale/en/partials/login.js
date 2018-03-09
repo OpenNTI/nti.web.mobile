@@ -7,7 +7,7 @@ export default {
 		link: 'Create an Account'
 	},
 	oauth: {
-		ats: 'Login with your PRMIA accoun',
+		ats: 'Login with your PRMIA account',
 		facebook: 'Log in with Facebook',
 		google: 'Log in with Google',
 		openid: 'Log in with OpenID',
