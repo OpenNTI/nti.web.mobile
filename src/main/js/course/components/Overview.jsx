@@ -1,8 +1,10 @@
+import path from 'path';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import {addHistory} from 'nti-analytics';
 import Logger from 'nti-util-logger';
-import {decodeFromURI} from 'nti-lib-ntiids';
+import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
 import {Overview} from 'nti-web-course';
 import {
 	Loading,
@@ -36,20 +38,23 @@ export default class CourseLessonOverview extends React.Component {
 	state = {}
 
 
-	attachContextProvider = x => this.contextProvider = x
-
-
 	getChildContext () {
+		const {router: nav} = this.context;
+
 		return {
 			router: {
-				...(this.context.router || {}),
-				baseroute: '/mobile/catalog/',
+				...(nav || {}),
+				baseroute: nav && nav.makeHref(''),
 				getRouteFor: this.getRouteFor,
 				history: {
-					push () {},
-					replace () {},
-					createHref () {
-
+					push (loc) {
+						nav.getEnvironment().setPath(loc, {});
+					},
+					replace (loc) {
+						nav.getEnvironment().setPath(loc, {replace: true});
+					},
+					createHref (loc) {
+						return (typeof loc === 'string' ? loc : loc.pathname) + '/';
 					}
 				}
 			},
@@ -59,8 +64,41 @@ export default class CourseLessonOverview extends React.Component {
 
 
 	getRouteFor = (obj) => {
-		console.log(obj);//eslint-disable-line
+		const getID = o => o['Target-NTIID'] || (o.getID ? o.getID() : o['NTIID']);
+		const getEncodedID = o => encodeForURI(getID(o));
+		const {MimeType: type} = obj || {};
+		let route = '';
+
+		if (/video/i.test(type)) {
+			route = path.join('..', 'videos', getEncodedID(obj));
+		}
+		else if (/assignment/i.test(type)) {
+			route = path.join('..', 'assignments', getEncodedID(obj));
+		}
+		else if (/survey/i.test(type)) {
+			route = path.join('content', getEncodedID(obj));
+		}
+		else if (/questionset/i.test(type)) {
+			route = path.join(this.context.router.getPath(), 'content', getEncodedID(obj));
+		}
+		else if (/forum/i.test(type)) {
+			route = path.join('..', 'discussions', encodeForURI(obj.ContainerId));
+		}
+		else if (/topic/i.test(type)) {
+			const forumId = encodeForURI(obj.ContainerId);
+			route = path.join('..', 'discussions', forumId, getEncodedID(obj));
+		}
+		else if (/relatedwork/i.test(type)) {
+			route = obj.href;
+		}
+		else {
+			console.log(type || obj);//eslint-disable-line
+		}
+
+		return route;
 	}
+
+	componentDidCatch () {}
 
 
 	componentDidMount () {
@@ -147,7 +185,7 @@ export default class CourseLessonOverview extends React.Component {
 		};
 
 		return (
-			<ContextSender ref={this.attachContextProvider} getContext={getContext} node={node} {...this.props}>
+			<ContextSender getContext={getContext} node={node} {...this.props}>
 				{render()}
 			</ContextSender>
 		);
@@ -160,6 +198,10 @@ async function getContext () {
 	const {outlineId, node} = context.props;
 	const href = context.makeHref(outlineId);
 	const id = decodeFromURI(outlineId);
+
+	if (node) {
+		context.setPageSource(node.getPageSource(), id);
+	}
 
 	return {
 		label: node && node.title,
