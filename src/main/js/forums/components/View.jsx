@@ -36,7 +36,7 @@ export default createReactClass({
 				<div className="forums-wrapper">
 					<Router.Locations contextual>
 
-						<Router.Location path="/(:forumId)/*"
+						<Router.Location path="/(:forumId)(/*)"
 							handler={ForumView}
 							contextID={contentPackage && contentPackage.getID()}
 						/>
