@@ -62,6 +62,10 @@ export default createReactClass({
 	loadContentPackage (props) {
 		let {contentId} = props;
 
+		if (!contentId) {
+			throw new Error('Missing contentId');
+		}
+
 		contentId = decodeFromURI(contentId);
 
 		this.setState({loading: true, contentPackage: null, error: null});
