@@ -30,8 +30,7 @@ export default class CourseLessonOverview extends React.Component {
 
 
 	static childContextTypes = {
-		router: PropTypes.object,
-		setRouteViewTitle: PropTypes.func
+		router: PropTypes.object
 	}
 
 
@@ -57,8 +56,7 @@ export default class CourseLessonOverview extends React.Component {
 						return (typeof loc === 'string' ? loc : loc.pathname) + '/';
 					}
 				}
-			},
-			setRouteViewTitle: () => {}
+			}
 		};
 	}
 
