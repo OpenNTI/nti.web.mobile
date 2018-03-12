@@ -17,7 +17,7 @@ import ContactUs from 'contact-us/components/View';
 import Contacts from 'contacts/components/View';
 import Content from 'content/components/View';
 import Course from 'course/components/ViewLoader';
-import Enrollment from 'enrollment/components/View';
+import Enrollment from 'enrollment/components/ViewLoader';
 import Home from 'home/components/View';
 import Library from 'library/components/View';
 import Login from 'login/components/View';
