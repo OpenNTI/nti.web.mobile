@@ -34,6 +34,7 @@ export default class CourseLessonOverview extends React.Component {
 	}
 
 
+	attachContextProviderRef = x => this.contextProvider = x
 
 	state = {}
 
@@ -86,6 +87,7 @@ export default class CourseLessonOverview extends React.Component {
 		return route;
 	}
 
+
 	componentDidCatch () {}
 
 
@@ -102,6 +104,21 @@ export default class CourseLessonOverview extends React.Component {
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.outlineId !== this.props.outlineId) {
 			this.getDataIfNeeded(nextProps);
+		}
+	}
+
+
+	componentDidUpdate (prevProps, prevState) {
+		const {
+			contextProvider: context,
+			props: {outlineId},
+			state: {node}
+		} = this;
+
+		const id = decodeFromURI(outlineId);
+
+		if (node) {
+			context.setPageSource(node.getPageSource(), id);
 		}
 	}
 
@@ -129,8 +146,9 @@ export default class CourseLessonOverview extends React.Component {
 			}
 
 			const overview = await node.getContent();
+			const assignments = await course.getAssignments();
 			if (this.task === outlineId) {
-				this.setState({overview});
+				this.setState({overview, assignments});
 			}
 		}
 		catch (e) {
@@ -173,7 +191,7 @@ export default class CourseLessonOverview extends React.Component {
 		};
 
 		return (
-			<ContextSender getContext={getContext} node={node} {...this.props}>
+			<ContextSender ref={this.attachContextProviderRef} getContext={getContext} node={node} {...this.props}>
 				{render()}
 			</ContextSender>
 		);
@@ -186,10 +204,6 @@ async function getContext () {
 	const {outlineId, node} = context.props;
 	const href = context.makeHref(outlineId);
 	const id = decodeFromURI(outlineId);
-
-	if (node) {
-		context.setPageSource(node.getPageSource(), id);
-	}
 
 	return {
 		label: node && node.title,
