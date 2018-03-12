@@ -34,6 +34,7 @@ export default class CourseLessonOverview extends React.Component {
 	}
 
 
+
 	state = {}
 
 
@@ -45,17 +46,6 @@ export default class CourseLessonOverview extends React.Component {
 				...(nav || {}),
 				baseroute: nav && nav.makeHref(''),
 				getRouteFor: this.getRouteFor,
-				history: {
-					push (loc) {
-						nav.getEnvironment().setPath(loc, {});
-					},
-					replace (loc) {
-						nav.getEnvironment().setPath(loc, {replace: true});
-					},
-					createHref (loc) {
-						return (typeof loc === 'string' ? loc : loc.pathname) + '/';
-					}
-				}
 			}
 		};
 	}
