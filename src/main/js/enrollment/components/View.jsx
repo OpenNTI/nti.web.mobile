@@ -52,7 +52,7 @@ export default createReactClass({
 		// subsequent call, use the cached one IF (AND ONLY IF) the ID matches.
 		if (!e) {
 			e = this[entry];
-			if (!e || e.getID() !== id) {
+			if (!e || !e.getID || e.getID() !== id) {
 				e = null;
 			}
 		} else if (stash) {
