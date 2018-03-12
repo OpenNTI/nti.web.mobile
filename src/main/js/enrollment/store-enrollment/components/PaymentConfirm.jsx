@@ -102,7 +102,7 @@ export default createReactClass({
 
 	render () {
 		const {props: {purchasable}, state: {busy, stripeToken, giftInfo}} = this;
-		const {VendorInfo: {AllowVendorUpdates} = {}} = purchasable || {};
+		const {vendorInfo: {AllowVendorUpdates} = {}} = purchasable || {};
 		const isGift = giftInfo !== null;
 		const edit = isGift ? 'gift/' : '';
 

@@ -58,9 +58,11 @@ export default class extends React.Component {
 		const {purchasable, purchaseattempt, doneLink} = this.props;
 		const {title} = purchasable;
 		const {receiver, sender, redemptionCode, transactionID} = purchaseattempt || {};
-		const {VendorInfo: {StartDate} = {}} = purchasable || {};
+		const {vendorInfo} = purchasable || {};
 
-		const date = DateTime.format(StartDate);
+		const startDate = vendorInfo && vendorInfo.getStartDate();
+
+		const date = DateTime.format(startDate);
 		const support = siteString('GiftSupport');
 
 		let {onDone} = this.props;

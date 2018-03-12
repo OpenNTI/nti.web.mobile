@@ -185,17 +185,17 @@ export default createReactClass({
 
 
 	render () {
-		const {props: {locked}} = this;
+		const {props: {locked, purchasable}} = this;
 
-		let type = 'Lifelong Learner';
-		let vendorInfo = this.props.purchasable.vendorInfo;
-		let startDate = vendorInfo && vendorInfo.StartDate;
-		let endDate = vendorInfo && vendorInfo.EndDate;
-		let creditHours = 'No College Credit';//t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
-		let refund = t('noRefunds');
-		let oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
-		let total = this.getFormattedPrice(this.state.currency, this.state.currentPrice || 0);
-		let discount = this.state.couponDiscount || '';
+		const type = 'Lifelong Learner';
+		const {vendorInfo} = purchasable;
+		const startDate = vendorInfo && vendorInfo.getStartDate();
+		const endDate = vendorInfo && vendorInfo.getEndDate();
+		const creditHours = 'No College Credit';//t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
+		const refund = t('noRefunds');
+		const oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
+		const total = this.getFormattedPrice(this.state.currency, this.state.currentPrice || 0);
+		const discount = this.state.couponDiscount || '';
 		let couponLabel = t('coupon');
 		let couponLabelCls = '';
 
