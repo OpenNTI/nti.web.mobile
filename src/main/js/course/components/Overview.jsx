@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {addHistory} from 'nti-analytics';
 import Logger from 'nti-util-logger';
-import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
+import {decodeFromURI, encodeForURI, isNTIID} from 'nti-lib-ntiids';
 import {Overview} from 'nti-web-course';
 import {
 	Loading,
@@ -53,22 +53,31 @@ export default class CourseLessonOverview extends React.Component {
 
 
 	getRouteFor = (obj) => {
+		const {context: {router}, state: {assignments}} = this;
 		const getID = o => o['Target-NTIID'] || (o.getID ? o.getID() : o['NTIID']);
 		const getEncodedID = o => encodeForURI(getID(o));
 		const {MimeType: type} = obj || {};
+		const env = router.getEnvironment();
+
 		let route = '';
+
+		const isLegacyAssignment = () => {
+			return assignments
+				&& /questionset/i.test(type)
+				&& assignments.isAssignment(getID(obj));
+		};
 
 		if (/video/i.test(type)) {
 			route = path.join('..', 'videos', getEncodedID(obj));
 		}
-		else if (/assignment/i.test(type)) {
+		else if (/assignment/i.test(type) || isLegacyAssignment()) {
 			route = path.join('..', 'assignments', getEncodedID(obj));
 		}
 		else if (/survey/i.test(type)) {
 			route = path.join('content', getEncodedID(obj));
 		}
 		else if (/questionset/i.test(type)) {
-			route = path.join(this.context.router.getPath(), 'content', getEncodedID(obj));
+			route = path.join(env.getPath(), 'content', getEncodedID(obj));
 		}
 		else if (/forum/i.test(type)) {
 			route = path.join('..', 'discussions', encodeForURI(obj.ContainerId));
@@ -78,7 +87,7 @@ export default class CourseLessonOverview extends React.Component {
 			route = path.join('..', 'discussions', forumId, getEncodedID(obj));
 		}
 		else if (/relatedwork/i.test(type)) {
-			route = obj.href;
+			route = isNTIID(obj.href) ? path.join(env.getPath(), 'content', encodeForURI(obj.href)) : obj.href;
 		}
 		else {
 			console.log(type || obj);//eslint-disable-line
@@ -146,7 +155,7 @@ export default class CourseLessonOverview extends React.Component {
 			}
 
 			const overview = await node.getContent();
-			const assignments = await course.getAssignments();
+			const assignments = await course.getAssignments().catch(() => null);
 			if (this.task === outlineId) {
 				this.setState({overview, assignments});
 			}
