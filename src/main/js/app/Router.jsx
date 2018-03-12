@@ -14,13 +14,13 @@ import Logger from 'nti-util-logger';
 //Main View Handlers
 import Catalog from 'catalog/components/ViewLoader';
 import ContactUs from 'contact-us/components/View';
-import Contacts from 'contacts/components/View';
-import Content from 'content/components/View';
+import Contacts from 'contacts/components/ViewLoader';
+import Content from 'content/components/ViewLoader';
 import Course from 'course/components/ViewLoader';
 import Enrollment from 'enrollment/components/ViewLoader';
 import Home from 'home/components/View';
-import Library from 'library/components/View';
-import Login from 'login/components/View';
+import Library from 'library/components/ViewLoader';
+import Login from 'login/components/ViewLoader';
 import Profile from 'profile/components/ViewLoader';
 import NotFoundPage from 'notfound/components/View';
 import ObjectResolver from 'object-resolver/components/View';

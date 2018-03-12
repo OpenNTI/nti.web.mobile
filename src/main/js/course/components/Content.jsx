@@ -5,7 +5,7 @@ import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
 
 import ContextContributor from 'common/mixins/ContextContributor';
-import ContentViewer from 'content/components/Viewer';
+import ContentViewer from 'content/components/ViewerLoader';
 import CourseLinker from 'library/mixins/CourseContentLink';
 
 import {LESSONS} from '../Sections';

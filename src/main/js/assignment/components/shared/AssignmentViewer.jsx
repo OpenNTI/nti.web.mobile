@@ -4,7 +4,7 @@ import {decodeFromURI} from 'nti-lib-ntiids';
 import {Error as Err, Loading} from 'nti-web-commons';
 
 import {Component as ContextContributor} from 'common/mixins/ContextContributor';
-import ContentViewer from 'content/components/Viewer';
+import ContentViewer from 'content/components/ViewerLoader';
 
 import Assignments from '../bindings/Assignments';
 
