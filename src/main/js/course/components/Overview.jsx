@@ -2,6 +2,7 @@ import path from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import QueryString from 'query-string';
 import {addHistory} from 'nti-analytics';
 import Logger from 'nti-util-logger';
 import {decodeFromURI, encodeForURI, isNTIID} from 'nti-lib-ntiids';
@@ -79,6 +80,9 @@ export default class CourseLessonOverview extends React.Component {
 		else if (/questionset/i.test(type)) {
 			route = path.join(env.getPath(), 'content', getEncodedID(obj));
 		}
+		else if (/discussion/i.test(type)) {
+			//Its still resolving... ignore.
+		}
 		else if (/forum/i.test(type)) {
 			route = path.join('..', 'discussions', encodeForURI(obj.ContainerId));
 		}
@@ -88,6 +92,14 @@ export default class CourseLessonOverview extends React.Component {
 		}
 		else if (/relatedwork/i.test(type)) {
 			route = isNTIID(obj.href) ? path.join(env.getPath(), 'content', encodeForURI(obj.href)) : obj.href;
+		}
+		else if (/ntitimeline/i.test(type)) {
+			const {label: title} = obj;
+			const params = QueryString.stringify({title, source: obj.href})
+				.replace(/%2F/ig, '/');//TimelineJS is not correctly decoding the URI params
+
+			// /app/resources/lib/timeline/embed/index.html?source=
+			route = '/app/resources/lib/timeline/embed/index.html?' + params;
 		}
 		else {
 			console.log(type || obj);//eslint-disable-line
