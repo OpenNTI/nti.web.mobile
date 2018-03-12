@@ -12,7 +12,7 @@ import {
 import Logger from 'nti-util-logger';
 
 //Main View Handlers
-import Catalog from 'catalog/components/View';
+import Catalog from 'catalog/components/ViewLoader';
 import ContactUs from 'contact-us/components/View';
 import Contacts from 'contacts/components/View';
 import Content from 'content/components/View';
