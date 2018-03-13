@@ -91,7 +91,7 @@ export default class CourseLessonOverview extends React.Component {
 			route = path.join('..', 'discussions', forumId, getEncodedID(obj));
 		}
 		else if (/relatedwork/i.test(type)) {
-			route = isNTIID(obj.href) ? path.join(env.getPath(), 'content', encodeForURI(obj.href)) : obj.href;
+			route = isNTIID(obj.href) ? (path.join(env.getPath(), 'content', encodeForURI(obj.href)) + '/') : obj.href;
 		}
 		else if (/ntitimeline/i.test(type)) {
 			const {label: title} = obj;
