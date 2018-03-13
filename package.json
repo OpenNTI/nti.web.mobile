@@ -84,7 +84,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-loadable": "^5.3.1",
-    "react-router-component": "0.x.x",
+    "react-router-component": "github:jsg2021/react-router-component#5e586e9f82f9d11ece447512308168347f464c5c",
     "react-transition-group": "^2.2.1",
     "uuid": "^3.0.0",
     "vtt.js": "^0.13.0",
