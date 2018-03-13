@@ -50,12 +50,14 @@ export default createReactClass({
 
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
-				route.path ?
+				route.path ? (
 					<Router.Location {...route}
 						contentPackage={course}
 						course={course}
-					/> :
+					/>
+				) : (
 					<Router.NotFound handler={Outline} item={course}/>
+				)
 			));
 	}
 });

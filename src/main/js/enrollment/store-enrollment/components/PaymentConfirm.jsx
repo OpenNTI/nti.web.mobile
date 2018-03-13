@@ -121,7 +121,7 @@ export default createReactClass({
 							<BillingInfo card={stripeToken.card} edit={edit} />
 							<p>Clicking submit will charge your card {this.getPrice()}{isGift ? '' : ' and enroll you in the course'}.</p>
 
-							{!AllowVendorUpdates ? '' :
+							{!AllowVendorUpdates ? '' : (
 								<div className="subscribe">
 									<label>
 										<input type="checkbox" ref={this.attachSubscribeCheckboxRef} name="subscribe" />
@@ -129,7 +129,7 @@ export default createReactClass({
 										<p {...rawContent(t2('legal'))} />
 									</label>
 								</div>
-							}
+							)}
 
 						</PanelButton>
 					</div>

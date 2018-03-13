@@ -188,11 +188,11 @@ export default createReactClass({
 
 		return (
 			<ul className="sections">
-				{sections.map(x=>
-					(<li key={x.title}>
+				{sections.map(x=> (
+					<li key={x.title}>
 						<div {...x}><a {...x} className="with-arrow">{x.title}</a></div>
-					</li>)
-				)}
+					</li>
+				))}
 			</ul>
 		);
 	}

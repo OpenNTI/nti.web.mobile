@@ -251,7 +251,7 @@ export default createReactClass({
 					</div>
 				)}
 
-				{!video || !requestPlay || error ? null :
+				{!video || !requestPlay || error ? null : (
 					<Video ref={this.attachVideoRef} src={video}
 						onEnded={this.onStop}
 						onPaused={this.onStop}
@@ -261,9 +261,9 @@ export default createReactClass({
 							context: this.state.context
 						}}
 					/>
-				}
+				)}
 
-				{(playing || requestPlay || error) ? null :
+				{(playing || requestPlay || error) ? null : (
 					<Loading.Mask style={posterRule} loading={loading}
 						tag="a" onFocus={onFocus} onClick={this.onPosterClicked}
 						className="content-video-tap-area" href="#">
@@ -277,7 +277,7 @@ export default createReactClass({
 							</div>
 						</div>
 					</Loading.Mask>
-				}
+				)}
 			</Tag>
 		);
 	}

@@ -86,18 +86,17 @@ export default createReactClass({
 		return (
 			<header className="item-detail-header">
 				<h1>{renaming ? <input type="text" ref={this.attachRef} defaultValue={list.displayName} onChange={this.nameInputChanged} /> : list.displayName}</h1>
-				{renaming
-					?
+				{renaming ? (
 					<div className="rename controls">
 						<button className="secondary tiny button" onClick={this.toggleRename}>Cancel</button>
 						<button className={saveRenameClasses} onClick={this.saveRename}>Save Name</button>
 					</div>
-					:
+				) : (
 					<div>
 						<button className="delete-icon" onClick={this.deleteList}>Delete</button>
 						<button className="rename" onClick={this.toggleRename} ><i className="icon-pencil"/> Rename</button>
 					</div>
-				}
+				)}
 			</header>
 		);
 	}

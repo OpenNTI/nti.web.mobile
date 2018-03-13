@@ -9,10 +9,10 @@ export default function FeedbackList ({feedback, onEditItem, onDeleteItem}) {
 
 	return (
 		<div className="feedback list">
-			{items.map(
-				i=>(<ListItem key={i.getID()} item={i}
-					onEdit={onEditItem} onDelete={onDeleteItem}/>)
-			)}
+			{items.map(i=>(
+				<ListItem key={i.getID()} item={i}
+					onEdit={onEditItem} onDelete={onDeleteItem}/>
+			))}
 		</div>
 	);
 }

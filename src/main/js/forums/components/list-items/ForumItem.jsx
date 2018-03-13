@@ -101,11 +101,11 @@ export default createReactClass({
 				<h1 onClick={this.toggleRecentActivity} className={headingCss.join(' ')}>
 					<a>{t('recentActivity')}</a>
 				</h1>
-				{this.state.showRecentActivity &&
+				{this.state.showRecentActivity && (
 					<TopicsComponent
 						container={{Items: this.state.recentActivity}}
 						itemProps={{parentPath: this.getForumPath()}}/>
-				}
+				)}
 			</section>
 		);
 	},

@@ -147,15 +147,15 @@ export default createReactClass({
 				) : (
 					<PostHeadline item={item} topic={topic} asHeadline />
 				)}
-				{topic &&
+				{topic && (
 					<Replies key="replies" item={item}
 						listComponent={List}
 						topic={topic}
 						display
 						className="visible"
 					/>
-				}
-				{topic &&
+				)}
+				{topic && (
 					<CommentForm key="commentForm"
 						id={COMMENT_FORM_ID}
 						onCancel={this.hideForm}
@@ -163,7 +163,7 @@ export default createReactClass({
 						topic={topic}
 						parent={item}
 					/>
-				}
+				)}
 			</div>
 		);
 	}

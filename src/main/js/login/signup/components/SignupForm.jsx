@@ -175,15 +175,13 @@ export default createReactClass({
 					<fieldset>
 						<legend>Create Account</legend>
 
-						{FIELDS.map( field =>
-
-							(<div key={field.name}>
+						{FIELDS.map( field => (
+							<div key={field.name}>
 								<input name={field.name} placeholder={t(field.name)} type={field.type}
 									className={cx({required: field.required})} required={field.required}
 									onChange={this.onChange} onBlur={this.onBlur}/>
-							</div>)
-
-						)}
+							</div>
+						))}
 
 					</fieldset>
 

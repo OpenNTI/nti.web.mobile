@@ -155,13 +155,13 @@ export default createReactClass({
 				<div className="distribution-list-detail">
 					<ItemDetailHeader list={list} />
 					<div className="contacts-page-content">
-						{this.state.adding ?
+						{this.state.adding ? (
 							<UserSearchField ref={this.attachRef}
 								selected={list.friends}
 								onCancel={this.cancelSearch}
 								onSave={this.saveSearch}
 							/>
-							:
+						) : (
 							<div>
 								<AddPeopleButton onClick={this.addPeople} />
 								<Selectables
@@ -170,7 +170,7 @@ export default createReactClass({
 									labels={{selected: 'Remove', unselected: 'Undo'}}
 								/>
 							</div>
-						}
+						)}
 					</div>
 				</div>
 			</Page>

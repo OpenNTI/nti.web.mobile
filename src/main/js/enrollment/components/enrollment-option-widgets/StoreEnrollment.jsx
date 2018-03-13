@@ -64,18 +64,17 @@ export default createReactClass({
 					<p className="price">{formattedPrice}</p>
 					<p className="description">{t('access')}</p>
 					<small>{t('NotRefundable')}</small>
-					{enrolled
-						?
-						(<div className="enrollment-status">
+					{enrolled ? (
+						<div className="enrollment-status">
 							<div className="status">
 								<span className="registered">You are registered</span>
 							</div>
-						</div>)
-						:
-						(<div className="actions">
+						</div>
+					) : (
+						<div className="actions">
 							<a href={href}>{t('enroll')}</a>
-						</div>)
-					}
+						</div>
+					)}
 
 				</div>
 

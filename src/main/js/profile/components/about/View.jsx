@@ -49,11 +49,11 @@ export default createReactClass({
 						return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
 					})}
 				</ul>
-				{canEdit &&
+				{canEdit && (
 					<div className="controls buttons">
 						<ActiveState tag="a" href="/edit/" className="button tiny">Edit Profile</ActiveState>
 					</div>
-				}
+				)}
 			</div>
 		);
 	}

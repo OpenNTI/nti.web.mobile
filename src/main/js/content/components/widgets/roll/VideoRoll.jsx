@@ -235,7 +235,7 @@ export default createReactClass({
 
 						<div ref={this.attachCurrentRef} className="item video current content-video" style={style}>
 
-							{!video ? null :
+							{!video ? null : (
 								<Video ref={this.attachVideoRef} src={video}
 									onEnded={this.onStop}
 									onPlaying={this.onPlay}
@@ -244,9 +244,9 @@ export default createReactClass({
 										context: this.state.context
 									}}
 								/>
-							}
+							)}
 
-							{playing ? null :
+							{playing ? null : (
 								<a style={style} onClick={this.onPosterClicked} className="content-video-tap-area" href="#">
 									<div className="wrapper">
 										<div className="buttons">
@@ -254,7 +254,7 @@ export default createReactClass({
 										</div>
 									</div>
 								</a>
-							}
+							)}
 
 							{prev && ( <button className="prev" onClick={this.onPrev} alt="previous"/> )}
 							{next && ( <button className="next" onClick={this.onNext} alt="next"/> )}

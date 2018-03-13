@@ -52,19 +52,19 @@ export default class FeedbackListItem extends React.Component {
 					</div>
 					{editing ?
 						<Editor value={item.body} onSubmit={this.onEdit} onCancel={this.onToggleEditor}/>
-						:
-						<div className="message">
-							<Panel body={body}/>
-							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
-						</div>
-					}
+						: (
+							<div className="message">
+								<Panel body={body}/>
+								{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
+							</div>
+						)}
 
-					{canEdit && !editing &&
+					{canEdit && !editing && (
 						<div className="footer">
 							<a href="#" className="link edit" onClick={this.onToggleEditor}>Edit</a>
 							<a href="#" className="link delete" onClick={this.onDelete}>Delete</a>
 						</div>
-					}
+					)}
 				</div>
 			</div>
 		);

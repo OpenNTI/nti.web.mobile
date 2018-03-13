@@ -119,11 +119,11 @@ class GradeBox extends React.Component {
 					onChange={this.onChange}
 					onFocus={this.onFocus}
 				/>
-				{showLetter &&
-					(<select defaultValue={(grade && grade.letter) || ''} onChange={this.onLetterChange}>
+				{showLetter && (
+					<select defaultValue={(grade && grade.letter) || ''} onChange={this.onLetterChange}>
 						{Models.courses.Grade.getPossibleGradeLetters().map(letter => <option key={letter} value={letter}>{letter}</option>)}
-					</select>)
-				}
+					</select>
+				)}
 			</div>
 		);
 	}

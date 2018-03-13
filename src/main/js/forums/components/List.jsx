@@ -66,15 +66,14 @@ export default class extends React.Component {
 			Items = groupDeletedItems(Items);
 		}
 
-		return (
-			empty ?
-				<Notice className="empty-list">{emptyText}</Notice>
-				:
-				<ul {...otherProps}>
-					{Items.map((item, index)=>
-						<li key={keyFn(item)}>{ListItem(item, index, {topic, ...itemProps})}</li>
-					)}
-				</ul>
-		);
+		return (empty ? (
+			<Notice className="empty-list">{emptyText}</Notice>
+		) : (
+			<ul {...otherProps}>
+				{Items.map((item, index)=>
+					<li key={keyFn(item)}>{ListItem(item, index, {topic, ...itemProps})}</li>
+				)}
+			</ul>
+		));
 	}
 }

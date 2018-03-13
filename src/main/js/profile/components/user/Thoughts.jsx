@@ -32,12 +32,14 @@ export default createReactClass({
 	render () {
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
 			...ROUTES.map(route=>
-				route.path ?
+				route.path ? (
 					<Router.Location {...route}
 						handler={route.handler}
 						{...this.props}
-					/> :
+					/>
+				) : (
 					<Router.NotFound handler={NotFoundPage} />
+				)
 			));
 	}
 });

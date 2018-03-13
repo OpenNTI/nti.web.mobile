@@ -108,14 +108,14 @@ class InstructorActionsMenu extends React.Component {
 		return !grade ? null : (
 			<div onClick={this.toggleMenu} className={classes}>
 				<i className="icon-more-options small" />
-				{open &&
+				{open && (
 					<MenuTransitionGroup>
 						<ul key="menu">
 							<li onClick={this.resetAssignment}>Reset Assignment</li>
 							<li onClick={this.excuse}>{excuseAction}</li>
 						</ul>
 					</MenuTransitionGroup>
-				}
+				)}
 			</div>
 		);
 	}

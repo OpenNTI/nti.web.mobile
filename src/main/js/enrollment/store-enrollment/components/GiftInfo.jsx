@@ -42,18 +42,18 @@ export default class extends React.Component {
 					<span className="label">{t('from')}</span>	<span className="value">
 						{info.sender ? info.sender + ' (' + info.from + ')' : info.from}</span>
 				</div>
-				{!info.receiver ? '' :
+				{!info.receiver ? '' : (
 					<div className="field">
 						<span className="label">{t('to')}</span> <span className="value">
 							{info.to ? info.to + ' (' + info.receiver + ')' : info.receiver}</span>
 					</div>
-				}
-				{!info.message ? '' :
+				)}
+				{!info.message ? '' : (
 					<div className="field">
 						<span className="label">{t('message')}</span>
 						<span className="value">{info.message}</span>
 					</div>
-				}
+				)}
 			</fieldset>
 		);
 	}

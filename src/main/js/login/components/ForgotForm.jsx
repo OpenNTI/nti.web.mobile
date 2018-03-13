@@ -74,21 +74,21 @@ export default class ForgotForm extends React.Component {
 					<div className="header">next thought</div>
 					{!!error && <div className="message">{error}</div>}
 
-					{!!success &&
+					{!!success && (
 						<fieldset className="success">
 							{success}
 							<Link id="login:forgot:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
 						</fieldset>
-					}
+					)}
 
-					{!success &&
+					{!success && (
 						<fieldset>
-							{param === 'password' &&
+							{param === 'password' && (
 								<div className="field-container">
 									<input type="text" name="username" placeholder="Username"
 										onChange={this.onInput} />
 								</div>
-							}
+							)}
 
 							<div className="field-container">
 								<input type="email" name="email" placeholder="E-mail"
@@ -103,7 +103,7 @@ export default class ForgotForm extends React.Component {
 
 							<Link id="login:forgot:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
 						</fieldset>
-					}
+					)}
 				</form>
 
 			</div>

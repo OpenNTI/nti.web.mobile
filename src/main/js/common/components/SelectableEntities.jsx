@@ -29,16 +29,16 @@ export default class extends React.Component {
 
 		return (
 			<ul className="selectable-entities" {...props}>
-				{Array.from(entities).map(entity =>
-					(<SelectableEntity
+				{Array.from(entities).map(entity => (
+					<SelectableEntity
 						linkToProfile={linkToProfile}
 						key={entity.getID()}
 						entity={entity}
 						selected={selection.isSelected(entity)}
 						labels={labels}
 						onChange={this.onChange}
-					/>)
-				)}
+					/>
+				))}
 			</ul>
 		);
 	}

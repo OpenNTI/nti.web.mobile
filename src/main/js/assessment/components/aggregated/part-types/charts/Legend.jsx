@@ -17,14 +17,12 @@ export default function Legend (props) {
 
 	return (
 		<div className="legend">
-			{items.map((name, i)=>
-
-				(<div key={i + name} className="legend-item">
+			{items.map((name, i)=> (
+				<div key={i + name} className="legend-item">
 					<span className="legend-swatch" style={{background: colors[name]}}/>
 					<span {...rawContent(name)} />
-				</div>)
-
-			)}
+				</div>
+			))}
 		</div>
 	);
 }

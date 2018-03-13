@@ -182,16 +182,16 @@ export default class UserSearchField extends React.Component {
 			<section>
 				<h1>{heading}</h1>
 				<ul className={classnames}>
-					{filtered.length > 0 ?
-						filtered.map(entity =>
-							(<SelectableEntity
-								key={'selectable-' + entity.getID()}
-								entity={entity}
-								selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(selected, entity)}
-								onChange={this.selectionChange}
-							/>))
-						: <li className="no-results">{search.length > 2 ? 'No results' : 'Search too broad'}</li>
-					}
+					{filtered.length > 0 ? filtered.map(entity => (
+						<SelectableEntity
+							key={'selectable-' + entity.getID()}
+							entity={entity}
+							selected={listContainsEntity(selectedUsers, entity) || listContainsEntity(selected, entity)}
+							onChange={this.selectionChange}
+						/>
+					)) : (
+						<li className="no-results">{search.length > 2 ? 'No results' : 'Search too broad'}</li>
+					)}
 				</ul>
 			</section>
 		);

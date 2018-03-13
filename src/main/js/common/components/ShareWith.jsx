@@ -248,11 +248,11 @@ export default class ShareWith extends React.Component {
 			<div ref={this.attachDomRef} className={cx('share-with', {'active': focused && !readOnly, 'read-only': readOnly})}>
 
 				<div ref={this.attachEntryRef} className="share-with-entry" onClick={this.onFocus}>
-					{selection.getItems().map(e =>
-						(<ShareTarget key={e.getID ? e.getID() : e} entity={e}
+					{selection.getItems().map(e => (
+						<ShareTarget key={e.getID ? e.getID() : e} entity={e}
 							selected={pendingRemove === e}
-							onClick={this.onTokenTap}/>)
-					)}
+							onClick={this.onTokenTap}/>
+					))}
 					<span className="input-field" data-value={search}>
 						<input type="text" ref={this.attachSearchRef} value={search} placeholder={placeholder}
 							readOnly={readOnly}
@@ -292,17 +292,15 @@ export default class ShareWith extends React.Component {
 								onScroll={this.onListScroll}
 								className={cx('scroller', 'visible', {'restrict': inputFocused})}>
 
-								{groupings.map(o =>
-
-									(<div className="suggestion-group" key={o.label}>
+								{groupings.map(o => (
+									<div className="suggestion-group" key={o.label}>
 										<h3>{o.label}</h3>
 										<SelectableEntities entities={o.list}
 											selection={selection}
 											onChange={this.onSelectionChange}
 										/>
-									</div>)
-
-								)}
+									</div>
+								))}
 
 							</div>
 						)}

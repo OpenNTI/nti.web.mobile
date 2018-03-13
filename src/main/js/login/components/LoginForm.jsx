@@ -135,11 +135,11 @@ export default createReactClass({
 
 								<OAuthButtons />
 
-								{!!Store.getLink(LINK_ACCOUNT_CREATE) &&
+								{!!Store.getLink(LINK_ACCOUNT_CREATE) && (
 									<div className="account-creation">
 										<Link id="login:signup" href={signupLink()}>{t('signup.link')}</Link>
 									</div>
-								}
+								)}
 							</fieldset>
 						</div>)}
 					<RecoveryLinks />

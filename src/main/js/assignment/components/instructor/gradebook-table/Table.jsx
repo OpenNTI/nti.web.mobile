@@ -32,11 +32,11 @@ export default class GradebookTableImpl extends React.Component {
 		const {columns} = this.props;
 		return (
 			<div className="gradebook-row" key={index}>
-				{columns.map(Col =>
-					(<div className={Col.className} key={Col.label()}>
+				{columns.map(Col => (
+					<div className={Col.className} key={Col.label()}>
 						<Col item={item} {...this.props}/>
-					</div>)
-				)}
+					</div>
+				))}
 			</div>
 		);
 	};

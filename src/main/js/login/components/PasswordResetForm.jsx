@@ -76,23 +76,23 @@ export default class PasswordResetForm extends React.Component {
 			<div className="login-wrapper">
 				<form ref={this.attachFormRef} className={cx('login-form', {'remove-animation': success})} onSubmit={this.handleSubmit}>
 					<div className="header">next thought</div>
-					{!busy && !success &&
+					{!busy && !success && (
 						<div>
 							{!!error && <div className="error">{error}</div>}
 							{!error && <div className="message recover green">Create your new password.</div>}
 						</div>
-					}
+					)}
 
-					{!!success && !busy &&
+					{!!success && !busy && (
 						<fieldset className="success">
 							Your password has been reset.
 							<Link id="login:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
 						</fieldset>
-					}
+					)}
 
 					{busy && <Loading.Mask />}
 
-					{!success && !busy &&
+					{!success && !busy && (
 						<fieldset>
 							<div className="field-container">
 								<input type="password" name="password" placeholder="New Password"
@@ -112,7 +112,7 @@ export default class PasswordResetForm extends React.Component {
 							</div>
 							<Link id="login:return" href="/" className="fi-arrow-left return-link"> Return to Login</Link>
 						</fieldset>
-					}
+					)}
 				</form>
 			</div>
 		);

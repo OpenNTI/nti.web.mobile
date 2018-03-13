@@ -72,23 +72,26 @@ export default createReactClass({
 
 		return (
 			<ul key="control-links" className="action-links">
-				{canReply &&
+				{canReply && (
 					<li key="reply-link">
 						<ScrollLink componentId={COMMENT_FORM_ID}>{t('placeholder')}</ScrollLink>
 					</li>
-				}
-				{canEdit && onEdit &&
+				)}
+				{canEdit && onEdit && (
 					<li key="edit-link">
 						<a onClick={onEdit}>{t('edit')}</a>
-					</li>}
-				{canDelete && onDelete &&
+					</li>
+				)}
+				{canDelete && onDelete && (
 					<li key="delete-link">
 						<a onClick={onDelete}>{t('delete')}</a>
-					</li>}
-				{canReport &&
+					</li>
+				)}
+				{canReport && (
 					<li key="report-link">
 						<Report item={item} />
-					</li>}
+					</li>
+				)}
 			</ul>
 		);
 	}
