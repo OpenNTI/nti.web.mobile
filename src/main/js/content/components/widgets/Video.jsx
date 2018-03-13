@@ -244,7 +244,7 @@ export default createReactClass({
 		const posterRule = poster && {backgroundImage: `url(${poster})`};
 
 		return (
-			<Tag ref={this.attachRef} className="content-video video-wrap flex-video widescreen" data-ntiid={this.getVideoID()}>
+			<Tag ref={this.attachRef} className="content-video video-wrap" data-ntiid={this.getVideoID()}>
 				{error && (
 					<div className="error">
 						<span>{t('error')}</span>
