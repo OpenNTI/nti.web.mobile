@@ -79,11 +79,11 @@ export default createReactClass({
 		let buttons = this.getButtons();
 		if (buttons.length > 0) {
 			return React.createElement.apply(null, ['div', {}].concat(
-				buttons.map((button, i)=>
-					(<div key={i} className="row">
+				buttons.map((button, i)=> (<
+					div key={i} className="row">
 						<div className="cell small-12 columns">{button}</div>
-					</div>)
-				)));
+					</div>
+				))));
 		}
 
 		return null;
