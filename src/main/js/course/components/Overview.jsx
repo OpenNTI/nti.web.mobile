@@ -75,7 +75,7 @@ export default class CourseLessonOverview extends React.Component {
 			route = path.join('..', 'assignments', getEncodedID(obj));
 		}
 		else if (/survey/i.test(type)) {
-			route = path.join('content', getEncodedID(obj));
+			route = path.join(env.getPath(), 'content', getEncodedID(obj));
 		}
 		else if (/questionset/i.test(type)) {
 			route = path.join(env.getPath(), 'content', getEncodedID(obj));
