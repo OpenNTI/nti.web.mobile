@@ -56,10 +56,8 @@ export default createReactClass({
 
 
 	hideMenu () {
-		clearTimeout(this.state.closeTimer);
-		this.setState({
-			closeTimer: setTimeout(() => this.setState({moreOptionsOpen: false}), 200)
-		});
+		clearTimeout(this.closeTimer);
+		this.closeTimer = setTimeout(() => this.setState({moreOptionsOpen: false}), 200);
 	},
 
 
@@ -70,11 +68,9 @@ export default createReactClass({
 
 		this.setState({moreOptionsOpen: newState});
 
-		clearTimeout(this.state.closeTimer);
+		clearTimeout(this.closeTimer);
 		if (newState) {
-			this.setState({
-				closeTimer: setTimeout(()=> this.setState({moreOptionsOpen: false}), CLOSE_MENU_DELAY)
-			});
+			this.closeTimer = setTimeout(() => this.setState({moreOptionsOpen: false}), CLOSE_MENU_DELAY);
 		}
 	},
 
