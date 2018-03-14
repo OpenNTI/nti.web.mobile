@@ -69,7 +69,7 @@ export default class CourseLessonOverview extends React.Component {
 		};
 
 		if (/video/i.test(type)) {
-			route = path.join('..', 'videos', getEncodedID(obj));
+			route = path.join(env.getPath(), 'videos', getEncodedID(obj));
 		}
 		else if (/assignment/i.test(type) || isLegacyAssignment()) {
 			route = path.join('..', 'assignments', getEncodedID(obj));
