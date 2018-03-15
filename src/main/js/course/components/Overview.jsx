@@ -80,6 +80,9 @@ export default class CourseLessonOverview extends React.Component {
 		else if (/questionset/i.test(type)) {
 			route = path.join(env.getPath(), 'content', getEncodedID(obj));
 		}
+		else if (/communityheadlinetopic/i.test(type)) {
+			route = path.join('..', 'discussions', encodeForURI(obj.ContainerId), encodeForURI(obj.NTIID));
+		}
 		else if (/discussion/i.test(type)) {
 			//Its still resolving... ignore.
 		}

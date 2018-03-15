@@ -82,7 +82,7 @@ export default createReactClass({
 						handler={CreateTopic}
 						forum={forum}
 					/>
-					<Location path="/:topicId/*"
+					<Location path="/:topicId(/*)"
 						handler={TopicView}
 					/>
 				</Router.Locations>
