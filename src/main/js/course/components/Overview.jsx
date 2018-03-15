@@ -53,7 +53,7 @@ export default class CourseLessonOverview extends React.Component {
 	}
 
 
-	getRouteFor = (obj) => {
+	getRouteFor = (obj, context) => {
 		const {context: {router}, state: {assignments}} = this;
 		const getID = o => o['Target-NTIID'] || (o.getID ? o.getID() : o['NTIID']);
 		const getEncodedID = o => encodeForURI(getID(o));
@@ -94,11 +94,19 @@ export default class CourseLessonOverview extends React.Component {
 			route = path.join('..', 'discussions', forumId, getEncodedID(obj));
 		}
 		else if (/relatedwork/i.test(type)) {
-			route = !isNTIID(obj.href)
-				? obj.href
-				: (
-					path.join(env.getPath(), 'content', encodeForURI(obj.href)) + '/'
-				);
+
+			route = (context === 'discussions')
+				? path.join(
+					env.getPath(),
+					obj.isExternal ? 'external-content' : 'content',
+					getEncodedID(obj),
+					'discussions'
+				)
+				: !isNTIID(obj.href)
+					? { href: obj.href, target: obj.isExternal ? '_blank' : void 0 }
+					: (
+						path.join(env.getPath(), 'content', encodeForURI(obj.href)) + '/'
+					);
 		}
 		else if (/ntitimeline/i.test(type)) {
 			const {label: title} = obj;
