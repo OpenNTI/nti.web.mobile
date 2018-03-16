@@ -19,7 +19,7 @@ export default {
 				re = new RegExp(toRegExpStr(re), 'i');
 			}
 
-			return [item.type, item.class, item.MimeType, item.Class].some(x=>re.test(x));
+			return [item.MimeType, item.Class, item.type, item.class].some(x=>re.test(x));
 		}
 	}
 };
