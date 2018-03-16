@@ -5,6 +5,7 @@ import Logger from 'nti-util-logger';
 import {declareCustomElement, getEventTarget} from 'nti-lib-dom';
 import isTouchDevice from 'nti-util-detection-touch';
 import {rawContent} from 'nti-commons';
+import {Mixins} from 'nti-web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
@@ -49,6 +50,7 @@ export default class Content extends React.Component {
 
 	static contextTypes = {
 		...ContextAccessor.contextTypes,
+		...Mixins.NavigationAware.contextTypes,
 		analyticsManager: PropTypes.object.isRequired,
 	}
 

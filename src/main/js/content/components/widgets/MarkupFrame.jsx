@@ -106,7 +106,7 @@ export default createReactClass({
 
 		return (
 			<span itemProp={itemprop} className={className}>
-				<span onClick={isCard && this.onZoom}>
+				<span onClick={isCard ? this.onZoom : void 0}>
 					<span className="wrapper">
 						<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
 						{!zoomable || isCard ? null : (
