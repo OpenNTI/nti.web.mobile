@@ -134,6 +134,7 @@ export default class CourseLessonOverview extends React.Component {
 
 	componentWillUnmount () {
 		addHistory(decodeFromURI(this.props.outlineId));
+		this.setState = () => {};//TODO: cancel the load...
 	}
 
 
