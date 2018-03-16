@@ -1,14 +1,18 @@
+// import path from 'path';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import {Card, Mixins} from 'nti-web-commons';
+// import {encodeForURI} from 'nti-lib-ntiids';
 
-import Card from 'common/components/Card';
+import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import Mixin from './Mixin';
 
 export default createReactClass({
 	displayName: 'NTICard',
-	mixins: [Mixin],
+	mixins: [Mixin, ContextAccessor, Mixins.NavigatableMixin],
 
 	statics: {
 		itemType: /relatedworkref$|nticard$|externallink$/i,
@@ -20,6 +24,16 @@ export default createReactClass({
 	propTypes: {
 		item: PropTypes.object,
 		contentPackage: PropTypes.object
+	},
+
+
+	contextTypes: {
+		analyticsManager: PropTypes.object.isRequired
+	},
+
+
+	componentWillUnmount () {
+		this.setState = () => {};
 	},
 
 
@@ -49,12 +63,32 @@ export default createReactClass({
 	},
 
 
+	async componentDidMount () {
+		this.setState({
+			context: await this.resolveContext()
+		});
+	},
+
+
+	handleClick (e) {
+		// const {item} = this.props;
+		// const {analyticsManager} = this.context;
+		// const resourceId = item.NTIID || item.ntiid; //Cards built from DOM have lowercase.
+		// this.setState({
+		// 	context: analyticsManager.toAnalyticsPath(context, resourceId)
+		// });
+	},
+
+
+	getHref (ntiid, {external} = {}) {
+		return ntiid; //No slug, assume we're in a context that can understand raw NTIID links
+	},
+
+
 	render () {
-		let {item, contentPackage} = this.props;
-		//We do not pass a slug, because this widget represents a Card from within Content.
-		//It's NTIID is the link, and we handle that specially...
+		const {item, contentPackage} = this.props;
 		return (
-			<Card item={item} contentPackage={contentPackage}/>
+			<Card item={item} contentPackage={contentPackage} getRoute={this.getHref} onClick={this.handleClick}/>
 		);
 	}
 });
