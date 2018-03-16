@@ -1,10 +1,8 @@
-// import path from 'path';
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Card, Mixins} from 'nti-web-commons';
-// import {encodeForURI} from 'nti-lib-ntiids';
+import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
@@ -71,24 +69,38 @@ export default createReactClass({
 
 
 	handleClick (e) {
-		// const {item} = this.props;
-		// const {analyticsManager} = this.context;
-		// const resourceId = item.NTIID || item.ntiid; //Cards built from DOM have lowercase.
-		// this.setState({
-		// 	context: analyticsManager.toAnalyticsPath(context, resourceId)
-		// });
+		const {props: {item}, state: {context = []}} = this;
+		const {analyticsManager} = this.context;
+		const resourceId = item.ntiid; //Cards built from DOM have lowercase.
+
+		if (this.isExternal()) {
+			analyticsManager.ExternalResourceView.send(resourceId, {
+				context: analyticsManager.toAnalyticsPath(context, resourceId)
+			});
+		}
 	},
 
 
-	getHref (ntiid, {external} = {}) {
-		return ntiid; //No slug, assume we're in a context that can understand raw NTIID links
+	getHref () {
+		const {item} = this.props;
+		return this.isExternal()
+			? item.href
+			: encodeForURI(item.href);
+	},
+
+
+	isExternal () {
+		const {item} = this.props;
+		return !isNTIID(item.href);
 	},
 
 
 	render () {
 		const {item, contentPackage} = this.props;
 		return (
-			<Card item={item} contentPackage={contentPackage} getRoute={this.getHref} onClick={this.handleClick}/>
+			<a href={this.getHref()} onClick={this.handleClick} target={this.isExternal() ? '_blank' : null}>
+				<Card item={item} contentPackage={contentPackage} />
+			</a>
 		);
 	}
 });
