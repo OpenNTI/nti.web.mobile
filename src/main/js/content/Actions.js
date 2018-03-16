@@ -4,8 +4,6 @@ import {getService} from 'nti-web-client';
 import {dispatch} from 'nti-lib-dispatcher';
 import {processContent} from 'nti-lib-content-processing';
 
-import {load as getLibrary} from 'library/Actions';
-
 import PageDescriptor from './PageDescriptor';
 import {getPageInfo} from './Api';
 import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
@@ -14,10 +12,17 @@ import {PAGE_LOADED, PAGE_FAILED, PACKAGE_NOT_FOUND} from './Constants';
 const logger = Logger.get('content:actions');
 
 
-export function getPackage (id) {
-	return getLibrary()
-		.then(lib=> lib.getPackage(id))
-		.then(pkg=> pkg ? pkg : Promise.reject(PACKAGE_NOT_FOUND));
+export async function getPackage (id) {
+	const service = await getService();
+
+	try {
+		return await service.getObject(id);
+	}
+	catch (e) {
+		//
+	}
+
+	return Promise.reject(PACKAGE_NOT_FOUND);
 }
 
 
