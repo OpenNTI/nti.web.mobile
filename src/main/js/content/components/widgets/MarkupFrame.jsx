@@ -4,9 +4,7 @@ import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import isEmpty from 'isempty';
 import {rawContent} from 'nti-commons';
-import {Zoomable} from 'nti-web-commons';
-
-import Card from '../../../common/components/Card';
+import {Card, Zoomable} from 'nti-web-commons';
 
 import Mixin from './Mixin';
 
