@@ -21,7 +21,7 @@ export default {
 
 			const keys = Object.keys(item);
 
-			return ['MimeType', 'Class', 'type', 'class']
+			return ['MimeType', 'Class', 'type']
 				.filter(x => keys.includes(x))
 				.map(x => item[x])
 				.some(x=>re.test(x));

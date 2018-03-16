@@ -124,7 +124,7 @@ export default createReactClass({
 				return;
 			}
 
-			if (item.class === REF_CLASS) { return this.fillInVideoRef(props); }
+			if (item.Class === REF_CLASS) { return this.fillInVideoRef(props); }
 
 			this.setState({loading: true});
 
