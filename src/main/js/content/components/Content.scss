@@ -42,7 +42,7 @@ nti\:content {
 	&,
 	* {
 		box-sizing: border-box;
-		position: relative;
+		// position: relative; // <-- We should NOT do this. If a positioning bug comes up, add a SPECIFIC selector for that.
 	}
 
 	* {
