@@ -1,13 +1,15 @@
 @import 'utils/variables';
 
-nti\:content,
-widget {
+// stylelint-disable-next-line
+nti\:content, widget {
 	display: block;
 }
 
+// stylelint-disable-next-line
 nti\:content {
 	user-select: text;
 
+	// stylelint-disable-next-line
 	widget {
 		text-indent: initial;
 		user-select: none;
@@ -18,6 +20,7 @@ nti\:content {
 	}
 
 	.figure {
+		// stylelint-disable-next-line
 		widget ~ .caption {
 			display: none;
 		}
@@ -254,10 +257,7 @@ nti\:content {
 
 	.minipage {
 		display: inline-block;
-		margin-top: 0.5em;
-		margin-right: 0.25em;
-		margin-bottom: 0.5em;
-		margin-left: 0.25em;
+		margin: 0.5em 0.25em;
 		vertical-align: middle;
 
 		&[style] {
@@ -284,7 +284,7 @@ nti\:content {
 
 	.injected-related-items {
 		//font-family: $font;
-		margin: 0.9375rem 0 0 0;
+		margin: 0.9375rem 0 0;
 		font-size: 1em;
 
 		.related {
@@ -407,7 +407,7 @@ nti\:content {
 		}
 
 		&.incorrect {
-			background-color: #dd8888;
+			background-color: #d88;
 		}
 	}
 
@@ -736,7 +736,7 @@ nti\:content {
 
 	.subfloat {
 		display: inline-table;
-		padding: 1em 3em 1em 3em;
+		padding: 1em 3em;
 		text-align: center;
 	}
 
