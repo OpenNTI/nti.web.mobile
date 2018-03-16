@@ -254,7 +254,7 @@ export default createReactClass({
 				{!video || !requestPlay || error ? null : (
 					<Video ref={this.attachVideoRef} src={video}
 						onEnded={this.onStop}
-						onPaused={this.onStop}
+						onPause={this.onStop}
 						onPlaying={this.onPlay}
 						analyticsData={{
 							resourceId: this.getVideoID(),
