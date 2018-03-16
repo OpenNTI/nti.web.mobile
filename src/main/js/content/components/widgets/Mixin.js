@@ -19,7 +19,12 @@ export default {
 				re = new RegExp(toRegExpStr(re), 'i');
 			}
 
-			return [item.MimeType, item.Class, item.type, item.class].some(x=>re.test(x));
+			const keys = Object.keys(item);
+
+			return ['MimeType', 'Class', 'type', 'class']
+				.filter(x => keys.includes(x))
+				.map(x => item[x])
+				.some(x=>re.test(x));
 		}
 	}
 };
