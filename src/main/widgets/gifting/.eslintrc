@@ -1,9 +1,5 @@
 {
-	"extends": [
-		"nti-codestyle-js",
-		"nti-codestyle-jsx"
-	],
-	"parser": "babel-eslint",
+	"extends": "../../../../node_modules/nti-app-scripts/config/eslintrc.js",
 	"rules": {
 		"import/no-extraneous-dependencies": 0
 	}
