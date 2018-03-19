@@ -36,7 +36,8 @@ export default createReactClass({
 
 	propTypes: {
 		/**
-		 * @type {object} Any model that implements getDiscussions() and getID()
+		 * Any model that implements getDiscussions() and getID()
+		 * @type {object}
 		 */
 		contentPackage: PropTypes.shape({
 			getDiscussions: PropTypes.func,
