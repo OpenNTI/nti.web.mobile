@@ -1,97 +1,78 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Paging} from 'nti-commons';
+import Catalog from 'nti-web-catalog';
+import {encodeForURI} from 'nti-lib-ntiids';
 
+import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';
 
-import CatalogAccessor from '../mixins/CatalogAccessor';
-import passesFilter from '../catalog-list-search';
+import {load as loadLibrary} from '../../library/Actions';
 
-import Item from './Entry';
+const CATALOG_MIME_TYPES = {
+	'application/vnd.nextthought.courses.catalogentry': true,
+	'application/vnd.nextthought.courses.coursecataloglegacyentry': true,
+	'application/vnd.nextthought.courseware.coursecataloglegacyentry': true
+};
 
-const PageSource = Paging.ListBackedPageSource;
-
-export default createReactClass({
-	displayName: 'ListView',
-
-	mixins: [CatalogAccessor, ContextSender],
-
-	propTypes: {
-		filter: PropTypes.object,
-		list: PropTypes.oneOfType([
-			PropTypes.array,
-			PropTypes.shape({
-				map: PropTypes.func,
-				sort: PropTypes.func
-			})
-		])
-	},
-
-	attachRef (x) { this.search = x; },
-
-	getInitialState () {
-		return {sections: []};
-	},
-
-	componentDidMount () {
-		this.setList(this.props);
-	},
-
-	componentWillReceiveProps (props) {
-		this.setList(props);
-	},
-
-	setList (props) {
-		let {filter, list} = props;
-
-		if (!list || !list.map) {
-			return null;
-		}
-
-		if(filter && filter.sort) {
-			list.sort(filter.sort);
-		}
-
-		let sections = [{items: list, label: ''}];
-
-		if (filter && filter.split) {
-			sections = filter.split(list);
-		}
-
-		this.setState({sections});
-		this.setPageSourceData(new PageSource(sections.reduce((a, s)=> a.concat(s.items), [])));
-	},
-
-	onSearchChange () {
-		const search = this.search.value;
-		this.setState({
-			search
-		});
-	},
-
-	render () {
-
-		let {sections, search} = this.state;
-
-		return (
-			<div>
-				<div className="search"><input type="text" ref={this.attachRef} onChange={this.onSearchChange} /></div>
-				{sections.map(s=>
-				{
-					const list = s.items.filter(item => passesFilter(search, item));
-					return list.length > 0 && (
-						<div className="grid-container" key={s.label}>
-							<h3>{s.label}</h3>
-							<ul className={'small-block-grid-1'}>
-								{list.map(o => <Item key={o.getID()} item={o}/>)}
-							</ul>
-						</div>
-					);
-				}
-				)}
-			</div>
-		);
+function getRouteFor (obj) {
+	if (CATALOG_MIME_TYPES[obj.MimeType]) {
+		return `./item/${encodeForURI(obj.NTIID)}`;
 	}
 
+	if (obj === 'contact-us') {
+		return '/mobile/contact-us';
+	}
+}
+
+export default createReactClass({
+	displayName: 'CatalogListView',
+
+	mixins: [ContextSender],
+
+	contextTypes: {
+		router: PropTypes.object
+	},
+
+
+	childContextTypes: {
+		router: PropTypes.object
+	},
+
+	getChildContext () {
+		return {
+			router: {
+				...(this.context.router || {}),
+				baseroute: '/mobile/catalog/',
+				getRouteFor
+			}
+		};
+	},
+
+	componentWillUnmount () {
+		if (this.dirty) {
+			loadLibrary(true);
+		}
+	},
+
+
+	markDirty () {
+		this.dirty = true;
+	},
+
+
+	availableSections: [
+		{label: 'Courses', href: '/'},
+		{label: 'History', href: '/purchased/'},
+		{label: 'Redeem', href: '/redeem/'}
+	],
+
+
+	render () {
+		return (
+			<Page title="Catalog" availableSections={this.availableSections} supportsSearch border>
+				<Catalog markDirty={this.markDirty}/>
+			</Page>
+		);
+	}
 });

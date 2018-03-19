@@ -13,11 +13,9 @@ import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchas
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import AcceptInvitation from 'invitations/components/View';
 
-import {load} from '../Actions';
 
-import CatalogListView from './CatalogListView';
+import ListView from './ListView';
 import EntryDetail from './EntryDetail';
-import GiftRedeem from './GiftRedeem';
 
 export default createReactClass({
 	displayName: 'CatalogBody',
@@ -67,10 +65,6 @@ export default createReactClass({
 					handler={Enroll}
 				/>
 				<Location
-					path="/item/:entryId/redeem/(:code)"
-					handler={GiftRedeem}
-				/>
-				<Location
 					path="/item/:entryId(/*)"
 					handler={EntryDetail}
 				/>
@@ -88,7 +82,7 @@ export default createReactClass({
 				/>
 				<Location
 					path="*"
-					handler={CatalogListView}
+					handler={ListView}
 				/>
 			</Locations>
 		);
@@ -123,9 +117,7 @@ renderCatalogPage.propTypes = {
 function renderCatalogPage ({children}) {
 	const child = React.Children.only(children);
 
-	load();
-
-	if (child.type === CatalogListView) {
+	if (child.type === ListView) {
 		return child;
 	}
 

@@ -32,6 +32,9 @@ export default createReactClass({
 
 
 	getEntryID () { return this.getEntry().getID(); },
+	getEntry () {
+		return this.props.catalogEntry;
+	},
 
 
 	dropOrEnrollButton () {

@@ -4,11 +4,10 @@ import createReactClass from 'create-react-class';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 import {Loading, Mixins} from 'nti-web-commons';
+import {getService} from 'nti-web-client';
 import {scoped} from 'nti-lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
-import CatalogStore from 'catalog/Store';
-import {LOADED_CATALOG} from 'catalog/Constants';
 
 import * as Actions from '../Actions';
 import {DROP_COURSE} from '../Constants';
@@ -34,11 +33,21 @@ export default createReactClass({
 
 	getInitialState () {
 		return {
-			loading: false,
+			loading: true,
 			dropped: false,
-			catalogLoaded: false
 		};
 	},
+
+
+	componentDidMount () {
+		Store.addChangeListener(this.onEnrollmentChanged);
+	},
+
+
+	componentWillUnmount () {
+		Store.removeChangeListener(this.onEnrollmentChanged);
+	},
+
 
 	getContext () {
 		return Promise.resolve([
@@ -48,45 +57,48 @@ export default createReactClass({
 		]);
 	},
 
-	componentDidMount () {
-		let entryId = decodeFromURI(this.props.entryId);
-		let entry = CatalogStore.getEntry(entryId);
 
-		if (entry && !entry.loading) {
-			this.setState({
-				catalogLoaded: true
-			});
-		}
-
-		Store.addChangeListener(this.onEnrollmentChanged);
-		CatalogStore.addChangeListener(this.catalogStoreChange);
+	getCourseTitle () {
+		return (this.getEntry() || {}).Title;
 	},
 
-	catalogStoreChange (event) {
-		let action = (event || {}).type;
 
-		const handlers = {
-			[LOADED_CATALOG]: () => {
-				this.setState({
-					catalogLoaded: true
-				});
-			}
-		};
+	getEntry ({entryId} = this.props) {
+		const id = decodeFromURI(entryId);
+		const entry = this.state[id];
 
-		if(action) {
-			let handler = handlers[action];
-			if (handler) {
-				handler();
-			}
-			else {
-				logger.debug('Unrecognized CatalogStore change event: %o', event);
-			}
+		if (!entry) {
+			setTimeout(() => this.resolveEntry(id), 0);
+		}
+
+		return entry;
+	},
+
+
+	async resolveEntry (id) {
+		if (this.resolving === id) {
+			return;
+		}
+
+		this.resolving = id;
+
+		this.setState({loading: true});
+		const service = await getService();
+
+		const entry = await service.getObject(id);
+		this.setState({[id]: entry});
+
+		if (this.resolving === id) {
+			this.setState({loading: false});
+			delete this.resolving;
 		}
 	},
+
 
 	onCancelClicked () {
 		global.history.back();
 	},
+
 
 	onConfirmClicked () {
 		this.setState({
@@ -95,11 +107,6 @@ export default createReactClass({
 		Actions.dropCourse(this.props.courseId);
 	},
 
-	getCourseTitle () {
-		let entryId = decodeFromURI(this.props.entryId);
-		let entry = CatalogStore.getEntry(entryId);
-		return entry.Title;
-	},
 
 	onEnrollmentChanged (event) {
 		let {courseId} = this.props;
@@ -118,70 +125,13 @@ export default createReactClass({
 		}
 	},
 
-	/**
-	 * @return {Class} the appropriate widget for each enrollment option.
-	 * this will (almost?) always return a single widget, as
-	 * it's unlikely that the user is enrolled in more than
-	 * one option for a given course.
-	 */
-	renderWidgets () {
-		let entryId = decodeFromURI(this.props.entryId);
-		let entry = CatalogStore.getEntry(entryId);
-
-		let result = [];
-
-		let widgetMap = {
-			'application/vnd.nextthought.courseware.openenrollmentoption': DropOpen,
-			'application/vnd.nextthought.courseware.storeenrollmentoption': DropStore,
-			'application/vnd.nextthought.courseware.fiveminuteenrollmentoption': DropFive
-		};
-
-
-		for (let option of entry.getEnrollmentOptions()) {
-			let {MimeType} = option;
-			let Widget = widgetMap[MimeType];
-
-			if (option.enrolled) {
-				if (Widget) {
-					result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={MimeType} />);
-				} else {
-					logger.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
-				}
-			}
-		}
-
-		if (result.length === 0) {
-			result = this.renderPanel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');
-		}
-
-		return result;
-	},
-
-	componentWillUnmount () {
-		Store.removeChangeListener(this.onEnrollmentChanged);
-		CatalogStore.removeChangeListener(this.catalogStoreChange);
-	},
-
-	renderPanel (body) {
-		let catalogHref = this.getBasePath() + 'catalog/';
-		return (
-			<div className="enrollment-dropped">
-				<figure className="notice">
-					<div>{body}</div>
-				</figure>
-
-
-				<a className="button tiny" href={catalogHref}>{t('viewCatalog')}</a>
-			</div>
-		);
-	},
 
 	render () {
-		let {dropped, loading, catalogLoaded, error} = this.state;
+		let {dropped, loading, error} = this.state;
 
 		let title = this.getCourseTitle();
 
-		if (loading || !catalogLoaded || !title) {
+		if (loading || !title) {
 			return <Loading.Mask />;
 		}
 
@@ -198,6 +148,62 @@ export default createReactClass({
 				{this.renderWidgets()}
 			</div>
 		);
-	}
+	},
 
+
+	/**
+	 * @return {Element} the appropriate widget for each enrollment option.
+	 * this will (almost?) always return a single widget, as
+	 * it's unlikely that the user is enrolled in more than
+	 * one option for a given course.
+	 */
+	renderWidgets () {
+		const entry = this.getEntry();
+
+		const result = [];
+
+		const widgetMap = {
+			'application/vnd.nextthought.courseware.openenrollmentoption': DropOpen,
+			'application/vnd.nextthought.courseware.storeenrollmentoption': DropStore,
+			'application/vnd.nextthought.courseware.fiveminuteenrollmentoption': DropFive
+		};
+
+		if (!entry) {
+			return null;
+		}
+
+		for (let option of entry.getEnrollmentOptions()) {
+			const {MimeType} = option;
+			const Widget = widgetMap[MimeType];
+
+			if (option.enrolled) {
+				if (Widget) {
+					result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={MimeType} />);
+				} else {
+					logger.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
+				}
+			}
+		}
+
+		if (result.length === 0) {
+			return this.renderPanel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');
+		}
+
+		return result;
+	},
+
+
+	renderPanel (body) {
+		const catalogHref = this.getBasePath() + 'catalog/';
+		return (
+			<div className="enrollment-dropped">
+				<figure className="notice">
+					<div>{body}</div>
+				</figure>
+
+
+				<a className="button tiny" href={catalogHref}>{t('viewCatalog')}</a>
+			</div>
+		);
+	},
 });

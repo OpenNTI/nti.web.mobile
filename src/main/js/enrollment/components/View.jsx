@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Mixins} from 'nti-web-commons';
+import {getService} from 'nti-web-client';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Redirect from 'navigation/components/Redirect';
-import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 import NotFound from 'notfound/components/View';
 
 import StoreEnrollmentView from '../store-enrollment/components/View';
@@ -14,8 +14,6 @@ import CreditEnrollmentView from '../five-minute/components/View';
 
 import Enroll from './Enroll';
 import DropCourse from './DropCourse';
-
-const entry = Symbol('cce');
 
 const HANDLERS = {
 	open: Enroll,
@@ -31,36 +29,50 @@ const ENROLLMENT_SUFFIXES = {
 
 export default createReactClass({
 	displayName: 'enrollment:View',
-	mixins: [Mixins.BasePath, CatalogAccessor, ContextSender, Mixins.NavigatableMixin],
+	mixins: [Mixins.BasePath, ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		entryId: PropTypes.string.isRequired,
 		enrollmentType: PropTypes.string.isRequired
 	},
 
+	getInitialState () {
+		return {
+			loading: true
+		};
+	},
 
-	getEntry ({entryId} = this.props, stash = true) {
-		let id = decodeFromURI(entryId);
-		let e = this.getCatalogEntry(id);
+	componentWillMount () {
+		this.resolveCatalogEntry();
+	},
 
-		// Enrollment can trigger a catalog reload. If we started on one catalog entry,
-		// but the service mapped us to a different one on completing enrollment, the
-		// catalog will contain a new and different Entry that represents the same thing,
-		// but the ID will not map, and thus, we will have a null `e` variable. So, to
-		// make sure routes continue to work while we are wrapping up the enrollment
-		// proccess save the last-known-good Entry, if it fails to come back on a
-		// subsequent call, use the cached one IF (AND ONLY IF) the ID matches.
-		if (!e) {
-			e = this[entry];
-			if (!e || !e.getID || e.getID() !== id) {
-				e = null;
-			}
-		} else if (stash) {
-			this[entry] = e;
+
+	componentWillReceiveProps (nextProps) {
+		if (this.getEntryId() !== this.getEntryId(nextProps)) {
+			this.resolveCatalogEntry(nextProps);
 		}
+	},
 
 
-		return e;
+	async resolveCatalogEntry (props = this.props) {
+		const id = this.getEntryId(props);
+		const service = await getService();
+
+		if (!this.state[id]) {
+			this.setState({ loading: true });
+			const entry = await service.getObject(id);
+			this.setState({ loading: false, [id]: entry });
+		}
+	},
+
+
+	getEntryId ({entryId} = this.props) {
+		return decodeFromURI(entryId);
+	},
+
+
+	getEntry (props = this.props) {
+		return this.state[this.getEntryId(props)];
 	},
 
 	getCourseId () {
@@ -96,14 +108,14 @@ export default createReactClass({
 
 
 	render () {
-		const {props: {enrollmentType, entryId}, state: {catalogLoading}} = this;
+		const {props: {enrollmentType, entryId}, state: {loading}} = this;
 		let courseId = this.getCourseId();
 
-		if (catalogLoading) {
+		if (loading) {
 			return null;
 		}
 
-		if (!catalogLoading && !courseId) {
+		if (!loading && !courseId) {
 			return (
 				<NotFound/>
 			);

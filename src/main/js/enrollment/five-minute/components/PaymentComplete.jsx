@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import QueryString from 'query-string';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Loading, Mixins} from 'nti-web-commons';
+import {getService} from 'nti-web-client';
 
-import CatalogAccessor from 'catalog/mixins/CatalogAccessor';
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 import Detail from 'catalog/components/Detail';
 
@@ -31,7 +31,7 @@ const Wrapper = createReactClass({
 
 export default createReactClass({
 	displayName: 'PaymentComplete',
-	mixins: [Mixins.BasePath, CatalogAccessor],
+	mixins: [Mixins.BasePath],
 
 	getInitialState () {
 		return {};
@@ -50,18 +50,35 @@ export default createReactClass({
 		let paymentState = /true/i.test(query.State || '');
 
 		this.setState({paymentState});
+		this.resolveCatalogEntry();
 	},
 
 
-	getEntryId () {
-		return decodeFromURI(this.props.entryId);
+	componentWillReceiveProps (nextProps) {
+		if (this.getEntryId() !== this.getEntryId(nextProps)) {
+			this.resolveCatalogEntry(nextProps);
+		}
 	},
 
 
-	getEntry () {
-		let catalog = this.getCatalog();
+	async resolveCatalogEntry (props = this.props) {
+		const id = this.getEntryId(props);
+		const service = await getService();
 
-		return catalog && catalog.findEntry(this.getEntryId());
+		if (!this.state[id]) {
+			const entry = await service.getObject(id);
+			this.setState({ [id]: entry });
+		}
+	},
+
+
+	getEntryId ({entryId} = this.props) {
+		return decodeFromURI(entryId);
+	},
+
+
+	getEntry (props = this.props) {
+		return this.state[this.getEntryId(props)];
 	},
 
 

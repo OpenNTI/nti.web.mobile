@@ -1,107 +1,52 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
-import Logger from 'nti-util-logger';
 import {decodeFromURI} from 'nti-lib-ntiids';
-import {Loading, Mixins} from 'nti-web-commons';
+import {Loading} from 'nti-web-commons';
+import {getService} from 'nti-web-client';
 
 import NotFound from 'notfound/components/View';
-import ContextSender from 'common/mixins/ContextSender';
+import {Component as ContextSender} from 'common/mixins/ContextSender';
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
 
-import Store from '../Store';
-
 import Detail from './Detail';
 
-const logger = Logger.get('catalog:EntryDetail');
+export default class EntryDetail extends React.Component {
 
-export default createReactClass({
-	displayName: 'EntryDetail',
-	mixins: [ContextSender, Mixins.NavigationAware],
-
-	propTypes: {
+	static propTypes = {
 		entryId: PropTypes.string
-	},
+	}
 
-	getInitialState () { return { loading: true }; },
+	state = { loading: true }
 
 
 	componentDidMount () {
 		this.getDataIfNeeded(this.props);
-		Store.addChangeListener(this.onChange);
-	},
+	}
 
 
-	componentWillUnmount () {
-		Store.removeChangeListener(this.onChange);
-	},
+	componentWillUnmount () {}
 
 
 	componentWillReceiveProps (nextProps) {
 		if (nextProps.entryId !== this.props.entryId) {
 			this.getDataIfNeeded(nextProps);
 		}
-	},
+	}
 
 
-	getDataIfNeeded (props) {
+	async getDataIfNeeded (props) {
+		this.setState({loading: true});
 		const entryId = decodeFromURI(props.entryId);
-		let entry = Store.getEntry(entryId);
-		let loading = Store.isLoaded ? (entry && entry.loading) : true;
-
-		entry = loading ? null : entry;
-
-		this.replaceState({ loading, entry });
-
-		this.setPageSource(Store.getPageSource(), entryId);
-	},
-
-
-	makeHref (ref) {
-		return this.getNavigable().makeHref('item/' + ref);
-	},
-
-	componentDidUpdate () {
-		logger.debug('DidUp', this.props.entryId);
-	},
-
-	getContext () {
-		const MAX_WAIT = 30000;//30 seconds
-
-		return new Promise((resolve, reject) => {
-			const started = new Date();
-			const step = () => {
-				const {entryId} = this.props;
-				logger.debug('getContext',entryId);
-				const ntiid = decodeFromURI(entryId);
-				const href = this.makeHref(entryId);
-				const {entry} = this.state;
-				const label = (entry || {}).Title;
-				if (!entry) {
-					if (new Date() - started > MAX_WAIT) {
-						return reject('Timeout');
-					}
-
-					return setTimeout(step, 100);
-				}
-
-				resolve({ ref: ntiid, ntiid, label, href });
-			};
-
-			step();
-		});
-
-	},
-
-
-	onChange () {
-		this.getDataIfNeeded(this.props);
-	},
+		const service = await getService();
+		const entry = await service.getObject(entryId);
+		this.setState({ loading: false, entry });
+		// this.setPageSource(Store.getPageSource(), entryId);
+	}
 
 
 	render () {
-		let {entry, loading} = this.state;
+		const {state: {entry, loading}, props: {entryId}} = this;
 
 		if (loading) {
 			return (<Loading.Mask />);
@@ -113,6 +58,7 @@ export default createReactClass({
 
 		return (
 			<div className="course-info">
+				<ContextSender getContext={getContext} entry={entry} entryId={entryId} />
 				<Detail {...this.props} entry={entry}/>
 				<EnrollmentStatus catalogEntry={entry} />
 				<GiftOptions catalogEntry={entry} />
@@ -120,4 +66,21 @@ export default createReactClass({
 		);
 	}
 
-});
+}
+
+
+async function getContext () {
+	const context = this;
+	const {entry, entryId} = context.props;
+	const ntiid = decodeFromURI(entryId);
+	const href = context.getNavigable().makeHref('item/' + entryId);
+
+	const label = (entry || {}).Title;
+
+	return {
+		ref: ntiid,
+		ntiid,
+		label,
+		href
+	};
+}

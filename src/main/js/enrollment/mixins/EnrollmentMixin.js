@@ -2,11 +2,9 @@ import React from 'react';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 import {Loading, Mixins} from 'nti-web-commons';
-
-import CatalogStore from 'catalog/Store';
+import {getService} from 'nti-web-client';
 
 import EnrollmentStore from '../Store';
-import {LOADED_CATALOG} from '../../catalog/Constants';
 import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 import {getWidget} from '../components/enrollment-option-widgets';
 import NoOptions from '../components/enrollment-option-widgets/NoOptions';
@@ -22,63 +20,26 @@ export default {
 
 	getInitialState () {
 		return {
+			loading: true,
 			enrollmentStatusLoaded: false,
 			entry: null
 		};
 	},
 
-	componentWillMount () {
-		if (!this.getEntry()) {
-			this.setState({
-				error: {
-					message: 'Catalog entry not found.'
-				}
-			});
-		}
+	async componentWillMount () {
+		this.resolving = null;
+		const entry = await this.resolveEntry();
+		EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
 	},
 
 	componentDidMount () {
-		let entry = this.getEntry();
 		EnrollmentStore.addChangeListener(this.storeChange);
-		if (entry && !entry.loading) {
-			EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
-
-			this.setState({
-				catalogLoaded: true
-			});
-		}
-
-		CatalogStore.addChangeListener(this.catalogStoreChange);
 	},
 
 	componentWillUnmount () {
 		EnrollmentStore.removeChangeListener(this.storeChange);
-		CatalogStore.removeChangeListener(this.catalogStoreChange);
 	},
 
-	catalogStoreChange (event) {
-		let action = (event || {}).type;
-
-		const handlers = {
-			[LOADED_CATALOG]: () => {
-				EnrollmentStore.loadEnrollmentStatus(this.getEntry().CourseNTIID);
-
-				this.setState({
-					catalogLoaded: true
-				});
-			}
-		};
-
-		if(action) {
-			let handler = handlers[action];
-			if (handler) {
-				handler();
-			}
-			else {
-				logger.debug('Unrecognized CatalogStore change event: %o', event);
-			}
-		}
-	},
 
 	storeChange (event) {
 
@@ -127,10 +88,11 @@ export default {
 	},
 
 	enrollmentWidgets () {
-		let catalogEntry = this.getEntry();
-		if (!this.state.enrollmentStatusLoaded || !this.state.catalogLoaded) {
+		if (!this.state.enrollmentStatusLoaded || this.state.loading) {
 			return <Loading.Mask />;
 		}
+
+		let catalogEntry = this.getEntry();
 
 		function showOption (option) {
 			return option && (option.enrolled || option.available);
@@ -166,8 +128,43 @@ export default {
 			return this.props.catalogEntry;
 		}
 
-		let entryId = decodeFromURI(this.props.entryId);
-		let entry = CatalogStore.getEntry(entryId);
+		this.resolveEntry();
+		return null;
+	},
+
+
+	async resolveEntry () {
+		if (this.state.entry) {
+			return this.state.entry;
+		}
+
+		if (this.props.catalogEntry) {
+			return this.props.catalogEntry;
+		}
+
+		const id = decodeFromURI(this.props.entryId);
+		if (this.resolving === id) {
+			return null;
+		}
+
+		this.resolving = id;
+		let entry = null;
+		try {
+			const service = await getService();
+			entry = await service.getObject(id);
+			this.setState({loading: false, entry});
+		} catch (e) {
+			this.setState({
+				error: {
+					message: 'Catalog entry not found.'
+				}
+			});
+		}
+
+		if (this.resolving === id) {
+			delete this.resolving;
+		}
+
 		return entry;
 	},
 
