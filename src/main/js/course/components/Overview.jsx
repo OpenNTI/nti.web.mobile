@@ -114,7 +114,10 @@ export default class CourseLessonOverview extends React.Component {
 				.replace(/%2F/ig, '/');//TimelineJS is not correctly decoding the URI params
 
 			// /app/resources/lib/timeline/embed/index.html?source=
-			route = '/app/resources/lib/timeline/embed/index.html?' + params;
+			route = {
+				href: '/app/resources/lib/timeline/embed/index.html?' + params,
+				target: '_blank'
+			};
 		}
 		else {
 			console.log(type || obj);//eslint-disable-line
