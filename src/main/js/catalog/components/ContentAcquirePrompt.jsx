@@ -4,8 +4,7 @@ import {getService} from 'nti-web-client';
 
 import Entry from './Entry';
 
-export default class extends React.Component {
-	static displayName = 'ContentAcquirePrompt';
+export default class ContentAcquirePrompt extends React.Component {
 
 	static shouldPrompt (error) {
 		const has = x => x && x.length > 0;
