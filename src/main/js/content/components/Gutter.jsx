@@ -40,14 +40,14 @@ export default createReactClass({
 
 
 	componentDidMount () {
-		window.addEventListener('resize', this.handleResize);
+		window.addEventListener('resize', this.handleContentUpdate);
 		this.resolveBins(this.props.items);
 		this.props.selectFilter(void 0);//reset
 	},
 
 	componentWillUnmount () {
 		clearTimeout(this.state.resolveRetryDelay);
-		window.removeEventListener('resize', this.handleResize);
+		window.removeEventListener('resize', this.handleContentUpdate);
 	},
 
 
@@ -58,7 +58,7 @@ export default createReactClass({
 	},
 
 
-	handleResize () {
+	handleContentUpdate () {
 		this.setState({lines: {}}, ()=> this.resolveBins(this.props.items));
 	},
 
@@ -143,8 +143,11 @@ export default createReactClass({
 	render () {
 		let {lines = {}} = this.state;
 		let linePositions = Object.keys(lines);
-		return React.createElement('div', {className: 'gutter'},
-			...linePositions.map(y => this.renderBin(y, lines[y])));
+		return (
+			<div className="gutter">
+				{linePositions.map(y => this.renderBin(y, lines[y]))}
+			</div>
+		);
 	},
 
 
@@ -161,7 +164,7 @@ export default createReactClass({
 		let href = this.makeHref(join('/', this.props.prefix, '/discussions/'));
 
 		return (
-			<a data-line={h} href={href} style={top} className={css} onClick={this.onClick}>{count}</a>
+			<a key={y} data-line={h} href={href} style={top} className={css} onClick={this.onClick}>{count}</a>
 		);
 	},
 

@@ -69,9 +69,6 @@ export default createReactClass({
 	},
 
 
-	attachNodeRef (x) { this.node = x; },
-
-
 	getAnalyticsData () {
 		const {contentPackage} = this.props;
 		const quiz = this.getAssessment();
@@ -215,11 +212,6 @@ export default createReactClass({
 	},
 
 
-	attachContentRef (ref) {
-		this.content = ref;
-	},
-
-
 	verifyContentPackage (pageInfo) {
 		const {contentPackage} = this.props;
 		const packageId = pageInfo.getPackageID();
@@ -239,6 +231,14 @@ export default createReactClass({
 	setDiscussionFilter (selectedDiscussions) {
 		this.setState({selectedDiscussions});
 	},
+
+
+	handleContentUpdate () {
+		if (this.gutter) {
+			this.gutter.handleContentUpdate();
+		}
+	},
+
 
 	renderGroupContents () {
 		const {contentPackage} = this.props;
@@ -276,14 +276,15 @@ export default createReactClass({
 
 		return (
 			<Fade key="content">
-				<div ref={this.attachNodeRef}>
+				<div ref={x => this.node = x}>
 					<ViewEvent {...this.getAnalyticsData()}/>
 					<div className="content-body">
 						{this.renderAssessmentHeader()}
 						<div className="coordinate-root">
-							<BodyContent ref={this.attachContentRef}
+							<BodyContent ref={x => this.content = x}
 								onClick={this.onContentClick}
 								onUserSelectionChange={this.maybeOfferAnnotations}
+								onContentReady={this.handleContentUpdate}
 								contentPackage={contentPackage}
 								pageId={page.getCanonicalID()}
 								page={page}/>
@@ -296,7 +297,11 @@ export default createReactClass({
 
 							{this.renderBottomPager()}
 
-							<Gutter items={gutterItems} selectFilter={this.setDiscussionFilter}/>
+							<Gutter
+								ref={x => this.gutter = x}
+								items={gutterItems}
+								selectFilter={this.setDiscussionFilter}
+							/>
 						</div>
 					</div>
 					{this.renderDockedToolbar()}
@@ -304,6 +309,7 @@ export default createReactClass({
 			</Fade>
 		);
 	},
+
 
 	render () {
 		const {className} = this.props;
@@ -336,6 +342,7 @@ export default createReactClass({
 			</TransitionGroup>
 		);
 	},
+
 
 	renderBottomPager () {
 		return isAssignment(this.getAssessment())

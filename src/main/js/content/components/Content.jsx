@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import Logger from 'nti-util-logger';
 import {declareCustomElement, getEventTarget} from 'nti-lib-dom';
 import isTouchDevice from 'nti-util-detection-touch';
-import {rawContent} from 'nti-commons';
+import {rawContent, buffer} from 'nti-commons';
 import {Mixins} from 'nti-web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
@@ -70,6 +70,7 @@ export default class Content extends React.Component {
 
 
 	componentWillUnmount () {
+		this.scheduleUpdate.cancel();
 		this.cleanupWidgets();
 	}
 
@@ -119,8 +120,7 @@ export default class Content extends React.Component {
 		}
 
 		if (shouldUpdate) {
-			this.updatePrestine();
-			this.props.onContentReady();
+			this.scheduleUpdate();
 		}
 	}
 
@@ -153,7 +153,7 @@ export default class Content extends React.Component {
 			// logger.debug('Content View: Creating widget for %s', widgetData.guid);
 			const Wrapper = getContextWrapper(this.context);
 			widgets[widgetData.guid] = (
-				<Wrapper>
+				<Wrapper ref={x => this.scheduleUpdate()}>
 					{getWidget(
 						widgetData,
 						this.props.page,
@@ -191,6 +191,12 @@ export default class Content extends React.Component {
 		this.setState({prestine}, () => delete this.updatingPrestine);
 		// logger.debug('Updated Prestine', prestine);
 	}
+
+
+	scheduleUpdate = buffer(100, () => {
+		this.updatePrestine();
+		this.props.onContentReady();
+	})
 
 
 	buildBody = (part) => {

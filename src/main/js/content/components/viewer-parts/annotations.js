@@ -98,12 +98,14 @@ export default {
 			}
 		}
 
-		preresolveLocatorInfo(
-			descriptions,
-			this.getContentNode(),
-			this.getContentNodeClean(),
-			containers,
-			this.getPageID());
+		if (this.getContentNode() && this.getContentNodeClean()) {
+			preresolveLocatorInfo(
+				descriptions,
+				this.getContentNode(),
+				this.getContentNodeClean(),
+				containers,
+				this.getPageID());
+		}
 	},
 
 
