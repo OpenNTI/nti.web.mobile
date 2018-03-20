@@ -2,7 +2,7 @@ button, .button {
 	color: white;
 }
 
-input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]):not([type="range"]),
 select,
 textarea {
 	outline: none;
