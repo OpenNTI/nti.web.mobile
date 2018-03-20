@@ -6,6 +6,7 @@
 	border: 1px solid $border-grey; //#dadada;
 
 	&.card {
+		overflow: hidden;
 		border: 0;
 
 		a.content-link.related-work-ref {
@@ -20,7 +21,10 @@
 		}
 
 		img[id], .bar {
-			display: none;
+			//This is for anchors
+			visibility: hidden;
+			position: absolute;
+			top: 0;
 		}
 	}
 
@@ -88,6 +92,4 @@
 			border-left: 1px solid $border-grey; //#dadada;
 		}
 	}
-
-
 }
