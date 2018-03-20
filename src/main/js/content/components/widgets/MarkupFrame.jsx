@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
@@ -81,32 +81,9 @@ export default createReactClass({
 
 		const className = cx('markupframe', {bare, card: isCard});
 
-		if(isCard) {
-			if(this.state.zoomed) {
-				return <Zoomable src={item.src} onClose={this.unZoom} />;
-			}
-
-			return (
-				<div className="markup-card">
-					<img style={{display: 'none'}} id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
-					<Card
-						internalOverride
-						onClick={this.onZoom}
-						icon={item.src}
-						item={{
-							title,
-							desc: caption,
-							icon: item.src
-						}}
-					/>
-					{markable && ( <a href="#mark" className="mark"/> )}
-				</div>
-			);
-		}
-
 		return (
 			<span itemProp={itemprop} className={className}>
-				<span onClick={isCard ? this.onZoom : void 0}>
+				<span onClick={this.onZoom}>
 					<span className="wrapper">
 						<img id={item.id} src={item.src} crossOrigin={item.crossorigin} ref={this.attachRef} onLoad={this.onLoad}/>
 						{!zoomable || isCard ? null : (
@@ -128,6 +105,22 @@ export default createReactClass({
 								</span>
 							)}
 						</span>
+					)}
+
+					{isCard && (
+						<Fragment>
+							<Card
+								internalOverride
+								onClick={this.onZoom}
+								icon={item.src}
+								item={{
+									title,
+									desc: caption,
+									icon: item.src
+								}}
+							/>
+							{markable && ( <a href="#mark" className="mark"/> )}
+						</Fragment>
 					)}
 				</span>
 				{this.state.zoomed && <Zoomable src={item.src} onClose={this.unZoom} />}
