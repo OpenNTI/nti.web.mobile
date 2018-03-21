@@ -9,20 +9,23 @@ const isNextThoughtAccount = RegExp.prototype.test.bind(/@nextthought\.com$/);
 const LINK = 'logon.nti.impersonate';
 
 
-export default createReactClass({
-	displayName: 'Impersonate',
+export default class Impersonate extends React.Component {
 
-	getInitialState () {
-		return {};
-	},
+	state = {}
 
 
-	componentDidMount () {
-		getAppUser().then(user => this.isMounted() && this.setState({user})); //eslint-disable-line
-	},
+	async componentDidMount () {
+		const user = await getAppUser();
+		this.setState({user});
+	}
 
 
-	onClick (e) {
+	componentWillUnmount () {
+		this.setState = () => {};
+	}
+
+
+	onClick = (e) => {
 		e.preventDefault();
 		e.stopPropagation();
 
@@ -44,7 +47,7 @@ export default createReactClass({
 
 			global.location.replace(url.format());
 		}
-	},
+	}
 
 
 	render () {
@@ -57,4 +60,4 @@ export default createReactClass({
 			<a href="#" className="button impersonate" onClick={this.onClick}>Impersonate</a>
 		);
 	}
-});
+}
