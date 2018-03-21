@@ -38,10 +38,14 @@ export default class EntryDetail extends React.Component {
 	async getDataIfNeeded (props) {
 		this.setState({loading: true});
 		const entryId = decodeFromURI(props.entryId);
-		const service = await getService();
-		const entry = await service.getObject(entryId);
-		this.setState({ loading: false, entry });
-		// this.setPageSource(Store.getPageSource(), entryId);
+		try {
+			const service = await getService();
+			const entry = await service.getObject(entryId);
+			this.setState({ loading: false, entry });
+			// this.setPageSource(Store.getPageSource(), entryId);
+		} catch (e) {
+			this.setState({loading: false, error: e});
+		}
 	}
 
 
