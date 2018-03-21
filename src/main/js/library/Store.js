@@ -23,7 +23,20 @@ class Store extends StorePrototype {
 
 
 	[SetData] (payload) {
-		this[data] = payload.action.response;
+		if (this._unsubscribe) {
+			this._unsubscribe();
+		}
+
+		const {response: lib} = payload.action;
+
+		const onChange = () => {
+			this.emitChange({type: LOADED_LIBRARY});
+		};
+
+		lib.addListener('change', onChange);
+		this._unsubscribe = () => lib.removeListener('change', onChange);
+
+		this[data] = lib;
 		this.emitChange({type: LOADED_LIBRARY});
 	}
 
