@@ -53,7 +53,7 @@ export default {
 
 		return properties
 			.map(p=>library[p])
-			.reduce((a, l)=>a.concat(l), []);
+			.reduce((a, l)=>a.concat(l || []), []);
 	},
 
 
