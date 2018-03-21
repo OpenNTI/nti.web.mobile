@@ -26,6 +26,7 @@ export default {
 		return {
 			context: analyticsContext(),
 			resourceId: this[getEntityId](),
+			rootContextId: this[getEntityId](),
 			type: this.getAnalyticsType()
 		};
 	}
