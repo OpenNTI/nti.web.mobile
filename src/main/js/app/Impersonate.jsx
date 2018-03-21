@@ -1,7 +1,6 @@
 import Url from 'url';
 
 import React from 'react';
-import createReactClass from 'create-react-class';
 import {getAppUser} from 'nti-web-client';
 import QueryString from 'query-string';
 
