@@ -3,25 +3,28 @@ import AppDispatcher from 'nti-lib-dispatcher';
 
 import {RELOAD as RELOAD_LIBRARY} from 'library/Constants';
 
-export function getEnrollmentService () {
-	return getService().then(service => service.getEnrollment());
+export async function getEnrollmentService () {
+	const service = await getService();
+	return service.getEnrollment();
 }
 
-export function enrollOpen (catalogId) {
-	return getEnrollmentService().then(enrollmentService =>
-		enrollmentService.enrollOpen(catalogId)
-			.then( (response) => {
-				AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
-				return response;
-			})
-			.then(result => ({ serviceResponse: result, success: true })));
+export async function enrollOpen (catalogId) {
+	const enrollmentService = await getEnrollmentService();
+	const response = await enrollmentService.enrollOpen(catalogId);
+
+	AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
+
+	return {
+		serviceResponse: response,
+		success: true
+	};
 }
 
-export function dropCourse (courseId) {
-	return getEnrollmentService()
-		.then(enrollmentService => enrollmentService.dropCourse(courseId))
-		.then( (response) => {
-			AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
-			return response;
-		});
+
+export async function dropCourse (courseId) {
+	const enrollmentService = await getEnrollmentService();
+	const response = await enrollmentService.dropCourse(courseId);
+	AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
+	return response;
+}
 }
