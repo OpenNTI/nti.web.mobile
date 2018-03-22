@@ -2,8 +2,8 @@ import React from 'react';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 import {Loading, Mixins} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
 
+import {getCatalogEntry} from '../Api';
 import EnrollmentStore from '../Store';
 import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
 import {getWidget} from '../components/enrollment-option-widgets';
@@ -150,8 +150,7 @@ export default {
 		this.resolving = id;
 		let entry = null;
 		try {
-			const service = await getService();
-			entry = await service.getObject(id);
+			entry = await getCatalogEntry(id);
 			this.setState({loading: false, entry});
 		} catch (e) {
 			this.setState({

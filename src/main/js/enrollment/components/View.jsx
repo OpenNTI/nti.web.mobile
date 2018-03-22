@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Mixins} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Redirect from 'navigation/components/Redirect';
 import NotFound from 'notfound/components/View';
 
+import {getCatalogEntry} from '../Api';
 import StoreEnrollmentView from '../store-enrollment/components/View';
 import CreditEnrollmentView from '../five-minute/components/View';
 
@@ -56,11 +56,10 @@ export default createReactClass({
 
 	async resolveCatalogEntry (props = this.props) {
 		const id = this.getEntryId(props);
-		const service = await getService();
 
 		if (!this.state[id]) {
 			this.setState({ loading: true });
-			const entry = await service.getObject(id);
+			const entry = await getCatalogEntry(id);
 			this.setState({ loading: false, [id]: entry });
 		}
 	},

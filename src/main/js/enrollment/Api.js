@@ -27,4 +27,21 @@ export async function dropCourse (courseId) {
 	AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
 	return response;
 }
+
+
+export async function getCatalogEntry (id) {
+	const service = await getService();
+	let entry;
+	try {
+		entry = await service.getObject(id);
+	} catch (e) {
+		entry = Array.isArray(e.Items)
+			// If we have an Items array, its a list of catalog entries...
+			// Grab the first and continue...
+			? await service.getObject(e.Items[0])
+			// re throw...
+			: throw e;
+	}
+
+	return entry;
 }

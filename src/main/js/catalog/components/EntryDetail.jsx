@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Loading} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
 
 import NotFound from 'notfound/components/View';
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
+import {getCatalogEntry} from 'enrollment/Api';
 
 import Detail from './Detail';
 
@@ -42,19 +42,9 @@ export default class EntryDetail extends React.Component {
 		let error = null;
 
 		try {
-			const service = await getService();
-			try {
-				entry = await service.getObject(entryId);
-				this.setState({ loading: false, entry });
-				// this.setPageSource(Store.getPageSource(), entryId);
-			} catch (e) {
-				error = e;
-				entry = Array.isArray(e.Items)
-					// If we have an Items array, its a list of catalog entries...
-					// Grab the first and continue...
-					? await service.getObject(e.Items[0])
-					: null;
-			}
+			entry = await getCatalogEntry(entryId);
+			this.setState({ loading: false, entry });
+			// this.setPageSource(Store.getPageSource(), entryId);
 		} catch (e) {
 			error = e;
 		}

@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import QueryString from 'query-string';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import {Loading, Mixins} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 import Detail from 'catalog/components/Detail';
 
+import {getCatalogEntry} from '../../Api';
 import ThankYou from '../../components/ThankYou';
 
 
@@ -63,10 +63,9 @@ export default createReactClass({
 
 	async resolveCatalogEntry (props = this.props) {
 		const id = this.getEntryId(props);
-		const service = await getService();
 
 		if (!this.state[id]) {
-			const entry = await service.getObject(id);
+			const entry = await getCatalogEntry(id);
 			this.setState({ [id]: entry });
 		}
 	},

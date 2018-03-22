@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {decodeFromURI} from 'nti-lib-ntiids';
-import {getService} from 'nti-web-client';
+
+import {getCatalogEntry} from '../../Api';
 
 import GiftView from './GiftView';
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
@@ -26,8 +27,7 @@ export default class GiftPurchase extends React.Component {
 	}
 
 	async resolvePurchasable ({entryId} = this.props) {
-		const service = await getService();
-		const entry = await service.getObject(decodeFromURI(entryId));
+		const entry = await getCatalogEntry(decodeFromURI(entryId));
 		const options = entry.getEnrollmentOptions();
 		const option = options.getEnrollmentOptionForPurchase();
 		const purchasable = option && option.getPurchasableForGifting();

@@ -4,11 +4,11 @@ import createReactClass from 'create-react-class';
 import {decodeFromURI} from 'nti-lib-ntiids';
 import Logger from 'nti-util-logger';
 import {Loading, Mixins} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
 import {scoped} from 'nti-lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
 
+import {getCatalogEntry} from '../Api';
 import * as Actions from '../Actions';
 import {DROP_COURSE} from '../Constants';
 import Store from '../Store';
@@ -83,9 +83,8 @@ export default createReactClass({
 		this.resolving = id;
 
 		this.setState({loading: true});
-		const service = await getService();
 
-		const entry = await service.getObject(id);
+		const entry = await getCatalogEntry(id);
 		this.setState({[id]: entry});
 
 		if (this.resolving === id) {
