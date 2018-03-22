@@ -44,12 +44,13 @@ export async function getCatalogEntry (id) {
 			);
 		}
 	} catch (e) {
-		entry = Array.isArray(e.Items)
-			// If we have an Items array, its a list of catalog entries...
-			// Grab the first and continue...
-			? await service.getObject(e.Items[0])
-			// re throw...
-			: throw e;
+		if (!Array.isArray(e.Items)) {
+			throw e;
+		}
+
+		// If we have an Items array, its a list of catalog entries...
+		// Grab the first and continue...
+		entry = await service.getObject(e.Items[0]);
 	}
 
 	return entry;
