@@ -38,14 +38,28 @@ export default class EntryDetail extends React.Component {
 	async getDataIfNeeded (props) {
 		this.setState({loading: true});
 		const entryId = decodeFromURI(props.entryId);
+		let entry = null;
+		let error = null;
+
 		try {
 			const service = await getService();
-			const entry = await service.getObject(entryId);
-			this.setState({ loading: false, entry });
-			// this.setPageSource(Store.getPageSource(), entryId);
+			try {
+				entry = await service.getObject(entryId);
+				this.setState({ loading: false, entry });
+				// this.setPageSource(Store.getPageSource(), entryId);
+			} catch (e) {
+				error = e;
+				entry = Array.isArray(e.Items)
+					// If we have an Items array, its a list of catalog entries...
+					// Grab the first and continue...
+					? await service.getObject(e.Items[0])
+					: null;
+			}
 		} catch (e) {
-			this.setState({loading: false, error: e});
+			error = e;
 		}
+
+		this.setState({entry, loading: false, error});
 	}
 
 
