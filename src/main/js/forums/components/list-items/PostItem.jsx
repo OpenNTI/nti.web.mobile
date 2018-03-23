@@ -6,7 +6,6 @@ import {DateTime, Loading, LuckyCharms, Mixins, Prompt} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 import {encodeForURI} from 'nti-lib-ntiids';
 import {StoreEventsMixin} from 'nti-lib-store';
-import {Placeholder as Video} from 'nti-web-video';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -37,12 +36,6 @@ const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
 
-const widgets = {
-	['application/vnd.nextthought.embeddedvideo'] (_, props) {
-		let {widget} = props; //eslint-disable-line react/prop-types
-		return React.createElement(Video, {src: widget.embedURL});
-	}
-};
 
 
 export default createReactClass({
@@ -212,7 +205,7 @@ export default createReactClass({
 							<DateTime date={createdOn} relative/>
 						</div>
 						<div className="message">
-							<ModeledContentPanel body={message} widgets={widgets}/>
+							<ModeledContentPanel body={message} />
 							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
 						</div>
 						<ActionsComp
