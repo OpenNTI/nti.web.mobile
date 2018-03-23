@@ -1,4 +1,6 @@
-import moment from 'moment';
+import isSameDay from 'date-fns/is_same_day';
+import isAfter from 'date-fns/is_after';
+import subYears from 'date-fns/sub_years';
 import {scoped} from 'nti-lib-locale';
 
 import * as Constants from 'forms/Constants';
@@ -199,7 +201,8 @@ const birthdateQuestion = [{
 			required: true,
 			label: t('date_of_birth'),
 			predicateFunc (value) {
-				return moment().subtract(13, 'years').isSameOrAfter(value);
+				const thirteenYearsAgo = subYears(new Date, 13);
+				return isSameDay(thirteenYearsAgo, value) || isAfter(thirteenYearsAgo, value);
 			},
 			ifTrue: [
 				{

@@ -1,9 +1,8 @@
 /* eslint-env jest */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import moment from 'moment-timezone';
-import jstz from 'jstimezonedetect';
 import {Date as DateUtils} from 'nti-commons';
+import {DateTime} from 'nti-web-commons';
 
 import AssignmentStatusLabel from '../AssignmentStatusLabel';
 
@@ -25,7 +24,6 @@ const EXPECTED_DAY_FORMAT = 'dddd, MMMM D';
 const EXPECTED_DAYTIME_FORMAT = 'dddd, MMMM D h:mm A z';
 
 describe('AssignmentStatusLabel', () => {
-	const tz = jstz.determine().name();
 
 	let container = document.createElement('div');
 	let newNode;
@@ -103,8 +101,8 @@ describe('AssignmentStatusLabel', () => {
 			});
 			const historyItem = MockAssignmentHistory(new Date('2015-08-29T05:00:00Z'));
 
-			const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAY_FORMAT);
-			const completed = moment(historyItem.getCreatedTime()).tz(tz).format(EXPECTED_DAY_FORMAT);
+			const due = DateTime.format(assignment.getDueDate(), EXPECTED_DAY_FORMAT);
+			const completed = DateTime.format(historyItem.getCreatedTime(), EXPECTED_DAY_FORMAT);
 			const value = `Due()${due}`;
 			const overtime = Object.assign(Object.create(assignment), {isOverTime: ()=> true});
 
@@ -134,7 +132,7 @@ describe('AssignmentStatusLabel', () => {
 
 			//Future assignment
 			let assignment = MockAssignment({ [START]: tomorrow, [END]: void 0 });
-			let time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
+			let time = DateTime.format(assignment.getAvailableForSubmissionBeginning(), EXPECTED_DAY_FORMAT);
 
 			testRender({assignment})
 				.map(getText)
@@ -143,7 +141,7 @@ describe('AssignmentStatusLabel', () => {
 
 			//Today assignment
 			assignment = MockAssignment({ [START]: today, [END]: void 0 });
-			let hours = moment(today).tz(tz).format('h:mm A z');
+			let hours = DateTime.format(today, 'h:mm A z');
 
 			testRender({assignment})
 				.map(getText)
@@ -152,7 +150,7 @@ describe('AssignmentStatusLabel', () => {
 
 			//past assignment, no due
 			assignment = MockAssignment({ [START]: yesterday, [END]: void 0 });
-			time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
+			time = DateTime.format(assignment.getAvailableForSubmissionBeginning(), EXPECTED_DAY_FORMAT);
 
 			testRender({assignment})
 				.map(getText)
@@ -160,7 +158,7 @@ describe('AssignmentStatusLabel', () => {
 
 			//past assignment with due
 			assignment = MockAssignment({ [START]: yesterday, [END]: tomorrow });
-			let past = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAY_FORMAT);
+			let past = DateTime.format(assignment.getDueDate(), EXPECTED_DAY_FORMAT);
 
 			testRender({assignment})
 				.map(getText)
@@ -170,7 +168,7 @@ describe('AssignmentStatusLabel', () => {
 
 			//no submit
 			assignment = MockNoSubmitAssignment({ [START]: tomorrow, [END]: void 0 });
-			time = moment(assignment.getAvailableForSubmissionBeginning()).tz(tz).format(EXPECTED_DAY_FORMAT);
+			time = DateTime.format(assignment.getAvailableForSubmissionBeginning(), EXPECTED_DAY_FORMAT);
 			testRender({assignment})
 				.map(getText)
 				.forEach(text => expect(text).toEqual(`Available()${time}`));
@@ -190,8 +188,8 @@ describe('AssignmentStatusLabel', () => {
 
 
 		test('Base Cases: overdue', () => {
-			// const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAY_FORMAT);
-			const completed = moment(historyItem.getCreatedTime()).tz(tz).format(EXPECTED_DAY_FORMAT);
+			// const due = DateTime.format(assignment.getDueDate(), EXPECTED_DAY_FORMAT);
+			const completed = DateTime.format(historyItem.getCreatedTime(), EXPECTED_DAY_FORMAT);
 			const value = `Completed(Overdue)${completed}`;
 
 			const [A, B] = testRender({assignment, historyItem});
@@ -203,8 +201,8 @@ describe('AssignmentStatusLabel', () => {
 
 
 		test('Base Cases: should show time with date', () => {
-			// const due = moment(assignment.getDueDate()).tz(tz).format(EXPECTED_DAYTIME_FORMAT);
-			const completed = moment(historyItem.getCreatedTime()).tz(tz).format(EXPECTED_DAYTIME_FORMAT);
+			// const due = DateTime.format(assignment.getDueDate(), EXPECTED_DAYTIME_FORMAT);
+			const completed = DateTime.format(historyItem.getCreatedTime(), EXPECTED_DAYTIME_FORMAT);
 			const value = `Completed(Overdue)${completed}`;
 
 			const [A, B] = testRender({assignment, historyItem, showTimeWithDate: true});

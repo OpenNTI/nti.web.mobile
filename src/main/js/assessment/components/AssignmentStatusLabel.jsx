@@ -5,7 +5,8 @@ import {getModel} from 'nti-lib-interfaces';
 import {DateTime} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 import {getEventTarget} from 'nti-lib-dom';
-import moment from 'moment';
+import * as Duration from 'iso8601-duration';
+import isSameDay from 'date-fns/is_same_day';
 
 const toUnitString = scoped('common.units');
 const toUnitSingularString = scoped('common.units.SINGULARS');
@@ -13,7 +14,7 @@ const toUnitSingularString = scoped('common.units.SINGULARS');
 const Assignment = getModel('assessment.assignment');
 const HistoryItem = getModel('assessment.assignmenthistoryitem');
 
-const isToday = (d) => moment(d).isSame(new Date(), 'day');
+const isToday = (d) => isSameDay(new Date(), d);
 
 function selectValue (values, context) {
 	const isNotted = selectValue.isNotted = (selectValue.isNotted || RegExp.prototype.test.bind(/^!/));
@@ -131,13 +132,13 @@ export default class extends React.Component {
 	};
 
 	getNaturalDuration = (duration, accuracy, singular) => {
-		let d = new moment.duration(duration);
+		let d = new Duration.parse(duration);
 
 		let out = [];
 		let toString = singular ? toUnitSingularString : toUnitString;
 
 		function maybeAdd (unit) {
-			let u = d.get(unit);
+			let u = d[unit];
 			if (u > 0 && (!accuracy || out.length < accuracy)) {
 				out.push(toString(unit, {count: u}));
 			}
