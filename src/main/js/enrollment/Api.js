@@ -1,4 +1,4 @@
-import {getService, getAppUsername} from 'nti-web-client';
+import {getService} from 'nti-web-client';
 import AppDispatcher from 'nti-lib-dispatcher';
 
 import {RELOAD as RELOAD_LIBRARY} from 'library/Constants';
@@ -38,7 +38,7 @@ export async function getCatalogEntry (id) {
 			// Legacy courses' catalog entry used their content root id... so when we call getObject() on that id, it
 			// will return a PageInfo... Since this is legacy, and newer courses return proper CatalogEntry data,
 			// hardcode the known route to resolve these older CatalogLegacyEntry items.
-			const fallback = `users/${encodeURIComponent(getAppUsername())}/Courses/AllCourses/CourseCatalog/${id}`;
+			const fallback = `users/${encodeURIComponent(service.getAppUsername())}/Courses/AllCourses/CourseCatalog/${id}`;
 			entry = await service.getObject(
 				await service.get(fallback)
 			);
