@@ -11,7 +11,7 @@ export default createReactClass({
 
 	render () {
 		let books = this.getBinnedData('books');
-		let items = books.reduce((a, o) => a.concat(o.items), []);
+		let items = books.reduce((a, o) => a.concat(o.items || []), []);
 
 		return (
 			<Container section="books" items={items}/>
