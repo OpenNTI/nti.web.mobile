@@ -5,7 +5,6 @@ import {getModel} from 'nti-lib-interfaces';
 import {DateTime} from 'nti-web-commons';
 import {scoped} from 'nti-lib-locale';
 import {getEventTarget} from 'nti-lib-dom';
-import * as Duration from 'iso8601-duration';
 import isSameDay from 'date-fns/is_same_day';
 
 const toUnitString = scoped('common.units');
@@ -131,8 +130,31 @@ export default class extends React.Component {
 		return Math.abs(max - dur);
 	};
 
+	getDurationFromMillis (duration) {
+		const dateA = new Date();
+		const dateB = new Date(dateA.getTime() + duration);
+		const deltaDays = (dateB.getDate() - dateA.getDate()) || 0;
+
+		return {
+			years: (dateB.getFullYear() - dateA.getFullYear()) || 0,
+			months: (dateB.getMonth() - dateA.getMonth()) || 0,
+			weeks: Math.floor(deltaDays / 7),
+			days: deltaDays % 7,
+			hours: (dateB.getHours() - dateA.getHours()) || 0,
+			minutes: (dateB.getMinutes() - dateA.getMinutes()) || 0,
+			seconds: (dateB.getSeconds() - dateA.getSeconds()) || 0,
+		};
+	}
+
+
+	getParsedDuration (duration) {
+		return typeof duration === 'string'
+			? Duration.parse(duration)
+			: this.getDurationFromMillis(duration);
+	}
+
 	getNaturalDuration = (duration, accuracy, singular) => {
-		let d = new Duration.parse(duration);
+		let d = this.getParsedDuration(duration);
 
 		let out = [];
 		let toString = singular ? toUnitSingularString : toUnitString;
