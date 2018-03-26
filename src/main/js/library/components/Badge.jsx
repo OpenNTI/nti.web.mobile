@@ -37,7 +37,7 @@ export default function Badge ({item}) {
 	}
 
 	return !label ? <div/> : (
-		<div className={cx('badge', flags)}>
+		<div className={cx('nti-library-item-badge', flags)}>
 			{label}
 		</div>
 	);

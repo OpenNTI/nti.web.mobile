@@ -1,27 +1,39 @@
-@import "utils/variables";
+@import 'utils/variables';
 
-.badge {
+.nti-library-item-badge {
 	position: relative;
-	height: 1.5625rem;
+	height: 25px;
 	color: white;
 	text-transform: uppercase;
-	font: normal 700 0.625rem/2.5 $body-font-family;
-	padding: 0 0.4375rem;
+	font: normal 700 10px/2.5 $body-font-family;
+	padding: 0 7px;
 	display: inline-block;
-	.short {display: inline;}
-	.long {display: none;}
 
-	$media-tab: "screen and (min-width: 600px)";
+	.short {
+		display: inline;
+	}
+
+	.long {
+		display: none;
+	}
+
+	$media-tab: 'screen and (min-width: 600px)';
+
 	@media #{$media-tab} {
-		.short {display: none;}
-		.long {display: inline;}
+		.short {
+			display: none;
+		}
+
+		.long {
+			display: inline;
+		}
 	}
 
 	&.archived {
-		background: rgba(0,0,0,0.6);
+		background: rgba(0, 0, 0, 0.6);
 		border-radius: 4px;
 		position: relative;
-		padding-left: 1.5625rem;
+		padding-left: 25px;
 
 		&::after {
 			content: '';
@@ -42,10 +54,8 @@
 		}
 	}
 
-
 	&.upcoming {
-
-		background: rgba($primary-blue,0.95);
+		background: rgba($primary-blue, 0.95);
 		letter-spacing: 0.06em;
 
 		&::after {
@@ -56,7 +66,7 @@
 			height: 0;
 			border-style: solid;
 			border-width: 0 0 1.6875rem 0.3125rem;
-			border-color: transparent transparent transparent rgba($primary-blue,0.95);
+			border-color: transparent transparent transparent rgba($primary-blue, 0.95);
 		}
 	}
 }
