@@ -17,7 +17,7 @@ const CATALOG_MIME_TYPES = {
 
 function getRouteFor (obj) {
 	if (CATALOG_MIME_TYPES[obj.MimeType]) {
-		return `./item/${encodeForURI(obj.NTIID)}`;
+		return `./item/${encodeForURI(obj.getID())}`;
 	}
 
 	if (obj === 'contact-us') {
