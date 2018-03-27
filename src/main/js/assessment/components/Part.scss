@@ -2,7 +2,6 @@
 @import "utils/placeholders";
 
 .question-part {
-
 	&::after {
 		clear: both;
 		content: '';
@@ -20,33 +19,44 @@
 		margin-top: 1rem;
 	}
 
-	.part-help  { min-height: 2rem; }
-	.part-help a.close {
-		position: absolute !important;
-		z-index: 1;
-		top: 0;
-		right: 0;
-		display: block;
-		width: 1.5rem;
-		height: 1.5rem;
-		overflow: hidden;
-		text-indent: -100px;
+	.part-help {
+		min-height: 2rem;
+		position: relative;
 
-		&::after {
-			@extend %x-close;
-			content: '';
+		a.close {
+			position: absolute !important;
+			z-index: 1;
+			top: 0;
+			right: 0;
 			display: block;
-			position: absolute;
-			top: 0; left: 0; right: 0; bottom: 0;
-			background: { position: center center; repeat: no-repeat; }
-		}
-	}
+			width: 1.5rem;
+			height: 1.5rem;
+			overflow: hidden;
+			text-indent: -100px;
 
-	.part-help > .solutions {
-		border: 1px solid $border-grey;
-		padding: 0.4rem;
-		margin: 0;
-		background: $panel-background;
+			&::after {
+				@extend %x-close;
+
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: {
+					position: center center;
+					repeat: no-repeat;
+				}
+			}
+		}
+
+		& > .solutions {
+			border: 1px solid $border-grey;
+			padding: 0.4rem;
+			margin: 0;
+			background: $panel-background;
+		}
 	}
 
 	.question-submission {
@@ -68,11 +78,6 @@
 	.button-box {
 		margin: 0 1rem 0.5rem;
 	}
-
-
-	// .form-input + .button-box {
-		// margin-top: -1rem;
-	// }
 
 	a.help-link {
 		font-size: 0.875rem;
