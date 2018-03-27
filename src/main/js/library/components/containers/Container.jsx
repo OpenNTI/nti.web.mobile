@@ -17,7 +17,7 @@ export default function Container ({section, items}) {
 				<EmptyList type={`library-${section}`}/>
 			</div>
 		)) : (
-			<Collection list={items}>
+			<Collection className={section} list={items} >
 				<Heading section={section}/>
 			</Collection>
 		);

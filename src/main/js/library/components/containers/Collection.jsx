@@ -1,29 +1,30 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 import getItem from '../items';
 
 const isEmpty = s => s == null || s === '';
 
-export default class extends React.Component {
-	static displayName = 'Library:Collection';
+export default class LibraryCollection extends React.Component {
 
 	static propTypes = {
+		className: PropTypes.string,
 		list: PropTypes.array,
 
 		title: PropTypes.string,
 		subtitle: PropTypes.string,
 
 		children: PropTypes.any
-	};
+	}
 
 	render () {
-		const {props: {children, list, title, subtitle}} = this;
+		const {props: {children, className, list, title, subtitle}} = this;
 
 		let titleRow = isEmpty(title) ? null : ( <h5>{title}<label>{subtitle}</label></h5> );
 
 		return (
-			<div className="library-collection">
+			<div className={cx('library-collection', className)}>
 				{titleRow}
 				{children}
 				<ul>
