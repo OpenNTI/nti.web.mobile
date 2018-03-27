@@ -35,13 +35,7 @@ export async function getCatalogEntry (id) {
 	try {
 		entry = await service.getObject(id);
 		if (!entry.isCourseCatalogEntry) {
-			// Legacy courses' catalog entry used their content root id... so when we call getObject() on that id, it
-			// will return a PageInfo... Since this is legacy, and newer courses return proper CatalogEntry data,
-			// hardcode the known route to resolve these older CatalogLegacyEntry items.
-			const fallback = `users/${encodeURIComponent(service.getAppUsername())}/Courses/AllCourses/CourseCatalog/${id}`;
-			entry = await service.getObject(
-				await service.get(fallback)
-			);
+			throw new Error('Unexpected Type');
 		}
 	} catch (e) {
 		if (!Array.isArray(e.Items)) {
