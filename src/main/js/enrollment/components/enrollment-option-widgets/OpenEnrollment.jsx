@@ -56,7 +56,7 @@ export default createReactClass({
 		event.stopPropagation();
 
 		this.setState({ busy: true }, () => {
-			enrollOpen(this.props.catalogEntry.getID())
+			enrollOpen(this.props.catalogEntry.NTIID)
 				.then((result) => this.setState({
 					busy: false,
 					enrolled: result.success
@@ -74,7 +74,7 @@ export default createReactClass({
 	dropButton () {
 		const {catalogEntry} = this.props;
 		const base = this.getBasePath();
-		const entry = encodeForURI(catalogEntry.getID());
+		const entry = encodeForURI(catalogEntry.NTIID);
 		return (<a className="button drop-course" href={`${base}catalog/enroll/drop/${entry}/`}>Drop This Course</a>);
 	},
 
