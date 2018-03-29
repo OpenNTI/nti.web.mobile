@@ -1,12 +1,11 @@
-@import "utils/variables";
+@import 'utils/variables';
 
 %rounded-inset-border {
 	margin: 0 0.5rem;
 	border-top-right-radius: 5px;
 	border-top-left-radius: 5px;
-	border-width: 1px 1px 0 1px;
+	border-width: 1px 1px 0;
 }
-
 
 .content-view .fixed-footer {
 	&:not(.none) {
@@ -21,8 +20,9 @@
 
 	& > .the-fixed {
 		$background: #f8f8f8;
+
 		border: 1px solid $tertiary-grey;
-		border-width: 1px 0 0 0;
+		border-width: 1px 0 0;
 		background: $background;
 		position: fixed;
 		z-index: 1005;
@@ -31,16 +31,21 @@
 		right: 0;
 
 		//Mask out the bleedthrough while animating in/out.
-		&[class*=toast] {
+		&[class*='toast'] {
 			@extend %rounded-inset-border;
-			&:not([class*=leave]) {
+
+			&:not([class*='done']) {
 				opacity: 0.01;
 			}
 
 			&.swapping-modal {
 				border-radius: 5px;
 				border-width: 1px;
-				&::before { content: none; display: none; }
+
+				&::before {
+					content: none;
+					display: none;
+				}
 			}
 
 			&::before {
@@ -58,7 +63,6 @@
 	}
 }
 
-
 .content-view.note-editor-open {
 	// height: 100vh;
 	display: flex;
@@ -72,7 +76,6 @@
 	margin: 0 auto;
 
 	@include clearfix;
-
 
 	& > div > figure.loading {
 		position: fixed;
