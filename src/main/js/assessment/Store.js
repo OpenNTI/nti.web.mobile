@@ -1,4 +1,4 @@
-import {getModel} from 'nti-lib-interfaces';
+import { Models } from 'nti-lib-interfaces';
 import Logger from 'nti-util-logger';
 import StorePrototype from 'nti-lib-store';
 
@@ -25,8 +25,12 @@ import {
 
 const logger = Logger.get('assessment:store');
 
-let AssignmentHistoryItem = getModel('assessment.assignmenthistoryitem');
-let Question = getModel('question');
+const {
+	assignment:{
+		AssignmentHistoryItem
+	},
+	Question
+} = Models.assessment;
 
 
 // const data = Symbol('data');
