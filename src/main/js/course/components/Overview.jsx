@@ -96,12 +96,12 @@ export default class CourseLessonOverview extends React.Component {
 		else if (/relatedwork/i.test(type)) {
 
 			route = (context === 'discussions')
-				? path.join(
+				? (path.join(
 					env.getPath(),
 					obj.isExternal ? 'external-content' : 'content',
 					getEncodedID(obj),
 					'discussions'
-				)
+				) + '/')
 				: !isNTIID(obj.href)
 					? { href: obj.href, target: obj.isExternal ? '_blank' : void 0 }
 					: (
