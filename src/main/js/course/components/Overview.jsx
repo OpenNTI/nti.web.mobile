@@ -99,7 +99,7 @@ export default class CourseLessonOverview extends React.Component {
 				? (path.join(
 					env.getPath(),
 					obj.isExternal ? 'external-content' : 'content',
-					getEncodedID(obj),
+					obj.isExternal ? encodeForURI(obj.NTIID) : getEncodedID(obj),
 					'discussions'
 				) + '/')
 				: !isNTIID(obj.href)
