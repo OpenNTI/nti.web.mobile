@@ -2,6 +2,15 @@
 	display: block;
 	position: relative;
 
+	.scorm-title {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.scorm-student-progress {
+		display: block;
+	}
+
 	.course-info {
 		width: 100%;
 	}
