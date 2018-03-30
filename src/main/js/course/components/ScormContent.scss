@@ -1,0 +1,25 @@
+.scorm-content .scorm-overview-body .scorm-card {
+	display: block;
+	position: relative;
+
+	.scorm-title {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.scorm-student-progress {
+		display: block;
+	}
+
+	.course-info {
+		width: 100%;
+	}
+
+	.scorm-progress {
+		margin: 0 auto;
+
+		.progress-content {
+			border: none;
+		}
+	}
+}
