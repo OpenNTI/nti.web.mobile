@@ -1,0 +1,16 @@
+.scorm-content .scorm-overview-body .scorm-card {
+	display: block;
+	position: relative;
+
+	.course-info {
+		width: 100%;
+	}
+
+	.scorm-progress {
+		margin: 0 auto;
+
+		.progress-content {
+			border: none;
+		}
+	}
+}
