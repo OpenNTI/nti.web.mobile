@@ -63,7 +63,6 @@ export default createReactClass({
 	resolveSections (item) {
 		let items = [];
 		let courseId = item.getCourseID();
-		const { CourseInstance } = item;
 
 		if (!this.isPreview(item)) {
 
@@ -73,7 +72,7 @@ export default createReactClass({
 			// 	// href: this.courseHref(courseId, COURSE_SECTIONS.ACTIVITY),
 			// });
 
-			if (CourseInstance.isScormInstance) {
+			if (item.isScorm) {
 				items.push({
 					title: 'Content',
 					href: this.courseHref(courseId, COURSE_SECTIONS.SCORMCONTENT)
@@ -137,15 +136,14 @@ export default createReactClass({
 
 
 	isPreview (item) {
-		let {CourseInstance} = item || {};
-		let {CatalogEntry} = CourseInstance || {};
+		const {CatalogEntry} = item || {};
 		return CatalogEntry && CatalogEntry.Preview;
 	},
 
 	getDefaultSection (preview, item) {
 		if (preview) {
 			return COURSE_SECTIONS.INFO;
-		} else if (item.CourseInstance.isScormInstance) {
+		} else if (item.isScorm) {
 			return COURSE_SECTIONS.SCORMCONTENT;
 		} else {
 			return COURSE_SECTIONS.LESSONS;
