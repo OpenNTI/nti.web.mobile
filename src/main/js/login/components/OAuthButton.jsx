@@ -9,8 +9,6 @@ import {scoped} from 'nti-lib-locale';
 import {getReturnURL} from 'nti-web-client';
 import {Mixins} from 'nti-web-commons';
 
-import Button from 'forms/components/Button';
-
 const t = scoped('app.login.oauth');
 
 function getServiceName (k) {
@@ -48,9 +46,9 @@ export default createReactClass({
 		});
 
 		return (
-			<Button {...props} onClick={this.handleClick}>
+			<button {...props} onClick={this.handleClick}>
 				{t(service, {fallback: title})}
-			</Button>
+			</button>
 		);
 	},
 

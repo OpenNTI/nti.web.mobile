@@ -1,16 +1,15 @@
+@import '~nti-style-common';
+
 .create-account-form .agreement-wrapper {
 	margin-bottom: 1rem;
 
 	.agreement {
 		background: #f0f0f0;
 		height: 10rem;
-
 		border: 1px solid $border-grey;
 
-		height: 10rem;
-
 		> * {
-			font-size: .6rem;
+			font-size: 0.6rem;
 		}
 	}
 }
