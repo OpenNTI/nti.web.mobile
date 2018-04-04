@@ -1,46 +1,34 @@
 import AppDispatcher from 'nti-lib-dispatcher';
-import {getServer, getService} from 'nti-web-client';
+import { getServer, getService } from 'nti-web-client';
 
 import Store from './Store'; //ONLY READ from the store!!
-import {
-	LOGIN_INIT_DATA,
-	LOGIN_PONG,
-	LOGIN_SUCCESS
-} from './Constants';
+import { LOGIN_INIT_DATA, LOGIN_PONG, LOGIN_SUCCESS } from './Constants';
 
-
-export function begin () {
-	return getServer().ping()//anonymouse ping
-		.then(data =>
-			AppDispatcher.handleRequestAction({type: LOGIN_INIT_DATA, data}));
+export async function begin () {
+	//ping
+	const data = await getServer().ping();
+	AppDispatcher.handleRequestAction({ type: LOGIN_INIT_DATA, data });
 }
 
-
-export function updateWithNewUsername (username) {
-	let meta = Store.getData() || {};
+export async function updateWithNewUsername (username) {
+	const meta = Store.getData() || {};
 	if (meta.for === username) {
-		return Promise.resolve();
+		return;
 	}
 
-	return getServer().ping(null, username)//anonymouse ping with a username
-		.catch(reason => {
-			let {links} = reason || {};
-			return links ? {links} : Promise.reject(reason);
-		})
-		.then(data => {
-			AppDispatcher.handleRequestAction({type: LOGIN_PONG, data, username});
-		});
+	//ping with a username
+	const data = await getServer().ping(username)
+		.catch(e => e.getLink ? e : Promise.reject(e));
+
+	AppDispatcher.handleRequestAction({ type: LOGIN_PONG, data, username });
 }
 
+export async function login (username, password) {
+	const url = Store.getLoginLink();
 
-export function login (username, password) {
+	const data = await getServer().logInPassword(url, username, password);
 
-	let url = Store.getLoginLink();
-
-	return getServer().logInPassword( url, username, password)
-		.then(
-			data => AppDispatcher.handleRequestAction({type: LOGIN_SUCCESS, data, username})
-		);
+	AppDispatcher.handleRequestAction({ type: LOGIN_SUCCESS, data, username });
 }
 
 export async function logout () {

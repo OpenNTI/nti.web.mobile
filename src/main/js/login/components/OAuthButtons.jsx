@@ -13,7 +13,7 @@ export default function OAuthButtons () {
 		<div className="oauth-login">
 			{rels.map(rel =>
 
-				<OAuthButton id={'login:rel:' + rel} key={rel} rel={rel} href={links[rel]} />
+				<OAuthButton id={'login:rel:' + rel} key={rel} rel={rel} link={links[rel]} />
 
 			)}
 		</div>

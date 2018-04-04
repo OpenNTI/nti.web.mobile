@@ -23,11 +23,11 @@ export default createReactClass({
 
 	propTypes: {
 		rel: PropTypes.string,
-		href: PropTypes.string
+		link: PropTypes.object
 	},
 
 	render () {
-		let {rel, href} = this.props;
+		let {rel, link: {href, title} = {}, ...props} = this.props;
 		let base = this.getBasePath();
 		let service = getServiceName(rel);
 
@@ -42,14 +42,14 @@ export default createReactClass({
 		href = href.format();
 
 
-		let props = Object.assign({}, this.props, {
+		Object.assign(props, {
 			href,
 			className: 'oauth-button ' + service.toLowerCase()
 		});
 
 		return (
 			<Button {...props} onClick={this.handleClick}>
-				{t(service)}
+				{t(service, {fallback: title})}
 			</Button>
 		);
 	},

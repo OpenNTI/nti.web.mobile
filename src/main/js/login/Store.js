@@ -68,28 +68,30 @@ class Store extends StorePrototype {
 		// fire, so only we keep the last one.
 
 		// So only merge pong data on request.
-		return a && Object.assign({}, a, b, {
-			links: Object.assign({},
-				a.links || {},
-				b.links || {})
-		});
+		return a && {
+			...a,
+			...b
+		};
 	}
 
 
-	getLink (rel) {
-		let {links = {}} = this.getData() || {};
-		return links[rel];
+	getLink (...rel) {
+		const d = this.getData();
+		return d && d.getLink(...rel);
 	}
 
 
 	getLoginLink () {
-		let {links = {}} = this.getData() || {};
-		let url = links[LINK_LOGIN_PASSWORD];
+		const {links = []} = this.getData() || {};
+		//once lib-interfaces@1.77.0 is released we can ditch this compat func and just use links directly.
+		const iterable = x => Array.isArray(x) ? x : Object.keys(x);
+
+		let url = this.getLink(LINK_LOGIN_PASSWORD);
 
 		// prefer the LDAP link if available.
-		for (let k of Object.keys(links)) {
+		for (let k of iterable(links)) {
 			if((/logon\.ldap\./).test(k)) {
-				url = links[k];
+				url = this.getLink(k);
 				logger.debug('Found rel: "%s", using.', k);
 				break;
 			}
@@ -100,9 +102,7 @@ class Store extends StorePrototype {
 
 
 	getAvailableOAuthLinks () {
-		let {links = {}} = this.getData() || {};
-
-		let whiteList = [
+		const whiteList = [
 			// 'logon.facebook',
 			'logon.google',
 			'logon.linkedin.oauth1',
@@ -113,8 +113,8 @@ class Store extends StorePrototype {
 		];
 
 		return whiteList
-			.map(rel => links[rel] && {[rel]: links[rel]})
-			.filter(x => x)
+			.map(rel => this.getLink(rel) && {[rel]: this.getLink(rel, true)})
+			.filter(Boolean)
 			.reduce((a, b) => Object.assign(a, b), {});
 	}
 }
