@@ -9,6 +9,8 @@ import CourseLinker from '../../mixins/CourseContentLink';
 import CourseContentLink from '../CourseContentLink';
 import Badge from '../Badge';
 
+const isScorm = x => /scorm/i.test(x.getLinkProperty('CourseInstance', 'type'));
+
 export default createReactClass({
 	displayName: 'Course',
 	mixins: [CourseLinker],
@@ -72,7 +74,7 @@ export default createReactClass({
 			// 	// href: this.courseHref(courseId, COURSE_SECTIONS.ACTIVITY),
 			// });
 
-			if (item.isScorm) {
+			if (isScorm(item)) {
 				items.push({
 					title: 'Content',
 					href: this.courseHref(courseId, COURSE_SECTIONS.SCORMCONTENT)
@@ -143,7 +145,7 @@ export default createReactClass({
 	getDefaultSection (preview, item) {
 		if (preview) {
 			return COURSE_SECTIONS.INFO;
-		} else if (item.isScorm) {
+		} else if (isScorm(item)) {
 			return COURSE_SECTIONS.SCORMCONTENT;
 		} else {
 			return COURSE_SECTIONS.LESSONS;
