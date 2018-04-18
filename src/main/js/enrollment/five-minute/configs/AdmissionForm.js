@@ -193,7 +193,7 @@ export default [
 			{
 				ref: 'has_mailing_address',
 				type: 'toggleFieldset',
-				label: t('mailingAddressDifferent'),
+				label: t('mailing_address_different'),
 				fieldsetOn: mailingAddressFieldset
 			}
 		]
