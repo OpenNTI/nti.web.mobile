@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {addClass, removeClass, getViewportHeight} from 'nti-lib-dom';
-import {Footer, LockScroll, ConflictResolutionHandler, Updates} from 'nti-web-commons';
+import {addClass, removeClass, getViewportHeight} from '@nti/lib-dom';
+import {Footer, LockScroll, ConflictResolutionHandler, Updates} from '@nti/web-commons';
 
 import Notifications from 'notifications/components/View';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';

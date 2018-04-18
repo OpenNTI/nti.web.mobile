@@ -1,1 +1,1 @@
-export {Editor, Panel} from 'nti-modeled-content';
+export {Editor, Panel} from '@nti/web-modeled-content';

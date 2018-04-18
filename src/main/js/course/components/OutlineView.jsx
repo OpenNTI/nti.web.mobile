@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 import {
 	ActiveState,
 	ActiveStateContainer,
@@ -11,7 +11,7 @@ import {
 	CalendarCard,
 	ListHeader as Header,
 	Loading
-} from 'nti-web-commons';
+} from '@nti/web-commons';
 import isEmpty from 'isempty';
 
 import ContextSender from 'common/mixins/ContextSender';

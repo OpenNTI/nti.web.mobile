@@ -6,15 +6,15 @@ import {
 	WebVTT,
 	VTTCue/*, VTTRegion*/
 } from 'vtt.js';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import Logger from 'nti-util-logger';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import Logger from '@nti/util-logger';
 import {
 	DarkMode,
 	Error,
 	Loading,
 	Mixins
-} from 'nti-web-commons';
-import {Component as Video} from 'nti-web-video';
+} from '@nti/web-commons';
+import {Component as Video} from '@nti/web-video';
 
 import Discussions from 'content/components/discussions';
 import Gutter from 'content/components/Gutter';

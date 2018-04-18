@@ -2,8 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {Locations, Location, NotFound as DefaultRoute} from 'react-router-component';
-import Logger from 'nti-util-logger';
-import {Error as ErrorMessage, Loading, Mixins} from 'nti-web-commons';
+import Logger from '@nti/util-logger';
+import {Error as ErrorMessage, Loading, Mixins} from '@nti/web-commons';
 
 import SignupForm from '../signup/components/SignupForm';
 import {begin} from '../Actions';

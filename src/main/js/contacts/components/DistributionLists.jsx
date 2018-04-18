@@ -5,7 +5,7 @@ import {
 	EmptyList,
 	Error as Err,
 	Loading
-} from 'nti-web-commons';
+} from '@nti/web-commons';
 
 import mixin from '../mixins/Mixin';
 import {LISTS} from '../Constants';

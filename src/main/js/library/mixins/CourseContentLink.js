@@ -1,5 +1,5 @@
-import {encodeForURI} from 'nti-lib-ntiids';
-import {Mixins} from 'nti-web-commons';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {Mixins} from '@nti/web-commons';
 
 export default {
 	mixins: [Mixins.BasePath],

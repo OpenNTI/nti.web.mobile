@@ -1,4 +1,4 @@
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 
 //`require.context` is a little WebPack magic :) --- dynamicly require all files here
 const req = require.context('./', false, /^((?!index).)*\.js$/);

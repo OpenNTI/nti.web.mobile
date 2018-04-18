@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {decodeFromURI, encodeForURI} from 'nti-lib-ntiids';
-import {Error as Err, Loading, Mixins, Notice} from 'nti-web-commons';
-import {StoreEventsMixin} from 'nti-lib-store';
+import {decodeFromURI, encodeForURI} from '@nti/lib-ntiids';
+import {Error as Err, Loading, Mixins, Notice} from '@nti/web-commons';
+import {StoreEventsMixin} from '@nti/lib-store';
 
 import ContextSender from 'common/mixins/ContextSender';
 

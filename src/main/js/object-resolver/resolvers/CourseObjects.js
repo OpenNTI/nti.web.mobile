@@ -1,6 +1,6 @@
-// import {Service} from 'nti-lib-interfaces';
+// import {Service} from '@nti/lib-interfaces';
 
-import {encodeForURI} from 'nti-lib-ntiids';
+import {encodeForURI} from '@nti/lib-ntiids';
 
 const isCourse = RegExp.prototype.test.bind(/\.courseinstance/i);
 

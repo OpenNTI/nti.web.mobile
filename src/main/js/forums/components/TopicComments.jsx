@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {Error as Err, Loading, Notice} from 'nti-web-commons';
-import {StoreEventsMixin} from 'nti-lib-store';
+import {Error as Err, Loading, Notice} from '@nti/web-commons';
+import {StoreEventsMixin} from '@nti/lib-store';
 
 import Paging from '../mixins/Paging';
 import {getTopicContents} from '../Api';

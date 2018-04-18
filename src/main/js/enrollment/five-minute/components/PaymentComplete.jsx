@@ -2,8 +2,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {Loading, Mixins} from 'nti-web-commons';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {Loading, Mixins} from '@nti/web-commons';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 import Detail from 'catalog/components/Detail';

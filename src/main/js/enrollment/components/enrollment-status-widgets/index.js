@@ -1,4 +1,4 @@
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 
 import EnrolledOpen from './EnrolledOpen';
 import EnrolledLifelongLearner from './EnrolledLifelongLearner';

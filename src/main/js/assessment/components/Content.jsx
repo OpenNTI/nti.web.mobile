@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {getEventTarget} from 'nti-lib-dom';
-import {processContent} from 'nti-lib-content-processing';
+import {getEventTarget} from '@nti/lib-dom';
+import {processContent} from '@nti/lib-content-processing';
 import isFunction from 'is-function';
 import htmlToReact from 'html-reactifier';
 

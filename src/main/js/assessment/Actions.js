@@ -1,7 +1,7 @@
 /**
  * Actions available to views for assessment-related functionality.
  */
-import AppDispatcher from 'nti-lib-dispatcher';
+import AppDispatcher from '@nti/lib-dispatcher';
 
 import {submit as performSubmit} from './Api';
 import {

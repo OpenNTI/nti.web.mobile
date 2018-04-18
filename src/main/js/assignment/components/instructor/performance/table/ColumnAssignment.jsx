@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {encodeForURI} from 'nti-lib-ntiids';
+import {encodeForURI} from '@nti/lib-ntiids';
 
 export default class extends React.Component {
 	static displayName = 'GradebookColumnAssignment';

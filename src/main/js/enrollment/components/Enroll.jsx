@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {scoped} from 'nti-lib-locale';
+import {scoped} from '@nti/lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Redirect from 'navigation/components/Redirect';

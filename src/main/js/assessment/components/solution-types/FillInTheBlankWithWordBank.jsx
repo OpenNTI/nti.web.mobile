@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {rawContent} from 'nti-commons';
-import Logger from 'nti-util-logger';
+import {rawContent} from '@nti/lib-commons';
+import Logger from '@nti/util-logger';
 
 import Content from '../Content';
 import WordBankEntry from '../WordBankEntry';

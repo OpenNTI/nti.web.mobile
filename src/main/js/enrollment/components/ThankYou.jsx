@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Loading} from 'nti-web-commons';
+import {Loading} from '@nti/web-commons';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 

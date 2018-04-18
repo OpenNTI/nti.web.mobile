@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {PanelButton, Mixins} from 'nti-web-commons';
+import {PanelButton, Mixins} from '@nti/web-commons';
 
 import Store from '../Store';
 import {resetProcess} from '../Actions';

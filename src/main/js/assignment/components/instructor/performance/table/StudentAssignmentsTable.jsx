@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {SortOrder} from 'nti-lib-interfaces';
+import {SortOrder} from '@nti/lib-interfaces';
 
 import Table from '../../gradebook-table/Table';
 import ColumnActions from '../../gradebook-table/ColumnActions';

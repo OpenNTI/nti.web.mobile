@@ -1,4 +1,4 @@
-import { addHistory, getHistory } from 'nti-analytics';
+import { addHistory, getHistory } from '@nti/lib-analytics';
 
 const getEntityId = 'Profile:getEntityId';
 

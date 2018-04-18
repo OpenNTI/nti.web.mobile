@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {Error as Err, Loading} from 'nti-web-commons';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {Error as Err, Loading} from '@nti/web-commons';
 
 import {Component as ContextContributor} from 'common/mixins/ContextContributor';
 import ContentViewer from 'content/components/ViewerLoader';

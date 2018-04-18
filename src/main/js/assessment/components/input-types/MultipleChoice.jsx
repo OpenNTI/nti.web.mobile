@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {getEventTarget} from 'nti-lib-dom';
-import {rawContent} from 'nti-commons';
+import {getEventTarget} from '@nti/lib-dom';
+import {rawContent} from '@nti/lib-commons';
 
 import Mixin, {stopEvent} from './Mixin';
 

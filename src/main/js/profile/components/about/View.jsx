@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { ActiveState, Loading } from 'nti-web-commons';
-import { ViewEvent } from 'nti-web-session';
-import { scoped } from 'nti-lib-locale';
+import { ActiveState, Loading } from '@nti/web-commons';
+import { ViewEvent } from '@nti/web-session';
+import { scoped } from '@nti/lib-locale';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 import Card from '../Card';

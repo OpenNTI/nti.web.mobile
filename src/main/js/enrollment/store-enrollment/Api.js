@@ -1,5 +1,5 @@
 /*global Stripe*/
-import {getService} from 'nti-web-client';
+import {getService} from '@nti/web-client';
 
 const POLL_INTERVAL = 1000;
 

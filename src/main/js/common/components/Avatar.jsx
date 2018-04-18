@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Avatar} from 'nti-web-commons';
+import {Avatar} from '@nti/web-commons';
 
 import ProfileLink from 'profile/mixins/ProfileLink';
 

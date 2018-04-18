@@ -1,7 +1,7 @@
 import {join} from 'path';
 
-import {getService} from 'nti-web-client';
-import {encodeForURI} from 'nti-lib-ntiids';
+import {getService} from '@nti/web-client';
+import {encodeForURI} from '@nti/lib-ntiids';
 
 const isAssignmentRelated = RegExp.prototype.test.bind(/\.(grade|userscourseassignmenthistoryitemfeedback)/i);
 const isAssignment = RegExp.prototype.test.bind(/\.assignment/i);

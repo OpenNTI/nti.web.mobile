@@ -1,5 +1,5 @@
 import React from 'react';
-import {scoped} from 'nti-lib-locale';
+import {scoped} from '@nti/lib-locale';
 
 const t = scoped('course.info', {
 	OpenEnrolled: 'You\'re registered for the open course.',

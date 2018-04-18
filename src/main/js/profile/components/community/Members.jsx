@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Loading, Mixins, PromiseButton} from 'nti-web-commons';
+import {Loading, Mixins, PromiseButton} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 

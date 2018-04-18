@@ -1,5 +1,5 @@
-import AppDispatcher from 'nti-lib-dispatcher';
-import { getServer, getService } from 'nti-web-client';
+import AppDispatcher from '@nti/lib-dispatcher';
+import { getServer, getService } from '@nti/web-client';
 
 import Store from './Store'; //ONLY READ from the store!!
 import { LOGIN_INIT_DATA, LOGIN_PONG, LOGIN_SUCCESS } from './Constants';

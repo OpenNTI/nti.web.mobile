@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import Logger from 'nti-util-logger';
-import {Selection} from 'nti-commons';
-import {Loading} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
+import Logger from '@nti/util-logger';
+import {Selection} from '@nti/lib-commons';
+import {Loading} from '@nti/web-commons';
+import {getService} from '@nti/web-client';
 
 import ShareTarget from './ShareTarget';
 import SelectableEntities from './SelectableEntities';

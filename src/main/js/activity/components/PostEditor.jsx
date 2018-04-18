@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-import {Loading} from 'nti-web-commons';
-import t from 'nti-lib-locale';
+import {Loading} from '@nti/web-commons';
+import t from '@nti/lib-locale';
 
 import ShareWith from 'common/components/ShareWith';
 import {Editor} from 'modeled-content';

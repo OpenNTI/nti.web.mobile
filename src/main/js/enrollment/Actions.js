@@ -1,4 +1,4 @@
-import AppDispatcher from 'nti-lib-dispatcher';
+import AppDispatcher from '@nti/lib-dispatcher';
 
 import {ENROLL_OPEN, DROP_COURSE} from './Constants';
 

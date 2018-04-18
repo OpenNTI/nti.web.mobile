@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
+import {scoped} from '@nti/lib-locale';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
 import GotoItem from 'common/components/GotoItem';

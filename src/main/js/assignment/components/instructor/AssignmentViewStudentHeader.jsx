@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {PropType as NTIID} from 'nti-lib-ntiids';
+import {PropType as NTIID} from '@nti/lib-ntiids';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 

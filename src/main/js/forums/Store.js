@@ -1,6 +1,6 @@
-import Logger from 'nti-util-logger';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import StorePrototype from 'nti-lib-store';
+import Logger from '@nti/util-logger';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import StorePrototype from '@nti/lib-store';
 import hash from 'object-hash';
 
 import * as Constants from './Constants';

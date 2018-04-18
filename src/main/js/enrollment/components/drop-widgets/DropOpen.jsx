@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Loading, Notice} from 'nti-web-commons';
+import {Loading, Notice} from '@nti/web-commons';
 
 import Button from 'forms/components/Button';
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {scoped} from 'nti-lib-locale';
-import {StoreEventsMixin} from 'nti-lib-store';
-import {getAppUser, getUserAgreementURI, ExternalLibraryManager} from 'nti-web-client';
-import {Error as Err, Loading} from 'nti-web-commons';
-import {rawContent} from 'nti-commons';
+import {scoped} from '@nti/lib-locale';
+import {StoreEventsMixin} from '@nti/lib-store';
+import {getAppUser, getUserAgreementURI, ExternalLibraryManager} from '@nti/web-client';
+import {Error as Err, Loading} from '@nti/web-commons';
+import {rawContent} from '@nti/lib-commons';
 
 import {clearLoadingFlag} from 'common/utils/react-state';
 import FormPanel from 'forms/components/FormPanel';

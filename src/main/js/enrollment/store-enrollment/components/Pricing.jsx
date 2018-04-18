@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {scoped} from 'nti-lib-locale';
-import {DateTime} from 'nti-web-commons';
+import {scoped} from '@nti/lib-locale';
+import {DateTime} from '@nti/web-commons';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 

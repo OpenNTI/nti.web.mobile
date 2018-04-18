@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Logger from 'nti-util-logger';
-import {getLink as getLinkFn} from 'nti-lib-interfaces';
-import {Error as Err, Loading} from 'nti-web-commons';
-import {StoreEventsMixin} from 'nti-lib-store';
-import {scoped} from 'nti-lib-locale';
+import Logger from '@nti/util-logger';
+import {getLink as getLinkFn} from '@nti/lib-interfaces';
+import {Error as Err, Loading} from '@nti/web-commons';
+import {StoreEventsMixin} from '@nti/lib-store';
+import {scoped} from '@nti/lib-locale';
 
 import Redirect from 'navigation/components/Redirect';
 

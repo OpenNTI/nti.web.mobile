@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {TableOfContents} from 'nti-content';
-import {Mixins} from 'nti-web-commons';
+import {TableOfContents} from '@nti/web-content';
+import {Mixins} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 

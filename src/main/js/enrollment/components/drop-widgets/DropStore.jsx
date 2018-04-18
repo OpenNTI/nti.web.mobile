@@ -1,5 +1,5 @@
 import React from 'react';
-import {PanelButton} from 'nti-web-commons';
+import {PanelButton} from '@nti/web-commons';
 
 
 export default function DropStore () {

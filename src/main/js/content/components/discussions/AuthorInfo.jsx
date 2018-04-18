@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DateTime, LuckyCharms}  from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {DateTime, LuckyCharms}  from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';

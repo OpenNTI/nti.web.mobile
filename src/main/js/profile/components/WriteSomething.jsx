@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Error as Err} from 'nti-web-commons';
+import {Error as Err} from '@nti/web-commons';
 
 import PostEditor from 'activity/components/PostEditor';
 import {Editor} from 'modeled-content';

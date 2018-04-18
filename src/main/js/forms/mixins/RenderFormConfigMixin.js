@@ -1,6 +1,6 @@
 import React from 'react';
 import isFunction from 'is-function';
-import t from 'nti-lib-locale';
+import t from '@nti/lib-locale';
 
 import radiogroup from 'forms/components/RadioGroup';
 import Select from 'forms/components/Select';

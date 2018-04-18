@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {rawContent} from 'nti-commons';
+import {rawContent} from '@nti/lib-commons';
 
 import Content from '../Content';
 

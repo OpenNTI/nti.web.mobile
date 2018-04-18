@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {isFlag} from 'nti-web-client';
+import {isFlag} from '@nti/web-client';
 
 import Breadcrumb from 'common/components/BreadcrumbPath';
 import Detail from 'content/components/discussions/Detail';

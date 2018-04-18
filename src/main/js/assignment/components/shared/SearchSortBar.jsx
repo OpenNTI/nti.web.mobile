@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {BufferedInput} from 'nti-web-commons';
+import {BufferedInput} from '@nti/web-commons';
 
 import AssignmentGroups from '../bindings/AssignmentGroups';
 

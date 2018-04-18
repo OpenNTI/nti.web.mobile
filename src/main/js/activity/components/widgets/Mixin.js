@@ -1,4 +1,4 @@
-import {String as StringUtils} from 'nti-commons';
+import {String as StringUtils} from '@nti/lib-commons';
 
 const inputTypeCleaned = Symbol();
 

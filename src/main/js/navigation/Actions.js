@@ -1,5 +1,5 @@
-import {buffer} from 'nti-commons';
-import AppDispatcher from 'nti-lib-dispatcher';
+import {buffer} from '@nti/lib-commons';
+import AppDispatcher from '@nti/lib-dispatcher';
 
 import {
 	SET_CONTEXT,

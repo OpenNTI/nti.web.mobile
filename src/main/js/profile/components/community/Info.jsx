@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
-import {rawContent} from 'nti-commons';
-import {Mixins} from 'nti-web-commons';
+import {rawContent} from '@nti/lib-commons';
+import {Mixins} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 

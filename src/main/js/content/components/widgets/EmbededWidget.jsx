@@ -5,8 +5,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
-import Logger from 'nti-util-logger';
-import {WindowMessageListener as MESSAGES} from 'nti-lib-dom';
+import Logger from '@nti/util-logger';
+import {WindowMessageListener as MESSAGES} from '@nti/lib-dom';
 
 import Mixin from './Mixin';
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {encodeForURI, isNTIID} from 'nti-lib-ntiids';
+import {encodeForURI, isNTIID} from '@nti/lib-ntiids';
 import Router, {Location} from 'react-router-component';
-import {Error as Err, Loading, Mixins} from 'nti-web-commons';
-import {StoreEventsMixin} from 'nti-lib-store';
+import {Error as Err, Loading, Mixins} from '@nti/web-commons';
+import {StoreEventsMixin} from '@nti/lib-store';
 
 import ContextSender from 'common/mixins/ContextSender';
 

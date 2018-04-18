@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Banner, ScrollTrigger, Loading, Mixins} from 'nti-web-commons';
+import {Banner, ScrollTrigger, Loading, Mixins} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 

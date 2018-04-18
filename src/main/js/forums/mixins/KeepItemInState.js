@@ -1,5 +1,5 @@
-import {decodeFromURI} from 'nti-lib-ntiids';
-import Logger from 'nti-util-logger';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import Logger from '@nti/util-logger';
 
 import {ITEM_LOADED} from '../Constants';
 

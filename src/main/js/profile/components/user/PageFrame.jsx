@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {getAppUsername} from 'nti-web-client';
-import {ActiveState, Background} from 'nti-web-commons';
+import {getAppUsername} from '@nti/web-client';
+import {ActiveState, Background} from '@nti/web-commons';
 
 import Page from 'common/components/Page';
 import DisplayName from 'common/components/DisplayName';

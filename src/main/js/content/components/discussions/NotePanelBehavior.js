@@ -3,7 +3,7 @@ import {
 	Error as Err,
 	Loading,
 	Mixins
-} from 'nti-web-commons';
+} from '@nti/web-commons';
 
 function ReplyComparator (a, b) {
 	a = a.getCreatedTime();

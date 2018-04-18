@@ -1,7 +1,7 @@
 import Path from 'path';
 
-import Logger from 'nti-util-logger';
-import {Mixins} from 'nti-web-commons';
+import Logger from '@nti/util-logger';
+import {Mixins} from '@nti/web-commons';
 
 const ROUTES = Symbol('Routes');
 

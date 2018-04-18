@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {SelectBox} from 'nti-web-commons';
+import {SelectBox} from '@nti/web-commons';
 
 const OPTIONS = [
 	{ label: 'Open Students', value: 'Open'},

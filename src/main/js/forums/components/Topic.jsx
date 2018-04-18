@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { addHistory, getHistory } from 'nti-analytics';
-import { decodeFromURI } from 'nti-lib-ntiids';
-import { Error as Err, Loading, Mixins, Notice, Prompt } from 'nti-web-commons';
-import { scoped } from 'nti-lib-locale';
-import { StoreEventsMixin } from 'nti-lib-store';
-import { ViewEvent } from 'nti-web-session';
+import { addHistory, getHistory } from '@nti/lib-analytics';
+import { decodeFromURI } from '@nti/lib-ntiids';
+import { Error as Err, Loading, Mixins, Notice, Prompt } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { StoreEventsMixin } from '@nti/lib-store';
+import { ViewEvent } from '@nti/web-session';
 
 // mixins
 import KeepItemInState from '../mixins/KeepItemInState';

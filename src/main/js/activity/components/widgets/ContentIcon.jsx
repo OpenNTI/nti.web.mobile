@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Array as ArrayUtils} from 'nti-commons';
-import {getService} from 'nti-web-client';
+import {Array as ArrayUtils} from '@nti/lib-commons';
+import {getService} from '@nti/web-client';
 
 const {ensure: ensureArray} = ArrayUtils;
 const getID = (x) => x && x.getID && x.getID();

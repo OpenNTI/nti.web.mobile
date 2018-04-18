@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {DateTime, Loading} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {DateTime, Loading} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import DisplayName from 'common/components/DisplayName';
 import Transcript from 'chat/components/Transcript';

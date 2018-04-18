@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {DateTime} from 'nti-web-commons';
+import {DateTime} from '@nti/web-commons';
 
 import ObjectLink from 'common/mixins/ObjectLink';
 

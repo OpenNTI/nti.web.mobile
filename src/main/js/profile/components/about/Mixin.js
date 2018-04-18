@@ -1,4 +1,4 @@
-import {Array as ArrayUtils} from 'nti-commons';
+import {Array as ArrayUtils} from '@nti/lib-commons';
 
 import selectWidget from './widgets/';
 

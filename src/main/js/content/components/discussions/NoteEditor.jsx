@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {Loading, HideNavigation} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {Loading, HideNavigation} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {Editor} from 'modeled-content';
 import ShareWith from 'common/components/ShareWith';

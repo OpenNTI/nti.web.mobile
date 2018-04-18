@@ -3,10 +3,10 @@ import {join} from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {rawContent} from 'nti-commons';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {DateTime, DisplayName} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {rawContent} from '@nti/lib-commons';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {DateTime, DisplayName} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 const t = scoped('course.assignments.activity', {
 	'grade-received': 'Grade Received:  %(title)s',

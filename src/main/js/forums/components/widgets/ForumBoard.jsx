@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
+import {scoped} from '@nti/lib-locale';
 
 import keyFor from '../../utils/key-for-item';
 import ForumItem from '../list-items/ForumItem';

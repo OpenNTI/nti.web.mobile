@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 
 const logger = Logger.get('enrollment:components:enrollment-option-widgets:UnrecogzniedEnrollmentType');
 

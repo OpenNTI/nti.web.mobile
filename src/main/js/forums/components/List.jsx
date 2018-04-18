@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import hash from 'object-hash';
-import {Notice} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {Notice} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import groupDeletedItems from '../utils/group-deleted-items';
 

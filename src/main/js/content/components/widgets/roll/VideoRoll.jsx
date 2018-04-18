@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {Error, Loading} from 'nti-web-commons';
-import {Component as Video} from 'nti-web-video';
+import {Error, Loading} from '@nti/web-commons';
+import {Component as Video} from '@nti/web-video';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {rawContent, Array as ArrayUtils} from 'nti-commons';
+import {rawContent, Array as ArrayUtils} from '@nti/lib-commons';
 
 import TableCell from './TableCell';
 

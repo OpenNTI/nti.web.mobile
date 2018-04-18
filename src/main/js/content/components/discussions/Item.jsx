@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {scoped} from 'nti-lib-locale';
-import {DateTime} from 'nti-web-commons';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {scoped} from '@nti/lib-locale';
+import {DateTime} from '@nti/web-commons';
 
 import DisplayName from 'common/components/DisplayName';
 import {Panel} from 'modeled-content';

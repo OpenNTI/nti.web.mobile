@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {EmptyList, Mixins} from 'nti-web-commons';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {EmptyList, Mixins} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DateTime, Report} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {DateTime, Report} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import Avatar from 'common/components/Avatar';
 import Breadcrumb from 'common/components/BreadcrumbPath';

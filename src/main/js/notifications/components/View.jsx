@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Loading} from 'nti-web-commons';
-import {StoreEventsMixin} from 'nti-lib-store';
+import {Loading} from '@nti/web-commons';
+import {StoreEventsMixin} from '@nti/lib-store';
 
 import Store from '../Store';
 import {load, loadMore} from '../Actions';

@@ -1,9 +1,9 @@
 import EventEmitter from 'events';
 
-import Logger from 'nti-util-logger';
-import AppDispatcher from 'nti-lib-dispatcher';
-import {CHANGE_EVENT} from 'nti-lib-store';
-import {getServer} from 'nti-web-client';
+import Logger from '@nti/util-logger';
+import AppDispatcher from '@nti/lib-dispatcher';
+import {CHANGE_EVENT} from '@nti/lib-store';
+import {getServer} from '@nti/web-client';
 
 import * as Constants from './Constants';
 

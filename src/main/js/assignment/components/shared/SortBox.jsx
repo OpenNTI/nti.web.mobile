@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {SelectBox} from 'nti-web-commons';
+import {SelectBox} from '@nti/web-commons';
 
 import Assignments from '../bindings/Assignments';
 

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {getService} from 'nti-web-client';
-import {DateTime, LuckyCharms} from 'nti-web-commons';
+import {getService} from '@nti/web-client';
+import {DateTime, LuckyCharms} from '@nti/web-commons';
 
 import {Panel as ModeledContent} from 'modeled-content';
 import Avatar from 'common/components/Avatar';

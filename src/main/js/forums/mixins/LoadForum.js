@@ -1,5 +1,5 @@
-import {decodeFromURI} from 'nti-lib-ntiids';
-import Logger from 'nti-util-logger';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import Logger from '@nti/util-logger';
 
 import {getForumContents} from '../Api';
 import Store from '../Store';

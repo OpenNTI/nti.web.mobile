@@ -1,5 +1,5 @@
-import Logger from 'nti-util-logger';
-import {scoped} from 'nti-lib-locale';
+import Logger from '@nti/util-logger';
+import {scoped} from '@nti/lib-locale';
 import naturalSort from 'node-natural-sort';
 
 export const CURRENT = 'current';

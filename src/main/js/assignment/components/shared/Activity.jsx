@@ -6,7 +6,7 @@ import {
 	Loading,
 	ScrollTrigger,
 	HOC
-} from 'nti-web-commons';
+} from '@nti/web-commons';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 

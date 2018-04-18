@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {Loading} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {Loading} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {areAssessmentsSupported} from '../utils';
 import {submit, clearAssessmentAnswers} from '../Actions';

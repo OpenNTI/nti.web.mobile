@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {scoped} from 'nti-lib-locale';
-import {Mixins} from 'nti-web-commons';
+import {scoped} from '@nti/lib-locale';
+import {Mixins} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 

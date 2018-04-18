@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Notice, Error as Err, Mixins} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {Notice, Error as Err, Mixins} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import FormattedPriceMixin from '../../mixins/FormattedPriceMixin';
 

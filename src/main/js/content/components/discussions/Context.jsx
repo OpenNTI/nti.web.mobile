@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
-import Logger from 'nti-util-logger';
-import {getModel} from 'nti-lib-interfaces';
-import {Loading} from 'nti-web-commons';
-import {rawContent} from 'nti-commons';
+import Logger from '@nti/util-logger';
+import {getModel} from '@nti/lib-interfaces';
+import {Loading} from '@nti/web-commons';
+import {rawContent} from '@nti/lib-commons';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 

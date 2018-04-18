@@ -1,4 +1,4 @@
-import AppDispatcher from 'nti-lib-dispatcher';
+import AppDispatcher from '@nti/lib-dispatcher';
 
 import {
 	PREFLIGHT_AND_SUBMIT,

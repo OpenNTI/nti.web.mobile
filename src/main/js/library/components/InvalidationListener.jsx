@@ -1,6 +1,6 @@
 import React from 'react';
-import Logger from 'nti-util-logger';
-import AppDispatcher from 'nti-lib-dispatcher';
+import Logger from '@nti/util-logger';
+import AppDispatcher from '@nti/lib-dispatcher';
 
 import {STRIPE_PAYMENT_SUCCESS} from 'enrollment/store-enrollment/Constants';
 import EnrollmentStore from 'enrollment/Store';

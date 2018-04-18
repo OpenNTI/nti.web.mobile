@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import hash from 'object-hash';
-import {getEventTarget} from 'nti-lib-dom';
-import {Mixins} from 'nti-web-commons';
+import {getEventTarget} from '@nti/lib-dom';
+import {Mixins} from '@nti/web-commons';
 
 import {RETRY_AFTER_DOM_SETTLES} from './annotations/Annotation';
 

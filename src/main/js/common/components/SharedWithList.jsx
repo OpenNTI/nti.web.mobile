@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {User} from 'nti-web-client';
-import {Loading} from 'nti-web-commons';
-import t from 'nti-lib-locale';
+import {User} from '@nti/web-client';
+import {Loading} from '@nti/web-commons';
+import t from '@nti/lib-locale';
 
 import DisplayName from './DisplayName';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Loading, Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from '@nti/web-commons';
 
 import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';

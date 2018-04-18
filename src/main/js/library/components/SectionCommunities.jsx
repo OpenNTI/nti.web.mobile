@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
-import {EmptyList, Mixins} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
+import {EmptyList, Mixins} from '@nti/web-commons';
+import {getService} from '@nti/web-client';
 
 import NavigationBar from 'navigation/components/Bar';
 

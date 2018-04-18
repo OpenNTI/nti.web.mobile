@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {HOC as HOCUtils} from 'nti-commons';
-import {HOC} from 'nti-web-commons';
+import {HOC as HOCUtils} from '@nti/lib-commons';
+import {HOC} from '@nti/web-commons';
 
 export default class AssignmentGroups extends React.Component {
 

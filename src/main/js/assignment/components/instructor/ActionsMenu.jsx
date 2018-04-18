@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {PropType as NTIID} from 'nti-lib-ntiids';
-import {HOC, Prompt} from 'nti-web-commons';
-import Logger from 'nti-util-logger';
+import {PropType as NTIID} from '@nti/lib-ntiids';
+import {HOC, Prompt} from '@nti/web-commons';
+import Logger from '@nti/util-logger';
 
 import Assignments from '../bindings/Assignments';
 

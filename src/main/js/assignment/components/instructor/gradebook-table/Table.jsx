@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {SortOrder} from 'nti-lib-interfaces';
+import {SortOrder} from '@nti/lib-interfaces';
 
 import ColumnHeading from './ColumnHeading';
 

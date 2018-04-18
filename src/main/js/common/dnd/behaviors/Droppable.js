@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 //
-import {Array as ArrayUtils} from 'nti-commons';
-import {isPointWithin} from 'nti-lib-dom';
+import {Array as ArrayUtils} from '@nti/lib-commons';
+import {isPointWithin} from '@nti/lib-dom';
 
 import Base, {TYPE_SHAPE} from './Base';
 

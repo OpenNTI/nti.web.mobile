@@ -1,5 +1,5 @@
 import isEmpty from 'isempty';
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 
 const logger = Logger.get('assessment:utils');
 

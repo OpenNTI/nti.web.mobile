@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import {Mixins} from 'nti-web-commons';
+import {Mixins} from '@nti/web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
 import Redirect from 'navigation/components/Redirect';

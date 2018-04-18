@@ -3,8 +3,8 @@ import {join} from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {Mixins} from 'nti-web-commons';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {Mixins} from '@nti/web-commons';
 
 import Redirect from 'navigation/components/Redirect';
 

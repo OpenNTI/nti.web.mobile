@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
-import {DarkMode, Loading, Mixins} from 'nti-web-commons';
+import {DarkMode, Loading, Mixins} from '@nti/web-commons';
 
 import Library from '../mixins/LibraryAccessor';
 

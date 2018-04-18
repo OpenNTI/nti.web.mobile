@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getService} from 'nti-web-client';
-import {rawContent} from 'nti-commons';
-import {Loading, Error} from 'nti-web-commons';
-import {parseHTML} from 'nti-lib-content-processing';
+import {getService} from '@nti/web-client';
+import {rawContent} from '@nti/lib-commons';
+import {Loading, Error} from '@nti/web-commons';
+import {parseHTML} from '@nti/lib-content-processing';
 
 export default class extends React.Component {
 	static displayName = 'PopUp';

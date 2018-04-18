@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {StoreEventsMixin} from 'nti-lib-store';
-import {isFlag} from 'nti-web-client';
+import {StoreEventsMixin} from '@nti/lib-store';
+import {isFlag} from '@nti/web-client';
 
 import {Mixin as DragDropOrchestrator} from 'common/dnd';
 

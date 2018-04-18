@@ -1,7 +1,7 @@
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import Logger from 'nti-util-logger';
-import {Mixins} from 'nti-web-commons';
+import Logger from '@nti/util-logger';
+import {Mixins} from '@nti/web-commons';
 
 import Contributor, {ContextParent} from './ContextContributor';
 

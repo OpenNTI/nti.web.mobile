@@ -1,8 +1,8 @@
 import EventEmitter from 'events';
 
-import AppDispatcher from 'nti-lib-dispatcher';
-import {CHANGE_EVENT} from 'nti-lib-store';
-import {getService} from 'nti-web-client';
+import AppDispatcher from '@nti/lib-dispatcher';
+import {CHANGE_EVENT} from '@nti/lib-store';
+import {getService} from '@nti/web-client';
 
 import * as Constants from './Constants';
 import * as Api from './Api';

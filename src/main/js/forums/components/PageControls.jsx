@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
-import {Mixins} from 'nti-web-commons';
+import {Mixins} from '@nti/web-commons';
 
 const goToPage = 'PageControls:goToPage';
 

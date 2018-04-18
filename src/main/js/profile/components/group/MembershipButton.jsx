@@ -3,7 +3,7 @@ import {join} from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Mixins} from 'nti-web-commons';
+import {Mixins} from '@nti/web-commons';
 
 import Button from 'forms/components/Button';
 import {profileHref} from 'profile/mixins/ProfileLink';

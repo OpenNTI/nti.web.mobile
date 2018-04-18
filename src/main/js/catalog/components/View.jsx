@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Locations, Location} from 'react-router-component';
-import {Mixins} from 'nti-web-commons';
+import {Mixins} from '@nti/web-commons';
 
 import Page from 'common/components/Page';
 import ContextMixin from 'common/mixins/ContextContributor';

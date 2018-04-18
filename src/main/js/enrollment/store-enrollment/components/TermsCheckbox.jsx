@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
-import {getUserAgreementURI} from 'nti-web-client';
-import {rawContent} from 'nti-commons';
+import {scoped} from '@nti/lib-locale';
+import {getUserAgreementURI} from '@nti/web-client';
+import {rawContent} from '@nti/lib-commons';
 
 const t = scoped('enrollment.terms', {
 	agreement: 'I have read and agree to the <a href="%(url)s" target="_blank">licensing terms</a>'

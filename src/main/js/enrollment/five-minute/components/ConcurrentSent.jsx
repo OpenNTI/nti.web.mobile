@@ -1,6 +1,6 @@
 import React from 'react';
-import {scoped} from 'nti-lib-locale';
-import {rawContent} from 'nti-commons';
+import {scoped} from '@nti/lib-locale';
+import {rawContent} from '@nti/lib-commons';
 
 const t = scoped('enrollment.concurrent', {
 	heading: 'Thank you for your interest in concurrent enrollment.',

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {scoped} from 'nti-lib-locale';
-import {Loading, Mixins} from 'nti-web-commons';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {scoped} from '@nti/lib-locale';
+import {Loading, Mixins} from '@nti/web-commons';
 
 import Button from 'forms/components/Button';
 import EnrollmentOptions from 'enrollment/mixins/EnrollmentMixin';

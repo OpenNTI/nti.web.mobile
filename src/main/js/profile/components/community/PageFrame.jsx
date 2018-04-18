@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-// import {getViewportWidth} from 'nti-lib-dom';
-import {Background, ActiveLink as Link, Loading} from 'nti-web-commons';
+// import {getViewportWidth} from '@nti/lib-dom';
+import {Background, ActiveLink as Link, Loading} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Page from 'common/components/Page';

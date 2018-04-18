@@ -1,8 +1,8 @@
 import cx from 'classnames';
-import Logger from 'nti-util-logger';
-import * as Anchors from 'nti-lib-anchorjs';
-import * as RangeUtils from 'nti-lib-ranges';
-import {mixin} from 'nti-commons';
+import Logger from '@nti/util-logger';
+import * as Anchors from '@nti/lib-anchors';
+import * as RangeUtils from '@nti/lib-ranges';
+import {mixin} from '@nti/lib-commons';
 
 import Annotation, {RENDERED} from './Annotation';
 import RangeWrapperMixin from './RangeWrapperMixin';

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import Logger from 'nti-util-logger';
-import {declareCustomElement, getEventTarget} from 'nti-lib-dom';
-import isTouchDevice from 'nti-util-detection-touch';
-import {rawContent, buffer} from 'nti-commons';
-import {Mixins} from 'nti-web-commons';
+import Logger from '@nti/util-logger';
+import {declareCustomElement, getEventTarget} from '@nti/lib-dom';
+import isTouchDevice from '@nti/util-detection-touch';
+import {rawContent, buffer} from '@nti/lib-commons';
+import {Mixins} from '@nti/web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
@@ -227,7 +227,7 @@ export default class Content extends React.Component {
 		const props = {...otherProps,
 			is: 'div',//We are using a custom element that mimics a div
 			ref: this.attachContentRef,
-			class: 'nti-content-panel', //react does not remap className=>class for custom elements
+			class: '@nti/web-content-panel', //react does not remap className=>class for custom elements
 			'data-ntiid': pageId,
 			'data-page-ntiid': pageId
 		};

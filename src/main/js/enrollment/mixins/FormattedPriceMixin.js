@@ -1,4 +1,4 @@
-import {Currency} from 'nti-web-commons';
+import {Currency} from '@nti/web-commons';
 
 export default {
 	getFormattedPrice (currency, price) {

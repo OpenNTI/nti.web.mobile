@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {scoped} from 'nti-lib-locale';
-import {encodeForURI} from 'nti-lib-ntiids';
+import {scoped} from '@nti/lib-locale';
+import {encodeForURI} from '@nti/lib-ntiids';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 

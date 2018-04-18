@@ -1,6 +1,6 @@
-import {getLink} from 'nti-lib-interfaces';
-import {getService} from 'nti-web-client';
-import AppDispatcher from 'nti-lib-dispatcher';
+import {getLink} from '@nti/lib-interfaces';
+import {getService} from '@nti/web-client';
+import AppDispatcher from '@nti/lib-dispatcher';
 
 import {RELOAD as RELOAD_LIBRARY} from 'library/Constants';
 

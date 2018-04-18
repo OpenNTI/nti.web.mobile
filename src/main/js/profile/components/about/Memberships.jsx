@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {EmptyList} from 'nti-web-commons';
-import {ViewEvent} from 'nti-web-session';
+import {EmptyList} from '@nti/web-commons';
+import {ViewEvent} from '@nti/web-session';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 

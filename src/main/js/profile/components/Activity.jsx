@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import { EmptyList, Loading, Mixins, ScrollTrigger } from 'nti-web-commons';
-import { ViewEvent } from 'nti-web-session';
+import { EmptyList, Loading, Mixins, ScrollTrigger } from '@nti/web-commons';
+import { ViewEvent } from '@nti/web-session';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
 import Joined from 'activity/components/widgets/Joined';

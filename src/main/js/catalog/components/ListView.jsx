@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Catalog from 'nti-web-catalog';
-import {encodeForURI} from 'nti-lib-ntiids';
+import Catalog from '@nti/web-catalog';
+import {encodeForURI} from '@nti/lib-ntiids';
 
 import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';

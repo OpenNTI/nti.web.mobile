@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from 'nti-lib-locale';
-import {isFlag} from 'nti-web-client';
+import {scoped} from '@nti/lib-locale';
+import {isFlag} from '@nti/web-client';
 
 import Page from 'common/components/Page';
 

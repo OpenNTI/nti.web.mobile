@@ -1,6 +1,6 @@
-import { Models } from 'nti-lib-interfaces';
-import Logger from 'nti-util-logger';
-import StorePrototype from 'nti-lib-store';
+import { Models } from '@nti/lib-interfaces';
+import Logger from '@nti/util-logger';
+import StorePrototype from '@nti/lib-store';
 
 import {loadPreviousState, saveProgress} from './Api';
 import {

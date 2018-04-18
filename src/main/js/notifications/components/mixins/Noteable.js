@@ -1,6 +1,6 @@
-import Logger from 'nti-util-logger';
-import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
-import {Mixins} from 'nti-web-commons';
+import Logger from '@nti/util-logger';
+import {isNTIID, encodeForURI} from '@nti/lib-ntiids';
+import {Mixins} from '@nti/web-commons';
 
 const logger = Logger.get('notifications:mixin');
 

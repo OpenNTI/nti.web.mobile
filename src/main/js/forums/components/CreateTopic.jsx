@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {Loading, Mixins, Notice} from 'nti-web-commons';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {Loading, Mixins, Notice} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Breadcrumb from 'navigation/components/Breadcrumb';

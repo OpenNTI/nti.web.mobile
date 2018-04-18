@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Mixins} from 'nti-web-commons';
+import {Mixins} from '@nti/web-commons';
 
 import Redirect from 'navigation/components/Redirect';
 

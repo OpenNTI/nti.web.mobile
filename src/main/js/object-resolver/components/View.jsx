@@ -3,10 +3,10 @@ import {join} from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import Logger from 'nti-util-logger';
-import {Loading, Mixins} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import Logger from '@nti/util-logger';
+import {Loading, Mixins} from '@nti/web-commons';
+import {getService} from '@nti/web-client';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 import NotFound from 'notfound/components/View';

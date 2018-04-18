@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {scoped} from 'nti-lib-locale';
-import {rawContent} from 'nti-commons';
+import {scoped} from '@nti/lib-locale';
+import {rawContent} from '@nti/lib-commons';
 
 import StudentLink from './StudentLink';
 

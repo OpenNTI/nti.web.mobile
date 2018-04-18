@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
-import {Mixins, Prompt} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
+import {Mixins, Prompt} from '@nti/web-commons';
+import {getService} from '@nti/web-client';
 
 import Action from './ItemAction';
 

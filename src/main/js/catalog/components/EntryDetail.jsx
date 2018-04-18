@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {Loading} from 'nti-web-commons';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {Loading} from '@nti/web-commons';
 
 import NotFound from 'notfound/components/View';
 import {Component as ContextSender} from 'common/mixins/ContextSender';

@@ -3,12 +3,12 @@ import {join} from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 import {
 	Error as Err,
 	Loading,
 	Mixins
-} from 'nti-web-commons';
+} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Page from 'common/components/Page';

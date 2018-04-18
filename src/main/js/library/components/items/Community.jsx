@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Ellipsed as E} from 'nti-web-commons';
+import {Ellipsed as E} from '@nti/web-commons';
 
 import ProfileLink from 'profile/components/ProfileLink';
 import Avatar from 'common/components/Avatar';

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {Mixins} from 'nti-web-commons';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {Mixins} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Redirect from 'navigation/components/Redirect';

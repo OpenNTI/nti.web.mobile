@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'react-router-component';
-import {Loading} from 'nti-web-commons';
+import {Loading} from '@nti/web-commons';
 
 import Redirect from 'navigation/components/Redirect';
 

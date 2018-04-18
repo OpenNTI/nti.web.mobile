@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Logger from 'nti-util-logger';
-import {rawContent} from 'nti-commons';
-import {scoped} from 'nti-lib-locale';
-import {Loading, Mixins} from 'nti-web-commons';
+import Logger from '@nti/util-logger';
+import {rawContent} from '@nti/lib-commons';
+import {scoped} from '@nti/lib-locale';
+import {Loading, Mixins} from '@nti/web-commons';
 
 const logger = Logger.get('enrollment:components:enrollment-option-widgets:FiveMinuteEnrollment');
 const t = scoped('enrollment.fiveMinuteEnrollment', {

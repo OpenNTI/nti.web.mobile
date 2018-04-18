@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-import Logger from 'nti-util-logger';
-import {Loading} from 'nti-web-commons';
-import t from 'nti-lib-locale';
+import Logger from '@nti/util-logger';
+import {Loading} from '@nti/web-commons';
+import t from '@nti/lib-locale';
 
 import {Editor} from 'modeled-content';
 

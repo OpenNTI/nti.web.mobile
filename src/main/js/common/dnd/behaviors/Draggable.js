@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {PointerEvents} from 'nti-util-detection-touch';
+import {PointerEvents} from '@nti/util-detection-touch';
 import {
 	isMultiTouch,
 	addEventListener as _addEventListener,
@@ -10,7 +10,7 @@ import {
 	getViewportHeight,
 	matches,
 	getScrollParent
-} from 'nti-lib-dom';
+} from '@nti/lib-dom';
 
 import Base, {TYPE_SHAPE} from './Base';
 

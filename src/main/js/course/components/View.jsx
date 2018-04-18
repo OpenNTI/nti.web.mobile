@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'react-router-component';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {Background, Error as ErrorWidget, Loading, Presentation} from 'nti-web-commons';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {Background, Error as ErrorWidget, Loading, Presentation} from '@nti/web-commons';
 
 import Assignments from 'assignment/components/View';
 import NotFound from 'notfound/components/View';

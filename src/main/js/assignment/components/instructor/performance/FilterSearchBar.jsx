@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {BufferedInput, HOC} from 'nti-web-commons';
+import {BufferedInput, HOC} from '@nti/web-commons';
 
 import PageControls from '../PageControls';
 

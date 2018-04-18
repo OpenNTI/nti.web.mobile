@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Ellipsed, Presentation} from 'nti-web-commons';
+import {Ellipsed, Presentation} from '@nti/web-commons';
 
 import * as COURSE_SECTIONS from 'course/Sections';
 

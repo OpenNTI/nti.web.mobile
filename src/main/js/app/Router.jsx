@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Prompt, Mixins} from 'nti-web-commons';
-import {getHistory} from 'nti-web-routing';
+import {Prompt, Mixins} from '@nti/web-commons';
+import {getHistory} from '@nti/web-routing';
 import {
 	environment,
 	Locations,
 	Location,
 	NotFound
 } from 'react-router-component';
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 
 //Main View Handlers
 import Catalog from 'catalog/components/ViewLoader';

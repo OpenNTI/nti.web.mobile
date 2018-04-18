@@ -1,7 +1,7 @@
 //TODO
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {DateTime} from 'nti-web-commons';
+import {DateTime} from '@nti/web-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';

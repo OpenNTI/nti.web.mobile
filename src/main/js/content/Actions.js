@@ -1,8 +1,8 @@
-import Logger from 'nti-util-logger';
-import {parseNTIID} from 'nti-lib-ntiids';
-import {getService} from 'nti-web-client';
-import {dispatch} from 'nti-lib-dispatcher';
-import {processContent} from 'nti-lib-content-processing';
+import Logger from '@nti/util-logger';
+import {parseNTIID} from '@nti/lib-ntiids';
+import {getService} from '@nti/web-client';
+import {dispatch} from '@nti/lib-dispatcher';
+import {processContent} from '@nti/lib-content-processing';
 
 import PageDescriptor from './PageDescriptor';
 import {getPageInfo} from './Api';

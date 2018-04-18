@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {Mixins} from 'nti-web-commons';
-import {StoreEventsMixin} from 'nti-lib-store';
-import {scoped} from 'nti-lib-locale';
-import {getServer, getReturnURL} from 'nti-web-client';
+import {Mixins} from '@nti/web-commons';
+import {StoreEventsMixin} from '@nti/lib-store';
+import {scoped} from '@nti/lib-locale';
+import {getServer, getReturnURL} from '@nti/web-client';
 
 import UserAgreement from 'login/prompts/terms/components/UserAgreement';
 

@@ -1,4 +1,4 @@
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 
 import ReadOnlyStore from './Store';
 import {getMainSubmittable, isAssignment} from './utils';

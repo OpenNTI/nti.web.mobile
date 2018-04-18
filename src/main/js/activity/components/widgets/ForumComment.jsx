@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {DateTime, LuckyCharms} from 'nti-web-commons';
+import {DateTime, LuckyCharms} from '@nti/web-commons';
 
 import {Panel as ModeledContent} from 'modeled-content';
 import Avatar from 'common/components/Avatar';

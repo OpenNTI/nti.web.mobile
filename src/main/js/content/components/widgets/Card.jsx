@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Card, Mixins} from 'nti-web-commons';
-import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
+import {Card, Mixins} from '@nti/web-commons';
+import {isNTIID, encodeForURI} from '@nti/lib-ntiids';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 

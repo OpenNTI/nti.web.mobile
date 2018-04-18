@@ -1,7 +1,7 @@
 import React from 'react';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import Logger from 'nti-util-logger';
-import {Loading, Mixins} from 'nti-web-commons';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import Logger from '@nti/util-logger';
+import {Loading, Mixins} from '@nti/web-commons';
 
 import {getCatalogEntry} from '../Api';
 import EnrollmentStore from '../Store';

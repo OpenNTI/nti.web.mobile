@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Contact} from 'nti-web-help';
-import {Mixins} from 'nti-web-commons';
-import {getHistory} from 'nti-web-routing';
+import {Contact} from '@nti/web-help';
+import {Mixins} from '@nti/web-commons';
+import {getHistory} from '@nti/web-routing';
 
 import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';

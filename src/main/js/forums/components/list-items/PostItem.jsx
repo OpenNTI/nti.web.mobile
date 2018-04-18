@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import classnames from 'classnames';
-import {DateTime, Loading, LuckyCharms, Mixins, Prompt} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {StoreEventsMixin} from 'nti-lib-store';
+import {DateTime, Loading, LuckyCharms, Mixins, Prompt} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {StoreEventsMixin} from '@nti/lib-store';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';

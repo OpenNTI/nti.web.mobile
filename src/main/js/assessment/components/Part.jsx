@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
-import {StoreEventsMixin} from 'nti-lib-store';
-import {rawContent} from 'nti-commons';
+import {StoreEventsMixin} from '@nti/lib-store';
+import {rawContent} from '@nti/lib-commons';
 
 import Store from '../Store';
 import {isAssignment} from '../utils';

@@ -1,4 +1,4 @@
-import AppDispatcher from 'nti-lib-dispatcher';
+import AppDispatcher from '@nti/lib-dispatcher';
 
 import * as Api from './Api';
 import * as Constants from './Constants';

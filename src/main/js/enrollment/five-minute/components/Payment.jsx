@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Logger from 'nti-util-logger';
-import {Error as Err, Loading, Mixins} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import Logger from '@nti/util-logger';
+import {Error as Err, Loading, Mixins} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {doExternalPayment} from '../Actions';
 import Store from '../Store';

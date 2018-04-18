@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {Link} from 'react-router-component';
-import {addHistory} from 'nti-analytics';
-import {scoped} from 'nti-lib-locale';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {StoreEventsMixin} from 'nti-lib-store';
-import {Error as Err, Loading, Mixins} from 'nti-web-commons';
+import {addHistory} from '@nti/lib-analytics';
+import {scoped} from '@nti/lib-locale';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {StoreEventsMixin} from '@nti/lib-store';
+import {Error as Err, Loading, Mixins} from '@nti/web-commons';
 
 import paging from '../mixins/Paging';
 import LoadForum from '../mixins/LoadForum';

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {HOC} from 'nti-web-commons';
-import {HOC as HOCUtils} from 'nti-commons';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {HOC} from '@nti/web-commons';
+import {HOC as HOCUtils} from '@nti/lib-commons';
 
 
 const getAssignmentID = props => props.assignmentId

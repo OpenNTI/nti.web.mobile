@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {SortOrder} from 'nti-lib-interfaces';
+import {SortOrder} from '@nti/lib-interfaces';
 
 import AssignmentSummary from '../../bindings/AssignmentSummary';
 

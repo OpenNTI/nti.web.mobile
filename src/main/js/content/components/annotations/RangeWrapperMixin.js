@@ -1,6 +1,6 @@
-import * as DOM from 'nti-lib-dom';
-import * as RangeUtils from 'nti-lib-ranges';
-import Logger from 'nti-util-logger';
+import * as DOM from '@nti/lib-dom';
+import * as RangeUtils from '@nti/lib-ranges';
+import Logger from '@nti/util-logger';
 
 const logger = Logger.get('content:components:annotations:RangeWrapperMixin');
 

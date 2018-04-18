@@ -1,6 +1,6 @@
-import Logger from 'nti-util-logger';
-import {User, getAppUsername} from 'nti-web-client';
-import {Mixins} from 'nti-web-commons';
+import Logger from '@nti/util-logger';
+import {User, getAppUsername} from '@nti/web-client';
+import {Mixins} from '@nti/web-commons';
 
 const logger = Logger.get('profile:mixins:ProfileLink');
 

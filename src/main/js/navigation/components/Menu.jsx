@@ -1,5 +1,5 @@
 import React from 'react';
-import {addClass, removeClass} from 'nti-lib-dom';
+import {addClass, removeClass} from '@nti/lib-dom';
 
 const getViewport = ()=> document.getElementsByTagName('html')[0];
 

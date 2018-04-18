@@ -4,7 +4,7 @@ import {
 	ActiveState,
 	ActiveStateContainer,
 	ListHeader as Header
-} from 'nti-web-commons';
+} from '@nti/web-commons';
 
 import Assignments from '../bindings/Assignments';
 

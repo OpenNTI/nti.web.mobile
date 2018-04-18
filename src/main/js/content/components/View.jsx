@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import {decodeFromURI} from 'nti-lib-ntiids';
+import {decodeFromURI} from '@nti/lib-ntiids';
 import {
 	Error as ErrorWidget,
 	Loading,
 	Mixins
-} from 'nti-web-commons';
+} from '@nti/web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
 import Redirect from 'navigation/components/Redirect';

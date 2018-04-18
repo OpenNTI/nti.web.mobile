@@ -3,13 +3,13 @@ import URL from 'url';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {environment, CaptureClicks, Link} from 'react-router-component';
-import {Session} from 'nti-web-session';
-import {Loading, Layouts} from 'nti-web-commons';
-import Logger from 'nti-util-logger';
+import {Session} from '@nti/web-session';
+import {Loading, Layouts} from '@nti/web-commons';
+import Logger from '@nti/util-logger';
 import {
 	addChangeListener as addLocaleChangeListener,
 	removeChangeListener as removeLocaleChangeListener
-} from 'nti-lib-locale';
+} from '@nti/lib-locale';
 import 'locale';
 
 import * as NavigationActions from 'navigation/Actions';

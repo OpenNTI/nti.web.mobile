@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Link} from 'react-router-component';
-import {scoped} from 'nti-lib-locale';
-import {Loading} from 'nti-web-commons';
+import {scoped} from '@nti/lib-locale';
+import {Loading} from '@nti/web-commons';
 
 import NavigationGuard from 'navigation/components/NavigationGuard';
 

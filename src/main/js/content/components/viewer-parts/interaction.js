@@ -1,6 +1,6 @@
-import Logger from 'nti-util-logger';
-import {isNTIID, encodeForURI} from 'nti-lib-ntiids';
-import {hasClass, getEventTarget, getScrollPosition, getScrollParent} from 'nti-lib-dom';
+import Logger from '@nti/util-logger';
+import {isNTIID, encodeForURI} from '@nti/lib-ntiids';
+import {hasClass, getEventTarget, getScrollPosition, getScrollParent} from '@nti/lib-dom';
 
 const logger = Logger.get('content:components:viewer-parts:interaction');
 const SCROLL = Symbol('Scroll-To-Target-Delay');

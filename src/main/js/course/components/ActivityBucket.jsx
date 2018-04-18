@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import Logger from 'nti-util-logger';
-import {DateTime} from 'nti-web-commons';
+import Logger from '@nti/util-logger';
+import {DateTime} from '@nti/web-commons';
 
 import ItemsMixin from 'activity/RenderItemsMixin';
 

@@ -4,7 +4,7 @@ const logger = require('./logger');
 // 	// Catalog,
 // 	Library,
 // 	// Notifications
-// } = require('nti-lib-interfaces');
+// } = require('@nti/lib-interfaces');
 
 const needsAttention = route => Promise.reject({isLoginAction: true, route});
 

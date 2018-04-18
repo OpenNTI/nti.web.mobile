@@ -1,5 +1,5 @@
-import {addClass, removeClass, getEventTarget, TransitionEvents} from 'nti-lib-dom';
-import Logger from 'nti-util-logger';
+import {addClass, removeClass, getEventTarget, TransitionEvents} from '@nti/lib-dom';
+import Logger from '@nti/util-logger';
 
 const logger = Logger.get('content:components:widgets:roll:Mixin');
 

@@ -5,10 +5,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {scoped} from 'nti-lib-locale';
-import {Loading} from 'nti-web-commons';
-import {ExternalLibraryManager, getAppUser} from 'nti-web-client';
-import {StoreEventsMixin} from 'nti-lib-store';
+import {scoped} from '@nti/lib-locale';
+import {Loading} from '@nti/web-commons';
+import {ExternalLibraryManager, getAppUser} from '@nti/web-client';
+import {StoreEventsMixin} from '@nti/lib-store';
 
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';

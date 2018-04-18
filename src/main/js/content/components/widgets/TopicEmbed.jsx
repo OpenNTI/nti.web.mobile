@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {scoped} from 'nti-lib-locale';
-import {encodeForURI} from 'nti-lib-ntiids';
-import {getConfigFor} from 'nti-web-client';
-import {EmptyState} from 'nti-web-commons';
+import {scoped} from '@nti/lib-locale';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {getConfigFor} from '@nti/web-client';
+import {EmptyState} from '@nti/web-commons';
 
 import Mixin from './Mixin';
 

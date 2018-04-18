@@ -1,7 +1,7 @@
-import Logger from 'nti-util-logger';
-import {buffer} from 'nti-commons';
-import {createRangeDescriptionFromRange, preresolveLocatorInfo} from 'nti-lib-anchorjs';
-import {getEventTarget, parent} from 'nti-lib-dom';
+import Logger from '@nti/util-logger';
+import {buffer} from '@nti/lib-commons';
+import {createRangeDescriptionFromRange, preresolveLocatorInfo} from '@nti/lib-anchors';
+import {getEventTarget, parent} from '@nti/lib-dom';
 
 import Highlight from '../annotations/Highlight';
 import Note from '../annotations/Note';

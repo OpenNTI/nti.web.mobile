@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Loading, Mixins} from 'nti-web-commons';
+import {Loading, Mixins} from '@nti/web-commons';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 

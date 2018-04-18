@@ -1,4 +1,4 @@
-import {dispatch} from 'nti-lib-dispatcher';
+import {dispatch} from '@nti/lib-dispatcher';
 
 import {getLibrary} from './Api';
 import {LOADED_LIBRARY} from './Constants';

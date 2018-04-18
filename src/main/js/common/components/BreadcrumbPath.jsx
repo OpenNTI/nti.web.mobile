@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 

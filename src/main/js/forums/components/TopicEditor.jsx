@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {OkCancelButtons, PanelButton} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {OkCancelButtons, PanelButton} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {Editor} from 'modeled-content';
 

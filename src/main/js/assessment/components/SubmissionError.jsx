@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {scoped} from 'nti-lib-locale';
+import {scoped} from '@nti/lib-locale';
 
 const t = scoped('assessment.errors', {
 	submission404: 'A required resource could not be found. This assignment may have been deleted.'

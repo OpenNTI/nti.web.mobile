@@ -1,4 +1,4 @@
-import {Service} from 'nti-lib-interfaces';
+import {Service} from '@nti/lib-interfaces';
 
 const UserData = Symbol('UserData');
 

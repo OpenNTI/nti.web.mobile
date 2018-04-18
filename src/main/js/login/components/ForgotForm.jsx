@@ -3,8 +3,8 @@ import Url from 'url';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Link} from 'react-router-component';
-import {scoped} from 'nti-lib-locale';
-import {getServer} from 'nti-web-client';
+import {scoped} from '@nti/lib-locale';
+import {getServer} from '@nti/web-client';
 
 const t = scoped('app.login.forgot');
 

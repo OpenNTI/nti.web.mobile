@@ -4,8 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Locations, Location, NotFound} from 'react-router-component';
-import {Mixins} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {Mixins} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
 

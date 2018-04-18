@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import Logger from 'nti-util-logger';
-import {Loading} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import Logger from '@nti/util-logger';
+import {Loading} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import Button from 'forms/components/Button';
 import FieldRender from 'forms/mixins/RenderFormConfigMixin';

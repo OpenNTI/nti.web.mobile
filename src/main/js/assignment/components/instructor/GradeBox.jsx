@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {Models} from 'nti-lib-interfaces';
-import {PropType as NTIID} from 'nti-lib-ntiids';
-import Logger from 'nti-util-logger';
-import {HOC} from 'nti-web-commons';
+import {Models} from '@nti/lib-interfaces';
+import {PropType as NTIID} from '@nti/lib-ntiids';
+import Logger from '@nti/util-logger';
+import {HOC} from '@nti/web-commons';
 import isEmpty from 'isempty';
 
 import Assignments from '../bindings/Assignments';

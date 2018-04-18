@@ -2,10 +2,10 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import QueryString from 'query-string';
 import {Link} from 'react-router-component';
-import Logger from 'nti-util-logger';
-import {Loading} from 'nti-web-commons';
-import {StoreEventsMixin} from 'nti-lib-store';
-import {scoped} from 'nti-lib-locale';
+import Logger from '@nti/util-logger';
+import {Loading} from '@nti/web-commons';
+import {StoreEventsMixin} from '@nti/lib-store';
+import {scoped} from '@nti/lib-locale';
 
 import {
 	LINK_ACCOUNT_CREATE,

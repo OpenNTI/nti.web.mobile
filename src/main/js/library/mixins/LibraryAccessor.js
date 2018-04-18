@@ -1,4 +1,4 @@
-import {StoreEventsMixin} from 'nti-lib-store';
+import {StoreEventsMixin} from '@nti/lib-store';
 
 import LibraryStore from '../Store';
 import {load} from '../Actions';

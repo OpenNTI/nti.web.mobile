@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Error as ErrorWidget} from 'nti-web-commons';
+import {Error as ErrorWidget} from '@nti/web-commons';
 
 import CourseContentLink from 'library/components/CourseContentLink';
 

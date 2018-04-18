@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {EmptyList} from 'nti-web-commons';
+import {EmptyList} from '@nti/web-commons';
 
 import AddButton from '../AddButton';
 import Heading from '../SectionHeading';

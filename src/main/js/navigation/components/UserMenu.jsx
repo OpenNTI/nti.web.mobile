@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getAppUsername} from 'nti-web-client';
+import {getAppUsername} from '@nti/web-client';
 
 import Avatar from 'common/components/Avatar';
 

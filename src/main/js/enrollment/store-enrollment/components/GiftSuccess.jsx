@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {DateTime} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
-import {rawContent} from 'nti-commons';
+import {DateTime} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
+import {rawContent} from '@nti/lib-commons';
 
 import Button from 'forms/components/Button';
 

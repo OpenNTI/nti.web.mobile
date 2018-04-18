@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Prompt, Mixins} from 'nti-web-commons';
-import {scoped} from 'nti-lib-locale';
+import {Prompt, Mixins} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 import cx from 'classnames';
 
 const DEFAULT_TEXT = {

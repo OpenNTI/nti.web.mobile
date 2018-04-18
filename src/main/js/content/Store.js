@@ -1,4 +1,4 @@
-import StorePrototype from 'nti-lib-store';
+import StorePrototype from '@nti/lib-store';
 
 import {PAGE_LOADED, PAGE_FAILED} from './Constants';
 

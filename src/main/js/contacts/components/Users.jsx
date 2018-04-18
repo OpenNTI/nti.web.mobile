@@ -4,7 +4,7 @@ import {
 	EmptyList,
 	Error as Err,
 	Loading
-} from 'nti-web-commons';
+} from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 

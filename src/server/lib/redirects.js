@@ -1,7 +1,7 @@
 /*eslint strict:0, import/no-commonjs:0, import/order:0*/
 'use strict';
 const path = require('path');
-const {encodeForURI, decodeFromURI} = require('nti-lib-ntiids');
+const {encodeForURI, decodeFromURI} = require('@nti/lib-ntiids');
 const logger = require('./logger');
 
 const SEGMENT_HANDLERS = {

@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {getModel} from 'nti-lib-interfaces';
-import Logger from 'nti-util-logger';
-import {decodeFromURI} from 'nti-lib-ntiids';
-import {Card, Loading, Mixins} from 'nti-web-commons';
-import {getService} from 'nti-web-client';
+import {getModel} from '@nti/lib-interfaces';
+import Logger from '@nti/util-logger';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {Card, Loading, Mixins} from '@nti/web-commons';
+import {getService} from '@nti/web-client';
 
 import ContextContributor from 'common/mixins/ContextContributor';
 import Discussions from 'content/components/discussions';

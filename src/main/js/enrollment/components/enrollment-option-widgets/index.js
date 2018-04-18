@@ -1,4 +1,4 @@
-import Logger from 'nti-util-logger';
+import Logger from '@nti/util-logger';
 
 import OpenEnrollment from './OpenEnrollment';
 import StoreEnrollment from './StoreEnrollment';

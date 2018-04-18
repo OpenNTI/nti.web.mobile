@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {SortOrder} from 'nti-lib-interfaces';
-import {Loading, HOC} from 'nti-web-commons';
+import {SortOrder} from '@nti/lib-interfaces';
+import {Loading, HOC} from '@nti/web-commons';
 
 import Table from '../gradebook-table/Table';
 import ColumnStudentActionItems from '../gradebook-table/ColumnStudentActionItems';

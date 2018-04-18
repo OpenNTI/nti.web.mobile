@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 import {validate as isEmail} from 'email-validator';
-import {scoped} from 'nti-lib-locale';
+import {scoped} from '@nti/lib-locale';
 
 const t = scoped('enrollment.forms', {
 	incompleteForm: 'Please complete all required fields.',

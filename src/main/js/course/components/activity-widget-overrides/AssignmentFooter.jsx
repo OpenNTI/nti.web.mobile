@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {DateTime} from 'nti-web-commons';
+import {DateTime} from '@nti/web-commons';
 
 export default class extends React.Component {
 	static displayName = 'AssignmentFooter';

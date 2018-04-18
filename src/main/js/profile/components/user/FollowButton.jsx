@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {User} from 'nti-web-client';
-import {PromiseButton, Mixins} from 'nti-web-commons';
+import {User} from '@nti/web-client';
+import {PromiseButton, Mixins} from '@nti/web-commons';
 
 
 export default createReactClass({

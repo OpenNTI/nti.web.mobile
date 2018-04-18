@@ -1,5 +1,5 @@
-import {getService, getAppUser} from 'nti-web-client';
-import {decodeFromURI} from 'nti-lib-ntiids';
+import {getService, getAppUser} from '@nti/web-client';
+import {decodeFromURI} from '@nti/lib-ntiids';
 
 import {USERS, GROUPS, LISTS} from './Constants';
 

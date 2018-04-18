@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import isTouch from 'nti-util-detection-touch';
-import {addClass} from 'nti-lib-dom';
-import Logger from 'nti-util-logger';
-import {encodeForURI} from 'nti-lib-ntiids';
+import isTouch from '@nti/util-detection-touch';
+import {addClass} from '@nti/lib-dom';
+import Logger from '@nti/util-logger';
+import {encodeForURI} from '@nti/lib-ntiids';
 import {Link} from 'react-router-component';
 
 const logger = Logger.get('content:components:AnnotationBar');
