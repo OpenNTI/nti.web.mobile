@@ -13,15 +13,15 @@
     "dist"
   ],
   "scripts": {
-    "test": "nti-app-scripts test",
-    "start": "nti-app-scripts start",
-    "prepack": "nti-app-scripts build",
-    "build": "nti-app-scripts build",
-    "clean": "nti-app-scripts clean",
-    "check": "nti-app-scripts check",
-    "release": "nti-app-scripts release",
-    "install-snapshots": "nti-app-scripts install-snapshots",
-    "fix": "nti-app-scripts fix"
+    "test": "app-scripts test",
+    "start": "app-scripts start",
+    "prepack": "app-scripts build",
+    "build": "app-scripts build",
+    "clean": "app-scripts clean",
+    "check": "app-scripts check",
+    "release": "app-scripts release",
+    "install-snapshots": "app-scripts install-snapshots",
+    "fix": "app-scripts fix"
   },
   "main": "dist/server/index.js",
   "publishConfig": {
@@ -36,6 +36,7 @@
     "@nti/util-logger": "^1.0.0"
   },
   "devDependencies": {
+    "@nti/app-scripts": "^1.16.0",
     "@nti/lib-analytics": "^2.0.9",
     "@nti/lib-anchors": "^1.0.0",
     "@nti/lib-commons": "^2.7.0",
@@ -61,7 +62,6 @@
     "@nti/web-search": "0.x.x",
     "@nti/web-session": "^1.0.0",
     "@nti/web-video": "^1.16.2",
-    "nti-app-scripts": "^1.0.89",
     "array-range": "^1.0.1",
     "babel-preset-es2015": "^6.1.0",
     "classnames": "^2.0.0",
