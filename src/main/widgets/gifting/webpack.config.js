@@ -5,7 +5,7 @@ const path = require('path');
 const output = path.resolve(__dirname, 'dist');
 
 const {StatsWriterPlugin} = require('webpack-stats-plugin');
-const baseConfig = require('nti-app-scripts/config/webpack.config');
+const baseConfig = require('@nti/app-scripts/config/webpack.config');
 
 
 function blacklistedPluginsForWidgets (o) {

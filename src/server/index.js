@@ -10,8 +10,8 @@ let assets = path.resolve(__dirname, '../client');
 
 try {
 	if (!/dist\/server/i.test(__dirname)) {
-		dev = require('nti-app-scripts/server/lib/devmode');
-		assets = require('nti-app-scripts/config/paths').assetsRoot;
+		dev = require('@nti/app-scripts/server/lib/devmode');
+		assets = require('@nti/app-scripts/config/paths').assetsRoot;
 	}
 } catch (e) {
 	console.error(e.stack || e.message || e);
