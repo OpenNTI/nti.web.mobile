@@ -67,7 +67,7 @@ export default createReactClass({
 				...this.state.errors,
 				{
 					field: event.reason.field,
-					message: event.reason.message || event.reason.responseText
+					message: event.reason.Message || event.reason.message || event.reason.responseText
 				}
 			];
 			this.setState({
