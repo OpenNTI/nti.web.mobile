@@ -36,7 +36,7 @@
     "@nti/util-logger": "^1.0.0"
   },
   "devDependencies": {
-    "@nti/app-scripts": "^1.16.0",
+    "@nti/app-scripts": "^1.17.2",
     "@nti/lib-analytics": "^2.0.9",
     "@nti/lib-anchors": "^1.0.0",
     "@nti/lib-commons": "^2.7.0",
