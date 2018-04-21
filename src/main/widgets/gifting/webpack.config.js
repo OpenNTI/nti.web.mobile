@@ -4,15 +4,8 @@ const path = require('path');
 
 const output = path.resolve(__dirname, 'dist');
 
-const {StatsWriterPlugin} = require('webpack-stats-plugin');
 const baseConfig = require('@nti/app-scripts/config/webpack.config');
 
-
-function blacklistedPluginsForWidgets (o) {
-	return !(
-		o instanceof StatsWriterPlugin
-	);
-}
 
 Object.assign(module.exports, baseConfig, {
 	name: 'Widget: Gifting',
@@ -28,5 +21,4 @@ Object.assign(module.exports, baseConfig, {
 	externals: void 0,
 
 	plugins: baseConfig.plugins
-		.filter(blacklistedPluginsForWidgets)
 });
