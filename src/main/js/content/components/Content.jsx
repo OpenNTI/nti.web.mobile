@@ -227,7 +227,7 @@ export default class Content extends React.Component {
 		const props = {...otherProps,
 			is: 'div',//We are using a custom element that mimics a div
 			ref: this.attachContentRef,
-			class: '@nti/web-content-panel', //react does not remap className=>class for custom elements
+			class: 'nti-content-panel', //react does not remap className=>class for custom elements
 			'data-ntiid': pageId,
 			'data-page-ntiid': pageId
 		};
