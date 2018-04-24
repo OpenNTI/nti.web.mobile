@@ -17,7 +17,7 @@ export default function ForumBoard ({title, board}) {
 	let forums = (board || {}).forums || [];
 	return (
 		<div className="board">
-			<h3>{t(title)}</h3>
+			<h3>{title ? t(title) : ''}</h3>
 			<ul className="forum-list">
 				{forums.map(forum => {
 					return <li className="forum-li" key={keyFor(forum)}><ForumItem item={forum}/></li>;

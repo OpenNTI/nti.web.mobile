@@ -115,10 +115,17 @@ export default createReactClass({
 						<ul>
 							{
 								//convenient that the order we want the bins happens to be alphabeetical enrolled, open, other
-								Array.sort(Object.keys(discussions)).map(key => {
+								Array.sort(Object.keys(discussions)).map((key, i, bins) => {
 									let bin = discussions[key];
 									let reactkey = keyFor(bin);
-									return <li key={reactkey}><ForumBin title={t(key.toLowerCase())} bin={bin} /></li>;
+									return (
+										<li key={reactkey}>
+											<ForumBin
+												title={key.toLowerCase() === 'other' && bins.length === 1 ? '' : t(key.toLowerCase())}
+												bin={bin}
+											/>
+										</li>
+									);
 								})
 							}
 						</ul>
