@@ -1,0 +1,17 @@
+.profile-update-container {
+	.label {
+		background: none;
+		text-align: inherit;
+		padding: 0;
+	}
+
+	.nti-profile-update {
+		width: 100%;
+		max-width: 100%;
+	}
+
+	.profile-update-label:not(.first) .nti-select-input .options {
+		max-height: none;
+		overflow: visible;
+	}
+}

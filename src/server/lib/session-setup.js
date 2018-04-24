@@ -24,6 +24,15 @@ module.exports = function sessionSetup (service) {
 				logger.debug('User needs to submit registration survey.');
 				return needsAttention('onboarding/survey');
 			}
+
+			return user;
+		})
+
+		.then(user => {
+			if (user.hasLink('user_profile_update')) {
+				logger.debug('User needs to update their profile');
+				return needsAttention('onboarding/update');
+			}
 		})
 
 		//TODO: Add More Login Actions HERE.
