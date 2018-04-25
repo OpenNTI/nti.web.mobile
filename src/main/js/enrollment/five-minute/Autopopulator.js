@@ -11,6 +11,7 @@ export default class Autopopulator {
 	constructor () {
 		getService().then(service => {
 			service.getAppUser().then(user => {
+				valuesMap.name = user.realname;
 				valuesMap.first_name = user.NonI18NFirstName;
 				valuesMap.last_name = user.NonI18NLastName;
 				valuesMap.email = user.email;
