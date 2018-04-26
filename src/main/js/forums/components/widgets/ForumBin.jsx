@@ -16,7 +16,7 @@ export default function ForumBin ({title, bin}) {
 					return (
 						<li key={keyFor(board)}>
 							<ForumBoard
-								title={key === 'Section' && boards.length === 1 ? '' : key}
+								title={!title && key === 'Section' && boards.length === 1 ? '' : key}
 								board={board}
 							/>
 						</li>
