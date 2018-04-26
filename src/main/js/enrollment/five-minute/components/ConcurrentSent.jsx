@@ -19,7 +19,7 @@ export default function ConcurrentSent () {
 					<span {...rawContent(t('body'))} />
 				</div>
 			</figure>
-			<a className="button tiny" href="../../../">Back</a>
+			<a className="button tiny" href="../../../../">Back</a>
 		</div>
 	);
 }
