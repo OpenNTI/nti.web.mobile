@@ -64,7 +64,7 @@ export default class CourseLessonOverview extends React.Component {
 
 		const isLegacyAssignment = () => {
 			return assignments
-				&& /questionset/i.test(type)
+				&& /question(set|bank)/i.test(type)
 				&& assignments.isAssignment(getID(obj));
 		};
 
@@ -77,7 +77,7 @@ export default class CourseLessonOverview extends React.Component {
 		else if (/survey/i.test(type)) {
 			route = path.join(env.getPath(), 'content', getEncodedID(obj));
 		}
-		else if (/questionset/i.test(type)) {
+		else if (/question(set|bank)/i.test(type)) {
 			route = path.join(env.getPath(), 'content', getEncodedID(obj));
 		}
 		else if (/communityheadlinetopic/i.test(type)) {
