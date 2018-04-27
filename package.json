@@ -39,7 +39,7 @@
     "@nti/app-scripts": "^1.17.2",
     "@nti/lib-analytics": "^2.0.9",
     "@nti/lib-anchors": "^1.0.0",
-    "@nti/lib-commons": "^2.15.0",
+    "@nti/lib-commons": "^2.16.0",
     "@nti/lib-content-processing": "^1.5.0",
     "@nti/lib-dispatcher": "^1.0.0",
     "@nti/lib-dom": "^1.9.0",
