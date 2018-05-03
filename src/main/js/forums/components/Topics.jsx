@@ -24,6 +24,7 @@ const DEFAULT_TEXT = {
 const t = scoped('forums.topic', DEFAULT_TEXT);
 const Transition = x => <CSSTransition appear classNames="fade-out-in" timeout={500} {...x}/>;
 
+const ERROR_CODE = '404 Not Found';
 
 export default createReactClass({
 	displayName: 'Topics',
@@ -71,9 +72,9 @@ export default createReactClass({
 
 		let {forumId, forum} = this.props;
 		let batchStart = paging.batchStart();
-		let forumContents = forum || Store.getForumContents(forumId, batchStart, paging.getPageSize());
+		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize()) || forum;
 
-		if (!forumContents) {
+		if (!forumContents || (forumContents && forumContents.code === ERROR_CODE)) {
 			return <Err error="There was a problem loading the forum. Please try again later." />;
 		}
 
