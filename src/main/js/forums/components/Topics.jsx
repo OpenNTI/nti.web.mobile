@@ -31,7 +31,8 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin, StoreEventsMixin, LoadForum],
 
 	propTypes: {
-		forumId: PropTypes.string
+		forumId: PropTypes.string,
+		forum: PropTypes.object
 	},
 
 	backingStore: Store,
@@ -68,9 +69,9 @@ export default createReactClass({
 			return <Loading.Mask />;
 		}
 
-		let {forumId} = this.props;
+		let {forumId, forum} = this.props;
 		let batchStart = paging.batchStart();
-		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize());
+		let forumContents = forum || Store.getForumContents(forumId, batchStart, paging.getPageSize());
 
 		if (!forumContents) {
 			return <Err error="There was a problem loading the forum. Please try again later." />;
