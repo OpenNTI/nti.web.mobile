@@ -28,7 +28,7 @@ export default createReactClass({
 
 	propTypes: {
 		forumId: PropTypes.string.isRequired,
-
+		contentPackage: PropTypes.obj,
 		contextID: PropTypes.string
 	},
 
@@ -58,11 +58,9 @@ export default createReactClass({
 			label: (forum || {}).title || 'Forum',
 			href
 		});
-
 	},
 
 	render () {
-
 		if (this.state.loading) {
 			return <Loading.Mask />;
 		}
@@ -73,21 +71,20 @@ export default createReactClass({
 		return (
 			<nav className="forum">
 				<Router.Locations contextual>
-					<Location path="/"
+					<Location
+						path="/"
 						handler={Topics}
 						{...this.props}
 						forum={forum}
 					/>
-					<Location path="/newtopic/"
+					<Location
+						path="/newtopic/"
 						handler={CreateTopic}
 						forum={forum}
 					/>
-					<Location path="/:topicId(/*)"
-						handler={TopicView}
-					/>
+					<Location path="/:topicId(/*)" handler={TopicView} />
 				</Router.Locations>
 			</nav>
 		);
 	}
-
 });
