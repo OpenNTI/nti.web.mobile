@@ -28,7 +28,7 @@ export default createReactClass({
 
 	propTypes: {
 		forumId: PropTypes.string.isRequired,
-		contentPackage: PropTypes.obj,
+		contentPackage: PropTypes.object,
 		contextID: PropTypes.string
 	},
 
