@@ -50,6 +50,9 @@ export default createReactClass({
 								<li className="profile-nav-item"><ActiveState hasChildren tag="a" href="/about/">About</ActiveState></li>
 								<li className="profile-nav-item"><ActiveState tag="a" href="/activity/" hasChildren={/^\/(activity|thoughts)/i}>Activity</ActiveState></li>
 								<li className="profile-nav-item"><ActiveState tag="a" href="/memberships/">Memberships</ActiveState></li>
+								{entity && entity.hasLink('transcript') && (
+									<li className="profile-nav-item"><ActiveState tag="a" href="/transcripts/">Transcripts</ActiveState></li>
+								)}
 								{/*<li className="profile-nav-item"><ActiveLink href="/achievements/">Achievements</ActiveLink></li>*/}
 							</ul>
 						</Head>

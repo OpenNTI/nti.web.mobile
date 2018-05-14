@@ -14,7 +14,7 @@ import Page from './PageFrame';
 import About from './About';
 import Achievements from './Achievements';
 import Thoughts from './Thoughts';
-
+import Transcripts from './Transcripts';
 
 
 const ROUTES = [
@@ -22,6 +22,7 @@ const ROUTES = [
 	{path: '/activity(/)',			handler: Activity },
 	{path: '/achievements(/*)',		handler: Achievements },
 	{path: '/about(/*)',			handler: About },
+	{path: '/transcripts(/*)',      handler: Transcripts},
 	{path: '/memberships(/*)',		handler: Memberships },
 	{}//default
 ];
