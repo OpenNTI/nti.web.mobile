@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import {Mixins, Prompt, Flyout} from '@nti/web-commons';
 import {getService} from '@nti/web-client';
