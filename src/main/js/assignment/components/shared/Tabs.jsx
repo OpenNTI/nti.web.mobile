@@ -22,9 +22,12 @@ class Tabs extends React.Component {
 		if (!course) {return null;}
 
 		const disablePerfView = course.isAdministrative && !course.GradeBook;
+		const disableActivityView = course.isAdministrative && !course.hasLink('CourseActivity');
 
 		const PerformanceLink = disablePerfView ? 'a' : ActiveState;
 		const PerformanceLinkProps = disablePerfView ? {className: 'disabled'} : {tag: 'a', href:'/performance/', hasChildren: true};
+		const ActivityLink = disableActivityView ? 'a' : ActiveState;
+		const ActivityLinkProps = disableActivityView ? {className: 'disabled'} : {tag: 'a', href:'/activity'};
 
 		return (
 			<div className="assignments-nav">
@@ -33,7 +36,7 @@ class Tabs extends React.Component {
 					<ul className="filters">
 						<li><ActiveState tag="a" href="/" hasChildren>Assignments</ActiveState></li>
 						<li><PerformanceLink {...PerformanceLinkProps}>Grades &amp; Performance</PerformanceLink></li>
-						<li><ActiveState tag="a" href="/activity/">Activity</ActiveState></li>
+						<li><ActivityLink {...ActivityLinkProps}>Activity</ActivityLink></li>
 					</ul>
 				</ActiveStateContainer>
 			</div>
