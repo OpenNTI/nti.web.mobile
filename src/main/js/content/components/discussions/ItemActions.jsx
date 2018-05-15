@@ -2,12 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
-import {Mixins, Prompt} from '@nti/web-commons';
+import {Mixins, Prompt, Flyout} from '@nti/web-commons';
 import {getService} from '@nti/web-client';
 
 import Action from './ItemAction';
 
-const CLOSE_MENU_DELAY = 30000; //30 seconds
 
 const CanDelete = (_, item) => item.isModifiable;
 const CanEdit = (_, item) => item.isModifiable;
@@ -39,7 +38,7 @@ export default createReactClass({
 	},
 
 
-	attachListRef (x) { this.list = x; },
+	attachListRef (x) { this.flyout = x; },
 
 
 	componentWillMount () {
@@ -47,36 +46,13 @@ export default createReactClass({
 	},
 
 
-	componentDidUpdate () {
-		const {list} = this;
-		if (list) {
-			list.focus();
-		}
-	},
-
-
-	hideMenu () {
-		clearTimeout(this.closeTimer);
-		this.closeTimer = setTimeout(() => this.setState({moreOptionsOpen: false}), 200);
-	},
-
-
-	toggleMenu () {
-		let {moreOptionsOpen} = this.state || {};
-
-		let newState = !moreOptionsOpen;
-
-		this.setState({moreOptionsOpen: newState});
-
-		clearTimeout(this.closeTimer);
-		if (newState) {
-			this.closeTimer = setTimeout(() => this.setState({moreOptionsOpen: false}), CLOSE_MENU_DELAY);
-		}
+	renderTrigger () {
+		return <Action name="more-options" iconOnly/>;
 	},
 
 
 	render () {
-		const {props: {item}, state: {moreOptionsOpen, capabilities}} = this;
+		const {props: {item}, state: {capabilities}} = this;
 
 		const flag = item.hasLink('flag.metoo') ? 'flagged' : 'flag';
 
@@ -87,14 +63,17 @@ export default createReactClass({
 			<div className="discussion-item-actions">
 				<Action name="reply" criteria={CanReply(capabilities, item)} onClick={this.onReply}/>
 				<Action name="share" criteria={CanShare(capabilities, item)} onClick={this.onShare}/>
-				<span className={cx('options', {open: moreOptionsOpen})}>
-					<Action name="more-options" onClick={this.toggleMenu} iconOnly/>
-					<ul ref={this.attachListRef} onBlur={this.hideMenu} tabIndex={moreOptionsOpen ? -1 : 0}>
+				<Flyout.Triggered
+					trigger={this.renderTrigger()}
+					ref={this.attachListRef}
+					horizontalAlign={Flyout.ALIGNMENTS.LEFT}
+				>
+					<ul className="discussion-item-actions-options">
 						<Action name="edit" criteria={CanEdit(capabilities, item)} inList onClick={this.onEdit}/>
 						<Action name={flag} criteria={CanFlag(capabilities, item)} inList onClick={this.onFlag}/>
 						<Action name="delete" criteria={CanDelete(capabilities, item)} inList onClick={this.onDelete}/>
 					</ul>
-				</span>
+				</Flyout.Triggered>
 			</div>
 
 		) : (
