@@ -1,0 +1,9 @@
+@import '~@nti/style-common';
+
+.profile-transcripts-container {
+	table {
+		tfoot, thead {
+			background: none;
+		}
+	}
+}

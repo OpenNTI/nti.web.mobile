@@ -7,5 +7,5 @@ ProfileTranscripts.propTypes = {
 	entity: PropTypes.object
 };
 export default function ProfileTranscripts ({entity}) {
-	return entity ? (<Transcripts entity={entity} />) : null;
+	return entity ? (<div className="profile-transcripts-container"><Transcripts entity={entity} /></div>) : null;
 }
