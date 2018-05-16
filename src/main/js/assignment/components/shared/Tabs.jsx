@@ -27,7 +27,7 @@ class Tabs extends React.Component {
 		const PerformanceLink = disablePerfView ? 'a' : ActiveState;
 		const PerformanceLinkProps = disablePerfView ? {className: 'disabled'} : {tag: 'a', href:'/performance/', hasChildren: true};
 		const ActivityLink = disableActivityView ? 'a' : ActiveState;
-		const ActivityLinkProps = disableActivityView ? {className: 'disabled'} : {tag: 'a', href:'/activity'};
+		const ActivityLinkProps = disableActivityView ? {className: 'disabled'} : {tag: 'a', href:'/activity/'};
 
 		return (
 			<div className="assignments-nav">
