@@ -53,7 +53,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 
 	getValue (name) {
 		let v = this.fieldValues[name];
-		if (!v) {
+		if (!v && v !== '') {
 			v = this.autopopulatedValue(name);
 			if (v) {
 				this.setValue(name, v);
