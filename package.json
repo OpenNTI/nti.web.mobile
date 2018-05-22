@@ -32,7 +32,7 @@
     "@nti/util-logger"
   ],
   "dependencies": {
-    "@nti/lib-ntiids": "^1.0.0",
+    "@nti/lib-ntiids": "^1.3.0",
     "@nti/util-logger": "^1.0.0"
   },
   "devDependencies": {

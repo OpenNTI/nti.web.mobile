@@ -1,7 +1,7 @@
 /*eslint strict:0, import/no-commonjs:0, import/order:0*/
 'use strict';
 const path = require('path');
-const {encodeForURI, decodeFromURI} = require('@nti/lib-ntiids');
+const {HREF, encodeForURI, decodeFromURI} = require('@nti/lib-ntiids');
 const logger = require('./logger');
 
 const SEGMENT_HANDLERS = {
@@ -21,7 +21,8 @@ const HANDLERS = {
 	handleInvitationRedirects: /(invitations\/accept)|(catalog\/redeem)/i,
 	handleLibraryRedirects: /^library/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
-	handleLibraryPathRedirects: /^\/[^/]+\/library/i
+	handleLibraryPathRedirects: /^\/[^/]+\/library/i,
+	handleCatalogPathRedirects: /^\/[^/]+\/catalog\/nti-course-catalog-entry/i
 };
 
 
@@ -65,13 +66,39 @@ exports = module.exports = {
 		let parts = query.match(/(?:accept|redeem)\/([^/]*)/);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'redeem', parts[1]);
-			logger.debug('redirecting to: %s', url);
+			logger.info('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
 
 		next();
 	},
+
+
+	handleCatalogPathRedirects (query, res, next) {
+		/* From:
+		 *  /app/catalog/nti-course-catalog-entry/<id>
+		 *
+		 * To:
+		 *  <basepath>/catalog/item/<id>
+		 */
+		const pattern = /catalog\/nti-course-catalog-entry\/(.*)/;
+		let [, id] = query.match(pattern) || [];
+
+		if (!id) {
+			return next();
+		}
+
+		if (/^uri/i.test(id)) {
+			id = decodeURIComponent(id).replace(/^uri:/i, '');
+			id = encodeForURI(HREF.encodeIdFrom(id));
+		}
+
+
+		const url = path.join(this.basepath, 'catalog', 'item', id);
+		res.redirect(url);
+	},
+
 
 	handleLibraryPathRedirects (query, res, next) {
 		/* From:
@@ -85,13 +112,14 @@ exports = module.exports = {
 		let parts = query.match(pattern);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'item', parts[1]);
-			logger.debug('redirecting to: %s', url);
+			logger.info('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
 
 		next();
 	},
+
 
 	handleLibraryRedirects (query, res, next) {
 		let url = query;
@@ -112,7 +140,7 @@ exports = module.exports = {
 
 			url = path.join(this.basepath, trailingPath);
 
-			logger.debug('redirecting to: %s', url);
+			logger.info('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
@@ -141,7 +169,7 @@ exports = module.exports = {
 
 			let url = path.join(this.basepath, 'object', encodeForURI(decodeFromURI(ntiid)));
 
-			logger.debug('redirecting to: %s', url);
+			logger.info('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
