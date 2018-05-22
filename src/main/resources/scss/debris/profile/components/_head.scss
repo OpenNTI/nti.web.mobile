@@ -135,17 +135,35 @@
 	display: flex;
 	width: 100%;
 	flex-wrap: wrap;
+
+	& > li, {
+		flex: 1 1 auto;
+		display: inline-block;
+		text-align: center;
+	}
+
+}
+
+.profile-nav-sub-items {
+	width: calc(100vw - 2.15rem);
+	max-width: 800px;
+
+	& > li {
+		display: block;
+		text-align: initial;
+	}
+}
+
+.profile-nav-sub-items,
+.profile-nav {
 	list-style-type: none;
 	margin: 0;
 	font-size: 0.75rem;
 	font-weight: 600;
 	background-color: rgba(0,0,0,0.15);
 
-	& > li {
-		flex: 1 1 auto;
-		display: inline-block;
+	& > li, {
 		color: $tertiary-grey;
-		text-align: center;
 		text-transform: uppercase;
 		overflow: hidden;
 		a {
@@ -162,6 +180,10 @@
 				color: white;
 				background: $primary-blue;
 				box-shadow: 1px 0 0 0 $primary-blue;
+			}
+
+			&.profile-nav-more-trigger  {
+				font-size: 1rem;
 			}
 		}
 	}
@@ -232,6 +254,10 @@
 
 			a {
 				padding: 0.5rem 1rem;
+
+				&.profile-nav-more-trigger {
+					padding: 0.3rem 1rem;
+				}
 			}
 		}
 	}
