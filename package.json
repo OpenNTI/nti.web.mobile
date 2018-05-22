@@ -32,7 +32,7 @@
     "@nti/util-logger"
   ],
   "dependencies": {
-    "@nti/lib-ntiids": "^1.0.0",
+    "@nti/lib-ntiids": "^1.3.0",
     "@nti/util-logger": "^1.0.0"
   },
   "devDependencies": {
@@ -53,9 +53,9 @@
     "@nti/util-ios-version": "^1.0.0",
     "@nti/web-catalog": "0.x.x",
     "@nti/web-client": "^1.1.0",
-    "@nti/web-commons": "0.x.x",
+    "@nti/web-commons": "^0.36.1",
     "@nti/web-content": "^1.18.2",
-    "@nti/web-course": "^1.15.0",
+    "@nti/web-course": "^1.22.3",
     "@nti/web-help": "0.x.x",
     "@nti/web-modeled-content": "^1.5.0",
     "@nti/web-profiles": "^1.0.0",
