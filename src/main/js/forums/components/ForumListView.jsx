@@ -13,7 +13,7 @@ import {clearLoadingFlag} from 'common/utils/react-state';
 import keyFor from '../utils/key-for-item';
 import Store from '../Store';
 import {loadDiscussions} from '../Api';
-import { DISCUSSIONS_CHANGED, FORUM_CREATED } from '../Constants';
+import { DISCUSSIONS_CHANGED } from '../Constants';
 
 import ForumBin from './widgets/ForumBin';
 
