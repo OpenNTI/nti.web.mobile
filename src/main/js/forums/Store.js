@@ -2,6 +2,7 @@ import Logger from '@nti/util-logger';
 import {decodeFromURI} from '@nti/lib-ntiids';
 import StorePrototype from '@nti/lib-store';
 import hash from 'object-hash';
+import { Models } from '@nti/lib-interfaces';
 
 import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
@@ -12,6 +13,7 @@ const logger = Logger.get('forums:store');
 
 const keyForItem = 'ForumStore:keyForItem';
 const keyForContents = 'ForumStore:keyForContents';
+const { forums: { Forum } } = Models;
 
 class Store extends StorePrototype {
 	constructor () {
@@ -23,7 +25,8 @@ class Store extends StorePrototype {
 			forums: {},// forum items by id.
 			itemContents: {},
 			items: {},
-			contextID: undefined
+			contextID: undefined,
+			reloadDiscussions: false
 		});
 
 		//FIXME: Stores respond to Action's results and store. period.
@@ -63,9 +66,19 @@ class Store extends StorePrototype {
 				deleteComment(comment);
 			},
 
+			[Constants.DELETE_FORUM] (payload) {
+				let {forum} = payload.action;
+				deleteForum(forum);
+			},
+
 			[Constants.REPORT_ITEM] (payload) {
 				let {item} = payload.action;
 				reportItem(item);
+			},
+
+			[Constants.CREATE_FORUM] (payload) {
+				const {board, forum} = payload.action;
+				createForum(board, forum);
 			}
 		});
 	}
@@ -74,6 +87,7 @@ class Store extends StorePrototype {
 		this.setContextID(contextID);
 		this.discussions[contextID] = dataOrError(data);
 		this.forums = Object.assign(this.forums || {}, indexForums(this.discussions));
+		this.reloadDiscussions = true;
 		this.emitChange({ type: Constants.DISCUSSIONS_CHANGED, contextID });
 	}
 
@@ -142,6 +156,14 @@ class Store extends StorePrototype {
 		this.emitChange({ type: Constants.ITEM_DELETED, itemId, item });
 	}
 
+	deleteForum (item) {
+		let itemId = item && item.getID ? item.getID() : item;
+		delete this.items[this[keyForItem](itemId)];
+		delete this.forums[itemId];
+		this.reloadDiscussions = true;
+		this.emitChange({ type: Constants.FORUM_DELETED, itemId, item });
+	}
+
 	commentAdded (data) {
 		this.emitChange({ type: Constants.COMMENT_ADDED, data });
 	}
@@ -157,6 +179,26 @@ class Store extends StorePrototype {
 
 	topicCreationError (data) {
 		this.emitError({ type: Constants.TOPIC_CREATION_ERROR, data });
+	}
+
+	forumCreationError (data) {
+		this.emitError({ type: Constants.FORUM_CREATION_ERROR, data });
+	}
+
+	isSimple (forPackageId) {
+		const discussions = this.discussions[forPackageId];
+
+		if (!discussions) { return false; }
+
+		return Object.keys(discussions).length === 1 && discussions.Other && Object.keys(discussions.Other).length === 1;
+	}
+
+	forumCreated () {
+		this.reloadDiscussions = true;
+	}
+
+	shouldReload () {
+		return this.reloadDiscussions;
 	}
 
 	[keyForContents] (itemId, params = {}) {
@@ -259,6 +301,30 @@ function deleteTopic (topic) {
 		logger.log('Reloading forum contents in response to topic deletion.');
 		getForumItemContents(topic.ContainerId);
 	});
+}
+
+function deleteForum (forum) {
+	return forum.delete().then(() => store.deleteForum(forum));
+}
+
+async function createForum (board, newForum) {
+	try {
+		const forum = await board.postToLink('add', {
+			...newForum,
+			MimeType: Forum.MimeTypes[1]
+		}, true);
+		store.forumCreated(forum);
+		store.emitChange({
+			type: Constants.FORUM_CREATED,
+			forum
+		});
+	} catch (reason) {
+		store.forumCreationError({
+			newForum,
+			reason
+		});
+	}
+
 }
 
 function deleteForumItem (o) {
