@@ -7,7 +7,9 @@ import {
 	CREATE_TOPIC,
 	DELETE_TOPIC,
 	DELETE_COMMENT,
-	REPORT_ITEM
+	DELETE_FORUM,
+	REPORT_ITEM,
+	CREATE_FORUM
 } from './Constants';
 
 
@@ -35,8 +37,16 @@ export function deleteComment (comment) {
 	dispatch(DELETE_COMMENT, { comment });
 }
 
+export function deleteForum (forum) {
+	dispatch(DELETE_FORUM, { forum });
+}
+
 export function reportItem (item) {
 	dispatch(REPORT_ITEM, { item });
+}
+
+export function createForum (board, forum) {
+	dispatch(CREATE_FORUM, { board, forum });
 }
 
 function dispatch (type, data) {

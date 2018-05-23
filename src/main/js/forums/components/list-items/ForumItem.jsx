@@ -54,9 +54,9 @@ export default createReactClass({
 		this.load(this.props.item);
 	},
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.item !== this.props.item) {
-			this.load(nextProps.item);
+	componentDidUpdate (prevProps) {
+		if (prevProps.item !== this.props.item) {
+			this.load(this.props.item);
 		}
 	},
 

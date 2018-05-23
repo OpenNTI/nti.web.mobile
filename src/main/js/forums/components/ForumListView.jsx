@@ -6,13 +6,14 @@ import Logger from '@nti/util-logger';
 import {Error as Err, Loading, Mixins} from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 import {scoped} from '@nti/lib-locale';
+import { Link } from 'react-router-component';
 
 import {clearLoadingFlag} from 'common/utils/react-state';
 
 import keyFor from '../utils/key-for-item';
 import Store from '../Store';
 import {loadDiscussions} from '../Api';
-import {DISCUSSIONS_CHANGED} from '../Constants';
+import { DISCUSSIONS_CHANGED, FORUM_CREATED } from '../Constants';
 
 import ForumBin from './widgets/ForumBin';
 
@@ -21,7 +22,8 @@ const logger = Logger.get('forums:components:ForumListView');
 const DEFAULT_TEXT = {
 	forcredit: 'Enrolled For-Credit',
 	open: 'Open Discussions',
-	other: 'Other Discussions'
+	other: 'Other Discussions',
+	create: 'Create a forum'
 };
 
 const t = scoped('forums.groups.sections', DEFAULT_TEXT);
@@ -63,7 +65,7 @@ export default createReactClass({
 	},
 
 	componentDidMount () {
-		if(!Store.getDiscussions(this.getContentPackageID())) {
+		if(!Store.getDiscussions(this.getContentPackageID()) || Store.shouldReload()) {
 			this.load();
 		}
 		else {
@@ -92,6 +94,18 @@ export default createReactClass({
 
 	getContentPackage () {
 		return this.props.contentPackage;
+	},
+
+	canCreateForum () {
+		const contentPackage = this.getContentPackage();
+		return contentPackage && contentPackage.Discussions && contentPackage.Discussions.hasLink('add');
+	},
+
+	createForum () {
+		if (!this.canCreateForum()) {
+			return null;
+		}
+		return <Link className="action-link create-forum" href="/newforum/">{t('create')}</Link>;
 	},
 
 	render () {
@@ -129,6 +143,7 @@ export default createReactClass({
 								})
 							}
 						</ul>
+						{Store.isSimple(contentPackageID) && this.createForum()}
 					</nav>
 				</CSSTransition>
 			</TransitionGroup>

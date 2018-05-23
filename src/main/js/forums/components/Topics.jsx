@@ -1,3 +1,5 @@
+import path from 'path';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -5,20 +7,22 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {Link} from 'react-router-component';
 import {addHistory} from '@nti/lib-analytics';
 import {scoped} from '@nti/lib-locale';
-import {decodeFromURI} from '@nti/lib-ntiids';
+import { decodeFromURI } from '@nti/lib-ntiids';
 import {StoreEventsMixin} from '@nti/lib-store';
-import {Error as Err, Loading, Mixins} from '@nti/web-commons';
+import { Error as Err, Loading, Mixins, Prompt} from '@nti/web-commons';
 
+import * as Actions from '../Actions';
 import paging from '../mixins/Paging';
 import LoadForum from '../mixins/LoadForum';
 import Store from '../Store';
-import {FORUM} from '../Constants';
+import { FORUM, FORUM_DELETED } from '../Constants';
 
 import TopicList from './TopicList';
 import ViewHeader from './widgets/ViewHeader';
 
 const DEFAULT_TEXT = {
 	create: 'Create a discussion',
+	deletePrompt: 'Delete this forum?'
 };
 
 const t = scoped('forums.topic', DEFAULT_TEXT);
@@ -33,10 +37,19 @@ export default createReactClass({
 
 	propTypes: {
 		forumId: PropTypes.string,
-		forum: PropTypes.object
+		forum: PropTypes.object,
+		contentPackage: PropTypes.shape({
+			getID: PropTypes.fun
+		})
 	},
 
 	backingStore: Store,
+	backingStoreEventHandlers: {
+		[FORUM_DELETED] (event) {
+			const discussions = path.resolve(this.getNavigable().getEnvironment().getPath(), '..');
+			this.navigateRoot(`${discussions}/`);
+		}
+	},
 
 	getInitialState () {
 		return {
@@ -61,21 +74,42 @@ export default createReactClass({
 		if (!this.canCreateTopic()) {
 			return null;
 		}
-		return <Link className="action-link create-topic" href="/newtopic/">{t('create')}</Link>;
+		return (
+			<Link className="action-link" href="/newtopic/">
+				{t('create')}
+			</Link>
+		);
+	},
+
+	deleteForum () {
+		Prompt.areYouSure(t('deletePrompt')).then(
+			() => {
+				Actions.deleteForum(this.getForum());
+			},
+			() => {}
+		);
 	},
 
 	render () {
-
 		if (this.state.loading) {
 			return <Loading.Mask />;
 		}
 
-		let {forumId, forum} = this.props;
+		let { forumId, forum } = this.props;
 		let batchStart = paging.batchStart();
-		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize()) || forum;
+		let forumContents =
+			Store.getForumContents(forumId, batchStart, paging.getPageSize()) ||
+			forum;
+		const id = this.props.contentPackage.getID();
+		const canDelete = Store.isSimple(id);
 
-		if (!forumContents || (forumContents && forumContents.code === ERROR_CODE)) {
-			return <Err error="There was a problem loading the forum. Please try again later." />;
+		if (
+			!forumContents ||
+			(forumContents && forumContents.code === ERROR_CODE)
+		) {
+			return (
+				<Err error="There was a problem loading the forum. Please try again later." />
+			);
 		}
 
 		return (
@@ -84,10 +118,24 @@ export default createReactClass({
 					<Transition key="topics">
 						<div>
 							<ViewHeader type={FORUM} />
-							<section>
-								{this.createTopicLink()}
-								<div className="group-heading"><h3>Topics</h3></div>
-								<TopicList container={forumContents}/>
+							<section className="topics-section">
+								<ul className="action-links topics-controls">
+									<li>{this.createTopicLink()}</li>
+									{canDelete && (
+										<li>
+											<a
+												className="action-link"
+												onClick={this.deleteForum}
+											>
+												Delete
+											</a>
+										</li>
+									)}
+								</ul>
+								<div className="group-heading">
+									<h3>Topics</h3>
+								</div>
+								<TopicList container={forumContents} />
 							</section>
 						</div>
 					</Transition>
@@ -95,5 +143,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-
 });
