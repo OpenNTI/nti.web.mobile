@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Transcripts} from '@nti/web-profiles';
+import {User} from '@nti/web-profiles';
 
+const {Transcripts} = User;
 
 ProfileTranscripts.propTypes = {
 	entity: PropTypes.object
