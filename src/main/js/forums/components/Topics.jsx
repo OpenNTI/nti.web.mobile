@@ -101,7 +101,8 @@ export default createReactClass({
 			Store.getForumContents(forumId, batchStart, paging.getPageSize()) ||
 			forum;
 		const id = this.props.contentPackage.getID();
-		const canDelete = Store.isSimple(id);
+		const board = forum.parent();
+		const canDelete = Store.isSimple(id) && board && board.hasLink('edit');
 
 		if (
 			!forumContents ||
