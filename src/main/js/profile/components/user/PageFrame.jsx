@@ -53,6 +53,9 @@ export default createReactClass({
 								<li className="profile-nav-item">
 									<Flyout.Triggered trigger={(<a href="#" className="profile-nav-more-trigger">&middot;&middot;&middot;</a>)} verticalAlign={Flyout.ALIGNMENTS.BOTTOM} horizontalAlign={Flyout.ALIGNMENTS.RIGHT} arrow dark>
 										<ul className="profile-nav-sub-items">
+											<ul className="profile-nav-sub-items">
+												<li className="profile-nav-item"><ActiveState tag="a" href="/achievements/">Achievements</ActiveState></li>
+											</ul>
 											{entity && entity.hasLink && entity.hasLink('transcript') && (
 												<li className="profile-nav-item"><ActiveState tag="a" href="/transcripts/">Transcripts</ActiveState></li>
 											)}
