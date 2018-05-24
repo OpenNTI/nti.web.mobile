@@ -49,24 +49,25 @@ export default createReactClass({
 		// entry for this post
 		result.push({
 			label: 'Reply',
-			href: ''
+			href: this.makeHref(encodeForURI(item.getID()))
 		});
 
 		return result;
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.getComment();
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		const {commentId: commentId0, root: root0} = this.props;
-		const {commentId: commentId1, root: root1} = nextProps;
+	componentDidUpdate (prevProps) {
+		const { commentId: commentId0, root: root0 } = prevProps;
+		const { commentId: commentId1, root: root1 } = this.props;
+
 		if (commentId0 !== commentId1 || root0 !== root1) {
 			this.replaceState(this.getInitialState());
-			this.getComment(nextProps);
+			this.getComment(this.props);
 		}
 	},
 
