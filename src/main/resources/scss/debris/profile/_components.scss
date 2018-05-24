@@ -35,6 +35,19 @@
 	}
 }
 
+// transcript overrides.  TODO: is there a way to not need these overrides?
+.transcript-date-range .date-picker-range .selected-dates .date .value {
+	line-height: 44px !important;
+}
+
+.date-picker-range .selected-dates .date {
+	.label {
+		padding: 0;
+		text-align: left;
+		display: block;
+	}
+}
+
 .transcript-date-range {
 	.label {
 		background: none;
