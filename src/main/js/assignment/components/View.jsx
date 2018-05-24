@@ -30,7 +30,9 @@ class AssignmentsView extends React.Component {
 			return ( <Loading.Mask /> );
 		}
 
-		const Comp = course.isAdministrative && course.GradeBook
+		const isAdministrative = /administrative/.test(course.PreferredAccess && course.PreferredAccess.MimeType);
+
+		const Comp = isAdministrative && course.GradeBook
 			? Instructor
 			: Student;
 
