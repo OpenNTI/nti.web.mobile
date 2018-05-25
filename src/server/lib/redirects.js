@@ -17,14 +17,13 @@ const SEGMENT_HANDLERS = {
 };
 
 const HANDLERS = {
-	handleObjectRedirects: /(\/id|ntiid)\//i,
+	handleObjectRedirects: /\/(id|ntiid|object)\//i,
 	handleInvitationRedirects: /(invitations\/accept)|(catalog\/redeem)/i,
 	handleLibraryRedirects: /^library/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
 	handleLibraryPathRedirects: /^\/[^/]+\/library/i,
 	handleCatalogPathRedirects: /^\/[^/]+\/catalog\/nti-course-catalog-entry/i
 };
-
 
 exports = module.exports = {
 
@@ -161,7 +160,7 @@ exports = module.exports = {
 
 
 		logger.debug('\n\n\nTesting %s\n\n\n', query);
-		let object = /(?:(?:id|ntiid)\/)([^/]*)\/?(.*)/;
+		let object = /(?:(?:id|object\/ntiid|object)\/)([^/\n\r]*)\/?(.*)/;
 		let match = decodeURIComponent(query).match(object);
 
 		if (match) {
