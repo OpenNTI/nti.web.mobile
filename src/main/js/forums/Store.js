@@ -83,6 +83,24 @@ class Store extends StorePrototype {
 		});
 	}
 
+	loadDiscussions (contentPackage) {
+		if (!contentPackage) {
+			logger('Please provide content package');
+			return;
+		}
+
+		contentPackage.getDiscussions()
+			.then(
+				result => {
+					this.setDiscussions(contentPackage.getID(), result);
+					this.setContextID(contentPackage.getID());
+				},
+				error => {
+					logger.error('Failed to load discussions', error);
+					this.setState({ error });
+				});
+	}
+
 	setDiscussions (contextID, data) {
 		this.setContextID(contextID);
 		this.discussions[contextID] = dataOrError(data);

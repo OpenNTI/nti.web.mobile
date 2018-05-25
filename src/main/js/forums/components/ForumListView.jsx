@@ -66,25 +66,11 @@ export default createReactClass({
 
 	componentDidMount () {
 		if(!Store.getDiscussions(this.getContentPackageID()) || Store.shouldReload()) {
-			this.load();
+			Store.loadDiscussions(this.getContentPackage());
 		}
 		else {
 			clearLoadingFlag(this);
 		}
-	},
-
-	load () {
-		let contentPackage = this.getContentPackage();
-		loadDiscussions(contentPackage)
-			.then(
-				result => {
-					Store.setDiscussions(contentPackage.getID(), result);
-					Store.setContextID(contentPackage.getID());
-				},
-				error => {
-					logger.error('Failed to load discussions', error);
-					this.setState({ error });
-				});
 	},
 
 	getContentPackageID () {

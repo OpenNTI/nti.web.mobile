@@ -19,6 +19,12 @@ export default {
 			return;
 		}
 		this.registerStoreEventHandler(ITEM_CONTENTS_CHANGED, ChangedHandler);
+
+		const { contentPackage } = this.props;
+		if (!Store.getDiscussions(contentPackage.getID())) {
+			Store.loadDiscussions(contentPackage);
+		}
+
 		this[LoadData](this.props.forumId);
 	},
 
