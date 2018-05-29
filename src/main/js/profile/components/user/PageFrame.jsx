@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {getAppUsername} from '@nti/web-client';
-import {ActiveState, Background, FollowButton} from '@nti/web-commons';
+import {ActiveState, Background} from '@nti/web-commons';
+import {FollowButton} from '@nti/web-contacts';
 
 import Page from 'common/components/Page';
 import DisplayName from 'common/components/DisplayName';
