@@ -144,6 +144,10 @@
 
 }
 
+.profile-more-items-menu.flyout {
+	z-index: 1000;
+}
+
 .profile-nav-sub-items {
 	width: calc(100vw - 2.15rem);
 	max-width: 800px;
