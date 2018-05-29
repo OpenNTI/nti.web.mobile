@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-
-import {areYouSure} from '../prompts/';
+import {Prompt} from '@nti/web-commons';
 
 
 export default class FollowToggle extends React.Component {
@@ -27,7 +26,7 @@ export default class FollowToggle extends React.Component {
 
 		try {
 			if (following) {
-				await areYouSure('Remove this contact?');
+				await Prompt.areYouSure('Remove this contact?');
 			}
 
 			this.setState({ loading: true });
