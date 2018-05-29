@@ -21,8 +21,10 @@ class Tabs extends React.Component {
 		const {course} = this.props;
 		if (!course) {return null;}
 
-		const disablePerfView = course.isAdministrative && !course.GradeBook;
-		const disableActivityView = course.isAdministrative && !course.hasLink('CourseActivity');
+		const isAdministrative = /administrative/.test(course.PreferredAccess && course.PreferredAccess.MimeType);
+
+		const disablePerfView = isAdministrative && !course.GradeBook;
+		const disableActivityView = isAdministrative && !course.hasLink('CourseActivity');
 
 		const PerformanceLink = disablePerfView ? 'a' : ActiveState;
 		const PerformanceLinkProps = disablePerfView ? {className: 'disabled'} : {tag: 'a', href:'/performance/', hasChildren: true};
