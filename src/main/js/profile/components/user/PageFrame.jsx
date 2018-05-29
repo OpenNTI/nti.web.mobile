@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {getAppUsername} from '@nti/web-client';
-import {ActiveState, Background} from '@nti/web-commons';
+import {ActiveState, Background, FollowButton} from '@nti/web-commons';
 
 import Page from 'common/components/Page';
 import DisplayName from 'common/components/DisplayName';
 import ContextSender from 'common/mixins/ContextSender';
 
 // import EditButton from './EditButton';
-import FollowButton from './FollowButton';
 import Head from './Head';
 import MoreItemsMenu from './MoreItemsMenu';
 
