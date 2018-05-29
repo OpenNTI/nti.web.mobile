@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {rawContent} from '@nti/lib-commons';
-import {FollowButtonOld} from '@nti/web-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 
 
+import FollowToggle from './FollowToggle';
 import ProfileLink from './ProfileLink';
 
 AvatarProfileLink.propTypes = {
@@ -27,7 +27,7 @@ export default function AvatarProfileLink (props) {
 				{e.location && <span className="location" {...rawContent(e.location)}/>}
 				{props.children}
 			</div>
-			{(e.follow && !props.hideFollow) && <FollowButtonOld entity={e} />}
+			{(e.follow && !props.hideFollow) && <FollowToggle entity={e} />}
 		</ProfileLink>
 	);
 
