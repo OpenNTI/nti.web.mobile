@@ -8,7 +8,9 @@ import Viewer from '../Viewer';
 */
 
 describe('Content Viewer', ()=> {
-	test('TODO: write tests');
+	test('TODO: write tests', () => {
+		expect(true).toBeTruthy();
+	});
 	/*
 	let container;
 
