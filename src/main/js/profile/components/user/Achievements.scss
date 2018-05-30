@@ -1,0 +1,15 @@
+@import '~@nti/style-common';
+
+.profile-wrapper .certificate-progress-container .certificate-progress {
+	width: 196px;
+}
+
+.profile-cards {
+	.empty-state {
+		text-align: center;
+		font-size: 20px;
+		color: #b8b8b8;
+		font-weight: 600;
+		padding: 20px;
+	}
+}
