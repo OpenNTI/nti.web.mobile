@@ -89,7 +89,7 @@ class Store extends StorePrototype {
 			return;
 		}
 
-		contentPackage.getDiscussions()
+		contentPackage.getDiscussions(true)
 			.then(
 				result => {
 					this.setDiscussions(contentPackage.getID(), result);
