@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import {HOC as HOCUtils} from '@nti/lib-commons';
 import {HOC} from '@nti/web-commons';
 
+//TODO: Use new React context API, change willMount, willReceiveProps
 export default class AssignmentGroups extends React.Component {
 
 	static connect (component) {
-		class cmp extends React.Component {
-			render () {
-				return (
-					<AssignmentGroups _component={component} {...this.props}/>
-				);
-			}
-		}
+		const cmp = React.forwardRef((props, ref) => (
+			<AssignmentGroups _component={component} {...props} ref={ref}/>
+		));
 
 		return HOCUtils.hoistStatics(cmp, component, 'AssignmentGroups');
 	}
