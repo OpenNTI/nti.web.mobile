@@ -3,7 +3,8 @@ import React from 'react';
 import {scoped} from '@nti/lib-locale';
 
 const t = scoped('assessment.errors', {
-	submission404: 'A required resource could not be found. This assignment may have been deleted.'
+	submission404: 'A required resource could not be found. This assignment may have been deleted.',
+	pastDue: 'This assignment is past due.  You can continue to view this assignment, but it cannot be submitted.'
 });
 
 SubmissionError.propTypes = {
@@ -15,6 +16,9 @@ SubmissionError.propTypes = {
 function getErrorMessage (response) {
 	if (response.statusCode === 404) {
 		return t('submission404');
+	}
+	if (response.code === 'SubmissionPastDueDateError') {
+		return t('pastDue');
 	}
 	return (response || {}).message || 'An error occurred.';
 }
