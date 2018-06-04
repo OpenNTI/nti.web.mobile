@@ -27,7 +27,7 @@ export default createReactClass({
 		[FORUM_CREATION_ERROR] (event) {
 			this.setState({
 				busy: false,
-				error: event.data.reason
+				error: (event.data.reason && event.data.reason.Message) || event.data.reason
 			});
 		},
 
