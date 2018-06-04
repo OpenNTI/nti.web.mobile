@@ -21,7 +21,7 @@ export default {
 		this.registerStoreEventHandler(ITEM_CONTENTS_CHANGED, ChangedHandler);
 
 		const { contentPackage } = this.props;
-		if (!Store.getDiscussions(contentPackage.getID())) {
+		if (contentPackage && !Store.getDiscussions(contentPackage.getID())) {
 			Store.loadDiscussions(contentPackage);
 		}
 
