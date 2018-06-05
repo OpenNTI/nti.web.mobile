@@ -51,7 +51,7 @@ export default class extends React.Component {
 
 		this.setState({error: void 0, results: void 0, page: 1}, ()=>
 			getService()
-				.then(s => s.getContacts().search(query, allowAny, allowContacts))
+				.then(s => s.getContacts().search(query, {allowAnyEntityType: allowAny, allowContacts}))
 				.catch(er => (er.statusCode !== -1) ? Promise.reject(er) : [])
 				.then(results => {
 					if (!stillValid()) {
