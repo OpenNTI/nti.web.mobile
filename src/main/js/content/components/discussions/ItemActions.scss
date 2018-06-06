@@ -1,11 +1,14 @@
 @import "utils/variables";
 
+.flyout.discussion-item-action-flyout {
+	z-index: 20;
 
-.discussion-item-actions-options {
-	border: 1px solid $border-grey;
-	background: #fff;
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	min-width: 7rem;
+	.discussion-item-actions-options {
+		border: 1px solid $border-grey;
+		background: #fff;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		min-width: 7rem;
+	}
 }

@@ -63,6 +63,7 @@ export default createReactClass({
 				<Action name="reply" criteria={CanReply(capabilities, item)} onClick={this.onReply}/>
 				<Action name="share" criteria={CanShare(capabilities, item)} onClick={this.onShare}/>
 				<Flyout.Triggered
+					className="discussion-item-action-flyout"
 					trigger={this.renderTrigger()}
 					ref={this.attachListRef}
 					horizontalAlign={Flyout.ALIGNMENTS.LEFT}
