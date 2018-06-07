@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import {Ellipsed, Presentation} from '@nti/web-commons';
 
 import * as COURSE_SECTIONS from 'course/Sections';
+import getLabel from 'course/get-section-label';
 
 import CourseLinker from '../../mixins/CourseContentLink';
 import CourseContentLink from '../CourseContentLink';
@@ -76,13 +77,13 @@ export default createReactClass({
 
 			if (isScorm(item)) {
 				items.push({
-					title: 'Content',
+					title: getLabel('scormcontent'),
 					href: this.courseHref(courseId, COURSE_SECTIONS.SCORMCONTENT)
 				});
 			} else {
 				//Lessons
 				items.push({
-					title: 'Lessons',
+					title: getLabel('lessons'),
 					href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS)
 					// hasChildren: true
 				});
@@ -98,7 +99,7 @@ export default createReactClass({
 
 			//Discussions
 			items.push({
-				title: 'Discussions',
+				title: getLabel('discussions'),
 				href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS)
 				// hasChildren: true
 			});
@@ -113,7 +114,7 @@ export default createReactClass({
 
 		//Course Info
 		items.push({
-			title: 'Course Info',
+			title: getLabel('info'),
 			href: this.courseHref(courseId, COURSE_SECTIONS.INFO)
 		});
 

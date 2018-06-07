@@ -1,22 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from '@nti/lib-locale';
 import {isFlag} from '@nti/web-client';
 
 import Page from 'common/components/Page';
 
 import * as Sections from '../Sections';
-
-const getLabel = scoped('course.sections', {
-	activity: 'Activity',
-	assignments: 'Assignments',
-	discussions: 'Discussions',
-	lessons: 'Lessons',
-	info: 'Course Info',
-	videos: 'Videos',
-	scormcontent: 'Content',
-});
-
+import getLabel from '../get-section-label';
 
 export default class extends React.Component {
 	static displayName = 'course:Page';
