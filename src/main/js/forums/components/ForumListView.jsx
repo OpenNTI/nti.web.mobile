@@ -19,7 +19,8 @@ const DEFAULT_TEXT = {
 	forcredit: 'Enrolled For-Credit',
 	open: 'Open Discussions',
 	other: 'Other Discussions',
-	create: 'Create a forum'
+	create: 'Create a forum',
+	empty: 'There are no forums to display.'
 };
 
 const t = scoped('forums.groups.sections', DEFAULT_TEXT);
@@ -126,6 +127,11 @@ export default createReactClass({
 							}
 						</ul>
 						{Store.isSimple(contentPackageID) && this.createForum()}
+						{Object.keys(discussions).length === 0 && (
+							<div className="forum-list-empty">
+								{t('empty')}
+							</div>
+						)}
 					</nav>
 				</CSSTransition>
 			</TransitionGroup>
