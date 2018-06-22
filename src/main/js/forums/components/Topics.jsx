@@ -15,14 +15,15 @@ import * as Actions from '../Actions';
 import paging from '../mixins/Paging';
 import LoadForum from '../mixins/LoadForum';
 import Store from '../Store';
-import { FORUM, FORUM_DELETED } from '../Constants';
+import { FORUM, FORUM_DELETED, FORUM_DELETION_ERROR } from '../Constants';
 
 import TopicList from './TopicList';
 import ViewHeader from './widgets/ViewHeader';
 
 const DEFAULT_TEXT = {
 	create: 'Create a discussion',
-	deletePrompt: 'Delete this forum?'
+	deletePrompt: 'Delete this forum?',
+	deleteError: 'Forum cannot be deleted'
 };
 
 const t = scoped('forums.topic', DEFAULT_TEXT);
@@ -45,6 +46,10 @@ export default createReactClass({
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
+		[FORUM_DELETION_ERROR] (event) {
+			setTimeout(() => { Prompt.alert(t('deleteError')); }, 1000);
+		},
+
 		[FORUM_DELETED] (event) {
 			const discussions = path.resolve(this.getNavigable().getEnvironment().getPath(), '..');
 			this.navigateRoot(`${discussions}/`);

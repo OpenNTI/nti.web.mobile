@@ -203,6 +203,10 @@ class Store extends StorePrototype {
 		this.emitError({ type: Constants.FORUM_CREATION_ERROR, data });
 	}
 
+	forumDeletionError (data) {
+		this.emitError({ type: Constants.FORUM_DELETION_ERROR, data });
+	}
+
 	isSimple (forPackageId) {
 		const discussions = this.discussions[forPackageId];
 
@@ -322,7 +326,12 @@ function deleteTopic (topic) {
 }
 
 function deleteForum (forum) {
-	return forum.delete().then(() => store.deleteForum(forum));
+	return forum.delete().then(() => store.deleteForum(forum))
+		.catch((reason) => {
+			store.forumDeletionError({
+				reason
+			});
+		});
 }
 
 async function createForum (board, newForum) {

@@ -40,3 +40,4 @@ export const FORUM_CREATED = Symbol('fourms:FORUM_CREATED');
 export const FORUM_CREATION_ERROR = Symbol('forums:FORUM_CREATION_ERROR');
 export const DELETE_FORUM = Symbol('forums:DELETE_FORUM');
 export const FORUM_DELETED = Symbol('forums:FORUM_DELETED');
+export const FORUM_DELETION_ERROR = Symbol('forums:FORUM_DELETION_ERROR');
