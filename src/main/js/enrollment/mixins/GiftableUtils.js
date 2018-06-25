@@ -4,8 +4,16 @@ export default {
 		return !!(option.getPurchasableForGifting && option.getPurchasableForGifting());
 	},
 
+	isRedeemable (option) {
+		return !!(option.getPurchasableForRedeeming && option.getPurchasableForRedeeming());
+	},
+
 	hasGiftableEnrollmentOption (catalogEntry) {
 		return this.enrollmentOptions(catalogEntry, true).some(this.isGiftable);
+	},
+
+	hasRedeemableEnrollmentOption (catalogEntry) {
+		return this.enrollmentOptions(catalogEntry, true).some(this.isRedeemable);
 	},
 
 	isEnrolled (catalogEntry) {

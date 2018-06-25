@@ -28,9 +28,9 @@ export default class EntryDetail extends React.Component {
 	componentWillUnmount () {}
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.entryId !== this.props.entryId) {
-			this.getDataIfNeeded(nextProps);
+	componentDidUpdate (prevProps) {
+		if (prevProps.entryId !== this.props.entryId) {
+			this.getDataIfNeeded(this.props);
 		}
 	}
 
