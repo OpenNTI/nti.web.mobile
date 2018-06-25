@@ -79,28 +79,34 @@ class PerformanceListView extends React.Component {
 		const {props: {assignments}, state: {summary}} = this;
 		const {sortOn, sortOrder} = summary.getSort();
 
-		if(summary.length === 0) {
-			return <EmptyList type="assignments"/>;
-		}
-
 		return (
 			<div className="performance">
 				<HOC.ItemChanges item={summary} onItemChanged={this.onSummaryUpdated}/>
-				<PerformanceHeader assignments={assignments}/>
-				<div className="performance-headings">
-					{columns.map((col, index) => {
-						const sorted = sortOn === col.sortOn;
-						const classes = cx(col.className, {
-							sorted,
-							'desc': sorted && sortOrder === SortOrder.DESC,
-							'asc': sorted && sortOrder === SortOrder.ASC
-						});
-						return (
-							<PerformanceListViewHeading key={index} column={col} className={classes} onClick={this.changeSort} />
-						);
-					})}
-				</div>
-				{summary.map(item => <PerformanceItem key={item.assignmentId} item={item} sortedOn={sortOn} />)}
+				{summary.length === 0 ? (
+
+					<EmptyList type="assignments"/>
+
+				) : (
+
+					<React.Fragment>
+						<PerformanceHeader assignments={assignments}/>
+						<div className="performance-headings">
+							{columns.map((col, index) => {
+								const sorted = sortOn === col.sortOn;
+								const classes = cx(col.className, {
+									sorted,
+									'desc': sorted && sortOrder === SortOrder.DESC,
+									'asc': sorted && sortOrder === SortOrder.ASC
+								});
+								return (
+									<PerformanceListViewHeading key={index} column={col} className={classes} onClick={this.changeSort} />
+								);
+							})}
+						</div>
+						{summary.map(item => <PerformanceItem key={item.assignmentId} item={item} sortedOn={sortOn} />)}
+
+					</React.Fragment>
+				)}
 			</div>
 		);
 	}
