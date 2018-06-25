@@ -3,24 +3,28 @@
 	flex-wrap: wrap;
 	list-style-type: none;
 	margin: 0;
+
 	li {
 		$avatarsize: 2.7rem;
 		// display: inline-block;
 		.avatar {
 			width: $avatarsize;
 			height: $avatarsize;
-			margin: .1rem;
+			margin: 0.1rem;
 		}
+
 		&.group-admin {
 			position: relative;
+
 			.profile-link::after {
 				@extend %avatar-admin-badge;
 				$badgesize: 1rem;
+
 				content: '';
 				width: $badgesize;
 				height: $badgesize;
 				position: absolute;
-				top: $avatarsize - $badgesize + .1rem;
+				top: $avatarsize - $badgesize + 0.1rem;
 				left: $avatarsize - $badgesize;
 				background-repeat: no-repeat;
 				background-size: $badgesize;
@@ -29,16 +33,40 @@
 	}
 }
 
-%avatar-grid-container {
+.group-members-container {
+	padding: 1rem 0.5rem;
+	background: white;
+
+	.group-members-heading {
+		font-size: 0.6875rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		margin: 0.5rem 0;
+		color: $secondary-grey;
+
+		& > * {
+			display: inline-block;
+			margin-right: 1em;
+		}
+	}
+
+	.body {
+		display: none;
+	}
+}
+
+.profile-body-main,
+.contacts-page-content {
 	$avatarsize: 4.5rem;
+
 	.avatar-grid {
 		li {
-			$mgn: .25rem;
+			$mgn: 0.25rem;
+
 			flex: 0 1 calc(100% - #{$mgn * 2});
 			min-width: 215px;
-			box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
+			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
 			width: 0; // without this long display names won't shrink enough horizontally
-
 			overflow: hidden; // for when we have swipe-to-reveal controls.
 
 			// white-space: nowrap;
@@ -48,27 +76,30 @@
 			position: relative;
 
 			@media screen and (min-width: 545px) {
-				flex-basis: calc(50% - #{$mgn * 2})
+				flex-basis: calc(50% - #{$mgn * 2});
 			}
+
 			@media screen and (min-width: 768px) {
-				flex-basis: calc(33% - #{$mgn * 2})
+				flex-basis: calc(33% - #{$mgn * 2});
 			}
 
 			& > * {
 				display: block;
 				min-height: $avatarsize;
-				padding: 0 0 0 $avatarsize + .5rem;
+				padding: 0 0 0 $avatarsize + 0.5rem;
 				overflow: hidden;
-				max-width: calc(100% - .5rem);
+				max-width: calc(100% - 0.5rem);
 			}
 
 			// swipe to reveal delete button for groups
 			& > .stro-container {
 				padding: 0;
 				max-width: inherit;
+
 				.stro-content {
-					padding-left: $avatarsize + .5rem;
+					padding-left: $avatarsize + 0.5rem;
 				}
+
 				.stro-right {
 					min-height: $avatarsize;
 				}
@@ -83,10 +114,12 @@
 				height: $avatarsize;
 				border-radius: 3px 0 0 3px;
 			}
+
 			&.group-admin {
 				$badgesize: 1rem;
+
 				a::after {
-					left: $avatarsize - $badgesize - .1rem;
+					left: $avatarsize - $badgesize - 0.1rem;
 					top: $avatarsize - $badgesize;
 				}
 			}
@@ -94,10 +127,11 @@
 			.body {
 				color: $primary-grey;
 				line-height: 1.3;
-				padding: .5rem 0;
+				padding: 0.5rem 0;
+
 				.location {
 					display: block;
-					font-size: .75rem;
+					font-size: 0.75rem;
 				}
 			}
 
@@ -112,32 +146,5 @@
 				width: calc(100% - 1.5rem);
 			}
 		}
-
-	}
-}
-
-.profile-body-main {
-	@extend %avatar-grid-container;
-}
-.contacts-page-content  {
-	@extend %avatar-grid-container;
-}
-
-.group-members-container {
-	padding: 1rem .5rem;
-	background: white;
-	.group-members-heading {
-		font-size: .6875rem;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: .5rem 0;
-		color: $secondary-grey;
-		& > * {
-			display: inline-block;
-			margin-right: 1em;
-		}
-	}
-	.body {
-		display: none;
 	}
 }
