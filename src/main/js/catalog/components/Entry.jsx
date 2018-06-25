@@ -42,17 +42,13 @@ ES_CREDIT_NONDEGREE = "ForCreditNonDegree"
 
 export default createReactClass({
 	displayName: 'Entry',
-	mixins: [Mixins.BasePath],
+	mixins: [Mixins.BasePath, Mixins.ItemChanges],
 
 	propTypes: {
 		item: PropTypes.object.isRequired
 	},
 
 	getItem () { return this.props.item; },
-	itemChanged () {this.forceUpdate(); },
-
-	componentWillMount () { this.getItem().addListener('change', this.itemChanged); },
-	componentWillUnmount () { this.getItem().removeListener('change', this.itemChanged); },
 
 	getDetailHref () {
 		let item = this.getItem();
