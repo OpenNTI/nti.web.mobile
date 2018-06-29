@@ -77,14 +77,39 @@ export default createReactClass({
 		item: PropTypes.object
 	},
 
+	attachEditRef (x) {
+		const { jQuery } = global;
+		const hasQuill = !!((jQuery || {}).fn || {}).mathquill;
 
-	attachRef (x) { this.input = x; },
+		if (x) {
+			this.input = x.querySelector('.math-container');
 
-
-	componentWillMount () {
-		this.setState({ loading:true });
+			if (hasQuill) {
+				jQuery(this.input).mathquill('editable');
+			}
+		} else {
+			this.input = null;
+		}
 	},
 
+	attachViewRef (x) {
+		const { jQuery } = global;
+		const hasQuill = !!((jQuery || {}).fn || {}).mathquill;
+
+		if (x) {
+			this.viewInput = x.querySelector('.math-container');
+
+			if (hasQuill) {
+				jQuery(this.viewInput).mathquill(void 0);
+			}
+		} else {
+			this.viewInput = null;
+		}
+	},
+
+	componentWillMount () {
+		this.setState({ loading: true, canEdit: !this.isSubmitted() });
+	},
 
 	componentDidMount () {
 		this.ensureExternalLibrary('mathquill')
@@ -94,17 +119,13 @@ export default createReactClass({
 
 
 	componentDidUpdate () {
-		const {jQuery} = global;
-		const {input} = this;
-		const hasQuill = !!((jQuery || {}).fn || {}).mathquill;
 		const submitted = this.isSubmitted();
 
-		if (hasQuill && input) {
-			if (!input.hasAttribute('mathquill-block-id')) {
-				jQuery(input).mathquill(submitted ? void 0 : 'editable');
-			}
+		if (submitted && this.state.canEdit) {
+			this.setState({canEdit: false});
+		} else if (!submitted && !this.state.canEdit) {
+			this.setState({canEdit: true});
 		}
-
 	},
 
 
@@ -127,7 +148,7 @@ export default createReactClass({
 		const {jQuery} = global;
 		const {input} = this;
 		const symbol = getEventTarget(e, '.mathsymbol');
-		logger.trace('click!');
+
 		if (!symbol || this.isSubmitted()) {
 			return;
 		}
@@ -136,7 +157,6 @@ export default createReactClass({
 
 
 		jQuery(input).mathquill('cmd', latex);
-		logger.debug('Wrote: ' + latex);
 
 		this.focusInput();
 		this.handleInteraction();
@@ -144,7 +164,7 @@ export default createReactClass({
 
 
 	render () {
-		const {props: {item}, state: {value, loading, error}} = this;
+		const {props: {item}, state: {value, loading, error, canEdit}} = this;
 
 		if (loading) {
 			return ( <Loading.Ellipse/> );
@@ -158,7 +178,24 @@ export default createReactClass({
 		return (
 			<form className="symbolic-math" onKeyUp={this.onKeyUp} onPaste={block} onSubmit={stopEvent}>
 				<div className="input" onClick={this.focusInput}>
-					<span ref={this.attachRef} data-label={item.answerLabel}>{value}</span>
+					{canEdit && (
+						<span
+							className="edit-container"
+							ref={this.attachEditRef}
+							dangerouslySetInnerHTML={{
+								__html: `<span class="math-container" data-label=${item.answerLabel}></span>`
+							}}
+						/>
+					)}
+					{!canEdit && (
+						<span
+							className="view-container"
+							ref={this.attachViewRef}
+							dangerouslySetInnerHTML={{
+								__html: `<span class="math-container">${value || ''}</span>`
+							}}
+						/>
+					)}
 				</div>
 				<div className="shortcuts" onClick={this.insertSymbol}>
 					<a href="#" className="mathsymbol sqrt" data-latex="\surd" title="Insert square root"/>
