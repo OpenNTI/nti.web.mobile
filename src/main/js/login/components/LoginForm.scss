@@ -216,7 +216,7 @@
 	.oauth-button,
 	button {
 		vertical-align: middle;
-		padding: 0 20px;
+		padding: 0 5px;
 		margin: 10px 0 0;
 		border-radius: 5px;
 		border: 1px solid $primary-blue; //#a8a8a8;
@@ -225,6 +225,7 @@
 		// text-shadow: 0 -1px #87a000;
 		// background-image: linear-gradient(to top, #a4ce50 0%, #87b133 100%);
 
+		text-align: center;
 		text-transform: none;
 		letter-spacing: normal;
 		font-size: 0.875rem;
