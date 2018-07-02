@@ -7,7 +7,7 @@ export default function NoOptions () {
 		<div>
 			<Notice>This course is not currently available for enrollment.</Notice>
 			<div className="text-center">
-				<a href="../" className="button tiny">{t('common.buttons.ok')}</a>
+				<a href="../../" className="button tiny">{t('common.buttons.ok')}</a>
 			</div>
 		</div>
 	);
