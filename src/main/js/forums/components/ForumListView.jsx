@@ -91,6 +91,16 @@ export default createReactClass({
 		return <Link className="action-link create-forum" href="/newforum/">{t('create')}</Link>;
 	},
 
+	hasForums (discussions) {
+		const itemsWithForums = Object.keys(discussions).filter(discussionKey => {
+			const discussion = discussions[discussionKey];
+
+			return discussion && discussion.Section && discussion.Section.forums && discussion.Section.forums.length > 0;
+		});
+
+		return itemsWithForums.length > 0;
+	},
+
 	render () {
 
 		if (this.state.loading) {
@@ -109,23 +119,25 @@ export default createReactClass({
 			<TransitionGroup>
 				<CSSTransition appear classNames="fade-out-in" timeout={500} key="forum">
 					<nav className="forum">
-						<ul>
-							{
+						{this.hasForums(discussions) && (
+							<ul>
+								{
 								//convenient that the order we want the bins happens to be alphabeetical enrolled, open, other
-								Array.sort(Object.keys(discussions)).map((key, i, bins) => {
-									let bin = discussions[key];
-									let reactkey = keyFor(bin);
-									return (
-										<li key={reactkey}>
-											<ForumBin
-												title={key.toLowerCase() === 'other' && bins.length === 1 ? '' : t(key.toLowerCase())}
-												bin={bin}
-											/>
-										</li>
-									);
-								})
-							}
-						</ul>
+									Array.sort(Object.keys(discussions)).map((key, i, bins) => {
+										let bin = discussions[key];
+										let reactkey = keyFor(bin);
+										return (
+											<li key={reactkey}>
+												<ForumBin
+													title={key.toLowerCase() === 'other' && bins.length === 1 ? '' : t(key.toLowerCase())}
+													bin={bin}
+												/>
+											</li>
+										);
+									})
+								}
+							</ul>
+						)}
 						{Store.isSimple(contentPackageID) && this.createForum()}
 						{Object.keys(discussions).length === 0 && (
 							<div className="forum-list-empty">
