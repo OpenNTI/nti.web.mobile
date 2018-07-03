@@ -115,11 +115,13 @@ export default createReactClass({
 			return <Err error={discussions.error} />;
 		}
 
+		const hasForums = this.hasForums(discussions);
+
 		return (
 			<TransitionGroup>
 				<CSSTransition appear classNames="fade-out-in" timeout={500} key="forum">
 					<nav className="forum">
-						{this.hasForums(discussions) && (
+						{hasForums && (
 							<ul>
 								{
 								//convenient that the order we want the bins happens to be alphabeetical enrolled, open, other
@@ -139,7 +141,7 @@ export default createReactClass({
 							</ul>
 						)}
 						{Store.isSimple(contentPackageID) && this.createForum()}
-						{Object.keys(discussions).length === 0 && (
+						{!hasForums && (
 							<div className="forum-list-empty">
 								{t('empty')}
 							</div>
