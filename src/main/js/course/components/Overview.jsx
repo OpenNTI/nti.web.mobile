@@ -119,6 +119,9 @@ export default class CourseLessonOverview extends React.Component {
 				target: '_blank'
 			};
 		}
+		else if (/ltiexternaltoolasset/i.test(type)) {
+			return { href: `${obj.getLink('Launch')}?target=window`, target: '_blank' };
+		}
 		else {
 			console.log(type || obj);//eslint-disable-line
 		}
