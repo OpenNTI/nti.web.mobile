@@ -1,5 +1,5 @@
 import Logger from '@nti/util-logger';
-import naturalSort from 'node-natural-sort';
+import { compare as naturalSort } from 'natural-orderby';
 
 import Filters from '../Filters';
 
@@ -79,7 +79,7 @@ export default {
 			filters.forEach(f=> {
 				let b = getBin(f);
 				if (f.split) {
-					f.split(b.items).forEach(x=>bins.push(Object.assign({}, b, x, {name: f.name})));
+					f.split(b.items).forEach(x=>bins.push({ ...b, ...x, name: f.name}));
 				} else {
 					bins.push(b);
 				}
