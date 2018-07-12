@@ -1,57 +1,99 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {scoped} from '@nti/lib-locale';
+import { Enrollment } from '@nti/web-course';
+import { getHistory } from '@nti/web-routing';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { Mixins } from '@nti/web-commons';
+import Logger from '@nti/util-logger';
 
 import ContextSender from 'common/mixins/ContextSender';
-import Redirect from 'navigation/components/Redirect';
 
+import { enrollOpen } from '../Api';
 import EnrollmentOptions from '../mixins/EnrollmentMixin';
 
-const t = scoped('enrollment.view', {
-	title: 'Enroll',
-});
+const logger = Logger.get('enrollment:enroll');
 
 export default createReactClass({
-	displayName: 'Enroll',
-	mixins: [EnrollmentOptions, ContextSender],
+	displayName: 'enroll',
+	mixins: [Mixins.BasePath, EnrollmentOptions, ContextSender],
 
-	getCourseTitle () {
-		let e = this.getEntry();
-		return e ? e.Title : 'Unknown';
+	propTypes: {
+		entryId: PropTypes.string
 	},
 
+	contextTypes: {
+		router: PropTypes.object
+	},
 
-	getContext () {
-		return Promise.resolve([
-			{
-				label: t('title')
+	childContextTypes: {
+		router: PropTypes.object
+	},
+
+	getChildContext () {
+		return {
+			router: {
+				...(this.context.router || {}),
+				baseroute: `/mobile/catalog/item/${
+					this.props.entryId
+				}/enrollment`,
+				getRouteFor: this.getRouteFor,
+				history: getHistory()
 			}
-		]);
+		};
 	},
 
+	getInitialState () {
+		return {
+			error: null
+		};
+	},
 
-	render () {
-
-		if (this.state.error) {
-			return (<Redirect location="/" />);
+	async handleOpenEnroll () {
+		const catalogEntry = this.getEntry();
+		try {
+			await enrollOpen(catalogEntry.NTIID);
+		} catch (error) {
+			logger.error(error.message);
+			this.setState({ error: 'Unable to Enroll.' });
 		}
 
-		const {icon} = this.getEntry() || {};
-		const title = this.getCourseTitle();
+		try {
+			await catalogEntry.refresh();
+			catalogEntry.onChange();
+		} catch (error) {
+			logger.error(error.message);
+		}
+	},
+
+	handleDrop () {
+		const base = this.getBasePath();
+		const catalogEntry = this.getEntry();
+		const entry = encodeForURI(catalogEntry.getID());
+		return `${base}catalog/enroll/drop/${entry}/`;
+	},
+
+	getRouteFor (option, context) {
+		if (context === 'enroll') {
+			return () => this.handleOpenEnroll();
+		} else if (context === 'drop') {
+			return this.handleDrop();
+		}
+	},
+
+	render () {
+		const entry = this.getEntry();
+		const { error } = this.state;
+
+		if (!entry) {
+			return null;
+		}
 
 		return (
-			<div className="enrollment-options">
-				{icon && (
-					<div className="content-banner">
-						<img src={icon} />
-						<label>
-							<h3>{title}</h3>
-						</label>
-					</div>
-				)}
-				{this.enrollmentWidgets()}
-			</div>
+			<React.Fragment>
+				{error && <p className="error">{error}</p>}
+				<Enrollment.Options catalogEntry={entry} />
+			</React.Fragment>
 		);
 	}
-
 });
