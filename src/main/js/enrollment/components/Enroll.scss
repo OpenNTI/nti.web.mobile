@@ -1,13 +1,5 @@
-.enrollment-options {
-	max-width: 500px;
-	margin: 0 auto;
-	.content-banner {
-		&::after {
-			padding-top: 73.2758621%;
-		}
-
-		img {
-			bottom: 0;
-		}
+.nti-course-enrollment-options {
+	.nti-course-enrollment-gifting-item .meta .label {
+		background-color: transparent;
 	}
 }

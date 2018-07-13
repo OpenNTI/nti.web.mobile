@@ -12,7 +12,7 @@ import Enroll from 'enrollment/components/Enroll';
 import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchaseView';
 import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
 import AcceptInvitation from 'invitations/components/View';
-
+import Redeem from 'enrollment/components/Redeem';
 
 import ListView from './ListView';
 import EntryDetail from './EntryDetail';
@@ -58,6 +58,10 @@ export default createReactClass({
 					ref={this.attachGift}
 					path="/gift/purchase/:entryId(/*)"
 					handler={GiftPurchaseView}
+				/>
+				<Location
+					path="/item/:entryId/redeem"
+					handler={Redeem}
 				/>
 				<Location
 					ref={this.attachEnrollment}

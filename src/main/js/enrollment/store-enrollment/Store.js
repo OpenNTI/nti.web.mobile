@@ -18,12 +18,13 @@ import {
 	POLLING_ERROR,
 
 	BILLING_INFO_VERIFIED,
-	BILLING_INFO_REJECTED
+	BILLING_INFO_REJECTED,
 } from './Constants';
 
 const HandleCoupon = Symbol();
 const HandleBillingInfo = Symbol();
 const HandlePurchase = Symbol();
+const HandleError = Symbol();
 
 class Store extends StorePrototype {
 
@@ -60,7 +61,7 @@ class Store extends StorePrototype {
 
 			[STRIPE_PAYMENT_SUCCESS]: HandlePurchase,
 			[STRIPE_PAYMENT_FAILURE]: HandlePurchase,
-			[POLLING_ERROR] () {}
+			[POLLING_ERROR]: HandleError
 		});
 
 		this.clear(); //setup data
@@ -109,6 +110,11 @@ class Store extends StorePrototype {
 		this.emitChange({type, purchaseAttempt});
 	}
 
+	[HandleError] (data) {
+		const { payload: { purchaseAttempt } , type } = data.action;
+
+		this.emitChange({type, purchaseAttempt});
+	}
 
 	getStripeToken () {
 		if(!this.data.stripeToken) {

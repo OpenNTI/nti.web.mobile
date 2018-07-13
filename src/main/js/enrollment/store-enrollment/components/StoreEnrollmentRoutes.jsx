@@ -60,7 +60,7 @@ export default createReactClass({
 		this.router.navigate(...arguments);
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		Store.addChangeListener(this.storeChange);
 	},
 

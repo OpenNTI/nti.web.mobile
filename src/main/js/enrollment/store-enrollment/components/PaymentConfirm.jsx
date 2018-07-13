@@ -37,7 +37,7 @@ export default createReactClass({
 	attachSubscribeCheckboxRef (x) { this.subscribeToUpdates = x; },
 
 
-	componentWillMount () {
+	componentDidMount () {
 		try {
 			const stripeToken = Store.getStripeToken();
 			if (!stripeToken) {

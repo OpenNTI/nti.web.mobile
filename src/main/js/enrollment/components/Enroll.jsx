@@ -66,18 +66,51 @@ export default createReactClass({
 		}
 	},
 
-	handleDrop () {
-		const base = this.getBasePath();
+	handleEnroll (option) {
 		const catalogEntry = this.getEntry();
-		const entry = encodeForURI(catalogEntry.getID());
-		return `${base}catalog/enroll/drop/${entry}/`;
+		const availableOptions = this.enrollmentOptions(catalogEntry, false);
+		const basePath = this.getBasePath();
+
+		for (let available of availableOptions) {
+			if (available && available.Class === option.Class) {
+				if (option.Class === 'StoreEnrollment') {
+					return `${basePath}catalog/enroll/purchase/${catalogEntry.getID()}/`;
+				} else if (option.Class === 'OpenEnrollment') {
+					return () => this.handleOpenEnroll();
+				} else if (option.Class === 'FiveminuteEnrollment') {
+					return `${basePath}catalog/enroll/apply/${catalogEntry.getID()}/`;
+				}
+			}
+		}
+	},
+
+	handleDrop () {
+		const basePath = this.getBasePath();
+		const catalogEntry = this.getEntry();
+		return `${basePath}catalog/enroll/drop/${encodeForURI(catalogEntry.getID())}/`;
+	},
+
+	handleGift () {
+		const basePath = this.getBasePath();
+		const catalogEntry = this.getEntry();
+		return `${basePath}catalog/gift/purchase/${encodeForURI(catalogEntry.getID())}/`;
+	},
+
+	handleRedeem () {
+		const basePath = this.getBasePath();
+		const catalogEntry = this.getEntry();
+		return `${basePath}catalog/item/${encodeForURI(catalogEntry.getID())}/redeem`;
 	},
 
 	getRouteFor (option, context) {
 		if (context === 'enroll') {
-			return () => this.handleOpenEnroll();
+			return this.handleEnroll(option);
 		} else if (context === 'drop') {
 			return this.handleDrop();
+		} else if (context === 'gift') {
+			return this.handleGift();
+		} else if (context === 'redeem') {
+			return this.handleRedeem();
 		}
 	},
 

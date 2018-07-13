@@ -1,0 +1,58 @@
+@import '~@nti/style-common';
+
+
+.gift-redeem-form {
+
+	h2 {
+		text-align: center;
+	}
+
+	.gift-input-redeem {
+		width: 100%;
+		margin: auto;
+
+		input, button {
+			height: 50px;
+			display: block;
+			float: left;
+		}
+
+		input {
+			color: $primary-grey;
+			font-size: 16px;
+			width: 296px;
+			padding: 0 20px;
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px;
+
+			&::placeholder {
+				color: $tertiary-grey;
+			}
+
+			@include responsive-range(mobile) {
+				width: 70%;
+			}
+		}
+
+		button {
+			width: 104px;
+			border-radius: 0 4px 4px 0;
+			background-color: #3fb3f6;
+			border-color: transparent;
+			font-size: 16px;
+			color: #fff;
+			margin-left: -1px;
+			cursor: pointer;
+			padding: 0;
+
+			@include responsive-range(mobile) {
+				width: 30%;
+			}
+
+			&:hover {
+				opacity: 0.7;
+			}
+		}
+
+	}
+}
