@@ -1,13 +1,10 @@
-import React from 'react';
 import {decodeFromURI} from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
-import {Loading, Mixins} from '@nti/web-commons';
+import {Mixins} from '@nti/web-commons';
 
 import {getCatalogEntry} from '../Api';
 import EnrollmentStore from '../Store';
 import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
-import {getWidget} from '../components/enrollment-option-widgets';
-import NoOptions from '../components/enrollment-option-widgets/NoOptions';
 
 import GiftableUtils from './GiftableUtils';
 
@@ -87,37 +84,6 @@ export default {
 		return o.enrolled;
 	},
 
-	enrollmentWidgets () {
-		if (!this.state.enrollmentStatusLoaded || this.state.loading) {
-			return <Loading.Mask />;
-		}
-
-		let catalogEntry = this.getEntry();
-
-		function showOption (option) {
-			return option && (option.enrolled || option.available);
-		}
-
-		let widgets = this.enrollmentOptions(catalogEntry, true).filter(showOption).map((option, index) => {
-			let widget = getWidget(option);
-			return widget ? React.createElement(widget, {
-				catalogEntry: catalogEntry,
-				entryId: this.props.entryId,
-				enrollmentOption: option,
-				isGiftable: this.isGiftable(option),
-				className: 'enrollment-panel',
-				key: 'eno_' + (option.MimeType || index)
-			}) : null;
-		});
-
-		widgets = widgets.filter(item => item !== null);
-		if (widgets.length > 0) {
-			return React.createElement('div', {className: 'enrollment-panels'}, widgets);
-		}
-
-
-		return [React.createElement(NoOptions)];
-	},
 
 	getEntry () {
 		if (this.state.entry) {
