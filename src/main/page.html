@@ -50,6 +50,11 @@
 		<!-- End Google Analytics -->
 	</head>
 	<body>
+		<script type="text/javascript">
+			window.onerror = function() {
+				window.location.replace('/login/unsupported.html');
+			}
+		</script>
 		<link href="/site-assets/mobileapp/site.css" rel="stylesheet" type="text/css" id="site-override-styles"/>
 		<div id="content">
 			<!--html:server-values-->
