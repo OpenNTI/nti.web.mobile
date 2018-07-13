@@ -81,8 +81,10 @@ export function submitPayment (formData) {
 				Constants.STRIPE_PAYMENT_FAILURE;
 
 			dispatch(eventType, {purchaseAttempt: result});
-		},
-		reason => dispatch(Constants.POLLING_ERROR, {purchaseAttempt: reason}));
+		})
+		.catch((error) => {
+			dispatch(Constants.POLLING_ERROR, {purchaseAttempt: error});
+		});
 }
 
 

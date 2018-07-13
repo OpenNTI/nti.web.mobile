@@ -58,7 +58,7 @@ export function submitPayment (data) {
 	let pollUrl = giftInfo ? '/dataserver2/store/get_gift_purchase_attempt' : '/dataserver2/store/get_purchase_attempt';
 	let paymentUrl = purchasable.getLink(linkRel);
 	let payload = {
-		PurchasableID: purchasable.ID,
+		purchasableID: purchasable.ID,
 		token: stripeToken.id,
 		context: {
 			AllowVendorUpdates: data.allowVendorUpdates
@@ -79,7 +79,7 @@ export function submitPayment (data) {
 		}
 	}
 
-
+	debugger;
 	return post(paymentUrl, payload)
 		.then(collection => collection.Items[0])
 		.then(attempt => parse(attempt))
