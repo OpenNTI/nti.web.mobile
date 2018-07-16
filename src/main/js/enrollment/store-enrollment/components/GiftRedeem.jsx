@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { decodeFromURI } from '@nti/lib-ntiids';
-import { Loading, Input } from '@nti/web-commons';
+import { Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import { getService } from '@nti/web-client';
 
@@ -33,7 +33,7 @@ export default class GiftRedeem extends React.Component {
 
 	getPurchasable = async () => {
 		const entry = await getCatalogEntry(decodeFromURI(this.props.entryId));
-		debugger;
+
 		const { Purchasables } = entry.EnrollmentOptions.Items.StoreEnrollment;
 		const pid = Purchasables.DefaultGiftingNTIID;
 		return Purchasables.Items.find(item => item.NTIID === pid);
@@ -42,7 +42,7 @@ export default class GiftRedeem extends React.Component {
 	redeemGift = async (purchasable, courseId, accessKey) => {
 		const service = await getService();
 		const enrollment = await service.getEnrollment();
-		debugger;
+
 		try {
 			await enrollment.redeemGift(purchasable, courseId, accessKey);
 			this.setState({ busy: false, success: true });

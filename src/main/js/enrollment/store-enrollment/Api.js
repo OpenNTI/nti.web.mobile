@@ -79,7 +79,7 @@ export function submitPayment (data) {
 		}
 	}
 
-	debugger;
+
 	return post(paymentUrl, payload)
 		.then(collection => collection.Items[0])
 		.then(attempt => parse(attempt))
