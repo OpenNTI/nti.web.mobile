@@ -49,6 +49,11 @@ export default createReactClass({
 		};
 	},
 
+	componentDidCatch (error) {
+		logger.error(error.message || error);
+		this.setState({ error: 'Unable to Enroll.' });
+	},
+
 	async handleOpenEnroll () {
 		const catalogEntry = this.getEntry();
 		try {
@@ -122,11 +127,14 @@ export default createReactClass({
 			return null;
 		}
 
+		if (error) {
+			return (
+				<p className="enroll-options-error">{error}</p>
+			);
+		}
+
 		return (
-			<React.Fragment>
-				{error && <p className="error">{error}</p>}
-				<Enrollment.Options catalogEntry={entry} />
-			</React.Fragment>
+			<Enrollment.Options catalogEntry={entry} />
 		);
 	}
 });
