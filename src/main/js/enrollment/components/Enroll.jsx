@@ -4,7 +4,7 @@ import createReactClass from 'create-react-class';
 import { Enrollment } from '@nti/web-course';
 import { getHistory } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
-import { Mixins } from '@nti/web-commons';
+import { Mixins, Loading } from '@nti/web-commons';
 import Logger from '@nti/util-logger';
 
 import ContextSender from 'common/mixins/ContextSender';
@@ -62,7 +62,8 @@ export default createReactClass({
 
 	getInitialState () {
 		return {
-			error: null
+			error: null,
+			pending: false
 		};
 	},
 
@@ -73,11 +74,14 @@ export default createReactClass({
 
 	async handleOpenEnroll () {
 		const catalogEntry = this.getEntry();
+		this.setState({ pending: true });
+
 		try {
 			await enrollOpen(catalogEntry.NTIID);
+			this.setState({ pending: false });
 		} catch (error) {
 			logger.error(error.message);
-			this.setState({ error: 'Unable to Enroll.' });
+			this.setState({ error: 'Unable to Enroll.', pending: false });
 		}
 
 		try {
@@ -85,6 +89,7 @@ export default createReactClass({
 			catalogEntry.onChange();
 		} catch (error) {
 			logger.error(error.message);
+			this.setState({ pending: false });
 		}
 	},
 
@@ -138,7 +143,7 @@ export default createReactClass({
 
 	render () {
 		const entry = this.getEntry();
-		const { error } = this.state;
+		const { error, pending } = this.state;
 
 		if (!entry) {
 			return null;
@@ -148,6 +153,10 @@ export default createReactClass({
 			return (
 				<p className="enroll-options-error">{error}</p>
 			);
+		}
+
+		if (pending) {
+			return <Loading.Mask message="Loading..." />;
 		}
 
 		return (
