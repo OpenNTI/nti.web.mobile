@@ -30,6 +30,23 @@ export default createReactClass({
 		router: PropTypes.object
 	},
 
+	getContext () {
+		let path = this.getBasePath();
+
+		return Promise.resolve([
+			{
+				label: 'Catalog',
+				href: path + 'catalog'
+			},
+			{
+				label: 'Enroll',
+				href: path + `/catalog/item/${
+					this.props.entryId
+				}/enrollment`
+			}
+		]);
+	},
+
 	getChildContext () {
 		return {
 			router: {
