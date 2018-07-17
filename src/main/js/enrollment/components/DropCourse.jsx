@@ -20,6 +20,7 @@ import DropFive from './drop-widgets/DropFive';
 const logger = Logger.get('enrollment:components:DropCourse');
 const t = scoped('enrollment.buttons', {
 	viewCatalog: 'View Catalog',
+	dropError: 'Unable to drop this course. Please contact support.'
 });
 
 export default createReactClass({
@@ -138,8 +139,10 @@ export default createReactClass({
 			return this.renderPanel(title + ' dropped.');
 		}
 
-		if(error) {
-			return this.renderPanel('Unable to drop this course. Please contact support.');
+		if(error && error.statusCode === 403) {
+			return this.renderPanel(error.Message || t('dropError'));
+		} else if (error) {
+			return this.renderPanel(t('dropError'));
 		}
 
 		return (
