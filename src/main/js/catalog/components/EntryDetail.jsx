@@ -7,6 +7,7 @@ import NotFound from 'notfound/components/View';
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
 import {getCatalogEntry} from 'enrollment/Api';
+import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 
 import Detail from './Detail';
 
@@ -68,6 +69,7 @@ export default class EntryDetail extends React.Component {
 				<ContextSender getContext={getContext} entry={entry} entryId={entryId} />
 				<Detail {...this.props} entry={entry}/>
 				<EnrollmentStatus catalogEntry={entry} />
+				<GiftOptions catalogEntry={entry} />
 			</div>
 		);
 	}
