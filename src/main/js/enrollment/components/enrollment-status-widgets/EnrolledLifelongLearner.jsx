@@ -1,18 +1,29 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import createReactClass from 'create-react-class';
+import {Mixins} from '@nti/web-commons';
 
-export default function EnrolledLifelongLearner () {
-	return (
-		<div className="enrollment-status-lifelong">
-			<div className="status">
-				<span className="registered">You are registered</span>
+import Mixin from './mixin';
+
+export default createReactClass({
+	displayName: 'EnrolledLifelongLearner',
+
+	mixins: [Mixins.BasePath, Mixin],
+
+	propTypes: {
+		catalogEntry: PropTypes.object.isRequired
+	},
+
+	render () {
+		const {catalogEntry} = this.props;
+		const href = this.enrollmentHref(this.getBasePath(), catalogEntry);
+		return (
+			<div className="enrollment-status-lifelong">
+				<div className="status">
+					<span className="registered">You are registered</span>
+					<a href={href} className="edit">Edit</a>
+				</div>
 			</div>
-		</div>
-	);
-}
-
-EnrolledLifelongLearner.propTypes = {
-	catalogEntry: PropTypes.object.isRequired
-};
-
-EnrolledLifelongLearner.displayName = 'EnrolledLifelongLearner';
+		);
+	}
+});
