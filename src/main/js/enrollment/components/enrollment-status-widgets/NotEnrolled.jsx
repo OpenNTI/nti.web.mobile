@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import { Enrollment } from '@nti/web-course';
 import {Mixins} from '@nti/web-commons';
 
 import Mixin from './mixin';
@@ -29,6 +30,7 @@ export default createReactClass({
 
 		return (
 			<div className="enrollment-status-none">
+				{!hasOptions && <Enrollment.Options catalogEntry={catalogEntry} />}
 				{hasOptions && (<a className="button" href={href}>CONTINUE TO ENROLLMENT</a>)}
 			</div>
 		);
