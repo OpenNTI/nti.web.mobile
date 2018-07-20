@@ -6,6 +6,7 @@ import { getHistory } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
 import { Mixins, Loading } from '@nti/web-commons';
 import Logger from '@nti/util-logger';
+import {getAppUsername, User} from '@nti/web-client';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -129,6 +130,12 @@ export default createReactClass({
 		return `${basePath}catalog/item/${encodeForURI(catalogEntry.getID())}/redeem`;
 	},
 
+	handleProfile () {
+		const basePath = this.getBasePath();
+		const entity = getAppUsername();
+		return `${basePath}profile/${User.encode(entity)}/about/`;
+	},
+
 	getRouteFor (option, context) {
 		if (context === 'enroll') {
 			return this.handleEnroll(option);
@@ -138,6 +145,8 @@ export default createReactClass({
 			return this.handleGift();
 		} else if (context === 'redeem') {
 			return this.handleRedeem();
+		} else if (context === 'complete-profile') {
+			return this.handleProfile();
 		}
 	},
 
