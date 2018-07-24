@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {User} from '@nti/web-client';
+import {User, getAppUser} from '@nti/web-client';
 import {getModel} from '@nti/lib-interfaces';
 import Logger from '@nti/util-logger';
 import {Loading} from '@nti/web-commons';
@@ -27,6 +27,13 @@ export default class extends React.Component {
 	state = {};
 
 	updateEntity = (props = this.props) => {
+		const {entityId} = props;
+
+		if (entityId === 'me') {
+			return this.updateForMe();
+		}
+
+
 		this.setState({entity: null}, () =>
 			User.resolve(props, true)
 				.catch(()=> false)
@@ -34,11 +41,24 @@ export default class extends React.Component {
 					logger.debug('Resolved entity: %o', entity);
 					this.setState({entity});
 				}));
-	};
+	}
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.entityId !== this.props.entityId) {
-			this.updateEntity(nextProps);
+
+	updateForMe () {
+		this.setState({entity: null}, () => {
+			getAppUser()
+				.catch(() => false)
+				.then(entity => {
+					logger.debug('Resolved entity: %o', entity);
+					this.setState({entity});
+				});
+		});
+	}
+
+
+	componentDidUpdate (prevProps) {
+		if (prevProps.entityId !== this.props.entityId) {
+			this.updateEntity(this.props);
 		}
 	}
 
@@ -47,6 +67,7 @@ export default class extends React.Component {
 	}
 
 	render () {
+		const {entityId} = this.props;
 		let {entity} = this.state;
 
 
@@ -61,7 +82,7 @@ export default class extends React.Component {
 		return entity instanceof Community ? (
 			<CommunityView entity={entity}/>
 		) : entity instanceof UserModel ? (
-			<UserView entity={entity}/>
+			<UserView entity={entity} isMe={entityId === 'me'}/>
 		) : (
 			<GroupView entity={entity}/>
 		);
