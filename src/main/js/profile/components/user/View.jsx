@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {User} from '@nti/web-client';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
@@ -32,7 +33,8 @@ export default createReactClass({
 	mixins: [ProfileLink, ContextSender],
 
 	propTypes: {
-		entity: PropTypes.object.isRequired
+		entity: PropTypes.object.isRequired,
+		isMe: PropTypes.bool
 	},
 
 	getInitialState () {
@@ -53,11 +55,32 @@ export default createReactClass({
 	},
 
 
+	getIsMeRedirect () {
+		const {entity} = this.props;
+		const pathname = global.location && global.location.pathname;
+
+		if (!pathname || !entity) {
+			return false;
+		}
+
+		//TODO: figure out if there's a better way to do this...
+
+		return `/mobile/profile/${User.encode(entity.Username)}/${pathname.replace('/mobile/profile/me/', '')}`;
+	},
+
+
 	render () {
-		let {entity} = this.props;
+		let {entity, isMe} = this.props;
+		let redirect = this.getIsMeRedirect();
 
 		if (!entity) {
 			return null;
+		}
+
+		if (isMe && redirect) {
+			return (
+				<Redirect location={redirect} force />
+			);
 		}
 
 		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
