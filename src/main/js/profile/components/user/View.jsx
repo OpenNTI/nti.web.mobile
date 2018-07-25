@@ -63,9 +63,7 @@ export default createReactClass({
 			return false;
 		}
 
-		//TODO: figure out if there's a better way to do this...
-
-		return `/mobile/profile/${User.encode(entity.Username)}/${pathname.replace('/mobile/profile/me/', '')}`;
+		return `${this.getBasePath()}profile/${User.encode(entity.Username)}/${pathname.replace('/mobile/profile/me/', '')}`;
 	},
 
 
