@@ -137,7 +137,13 @@ export default createReactClass({
 	},
 
 	getRouteFor (option, context) {
+		const isIMIS = option.MimeType === 'application/vnd.nextthought.courseware.ensyncimisexternalenrollmentoption';
+
 		if (context === 'enroll') {
+			if (isIMIS) {
+				return option.enrollmentURL;
+			}
+
 			return this.handleEnroll(option);
 		} else if (context === 'drop') {
 			return this.handleDrop();
