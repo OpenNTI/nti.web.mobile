@@ -1,0 +1,6 @@
+.modal-mask.modal-mask {
+	@include responsive-range(mobile) {
+		display: block;
+		z-index: 2000;
+	}
+}
