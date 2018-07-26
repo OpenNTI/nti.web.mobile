@@ -58,12 +58,13 @@ export default createReactClass({
 	getIsMeRedirect () {
 		const {entity} = this.props;
 		const pathname = global.location && global.location.pathname;
+		const base = this.getBasePath();
 
 		if (!pathname || !entity) {
 			return false;
 		}
 
-		return `${this.getBasePath()}profile/${User.encode(entity.Username)}/${pathname.replace('/mobile/profile/me/', '')}`;
+		return `${base}profile/${User.encode(entity.Username)}/${pathname.replace(`${base}profile/me/`, '')}`;
 	},
 
 
