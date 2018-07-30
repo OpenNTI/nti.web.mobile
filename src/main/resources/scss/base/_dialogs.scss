@@ -1,6 +1,31 @@
-.modal-mask.modal-mask {
-	@include responsive-range(mobile) {
+@include responsive-range(mobile) {
+	[aria-hidden="true"] {
+		display: none !important;
+	}
+
+	// #content[aria-hidden="true"] {
+	// 	display: block !important;
+	//
+	// 	.frame-mask,
+	// 	.main-frame {
+	// 		min-height: 10rem;
+	// 	}
+	//
+	// 	main,
+	// 	footer {
+	// 		display: none;
+	// 	}
+	// }
+
+	// [data-is-remote-mount-point],
+	// [data-is-remote-mount-point] > *,
+	.modal-mask.modal-mask {
 		display: block;
 		z-index: 2000;
+		background: rgba(42, 43, 55, 0.8);
+
+		.is-ios & {
+			position: absolute;
+		}
 	}
 }
