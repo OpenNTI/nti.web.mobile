@@ -20,9 +20,10 @@ const HANDLERS = {
 	handleObjectRedirects: /\/(id|ntiid|object)\//i,
 	handleInvitationRedirects: /(invitations\/accept)|(catalog\/redeem)/i,
 	handleLibraryRedirects: /^library/i,
+	handleProfileRedirects: /\/(user|group|community)/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
 	handleLibraryPathRedirects: /^\/[^/]+\/library/i,
-	handleCatalogPathRedirects: /^\/[^/]+\/catalog\/nti-course-catalog-entry/i
+	handleCatalogPathRedirects: /^\/[^/]+\/catalog\/nti-course-catalog-entry/i,
 };
 
 exports = module.exports = {
@@ -38,6 +39,8 @@ exports = module.exports = {
 				return next();
 			}
 
+			logger.info('TESTING FOR REDIRECT: ', redirectParam);
+
 			for (let handlerName of Object.keys(HANDLERS)) {
 				let test = HANDLERS[handlerName];
 				if (redirectParam.match(test)) {
@@ -47,6 +50,21 @@ exports = module.exports = {
 
 			return res.redirect(this.basepath);
 		});
+	},
+
+
+	handleProfileRedirects (query, res, next) {
+		logger.info('HANDLING PROFILE REDIRECTS');
+
+		const pattern = /\/(?:user|group|commnunity)\/(.*)/;
+		const [, rest] = query.match(pattern) || [];
+
+		if (!rest) {
+			return next();
+		}
+
+		const url = path.join(this.basepath, 'profile', rest);
+		res.redirect(url);
 	},
 
 
