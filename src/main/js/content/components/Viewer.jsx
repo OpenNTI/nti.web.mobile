@@ -6,7 +6,7 @@ import cx from 'classnames';
 import {RouterMixin} from 'react-router-component';
 import Logger from '@nti/util-logger';
 import {decodeFromURI} from '@nti/lib-ntiids';
-import {Loading, Error as Err, Pager} from '@nti/web-commons';
+import {Loading, Error as Err } from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 import {ViewEvent} from '@nti/web-session';
 
@@ -28,7 +28,7 @@ import NoteEditor from './NoteEditor';
 import BodyContent from './Content';
 import Gutter from './Gutter';
 import Discussions from './discussions';
-
+import BottomPager from './BottomPager';
 
 const logger = Logger.get('content:components:Viewer');
 
@@ -295,7 +295,7 @@ export default createReactClass({
 
 							{this.renderPopUp()}
 
-							{this.renderBottomPager()}
+							<BottomPager contentPackage={contentPackage} rootId={this.getRootID()} currentPage={this.getPageID()} getAssessment={this.getAssessment} />
 
 							<Gutter
 								ref={x => this.gutter = x}
@@ -341,13 +341,6 @@ export default createReactClass({
 				{this.renderGroupContents()}
 			</TransitionGroup>
 		);
-	},
-
-
-	renderBottomPager () {
-		return isAssignment(this.getAssessment())
-			? null
-			: <Pager position="bottom" pageSource={this.state.pageSource} current={this.getPageID()}/>;
 	},
 
 
