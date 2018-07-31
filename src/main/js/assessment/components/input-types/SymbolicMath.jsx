@@ -72,48 +72,20 @@ export default createReactClass({
 		]
 	},
 
-
 	propTypes: {
 		item: PropTypes.object
 	},
 
-	attachEditRef (x) {
-		const { jQuery } = global;
-		const hasQuill = !!((jQuery || {}).fn || {}).mathquill;
-
-		if (x) {
-			this.input = x.querySelector('.math-container');
-
-			if (hasQuill) {
-				jQuery(this.input).mathquill('editable');
-			}
-		} else {
-			this.input = null;
-		}
-	},
-
-	attachViewRef (x) {
-		const { jQuery } = global;
-		const hasQuill = !!((jQuery || {}).fn || {}).mathquill;
-
-		if (x) {
-			this.viewInput = x.querySelector('.math-container');
-
-			if (hasQuill) {
-				jQuery(this.viewInput).mathquill(void 0);
-			}
-		} else {
-			this.viewInput = null;
-		}
-	},
-
-	componentWillMount () {
-		this.setState({ loading: true, canEdit: !this.isSubmitted() });
+	getInitialState () {
+		return {
+			loading: true,
+			canEdit: !this.isSubmitted()
+		};
 	},
 
 	componentDidMount () {
 		this.ensureExternalLibrary('mathquill')
-			.then(()=> clearLoadingFlag(this))
+			.then(() => clearLoadingFlag(this))
 			.catch(e => setError(this, e));
 	},
 
@@ -122,18 +94,27 @@ export default createReactClass({
 		const submitted = this.isSubmitted();
 
 		if (submitted && this.state.canEdit) {
-			this.setState({canEdit: false});
+			this.setState({ canEdit: false });
 		} else if (!submitted && !this.state.canEdit) {
-			this.setState({canEdit: true});
+			this.setState({ canEdit: true });
 		}
 	},
 
 
-	focusInput () {
-		const {jQuery} = global;
-		const {input} = this;
+	attachMathRef (x) {
+		const MQ = global.MathQuill.getInterface(2);
+		this.input = MQ.MathField(x, {});
+	},
 
-		jQuery(input).find('textarea').focus();
+
+	attachStaticRef (x) {
+		const MQ = global.MathQuill.getInterface(2);
+		this.staticInput = MQ.StaticMath(x, {});
+	},
+
+
+	focusInput () {
+		this.input.focus();
 	},
 
 
@@ -145,8 +126,6 @@ export default createReactClass({
 
 	insertSymbol (e) {
 		block(e);
-		const {jQuery} = global;
-		const {input} = this;
 		const symbol = getEventTarget(e, '.mathsymbol');
 
 		if (!symbol || this.isSubmitted()) {
@@ -155,61 +134,10 @@ export default createReactClass({
 
 		const latex = symbol.getAttribute('data-latex');
 
-
-		jQuery(input).mathquill('cmd', latex);
+		this.input.write(latex);
 
 		this.focusInput();
 		this.handleInteraction();
-	},
-
-
-	render () {
-		const {props: {item}, state: {value, loading, error, canEdit}} = this;
-
-		if (loading) {
-			return ( <Loading.Ellipse/> );
-		}
-
-		if (error) {
-			return ( <Error error="There was an error loading this question."/> );
-		}
-
-
-		return (
-			<form className="symbolic-math" onKeyUp={this.onKeyUp} onPaste={block} onSubmit={stopEvent}>
-				<div className="input" onClick={this.focusInput}>
-					{canEdit && (
-						<span
-							className="edit-container"
-							ref={this.attachEditRef}
-							dangerouslySetInnerHTML={{
-								__html: `<span class="math-container" data-label=${item.answerLabel}></span>`
-							}}
-						/>
-					)}
-					{!canEdit && (
-						<span
-							className="view-container"
-							ref={this.attachViewRef}
-							dangerouslySetInnerHTML={{
-								__html: `<span class="math-container">${value || ''}</span>`
-							}}
-						/>
-					)}
-				</div>
-				<div className="shortcuts" onClick={this.insertSymbol}>
-					<a href="#" className="mathsymbol sqrt" data-latex="\surd" title="Insert square root"/>
-					<a href="#" className="mathsymbol square" data-latex="x^2" title="Insert squared"/>
-					<a href="#" className="mathsymbol parens" data-latex="(x)" title="Insert parentheses"/>
-					<a href="#" className="mathsymbol approx" data-latex="\approx" title="Insert approximately"/>
-					<a href="#" className="mathsymbol pi" data-latex="\pi" title="Insert pi"/>
-					<a href="#" className="mathsymbol leq" data-latex="\leq" title="Insert less than or equal to"/>
-					<a href="#" className="mathsymbol geq" data-latex="\geq" title="Insert greater than or equal to"/>
-					<a href="#" className="mathsymbol neq" data-latex="\neq" title="Insert not Equal"/>
-				</div>
-				<textarea value={value} className="debug"/>
-			</form>
-		);
 	},
 
 
@@ -221,12 +149,44 @@ export default createReactClass({
 
 
 	getValue () {
-		const {jQuery} = global;
-		const {input} = this;
-		const jQe = jQuery(input);
-		//jQe.mouseup();
-		const value = sanitizeMathquillOutput(jQe.mathquill('latex'));
+		const value = sanitizeMathquillOutput(this.input && this.input.latex());
 
 		return isEmpty(value) ? null : value;
+	},
+
+	shouldComponentUpdate () {
+		return !this.input;
+	},
+
+	render () {
+		const {state: {value, loading, error, canEdit}} = this;
+
+		if (loading) {
+			return ( <Loading.Ellipse/> );
+		}
+
+		if (error) {
+			return ( <Error error="There was an error loading this question."/> );
+		}
+
+		return (
+			<form className="symbolic-math" onKeyUp={this.onKeyUp} onPaste={block} onSubmit={stopEvent}>
+				<div className="input">
+					{canEdit && <span ref={this.attachMathRef} id="answer">{value}</span>}
+					{!canEdit && <span ref={this.attachStaticRef} id="static">{value}</span>}
+				</div>
+				<div className="shortcuts" onClick={this.insertSymbol}>
+					<a href="#" className="mathsymbol sqrt" data-latex="\surd" title="Insert square root"/>
+					<a href="#" className="mathsymbol square" data-latex="x^2" title="Insert squared"/>
+					<a href="#" className="mathsymbol parens" data-latex="(x)" title="Insert parentheses"/>
+					<a href="#" className="mathsymbol approx" data-latex="\approx" title="Insert approximately"/>
+					<a href="#" className="mathsymbol pi" data-latex="\pi" title="Insert pi"/>
+					<a href="#" className="mathsymbol leq" data-latex="\leq" title="Insert less than or equal to"/>
+					<a href="#" className="mathsymbol geq" data-latex="\geq" title="Insert greater than or equal to"/>
+					<a href="#" className="mathsymbol neq" data-latex="\neq" title="Insert not Equal"/>
+				</div>
+				<textarea value={value || ''} className="debug"/>
+			</form>
+		);
 	}
 });
