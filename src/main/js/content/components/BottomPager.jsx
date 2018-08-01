@@ -44,9 +44,8 @@ class BottomPager extends React.Component {
 			return this.context.router.makeHref(obj.ref, false) + '/';
 		} else if (obj.NavNTIID) {
 			const parts = (obj && obj.NavNTIID.split('#')) || [];
-			parts[0] = encodeForURI(parts[0]);
-
-			return this.context.router.makeHref(parts.join('#'), false) + '/';
+			parts[0] = encodeForURI(parts[0]) + '/';
+			return this.context.router.makeHref(parts.join('#'), false);
 		}
 	}
 
