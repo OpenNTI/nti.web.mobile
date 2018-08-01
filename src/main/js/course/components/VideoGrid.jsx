@@ -22,25 +22,36 @@ const VideoCell = createReactClass({
 		return {};
 	},
 
-	componentDidMount () { this.fillIn(); },
+	componentDidMount () {
+		this.fillIn();
+	},
 
-	componentWillUpdate (nextProps) {
-		if (this.props.item !== nextProps.item) {
-			this.fillIn(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.item !== prevProps.item) {
+			this.fillIn();
 		}
 	},
 
-	fillIn (props = this.props) {
-		let {item} = props || {};
+	async fillIn (props = this.props) {
+		const { item } = props || {};
 
 		function fallback (x) {
 			let s = x && ((x.sources || [])[0] || {});
 			return s.thumbnail || s.poster;
 		}
 
-		item.getThumbnail()
-			.catch(()=> fallback(item))
-			.then(poster => this.setState({poster}));
+		try {
+			const thumbnail = await item.getThumbnail();
+
+			if (!thumbnail) {
+				const poster = await item.getPoster();
+				this.setState({ poster });
+			} else {
+				this.setState({ poster: thumbnail });
+			}
+		} catch (error) {
+			fallback(item);
+		}
 	},
 
 	render () {
