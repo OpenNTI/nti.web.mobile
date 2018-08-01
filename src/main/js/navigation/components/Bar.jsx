@@ -279,7 +279,7 @@ export default createReactClass({
 		const root = pageSource && pageSource.root;
 		const toc = root && root.toc;
 		const isRealPages = (toc && !!toc.realPageIndex) || false;
-		debugger;
+
 		return (
 			<nav className={cx('nav-bar', {border})}>
 				{this.getLeft()}
