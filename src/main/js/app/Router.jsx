@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Prompt, Mixins} from '@nti/web-commons';
-import {getHistory} from '@nti/web-routing';
+import {getHistory, createPath} from '@nti/web-routing';
 import {
 	environment,
 	Locations,
@@ -53,7 +53,6 @@ const SetPath = '_original:SetPath';
 
 const routerHistory = getHistory();
 
-
 export default createReactClass({
 	displayName: 'Router',
 	mixins: [Mixins.BasePath],
@@ -99,13 +98,12 @@ export default createReactClass({
 	},
 
 
-	onRouterHistoryChange ({pathname}) {
-		const splitRegex = /(\?|#)/;
-		const currentPath = ENVIRONMENT.path.split(splitRegex)[0];
-		const newPath = pathname.split(splitRegex)[0];
+	onRouterHistoryChange (location) {
+		const currentPath = ENVIRONMENT.path;
+		const newPath = createPath(location);
 
 		if (currentPath !== newPath) {
-			ENVIRONMENT.setPath(pathname, {isPopState: false, replace: true});
+			ENVIRONMENT.setPath(newPath, {isPopState: false, replace: true});
 		}
 	},
 
