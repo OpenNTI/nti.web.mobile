@@ -276,7 +276,10 @@ export default createReactClass({
 	renderBar () {
 		const {supportsSearch, border} = this.props;
 		let {pageSource, currentPage, context, resolving, searchOpen} = this.state;
-
+		const root = pageSource && pageSource.root;
+		const toc = root && root.toc;
+		const isRealPages = (toc && !!toc.realPageIndex) || false;
+		debugger;
 		return (
 			<nav className={cx('nav-bar', {border})}>
 				{this.getLeft()}
@@ -286,7 +289,7 @@ export default createReactClass({
 					</section>
 				)}
 				<section>
-					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}/>}
+					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} />}
 					{supportsSearch && (<a href="#"><i className="icon-search launch-search" onClick={this.launchSearch} /></a>)}
 					{this.getRight()}
 				</section>
