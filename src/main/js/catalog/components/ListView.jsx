@@ -71,7 +71,7 @@ export default createReactClass({
 	render () {
 		return (
 			<Page title="Catalog" availableSections={this.availableSections} supportsSearch border>
-				<Catalog markDirty={this.markDirty}/>
+				<Catalog markDirty={this.markDirty} isMobile />
 			</Page>
 		);
 	}
