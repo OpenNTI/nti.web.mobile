@@ -58,7 +58,6 @@ class BottomPager extends React.Component {
 
 		return (
 			<Pager
-				position="bottom"
 				contentPackage={contentPackage}
 				rootId={rootId}
 				currentPage={currentPage}
