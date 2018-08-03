@@ -133,7 +133,7 @@ export default createReactClass({
 			logger.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
 			return;
 		}
-		global.ga('set', 'page', global.location.pathname);
+		global.ga('set', 'page', global.location.href.replace(global.location.origin, ''));
 		global.ga('send', 'pageview');
 	},
 
