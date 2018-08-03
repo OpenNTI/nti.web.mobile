@@ -23,7 +23,7 @@ export default createReactClass({
 
 	itemChanged () { this.forceUpdate(); },
 
-	componentWillMount () {
+	componentDidMount () {
 		this.getItem().addListener('change', this.itemChanged);
 	},
 
@@ -35,7 +35,7 @@ export default createReactClass({
 	render () {
 		let item = this.getItem();
 		let id = encodeForURI(item.getID());
-		let {author, title} = item || {};
+		let {byline, author, title} = item || {};
 
 		return (
 			<div className="library-item bundle">
@@ -45,7 +45,7 @@ export default createReactClass({
 					</Presentation.Asset>
 					<label>
 						<h3>{title}</h3>
-						<address className="author">{author}</address>
+						<address className="author">{byline || author}</address>
 					</label>
 				</a>
 			</div>
