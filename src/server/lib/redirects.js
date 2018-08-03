@@ -54,8 +54,6 @@ exports = module.exports = {
 
 
 	handleProfileRedirects (query, res, next) {
-		logger.info('HANDLING PROFILE REDIRECTS');
-
 		/*
 		 *	from:
 		 *	/app/user/me/...
@@ -68,11 +66,11 @@ exports = module.exports = {
 		const [, rest] = query.match(pattern) || [];
 
 		if (!rest) {
-			logger.info('PROFILE REDIRECT FAILED');
 			return next();
 		}
 
 		const url = path.join(this.basepath, 'profile', rest);
+		logger.info('redirecting to: %s', url);
 		res.redirect(url);
 	},
 
