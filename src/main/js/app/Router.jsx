@@ -129,12 +129,17 @@ export default createReactClass({
 	},
 
 	[SendGAEvent] () {
-		if (!global.ga) {
+		const {ga, location} = global;
+
+		if (!ga) {
 			logger.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
 			return;
 		}
-		global.ga('set', 'page', global.location.href.replace(global.location.origin, ''));
-		global.ga('send', 'pageview');
+
+		const {href, origin} = location;
+
+		ga('set', 'page', href.replace(origin, ''));
+		ga('send', 'pageview');
 	},
 
 	onNavigation () {
