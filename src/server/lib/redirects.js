@@ -56,10 +56,19 @@ exports = module.exports = {
 	handleProfileRedirects (query, res, next) {
 		logger.info('HANDLING PROFILE REDIRECTS');
 
+		/*
+		 *	from:
+		 *	/app/user/me/...
+		 *
+		 *	to:
+		 *	/mobile/profile/<user>/...
+		 */
+
 		const pattern = /\/(?:user|group|commnunity)\/(.*)/;
 		const [, rest] = query.match(pattern) || [];
 
 		if (!rest) {
+			logger.info('PROFILE REDIRECT FAILED');
 			return next();
 		}
 
