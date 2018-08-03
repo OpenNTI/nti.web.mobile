@@ -29,7 +29,7 @@ export default class extends React.Component {
 	updateEntity = async (props = this.props) => {
 		const {entityId} = props;
 
-		await new Promise(x => this.setState({entity: null}), x));
+		await new Promise(x => (this.setState({entity: null}), x));
 
 		try {
 			const entity = await (entityId === 'me' ? getAppUser() : User.resolve(props, true));
