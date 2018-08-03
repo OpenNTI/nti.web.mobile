@@ -32,6 +32,11 @@ exports = module.exports = {
 		this.basepath = config.basepath;
 
 		express.use((req, res, next) => {
+			// Profile redirects you must check req path instead of query
+			if (req.path.match(HANDLERS['handleProfileRedirects'])) {
+				return this['handleProfileRedirects'](req.path, res, next);
+			}
+
 			// the query (q) is deprecated, but
 			// if its present, it trumps the path (p)
 			let redirectParam = req.query.q || req.query.p;
