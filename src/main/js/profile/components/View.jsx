@@ -26,33 +26,20 @@ export default class extends React.Component {
 
 	state = {};
 
-	updateEntity = (props = this.props) => {
+	updateEntity = async (props = this.props) => {
 		const {entityId} = props;
 
-		if (entityId === 'me') {
-			return this.updateForMe();
+		await new Promise(x => this.setState({entity: null}), x));
+
+		try {
+			const entity = await (entityId === 'me' ? getAppUser() : User.resolve(props, true));
+			logger.debug('Resolved entity: %o', entity);
+			this.setState({entity});
+		} catch (error) {
+			logger.debug('Failed to resolved entity: %s', error.stack || error);
+			this.setState({error, entity: false});
 		}
 
-
-		this.setState({entity: null}, () =>
-			User.resolve(props, true)
-				.catch(()=> false)
-				.then(entity => {
-					logger.debug('Resolved entity: %o', entity);
-					this.setState({entity});
-				}));
-	}
-
-
-	updateForMe () {
-		this.setState({entity: null}, () => {
-			getAppUser()
-				.catch(() => false)
-				.then(entity => {
-					logger.debug('Resolved entity: %o', entity);
-					this.setState({entity});
-				});
-		});
 	}
 
 
