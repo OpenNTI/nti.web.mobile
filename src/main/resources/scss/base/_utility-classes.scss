@@ -30,6 +30,7 @@
 	&, & > body {
 		// height: 100%;
 		overflow: hidden !important;
+		position: relative; //NTI-6270
 	}
 }
 
