@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Catalog from '@nti/web-catalog';
 import {encodeForURI} from '@nti/lib-ntiids';
+import {scoped} from '@nti/lib-locale';
+
+const t = scoped('library.sections', {
+	courses: 'Courses'
+});
+
 
 import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';
@@ -62,7 +68,7 @@ export default createReactClass({
 
 
 	availableSections: [
-		{label: 'Courses', href: '/'},
+		{label: t('courses'), href: '/'},
 		{label: 'History', href: '/purchased/'},
 		{label: 'Redeem', href: '/redeem/'}
 	],
