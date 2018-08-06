@@ -35,7 +35,7 @@ module.exports = function sessionSetup (service) {
 			}
 		})
 
-		//TODO: Add More Login Actions HERE.
+	//TODO: Add More Login Actions HERE.
 
 		.then(() => Promise.all([
 			service
