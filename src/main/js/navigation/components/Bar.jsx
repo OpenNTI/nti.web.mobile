@@ -289,7 +289,7 @@ export default createReactClass({
 					</section>
 				)}
 				<section>
-					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} />}
+					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} toc={toc} />}
 					{supportsSearch && (<a href="#"><i className="icon-search launch-search" onClick={this.launchSearch} /></a>)}
 					{this.getRight()}
 				</section>
