@@ -29,3 +29,10 @@
 		}
 	}
 }
+
+@include responsive-range(tablet) {
+	.modal-mask.safari-fix {
+		position: fixed !important;
+		bottom: 0;
+	}
+}
