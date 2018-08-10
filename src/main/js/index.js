@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {addFeatureCheckClasses, Orientation} from '@nti/lib-dom';
 import {init as initLocale} from '@nti/lib-locale';
-import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfigFor} from '@nti/web-client';
+import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfigFor, initErrorReporter} from '@nti/web-client';
 
 
 import {ensureTopFrame} from 'common/utils/iframe-buster';
@@ -18,8 +18,10 @@ import AppView from './app/View';
 //webpack magic
 import '../resources/scss/app.scss';
 
+initErrorReporter();
 initLocale();
 addFeatureCheckClasses();
+
 
 //After bundle CSS is injected, lets move this back down so it overrides the bundle.
 // This is the Browser's entry point, we can assume the existence of "document".
