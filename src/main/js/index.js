@@ -48,10 +48,7 @@ ReactDOM.render(
 );
 
 function onAppMount (APP) {
-	if (window.onerror) {
-		window.onerror = null;
-	}
-
+	global.appInitialized = !!APP;
 	Orientation.init(APP);
 	global.onbeforeunload = () => { APP.setState({mask: 'Reloading...'}); };
 
