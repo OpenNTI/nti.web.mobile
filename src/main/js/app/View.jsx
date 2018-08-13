@@ -4,7 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {environment, CaptureClicks, Link} from 'react-router-component';
 import {Session} from '@nti/web-session';
-import {Loading, Layouts} from '@nti/web-commons';
+import {reportError} from '@nti/web-client';
+import {Error, Loading, Layouts} from '@nti/web-commons';
 import Logger from '@nti/util-logger';
 import {
 	addChangeListener as addLocaleChangeListener,
@@ -70,6 +71,15 @@ export default class App extends React.Component {
 	}
 
 
+	componentDidCatch (error, info) {
+		this.setState({ error, info, hasError: true });
+		reportError({
+			error,
+			params: { info }
+		});
+	}
+
+
 	attachRef = x => this.frame = x
 
 
@@ -95,10 +105,14 @@ export default class App extends React.Component {
 
 
 	render () {
-		const {state: {mask}, props: {path}} = this;
+		const {state: {hasError, mask}, props: {path}} = this;
 		const isGated = /\/(login|onboarding)/i.test(path || global.location.href);
 
 		const Wrapper = isGated ? 'div' : AppContainer;
+
+		if (hasError) {
+			return ( <Error {...this.state}/> );
+		}
 
 		if (mask) {
 			return <Loading.Mask message={typeof mask === 'string' ? mask : void 0}/>;
