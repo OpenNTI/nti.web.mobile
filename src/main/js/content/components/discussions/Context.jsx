@@ -6,11 +6,10 @@ import Logger from '@nti/util-logger';
 import {getModel} from '@nti/lib-interfaces';
 import {Loading} from '@nti/web-commons';
 import {rawContent} from '@nti/lib-commons';
+import {getPageContent, PageDescriptor} from '@nti/lib-content-processing';
 
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
-import {getPageContent} from '../../Actions';
-import PageDescriptor from '../../PageDescriptor';
 import {select as getAnnotation} from '../viewer-parts/annotations';
 import Content from '../Content';
 import {getWidget} from '../widgets';

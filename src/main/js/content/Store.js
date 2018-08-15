@@ -1,6 +1,5 @@
 import StorePrototype from '@nti/lib-store';
-
-import {PAGE_LOADED, PAGE_FAILED} from './Constants';
+import {PAGE_LOADED, PAGE_FAILED} from '@nti/lib-content-processing';
 
 
 const data = Symbol('data');

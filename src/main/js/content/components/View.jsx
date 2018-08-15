@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import {decodeFromURI} from '@nti/lib-ntiids';
+import {PACKAGE_NOT_FOUND, getPackage} from '@nti/lib-content-processing';
 import {
 	Error as ErrorWidget,
 	Loading,
@@ -14,8 +15,6 @@ import Redirect from 'navigation/components/Redirect';
 import NotFound from 'notfound/components/View';
 import Discussions from 'forums/components/View';
 
-import {getPackage} from '../Actions';
-import {PACKAGE_NOT_FOUND} from '../Constants';
 
 import Index from './Index';
 import Page from './Page';

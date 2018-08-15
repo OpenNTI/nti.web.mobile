@@ -9,13 +9,13 @@ import {decodeFromURI} from '@nti/lib-ntiids';
 import {Loading, Error as Err } from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 import {ViewEvent} from '@nti/web-session';
+import { PageDescriptor } from '@nti/lib-content-processing';
 
 import ContextSender from 'common/mixins/ContextSender';
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import Store from '../Store';
 import {loadPage, resolveNewContext} from '../Actions';
-import PageDescriptor from '../PageDescriptor';
 
 import AnnotationFeature from './viewer-parts/annotations';
 import AssessmentFeature, {isAssignment, isSurvey} from './viewer-parts/assessment';
