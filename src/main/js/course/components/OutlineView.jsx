@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
+import { isEmpty } from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
 import {
 	ActiveState,
@@ -12,7 +13,6 @@ import {
 	ListHeader as Header,
 	Loading
 } from '@nti/web-commons';
-import isEmpty from 'isempty';
 
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';

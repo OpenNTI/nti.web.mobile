@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {getEventTarget} from '@nti/lib-dom';
-//import isEmpty from 'isempty';
+//import { isEmpty } from '@nti/lib-commons';
 
 import {Mixin, Draggable, DropTarget} from 'common/dnd';
 

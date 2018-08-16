@@ -2,8 +2,7 @@ import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import isEmpty from 'isempty';
-import {rawContent} from '@nti/lib-commons';
+import {rawContent, isEmpty} from '@nti/lib-commons';
 import {Card, Zoomable} from '@nti/web-commons';
 
 import Mixin from './Mixin';

@@ -1,4 +1,4 @@
-import isEmpty from 'isempty';
+import { isEmpty } from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
 
 const logger = Logger.get('assessment:utils');

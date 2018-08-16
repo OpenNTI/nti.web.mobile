@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import isEmpty from 'isempty';
+import { isEmpty } from '@nti/lib-commons';
 import {getEventTarget} from '@nti/lib-dom';
 import Logger from '@nti/util-logger';
 import {Error, Loading} from '@nti/web-commons';
