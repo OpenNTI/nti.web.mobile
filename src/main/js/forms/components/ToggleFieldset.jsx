@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import isFunction from 'is-function';
+
+const isFunction = f => typeof f === 'function';
 
 const onToggle = 'ToggleFieldset:onToggle';
 

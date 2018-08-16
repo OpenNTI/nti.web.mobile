@@ -1,5 +1,4 @@
 import React from 'react';
-import isFunction from 'is-function';
 import t from '@nti/lib-locale';
 
 import radiogroup from 'forms/components/RadioGroup';
@@ -24,6 +23,8 @@ const inputMap = {
 	'textarea': 'textarea',
 	'toggleFieldset': ToggleFieldset
 };
+
+const isFunction = f => typeof f === 'function';
 
 export default {
 

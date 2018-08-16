@@ -1,9 +1,10 @@
 import EventEmitter from 'events';
 
 import {CHANGE_EVENT} from '@nti/lib-store';
-// import isFunction from 'is-function';
 
 import * as Constants from './Constants';
+
+// const isFunction = f => typeof f === 'function';
 
 // store field values outside of component state
 // so we can update without triggering a re-render.

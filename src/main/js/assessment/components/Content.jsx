@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {getEventTarget} from '@nti/lib-dom';
 import {processContent} from '@nti/lib-content-processing';
-import isFunction from 'is-function';
 import htmlToReact from 'html-reactifier';
+
+const isFunction = f => typeof f === 'function';
 
 /*
  * Common component to render question and part content alike.
