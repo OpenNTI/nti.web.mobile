@@ -12,6 +12,9 @@
   "files": [
     "dist"
   ],
+  "build": {
+    "ignoreWarnings": true
+  },
   "scripts": {
     "test": "app-scripts test",
     "start": "app-scripts start",
