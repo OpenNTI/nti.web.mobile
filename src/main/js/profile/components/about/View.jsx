@@ -16,8 +16,6 @@ const t = scoped('profile.about.sectiontitles', {
 	'interests': 'Interests'
 });
 
-let sections = ['about', 'education', 'positions', 'interests'];
-
 export default createReactClass({
 	displayName: 'About:View',
 
@@ -27,19 +25,52 @@ export default createReactClass({
 		entity: PropTypes.object.isRequired
 	},
 
+	getInitialState () {
+		return {
+			canEdit: false,
+			sections: ['about', 'education', 'positions', 'interests']
+		};
+	},
+
+	componentDidMount () {
+		this.setupFor(this.props);
+	},
+
+	componentDidUpdate (prevProps) {
+		const { entity } = this.props;
+
+		if (entity !== prevProps.entity) {
+			this.setupFor(this.props);
+		}
+	},
+
+	async setupFor (props) {
+		const { entity } = props;
+
+		if (entity) {
+			const schema = await entity.getProfileSchema();
+			const isReadOnly = await entity.isAllReadOnly(schema);
+			this.setState({
+				canEdit: entity.isModifiable && !isReadOnly,
+				sections: this.state.sections.filter(section => schema[section])
+			});
+		}
+	},
+
 	getAnalyticsType () {
 		return 'ProfileAboutView';
 	},
 
+
+
 	render () {
 
 		let {entity} = this.props;
+		const { canEdit, sections } = this.state;
 
 		if (!entity) {
 			return <Loading.Ellipse />;
 		}
-
-		let canEdit = entity.isModifiable;
 
 		return (
 			<div className="profile-view">
