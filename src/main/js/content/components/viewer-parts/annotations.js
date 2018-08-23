@@ -3,8 +3,7 @@ import {buffer} from '@nti/lib-commons';
 import {createRangeDescriptionFromRange, preresolveLocatorInfo} from '@nti/lib-anchors';
 import {getEventTarget, parent} from '@nti/lib-dom';
 
-import Highlight from '../annotations/Highlight';
-import Note from '../annotations/Note';
+import { Highlight, Note } from '../annotations';
 
 const logger = Logger.get('content:components:viewer-parts:annotations');
 const ANNOTATION_TYPES = [Highlight, Note];
