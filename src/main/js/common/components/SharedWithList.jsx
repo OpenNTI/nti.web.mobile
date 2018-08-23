@@ -51,9 +51,9 @@ export default class SharedWithList extends React.Component {
 		this.fill(this.props.item);
 	}
 
-	componentWillReceiveProps (props) {
+	componentDidUpdate (props) {
 		if (this.props.item !== props.item) {
-			this.fill(props.item);
+			this.fill(this.props.item);
 		}
 	}
 

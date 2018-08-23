@@ -1,4 +1,4 @@
-@import "utils/variables";
+@import "~@nti/style-common";
 
 .shared-with-list {
 	pointer-events: none; //NTI-59 - Some communities shouldn't be navigable. They aren't marked so this list drops the ability to link to the entity profiles.

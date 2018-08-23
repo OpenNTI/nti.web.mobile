@@ -1,13 +1,13 @@
-@import "utils/variables";
+@import "~@nti/style-common";
 
 @mixin highlight-colors($onParentSelector: true, $selector:'') {
 	@each $item in $highlight-colors {
-		$name: nth($item,1);
-		$menu_color: nth($item,2);
-		$hover_color: nth($item,3);
-		$highlight_color: lighten(nth($item,3), 4%);
+		$name: nth($item, 1);
+		$menu_color: nth($item, 2);
+		$hover_color: nth($item, 3);
+		$highlight_color: lighten(nth($item, 3), 4%);
 
-		$prefix: if($onParentSelector,'&','');
+		$prefix: if($onParentSelector, '&', '');
 
 		$withColor: "#{$prefix}.#{$name} #{$selector}";
 		$withOutColor: "#{$prefix} #{$selector}";
@@ -25,10 +25,6 @@
 	}
 }
 
-.math .application-highlight.plain {
-	display: inline-block;
-}
-
 .application-highlight {
 	&.suppressed {
 		//do nothing special when range is suppressed.
@@ -36,17 +32,22 @@
 
 	& + li.part,
 	& + li.exercise {
-		&::before, &::after { z-index: 1; color: #076da7 }
+		&::before, &::after {
+			z-index: 1;
+			color: #076da7;
+		}
 	}
 
-
 	&.plain {
+		overflow: hidden;
 
 		&, * {
 			position: relative;
 		}
 
-		overflow: hidden;
+		.math & {
+			display: inline-block;
+		}
 
 		&.colored {
 			@include highlight-colors();
