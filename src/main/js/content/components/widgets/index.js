@@ -1,10 +1,28 @@
 import React from 'react';
 
 import Unknown from './Unknown';
+import Card from './Card';
+import EmbededWidget from './EmbededWidget';
+import ImageRoll from './roll/ImageRoll';
+import MarkupFrame from './MarkupFrame';
+import Question from './Question';
+import RealPageNumber from './RealPageNumber';
+import TopicEmbed from './TopicEmbed';
+import Video from './Video';
+import VideoRoll from './roll/VideoRoll';
 
-//`require.context` is a little WebPack magic :) --- dynamicly require all files that match the pattern /.jsx$/
-const req = require.context('./', true, /.jsx$/);
-const WIDGETS = req.keys().map(m => req(m).default);
+const WIDGETS = [
+	Card,
+	EmbededWidget,
+	ImageRoll,
+	MarkupFrame,
+	Question,
+	RealPageNumber,
+	TopicEmbed,
+	Unknown,
+	Video,
+	VideoRoll,
+];
 
 export function getWidget (item, page, ownerProps) {
 	let Item = Unknown;

@@ -1,9 +1,34 @@
 import React from 'react';
 
-//`require.context` is a little WebPack magic :)
-const req = require.context('./', false, /.jsx$/);
-const {default: Unknown} = req('./Unknown.jsx');
-const KINDS = req.keys().map(m => req(m).default);
+import Badge from './Badge';
+import BlogComment from './BlogComment';
+import BlogEntry from './BlogEntry';
+import BlogEntryPost from './BlogEntryPost';
+import Chat from './Chat';
+import ChatGroup from './ChatGroup';
+import Contact from './Contact';
+import Feedback from './Feedback';
+import ForumComment from './ForumComment';
+import ForumTopic from './ForumTopic';
+import Grade from './Grade';
+import Note from './Note';
+import Unknown from './Unknown';
+
+
+const KINDS = [
+	Badge,
+	BlogComment,
+	BlogEntry,
+	BlogEntryPost,
+	Chat,
+	ChatGroup,
+	Contact,
+	Feedback,
+	ForumComment,
+	ForumTopic,
+	Grade,
+	Note,
+];
 
 export function getNotificationItem (item, index) {
 	let Item = Unknown;

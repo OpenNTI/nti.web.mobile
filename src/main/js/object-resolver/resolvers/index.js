@@ -1,8 +1,18 @@
 import Logger from '@nti/util-logger';
 
-//`require.context` is a little WebPack magic :) --- dynamicly require all files here
-const req = require.context('./', false, /^((?!index).)*\.js$/);
-const handlers = req.keys().map(m => req(m).default);
+import AssignmentObjects from './AssignmentObjects';
+import CourseObjects from './CourseObjects';
+import Entities from './Entities';
+import LibraryPath from './LibraryPath';
+import RandomContentPages from './RandomContentPages';
+
+const handlers = [
+	AssignmentObjects,
+	CourseObjects,
+	Entities,
+	LibraryPath,
+	RandomContentPages,
+];
 
 const logger = Logger.get('object-resolver:resolvers');
 

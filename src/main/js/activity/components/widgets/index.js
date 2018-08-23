@@ -1,10 +1,33 @@
 import React from 'react';
 
 import Unknown from './Unknown';
+import Badge from './Badge';
+import BlogComment from './BlogComment';
+import Chat from './Chat';
+import ContentIcon from './ContentIcon';
+import ForumComment from './ForumComment';
+import ForumTopic from './ForumTopic';
+import Highlight from './Highlight';
+import HighlightContainer from './HighlightContainer';
+import HighlightGroup from './HighlightGroup';
+import Joined from './Joined';
+import Note from './Note';
+import RecentReplies from './RecentReplies';
 
-//`require.context` is a little WebPack magic :) --- dynamicly require all files the match the pattern /.jsx$/
-const req = require.context('./', true, /.jsx$/);
-const WIDGETS = req.keys().map(m => req(m).default);
+const WIDGETS = [
+	Badge,
+	BlogComment,
+	Chat,
+	ContentIcon,
+	ForumComment,
+	ForumTopic,
+	Highlight,
+	HighlightContainer,
+	HighlightGroup,
+	Joined,
+	Note,
+	RecentReplies,
+];
 
 export default function select (item, index, props = {}) {
 	let Item = Unknown;

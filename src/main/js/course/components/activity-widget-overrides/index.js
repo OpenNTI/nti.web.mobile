@@ -1,8 +1,25 @@
 import React from 'react';
 
-//`require.context` is a little WebPack magic :) --- dynamicly require all files the match the pattern /.jsx$/
-const req = require.context('./', true, /.jsx$/);
-const WIDGETS = req.keys().map(m => req(m).default);
+import AddComment from './AddComment';
+import Assignment from './Assignment';
+import AssignmentFooter from './AssignmentFooter';
+import Discussion from './Discussion';
+import DoNotRender from './DoNotRender';
+import ForumItem from './ForumItem';
+import Lesson from './Lesson';
+import Note from './Note';
+
+
+const WIDGETS = [
+	AddComment,
+	Assignment,
+	AssignmentFooter,
+	Discussion,
+	DoNotRender,
+	ForumItem,
+	Lesson,
+	Note,
+];
 
 
 export default function select (item, index, props = {}) {
@@ -15,11 +32,9 @@ export default function select (item, index, props = {}) {
 	}
 
 	if (clazz) {
-		props = Object.assign({}, props, {
-			ref: 'input',
+		props = { ...props, ref: 'input',
 			key: 'course-activity-' + (index || item.OID),
-			index, item
-		});
+			index, item};
 	}
 
 	return clazz && React.createElement(clazz, props);
