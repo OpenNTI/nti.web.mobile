@@ -63,6 +63,8 @@ export default createReactClass({
 			let query = QueryString.parse(location.search);
 			if (query.error) {
 				this.setError(query.error);
+			} else if (query.failed && query.message) {
+				this.setError(query.message);
 			}
 		}
 	},
