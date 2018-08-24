@@ -4,7 +4,7 @@ import Router from 'react-router-component';
 import {decodeFromURI} from '@nti/lib-ntiids';
 import {Background, Error as ErrorWidget, Loading, Presentation} from '@nti/web-commons';
 
-import Assignments from 'assignment/components/View';
+import Assignments from 'assignment/components/ViewLoader';
 import NotFound from 'notfound/components/View';
 import Redirect from 'navigation/components/Redirect';
 import {Component as ContextContributor} from 'common/mixins/ContextContributor';
@@ -113,7 +113,7 @@ export default class CourseView extends React.Component {
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
-					React.createElement(Router.Location, Object.assign({course, contentPackage: course}, route)) :
+					React.createElement(Router.Location, {course, contentPackage: course, ...route}) :
 					React.createElement(Router.NotFound, {handler: Redirect, location: LESSONS})
 			));
 	}
