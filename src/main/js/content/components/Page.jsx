@@ -11,7 +11,8 @@ const getLabel = scoped('content.sections', {
 	discussions: 'Discussions',
 	index: 'Book',
 	info: 'Info',
-	videos: 'Videos'
+	videos: 'Videos',
+	notebook: 'Notebook'
 });
 
 
