@@ -18,12 +18,13 @@ import Discussions from 'forums/components/View';
 
 import Index from './Index';
 import Page from './Page';
-
+import NoteBook from './NoteBook';
 
 const ROUTES = [
 	// {path: '/v(/*)', pageContent: Media},
 	{path: '/o(/*)', pageContent: Index},
 	{path: '/d(/*)', pageContent: Discussions},
+	{path: '/n(/*)', pageContent: NoteBook},
 	// {path: '/info', pageContent: PackageInfo},
 	{}//not found
 ];
