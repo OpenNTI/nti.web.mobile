@@ -5,23 +5,21 @@ import { Stream } from '@nti/web-content';
 import { Mixins } from '@nti/web-commons';
 import createReactClass from 'create-react-class';
 
-import ContextContributor from 'common/mixins/ContextContributor';
+import { Component as ContextSender } from 'common/mixins/ContextSender';
+import { Component as ContextContributor } from 'common/mixins/ContextContributor';
 
-export default createReactClass({
-	displayName: 'Content:NoteBook',
-	mixins: [ContextContributor, Mixins.NavigatableMixin],
-
-	propTypes: {
+export class Notebook extends React.Component {
+	static propTypes = {
 		contentPackage: PropTypes.object
-	},
+	}
 
-	contextTypes: {
+	static contextTypes = {
 		router: PropTypes.object
-	},
+	}
 
-	childContextTypes: {
+	static childContextTypes = {
 		router: PropTypes.object
-	},
+	}
 
 	getChildContext () {
 		const { router: nav } = this.context;
@@ -38,19 +36,30 @@ export default createReactClass({
 		return {
 			router
 		};
-	},
+	}
 
-	getRouteFor () {},
+	getRouteFor () {}
 
-	getContext () {
-		let href = this.makeHref('n/');
-		return Promise.resolve({
-			label: 'Note Book',
-			href
-		});
-	},
+	makeHref (...args) {
+		return this.contextProvider ? this.contextProvider.makeHref(...args) : null;
+	}
 
 	render () {
-		return <Stream context={this.props.contentPackage} isMobile />;
+		return (
+			<ContextContributor getContext={getContext}>
+				<ContextSender/>
+				<Stream context={this.props.contentPackage} isMobile />
+			</ContextContributor>
+		);
 	}
-});
+}
+
+
+async function getContext () {
+	const context = this; //this will be called with the ContextContributor's context ("this")
+
+	return {
+		href: context.makeHref('/n'),
+		label: 'Notebook'
+	};
+}
