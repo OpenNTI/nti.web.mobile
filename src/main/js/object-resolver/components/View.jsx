@@ -52,7 +52,12 @@ export default createReactClass({
 		logger.debug('Looking up object: %s', id);
 
 		getService()
-			.then(service => service.getObject(id))
+			.then(service =>
+				// getObject() needs to fulfill on 404s that have an model body, so to ensure we reject here,
+				// we will make a head request that will reject for us, then we can fetch the object.
+				service.head(service.getObjectURL(id))
+					.then(() => service.getObject(id))
+			)
 			.then(filter)
 			.then(object => (this.setState({object}), object))
 			.then(resolve)
