@@ -91,9 +91,10 @@ export default class CourseView extends React.Component {
 					(<ErrorWidget error={course.error}/>);
 			}
 
+			// Background imgUrl props use to fall back to '/mobile/resources/images/default-course/background.png'
 			return (
 				<Presentation.Asset propName="imgUrl" type="background" contentPackage={entry}>
-					<Background imgUrl={course.getPresentationProperties().background || '/mobile/resources/images/default-course/background.png'}>
+					<Background>
 						{this.renderContent()}
 					</Background>
 				</Presentation.Asset>
