@@ -8,7 +8,7 @@ import createReactClass from 'create-react-class';
 import { Component as ContextSender } from 'common/mixins/ContextSender';
 import { Component as ContextContributor } from 'common/mixins/ContextContributor';
 
-export class Notebook extends React.Component {
+export default class Notebook extends React.Component {
 	static propTypes = {
 		contentPackage: PropTypes.object
 	}

@@ -1,3 +1,21 @@
+@import "~@nti/style-common";
+
 .stream-view {
-	padding: 0.625rem;
+	padding: rem-calc(10px);
+	max-width: 700px;
+    margin: 0 auto;
+	background: transparent;
+	.stream-bookmark .heading, .stream-highlight .heading {
+		line-height: rem-calc(24px);
+		padding: 5px 20px;
+	}
+
+	.stream-bookmark {
+		.bookmark-content {
+			padding: 20px 10px;
+			.bookmark-context {
+				overflow: hidden;
+			}
+		}
+	}
 }

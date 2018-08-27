@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import {decodeFromURI} from '@nti/lib-ntiids';
 import {PACKAGE_NOT_FOUND, getPackage} from '@nti/lib-content-processing';
 import {
 	Error as ErrorWidget,
 	Loading,
-	Mixins
+	Background,
+	Presentation
 } from '@nti/web-commons';
 
-import ContextContributor from 'common/mixins/ContextContributor';
+import { Component as ContextContributor } from 'common/mixins/ContextContributor';
 import Redirect from 'navigation/components/Redirect';
 import NotFound from 'notfound/components/View';
 import Discussions from 'forums/components/View';
@@ -18,48 +18,39 @@ import Discussions from 'forums/components/View';
 
 import Index from './Index';
 import Page from './Page';
-import NoteBook from './NoteBook';
+import Notebook from './Notebook';
 
 const ROUTES = [
 	// {path: '/v(/*)', pageContent: Media},
 	{path: '/o(/*)', pageContent: Index},
 	{path: '/d(/*)', pageContent: Discussions},
-	{path: '/n(/*)', pageContent: NoteBook},
+	{path: '/n(/*)', pageContent: Notebook},
 	// {path: '/info', pageContent: PackageInfo},
 	{}//not found
 ];
 
-export default createReactClass({
-	displayName: 'ContentView',
-	mixins: [Mixins.BasePath, ContextContributor],
-
-	propTypes: {
+export default class ContentView extends React.Component {
+	static propTypes ={
 		/**
 		 * The NTIID of the content Package/Bundle/Thing to view.
 		 * @type {string}
 		 */
 		contentId: PropTypes.string.isRequired
-	},
+	}
 
-
-	getInitialState () {
-		return {};
-	},
-
+	state = {}
 
 	componentDidMount () {
 		this.loadContentPackage(this.props);
-	},
+	}
 
-
-	componentWillReceiveProps (nextProps) {
-		if (this.props.contentId !== nextProps.contentId) {
-			this.loadContentPackage(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.contentId !== prevProps.contentId) {
+			this.loadContentPackage(this.props);
 		}
-	},
+	}
 
-
-	loadContentPackage (props) {
+	async loadContentPackage (props) {
 		let {contentId} = props;
 
 		if (!contentId) {
@@ -70,44 +61,65 @@ export default createReactClass({
 
 		this.setState({loading: true, contentPackage: null, error: null});
 
-		getPackage(contentId)
-			.then(contentPackage => this.setState({contentPackage}))
-			.catch(error=> this.setState(
-				error === PACKAGE_NOT_FOUND ? {contentPackage: null} : {error}))
-			.then(()=> this.setState({loading: false}));
-	},
+		try {
+			const contentPackage = await getPackage(contentId);
+			this.setState({ contentPackage, loading: false });
+		} catch (error) {
+			this.setState(error === PACKAGE_NOT_FOUND ? { contentPackage: null } : { error });
+		}
+	}
 
+
+	renderContent () {
+		return React.createElement(Router.Locations, {contextual: true},
+			...ROUTES.map(route=>
+				route.path ?
+					React.createElement(Router.Location, {handler: Page, contentPackage: this.state.contentPackage, ...route}) :
+					React.createElement(Router.NotFound, {handler: Redirect, location: 'o/'})
+			));
+	}
 
 	render () {
 		let {contentPackage, error, loading} = this.state;
 
-		if (loading) {
-			return ( <Loading.Mask /> );
-		}
-
-		if (error) {
-			return ( <ErrorWidget error={error}/> );
-		}
-
-		if (!contentPackage) {
-			return ( <NotFound/> );
-		}
-
-		return React.createElement(Router.Locations, {contextual: true},
-			...ROUTES.map(route=>
-				route.path ?
-					React.createElement(Router.Location, {handler: Page, contentPackage, ...route}) :
-					React.createElement(Router.NotFound, {handler: Redirect, location: 'o/'})
-			));
-	},
-
-
-	getContext () {
-		return Promise.resolve([
-			{
-				label: 'Books',
-				href: this.getBasePath()
+		const render = () => {
+			if (loading) {
+				return (<Loading.Mask />);
 			}
-		]);
+
+			if (error) {
+				return (<ErrorWidget error={error} />);
+			}
+
+			if (!contentPackage) {
+				return (<NotFound />);
+			}
+
+			return (
+				<Presentation.Asset propName="imgUrl" type="background" contentPackage={contentPackage}>
+					<Background>
+						{this.renderContent()}
+					</Background>
+				</Presentation.Asset>
+			);
+		};
+
+		return (
+			<ContextContributor getContext={getContext}>
+				{render()}
+			</ContextContributor>
+		);
 	}
-});
+}
+
+
+async function getContext () {
+	const context = this;	//called with ContextContributor's scope.
+
+	return [
+		{
+			label: 'Books',
+			href: context.getBasePath()
+		}
+	];
+}
