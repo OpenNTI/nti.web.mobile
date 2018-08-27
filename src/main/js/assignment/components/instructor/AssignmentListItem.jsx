@@ -30,8 +30,13 @@ class AssignmentItem extends React.Component {
 		const {props: {assignment, course}} = this;
 		const late = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
 		const classes = cx('assignment-item', { complete: assignment.hasSubmission, late });
+
+		const href = assignment.hasLink('GradeBookByAssignment')
+			? `./${encodeForURI(assignment.getID())}/students/`
+			: `./${encodeForURI(assignment.getID())}/`;
+
 		return (
-			<a className={classes} href={`./${encodeForURI(assignment.getID())}/students/`}>
+			<a className={classes} href={href}>
 				<div>
 					<div className="title">
 						{assignment.title || t('emptyTitle')}
