@@ -1,27 +1,42 @@
+import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
-import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import Logger from '@nti/util-logger';
 import {Loading} from '@nti/web-commons';
+import {URL} from '@nti/lib-commons';
+import isEmpty from 'isempty';
 
-const logger = Logger.get('navigation:components:Redirect');
+const logger = Logger.get('app:components:Redirect');
+const join = (a, b) => (a + '/' + b).replace(/\/{2,}/g, '/');
 
 export default createReactClass({
 	displayName: 'Redirect',
 	mixins: [Router.NavigatableMixin],
 
 	propTypes: {
+		absolute: PropTypes.bool,
 		force: PropTypes.bool,
 		location: PropTypes.string
 	},
 
-	performRedirect (props) {
-		let loc = props.location;
-		let location = global.location;
-		let currentFragment = location && location.hash;
+	contextTypes: {
+		basePath: PropTypes.string.isRequired
+	},
 
-		if (props.force) {
+
+	performRedirect (props, {basePath}) {
+		const {location} = global;
+		const {absolute, force} = props;
+		let {location: loc} = props;
+
+		const currentFragment = location && location.hash;
+
+		if (absolute && loc) {
+			loc = loc.startsWith(basePath) ? loc : URL.join(basePath, loc);
+		}
+
+		if (force) {
 			logger.debug('Forceful redirect to: %s', loc);
 			return location.replace(loc);
 		}
@@ -33,11 +48,22 @@ export default createReactClass({
 		}
 
 
-		// let routes = this.context.router.props.children.map(x=>x.props.path || 'default');
-		// logger.debug('Redirecting to %s, routes: %o', loc, routes);
 		if (loc) {
-			logger.debug('Redirecting to %s', loc);
-			this.navigate(loc, {replace: true});
+			const nav = {replace: true};
+			const router = this._getNavigable();
+
+			if (absolute) {
+				logger.debug('Redirecting to %s', loc);
+				router.getEnvironment().setPath(loc, nav);
+			} else {
+				const {prefix} = (router.state || {});
+				if (isEmpty(prefix)) {
+					loc = join(basePath, loc);
+				}
+
+				logger.debug('Redirecting to %s', prefix + loc);
+				router.navigate(loc, nav);
+			}
 		}
 		else {
 			logger.error('Can\'t redirect to undefined.');
@@ -45,19 +71,24 @@ export default createReactClass({
 	},
 
 
-	startRedirect (p) {
+	startRedirect (p, c) {
 		clearTimeout(this.pendingRedirect);
-		this.pendingRedirect = setTimeout(()=> this.performRedirect(p), 1);
+		this.pendingRedirect = setTimeout(()=> this.performRedirect(p, c), 1);
 	},
 
 
 	componentDidMount () {
-		this.startRedirect(this.props);
+		this.startRedirect(this.props, this.context);
 	},
 
 
-	componentWillReceiveProps (props) {
-		this.startRedirect(props);
+	componentWillReceiveProps (props, context) {
+		this.startRedirect(props, context);
+	},
+
+
+	componentWillUnmount () {
+		clearTimeout(this.pendingRedirect);
 	},
 
 

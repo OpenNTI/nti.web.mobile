@@ -15,7 +15,7 @@ export default function View () {
 			<Location path="/i2-survey(/*)" handler={Survey} />
 			<Location path="/update(/*)" handler={Update} />
 
-			<DefaultRoute handler={Redirect} location="/" />
+			<DefaultRoute handler={Redirect} location="/" absolute/>
 		</Locations>
 	);
 }
