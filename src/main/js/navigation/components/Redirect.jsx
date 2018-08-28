@@ -26,12 +26,14 @@ export default createReactClass({
 
 	performRedirect (props, {basePath}) {
 		const {location} = global;
-		const {absolute, force} = props;
+		let {absolute, force} = props;
 		let {location: loc} = props;
 
 		const currentFragment = location && location.hash;
 
-		if (absolute && loc) {
+		absolute = absolute || loc.startsWith(basePath);
+
+		if (loc && absolute) {
 			loc = loc.startsWith(basePath) ? loc : URL.join(basePath, loc);
 		}
 
