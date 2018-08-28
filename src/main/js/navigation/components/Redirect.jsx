@@ -4,8 +4,7 @@ import React from 'react';
 import Router from 'react-router-component';
 import Logger from '@nti/util-logger';
 import {Loading} from '@nti/web-commons';
-import {URL} from '@nti/lib-commons';
-import isEmpty from 'isempty';
+import {URL, isEmpty} from '@nti/lib-commons';
 
 const logger = Logger.get('app:components:Redirect');
 const join = (a, b) => (a + '/' + b).replace(/\/{2,}/g, '/');
