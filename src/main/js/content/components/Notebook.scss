@@ -1,10 +1,13 @@
 @import "~@nti/style-common";
 
-.stream-view {
-	padding: rem-calc(10px);
-	max-width: 700px;
+.compact {
     margin: 0 auto;
 	background: transparent;
+
+	.stream-infinite-scroll {
+		padding: 0px rem-calc(10px);
+	}
+
 	.stream-bookmark .heading, .stream-highlight .heading {
 		line-height: rem-calc(24px);
 		padding: 5px 20px;

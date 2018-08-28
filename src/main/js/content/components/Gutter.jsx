@@ -102,6 +102,9 @@ export default createReactClass({
 
 		// console.debug('Resolving Bins');
 		for (let item of Object.values(items)) {
+			if (!item) {
+				continue;
+			}
 
 			let line = item.resolveVerticalLocation();
 			if (line === RETRY_AFTER_DOM_SETTLES) {
