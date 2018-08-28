@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getHistory, LinkTo } from '@nti/web-routing';
 import { Stream } from '@nti/web-content';
-import { Mixins } from '@nti/web-commons';
-import createReactClass from 'create-react-class';
+import { getModel } from '@nti/lib-interfaces';
+import { User } from '@nti/web-client';
 
 import { Component as ContextSender } from 'common/mixins/ContextSender';
 import { Component as ContextContributor } from 'common/mixins/ContextContributor';
+
+const HighLight = getModel('highlight');
+const Bookmark = getModel('bookmark');
+const Note = getModel('note');
 
 export default class Notebook extends React.Component {
 	static propTypes = {
@@ -14,7 +18,8 @@ export default class Notebook extends React.Component {
 	}
 
 	static contextTypes = {
-		router: PropTypes.object
+		router: PropTypes.object,
+		basePath: PropTypes.string,
 	}
 
 	static childContextTypes = {
@@ -38,7 +43,17 @@ export default class Notebook extends React.Component {
 		};
 	}
 
-	getRouteFor () {}
+	getRouteFor = (object, context) => {
+		if (object instanceof HighLight) {
+			return `${this.context.basePath}object/${object.OID}/`;
+		} else if (object instanceof Bookmark) {
+			return `${this.context.basePath}object/${object.OID}/`;
+		} else if (object instanceof Note) {
+			return `${this.context.basePath}object/${object.OID}/`;
+		} else if (object.isUser) {
+			return `${this.context.basePath}profile/${User.encode(object.Username)}/`;
+		}
+	}
 
 	makeHref (...args) {
 		return this.contextProvider ? this.contextProvider.makeHref(...args) : null;
