@@ -4,6 +4,7 @@ import { getHistory, LinkTo } from '@nti/web-routing';
 import { Stream } from '@nti/web-content';
 import { getModel } from '@nti/lib-interfaces';
 import { User } from '@nti/web-client';
+import { encodeForURI } from '@nti/lib-ntiids';
 
 import { Component as ContextSender } from 'common/mixins/ContextSender';
 import { Component as ContextContributor } from 'common/mixins/ContextContributor';
@@ -11,6 +12,7 @@ import { Component as ContextContributor } from 'common/mixins/ContextContributo
 const HighLight = getModel('highlight');
 const Bookmark = getModel('bookmark');
 const Note = getModel('note');
+const Bundle = getModel('contentpackagebundle');
 
 export default class Notebook extends React.Component {
 	static propTypes = {
@@ -52,6 +54,8 @@ export default class Notebook extends React.Component {
 			return `${this.context.basePath}object/${object.OID}/`;
 		} else if (object.isUser) {
 			return `${this.context.basePath}profile/${User.encode(object.Username)}/`;
+		} else if (object instanceof Bundle) {
+			return `${this.context.basePath}content/${object.getID()}/`;
 		}
 	}
 
