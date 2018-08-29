@@ -47,15 +47,15 @@ export default class Notebook extends React.Component {
 
 	getRouteFor = (object, context) => {
 		if (object instanceof HighLight) {
-			return `${this.context.basePath}object/${object.OID}/`;
+			return `${this.context.basePath}object/${encodeForURI(object.getID())}/`;
 		} else if (object instanceof Bookmark) {
-			return `${this.context.basePath}object/${object.OID}/`;
+			return `${this.context.basePath}object/${encodeForURI(object.getID())}/`;
 		} else if (object instanceof Note) {
-			return `${this.context.basePath}object/${object.OID}/`;
+			return `${this.context.basePath}object/${encodeForURI(object.getID())}/`;
 		} else if (object.isUser) {
 			return `${this.context.basePath}profile/${User.encode(object.Username)}/`;
 		} else if (object instanceof Bundle) {
-			return `${this.context.basePath}content/${object.getID()}/`;
+			return `${this.context.basePath}content/${encodeForURI(object.getID())}/`;
 		}
 	}
 
