@@ -2,10 +2,9 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Router from 'react-router-component';
-import {equals} from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
 import {Loading} from '@nti/web-commons';
-import {URL, isEmpty} from '@nti/lib-commons';
+import {URL, isEmpty, equals} from '@nti/lib-commons';
 
 const logger = Logger.get('app:components:Redirect');
 const join = (a, b) => (a + '/' + b).replace(/\/{2,}/g, '/');
