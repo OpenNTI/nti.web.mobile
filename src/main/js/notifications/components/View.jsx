@@ -24,7 +24,6 @@ export default createReactClass({
 
 
 	componentDidMount () { this.ensureLoaded(); },
-	componentWillReceiveProps () { this.ensureLoaded(); },
 
 
 	ensureLoaded () {

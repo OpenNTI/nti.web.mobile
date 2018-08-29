@@ -30,9 +30,9 @@ export default createReactClass({
 		this.setUpStore();
 	},
 
-	componentWillUpdate (_, nextState) {
-		let {store} = this.state;
-		let nextStore = nextState.store;
+	componentDidUpdate (_, prevState) {
+		let {store: nextStore} = this.state;
+		let {store} = prevState;
 
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onStoreChange);

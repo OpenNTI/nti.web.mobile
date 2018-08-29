@@ -38,7 +38,7 @@ export default createReactClass({
 			enrollment.getPurchasable();
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		let purchasable = this.getPurchasable();
 		priceItem(purchasable).then(
 			pricedItem => this.setState({ loading: false, pricedItem }),

@@ -10,8 +10,7 @@ import * as Api from './Api';
 
 let enrollmentStatus = {};
 
-let Store = Object.assign({}, EventEmitter.prototype, {
-	displayName: 'enrollment.Store',
+let Store = { ...EventEmitter.prototype, displayName: 'enrollment.Store',
 
 	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
@@ -50,9 +49,7 @@ let Store = Object.assign({}, EventEmitter.prototype, {
 			return enrollmentStatus[courseId];
 		}
 		return false;
-	}
-
-});
+	}};
 
 const handlers = {
 	[Constants.DROP_COURSE]: action => {

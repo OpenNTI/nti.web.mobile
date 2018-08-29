@@ -39,15 +39,6 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		let {entity, filterParams} = nextProps;
-
-		if(entity !== this.props.entity || filterParams !== nextProps.filterParams) {
-			this.setupStore(nextProps);
-		}
-	},
-
-
 	componentWillUnmount () {
 		let {store} = this.state;
 		if (store) {
@@ -56,18 +47,24 @@ export default createReactClass({
 	},
 
 
-	componentWillUpdate (_, nextState) {
-		let {store} = this.state;
-		let nextStore = nextState.store;
+	componentDidUpdate (prevProps, prevState) {
+		const {entity, filterParams} = this.props;
+		const {store} = this.state;
+		const prevStore = prevState.store;
 
-		if (store && store !== nextStore) {
-			store.removeListener('change', this.onStoreChange);
+
+		if(entity !== prevProps.entity || filterParams !== prevProps.filterParams) {
+			this.setupStore();
 		}
 
-		if (nextStore && nextStore !== store) {
-			nextStore.addListener('change', this.onStoreChange);
+		if (prevStore && prevStore !== store) {
+			prevStore.removeListener('change', this.onStoreChange);
+		}
 
-			// if (!nextStore.loading) {
+		if (store && store !== prevStore) {
+			store.addListener('change', this.onStoreChange);
+
+			// if (!store.loading) {
 			// 	console.log('Wut?');
 			// }
 		}

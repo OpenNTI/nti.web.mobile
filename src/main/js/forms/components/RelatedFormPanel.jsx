@@ -46,6 +46,7 @@ const getVisibleFieldRefs = 'RelatedFormPanel:getVisibleFieldRefs';
 
 const hasRelatedFields = new Set();
 
+//XXX: We need to drop this code.  The forms this powers need to be re-written to not use a form "config", and be purpose built.
 let RelatedFormPanel = createReactClass({
 
 	displayName: 'RelatedFormPanel',
@@ -90,7 +91,8 @@ let RelatedFormPanel = createReactClass({
 		}
 	},
 
-	componentWillUpdate () {
+	//eslint-disable-next-line camelcase
+	UNSAFE_componentWillUpdate () {
 		this[visibleFields].length = 0;
 	},
 

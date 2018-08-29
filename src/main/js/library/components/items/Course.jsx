@@ -43,13 +43,12 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		let {item} = this.props;
-		if (nextProps.item !== item) {
+	componentDidUpdate ({item}) {
+		if (this.props.item !== item) {
 			if (item) {
 				item.removeListener('change', this.itemChanged);
 			}
-			this.fillIn(nextProps);
+			this.fillIn(this.props);
 		}
 	},
 

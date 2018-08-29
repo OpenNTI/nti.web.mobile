@@ -5,6 +5,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
+import {equals} from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
 import {WindowMessageListener as MESSAGES} from '@nti/lib-dom';
 
@@ -39,9 +40,18 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () { this.setup(); },
-	componentWillReceiveProps (nextProps) { this.setup(nextProps); },
-	componentDidMount () { MESSAGES.add(this.onMessage); },
+	componentDidMount () {
+		MESSAGES.add(this.onMessage);
+		this.setup();
+	},
+
+
+	componentDidUpdate (prevProps) {
+		if (!equals(this.props, prevProps)) {
+			this.setup();
+		}
+	},
+
 	componentWillUnmount () { MESSAGES.remove(this.onMessage); },
 
 	getIdKey () {

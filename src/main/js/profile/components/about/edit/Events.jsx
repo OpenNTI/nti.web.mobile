@@ -28,7 +28,7 @@ export default createReactClass({
 		return this[key] || (this[key] = x => this.eventItems[`item-${index}`] = x);
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		this.eventItems = {};
 	},
 

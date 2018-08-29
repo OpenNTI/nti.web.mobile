@@ -12,25 +12,24 @@ export default class PerformanceHeader extends React.Component {
 
 	state = {}
 
-	componentWillMount () {
+	componentDidMount () {
 		this.getFinalGrade();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		this.getFinalGrade(nextProps);
+	componentDidUpdate () {
+		const {props: { assignments }, state: { id } } = this;
+		if (assignments && assignments.getFinalGradeAssignmentId() !== id) {
+			this.getFinalGrade();
+		}
 	}
 
-	getFinalGrade = (props = this.props) => {
-		const {assignments} = props;
-		if (assignments) {
-			const id = assignments.getFinalGradeAssignmentId();
-			if(id) {
-				assignments.getHistoryItem(id)
-					.then(historyItem =>
-						historyItem && this.setState({
-							grade: historyItem.grade
-						})
-					);
+	getFinalGrade = async (props = this.props) => {
+		const { assignments } = props;
+		const id = assignments && assignments.getFinalGradeAssignmentId();
+		if(id) {
+			const historyItem = await assignments.getHistoryItem(id);
+			if (historyItem) {
+				this.setState({ id, grade: historyItem.grade });
 			}
 		}
 	}

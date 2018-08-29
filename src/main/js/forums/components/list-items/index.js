@@ -27,10 +27,8 @@ export default function select (part, index, props) {
 
 	return React.createElement(
 		Item,
-		Object.assign({
-			key: 'list-item-' + index,
+		{key: 'list-item-' + index,
 			index: index,
-			item: part
-		}, props)
+			item: part, ...props}
 	);
 }

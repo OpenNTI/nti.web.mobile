@@ -39,25 +39,25 @@ export default class extends React.Component {
 	};
 
 	componentDidMount () {
-		this.updateContext(this.props.item);
+		this.updateContext();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		let {item} = nextProps;
-		if (this.props.item !== item) {
-			this.updateContext(item);
-		}
-	}
 
-	componentDidUpdate (_, state) {
+	componentDidUpdate ({item}, state) {
 		let {error} = this.state;
+
+		if (this.props.item !== item) {
+			this.updateContext();
+		}
+
 		if (error && !is403(error) && error !== state.error) {
 			logger.error(error);
 		}
+
 		this.focusApplicableRange();
 	}
 
-	updateContext = (item) => {
+	updateContext = ({item} = this.props) => {
 		this.setState({error: null, found: false, loading: true, scoped: false, fragment: false});
 
 		item.getContextData()

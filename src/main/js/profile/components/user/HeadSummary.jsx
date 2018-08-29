@@ -19,14 +19,13 @@ export default class extends React.Component {
 	state = {
 	};
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setUser();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		let {entity} = this.props;
-		if (entity !== nextProps.entity) {
-			this.setUser(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.entity !== prevProps.entity) {
+			this.setUser();
 		}
 	}
 

@@ -37,19 +37,17 @@ export default class ShareWith extends React.Component {
 	attachSearchRef = (x) => { this.search = x; };
 	attachScrollerRef = (x) => { this.scroller = x; };
 
-	componentWillMount () {
-		this.setup();
-	}
 
 	componentDidMount () {
+		this.setup();
 		for(let e of EVENTS) {
 			document.body.addEventListener(e, this.maybeCloseDrawer, e === 'focus');
 		}
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps[KEY] !== this.props[KEY]) {
-			this.setup(nextProps);
+	componentDidUpdate (props) {
+		if (props[KEY] !== this.props[KEY]) {
+			this.setup();
 		}
 	}
 

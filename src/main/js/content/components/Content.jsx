@@ -75,15 +75,13 @@ export default class Content extends React.Component {
 
 
 	componentDidUpdate (prevProps) {
-		let shouldUpdate = getComparable(prevProps) !== getComparable(this.props);
-		this.onContentMaybeReady(shouldUpdate);
-	}
+		const shouldUpdate = getComparable(prevProps) !== getComparable(this.props);
 
-
-	componentWillReceiveProps (nextProps) {
-		if (getComparable(nextProps) !== getComparable(this.props)) {
+		if (shouldUpdate) {
 			this.cleanupWidgets();
 		}
+
+		this.onContentMaybeReady(shouldUpdate);
 	}
 
 

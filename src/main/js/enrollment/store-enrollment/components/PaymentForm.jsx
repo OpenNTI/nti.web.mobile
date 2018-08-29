@@ -46,11 +46,17 @@ export default createReactClass({
 	attachCardRef (x) { this.card = x; },
 	attachBillingRef (x) { this.billing = x; },
 
+	getInitialState () {
+		return {
+			loading: true
+		};
+	},
 
-	componentWillMount () {
-		let defaultValues = Object.assign({}, Store.getPaymentFormData());
 
-		getAppUser().then(u => {
+	componentDidMount () {
+		let defaultValues = { ...Store.getPaymentFormData()};
+
+		const setDefaults = u => {
 			let {defaultValues: current = {}} = this.state;
 			let o = {};
 
@@ -66,21 +72,21 @@ export default createReactClass({
 				defaultValues = Object.assign(o, defaultValues);
 				this.setState({ defaultValues });
 			}
-		});
+		};
 
-		this.setState({  loading: true, defaultValues });
-	},
+		Promise.all([
+			//we don't use this, but we want to put up a splash "loading" for the library at a
+			//higher level than the component that uses it.
+			this.ensureExternalLibrary(['jquery.payment']),
 
-
-	componentDidMount () {
-		//we don't use this, but we want to put up a splash "loading" for the library at a
-		//higher level than the component that uses it.
-		this.ensureExternalLibrary(['jquery.payment']).then(() => clearLoadingFlag(this));
+			getAppUser().then(setDefaults)
+		])
+			.then(() => clearLoadingFlag(this));
 	},
 
 
 	onBillingRejected (event) {
-		const errors = Object.assign({}, this.state.errors || {});
+		const errors = { ...this.state.errors || {}};
 		const {response} = event;
 		const {error} = response;
 
@@ -102,7 +108,7 @@ export default createReactClass({
 
 	getValues () {
 		const {pricing, card, billing} = this;
-		return Object.assign({}, card.getValue(), billing.getValue(), pricing.getData());
+		return { ...card.getValue(), ...billing.getValue(), ...pricing.getData()};
 	},
 
 

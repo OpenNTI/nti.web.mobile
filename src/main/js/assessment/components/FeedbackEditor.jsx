@@ -21,13 +21,13 @@ export default class FeedbackEditor extends React.Component {
 	attachRef = x => this.editor = x
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.updateDisabled(this.props.value || null);
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.value !== this.props.value) {
-			this.updateDisabled(nextProps.value);
+	componentDidUpdate (props) {
+		if (props.value !== this.props.value) {
+			this.updateDisabled(this.props.value);
 		}
 	}
 

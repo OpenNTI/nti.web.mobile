@@ -124,7 +124,7 @@ export default createReactClass({
 
 		let {name} = (e || {}).target || {};
 		if (name in errors) {
-			errors = Object.assign({}, errors);
+			errors = { ...errors};
 			delete errors[name];
 			return this.setState({errors}, () => setTimeout(()=> this.onBlur(e), 100));
 		}

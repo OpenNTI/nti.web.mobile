@@ -35,9 +35,8 @@ export default class extends React.Component {
 		errors: {}
 	};
 
-	componentWillMount () {
-		this.elements = {};
-	}
+	elements = {}
+
 
 	getValue = () => {
 		const getValue = x => x && x.value && x.value.trim();
@@ -90,7 +89,7 @@ export default class extends React.Component {
 		let {errors} = this.state;
 
 		if (errors) {
-			Object.assign({}, errors);
+			({ ...errors});
 
 			delete errors[name.replace(/address_/, '')];
 

@@ -102,9 +102,13 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		this.fillInVideo(nextProps);
-		this.setState({playing: false});
+	componentDidUpdate (prevProps) {
+		const {contentPackage, item} = this.props;
+
+		if (item !== prevProps.item || contentPackage !== prevProps.contentPackage) {
+			this.fillInVideo(this.props);
+			this.setState({playing: false});
+		}
 	},
 
 

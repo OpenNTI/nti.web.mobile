@@ -14,7 +14,7 @@ class Store extends EventEmitter {
 	}
 
 	emitError (event) {
-		this.emitChange(Object.assign({isError: true}, event));
+		this.emitChange({isError: true, ...event});
 	}
 
 	/**

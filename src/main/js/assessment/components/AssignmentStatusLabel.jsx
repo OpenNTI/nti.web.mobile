@@ -37,8 +37,7 @@ function selectValue (values, context) {
 	return result;
 }
 
-export default class extends React.Component {
-	static displayName = 'AssignmentStatusLabel';
+export default class AssignmentStatusLabel extends React.Component {
 
 	static propTypes = {
 		assignment: PropTypes.instanceOf(Assignment),
@@ -239,7 +238,8 @@ export default class extends React.Component {
 		});
 	};
 
-	componentWillMount () {
+	constructor (props) {
+		super(props);
 		this.getDifferenceBetween = {
 			overdue: this.getDifferenceBetweenSubmittedAndDue,
 			overtime: this.getDifferenceBetweenTimeSpentAndMaxTime

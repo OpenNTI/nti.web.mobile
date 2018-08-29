@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {DateTime} from '@nti/web-commons';
 import {getEventTarget} from '@nti/lib-dom';
 
@@ -11,41 +10,40 @@ import {clearAssessmentAnswers} from '../Actions';
 
 //Still need to get the list of previous attempts. Not just the last one.
 
-export default createReactClass({
-	displayName: 'HeaderScoreboard',
+export default class HeaderScoreboard extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		assessment: PropTypes.object
-	},
+	}
 
-	getInitialState () {
-		return {
-			total: 0,
-			correct: 0,
-			incorrect: 0,
-			score: 0,
-			previousAttemps: ''
-		};
-	},
+	state = {
+		total: 0,
+		correct: 0,
+		incorrect: 0,
+		score: 0,
+		previousAttemps: ''
+	}
 
 
 	componentDidMount () {
 		Store.addChangeListener(this.synchronizeFromStore);
 		this.synchronizeFromStore();
-	},
+	}
 
 
 	componentWillUnmount () {
 		Store.removeChangeListener(this.synchronizeFromStore);
-	},
+	}
 
 
-	componentWillReceiveProps (props) {
-		this.synchronizeFromStore(props);
-	},
+	componentDidUpdate (props) {
+		if (props.assessment !== this.props.assessment) {
+			this.synchronizeFromStore(props);
+		}
+	}
 
 
-	synchronizeFromStore (props) {
+	synchronizeFromStore = (props) => {
 		let assessment = (props && props.assessment) || this.props.assessment;
 		let assessed = Store.getAssessedSubmission(assessment);
 
@@ -63,16 +61,16 @@ export default createReactClass({
 			incorrect: assessed.getIncorrect() || null,
 			dateSubmitted: assessed.getCreatedTime()
 		});
-	},
+	}
 
 
-	reset (e) {
+	reset = (e) => {
 		if (getEventTarget(e, 'span[data-dropdown]')) {
 			return;
 		}
 
 		clearAssessmentAnswers(this.props.assessment);
-	},
+	}
 
 
 	render () {
@@ -120,4 +118,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}

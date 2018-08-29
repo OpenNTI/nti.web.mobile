@@ -49,34 +49,17 @@ export default createReactClass({
 
 
 	getInitialState () {
-		return {
-			triedCoupon: false,
-			couponDiscount: false,
-			checkingCoupon: false
-		};
-	},
-
-	componentWillMount () {
-		this.resetState();
-	},
-
-	componentWillReceiveProps (nextProps) {
-		if (this.props.purchasable !== nextProps.purchasable) {
-			this.resetState(nextProps);
-		}
-	},
-
-	resetState (theprops = this.props) {
-		let pricing = this.getCouponPricing();
-		let state = {
-			currency: theprops.purchasable.currency,
-			currentPrice: theprops.purchasable.amount,
+		const { props } = this;
+		const pricing = this.getCouponPricing();
+		const state = {
+			currency: props.purchasable.currency,
+			currentPrice: props.purchasable.amount,
 			triedCoupon: false,
 			couponDiscount: false,
 			checkingCoupon: false
 		};
 
-		if (theprops.locked) {
+		if (props.locked) {
 			state.coupon = t('noCoupon');
 		}
 
@@ -89,7 +72,18 @@ export default createReactClass({
 			state.triedCoupon = true;
 		}
 
-		this.setState(state);
+		return state;
+	},
+
+
+	componentDidUpdate (prevProps) {
+		if (this.props.purchasable !== prevProps.purchasable) {
+			this.resetState();
+		}
+	},
+
+	resetState () {
+		this.setState(this.getInitialState());
 	},
 
 	componentDidMount () {

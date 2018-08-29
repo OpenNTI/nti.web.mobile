@@ -53,17 +53,9 @@ export default createReactClass({
 		parentPath: PropTypes.string
 	},
 
-	componentWillMount () {
-		let item = Store.getForumItem(this.getItemId());
-		if (item) {
-			this.setState({
-				item: item
-			});
-		}
-	},
-
 	getInitialState () {
-		return {};
+		let item = Store.getForumItem(this.getItemId());
+		return item ? { item } : {};
 	},
 
 	getHref (item) {

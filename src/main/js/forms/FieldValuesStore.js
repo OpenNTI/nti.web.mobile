@@ -8,9 +8,7 @@ import * as Constants from './Constants';
 
 // store field values outside of component state
 // so we can update without triggering a re-render.
-export default Object.assign({}, EventEmitter.prototype, {
-
-	fieldValues: {},
+export default ({ ...EventEmitter.prototype, fieldValues: {},
 	availableFields: new Set(),
 	autopopulator: null,
 
@@ -27,7 +25,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 	},
 
 	getValues (stripEmpty = false) {
-		let vals = this.preprocess(Object.assign({}, this.fieldValues));
+		let vals = this.preprocess({ ...this.fieldValues});
 		return stripEmpty ? this.stripEmptyValues(vals) : vals;
 	},
 
@@ -136,9 +134,7 @@ export default Object.assign({}, EventEmitter.prototype, {
 				removed: removed
 			});
 		}
-	}
-
-});
+	}});
 
 function setsAreEquivalent (set1, set2) {
 	if(set1 instanceof Set && set2 instanceof Set && set1.size === set2.size) {

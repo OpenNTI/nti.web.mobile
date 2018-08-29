@@ -16,8 +16,11 @@ export default class extends React.Component {
 		this.parseGrade(this.props.value);
 	}
 
-	componentWillReceiveProps (props) {
-		this.parseGrade(props.value);
+	componentDidUpdate (props) {
+		const {value} = this.props;
+		if (props.value !== value) {
+			this.parseGrade(value);
+		}
 	}
 
 	parseGrade = (grade) => {

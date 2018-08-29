@@ -47,13 +47,10 @@ export default class UserSearchField extends React.Component {
 		this.getSuggestedContacts();
 	}
 
-	componentWillReceiveProps () {
-		this.setUpStore();
-	}
 
-	componentWillUpdate (_, nextState) {
-		let {store} = this.state;
-		let nextStore = nextState.store;
+	componentDidUpdate (_, prevState) {
+		const {store} = prevState;
+		const {store: nextStore} = this.state;
 
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onStoreChange);

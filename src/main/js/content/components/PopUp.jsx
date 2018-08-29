@@ -22,8 +22,10 @@ export default class extends React.Component {
 		this.load();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		this.load(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.source !== prevProps.source) {
+			this.load();
+		}
 	}
 
 	getBody = (htmlStr) => {

@@ -38,10 +38,9 @@ export default createReactClass({
 		this.populateSections();
 	},
 
-	componentWillReceiveProps (nextProps) {
-		let {entity} = this.props;
-		if (entity !== nextProps.entity) {
-			this.populateSections(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.entity !== prevProps.entity) {
+			this.populateSections();
 		}
 	},
 

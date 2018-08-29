@@ -58,7 +58,7 @@ export default createReactClass({
 
 
 	onDrop (drop) {
-		const value = Object.assign({}, this.state.value || {});
+		const value = { ...this.state.value || {}};
 		const data = drop || {};
 
 		let {source, target} = data;
@@ -89,7 +89,7 @@ export default createReactClass({
 
 
 	onReset (dropId) {
-		let v = Object.assign({}, this.state.value || {});
+		let v = { ...this.state.value || {}};
 		delete v[dropId];
 
 		if (Object.keys(v).length === 0) {
@@ -100,7 +100,7 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setState({
 			PartLocalDNDToken: Mixin.getNewCombinationToken(
 				Mixin.getNewUniqueToken(),

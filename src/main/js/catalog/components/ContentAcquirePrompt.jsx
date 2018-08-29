@@ -25,9 +25,9 @@ export default class ContentAcquirePrompt extends React.Component {
 		this.resolve();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.data !== nextProps.data) {
-			this.resolve(nextProps);
+	componentDidUpdate (props) {
+		if (this.props.data !== props.data) {
+			this.resolve();
 		}
 	}
 

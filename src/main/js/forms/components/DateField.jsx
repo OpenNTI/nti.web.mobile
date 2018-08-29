@@ -36,15 +36,17 @@ export default class extends React.Component {
 	state = {
 	};
 
-	componentWillMount () {
-		this.setUp();
+	componentDidMount () {
+		this.setup();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		this.setUp(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.defaultValue !== prevProps.defaultValue) {
+			this.setup();
+		}
 	}
 
-	setUp = (props = this.props) => {
+	setup = (props = this.props) => {
 		const {defaultValue} = props;
 		if (defaultValue) {
 			// (yyyy)-(mm)-(dd)
@@ -82,7 +84,7 @@ export default class extends React.Component {
 		// ensure that we keep the 'day' in range for the currently selected month
 		// and year. (if the user switches from 'may' to 'february' make sure we don't end
 		// up with february 31 selected.)
-		let newState = Object.assign({}, this.state, {[event.name]: event.value});
+		let newState = { ...this.state, [event.name]: event.value};
 		newState.day = zpad(Math.min(newState.day, daysInMonth(newState.month, newState.year)));
 
 		this.setState(newState, () => {

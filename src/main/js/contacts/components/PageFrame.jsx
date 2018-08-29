@@ -10,7 +10,7 @@ export default class extends React.Component {
 		pageContent: PropTypes.any
 	};
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setState({menu: [
 			{label: 'Contacts', href: '/'},
 			{label: 'Groups', href: '/groups/'},

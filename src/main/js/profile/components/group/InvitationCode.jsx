@@ -10,7 +10,9 @@ export default class InvitationCode extends React.Component {
 
 	attachCodeRef = el => this.code = el
 
-	componentWillMount () {
+	state = {}
+
+	componentDidMount () {
 		this.getCode();
 	}
 
@@ -37,7 +39,7 @@ export default class InvitationCode extends React.Component {
 	}
 
 	render () {
-		const {busy, code} = this.state || {};
+		const {busy, code} = this.state;
 		if (busy || !code) {
 			return null;
 		}

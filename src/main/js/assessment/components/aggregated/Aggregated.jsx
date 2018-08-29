@@ -16,9 +16,9 @@ export default class extends React.Component {
 	state = {};
 	componentDidMount () { this.loadData(this.props); }
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.question !== this.props.question) {
-			this.loadData(nextProps);
+	componentDidUpdate (props) {
+		if (props.question !== this.props.question) {
+			this.loadData(this.props);
 		}
 	}
 

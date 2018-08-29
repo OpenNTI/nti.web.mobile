@@ -22,10 +22,6 @@ export default createReactClass({
 	},
 
 
-	// componentWillMount () { this.synchronizeFromStore(); },
-	componentWillReceiveProps () { this.synchronizeFromStore(); },
-
-
 	synchronizeFromStore () {
 		this.forceUpdate();
 	},

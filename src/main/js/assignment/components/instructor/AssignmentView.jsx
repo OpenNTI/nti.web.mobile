@@ -22,7 +22,7 @@ class InstructorAssignmentView extends React.Component {
 	}
 
 
-	componentWillMount () {
+	componentDidMount () {
 		const SECOND_AGO = 1000;
 		const {store} = this.props;
 		const {loading = true, loaded} = store || {};

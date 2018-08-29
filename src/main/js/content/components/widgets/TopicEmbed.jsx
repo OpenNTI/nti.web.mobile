@@ -38,7 +38,7 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		//Hack until we can get context to work
 		this.basePath = (x => (x = getConfigFor(x), typeof x === 'string' ? x : '/'))('basepath');
 
@@ -46,12 +46,12 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		const {item:newItem} = nextProps;
-		const {item:oldItem} = this.props;
+	componentDidUpdate (prevProps, prevState) {
+		const {item:newItem} = this.props;
+		const {item:oldItem} = prevProps;
 
 		if (oldItem !== newItem) {
-			this.setState({href: this.getHref(nextProps)});
+			this.setState({href: this.getHref()});
 		}
 	},
 

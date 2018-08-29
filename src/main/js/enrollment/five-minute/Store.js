@@ -7,15 +7,14 @@ import {CHANGE_EVENT} from '@nti/lib-store';
 
 import * as Constants from './Constants';
 
-const Store = Object.assign({}, EventEmitter.prototype, {
-	displayName: 'enrollment.Store',
+const Store = { ...EventEmitter.prototype, displayName: 'enrollment.Store',
 
 	emitChange (evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
 	emitError (event) {
-		this.emitChange(Object.assign({isError: true}, event));
+		this.emitChange({isError: true, ...event});
 	},
 
 	addChangeListener (callback) {
@@ -28,9 +27,7 @@ const Store = Object.assign({}, EventEmitter.prototype, {
 
 	getAdmissionStatus () {
 		return getFiveMinuteService().then(service => service.getAdmissionStatus());
-	}
-
-});
+	}};
 
 
 function getFiveMinuteService () {

@@ -68,12 +68,12 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.elements = {};
 
-		let defaultValues = Object.assign({}, Store.getPaymentFormData());
+		let defaultValues = { ...Store.getPaymentFormData()};
 
-		getAppUser().then(u => {
+		const setDefaults = u => {
 			let {defaultValues: current = {}} = this.state;
 			let o = {};
 
@@ -89,16 +89,16 @@ export default createReactClass({
 				defaultValues = Object.assign(o, defaultValues);
 				this.setState({ defaultValues });
 			}
-		});
+		};
 
-		this.setState({ defaultValues });
-	},
-
-
-	componentDidMount () {
-		this.ensureExternalLibrary(['jquery.payment'])
+		Promise.all([
+			this.ensureExternalLibrary(['jquery.payment']),
+			getAppUser()
+				.then(setDefaults)
+		])
 			.then(()=> clearLoadingFlag(this))
 			.catch(this.onError);
+
 	},
 
 
@@ -108,7 +108,7 @@ export default createReactClass({
 
 
 	onBillingRejected (event) {
-		const errors = Object.assign({}, this.state.errors || {});
+		const errors = { ...this.state.errors || {}};
 		const {response} = event;
 		const {error} = response;
 		let {param: key} = error || {};
@@ -141,8 +141,8 @@ export default createReactClass({
 
 	getValues  () {
 		let i, v;
-		const {elements} = this;
-		const result = Object.assign({}, this.state.defaultValues);
+		const {elements = {}} = this;
+		const result = { ...this.state.defaultValues};
 
 		for (i in elements) {
 			if (!elements.hasOwnProperty(i) || !elements[i]) { continue; }

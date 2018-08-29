@@ -28,14 +28,14 @@ export default class PostEditor extends React.Component {
 
 	state = {};
 
-	componentWillMount () {
+	componentDidMount () {
 		const {busy, value, title} = this.props;
 		this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if(['busy', 'value', 'title'].some(x => this.props[x] !== nextProps[x])) {
-			const {busy, value, title} = nextProps;
+	componentDidUpdate (prevProps) {
+		if(['busy', 'value', 'title'].some(x => this.props[x] !== prevProps[x])) {
+			const {busy, value, title} = this.props;
 			this.setState({ disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title) });
 		}
 	}

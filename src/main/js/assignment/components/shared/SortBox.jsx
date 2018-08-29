@@ -4,6 +4,8 @@ import {SelectBox} from '@nti/web-commons';
 
 import Assignments from '../bindings/Assignments';
 
+const ORDER_BY = (name, i) => i.props.assignments[`ORDER_BY_${name}`];
+
 export default
 @Assignments.connect
 class SortBox extends React.Component {
@@ -14,27 +16,25 @@ class SortBox extends React.Component {
 		value: PropTypes.any,
 	}
 
-	componentWillMount () {
-		const {ORDER_BY_COMPLETION, ORDER_BY_DUE_DATE, ORDER_BY_LESSON} = this.props.assignments;
-
-		const sortOptions = [
-			{ label: 'By Due Date', value: ORDER_BY_DUE_DATE},
-			{ label: 'By Lesson', value: ORDER_BY_LESSON},
-			{ label: 'By Completion', value: ORDER_BY_COMPLETION}
-		];
-
-		this.setState({sortOptions, sortBy: this.props.value || ORDER_BY_LESSON});
+	state = {
+		sortBy: this.props.value || ORDER_BY('LESSON', this),
+		sortOptions: [
+			{ label: 'By Due Date', value: ORDER_BY('DUE_DATE', this) },
+			{ label: 'By Lesson', value: ORDER_BY('LESSON', this) },
+			{ label: 'By Completion', value: ORDER_BY('COMPLETION', this) }
+		],
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.value) {
-			this.setState({sortBy: nextProps.value});
+	componentDidUpdate () {
+		const { props: {value}, state: { sortBy } } = this;
+		if (value && value !== sortBy) {
+			this.setState({sortBy: value});
 		}
 	}
 
 	render () {
 
-		let {sortOptions, sortBy} = this.state;
+		const {sortOptions, sortBy} = this.state;
 
 		return (
 			<SelectBox options={sortOptions} onChange={this.props.onChange} value={sortBy} />

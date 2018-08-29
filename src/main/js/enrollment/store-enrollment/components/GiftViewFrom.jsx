@@ -73,7 +73,7 @@ export default class GiftFrom extends React.Component {
 		let {errors} = this.state;
 
 		if (errors) {
-			Object.assign({}, errors);
+			({ ...errors});
 
 			delete errors[name];
 

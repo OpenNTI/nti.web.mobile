@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {buffer} from '@nti/lib-commons';
+import {buffer, equals} from '@nti/lib-commons';
 import {ActiveState} from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 
@@ -33,8 +33,10 @@ export default createReactClass({
 		this.applyContext();
 	},
 
-	componentWillReceiveProps () {
-		this.applyContext();
+	componentDidUpdate (prevProps) {
+		if (!equals(this.props, prevProps)) {
+			this.applyContext();
+		}
 	},
 
 

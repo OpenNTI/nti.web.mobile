@@ -65,10 +65,10 @@ export default createReactClass({
 		this.doLoad();
 	},
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.postId !== nextProps.postId) {
+	componentDidUpdate (prevProps) {
+		if (this.props.postId !== prevProps.postId) {
 			this.setState(this.getInitialState());
-			this.doLoad(nextProps.postId);
+			this.doLoad(this.props.postId);
 		}
 	},
 

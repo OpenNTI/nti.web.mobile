@@ -27,7 +27,7 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		const {markNotFound} = this.context;
 		if (markNotFound) {
 			markNotFound();

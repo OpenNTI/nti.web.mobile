@@ -35,7 +35,7 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setState({disabled: true});
 		this.resolveContext()
 			.then(context => {
@@ -45,9 +45,9 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		const {value} = nextProps;
-		if (this.props.value !== value) {
+	componentDidUpdate (prevProps) {
+		const {value} = this.props;
+		if (prevProps.value !== value) {
 			this.setState({ disabled: !this.state.context || Editor.isEmpty(value) });
 		}
 	},

@@ -16,8 +16,7 @@ function isRequired (schema, prop) {
 	return ((schema || {})[prop] || {}).required;
 }
 
-export default class extends React.Component {
-	static displayName = 'EventItem';
+export default class EventItem extends React.Component {
 
 	static propTypes = {
 		item: PropTypes.object.isRequired,
@@ -34,11 +33,11 @@ export default class extends React.Component {
 	attachStartYearRef = (x) => { this.startYear = x; };
 	attachEndYearRef = (x) => { this.endYear = x; };
 	attachDescriptionRef = (x) => { this.description = x; };
-	componentWillMount () { this.setup(); }
+	componentDidMount () { this.setup(); }
 
-	ccomponentWillReceiveProps = (nextProps) => {
-		if (this.props.item !== nextProps.item) {
-			this.setup(nextProps);
+	componentDidUpdate = (prevProps) => {
+		if (this.props.item !== prevProps.item) {
+			this.setup();
 		}
 	};
 
@@ -149,7 +148,7 @@ export default class extends React.Component {
 		let {mimeType, item} = this.props;
 		let {state} = this;
 		let value = {};
-		let input = Object.assign({}, item);
+		let input = { ...item};
 
 		for (let field of Object.keys(state)) {
 			let v = state[field];
@@ -161,7 +160,7 @@ export default class extends React.Component {
 		}
 
 		return Object.keys(value).length > 0
-			? Object.assign({MimeType: mimeType}, input, value)
+			? ({MimeType: mimeType, ...input, ...value})
 			: null;
 	};
 }

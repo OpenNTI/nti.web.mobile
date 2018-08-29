@@ -11,7 +11,11 @@ export default class RecentReplies extends React.Component {
 		count: PropTypes.number
 	};
 
-	componentWillMount () {
+	state = {
+		loading: true
+	}
+
+	componentDidMount () {
 		this.load();
 	}
 

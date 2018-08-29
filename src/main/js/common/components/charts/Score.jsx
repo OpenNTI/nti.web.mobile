@@ -23,39 +23,44 @@ export default class Score extends React.Component {
 		series: []
 	}
 
-	attachRef = x => this.canvas = x
+	canvas = React.createRef()
 
 	getCanvas = () => {
-		return this.canvas;
+		return this.canvas.current;
+	}
+
+	getContext = () => {
+		const el = this.getCanvas();
+		const ctx = el && el.getContext('2d');
+		if (ctx) {
+			ctx.imageSmoothingEnabled = true;
+		}
+
+		return ctx;
 	}
 
 	updateSeries = (props = this.props) => {
-		let score = Math.max(0, Math.min(100, parseInt(props.score, 10)));
-
-		this.setState({
-			score,
-			series: [
-				{value: score, label: 'Score'},
-				{value: 100 - score, label: ''}
-			]
-		});
+		const score = Math.max(0, Math.min(100, parseInt(props.score, 10)));
+		if (score !== this.state.score) {
+			this.setState({
+				score,
+				series: [
+					{value: score, label: 'Score'},
+					{value: 100 - score, label: ''}
+				]
+			});
+		}
 	}
 
-	componentWillMount () { this.updateSeries(); }
-	componentWillReceiveProps (nextProps) { this.updateSeries(nextProps); }
 
 	componentDidMount () {
-		let canvas = this.getCanvas();
-		let context = canvas.getContext('2d');
-
-		context.imageSmoothingEnabled = true;
-
-		this.paint(context);
+		this.updateSeries();
+		this.paint(this.getContext());
 	}
 
 	componentDidUpdate () {
-		let context = this.getCanvas().getContext('2d');
-		this.paint(context);
+		this.updateSeries();
+		this.paint(this.getContext());
 	}
 
 	render () {
@@ -68,7 +73,7 @@ export default class Score extends React.Component {
 		};
 
 		return (
-			<canvas ref={this.attachRef} style={style} width={width} height={height} />
+			<canvas ref={this.canvas} style={style} width={width} height={height} />
 		);
 	}
 

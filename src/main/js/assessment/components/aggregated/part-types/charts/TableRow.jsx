@@ -11,7 +11,7 @@ export default function TableRow ({columns, label, labelPrefix, series}) {
 
 	const ranks = ArrayUtils.unique(series.map(x => x.count)).sort().reverse();
 
-	const applyRank = o => Object.assign({rank: RANK[ranks.indexOf(o.count)]}, o);
+	const applyRank = o => ({rank: RANK[ranks.indexOf(o.count)], ...o});
 
 	const row = columns.map(col =>
 		applyRank(

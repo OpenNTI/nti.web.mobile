@@ -1,9 +1,9 @@
 /* globals Stripe jQuery */
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {Loading} from '@nti/web-commons';
+import {mixin} from '@nti/lib-decorators';
 import {ExternalLibraryManager} from '@nti/web-client';
 import {scoped} from '@nti/lib-locale';
 
@@ -25,40 +25,34 @@ const t = scoped('enrollment.forms', {
 
 const EXP_PATTERN = /\d+ \/ \d+/;
 
-export default createReactClass({
-	displayName: 'CreditCardForm',
-	mixins: [ExternalLibraryManager],
+export default
+@mixin(ExternalLibraryManager)
+class CreditCardForm extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		className: PropTypes.string,
 		onChange: PropTypes.func,
 		defaultValues: PropTypes.object
-	},
+	}
 
 
-	attachNameRef (x) { this.elements.name = x; },
-	attachNumberRef (x) { this.elements.number = x; },
-	attachExpRef (x) { this.elements.exp = x; },
-	attachCvcRef (x) { this.elements.cvc = x; },
+	attachNameRef = (x) => this.elements.name = x
+	attachNumberRef = (x) => this.elements.number = x
+	attachExpRef = (x) => this.elements.exp = x
+	attachCvcRef = (x) => this.elements.cvc = x
 
+	elements = {}
 
-	getInitialState () {
-		return {
-			errors: {}
-		};
-	},
-
-
-	componentWillMount () {
-		this.elements = {};
-		this.setState({loading: true});
-	},
+	state = {
+		errors: {},
+		loading: true
+	}
 
 
 	componentDidMount () {
 		this.ensureExternalLibrary(['jquery.payment', 'stripe'])
 			.then(() => clearLoadingFlag(this));
-	},
+	}
 
 
 	componentDidUpdate (_, prevState) {
@@ -68,7 +62,7 @@ export default createReactClass({
 			jQuery(exp).payment('formatCardExpiry');
 			jQuery(cvc).payment('formatCardCVC');
 		}
-	},
+	}
 
 
 	getValue () {
@@ -85,10 +79,10 @@ export default createReactClass({
 			'exp_month': month,
 			'exp_year': year
 		};
-	},
+	}
 
 
-	delegateError (err) {
+	delegateError = (err) => {
 		let fields = {
 			name: 'name',
 			number: 'number',
@@ -104,10 +98,10 @@ export default createReactClass({
 				return true;
 			}
 		}
-	},
+	}
 
 
-	validate (ignoreEmpty = true) {
+	validate = (ignoreEmpty = true) => {
 		const {name, number, cvc, exp_month: mon, exp_year: year} = this.getValue(); // eslint-disable-line camelcase
 		const errors = {};
 		const hasValue = x => (x || '').length > 0 || !ignoreEmpty;
@@ -133,26 +127,26 @@ export default createReactClass({
 		this.setState({errors: hasErrors ? errors : void 0});
 
 		return !hasErrors;
-	},
+	}
 
 
-	onChange (e) {
+	onChange = (e) => {
 		this.onFieldEventClearError(e);
 		let {onChange} = this.props;
 		if (onChange) {
 			onChange();
 		}
-	},
+	}
 
 
-	onFieldEventClearError (e) {
+	onFieldEventClearError = (e) => {
 		let {name} = e.target;
 		let {errors} = this.state;
 
 		let line2 = {number:1, exp:1, cvc: 1};
 
 		if (errors) {
-			Object.assign({}, errors);
+			({ ...errors});
 
 			delete errors[name];
 			if (name in line2) {
@@ -163,7 +157,8 @@ export default createReactClass({
 
 			this.setState({errors});
 		}
-	},
+	}
+
 
 	render () {
 		const {props: {className, defaultValues = {}}, state: {loading, errors = {}}} = this;
@@ -233,4 +228,4 @@ export default createReactClass({
 			</fieldset>
 		);
 	}
-});
+}

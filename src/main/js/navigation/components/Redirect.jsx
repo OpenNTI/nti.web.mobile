@@ -2,6 +2,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Router from 'react-router-component';
+import {equals} from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
 import {Loading} from '@nti/web-commons';
 import {URL, isEmpty} from '@nti/lib-commons';
@@ -83,8 +84,10 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (props, context) {
-		this.startRedirect(props, context);
+	componentDidUpdate (prevProps) {
+		if (!equals(this.props, prevProps)) {
+			this.startRedirect(this.props, this.context);
+		}
 	},
 
 

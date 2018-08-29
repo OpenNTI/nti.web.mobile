@@ -26,9 +26,7 @@ export default class extends React.Component {
 	render () {
 		let {children} = this.props;
 
-		let props = Object.assign({}, this.props, {
-			children: null
-		});
+		let props = { ...this.props, children: null};
 
 		return React.createElement('div', {},
 			this.context.PageWrapped ?
@@ -40,11 +38,9 @@ export default class extends React.Component {
 
 	renderChildren = (c) => {
 		let {pageContent} = this.props;
-		let props = Object.assign({}, this.props, {
-			availableSections: null,
+		let props = { ...this.props, availableSections: null,
 			children: null,
-			title: null
-		});
+			title: null};
 
 		if (pageContent) {
 			return [React.createElement(pageContent, props)];

@@ -27,7 +27,7 @@ class AssignmentItem extends React.Component {
 	state = {}
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.onItemChanged();
 	}
 

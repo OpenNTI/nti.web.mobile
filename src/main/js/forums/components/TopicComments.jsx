@@ -41,11 +41,9 @@ export default createReactClass({
 		this[loadData]();
 	},
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.currentPage !== nextProps.currentPage) {
-			this.setState({
-				loading: true
-			});
+	componentDidUpdate (prevProps) {
+		if (this.props.currentPage !== prevProps.currentPage) {
+			this.setState({ loading: true });
 			this[loadData]();
 		}
 	},
