@@ -136,10 +136,19 @@ export default createReactClass({
 		return `${basePath}profile/${User.encode(entity)}/about/`;
 	},
 
+	handleCourse (option) {
+		const basePath = this.getBasePath();
+
+		return `${basePath}course/${encodeForURI(option.getCourseID())}/`;
+	},
+
 	getRouteFor (option, context) {
 		const isIMIS = option.MimeType === 'application/vnd.nextthought.courseware.ensyncimisexternalenrollmentoption';
-
-		if (context === 'enroll') {
+		const isEnrolled = option.MimeType === 'application/vnd.nextthought.courseware.courseinstanceenrollment';
+		const isAdmin = option.MimeType === 'application/vnd.nextthought.courseware.courseinstanceadministrativerole';
+		if (context === 'open' && (isEnrolled || isAdmin)) {
+			return this.handleCourse(option);
+		} else if (context === 'enroll') {
 			if (isIMIS) {
 				return option.enrollmentURL;
 			}
