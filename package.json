@@ -45,7 +45,7 @@
     "@nti/lib-commons": "^2.7.0",
     "@nti/lib-content-processing": "^1.5.0",
     "@nti/lib-dispatcher": "^1.0.0",
-    "@nti/lib-decorators":"^1.5.0",
+    "@nti/lib-decorators": "^1.5.0",
     "@nti/lib-dom": "^1.9.0",
     "@nti/lib-interfaces": "^1.86.0",
     "@nti/lib-locale": "^1.2.0",
