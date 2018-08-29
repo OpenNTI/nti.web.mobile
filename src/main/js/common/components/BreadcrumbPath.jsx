@@ -71,9 +71,9 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.item !== nextProps.item) {
-			this.loadBreadcrumb(nextProps);
+	componentDidUpdate (props) {
+		if (this.props.item !== props.item) {
+			this.loadBreadcrumb();
 		}
 	},
 

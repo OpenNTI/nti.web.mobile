@@ -36,8 +36,9 @@ export default class Recipient extends React.Component {
 	attachFormRef = x => this.elements.form = x
 	attachEmailRef = x => this.elements.email = x
 
-	componentWillMount () {
-		this.elements = {};
+	elements = {}
+
+	componentDidMount () {
 
 		const prevState = Store.getGiftInfo();
 
@@ -52,7 +53,7 @@ export default class Recipient extends React.Component {
 			let enabled = ['toFirstName', 'toLastName', 'receiver', 'message', 'sender']
 				.some(key => (prevState[key] || '').trim().length > 0);
 
-			this.setState(Object.assign({enabled}, prevState));
+			this.setState({enabled, ...prevState});
 		}
 	}
 

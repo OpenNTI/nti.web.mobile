@@ -20,7 +20,7 @@ export default createReactClass({
 		item: PropTypes.object
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		// console.debug('Group Chat:', this.props.item);
 	},
 

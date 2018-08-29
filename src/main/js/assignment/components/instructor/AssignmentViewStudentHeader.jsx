@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {PropType as NTIID} from '@nti/lib-ntiids';
+import { equals } from '@nti/lib-commons';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
@@ -25,13 +26,15 @@ class InstructorAssignmentViewStudentHeader extends React.Component {
 	state = {}
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setup();
 	}
 
 
-	componentWillReceiveProps (nextProps) {
-		this.setup(nextProps);
+	componentDidUpdate (props) {
+		if (!equals(this.props, props)) {
+			this.setup();
+		}
 	}
 
 

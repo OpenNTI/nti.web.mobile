@@ -30,9 +30,9 @@ const MessageInfo = createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.item !== this.props.item) {
-			this.loadReplies(nextProps);
+	componentDidUpdate (props) {
+		if (props.item !== this.props.item) {
+			this.loadReplies();
 		}
 	},
 

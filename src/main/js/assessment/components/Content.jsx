@@ -30,12 +30,12 @@ export default class Content extends React.Component {
 	state = {}
 
 
-	componentWillMount () { this.buildContent(this.props); }
+	componentDidMount () { this.buildContent(this.props); }
 
 
-	componentWillReceiveProps (props) {
+	componentDidUpdate (props) {
 		if (props.content !== this.props.content) {
-			this.buildContent(props);
+			this.buildContent(this.props);
 		}
 	}
 
@@ -128,7 +128,7 @@ export default class Content extends React.Component {
 
 		let f = renderCustomWidget || React.createElement;
 
-		props = Object.assign({}, props, widget);
+		props = { ...props, ...widget};
 		return f(tagName, props, children);
 	}
 }

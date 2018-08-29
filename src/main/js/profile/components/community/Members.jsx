@@ -36,7 +36,7 @@ export default createReactClass({
 		]);
 	},
 
-	setUpStore (props = this.props) {
+	setupStore (props = this.props) {
 		let {entity} = props;
 		let store = null;
 		if (entity) {
@@ -46,37 +46,34 @@ export default createReactClass({
 	},
 
 	componentDidMount () {
-		this.setUpStore();
-	},
-
-	componentWillReceiveProps (nextProps) {
-		let {entity} = nextProps;
-
-		if(entity !== this.props.entity) {
-			this.setUpStore(nextProps);
-		}
+		this.setupStore();
 	},
 
 
 	componentWillUnmount () {
-		let {store} = this.state;
+		const {store} = this.state;
 		if (store) {
 			store.removeListener('change', this.onStoreChange);
 		}
 	},
 
-	componentWillUpdate (_, nextState) {
-		let {store} = this.state;
-		let nextStore = nextState.store;
+	componentDidUpdate (prevProps, prevState) {
+		const {entity} = this.props;
+		const {store} = this.state;
+		const prevStore = prevState.store;
 
-		if (store && store !== nextStore) {
+		if(entity !== prevProps.entity) {
+			this.setupStore();
+		}
+
+		if (prevStore && prevStore !== store) {
 			store.removeListener('change', this.onStoreChange);
 		}
 
-		if (nextStore && nextStore !== store) {
-			nextStore.addListener('change', this.onStoreChange);
+		if (store && store !== prevStore) {
+			store.addListener('change', this.onStoreChange);
 
-			// if (!nextStore.loading) {
+			// if (!store.loading) {
 			// 	console.log('Wut?');
 			// }
 		}
@@ -87,7 +84,7 @@ export default createReactClass({
 	},
 
 	more () {
-		let {store} = this.state;
+		const {store} = this.state;
 		return store.nextBatch();
 	},
 

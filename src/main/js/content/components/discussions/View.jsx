@@ -33,11 +33,12 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () { this.updateFromStore(); },
-	componentWillReceiveProps (props) {
-		const {itemId} = props;
-		if (this.props.itemId !== itemId) {
-			this.updateFromStore(props);
+	componentDidMount () { this.updateFromStore(); },
+
+	componentDidUpdate (prevProps) {
+		const {itemId} = this.props;
+		if (prevProps.itemId !== itemId) {
+			this.updateFromStore();
 		}
 	},
 

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
+import {equals} from '@nti/lib-commons';
 import {Error, Loading} from '@nti/web-commons';
 import {Component as Video} from '@nti/web-video';
 
@@ -94,13 +95,12 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		this.fillInVideo(nextProps);
-	},
+	componentDidUpdate (prevProps, prevState) {
+		if (!equals(this.props, prevProps)) {
+			this.fillInVideo(this.props);
+		}
 
-
-	componentWillUpdate (_, state) {
-		if (this.state.current !== state.current) {
+		if (this.state.current !== prevState.current) {
 			this.setState({playing: false});
 		}
 	},

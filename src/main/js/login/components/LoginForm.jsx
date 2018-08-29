@@ -57,7 +57,7 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		const {location} = global;
 		if (typeof location !== 'undefined' && location.search) {
 			let query = QueryString.parse(location.search);
@@ -67,10 +67,7 @@ export default createReactClass({
 				this.setError(query.message);
 			}
 		}
-	},
 
-
-	componentDidMount () {
 		this.updateUsername();
 	},
 

@@ -42,14 +42,14 @@ export default createReactClass({
 		};
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		this.resolveCatalogEntry();
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (this.getEntryId() !== this.getEntryId(nextProps)) {
-			this.resolveCatalogEntry(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.getEntryId() !== this.getEntryId(prevProps)) {
+			this.resolveCatalogEntry();
 		}
 	},
 

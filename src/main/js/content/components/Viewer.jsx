@@ -5,6 +5,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import cx from 'classnames';
 import {RouterMixin} from 'react-router-component';
 import Logger from '@nti/util-logger';
+import {equals} from '@nti/lib-commons';
 import {decodeFromURI} from '@nti/lib-ntiids';
 import {Loading, Error as Err, Pager } from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
@@ -122,37 +123,49 @@ export default createReactClass({
 	componentDidMount () {
 		//The DOM Node will always be the loading dom at his point...
 		//we wait for the re-render of the actual data in componentDidUpdate()
-		this.getDataIfNeeded(this.props);
+		this.getDataIfNeeded();
 	},
 
 
-	componentWillReceiveProps (props) {
-		this.getDataIfNeeded(props);
+	componentDidUpdate (prevProps, prevState) {
+		this.getDataIfNeeded();
+
+		const getComparable = ({pageSource, currentPage}) => ({currentPage, pageSource});
+
+		const current = getComparable(this.state);
+		const previous = getComparable(prevState);
+
+		if (!equals(current, previous)) {
+			const {currentPage, pageSource} = this.state;
+			//We transition between discussions, NoteEditor and content...
+			//those transitions delay "componentWillUnmount" which is one of the
+			//places where context book-keeping is performed... wait for it to occur.
+			clearTimeout(this.cdupTimout);
+			this.cdupTimout = setTimeout(
+				() => (
+					delete this.cdupTimout,
+					this.setPageSource(pageSource, currentPage)
+				),
+				TRANSITION_TIMEOUT
+			);
+		}
 	},
 
 
-	componentDidUpdate () {
-		const {pageSource, currentPage} = this.state;
-		//We transition between discussions, NoteEditor and content...
-		//those transitions delay "componentWillUnmount" which is one of the
-		//places where context book-keeping is performed... wait for it to occur.
-		setTimeout(() =>
-			this.setPageSource(pageSource, currentPage), TRANSITION_TIMEOUT);
-	},
+	getDataIfNeeded (props = this.props) {
+		const pageId = this.getPageID(props);
+		const rootId = this.getRootID(props);
+		const { currentPage, currentRoot } = this.state;
+		const newPage = pageId !== currentPage;
+		const newRoot = rootId !== currentRoot;
 
-
-	getDataIfNeeded (props) {
-		const newPageId = this.getPageID(props);
-		const newPage = newPageId !== this.state.currentPage;
-		const newRoot = this.getRootID(props) !== this.getRootID();
-		const initial = this.props === props;
-
-		if (initial || newPage || newRoot) {
+		if (newPage || newRoot) {
 			this.setState({
-				currentPage: newPageId,
+				currentRoot: rootId,
+				currentPage: pageId,
 				...this.getResetState()
 			}, () =>
-				loadPage(newPageId, props.contentPackage, props)
+				loadPage(pageId, props.contentPackage, props)
 			);
 		}
 	},

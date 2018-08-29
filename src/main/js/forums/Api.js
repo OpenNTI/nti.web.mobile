@@ -43,11 +43,11 @@ export function getPagedContents (ntiid,
 	batchSize = DEFAULT_BATCH_SIZE,
 	sortOrder = DEFAULT_SORT_ORDER,
 	sortOn = DEFAULT_PAGING_PARAMS.sortOn) {
-	let params = Object.assign(
-		{},
-		DEFAULT_PAGING_PARAMS,
-		{batchStart, batchSize, sortOrder, sortOn}
-	);
+	let params = {
+		
+		...DEFAULT_PAGING_PARAMS,
+		batchStart, batchSize, sortOrder, sortOn
+	};
 	return getForumItemContents(ntiid, params);
 }
 

@@ -100,26 +100,17 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (props) {
-		let {videoId} = this.props;
+	componentDidUpdate (prevProps, prevState) {
+		let {outlineId, MediaIndex, videoId, showDiscussions} = this.props;
+		let {currentTime, video} = this.state;
 
-		if (props.videoId !== videoId) {
-			this.getDataIfNeeded(props);
+		if (prevProps.videoId !== videoId) {
+			return this.getDataIfNeeded(this.props);
 		}
-	},
 
-
-	componentWillUpdate (nextProps) {
-		let {currentTime} = this.state;
-		if (!nextProps.showDiscussions && this.props.showDiscussions && currentTime) {
+		if (!prevProps.showDiscussions && showDiscussions && currentTime) {
 			this.setState({returnTime: currentTime});
 		}
-	},
-
-
-	componentDidUpdate (_, prevState) {
-		let {outlineId, MediaIndex} = this.props;
-		let {video} = this.state;
 
 		if (video !== prevState.video) {
 			logger.debug('Updating Pager...');

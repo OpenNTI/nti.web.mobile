@@ -6,8 +6,7 @@ import {loadSelectOptionsFromUserLinkRel} from '../Actions';
 import Store from '../Store';
 import * as Constants from '../Constants';
 
-export default class extends React.Component {
-	static displayName = 'forms:Select';
+export default class FormsSelect extends React.Component {
 
 	static propTypes = {
 
@@ -35,16 +34,9 @@ export default class extends React.Component {
 	};
 
 	state = {
-		loading: false
+		loading: Boolean(this.props.optionsLink)
 	};
 
-	componentWillMount () {
-		if (this.props.optionsLink) {
-			this.setState({
-				loading: true
-			});
-		}
-	}
 
 	componentDidMount () {
 		Store.addChangeListener(this.onStoreChange);

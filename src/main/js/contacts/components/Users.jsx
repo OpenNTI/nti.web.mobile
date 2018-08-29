@@ -32,7 +32,7 @@ export default createReactClass({
 		});
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		this.undos = {};
 	},
 

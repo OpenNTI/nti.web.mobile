@@ -40,7 +40,7 @@ export default createReactClass({
 	attachListRef (x) { this.flyout = x; },
 
 
-	componentWillMount () {
+	componentDidMount () {
 		getService().then(s => this.setState({capabilities: s.capabilities}));
 	},
 

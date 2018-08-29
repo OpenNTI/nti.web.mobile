@@ -28,7 +28,7 @@ export default createReactClass({
 
 	itemChanged () { this.forceUpdate(); },
 
-	componentWillMount () {
+	componentDidMount () {
 		this.getItem().addListener('change', this.itemChanged);
 	},
 

@@ -27,25 +27,20 @@ export default class AssignmentGroups extends React.Component {
 	}
 
 
-	state = {}
+	state = this.setup()
 
 
-	componentWillMount () {
-		this.setup();
-	}
-
-
-	componentWillReceiveProps (_,__, context) {
-		const {assignments} = context || {};
+	componentDidUpdate () {
+		const {assignments} = this.context || {};
 		if (assignments && assignments !== (this.state || {}).assignments) {
-			this.setup({assignments});
+			this.setState(this.setup());
 		}
 	}
 
 
 	setup ({assignments} = this.context) {
 		const store = assignments.getGroupedStore();
-		this.setState({assignments, store});
+		return {assignments, store};
 	}
 
 

@@ -36,10 +36,8 @@ export default class extends React.Component {
 		this.search(query);
 	}
 
-	componentWillReceiveProps (nextProps) {
-		const {props: {query}} = this;
-		const {query: newQuery} = nextProps;
-
+	componentDidUpdate ({query}) {
+		const {props: {query: newQuery}} = this;
 		if (newQuery !== query) {
 			this.search(newQuery);
 		}

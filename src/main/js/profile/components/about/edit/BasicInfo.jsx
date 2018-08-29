@@ -53,11 +53,12 @@ export default class extends React.Component {
 
 	state = {errors: {}};
 	attachAboutRef = (x) => { this.about = x; };
-	componentWillMount () { this.setup(); }
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.item !== nextProps.item) {
-			this.setup(nextProps);
+	componentDidMount () { this.setup(); }
+
+	componentDidUpdate (prevProps) {
+		if (this.props.item !== prevProps.item) {
+			this.setup();
 		}
 	}
 

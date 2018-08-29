@@ -45,9 +45,9 @@ export default class CourseView extends React.Component {
 	componentDidMount () { this.getDataIfNeeded(this.props); }
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.course !== this.props.course) {
-			this.getDataIfNeeded(nextProps);
+	componentDidUpdate (prevProps) {
+		if (prevProps.course !== this.props.course) {
+			this.getDataIfNeeded(this.props);
 		}
 	}
 

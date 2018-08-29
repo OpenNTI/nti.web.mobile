@@ -60,9 +60,9 @@ export default createReactClass({
 		this.fill(this.props);
 	},
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.relatedWorkRefId !== nextProps.relatedWorkRefId) {
-			this.fill(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.relatedWorkRefId !== prevProps.relatedWorkRefId) {
+			this.fill(this.props);
 		}
 	},
 

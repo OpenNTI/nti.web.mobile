@@ -17,14 +17,14 @@ class Performance extends React.Component {
 	}
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.loadSummary();
 	}
 
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.assignments !== nextProps.assignments) {
-			this.loadSummary(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.assignments !== prevProps.assignments) {
+			this.loadSummary();
 		}
 	}
 

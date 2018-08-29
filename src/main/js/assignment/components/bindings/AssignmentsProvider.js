@@ -56,9 +56,9 @@ export default class AssignmentsProvider extends React.Component {
 	}
 
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.course !== nextProps.course) {
-			this.loadAssignments(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.course !== prevProps.course) {
+			this.loadAssignments();
 		}
 	}
 

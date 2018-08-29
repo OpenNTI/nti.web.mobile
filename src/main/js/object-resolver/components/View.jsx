@@ -39,9 +39,9 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		let {objectId} = nextProps;
-		if (this.props.objectId !== objectId) {
+	componentDidUpdate (prevProps, prevState) {
+		let {objectId} = this.props;
+		if (prevProps.objectId !== objectId) {
 			this.resolveObject(objectId);
 		}
 	},

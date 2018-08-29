@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
+import { equals } from '@nti/lib-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 
 import QuestionWidget from 'assessment/components/Question';
@@ -44,8 +45,13 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () { this.synchronizeFromStore(); },
-	componentWillReceiveProps () { this.synchronizeFromStore();	},
+	componentDidMount () { this.synchronizeFromStore(); },
+
+	componentDidUpdate (prevProps, prevState) {
+		if (!equals(this.props, prevProps)) {
+			this.synchronizeFromStore();
+		}
+	},
 
 
 	synchronizeFromStore () {

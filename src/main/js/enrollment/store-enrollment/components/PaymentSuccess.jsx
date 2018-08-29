@@ -25,10 +25,10 @@ export default class extends React.Component {
 		purchaseAttempt: null
 	};
 
-	componentWillMount () {
-		this.setState({
+	getInitialState () {
+		return {
 			purchaseAttempt: Store.getPaymentResult()
-		});
+		};
 	}
 
 	componentWillUnmount () {

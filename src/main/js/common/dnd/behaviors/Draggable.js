@@ -271,18 +271,16 @@ export default {
 		const dragStopResultedInDrop = onDragEnd && onDragEnd(this, e, this.getPosition());
 
 		this.setState(
-			Object.assign({
-				dragging: false,
+			{dragging: false,
 				startX: 0,
-				startY: 0
-			},
-			this.props.restoreOnStop ? {
-				restoring: dragStopResultedInDrop,
-				x: 0,
-				y: 0
-			} : {
-			}
-			));
+				startY: 0,
+				...(this.props.restoreOnStop ? {
+					restoring: dragStopResultedInDrop,
+					x: 0,
+					y: 0
+				} : {
+				})
+			});
 
 		this[removeListeners]();
 	},

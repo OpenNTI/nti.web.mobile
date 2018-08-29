@@ -41,9 +41,9 @@ export default createReactClass({
 	componentWillUnmount () {},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.course !== this.props.course) {
-			this.getDataIfNeeded(nextProps);
+	componentDidUpdate (prevProps) {
+		if (prevProps.course !== this.props.course) {
+			this.getDataIfNeeded(this.props);
 		}
 	},
 
@@ -105,7 +105,7 @@ export default createReactClass({
 			return ( <EmptyList type="videos"/> );
 		}
 
-		let props = Object.assign({}, this.props, { MediaIndex });
+		let props = { ...this.props, MediaIndex};
 
 		return (
 			<Router.Locations className="media-view" contextual>

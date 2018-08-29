@@ -136,17 +136,13 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.topicId !== this.props.topicId) {
+	componentDidUpdate (prevProps) {
+		if (prevProps.topicId !== this.props.topicId) {
 			this.setState({
 				loading: true
 			});
-			this.loadData(nextProps.topicId).then(() =>
-			{
-				this.setState({
-					loading: false
-				});
-			});
+			this.loadData(this.props.topicId)
+				.then(() => this.setState({ loading: false }));
 		}
 	},
 

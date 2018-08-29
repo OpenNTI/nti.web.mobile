@@ -16,7 +16,7 @@ export default class extends React.Component {
 		course: PropTypes.object.isRequired
 	};
 
-	componentWillMount () {
+	componentDidMount () {
 		let menu = [];
 		let {course} = this.props;
 		let {CatalogEntry} = course || {};
@@ -64,10 +64,8 @@ export default class extends React.Component {
 
 		// if (course) {}
 
-		let props = Object.assign({}, this.props, {
-			availableSections: menu,
-			children: React.Children.map(children, x => React.cloneElement(x))
-		});
+		let props = { ...this.props, availableSections: menu,
+			children: React.Children.map(children, x => React.cloneElement(x))};
 
 		return React.createElement(Page, props);
 	}

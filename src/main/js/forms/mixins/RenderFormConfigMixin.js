@@ -185,7 +185,7 @@ export default {
 		let target = event.target;
 		let field = target.name;
 		let value = target.value;
-		let tmp = Object.assign({}, this.state.fieldValues);
+		let tmp = { ...this.state.fieldValues};
 
 		if (value || tmp.hasOwnProperty(field)) {
 			// don't set an empty value if there's not already

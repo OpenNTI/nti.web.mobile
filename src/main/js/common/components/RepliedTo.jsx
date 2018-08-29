@@ -16,9 +16,9 @@ export default class extends React.Component {
 		this.fill();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.item !== nextProps.item) {
-			this.fill(nextProps);
+	componentDidUpdate (props) {
+		if (this.props.item !== props.item) {
+			this.fill();
 		}
 	}
 

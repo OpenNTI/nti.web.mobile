@@ -35,7 +35,7 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	async componentDidMount () {
 		let {item} = this.props;
 		let el;
 		if (item) {
@@ -58,10 +58,7 @@ export default createReactClass({
 			}
 
 		}
-	},
 
-
-	async componentDidMount () {
 		this.setState({
 			context: await this.resolveContext()
 		});

@@ -25,8 +25,10 @@ export default class extends React.Component {
 		Store.removeChangeListener(this.synchronizeFromStore);
 	}
 
-	componentWillReceiveProps (props) {
-		this.synchronizeFromStore(props);
+	componentDidUpdate (props) {
+		if (props.assessment !== this.props.assessment) {
+			this.synchronizeFromStore();
+		}
 	}
 
 	synchronizeFromStore = () => {

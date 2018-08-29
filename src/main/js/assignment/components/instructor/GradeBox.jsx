@@ -34,14 +34,14 @@ class GradeBox extends React.Component {
 	}
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.onItemChanged();
 	}
 
 
-	componentWillReceiveProps (nextProps) {
-		const {grade: newGrade} = nextProps;
-		const {grade: oldGrade} = this.props;
+	componentDidUpdate (prevProps) {
+		const {grade: newGrade} = this.props;
+		const {grade: oldGrade} = prevProps;
 
 		if (oldGrade !== newGrade) {
 			this.onItemChanged(newGrade);

@@ -16,13 +16,13 @@ export default class GiftPurchase extends React.Component {
 	state = {}
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.resolvePurchasable();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.entryId !== nextProps.entryId) {
-			this.resolvePurchasable(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.entryId !== prevProps.entryId) {
+			this.resolvePurchasable();
 		}
 	}
 

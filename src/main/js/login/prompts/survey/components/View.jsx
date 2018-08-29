@@ -21,7 +21,7 @@ export default createReactClass({
 	displayName: 'RegistrationSurveyView',
 	mixins: [Mixins.BasePath],
 
-	componentWillMount () { //constructor
+	componentDidMount () { //constructor
 		this.METHODS = {
 			['survey-complete']: () => {
 				global.location.replace(getReturnURL() || this.getBasePath());
@@ -33,10 +33,7 @@ export default createReactClass({
 		};
 
 		this.setState({busy: true});
-	},
 
-
-	componentDidMount () {
 		Messages.add(this.onMessage);
 		return getAppUser()
 			.then(u => u.getLink('RegistrationSurvey') || Promise.reject('No Link'))

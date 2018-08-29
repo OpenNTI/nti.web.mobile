@@ -52,10 +52,10 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
-		this.setState({
+	getInitialState () {
+		return {
 			QuestionUniqueDNDToken: this.getNewUniqueToken()
-		});
+		};
 	},
 
 
@@ -64,8 +64,8 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		this.maybeSetupSubmission(this.props.question, nextProps.question);
+	componentDidUpdate (prevProps) {
+		this.maybeSetupSubmission(prevProps.question, this.props.question);
 	},
 
 

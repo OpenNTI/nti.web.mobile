@@ -20,8 +20,12 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () { this.setup(); },
-	componentWillReceiveProps (nextProps) { this.setup(nextProps); },
+	componentDidMount () { this.setup(); },
+	componentDidUpdate (props) {
+		if (this.props.item !== props.item) {
+			this.setup();
+		}
+	},
 
 	setup (props = this.props) {
 		const {item: {Results}} = props;

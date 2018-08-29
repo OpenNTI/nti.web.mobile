@@ -28,7 +28,7 @@ export default createReactClass({
 		};
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setCourse();
 	},
 

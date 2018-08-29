@@ -42,11 +42,11 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () { this.setup(); },
+	componentDidMount () { this.setup(); },
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.entity !== nextProps.entity) {
-			this.setup(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.entity !== prevProps.entity) {
+			this.setup();
 		}
 	},
 
