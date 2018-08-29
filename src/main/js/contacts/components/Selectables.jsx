@@ -12,14 +12,14 @@ export default class extends React.Component {
 		linkToProfile: PropTypes.any
 	};
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setUpSelectionModel();
 		this.rememberOriginalList();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.entities !== this.props.entities) {
-			this.setUpSelectionModel(nextProps);
+	componentDidUpdate (props) {
+		if (props.entities !== this.props.entities) {
+			this.setUpSelectionModel();
 		}
 	}
 

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {buffer} from '@nti/lib-commons';
+import {buffer, equals} from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
 import {Pager, Mixins} from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
@@ -64,7 +64,7 @@ export default createReactClass({
 		default: buffer(100, function () {
 			let o = NavStore.getData();
 			logger.debug('Set Context: %o', o);
-			this.setState(Object.assign({resolving: true}, o),
+			this.setState({resolving: true, ...o},
 				()=> this.fillIn(o));
 		})
 	},
@@ -81,8 +81,10 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps () {
-		this.closeMenu();
+	componentDidUpdate (prevProps) {
+		if (!equals(this.props, prevProps)) {
+			this.closeMenu();
+		}
 	},
 
 
@@ -311,7 +313,7 @@ export default createReactClass({
 		let sectionProps = x=> {
 			let title = x.label;
 			let href = path.normalize(this.makeHref(x.href));
-			return Object.assign({children: title}, x, {title, href, className: cx(x.className, {active: active === x})});
+			return {children: title, ...x, title, href, className: cx(x.className, {active: active === x})};
 		};
 
 		if (!availableSections) {

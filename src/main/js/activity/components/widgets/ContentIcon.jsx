@@ -52,11 +52,11 @@ export default class extends React.Component {
 		this.load();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		let {item} = this.props;
-		let {item: nextItem} = nextProps;
+	componentDidUpdate (prevProps) {
+		let {item} = prevProps;
+		let {item: nextItem} = this.props;
 		if(getID(item) !== getID(nextItem)) {
-			this.load(nextProps);
+			this.load();
 		}
 	}
 

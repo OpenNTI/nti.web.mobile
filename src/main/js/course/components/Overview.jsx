@@ -144,14 +144,11 @@ export default class CourseLessonOverview extends React.Component {
 	}
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.outlineId !== this.props.outlineId) {
-			this.getDataIfNeeded(nextProps);
-		}
-	}
-
-
 	componentDidUpdate (prevProps, prevState) {
+		if (prevProps.outlineId !== this.props.outlineId) {
+			this.getDataIfNeeded(this.props);
+		}
+
 		const {
 			contextProvider: context,
 			props: {outlineId},

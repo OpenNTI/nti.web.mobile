@@ -19,7 +19,7 @@ export default class extends React.Component {
 		items: PropTypes.any.isRequired
 	};
 
-	componentWillMount () {
+	componentDidMount () {
 		const {items} = this.props;
 		items.addListener('change', this.itemsChange);
 	}

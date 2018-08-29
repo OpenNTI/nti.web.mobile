@@ -43,18 +43,13 @@ export default class AssignmentGroups extends React.Component {
 	}
 
 
-	state = {}
+	state = this.setup()
 
 
-	componentWillMount () {
-		this.setup();
-	}
-
-
-	componentWillReceiveProps (_,__, context) {
-		const {assignments} = context || {};
+	componentDidUpdate () {
+		const {assignments} = this.context || {};
 		if (assignments && assignments !== (this.state || {}).assignments) {
-			this.setup(_,{assignments});
+			this.setState(this.setup());
 		}
 	}
 
@@ -64,7 +59,7 @@ export default class AssignmentGroups extends React.Component {
 		const store = id && assignments.getAssignmentSummary(id);
 		const assignment = props.assignment || assignments.getAssignment(getAssignmentID(props));
 
-		this.setState({assignments, assignment, store});
+		return {assignments, assignment, store};
 	}
 
 

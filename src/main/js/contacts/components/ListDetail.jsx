@@ -45,9 +45,9 @@ export default createReactClass({
 		this.getList();
 	},
 
-	componentWillUpdate (_, nextState) {
-		let {list} = this.state;
-		let nextList = nextState.list;
+	componentDidUpdate (_, prevState) {
+		let {list: nextList} = this.state;
+		let {list} = prevState;
 
 		if (list && list !== nextList) {
 			list.removeListener('change', this.onStoreChange);

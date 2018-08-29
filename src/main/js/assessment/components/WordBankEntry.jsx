@@ -38,7 +38,7 @@ export default class extends React.Component {
 
 	render () {
 		let {content, wid} = this.props.entry;
-		let props = Object.assign({}, this.props, {entry: undefined});
+		let props = { ...this.props, entry: undefined};
 		let {locked} = props;
 		let classes = ['drag', 'source'];
 		if (locked) {

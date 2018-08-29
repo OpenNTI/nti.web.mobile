@@ -75,8 +75,8 @@ export default createReactClass({
 		this.getReplies();
 	},
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.item !== nextProps.item) {
+	componentDidUpdate (prevProps) {
+		if (this.props.item !== prevProps.item) {
 			this.getReplies();
 		}
 	},

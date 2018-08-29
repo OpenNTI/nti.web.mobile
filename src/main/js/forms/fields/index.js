@@ -9,7 +9,7 @@ export const StateSelect = {
 		}
 	},
 	withProps (props) {
-		return Object.assign({}, this.baseConfig, props);
+		return { ...this.baseConfig, ...props};
 	}
 };
 
@@ -24,6 +24,6 @@ export const CountrySelect = {
 		}
 	},
 	withProps (props) {
-		return Object.assign({}, this.baseConfig, props);
+		return { ...this.baseConfig, ...props};
 	}
 };

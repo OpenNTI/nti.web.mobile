@@ -32,7 +32,7 @@ export default createReactClass({
 		let solution = (this.state.solution || {}).value;
 		let ex = this.state.explanation || '';
 
-		solution = solution && Array.from(Object.assign({length: values.length}, solution));
+		solution = solution && Array.from({length: values.length, ...solution});
 
 		return (
 			<div className="ordered solutions">

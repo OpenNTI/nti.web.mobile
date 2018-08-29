@@ -22,8 +22,10 @@ export default createReactClass({
 		this.setItemContentsState();
 	},
 
-	componentWillReceiveProps (nextProps) {
-		this.setItemContentsState(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.container !== prevProps.container) {
+			this.setItemContentsState();
+		}
 	},
 
 	setItemContentsState (props = this.props) {

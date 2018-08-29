@@ -31,14 +31,17 @@ export default class extends React.Component {
 	};
 
 	componentDidMount () {
-		this.setUp();
+		this.setup();
 	}
 
-	componentWillReceiveProps (nextProps) {
-		this.setUp(nextProps);
+	componentDidUpdate (prevProps) {
+		const {code} = this.props;
+		if (code !== prevProps.code) {
+			this.setup();
+		}
 	}
 
-	setUp = (props = this.props) => {
+	setup = (props = this.props) => {
 		const {code} = props;
 		this.setState({
 			code

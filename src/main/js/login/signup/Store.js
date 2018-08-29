@@ -15,55 +15,52 @@ const addError = 'signupStore:addError';
 const clearErrors = 'signupStore:clearErrors';
 const accountCreated = 'signupStore:accountCreated';
 
-let Store = Object.assign({}, EventEmitter.prototype, {
-
-	emitChange (evt) {
-		this.emit(CHANGE_EVENT, evt);
-	},
+let Store = { ...EventEmitter.prototype, emitChange (evt) {
+	this.emit(CHANGE_EVENT, evt);
+},
 
 
-	addChangeListener (callback) {
-		this.on(CHANGE_EVENT, callback);
-	},
+addChangeListener (callback) {
+	this.on(CHANGE_EVENT, callback);
+},
 
 
-	removeChangeListener (callback) {
-		this.removeListener(CHANGE_EVENT, callback);
-	},
+removeChangeListener (callback) {
+	this.removeListener(CHANGE_EVENT, callback);
+},
 
-	getErrors () {
-		return errors;
-	},
+getErrors () {
+	return errors;
+},
 
-	[addError] (error) {
-		errors.push(error);
+[addError] (error) {
+	errors.push(error);
+	this.emitChange({
+		type: Constants.ERROR_EVENT,
+		errors: errors
+	});
+},
+
+[clearErrors] () {
+	if (errors.length > 0) {
+		errors.length = 0;
 		this.emitChange({
-			type: Constants.ERROR_EVENT,
-			errors: errors
+			type: Constants.ERROR_EVENT
 		});
-	},
-
-	[clearErrors] () {
-		if (errors.length > 0) {
-			errors.length = 0;
-			this.emitChange({
-				type: Constants.ERROR_EVENT
-			});
-		}
-	},
-
-	[accountCreated] (result) {
-		this[clearErrors]();
-		this.emitChange({
-			type: 'created',
-			details: result
-		});
-	},
-
-	getPrivacyUrl () {
-		return 'https://docs.google.com/document/pub?id=1W9R8s1jIHWTp38gvacXOStsfmUz5TjyDYYy3CVJ2SmM';
 	}
-});
+},
+
+[accountCreated] (result) {
+	this[clearErrors]();
+	this.emitChange({
+		type: 'created',
+		details: result
+	});
+},
+
+getPrivacyUrl () {
+	return 'https://docs.google.com/document/pub?id=1W9R8s1jIHWTp38gvacXOStsfmUz5TjyDYYy3CVJ2SmM';
+}};
 
 function fieldsMatch (value1, value2) {
 	if( !value1 && !value2) {

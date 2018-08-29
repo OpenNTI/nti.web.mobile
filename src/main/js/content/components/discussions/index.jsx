@@ -64,9 +64,9 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (this.getStore() !== this.getStore(nextProps)) {
-			this.updateStore(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.getStore() !== this.getStore(prevProps)) {
+			this.updateStore(this.props);
 		}
 	},
 

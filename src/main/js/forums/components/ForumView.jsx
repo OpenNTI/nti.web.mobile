@@ -35,7 +35,7 @@ export default createReactClass({
 	backingStore: Store,
 	backingStoreEventHandlers: {},
 
-	componentWillMount () {
+	componentDidMount () {
 		const {contextID} = this.props;
 		// if a user lands directly on a topic or post view without going through
 		// the parent views the store may not have the package id.

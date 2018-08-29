@@ -41,11 +41,11 @@ export default createReactClass({
 
 	getDefaultValue () {
 		let values = (this.props.item || {}).labels || [];
-		return Object.assign({}, values.map((_, i)=>i));
+		return { ...values.map((_, i)=>i)};
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setState({
 			PartLocalDNDToken: this.getNewUniqueToken()
 		});
@@ -182,7 +182,7 @@ export default createReactClass({
 	// this will apply the state, and notify the store of the change.
 	[SetValueRaw] (value) {
 		let {length} = this.props.item.values;
-		let array = Array.from(Object.assign({length: length}, value));
+		let array = Array.from({length: length, ...value});
 
 		if (value && Object.keys(value).length !== length) {
 			value = null;
@@ -211,6 +211,6 @@ export default createReactClass({
 
 	getValueAsArray () {
 		let {length} = this.props.item.values;
-		return Array.from(Object.assign({length: length}, this.getValue()));
+		return Array.from({length: length, ...this.getValue()});
 	}
 });

@@ -31,16 +31,16 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.getTitle();
 	},
 
 
-	componentWillReceiveProps (nextProps) {
+	componentDidUpdate (prevProps) {
 		let {item} = this.props;
 
-		if ((item || {}).containerId !== (nextProps.item || {}).containerId) {
-			this.getTitle(nextProps);
+		if ((item || {}).containerId !== (prevProps.item || {}).containerId) {
+			this.getTitle();
 		}
 	},
 

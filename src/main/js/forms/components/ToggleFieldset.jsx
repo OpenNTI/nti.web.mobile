@@ -15,13 +15,9 @@ export default class extends React.Component {
 		onChange: PropTypes.func
 	};
 
-	state = {};
-
-	componentWillMount () {
-		this.setState({
-			fieldset: this.props.field.fieldsetOff,
-			fieldValues: {}
-		});
+	state = {
+		fieldset: this.props.field.fieldsetOff,
+		fieldValues: {}
 	}
 
 	onToggle = (event) => {

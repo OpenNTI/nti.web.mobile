@@ -46,9 +46,9 @@ class Store extends StorePrototype {
 
 			[PRICED_ITEM_RECEIVED] (data) {
 				this.emitChange(
-					Object.assign(
-						{ type: PRICED_ITEM_RECEIVED },
-						data.action.payload));
+					{
+						type: PRICED_ITEM_RECEIVED,
+						...data.action.payload});
 			},
 
 
@@ -120,7 +120,7 @@ class Store extends StorePrototype {
 		if(!this.data.stripeToken) {
 			throw new Error('Store doesn\'t currently have a stripe token.');
 		}
-		return Object.assign({}, this.data.stripeToken);
+		return { ...this.data.stripeToken};
 	}
 
 
@@ -140,7 +140,7 @@ class Store extends StorePrototype {
 
 
 	getPaymentFormData () {
-		let data = Object.assign({}, this.data.formData);
+		let data = { ...this.data.formData};
 
 		// don't repopulate credit card number
 		delete data.number;

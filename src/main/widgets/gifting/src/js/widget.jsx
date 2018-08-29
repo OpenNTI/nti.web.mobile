@@ -30,7 +30,7 @@ export default class GiftingWidget extends React.Component {
 	attachRouterRef = (x) => this.router = x
 
 
-	componentWillMount () {
+	componentDidMount () {
 		Store.addChangeListener(this.onChange);
 
 		let {purchasableId} = this.props;

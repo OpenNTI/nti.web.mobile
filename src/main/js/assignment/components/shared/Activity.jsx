@@ -31,9 +31,9 @@ class Activity extends React.Component {
 	}
 
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.assignments !== nextProps.assignments) {
-			this.loadActivity(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.assignments !== prevProps.assignments) {
+			this.loadActivity();
 		}
 	}
 

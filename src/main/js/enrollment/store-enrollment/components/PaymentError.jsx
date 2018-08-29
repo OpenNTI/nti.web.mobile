@@ -21,7 +21,7 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		let error = (Store.getPaymentResult() || {}).Error;
 		let message = (error || {}).Message;
 		if (message) {

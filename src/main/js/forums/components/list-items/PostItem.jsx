@@ -82,11 +82,11 @@ export default createReactClass({
 		};
 	},
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.item !== nextProps.item) {
+	componentDidUpdate (prevProps) {
+		if (this.props.item !== prevProps.item) {
 			this.setState({
 				busy: false,
-				item: nextProps.item || this.props.item
+				item: this.props.item || prevProps.item //wtf? this doesn't allow blanking out?
 			});
 		}
 	},

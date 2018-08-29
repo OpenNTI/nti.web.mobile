@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import isTouch from '@nti/util-detection-touch';
 import {addClass} from '@nti/lib-dom';
@@ -13,29 +12,19 @@ const logger = Logger.get('content:components:AnnotationBar');
 const stop = e => (e.preventDefault(),e.stopPropagation());
 
 
-export default createReactClass({
-	displayName: 'AnnotationBar',
+export default class AnnotationBar extends React.Component {
 
-	propTypes: {
+	static propTypes = {
 		item: PropTypes.object,
 		range: PropTypes.object,
 		onNewDiscussion: PropTypes.func,
 		onSetHighlight: PropTypes.func,
 		onRemoveHighlight: PropTypes.func
-	},
+	}
 
+	state = {}
 
-	getInitialState () {
-		return {};
-	},
-
-
-	componentWillReceiveProps () {
-		this.replaceState(this.getInitialState());
-	},
-
-
-	getRange () {
+	getRange = () => {
 		try {
 			const selection = window.getSelection();
 			const {item, range} = this.props;
@@ -48,15 +37,15 @@ export default createReactClass({
 		catch (e) {
 			logger.error('Error getting range: %o', e.stack || e.message || e);
 		}
-	},
+	}
 
 
-	isBusy () {
+	isBusy = () => {
 		return !!this.state.busy;
-	},
+	}
 
 
-	onHighlight (e) {
+	onHighlight = (e) => {
 		if (this.isBusy()) { return; }
 
 		let range = this.getRange();
@@ -68,18 +57,18 @@ export default createReactClass({
 
 		this.setState({busy: c});
 		this.props.onSetHighlight(range, c);
-	},
+	}
 
 
-	onUnHighlight () {
+	onUnHighlight = () => {
 		if (this.isBusy()) { return; }
 
 		this.setState({busy: 'delete'});
 		this.props.onRemoveHighlight(this.getRange());
-	},
+	}
 
 
-	onNote () {
+	onNote = () => {
 		if (this.isBusy()) { return; }
 
 		let range = this.getRange();
@@ -88,18 +77,14 @@ export default createReactClass({
 
 		//we want the exit-animation to be different for this action
 		// than the normal one, so we need an extra class.
-		const {el: dom} = this;
+		const {current: dom} = this.ref;
 		addClass(dom.parentNode, 'swapping-modal');
 
 		this.setState({busy: 'note'});
 		this.props.onNewDiscussion(range);
-	},
+	}
 
-
-	attachRef (el) {
-		this.el = el;
-	},
-
+	ref = React.createRef()
 
 	render () {
 		const {
@@ -126,7 +111,7 @@ export default createReactClass({
 				onClick={this.onHighlight}>Highlight</Button> ));
 
 		return (
-			<div className="add annotation toolbar" ref={this.attachRef}>
+			<div className="add annotation toolbar" ref={this.ref}>
 				{hightlighters}
 
 				{!!onRemoveHighlight && (
@@ -152,7 +137,7 @@ export default createReactClass({
 			</div>
 		);
 	}
-});
+}
 
 
 // Why both onTouchStart and onClick? Because the selection is gone before onClick fires on

@@ -19,8 +19,8 @@ class AssignmentsView extends React.Component {
 		rootId: PropTypes.string // assignmentId, present when viewing an individual assignment
 	}
 
-	componentWillMount () {
-		this.setState({store: this.props.assignments.getGroupedStore()});
+	state = {
+		store: this.props.assignments.getGroupedStore()
 	}
 
 

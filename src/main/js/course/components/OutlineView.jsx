@@ -54,10 +54,10 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (nextProps) {
+	componentDidUpdate (prevProps) {
 		let {item} = this.props;
-		if (nextProps.item !== item) {
-			this.fillIn(nextProps);
+		if (prevProps.item !== item) {
+			this.fillIn(this.props);
 		}
 	},
 

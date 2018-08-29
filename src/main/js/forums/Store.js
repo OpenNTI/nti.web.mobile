@@ -151,11 +151,11 @@ class Store extends StorePrototype {
 	getForumContents (forumId, batchStart, batchSize) {
 		return this.getForumItemContents(
 			forumId,
-			Object.assign(
-				{},
-				DEFAULT_PAGING_PARAMS,
-				{batchStart, batchSize}
-			)
+			{
+				
+				...DEFAULT_PAGING_PARAMS,
+				batchStart, batchSize
+			}
 		);
 	}
 

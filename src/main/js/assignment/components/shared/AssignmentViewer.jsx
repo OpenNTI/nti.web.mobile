@@ -36,14 +36,14 @@ class AssignmentViewer extends React.Component {
 	}
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setup();
 	}
 
 
-	componentWillReceiveProps (nextProps) {
-		if (this.unsubscribe && this.props.rootId !== nextProps.rootId) {
-			this.setup(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.unsubscribe && this.props.rootId !== prevProps.rootId) {
+			this.setup();
 		}
 	}
 

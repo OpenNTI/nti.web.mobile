@@ -21,7 +21,7 @@ export default createReactClass({
 		item: PropTypes.object
 	},
 
-	componentWillMount () {
+	componentDidMount () {
 		// console.debug('One on One Chat:', this.props.item);
 	},
 

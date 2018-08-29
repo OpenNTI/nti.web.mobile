@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
 import {DateTime} from '@nti/web-commons';
@@ -22,6 +23,10 @@ export default createReactClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
 
+	propTypes: {
+		item: PropTypes.object
+	},
+
 	statics: {
 		noteableType: 'note'
 	},
@@ -32,8 +37,10 @@ export default createReactClass({
 	},
 
 
-	componentWillReceiveProps (props) {
-		this.updatePreview(props);
+	componentDidUpdate (prevProps) {
+		if (this.props.item !== prevProps.item) {
+			this.updatePreview(this.props);
+		}
 	},
 
 

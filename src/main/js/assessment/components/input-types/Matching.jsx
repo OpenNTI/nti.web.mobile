@@ -39,7 +39,7 @@ export default createReactClass({
 	},
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setState({
 			PartLocalDNDToken: this.getNewUniqueToken()
 		});
@@ -47,7 +47,7 @@ export default createReactClass({
 
 
 	onDrop (drop) {
-		let value = Object.assign({}, this.state.value || {});
+		let value = { ...this.state.value || {}};
 		let data = drop || {};
 		let {source, target} = data;
 
@@ -92,7 +92,7 @@ export default createReactClass({
 		let source = get('.source', 'data-source');
 		//let target = get('.target', 'data-target');
 
-		let val = Object.assign({}, this.state.value || {});
+		let val = { ...this.state.value || {}};
 
 		delete val[source];
 		this[SetValueRaw](val);
@@ -151,7 +151,7 @@ export default createReactClass({
 
 	renderDroppedDragSource (targetIndex, solution) {
 		let sources = this.props.item.labels || [];
-		let value = Array.from(Object.assign({length: sources.length}, this.state.value || {}));
+		let value = Array.from({length: sources.length, ...this.state.value || {}});
 		let correct = '';
 
 		// we are seeing string values (of numbers) so we shouldn't assume the array is already numeric

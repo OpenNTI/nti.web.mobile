@@ -29,17 +29,13 @@ export default class Assignments extends React.Component {
 	}
 
 
-	state = {}
-
-
-	componentWillMount () {
-		const {assignments} = this.context;
-		this.setState({assignments});
+	state = {
+		assignments: this.context.assignments
 	}
 
 
-	componentWillReceiveProps (_,__, context) {
-		const {assignments} = context || {};
+	componentDidUpdate () {
+		const {assignments} = this.context || {};
 		if (assignments && assignments !== (this.state || {}).assignments) {
 			this.setState({assignments});
 		}

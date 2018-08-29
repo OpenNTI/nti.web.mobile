@@ -9,20 +9,22 @@ const OPTIONS = [
 	{ label: 'Ungraded Items', value: 'ungraded'}
 ];
 
-export default class extends React.Component {
-	static displayName = 'ItemCategorySelect';
+export default class ItemCategorySelect extends React.Component {
 
 	static propTypes = {
 		value: PropTypes.any,
 		onChange: PropTypes.func.isRequired
-	};
-
-	componentWillMount () {
-		this.setState({filter: this.props.value || 'all'});
 	}
 
-	componentWillReceiveProps (nextProps) {
-		this.setState({filter: nextProps.value || 'all'});
+	state = {
+		filter: this.props.value || 'all'
+	}
+
+	componentDidUpdate (prevProps) {
+		const filter = this.props.value || 'all';
+		if (this.state.filter !== filter) {
+			this.setState({ filter });
+		}
 	}
 
 	render () {

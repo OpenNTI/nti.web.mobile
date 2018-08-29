@@ -39,7 +39,11 @@ export default createReactClass({
 
 
 	componentDidMount () { this.synchronizeFromStore(); },
-	componentWillReceiveProps () { this.synchronizeFromStore();	},
+	componentDidUpdate (props) {
+		if (props.assessment !== this.props.assessment) {
+			this.synchronizeFromStore();
+		}
+	},
 
 
 	synchronizeFromStore () {

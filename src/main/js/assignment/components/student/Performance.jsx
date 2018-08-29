@@ -19,7 +19,7 @@ class Performance extends React.Component {
 	}
 
 
-	componentWillMount () {
+	componentDidMount () {
 		this.setState({summary: this.props.assignments.getStudentSummary()});
 	}
 
