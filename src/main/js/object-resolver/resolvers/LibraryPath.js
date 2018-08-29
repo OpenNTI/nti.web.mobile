@@ -20,6 +20,7 @@ const getTarget = x => x.target || x[Object.keys(x).filter(k => /target-ntiid/i.
 const MIME_TYPES = {
 	'contentpackage': (o) => `/content/${encode(o.getID())}/o/`,
 	'contentpackagebundle': 'contentpackage',
+	'publishablecontentpackagebundle': 'contentpackage',
 
 	'courses.legacycommunitybasedcourseinstance': 'courses.courseinstance',
 	'courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
