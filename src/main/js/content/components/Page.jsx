@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {scoped} from '@nti/lib-locale';
+import { isFlag } from '@nti/web-client';
 
 import Page from 'common/components/Page';
 
@@ -49,6 +50,10 @@ export default class ContentPage extends React.Component {
 
 		if (!contentPackage.hasDiscussions()) {
 			menu = menu.filter(x=> x.href !== Sections.DISCUSSIONS);
+		}
+
+		if (!isFlag('show-notebook-tab')) {
+			menu = menu.filter(x => x.href !== Sections.NOTEBOOK);
 		}
 
 		this.setState({menu});
