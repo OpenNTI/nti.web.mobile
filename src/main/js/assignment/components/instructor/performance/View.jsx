@@ -16,21 +16,17 @@ class Performance extends React.Component {
 		assignments: PropTypes.object
 	}
 
-
-	componentDidMount () {
-		this.loadSummary();
-	}
-
+	state = this.getSummary();
 
 	componentDidUpdate (prevProps) {
 		if (this.props.assignments !== prevProps.assignments) {
-			this.loadSummary();
+			this.setState(this.getSummary());
 		}
 	}
 
 
-	loadSummary ({assignments} = this.props) {
-		this.setState({summary: assignments.getSummary()});
+	getSummary ({assignments} = this.props) {
+		return {summary: assignments.getSummary()};
 	}
 
 

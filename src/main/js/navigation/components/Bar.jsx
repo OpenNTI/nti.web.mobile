@@ -81,13 +81,6 @@ export default createReactClass({
 	},
 
 
-	componentDidUpdate (prevProps) {
-		if (!equals(this.props, prevProps)) {
-			this.closeMenu();
-		}
-	},
-
-
 	fillIn (state = this.state) {
 		const {path: contextPath = []} = state;
 		const [current, returnTo] = contextPath.slice().reverse();
@@ -227,6 +220,10 @@ export default createReactClass({
 	},
 
 
+	onSelect () {
+		this.closeMenu();
+	},
+
 	launchSearch () {
 		this.setState({
 			searchOpen: true,
@@ -326,7 +323,7 @@ export default createReactClass({
 			<Transition key="menu">
 				<Menu {...props}>
 					{sections.map((x,i)=>
-						<li key={i} {...x}><a {...x}/></li>
+						<li key={i} {...x}><a onClick={this.onSelect} {...x}/></li>
 					)}
 				</Menu>
 			</Transition>
