@@ -18,11 +18,9 @@ class Performance extends React.Component {
 		rootId: PropTypes.string // assignmentId, present when viewing an individual assignment
 	}
 
-
-	componentDidMount () {
-		this.setState({summary: this.props.assignments.getStudentSummary()});
+	state = {
+		summary: this.props.assignments.getStudentSummary()
 	}
-
 
 	render () {
 		const {props: {rootId}, state: {summary}} = this;
