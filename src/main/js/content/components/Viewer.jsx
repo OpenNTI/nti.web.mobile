@@ -6,7 +6,7 @@ import cx from 'classnames';
 import {RouterMixin} from 'react-router-component';
 import Logger from '@nti/util-logger';
 import {decodeFromURI} from '@nti/lib-ntiids';
-import {Loading, Error as Err } from '@nti/web-commons';
+import {Loading, Error as Err, Pager } from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 import {ViewEvent} from '@nti/web-session';
 import { PageDescriptor } from '@nti/lib-content-processing';
@@ -239,6 +239,19 @@ export default createReactClass({
 		}
 	},
 
+	renderBottomPager () {
+		if (isAssignment(this.getAssessment())) {
+			return null;
+		}
+
+		const { contentPackage } = this.props;
+
+		if (contentPackage && contentPackage.getTablesOfContents) {
+			return <BottomPager contentPackage={contentPackage} rootId={this.getRootID()} currentPage={this.getPageID()} getAssessment={this.getAssessment} />;
+		} else {
+			return <Pager position="bottom" pageSource={this.state.pageSource} current={this.getPageID()} />;
+		}
+	},
 
 	renderGroupContents () {
 		const {contentPackage} = this.props;
@@ -295,7 +308,7 @@ export default createReactClass({
 
 							{this.renderPopUp()}
 
-							<BottomPager contentPackage={contentPackage} rootId={this.getRootID()} currentPage={this.getPageID()} getAssessment={this.getAssessment} />
+							{this.renderBottomPager()}
 
 							<Gutter
 								ref={x => this.gutter = x}
