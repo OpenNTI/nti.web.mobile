@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { Enrollment } from '@nti/web-course';
 import {Mixins} from '@nti/web-commons';
+import { getHistory } from '@nti/web-routing';
+import { encodeForURI } from '@nti/lib-ntiids';
 
 import Mixin from './mixin';
 
@@ -14,6 +16,31 @@ export default createReactClass({
 
 	propTypes: {
 		catalogEntry: PropTypes.object.isRequired
+	},
+
+	childContextTypes: {
+		router: PropTypes.object
+	},
+
+	getChildContext () {
+		return {
+			router: {
+				...(this.context.router || {}),
+				baseroute: '/mobile',
+				getRouteFor: this.getRouteFor,
+				history: getHistory()
+			}
+		};
+	},
+
+
+	getRouteFor (object, context) {
+		const isEnrolled = object.MimeType === 'application/vnd.nextthought.courseware.courseinstanceenrollment';
+		const isAdmin = object.MimeType === 'application/vnd.nextthought.courseware.courseinstanceadministrativerole';
+
+		if ((isEnrolled || isAdmin) && context === 'open') {
+			return `/mobile/course/${encodeForURI(object.getCourseID ? object.getCourseID() : object.NTIID)}`;
+		}
 	},
 
 	hasOptions (catalogEntry) {
