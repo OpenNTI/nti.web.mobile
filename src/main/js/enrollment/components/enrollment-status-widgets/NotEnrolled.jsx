@@ -39,7 +39,7 @@ export default createReactClass({
 		const isAdmin = object.MimeType === 'application/vnd.nextthought.courseware.courseinstanceadministrativerole';
 
 		if ((isEnrolled || isAdmin) && context === 'open') {
-			return `/mobile/course/${encodeForURI(object.getCourseID ? object.getCourseID() : object.NTIID)}`;
+			return `/mobile/course/${encodeForURI(object.getCourseID ? object.getCourseID() : object.NTIID)}/`;
 		}
 	},
 
