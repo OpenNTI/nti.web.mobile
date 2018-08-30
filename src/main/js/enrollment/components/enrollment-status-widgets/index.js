@@ -14,7 +14,7 @@ const TYPES = {
 	'application/vnd.nextthought.courseware.fiveminuteenrollmentoption': EnrolledForCredit
 };
 
-export default function getWidget (catalogEntry) {
+export default function getWidget (catalogEntry, doNotReturnNotEnrolled) {
 	if(!catalogEntry) {
 		logger.error('No catalogEntry?');
 		return null;
@@ -24,5 +24,6 @@ export default function getWidget (catalogEntry) {
 			return TYPES[option.MimeType] || Unknown;
 		}
 	}
-	return NotEnrolled;
+
+	return !doNotReturnNotEnrolled && NotEnrolled;
 }

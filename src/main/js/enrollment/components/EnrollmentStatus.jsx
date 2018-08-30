@@ -4,8 +4,10 @@ import React from 'react';
 import getWidget from './enrollment-status-widgets/';
 
 export default function EnrollmentStatus (props) {
-	const {catalogEntry} = props;
-	const Widget = getWidget(catalogEntry);
+	const {catalogEntry, hideIfNotEnrolled} = props;
+	const Widget = getWidget(catalogEntry, hideIfNotEnrolled);
+
+	if (!Widget) { return null; }
 
 	return (
 		<div className="enrollment-status">
@@ -17,5 +19,6 @@ export default function EnrollmentStatus (props) {
 EnrollmentStatus.displayName = 'EnrollmentStatus';
 
 EnrollmentStatus.propTypes = {
-	catalogEntry: PropTypes.object.isRequired
+	catalogEntry: PropTypes.object.isRequired,
+	hideIfNotEnrolled: PropTypes.bool
 };

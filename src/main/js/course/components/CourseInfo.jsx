@@ -28,7 +28,7 @@ export default createReactClass({
 		return (
 			<div className="course-info">
 				<Detail {...this.props} entry={entry}/>
-				{!isAdmin && <EnrollmentStatus catalogEntry={entry} />}
+				{!isAdmin && <EnrollmentStatus catalogEntry={entry} hideIfNotEnrolled />}
 				{!isAdmin && <GiftOptions catalogEntry={entry} />}
 				<InviteButton course={course} />
 			</div>
