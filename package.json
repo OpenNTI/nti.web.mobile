@@ -59,7 +59,7 @@
     "@nti/web-commons": "0.x.x",
     "@nti/web-contacts": "*",
     "@nti/web-content": "^1.18.2",
-    "@nti/web-course": "^1.32.0",
+    "@nti/web-course": "^1.34.1",
     "@nti/web-help": "0.x.x",
     "@nti/web-modeled-content": "^1.5.0",
     "@nti/web-profiles": "^1.0.0",
