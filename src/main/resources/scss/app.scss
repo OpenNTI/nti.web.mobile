@@ -13,17 +13,6 @@
 	"base/dialogs",
 	"base/utility-classes";
 
-//TODO: find a way to auto-import component styles.
-@import "~@nti/web-catalog/lib/index.css";
-@import "~@nti/web-charts/lib/index.css";
-@import "~@nti/web-commons/lib/index.css";
-@import "~@nti/web-content/lib/index.css";
-@import "~@nti/web-course/lib/index.css";
-@import "~@nti/web-integrations/lib/index.css";
-@import "~@nti/web-help/lib/index.css";
-@import "~@nti/web-modeled-content/lib/index.css";
-@import "~@nti/web-profiles/lib/index.css";
-@import "~@nti/web-video/lib/index.css";
 
 //TODO: Move all the following rules (defined in these partials)
 // next to the components(jsx files) that they style
