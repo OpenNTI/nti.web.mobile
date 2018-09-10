@@ -160,7 +160,7 @@ export default createReactClass({
 		let defaultSection = this.getDefaultSection(preview, item);
 
 		return (
-			<div className="library-item course">
+			<div className="library-item-old course">
 				<CourseContentLink courseId={courseId} section={defaultSection}>
 					<Presentation.Asset contentPackage={item.CatalogEntry} propName="src" type="landing">
 						<img/>

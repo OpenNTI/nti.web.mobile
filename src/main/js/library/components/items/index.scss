@@ -1,65 +1,32 @@
 @import "~@nti/style-common";
 
-.library-item {
+.library-item-old {
 	$media-tab: "screen and (min-width: 600px)";
 
 	width: 170px;
 	position: relative;
 	overflow: visible;
-
-	transform: translate3d(0,0,0);
-	box-shadow: 0 0 0.5rem 0 rgba(0,0,0,0.8);
+	transform: translate3d(0, 0, 0);
+	box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.8);
 	border-radius: 1px;//iOS won't render the shadow w/o this :/
 
 	@media #{$media-tab} {
 		width: 232px;
 	}
 
-	ul {
-		margin: 0;
-		list-style: none;
-		position: relative;
-
-		&.sections {
-			border-top: 1px solid $border-grey;
-			background: #fff;
-			li {
-				position: relative;
-				overflow: hidden;
-
-				& > div {
-					margin: 0.5625rem 0.3125rem 0.5rem 1.25rem;
-					font-style: normal;
-					font-weight: 400;
-					font-size: 0.9rem;
-				}
-
-				a {
-					position: static;
-					display: block;
-					overflow: hidden;
-					max-height: 4em;
-					color: $tertiary-grey;
-					&[href] {
-						color: $secondary-grey;
-					}
-				}
-			}
-		}
-	}
-
 	& > a {
 		padding-top: 73%;//73.2758621%;
-
 		position: relative;
 		overflow: hidden;
 		display: block;
 
-
 		img {
 			width: 100%;
 			background-color: #ccc;
-			position: absolute; top: 0; left: 0; z-index: -1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: -1;
 			// position: static;
 			// height: 73%;
 			background-size: cover;
@@ -70,7 +37,7 @@
 
 		label {
 			backface-visibility: hidden;
-			transform: translate3d(0,0,0);
+			transform: translate3d(0, 0, 0);
 			position: static;
 			background: #fff;
 			overflow: hidden;
@@ -79,7 +46,9 @@
 			padding: 0.2rem 1rem;
 
 			h3, h5, address {
-				&::after {content: ' ';}
+				&::after {
+					content: ' ';
+				}
 			}
 
 			h3, h5 {
@@ -113,6 +82,41 @@
 				font-style: normal;
 				overflow: hidden;
 				color: $primary-blue;
+			}
+		}
+	}
+
+	ul {
+		margin: 0;
+		list-style: none;
+		position: relative;
+
+		&.sections {
+			border-top: 1px solid $border-grey;
+			background: #fff;
+
+			li {
+				position: relative;
+				overflow: hidden;
+
+				& > div {
+					margin: 0.5625rem 0.3125rem 0.5rem 1.25rem;
+					font-style: normal;
+					font-weight: 400;
+					font-size: 0.9rem;
+				}
+
+				a {
+					position: static;
+					display: block;
+					overflow: hidden;
+					max-height: 4em;
+					color: $tertiary-grey;
+
+					&[href] {
+						color: $secondary-grey;
+					}
+				}
 			}
 		}
 	}

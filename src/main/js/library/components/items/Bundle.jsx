@@ -38,7 +38,7 @@ export default createReactClass({
 		let {byline, author, title} = item || {};
 
 		return (
-			<div className="library-item bundle">
+			<div className="library-item-old bundle">
 				<a href={this.getBasePath() + 'content/' + id + '/'}>
 					<Presentation.Asset contentPackage={item} propName="src" type="landing">
 						<img />

@@ -12,7 +12,7 @@ export default function Container ({section, items}) {
 		(!AddButton.canSectionBeAddedTo(section) ? (
 			<div/>
 		) : (
-			<div className="library-collection">
+			<div className="library-collection-old">
 				<Heading section={section}/>
 				<EmptyList type={`library-${section}`}/>
 			</div>
