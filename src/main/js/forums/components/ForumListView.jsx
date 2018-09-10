@@ -125,7 +125,7 @@ export default createReactClass({
 							<ul>
 								{
 								//convenient that the order we want the bins happens to be alphabeetical enrolled, open, other
-									Array.sort(Object.keys(discussions)).map((key, i, bins) => {
+									Object.keys(discussions).sort().map((key, i, bins) => {
 										let bin = discussions[key];
 										let reactkey = keyFor(bin);
 										return (
