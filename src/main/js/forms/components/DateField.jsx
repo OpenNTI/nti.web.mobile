@@ -139,6 +139,12 @@ export default class extends React.Component {
 
 	render () {
 		const {name, field} = this.props;
+		const {year} = this.state;
+
+		if(!year) {
+			return; // can't render anything until we've got a valid date
+		}
+
 		return (
 			<div className="date-field-wrapper">
 				{field && field.label && (<label><span>{field.label}</span></label>)}
