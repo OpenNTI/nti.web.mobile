@@ -16,14 +16,17 @@ export default class HeaderScoreboard extends React.Component {
 		assessment: PropTypes.object
 	}
 
-	state = {
-		total: 0,
-		correct: 0,
-		incorrect: 0,
-		score: 0,
-		previousAttemps: ''
-	}
+	state = this.getInitialState()
 
+	getInitialState () {
+		return {
+			total: 0,
+			correct: 0,
+			incorrect: 0,
+			score: 0,
+			previousAttemps: ''
+		};
+	}
 
 	componentDidMount () {
 		Store.addChangeListener(this.synchronizeFromStore);
