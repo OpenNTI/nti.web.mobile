@@ -21,7 +21,7 @@ export default function SectionTitle (props) {
 	let Component = href ? Link : 'h1';
 
 	let p = {
-		className: 'library-section-title',
+		className: 'library-section-title-old',
 		children: t(section),
 		href
 	};

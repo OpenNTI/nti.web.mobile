@@ -24,7 +24,7 @@ export default class LibraryCollection extends React.Component {
 		let titleRow = isEmpty(title) ? null : ( <h5>{title}<label>{subtitle}</label></h5> );
 
 		return (
-			<div className={cx('library-collection', className)}>
+			<div className={cx('library-collection-old', className)}>
 				{titleRow}
 				{children}
 				<ul>

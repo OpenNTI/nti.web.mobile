@@ -10,7 +10,7 @@ SectionHeading.propTypes = {
 
 export default function SectionHeading ({section}) {
 	return (
-		<div className="library-section-heading">
+		<div className="library-section-heading-old">
 			<SectionTitle section={section} href={`/${section}/`}/>
 			<div className="spacer"/>
 			<AddButton section={section}/>
