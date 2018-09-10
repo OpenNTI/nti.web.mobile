@@ -142,7 +142,7 @@ export default class extends React.Component {
 		const {year} = this.state;
 
 		if(!year) {
-			return; // can't render anything until we've got a valid date
+			return null; // can't render anything until we've got a valid date
 		}
 
 		return (
