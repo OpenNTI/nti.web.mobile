@@ -239,6 +239,10 @@ export default class ShareWith extends React.Component {
 				list: suggestionGroups[k]
 			}));
 
+		if(!selection) {
+			return null;
+		}
+
 		let placeholder = selection.empty ? 'Share with' : null;
 
 
