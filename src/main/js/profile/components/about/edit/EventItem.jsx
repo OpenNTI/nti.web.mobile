@@ -28,6 +28,8 @@ export default class EventItem extends React.Component {
 		schema: PropTypes.object.isRequired
 	};
 
+	state = {}
+
 	attachPrimaryFieldRef = (x) => { this[this.props.fieldNames[0]] = x; };
 	attachSecondaryFieldRef = (x) => { this[this.props.fieldNames[1]] = x; };
 	attachStartYearRef = (x) => { this.startYear = x; };
