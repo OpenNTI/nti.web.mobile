@@ -1,0 +1,8 @@
+{
+	"development": {
+
+		"flags": {
+			"library-searchable": true
+		}
+	}
+}

@@ -6,13 +6,15 @@ import {isFlag} from '@nti/web-client';
 
 import Library from '../mixins/LibraryAccessor';
 
+import NewLibrary from './Home';
 import Root from './Root';
 import Section from './Section';
 import SectionCommunities from './SectionCommunities';
 
 
-export default createReactClass({
-	displayName: 'Library:View',
+
+const OldLibrary = createReactClass({
+	displayName: 'LibraryView',
 	mixins: [Mixins.BasePath, Library],
 
 	getInitialState () {
@@ -20,36 +22,38 @@ export default createReactClass({
 	},
 
 	renderLocations () {
-		if(isFlag('library-searchable')) {
-			return (
-				<Locations contextual>
-					<DefaultRoute handler={Root}/>
-				</Locations>
-			);
-		} else {
-			return (
-				<Locations contextual>
-					<Location path="/communities(/*)" handler={SectionCommunities} />
-					<Location path="/:section(/*)" handler={Section} />
+		return (
+			<Locations contextual>
+				<Location path="/communities(/*)" handler={SectionCommunities} />
+				<Location path="/:section(/*)" handler={Section} />
 
-					<DefaultRoute handler={Root}/>
-				</Locations>
-			);
-		}
+				<DefaultRoute handler={Root}/>
+			</Locations>
+		);
 	},
 
 	render () {
 		let {state: {loading} = {}} = this;
 
-		return (
-			<div>
-				<DarkMode/>
-				{loading ? (
-					<Loading.Mask />
-				) : (
-					this.renderLocations()
-				)}
-			</div>
+		return loading ? (
+			<Loading.Mask />
+		) : (
+			this.renderLocations()
 		);
 	}
 });
+
+
+export default function View () {
+
+	return (
+		<>
+			<DarkMode/>
+			{isFlag('library-searchable') ? (
+				<NewLibrary/>
+			) : (
+				<OldLibrary/>
+			)}
+		</>
+	);
+}
