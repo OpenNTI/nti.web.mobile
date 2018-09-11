@@ -20,6 +20,7 @@ export default class FeedbackEditor extends React.Component {
 
 	attachRef = x => this.editor = x
 
+	state = {}
 
 	componentDidMount () {
 		this.updateDisabled(this.props.value || null);
