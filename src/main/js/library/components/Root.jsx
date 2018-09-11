@@ -45,7 +45,7 @@ export default class Root extends React.Component {
 
 		let route = '';
 
-		if (/course(.*)enrollment/i.test(type)) {
+		if (/course(.*)enrollment/i.test(type) || /courseinstanceadministrativerole/i.test(type)) {
 			route = path.join(basePath, 'course', getEncodedIDCourse(obj));
 		} else if (/contentpackagebundle/i.test(type)) {
 			route = path.join(basePath, 'content', obj.getID());
