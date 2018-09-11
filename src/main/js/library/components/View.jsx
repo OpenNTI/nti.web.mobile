@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { Locations, Location, NotFound as DefaultRoute } from 'react-router-component';
 import {DarkMode, Loading, Mixins} from '@nti/web-commons';
+import {isFlag} from '@nti/web-client';
 
 import Library from '../mixins/LibraryAccessor';
 
@@ -18,6 +19,25 @@ export default createReactClass({
 		return {};
 	},
 
+	renderLocations () {
+		if(isFlag('library-searchable')) {
+			return (
+				<Locations contextual>
+					<DefaultRoute handler={Root}/>
+				</Locations>
+			);
+		} else {
+			return (
+				<Locations contextual>
+					<Location path="/communities(/*)" handler={SectionCommunities} />
+					<Location path="/:section(/*)" handler={Section} />
+
+					<DefaultRoute handler={Root}/>
+				</Locations>
+			);
+		}
+	},
+
 	render () {
 		let {state: {loading} = {}} = this;
 
@@ -27,12 +47,7 @@ export default createReactClass({
 				{loading ? (
 					<Loading.Mask />
 				) : (
-					<Locations contextual>
-						<Location path="/communities(/*)" handler={SectionCommunities} />
-						<Location path="/:section(/*)" handler={Section} />
-
-						<DefaultRoute handler={Root}/>
-					</Locations>
+					this.renderLocations()
 				)}
 			</div>
 		);
