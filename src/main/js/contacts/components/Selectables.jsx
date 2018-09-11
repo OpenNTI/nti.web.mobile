@@ -12,6 +12,8 @@ export default class extends React.Component {
 		linkToProfile: PropTypes.any
 	};
 
+	state = {}
+
 	componentDidMount () {
 		this.setUpSelectionModel();
 		this.rememberOriginalList();
@@ -37,6 +39,10 @@ export default class extends React.Component {
 	};
 
 	render () {
+		if(!this.state.original) {
+			return null;
+		}
+
 		return (
 			<div>
 				<div className="swipers selectable-entities">
