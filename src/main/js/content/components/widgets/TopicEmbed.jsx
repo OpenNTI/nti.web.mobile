@@ -29,6 +29,9 @@ export default createReactClass({
 		item: PropTypes.object
 	},
 
+	getInitialState () {
+		return {};
+	},
 
 	getHref (props = this.props) {
 		const {item} = props;
