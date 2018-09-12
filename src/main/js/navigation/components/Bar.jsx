@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {buffer, equals} from '@nti/lib-commons';
+import {buffer} from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
 import {Pager, Mixins} from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
@@ -52,7 +52,7 @@ export default createReactClass({
 			href: PropTypes.string
 		})),
 		title: PropTypes.string,
-
+		className: PropTypes.string,
 		children: PropTypes.any,
 		availableSections: PropTypes.array,
 		supportsSearch: PropTypes.bool,
@@ -273,14 +273,14 @@ export default createReactClass({
 
 
 	renderBar () {
-		const {supportsSearch, border} = this.props;
+		const {supportsSearch, border, className} = this.props;
 		let {pageSource, currentPage, context, resolving, searchOpen} = this.state;
 		const root = pageSource && pageSource.root;
 		const toc = root && root.toc;
 		const isRealPages = (toc && !!toc.realPageIndex) || false;
 
 		return (
-			<nav className={cx('nav-bar', {border})}>
+			<nav className={cx('nav-bar', {border}, className)}>
 				{this.getLeft()}
 				{!resolving && (
 					<section className={cx('middle', {'has-pager': pageSource})}>

@@ -56,7 +56,7 @@ export default class Home extends React.Component {
 	render () {
 		return (
 			<>
-				<NavigationBar>
+				<NavigationBar supportsSearch className="searchable-library">
 					<Branding position="left"/>
 				</NavigationBar>
 
