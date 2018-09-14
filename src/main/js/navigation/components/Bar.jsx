@@ -7,9 +7,10 @@ import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {buffer} from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
-import {Pager, Mixins} from '@nti/web-commons';
+import {Pager, Mixins, Navigation} from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 import {Input} from '@nti/web-search';
+import {LinkTo, getHistory} from '@nti/web-routing';
 
 import NavStore from '../Store';
 
@@ -42,7 +43,12 @@ export default createReactClass({
 	mixins: [StoreEventsMixin, Mixins.BasePath, Mixins.NavigatableMixin],
 
 	contextTypes: {
+		router: PropTypes.object,
 		triggerRightMenu: PropTypes.func.isRequired
+	},
+
+	childContextTypes: {
+		router: PropTypes.object
 	},
 
 	propTypes: {
@@ -56,7 +62,8 @@ export default createReactClass({
 		children: PropTypes.any,
 		availableSections: PropTypes.array,
 		supportsSearch: PropTypes.bool,
-		border: PropTypes.bool
+		border: PropTypes.bool,
+		useCommonTabs: PropTypes.bool
 	},
 
 	backingStore: NavStore,
@@ -72,6 +79,16 @@ export default createReactClass({
 
 	attachSearchRef (x) { this.search = x; },
 
+	getChildContext () {
+		if (!this.props.useCommonTabs) { return null; }
+
+		return {
+			router: {
+				...this.context.router,
+				history: getHistory()
+			}
+		};
+	},
 
 	getInitialState () {
 		return {
@@ -126,7 +143,27 @@ export default createReactClass({
 		return this.getChildForSide('right') || <UserMenu onClick={this.userMenuClicked}/>;
 	},
 
+
+	renderTab (tabCmp, tab) {
+		return (
+			<LinkTo.Path to={tab.route}>
+				{tabCmp}
+			</LinkTo.Path>
+		);
+	},
+
+
+	renderCommonTabs () {
+		return (
+			<Navigation renderTab={this.renderTab}/>
+		);
+	},
+
 	getCenter () {
+		if (this.props.useCommonTabs) {
+			return this.renderCommonTabs();
+		}
+
 		let css = cx({
 			'title': true,
 			'branding': !!this.props.branding
@@ -273,14 +310,14 @@ export default createReactClass({
 
 
 	renderBar () {
-		const {supportsSearch, border, className} = this.props;
+		const {supportsSearch, border, className, useCommonTabs} = this.props;
 		let {pageSource, currentPage, context, resolving, searchOpen} = this.state;
 		const root = pageSource && pageSource.root;
 		const toc = root && root.toc;
 		const isRealPages = (toc && !!toc.realPageIndex) || false;
 
 		return (
-			<nav className={cx('nav-bar', {border}, className)}>
+			<nav className={cx('nav-bar', {border, 'use-common-tabs': useCommonTabs}, className)}>
 				{this.getLeft()}
 				{!resolving && (
 					<section className={cx('middle', {'has-pager': pageSource})}>

@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {isFlag} from '@nti/web-client';
+import {encodeForURI} from '@nti/lib-ntiids';
 
 import Page from 'common/components/Page';
 
-import * as Sections from '../Sections';
-import getLabel from '../get-section-label';
+import NavigationTabs from './NavigationTabs';
 
 export default class extends React.Component {
 	static displayName = 'course:Page';
@@ -16,57 +15,61 @@ export default class extends React.Component {
 		course: PropTypes.object.isRequired
 	};
 
-	componentDidMount () {
-		let menu = [];
-		let {course} = this.props;
-		let {CatalogEntry} = course || {};
+	static contextTypes = {
+		router: PropTypes.object
+	}
 
-		let push = x => {
-			let label = getLabel(x.toLowerCase());
-			menu.push({label, href: Sections[x]});
-		};
 
-		if (!CatalogEntry || !CatalogEntry.Preview) {
+	static childContextTypes = {
+		router: PropTypes.shape({
+			getRouteFor: PropTypes.func
+		})
+	}
 
-			for(let s of Object.keys(Sections)) {
-				push(s);
+
+	getChildContext () {
+		return {
+			router: {
+				...this.context.router,
+				getRouteFor: (...args) => this.getRouteFor(...args)
 			}
-		}
-		else {
-			push('INFO');
+		};
+	}
+
+
+	getRouteFor (obj, context) {
+		if (obj !== this.props.course) { return null; }
+
+		const courseID = obj.getCourseID ? obj.getCourseID() : obj.NTIID;
+		const base = `/mobile/course/${encodeForURI(courseID)}/`;
+
+		let path = '';
+
+		if (context === 'lessons') {
+			path = 'lessons/';
+		} else if (context === 'assignments') {
+			path = 'assignments/';
+		} else if (context === 'discussions') {
+			path = 'discussions/';
+		} else if (context === 'info') {
+			path = 'info/';
+		} else if (context === 'scorm') {
+			path = 'scormcontent/';
 		}
 
-		if (!course.hasDiscussions()) {
-			menu = menu.filter(x=>x.href !== Sections.DISCUSSIONS);
-		}
-
-		if (!course.shouldShowAssignments()) {
-			menu = menu.filter(x => x.href !== Sections.ASSIGNMENTS);
-		}
-
-		if (!isFlag('course-activity')) {
-			menu = menu.filter(x => x.href !== Sections.ACTIVITY);
-		}
-
-		if(course.isScormInstance) {
-			menu = menu.filter(x => x.href !== Sections.LESSONS);
-		} else {
-			menu = menu.filter(x => x.href !== Sections.SCORMCONTENT);
-		}
-
-		this.setState({menu});
-
+		return `${base}${path}`;
 	}
 
 	render () {
-		let {menu} = this.state || {};
-		let {children} = this.props;
+		const {children, course, ...otherProps} = this.props;
 
-		// if (course) {}
-
-		let props = { ...this.props, availableSections: menu,
-			children: React.Children.map(children, x => React.cloneElement(x))};
-
-		return React.createElement(Page, props);
+		return (
+			<>
+				<NavigationTabs course={course} exclude={['activity']}/>
+				<Page {...otherProps} course={course} useCommonTabs>
+					{React.Children.map(children, x => React.cloneElement(x))}
+				</Page>
+			</>
+		);
 	}
 }

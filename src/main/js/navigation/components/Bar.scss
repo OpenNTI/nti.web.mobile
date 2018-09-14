@@ -155,7 +155,7 @@ nav.nav-bar {
 				max-width: calc(100% - 16.1rem);
 			}
 
-			.menu {
+			& > .menu {
 				overflow: visible;
 				display: inline-block;
 				max-width: calc(100% - 1rem);//% total screen width
@@ -202,7 +202,7 @@ nav.nav-bar {
 		left: 0;
 		right: 0;
 		border-radius: 0 0 1px 1px;//iOS hack to show box-shadow
-		box-shadow: 0 0 1px 0 #222;
+		box-shadow: 0 0 0 1px $border-grey-light;
 
 		.darkmode & {
 			background: #525252;
