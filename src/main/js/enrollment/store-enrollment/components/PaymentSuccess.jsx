@@ -25,8 +25,10 @@ export default class extends React.Component {
 		purchaseAttempt: null
 	};
 
-	getInitialState () {
-		return {
+	constructor (props) {
+		super(props);
+
+		this.state = {
 			purchaseAttempt: Store.getPaymentResult()
 		};
 	}
