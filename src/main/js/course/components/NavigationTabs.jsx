@@ -67,7 +67,7 @@ class CourseNavigationTabs extends React.Component {
 		const {course} = this.props;
 
 		return (
-			<Navigation.Tabs course={course} />
+			<Navigation.Tabs course={course} exclude={['activity']} />
 		);
 	}
 }
