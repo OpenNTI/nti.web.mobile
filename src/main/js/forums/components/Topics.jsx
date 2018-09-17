@@ -115,7 +115,7 @@ export default createReactClass({
 		}
 
 		return (
-			<div>
+			<div className="topics-wrapper">
 				<TransitionGroup>
 					<Transition key="topics">
 						<div>
