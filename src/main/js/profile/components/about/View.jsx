@@ -48,12 +48,20 @@ export default createReactClass({
 		const { entity } = props;
 
 		if (entity) {
-			const schema = await entity.getProfileSchema();
-			const isReadOnly = await entity.isAllReadOnly(schema);
-			this.setState({
-				canEdit: entity.isModifiable && !isReadOnly,
-				sections: this.state.sections.filter(section => schema[section])
-			});
+			try {
+				const schema = await entity.getProfileSchema();
+				const isReadOnly = await entity.isAllReadOnly(schema);
+				this.setState({
+					canEdit: entity.isModifiable && !isReadOnly,
+					sections: this.state.sections.filter(section => schema[section])
+				});
+			}
+			catch (e) {
+				this.setState({
+					canEdit: false,
+					sections: []
+				});
+			}
 		}
 	},
 
