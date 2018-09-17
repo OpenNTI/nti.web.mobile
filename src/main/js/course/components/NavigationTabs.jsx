@@ -3,6 +3,17 @@ import PropTypes from 'prop-types';
 import {Router, Route} from '@nti/web-routing';
 import {Navigation} from '@nti/web-course';
 import {encodeForURI} from '@nti/lib-ntiids';
+import Storage from '@nti/web-storage';
+
+const storageKey = 'nti-course-tabs-seen';
+
+function hasBeenSeen () {
+	return Storage.getItem(storageKey) !== 'seen';
+}
+
+function setSeen () {
+	Storage.setItem(storageKey, 'seen');
+}
 
 class CourseNavigationTabs extends React.Component {
 	static propTypes = {
@@ -38,6 +49,13 @@ class CourseNavigationTabs extends React.Component {
 	}
 
 
+	componentDidMount () {
+		setTimeout(() => {
+			setSeen();
+		}, 1000);
+	}
+
+
 	getRouteFor (obj, context) {
 		if (obj !== this.props.course) { return null; }
 
@@ -67,7 +85,11 @@ class CourseNavigationTabs extends React.Component {
 		const {course} = this.props;
 
 		return (
-			<Navigation.Tabs course={course} exclude={['activity']} />
+			<Navigation.Tabs
+				course={course}
+				exclude={['activity']}
+				expandTabs={hasBeenSeen()}
+			/>
 		);
 	}
 }
