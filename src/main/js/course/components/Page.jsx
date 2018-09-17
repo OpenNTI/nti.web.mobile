@@ -27,10 +27,19 @@ export default class extends React.Component {
 	}
 
 
+	getBaseRoute () {
+		const {course} = this.props;
+		const courseID = course.getCourseID ? course.getCourseID() : course.NTIID;
+
+		return `/mobile/course/${encodeForURI(courseID)}/`;
+	}
+
+
 	getChildContext () {
 		return {
 			router: {
 				...this.context.router,
+				baseroute: this.getBaseRoute(),
 				getRouteFor: (...args) => this.getRouteFor(...args)
 			}
 		};
@@ -40,8 +49,7 @@ export default class extends React.Component {
 	getRouteFor (obj, context) {
 		if (obj !== this.props.course) { return null; }
 
-		const courseID = obj.getCourseID ? obj.getCourseID() : obj.NTIID;
-		const base = `/mobile/course/${encodeForURI(courseID)}/`;
+		const base = this.getBaseRoute();
 
 		let path = '';
 
@@ -55,6 +63,8 @@ export default class extends React.Component {
 			path = 'info/';
 		} else if (context === 'scorm') {
 			path = 'scormcontent/';
+		} else if (context === 'videos') {
+			path = 'videos/';
 		}
 
 		return `${base}${path}`;
