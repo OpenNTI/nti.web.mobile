@@ -58,8 +58,7 @@ export default createReactClass({
 			}
 			catch (e) {
 				this.setState({
-					canEdit: false,
-					sections: []
+					canEdit: false
 				});
 			}
 		}
