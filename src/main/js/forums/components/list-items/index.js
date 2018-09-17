@@ -1,14 +1,12 @@
 import React from 'react';
 
 import Unknown from './Unknown';
-import ForumItem from './ForumItem';
 import TopicItem from './TopicItem';
 import PostItem from './PostItem';
 import DeletedGroupItem from './DeletedGroupItem';
 
 const Types = [
 	Unknown, //Unknown for future items.
-	ForumItem,
 	TopicItem,
 	PostItem,
 	DeletedGroupItem

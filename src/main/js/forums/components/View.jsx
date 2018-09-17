@@ -4,11 +4,11 @@ import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 import {Banner, Mixins} from '@nti/web-commons';
 
+
 import ContextSender from 'common/mixins/ContextSender';
 
 import ForumListView from './ForumListView';
 import ForumView from './ForumView';
-import CreateForum from './CreateForum';
 
 export default createReactClass({
 	displayName: 'ForumsView',
@@ -36,12 +36,6 @@ export default createReactClass({
 				<Banner item={contentPackage} />
 				<div className="forums-wrapper">
 					<Router.Locations contextual>
-
-						<Router.Location exact path="/newforum/"
-							handler={CreateForum}
-							contentPackage={contentPackage}
-						/>
-
 						<Router.Location path="/:forumId(/*)"
 							handler={ForumView}
 							contextID={contentPackage && contentPackage.getID()}
@@ -50,9 +44,8 @@ export default createReactClass({
 
 						<Router.Location path="/"
 							handler={ForumListView}
-							contentPackage={contentPackage}
+							bundle={contentPackage}
 						/>
-
 					</Router.Locations>
 				</div>
 			</div>
