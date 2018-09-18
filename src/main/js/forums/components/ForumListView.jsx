@@ -32,7 +32,6 @@ export default class ForumListView extends React.Component {
 			...(nav || {}),
 			baseroute: nav && nav.makeHref(''),
 			getRouteFor: this.getRouteFor,
-			history: getHistory(),
 			routeTo: {
 				object: (...args) => LinkTo.Object.routeTo(router, ...args)
 			}
