@@ -25,7 +25,7 @@ const ROUTES = [
 	{path: '/videos(/*)', handler: Page, pageContent: Media},
 	{path: '/lessons(/*)', handler: Page, pageContent: Lessons},
 	{path: '/discussions(/*)', handler: Page, pageContent: Discussions},
-	{path: '/info', handler: Page, pageContent: CourseInfo},
+	{path: '/info(/*)', handler: Page, pageContent: CourseInfo},
 	{path: '/activity(/*)', handler: Page, pageContent: Activity},
 	{path: '/assignments(/*)', handler: Page, pageContent: Assignments},
 	{path: '/invite(/*)', handler: Page, pageContent: Invite},
