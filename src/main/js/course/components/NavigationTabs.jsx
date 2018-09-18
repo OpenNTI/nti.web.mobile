@@ -75,6 +75,8 @@ class CourseNavigationTabs extends React.Component {
 			path = 'scormcontent/';
 		} else if (context === 'videos') {
 			path = 'videos/';
+		} else if (context === 'content') {
+			path = 'content/';
 		}
 
 		return `${base}${path}`;
