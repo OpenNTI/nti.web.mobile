@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {Mixins} from '@nti/web-commons';
-import {encodeForURI} from '@nti/lib-ntiids';
 import {scoped} from '@nti/lib-locale';
 
 const t = scoped('enrollment.buttons', {
@@ -21,7 +20,7 @@ export default createReactClass({
 	},
 
 	urlForEntry () {
-		return this.getBasePath() + 'catalog/item/' + encodeForURI(this.props.catalogId) + '/redeem/';
+		return this.getBasePath() + 'catalog/redeem/';
 	},
 
 	render () {
