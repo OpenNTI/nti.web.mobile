@@ -100,10 +100,10 @@ export default createReactClass({
 			return <Loading.Mask />;
 		}
 
-		let { forumId, forum, contentPackage } = this.props;
+		let { forumId, forum } = this.props;
 		let batchStart = paging.batchStart();
 		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize()) || forum;
-		const canDelete = contentPackage && Store.isSimple(contentPackage.getID()) && forum.hasLink && forum.hasLink('edit');
+		const canDelete = forum.hasLink && forum.hasLink('edit');
 
 		if (
 			!forumContents ||
