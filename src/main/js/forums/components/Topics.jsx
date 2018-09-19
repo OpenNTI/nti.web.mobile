@@ -9,6 +9,7 @@ import {addHistory} from '@nti/lib-analytics';
 import {scoped} from '@nti/lib-locale';
 import { decodeFromURI } from '@nti/lib-ntiids';
 import {StoreEventsMixin} from '@nti/lib-store';
+import {Forums} from '@nti/web-discussions';
 import { Error as Err, Loading, Mixins, Prompt} from '@nti/web-commons';
 
 import * as Actions from '../Actions';
@@ -95,7 +96,23 @@ export default createReactClass({
 		);
 	},
 
+	editForum () {
+		this.setState({showEditor: true});
+	},
+
+	hideEditor () {
+		this.setState({showEditor: false});
+	},
+
+	saveForum (payload) {
+		this.getForum().edit(payload);
+
+		this.hideEditor();
+	},
+
 	render () {
+		const {showEditor} = this.state;
+
 		if (this.state.loading) {
 			return <Loading.Mask />;
 		}
@@ -103,7 +120,7 @@ export default createReactClass({
 		let { forumId, forum } = this.props;
 		let batchStart = paging.batchStart();
 		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize()) || forum;
-		const canDelete = forum.hasLink && forum.hasLink('edit');
+		const canEdit = forum.hasLink && forum.hasLink('edit');
 
 		if (
 			!forumContents ||
@@ -123,13 +140,22 @@ export default createReactClass({
 							<section className="topics-section">
 								<ul className="action-links topics-controls">
 									<li>{this.createTopicLink()}</li>
-									{canDelete && (
+									{canEdit && (
 										<li>
 											<a
 												className="action-link"
 												onClick={this.deleteForum}
 											>
 												Delete
+											</a>
+										</li>)}
+									{canEdit && (
+										<li>
+											<a
+												className="action-link"
+												onClick={this.editForum}
+											>
+												Edit
 											</a>
 										</li>
 									)}
@@ -142,6 +168,7 @@ export default createReactClass({
 						</div>
 					</Transition>
 				</TransitionGroup>
+				{showEditor && <Forums.Editor title={this.getForum().title} onBeforeDismiss={this.hideEditor} onSubmit={this.saveForum} isEditing/>}
 			</div>
 		);
 	}
