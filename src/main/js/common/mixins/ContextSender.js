@@ -44,7 +44,7 @@ const ContextSender = {
 	[notify]: function () {
 		let children = this[Children] || {size: 0};
 		logger.debug('Wants to Notify %d %s', children.size, this.constructor.displayName);
-		if (children.size === 0) {
+		if (children.size === 0 && !this.unmounted) {
 			logger.debug('Notify %s', this.constructor.displayName);
 			let context = this[CONTEXT_DATA];
 			if (context) {
@@ -85,6 +85,7 @@ const ContextSender = {
 		}
 		delete this[CONTEXT_DATA];
 		logger.debug('WillUnMount %s', this.constructor.displayName);
+		this.unmounted = true;
 	},
 
 

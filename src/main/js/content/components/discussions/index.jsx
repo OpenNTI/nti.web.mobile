@@ -32,7 +32,7 @@ export default createReactClass({
 
 	getContext () {
 		const {router} = this;
-		return router && {
+		return !router ? [] : {
 			label: 'Discussions',
 			href: router.makeHref('/')
 		};
