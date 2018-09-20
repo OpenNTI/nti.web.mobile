@@ -322,6 +322,7 @@ export default class AssignmentStatusLabel extends React.Component {
 		) : (
 			<div className="assignment status-label-wrapper">
 				<h6 className="assignment status-label">
+					{assignment.CompletionRequired && <span className="info-part required">Required</span>}
 					{assignment.isTimed && this.renderTimeInfo()}
 					<span className={infoClasses}>
 						<span className="state" onClick={this.onShowStatusDetail}>{text}</span>
