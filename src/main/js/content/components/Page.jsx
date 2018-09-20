@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {scoped} from '@nti/lib-locale';
 import { isFlag } from '@nti/web-client';
+import Storage from '@nti/web-storage';
 
 import Page from 'common/components/Page';
 
@@ -16,6 +17,15 @@ const getLabel = scoped('content.sections', {
 	notebook: 'Notebook'
 });
 
+const storageKey = 'nti-content-tabs-seen';
+
+function hasBeenSeen () {
+	return Storage.getItem(storageKey) !== 'seen';
+}
+
+function setSeen () {
+	Storage.setItem(storageKey, 'seen');
+}
 
 export default class ContentPage extends React.Component {
 
@@ -26,6 +36,10 @@ export default class ContentPage extends React.Component {
 
 	componentDidMount () {
 		this.setup();
+
+		setTimeout(() => {
+			setSeen();
+		}, 1000);
 	}
 
 	componentDidUpdate ({contentPackage}) {
@@ -69,6 +83,7 @@ export default class ContentPage extends React.Component {
 
 		const props = {
 			...this.props,
+			menuOpen: hasBeenSeen(),
 			availableSections: menu,
 			children: React.Children.map(children, x => React.cloneElement(x))
 		};

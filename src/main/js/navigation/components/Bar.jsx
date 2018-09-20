@@ -63,7 +63,8 @@ export default createReactClass({
 		availableSections: PropTypes.array,
 		supportsSearch: PropTypes.bool,
 		border: PropTypes.bool,
-		useCommonTabs: PropTypes.bool
+		useCommonTabs: PropTypes.bool,
+		menuOpen: PropTypes.bool
 	},
 
 	backingStore: NavStore,
@@ -95,6 +96,13 @@ export default createReactClass({
 			resolving: true,
 			menuOpen: false
 		};
+	},
+
+
+	componentDidMount () {
+		this.setState({
+			menuOpen: this.props.menuOpen
+		});
 	},
 
 
