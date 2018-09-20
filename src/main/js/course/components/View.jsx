@@ -12,7 +12,7 @@ import Invite from 'invitations/components/Send';
 import Discussions from 'forums/components/View';
 
 import {getCourse} from '../Actions';
-import {LESSONS} from '../Sections';
+import {LESSONS, INFO} from '../Sections';
 
 import Page from './Page';
 import CourseInfo from './CourseInfo';
@@ -111,11 +111,12 @@ export default class CourseView extends React.Component {
 
 	renderContent () {
 		const course = this.getCourse();
+		const entryPoint = course && course.CatalogEntry && course.CatalogEntry.Preview ? INFO : LESSONS;
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
 					React.createElement(Router.Location, {course, contentPackage: course, ...route}) :
-					React.createElement(Router.NotFound, {handler: Redirect, location: LESSONS})
+					React.createElement(Router.NotFound, {handler: Redirect, location: entryPoint})
 			));
 	}
 
