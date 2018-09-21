@@ -9,6 +9,24 @@ import DisplayName from 'common/components/DisplayName';
 
 import NoteableMixin from '../mixins/Noteable';
 
+let CATALOG_CACHE = {};
+
+async function resolveCatalogEntry (id) {
+	const service = await getService();
+
+	const request = CATALOG_CACHE[id] || service.getObject(id);
+
+	if(!CATALOG_CACHE[id]) {
+		CATALOG_CACHE[id] = request;
+
+		setTimeout(() => {
+			delete CATALOG_CACHE[id];
+		}, 10000);
+	}
+
+	return request;
+}
+
 export default createReactClass({
 	displayName: 'Grade',
 	mixins: [NoteableMixin],
@@ -25,16 +43,14 @@ export default createReactClass({
 		item: PropTypes.object
 	},
 
-	componentDidMount () {
+	async componentDidMount () {
 		const {item: {Item: {creator, CatalogEntryNTIID }}} = this.props;
 
 		if(creator === 'system') {
-			getService().then(service => {
-				service.getObject(CatalogEntryNTIID).then(catalogEntry => {
-					this.setState({
-						catalogEntry
-					});
-				});
+			const catalogEntry = await resolveCatalogEntry(CatalogEntryNTIID);
+
+			this.setState({
+				catalogEntry
 			});
 		}
 		else {
