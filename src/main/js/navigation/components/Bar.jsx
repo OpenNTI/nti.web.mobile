@@ -64,7 +64,13 @@ export default createReactClass({
 		supportsSearch: PropTypes.bool,
 		border: PropTypes.bool,
 		useCommonTabs: PropTypes.bool,
-		menuOpen: PropTypes.bool
+		menuInitialState: PropTypes.oneOf(['open', 'closed'])
+	},
+
+	getDefaultProps () {
+		return {
+			menuInitialState: 'closed'
+		};
 	},
 
 	backingStore: NavStore,
@@ -94,15 +100,8 @@ export default createReactClass({
 	getInitialState () {
 		return {
 			resolving: true,
-			menuOpen: false
+			menuOpen: this.props.menuInitialState === 'open'
 		};
-	},
-
-
-	componentDidMount () {
-		this.setState({
-			menuOpen: this.props.menuOpen
-		});
 	},
 
 

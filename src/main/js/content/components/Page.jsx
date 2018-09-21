@@ -20,7 +20,13 @@ const getLabel = scoped('content.sections', {
 const storageKey = 'nti-content-tabs-seen';
 
 function hasBeenSeen () {
-	return Storage.getItem(storageKey) !== 'seen';
+	const seen = Storage.getItem(storageKey) === 'seen';
+
+	if(!seen) {
+		setSeen();
+	}
+
+	return seen;
 }
 
 function setSeen () {
@@ -36,10 +42,6 @@ export default class ContentPage extends React.Component {
 
 	componentDidMount () {
 		this.setup();
-
-		setTimeout(() => {
-			setSeen();
-		}, 1000);
 	}
 
 	componentDidUpdate ({contentPackage}) {
@@ -83,7 +85,7 @@ export default class ContentPage extends React.Component {
 
 		const props = {
 			...this.props,
-			menuOpen: hasBeenSeen(),
+			menuInitialState: hasBeenSeen() ? 'closed' : 'open',
 			availableSections: menu,
 			children: React.Children.map(children, x => React.cloneElement(x))
 		};
