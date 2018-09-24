@@ -151,6 +151,10 @@ nav.nav-bar {
 			text-align: center;
 			overflow: visible;
 
+			&.resolving {
+				visibility: hidden;
+			}
+
 			&.has-pager {
 				max-width: calc(100% - 16.1rem);
 			}

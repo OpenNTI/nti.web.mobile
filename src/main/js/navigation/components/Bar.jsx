@@ -340,11 +340,9 @@ export default createReactClass({
 		return (
 			<nav className={cx('nav-bar', {border, 'use-common-tabs': useCommonTabs}, className)}>
 				{this.getLeft()}
-				{!resolving && (
-					<section className={cx('middle', {'has-pager': pageSource})}>
-						{this.getCenter()}
-					</section>
-				)}
+				<section className={cx('middle', {'has-pager': pageSource, resolving})}>
+					{this.getCenter()}
+				</section>
 				<section>
 					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} toc={toc} />}
 					{supportsSearch && (<a href="#"><i className="icon-search launch-search" onClick={this.launchSearch} /></a>)}
