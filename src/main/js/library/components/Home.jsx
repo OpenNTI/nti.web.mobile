@@ -2,6 +2,7 @@ import path from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import {searchable, contextual} from '@nti/web-search';
 import {View as SearchableLibrary} from '@nti/web-library';
 import {encodeForURI} from '@nti/lib-ntiids';
 
@@ -9,7 +10,10 @@ import NavigationBar from 'navigation/components/Bar';
 
 import Branding from './Branding';
 
-export default class Home extends React.Component {
+export default
+@searchable()
+@contextual('Home')
+class Home extends React.Component {
 	static contextTypes = {
 		router: PropTypes.object,
 		basePath: PropTypes.string
@@ -18,6 +22,10 @@ export default class Home extends React.Component {
 
 	static childContextTypes = {
 		router: PropTypes.object
+	}
+
+	static propTypes = {
+		searchTerm: PropTypes.string
 	}
 
 
@@ -54,9 +62,11 @@ export default class Home extends React.Component {
 
 
 	render () {
+		const {searchTerm} = this.props;
+
 		return (
 			<>
-				<NavigationBar supportsSearch className="searchable-library">
+				<NavigationBar supportsSearch className="searchable-library" searchTerm={searchTerm}>
 					<Branding position="left"/>
 				</NavigationBar>
 
