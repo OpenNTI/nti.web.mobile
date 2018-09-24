@@ -64,7 +64,8 @@ export default createReactClass({
 		supportsSearch: PropTypes.bool,
 		border: PropTypes.bool,
 		useCommonTabs: PropTypes.bool,
-		menuInitialState: PropTypes.oneOf(['open', 'closed'])
+		menuInitialState: PropTypes.oneOf(['open', 'closed']),
+		searchTerm: PropTypes.string
 	},
 
 	getDefaultProps () {
@@ -83,6 +84,19 @@ export default createReactClass({
 		})
 	},
 
+
+	componentDidUpdate (prevProps) {
+		const {searchTerm} = this.props;
+		const {searchOpen} = this.state;
+
+		if(!searchOpen && searchTerm) {
+			this.launchSearch();
+		} else if (prevProps.searchTerm && searchTerm == null && searchOpen) {
+			this.setState({
+				searchOpen: false
+			});
+		}
+	},
 
 	attachSearchRef (x) { this.search = x; },
 
