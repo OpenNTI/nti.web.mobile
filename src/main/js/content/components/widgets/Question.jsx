@@ -40,7 +40,7 @@ export default createReactClass({
 
 	getInitialState () {
 		return {
-			question: null
+			question: this.props.record
 		};
 	},
 
