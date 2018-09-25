@@ -29,6 +29,12 @@ export default class Content extends React.Component {
 
 	state = {}
 
+	constructor (props) {
+		super(props);
+
+		this.state = this.buildContent(props, true);
+	}
+
 
 	componentDidMount () { this.buildContent(this.props); }
 
@@ -53,7 +59,7 @@ export default class Content extends React.Component {
 	}
 
 
-	buildContent (props) {
+	buildContent (props, returnWork) {
 		const {content, strategies} = props;
 
 		//We're back to the original bug.. HOWEVER, processContent
@@ -83,8 +89,10 @@ export default class Content extends React.Component {
 
 		if (work && work.then) {
 			work.then(finish);
-		} else {
+		} else if (!returnWork) {
 			finish(work);
+		} else {
+			return work;
 		}
 	}
 
