@@ -4,15 +4,20 @@ import {Router, Route} from '@nti/web-routing';
 import {Navigation} from '@nti/web-course';
 import {encodeForURI} from '@nti/lib-ntiids';
 import Storage from '@nti/web-storage';
+import {getAppUsername} from '@nti/web-client';
 
-const storageKey = 'nti-course-tabs-seen';
+const seen = 'seen';
+
+function getStorageKey () {
+	return `nti-course-tabs-seen-for-${getAppUsername()}`;
+}
 
 function hasBeenSeen () {
-	return Storage.getItem(storageKey) !== 'seen';
+	return Storage.getItem(getStorageKey()) !== seen;
 }
 
 function setSeen () {
-	Storage.setItem(storageKey, 'seen');
+	Storage.setItem(getStorageKey(), seen);
 }
 
 class CourseNavigationTabs extends React.Component {
