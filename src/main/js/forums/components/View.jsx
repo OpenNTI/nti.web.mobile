@@ -21,7 +21,9 @@ export default createReactClass({
 
 	// title bar back arrow
 	getContext () {
-		let href = this.getNavigable().makeHref('/discussions/');
+		const { contentPackage } = this.props;
+		const discussionPath = contentPackage && !contentPackage.isCourse && contentPackage.isBundle ? '/d/' : '/discussions/';
+		let href = this.getNavigable().makeHref(discussionPath);
 
 		return Promise.resolve({
 			label: 'Discussions',
