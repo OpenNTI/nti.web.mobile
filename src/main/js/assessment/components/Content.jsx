@@ -32,7 +32,7 @@ export default class Content extends React.Component {
 	constructor (props) {
 		super(props);
 
-		this.state = this.buildContent(props, true);
+		this.state = this.buildContent(props, true) || {};
 	}
 
 
