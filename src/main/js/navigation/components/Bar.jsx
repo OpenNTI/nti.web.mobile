@@ -90,7 +90,7 @@ export default createReactClass({
 		const {searchOpen} = this.state;
 
 		if(!searchOpen && searchTerm) {
-			this.launchSearch();
+			this.launchSearch(null, true);
 		} else if (prevProps.searchTerm && searchTerm == null && searchOpen) {
 			this.setState({
 				searchOpen: false
@@ -282,12 +282,12 @@ export default createReactClass({
 		this.closeMenu();
 	},
 
-	launchSearch () {
+	launchSearch (e, backAction) {
 		this.setState({
 			searchOpen: true,
 			menuOpen: false
 		}, () => {
-			if (this.search) {
+			if (this.search && !backAction) {
 				this.search.focus();
 			}
 		});
