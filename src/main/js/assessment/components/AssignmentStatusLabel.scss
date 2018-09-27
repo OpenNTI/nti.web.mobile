@@ -12,6 +12,10 @@
 
 	&.draft {
 		color: $tertiary-grey;
+
+		.required {
+			color: $primary-grey;
+		}
 	}
 
 	span.info-part {

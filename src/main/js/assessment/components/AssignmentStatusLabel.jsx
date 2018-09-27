@@ -317,7 +317,10 @@ export default class AssignmentStatusLabel extends React.Component {
 
 		return this.isDraft() ? (
 			<div className="assignment status-label-wrapper">
-				<h6 className="assignment status-label draft">Draft</h6>
+				<h6 className="assignment status-label draft">
+					{assignment.CompletionRequired && <span className="info-part required">Required</span>}
+					<span>Draft</span>
+				</h6>
 			</div>
 		) : (
 			<div className="assignment status-label-wrapper">
