@@ -1,3 +1,5 @@
+@import "~@nti/style-common";
+
 nav.nav-bar.searchable-library {
 	margin-bottom: 10px;
 
@@ -22,3 +24,17 @@ nav.nav-bar.searchable-library {
 		}
 	}
 }
+
+.library-view {
+	.button.library-add {
+		padding: 0.3125rem 1rem;
+		border-radius: 5px;
+		background: $secondary-green;
+		font-size: 0.75rem;
+		font-weight: 700;
+		text-transform: none;
+		margin: 0;
+		color: white;
+	}
+}
+
