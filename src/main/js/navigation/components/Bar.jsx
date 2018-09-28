@@ -7,7 +7,7 @@ import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {buffer} from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
-import {Pager, Mixins, Navigation} from '@nti/web-commons';
+import {Pager, Mixins, Navigation, DateTime} from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 import {Input} from '@nti/web-search';
 import {LinkTo, getHistory} from '@nti/web-routing';
@@ -60,6 +60,7 @@ export default createReactClass({
 		title: PropTypes.string,
 		className: PropTypes.string,
 		children: PropTypes.any,
+		course: PropTypes.object,
 		availableSections: PropTypes.array,
 		supportsSearch: PropTypes.bool,
 		border: PropTypes.bool,
@@ -175,8 +176,25 @@ export default createReactClass({
 
 
 	renderCommonTabs () {
+		const {CatalogEntry} = this.props.course || {};
+
+		let inPreview = false;
+
+		if(CatalogEntry && CatalogEntry.Preview) {
+			inPreview = true;
+		}
+
+		let label = 'In Preview';
+
+		if(CatalogEntry.getStartDate()) {
+			label += ' - Starts ' + DateTime.format(CatalogEntry.getStartDate(), 'll');
+		}
+
 		return (
-			<Navigation renderTab={this.renderTab}/>
+			<div className="common-tabs">
+				<Navigation renderTab={this.renderTab}/>
+				{inPreview && <div className="preview">{label}</div>}
+			</div>
 		);
 	},
 

@@ -190,6 +190,23 @@ nav.nav-bar {
 				}
 			}
 
+			.common-tabs {
+				position: relative;
+
+				.preview {
+					position: absolute;
+					top: 34px;
+					text-align: center;
+					width: calc(100% - 12px);
+					font-size: 10px;
+					text-transform: uppercase;
+					color: #ffa500;
+					line-height: 10px;
+					z-index: -1;
+					font-weight: 600;
+				}
+			}
+
 			.title {
 				display: block;
 				overflow: hidden;
