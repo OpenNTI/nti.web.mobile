@@ -97,11 +97,11 @@ label:not(.css3unsupported) {
 
 	& > input[type="checkbox"] {
 		& + span::before {
-			background-image: url(../images/icons/checkbox-14.png);
+			background-image: url(../../../../images/icons/checkbox-14.png);
 			background-size: 14px;
 		}
 		&:checked + span::before {
-			background-image: url(../images/icons/checkbox-14_active.png);
+			background-image: url(../../../../images/icons/checkbox-14_active.png);
 		}
 	}
 
@@ -109,7 +109,7 @@ label:not(.css3unsupported) {
 	& > input[type="checkbox"]:focus,
 	& > input[type="checkbox"]:active {
 		&:not(:checked):not(.disabled) + span::before {
-			background-image: url(../images/icons/checkbox-14_hover.png);
+			background-image: url(../../../../images/icons/checkbox-14_hover.png);
 		}
 	}
 }
