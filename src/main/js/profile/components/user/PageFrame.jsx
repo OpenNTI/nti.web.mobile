@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {getAppUsername} from '@nti/web-client';
-import {ActiveState, Background} from '@nti/web-commons';
-import {FollowButton} from '@nti/web-contacts';
+import {Background} from '@nti/web-commons';
 
 import Page from 'common/components/Page';
-import DisplayName from 'common/components/DisplayName';
 import ContextSender from 'common/mixins/ContextSender';
 
-// import EditButton from './EditButton';
-import Head from './Head';
-import MoreItemsMenu from './MoreItemsMenu';
+import Header from './Header';
 
 export default createReactClass({
 	displayName: 'profile:Page',
@@ -25,38 +20,14 @@ export default createReactClass({
 
 	render () {
 		let {entity, pageContent = 'div'} = this.props;
-		let me = (typeof entity === 'object' ? entity.getID() : entity) === getAppUsername();
 
 		let Content = pageContent;
 
 		return (
 			<Page title="Profile">
 				<Background className="profile-wrapper" imgUrl={entity.backgroundURL}>
-					<div className="profile-top-controls">
-						<ul className="profile-top-controls-breadcrumb">
-							<li>People</li>
-							<li><DisplayName entity={entity}/></li>
-						</ul>
-						<ul className="profile-top-controls-buttons">
-							<li>{me ? (
-								null
-							) : (
-								<FollowButton entity={entity} />
-							)}</li>
-						</ul>
-					</div>
 					<div className="profile">
-						<Head {...this.props}>
-							<ul className="profile-nav">
-								<li className="profile-nav-item"><ActiveState hasChildren tag="a" href="/about/">About</ActiveState></li>
-								<li className="profile-nav-item"><ActiveState tag="a" href="/activity/" hasChildren={/^\/(activity|thoughts)/i}>Activity</ActiveState></li>
-								<li className="profile-nav-item"><ActiveState tag="a" href="/memberships/">Memberships</ActiveState></li>
-								<li className="profile-nav-item">
-									<MoreItemsMenu entity={entity}/>
-								</li>
-								{/*<li className="profile-nav-item"><ActiveLink href="/achievements/">Achievements</ActiveLink></li>*/}
-							</ul>
-						</Head>
+						<Header entity={entity}/>
 						<Content {...this.props}/>
 					</div>
 				</Background>

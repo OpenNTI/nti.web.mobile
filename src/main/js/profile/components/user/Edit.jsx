@@ -4,20 +4,20 @@ import {Loading} from '@nti/web-commons';
 
 import ProfileBodyContainer from '../ProfileBodyContainer';
 
-import AboutWrapper from './AboutWrapper';
+import EditWrapper from './EditWrapper';
 
-export default function About ({entity}) {
+export default function Edit ({entity}) {
 	if (!entity) {
 		return <Loading.Ellipse />;
 	}
 
 	return (
-		<ProfileBodyContainer className="profile-about-body">
-			<AboutWrapper user={entity}/>
+		<ProfileBodyContainer className="profile-edit-body">
+			<EditWrapper user={entity}/>
 		</ProfileBodyContainer>
 	);
 }
 
-About.propTypes = {
+Edit.propTypes = {
 	entity: PropTypes.object.isRequired
 };

@@ -13,6 +13,7 @@ import Activity from '../Activity';
 
 import Page from './PageFrame';
 import About from './About';
+import Edit from './Edit';
 import Achievements from './Achievements';
 import Thoughts from './Thoughts';
 import Transcripts from './Transcripts';
@@ -22,6 +23,7 @@ const ROUTES = [
 	{path: '/thoughts(/*)',			handler: Thoughts},
 	{path: '/activity(/)',			handler: Activity },
 	{path: '/achievements(/*)',		handler: Achievements },
+	{path: '/edit(/)',              handler: Edit },
 	{path: '/about(/*)',			handler: About },
 	{path: '/transcripts(/*)',      handler: Transcripts},
 	{path: '/memberships(/*)',		handler: Memberships },
