@@ -3,6 +3,9 @@
 	margin-top: .25rem;
 	.profile-body-main {
 		flex: 1 1 auto;
+		min-width: 0;
+		overflow: hidden;
+
 		.profile-card {
 			margin-top: 0;
 		}
