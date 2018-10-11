@@ -19,7 +19,7 @@ export function priceItem (purchasable) {
 }
 
 
-export function verifyBillingInfo (stripePublicKey, formData) {
+export function verifyBillingInfo (stripePublicKey, formData, createToken) {
 	//this modifies formData >.< ...
 	function pullData (data) {
 		const result = {};
@@ -51,10 +51,10 @@ export function verifyBillingInfo (stripePublicKey, formData) {
 		return {couponInfo, giftInfo};
 	}
 
+	if (!createToken) { return; }
 
-	Api.getToken(stripePublicKey, formData)
-		.then(result => {
-			const {status, response: stripeToken = null} = result;
+	createToken(formData)
+		.then(({ token: stripeToken }) => {
 			const {couponInfo = null, giftInfo = null} = pullData(formData);
 
 			dispatch(Constants.BILLING_INFO_VERIFIED, {
@@ -62,10 +62,7 @@ export function verifyBillingInfo (stripePublicKey, formData) {
 				stripePublicKey,
 				formData,
 				giftInfo,
-				couponInfo,
-
-				status,
-				result
+				couponInfo
 			});
 		})
 

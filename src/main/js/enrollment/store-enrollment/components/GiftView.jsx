@@ -146,6 +146,7 @@ export default createReactClass({
 
 		for (i in elements) {
 			if (!elements.hasOwnProperty(i) || !elements[i]) { continue; }
+			if (i === 'card') { continue; }
 
 			v = elements[i];
 
@@ -175,7 +176,7 @@ export default createReactClass({
 		let stripeKey = this.props.purchasable.getStripeConnectKey().PublicKey;
 
 		if (this.validate() && this.state.agreed) {
-			verifyBillingInfo(stripeKey, this.getValues());
+			verifyBillingInfo(stripeKey, this.getValues(), this.createToken);
 		}
 	},
 
@@ -210,6 +211,9 @@ export default createReactClass({
 		return Object.keys(errors).length === 0;
 	},
 
+	onCreditCardChange (createToken) {
+		this.createToken = createToken;
+	},
 
 	render () {
 		const {props: {purchasable}, state: {agreed, error, errors, defaultValues, loading, submitEnabled}} = this;
@@ -232,7 +236,7 @@ export default createReactClass({
 
 				<FormPanel title={t('payment.title')} subhead={t('payment.sub')} styled={false}>
 					<From ref={this.attachFromRef} defaultValues={defaultValues} />
-					<CreditCardForm ref={this.attachCardRef} defaultValues={defaultValues} className="payment-fields"/>
+					<CreditCardForm purchasable={purchasable} onChange={this.onCreditCardChange} ref={this.attachCardRef} defaultValues={defaultValues} className="payment-fields"/>
 					<BillingAddressForm ref={this.attachBillingRef} defaultValues={defaultValues} className="payment-fields"/>
 				</FormPanel>
 

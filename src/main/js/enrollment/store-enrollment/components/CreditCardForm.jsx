@@ -1,4 +1,3 @@
-/* globals Stripe jQuery */
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -6,6 +5,7 @@ import {Loading} from '@nti/web-commons';
 import {mixin} from '@nti/lib-decorators';
 import {ExternalLibraryManager} from '@nti/web-client';
 import {scoped} from '@nti/lib-locale';
+import { CreditCard } from '@nti/web-payments';
 
 import {clearLoadingFlag} from 'common/utils/react-state';
 
@@ -23,208 +23,51 @@ const t = scoped('enrollment.forms', {
 	}
 });
 
-const EXP_PATTERN = /\d+ \/ \d+/;
-
 export default
 @mixin(ExternalLibraryManager)
 class CreditCardForm extends React.Component {
-
 	static propTypes = {
 		className: PropTypes.string,
-		onChange: PropTypes.func,
-		defaultValues: PropTypes.object
+		onChange: PropTypes.func.isRequired,
+		defaultValues: PropTypes.object,
+		purchasable: PropTypes.object
 	}
-
-
-	attachNameRef = (x) => this.elements.name = x
-	attachNumberRef = (x) => this.elements.number = x
-	attachExpRef = (x) => this.elements.exp = x
-	attachCvcRef = (x) => this.elements.cvc = x
-
-	elements = {}
 
 	state = {
-		errors: {},
-		loading: true
+		errors: null,
+		loading: true,
+		valid: false
 	}
 
-
 	componentDidMount () {
-		this.ensureExternalLibrary(['jquery.payment', 'stripe'])
+		this.ensureExternalLibrary(['stripe'])
 			.then(() => clearLoadingFlag(this));
 	}
 
-
-	componentDidUpdate (_, prevState) {
-		const {state: {loading}, elements: {cvc, exp, number}} = this;
-		if (loading !== prevState.loading && typeof jQuery !== 'undefined') {
-			jQuery(number).payment('formatCardNumber');
-			jQuery(exp).payment('formatCardExpiry');
-			jQuery(cvc).payment('formatCardCVC');
+	onChange = ({ complete, errors, createToken }) => {
+		if (complete && !errors) {
+			this.props.onChange(createToken);
+			this.setState({ valid: true });
+		} else {
+			this.setState({ valid: false, errors });
 		}
 	}
 
-
-	getValue () {
-		const {cvc: cvcEl, exp: expEl, number: numberEl, name: nameEl} = this.elements;
-		const getValue = x => x && x.value && x.value.trim();
-
-		const {month, year} =
-			jQuery(expEl).payment('cardExpiryVal');
-
-		return {
-			name: getValue(nameEl),
-			number: getValue(numberEl),
-			cvc: getValue(cvcEl),
-			'exp_month': month,
-			'exp_year': year
-		};
+	validate () {
+		return this.state.valid;
 	}
-
-
-	delegateError = (err) => {
-		let fields = {
-			name: 'name',
-			number: 'number',
-			cvc: 'cvc',
-			exp: 'exp',
-			'exp_month': 'exp',
-			'exp_year': 'exp'
-		};
-
-		for (let key of Object.keys(err)) {
-			if (key in fields) {
-				this.setState({errors: {[fields[key]]: err[key]}});
-				return true;
-			}
-		}
-	}
-
-
-	validate = (ignoreEmpty = true) => {
-		const {name, number, cvc, exp_month: mon, exp_year: year} = this.getValue(); // eslint-disable-line camelcase
-		const errors = {};
-		const hasValue = x => (x || '').length > 0 || !ignoreEmpty;
-
-		if(name.length === 0) {
-			errors.name = {message: t('requiredField')};
-		}
-
-		if(hasValue(number) && !Stripe.card.validateCardNumber(number)) {
-			errors.number = {message: t('invalidCardNumber')};
-		}
-
-		if(hasValue(cvc) && !Stripe.card.validateCVC(cvc)) {
-			errors.cvc = {message: t('invalidCVC')};
-		}
-
-		if(hasValue(mon) && hasValue(year) && !Stripe.card.validateExpiry(mon, year)) {
-			errors.exp = {message: t('invalidExpiration')};
-		}
-
-		const hasErrors = Object.keys(errors).length > 0;
-
-		this.setState({errors: hasErrors ? errors : void 0});
-
-		return !hasErrors;
-	}
-
-
-	onChange = (e) => {
-		this.onFieldEventClearError(e);
-		let {onChange} = this.props;
-		if (onChange) {
-			onChange();
-		}
-	}
-
-
-	onFieldEventClearError = (e) => {
-		let {name} = e.target;
-		let {errors} = this.state;
-
-		let line2 = {number:1, exp:1, cvc: 1};
-
-		if (errors) {
-			({ ...errors});
-
-			delete errors[name];
-			if (name in line2) {
-				for (let line of Object.keys(line2)) {
-					delete errors[line];
-				}
-			}
-
-			this.setState({errors});
-		}
-	}
-
 
 	render () {
-		const {props: {className, defaultValues = {}}, state: {loading, errors = {}}} = this;
-
-		const secondLineError = errors.number || errors.exp || errors.cvc;
+		const { props: { className, defaultValues = {}, purchasable }, state: {loading }} = this;
 
 		if (loading) {
 			return ( <Loading.Ellipse/> );
 		}
 
-		let expDefaultValue = `${defaultValues.exp_month} / ${defaultValues.exp_year}`;
-		if (!EXP_PATTERN.test(expDefaultValue)) {
-			expDefaultValue = void 0;
-		}
-
 		return (
 			<fieldset className={cx('credit-card-form', className)}>
 				<legend>Credit Card</legend>
-				<div className="name">
-					<input name="name" ref={this.attachNameRef}
-						placeholder={t('storeenrollment.name')}
-						className={cx('required', {error: errors.name})}
-						type="text"
-						defaultValue={defaultValues.name}
-						onFocus={this.onFieldEventClearError}
-						onChange={this.onChange}
-					/>
-					{errors.name && <div className="error message">{errors.name.message}</div>}
-				</div>
-				<div>
-					<span className="number" >
-						<input name="number" ref={this.attachNumberRef}
-							placeholder={t('storeenrollment.number')}
-							className={cx('required', {error: errors.number})}
-							type="text"
-							pattern="[0-9]*"
-							autoComplete="cc-number"
-							onFocus={this.onFieldEventClearError}
-							onChange={this.onChange}
-						/>
-					</span>
-					<span className="exp" >
-						<input name="exp" ref={this.attachExpRef}
-							placeholder={t('storeenrollment.exp_')}
-							className={cx('required', {error: errors.exp})}
-							type="text"
-							pattern="[0-9]*"
-							autoComplete="cc-exp"
-							defaultValue={expDefaultValue}
-							onFocus={this.onFieldEventClearError}
-							onChange={this.onChange}
-						/>
-					</span>
-					<span className="cvc" >
-						<input name="cvc" ref={this.attachCvcRef}
-							placeholder={t('storeenrollment.cvc')}
-							className={cx('required', {error: errors.cvc})}
-							type="text"
-							pattern="[0-9]*"
-							autoComplete="off"
-							onFocus={this.onFieldEventClearError}
-							onChange={this.onChange}
-						/>
-					</span>
-					{secondLineError && <div className="error message">{secondLineError.message}</div>}
-				</div>
+				<CreditCard onChange={this.onChange} purchasable={purchasable} defaultValues={defaultValues} />
 			</fieldset>
 		);
 	}
