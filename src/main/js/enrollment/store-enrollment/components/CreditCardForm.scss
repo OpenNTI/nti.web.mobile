@@ -1,25 +1,30 @@
 @import "~@nti/style-common";
 @import "utils/placeholders";
 
+
 fieldset.credit-card-form {
-	@extend %form-fieldset;
+	.nti-credit-card-form {
+		@extend %form-fieldset;
 
-	.number, .exp, .cvc {
-		display: block;
-		float: left;
-	}
+		input {
+			box-shadow: inset 4px 0 0 0 #ccc;
+			-webkit-font-smoothing: auto;
+		}
 
-	.exp,
-	.cvc {
-		margin-left: 2%;
-		width: 23%;
-	}
+		.card-input {
+			.card-number, .card-expiry, .card-cvc {
+				background: white;
+				border-radius: 0px;
+				border-color: #ccc;
+				box-shadow: inset 4px 0 0 0 #ccc;
+			}
+		}
 
-	.cvc {
-		width: 18%;
-	}
-
-	.number {
-		width: 55%;
+		.ElementsApp, .ElementsApp .InputElement {
+			color: rgba(0, 0, 0, 0.75);
+			font-style: normal;
+			font-weight: 100;
+		}
 	}
 }
+

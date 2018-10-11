@@ -84,8 +84,8 @@ class Store extends StorePrototype {
 
 	[HandleBillingInfo] (data) {
 		const {payload, type} = data.action;
+
 		const {stripeToken, stripePublicKey, formData, giftInfo, couponInfo} = payload;
-		const {status, response} = payload.result || {};
 
 		Object.assign(this.data, {
 			stripePublicKey,
@@ -95,7 +95,7 @@ class Store extends StorePrototype {
 			couponInfo
 		});
 
-		this.emitChange({type, status, response});
+		this.emitChange({type});
 	}
 
 

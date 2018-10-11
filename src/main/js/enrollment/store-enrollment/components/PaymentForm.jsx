@@ -10,6 +10,7 @@ import {Loading} from '@nti/web-commons';
 import {ExternalLibraryManager, getAppUser} from '@nti/web-client';
 import {StoreEventsMixin} from '@nti/lib-store';
 
+
 import FormPanel from 'forms/components/FormPanel';
 import FormErrors from 'forms/components/FormErrors';
 import {clearLoadingFlag} from 'common/utils/react-state';
@@ -107,8 +108,8 @@ export default createReactClass({
 
 
 	getValues () {
-		const {pricing, card, billing} = this;
-		return { ...card.getValue(), ...billing.getValue(), ...pricing.getData()};
+		const {pricing, billing} = this;
+		return { ...billing.getValue(), ...pricing.getData()};
 	},
 
 
@@ -147,12 +148,16 @@ export default createReactClass({
 
 		let stripeKey = this.props.purchasable.getStripeConnectKey().PublicKey;
 
-		verifyBillingInfo(stripeKey, this.getValues());
+		verifyBillingInfo(stripeKey, this.getValues(), this.createToken);
 	},
 
 	termsCheckboxChange (termsChecked) {
 		this.validate();
 		this.setState({ termsChecked });
+	},
+
+	onCreditCardChange (createToken) {
+		this.createToken = createToken;
 	},
 
 	render () {
@@ -167,7 +172,7 @@ export default createReactClass({
 		return (
 			<FormPanel onSubmit={this.handleSubmit} title={title} className="payment-form">
 				<Pricing ref={this.attachPricingRef} purchasable={purch} />
-				<CreditCardForm defaultValues={defaultValues} ref={this.attachCardRef}/>
+				<CreditCardForm purchasable={purch} defaultValues={defaultValues} ref={this.attachCardRef} onChange={this.onCreditCardChange} />
 				<BillingAddress defaultValues={defaultValues} ref={this.attachBillingRef}/>
 				{errors && ( <FormErrors errors={errors} /> )}
 				<TermsCheckbox onChange={this.termsCheckboxChange}/>
