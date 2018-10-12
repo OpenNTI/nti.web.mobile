@@ -23,7 +23,7 @@ export default Router.for([
 			}
 
 			if (context === 'memberships') {
-				return `${base}membership/`;
+				return `${base}memberships/`;
 			}
 
 			if (context === 'transcripts') {
