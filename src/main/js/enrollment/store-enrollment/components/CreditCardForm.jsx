@@ -35,13 +35,7 @@ class CreditCardForm extends React.Component {
 
 	state = {
 		errors: null,
-		loading: true,
 		valid: false
-	}
-
-	componentDidMount () {
-		this.ensureExternalLibrary(['stripe'])
-			.then(() => clearLoadingFlag(this));
 	}
 
 	onChange = ({ complete, errors, createToken }) => {
@@ -58,11 +52,7 @@ class CreditCardForm extends React.Component {
 	}
 
 	render () {
-		const { props: { className, defaultValues = {}, purchasable }, state: {loading }} = this;
-
-		if (loading) {
-			return ( <Loading.Ellipse/> );
-		}
+		const { props: { className, defaultValues = {}, purchasable }} = this;
 
 		return (
 			<fieldset className={cx('credit-card-form', className)}>
