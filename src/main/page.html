@@ -51,9 +51,9 @@
 	</head>
 	<body>
 		<script type="text/javascript">
-			window.onerror = function() {
+			window.onerror = function(msg) {
 				if (!window.appInitialized) {
-					window.location.replace('/login/unsupported.html');
+					window.location.replace('/login/unsupported.html'+encodeURIComponent(msg));
 				}
 			}
 		</script>
