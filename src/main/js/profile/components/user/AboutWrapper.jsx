@@ -6,15 +6,9 @@ export default Router.for([
 	Route({
 		path: '/',
 		getRouteFor: (obj, context) => {
-			if (!obj.isUser) { return; }
+			if (!(obj.isUser || obj.isGroup || obj.isCommunity)) { return; }
 
-			const base = `mobile/profile/${UserUtil.encode(obj.Username)}/`;
-
-			if (context === 'about') {
-				return base;
-			}
-
-			return null;
+			return `mobile/profile/${UserUtil.encode(obj.Username)}/`;
 		},
 		component: User.About})
 ]);
