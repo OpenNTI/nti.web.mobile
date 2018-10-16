@@ -54,7 +54,7 @@ export function verifyBillingInfo (stripePublicKey, formData, createToken) {
 	if (!createToken) { return; }
 
 	createToken(formData)
-		.then(({ token: stripeToken }) => {
+		.then((stripeToken) => {
 			const {couponInfo = null, giftInfo = null} = pullData(formData);
 
 			dispatch(Constants.BILLING_INFO_VERIFIED, {
