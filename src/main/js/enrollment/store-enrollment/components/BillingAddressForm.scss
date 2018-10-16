@@ -1,6 +1,6 @@
 @import "~@nti/style-common";
 @import "utils/placeholders";
 
-fieldset.billing-address-form {
+fieldset.billing-address-form, fieldset.credit-card-form {
 	@extend %form-fieldset;
 }
