@@ -72,7 +72,9 @@ export default class CourseLessonOverview extends React.Component {
 			route = path.join(env.getPath(), 'videos', getEncodedID(obj));
 		}
 		else if (/assignment/i.test(type) || isLegacyAssignment()) {
-			route = path.join('..', 'assignments', getEncodedID(obj));
+			// Use the first route to go to the Assignments tab on assignment click.  Use the second to stay under Lessons
+			// route = path.join('..', 'assignments', getEncodedID(obj));
+			route = path.join(env.getPath(), 'assignment', getEncodedID(obj));
 		}
 		else if (/survey/i.test(type)) {
 			route = path.join(env.getPath(), 'content', getEncodedID(obj));

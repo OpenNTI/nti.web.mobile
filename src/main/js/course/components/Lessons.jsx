@@ -8,6 +8,7 @@ import ContextContributor from 'common/mixins/ContextContributor';
 
 import {LESSONS} from '../Sections';
 
+import Assignments from './Assignment';
 import Content from './Content';
 import External from './ExternalContent';
 import Media from './Media';
@@ -16,10 +17,11 @@ import Overview from './Overview';
 
 
 const ROUTES = [
-	{path: '/:outlineId/content/:rootId(/*)',	handler: Content },
+	{path: '/:outlineId/content/:rootId(/*)',		handler: Content },
+	{path: '/:outlineId/assignment/:rootId(/*)',	handler: Assignments },
 	{path: '/:outlineId/external-content/:relatedWorkRefId(/discussions)(/*)',	handler: External },
-	{path: '/:outlineId/videos(/*)',			handler: Media },
-	{path: '/:outlineId(/*)',					handler: Overview },
+	{path: '/:outlineId/videos(/*)',				handler: Media },
+	{path: '/:outlineId(/*)',						handler: Overview },
 	{}//
 ];
 
