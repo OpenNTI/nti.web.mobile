@@ -1,26 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {Loading} from '@nti/web-commons';
 import {mixin} from '@nti/lib-decorators';
 import {ExternalLibraryManager} from '@nti/web-client';
 import {scoped} from '@nti/lib-locale';
 import { CreditCard } from '@nti/web-payments';
 
-import {clearLoadingFlag} from 'common/utils/react-state';
 
 const t = scoped('enrollment.forms', {
-	invalidExpiration: 'Expiration is invalid.',
-	invalidCardNumber: 'Card number is invalid.',
-	invalidCVC: 'CVC is invalid.',
-	requiredField: 'Field is required.',
-
-	storeenrollment: {
-		cvc: 'Code',
-		name: 'Name on Card',
-		number: '1234 1234 1234 1234',
-		exp_: 'MM / YY',
-	}
+	requiredField: 'Field is required.'
 });
 
 export default
@@ -28,36 +16,79 @@ export default
 class CreditCardForm extends React.Component {
 	static propTypes = {
 		className: PropTypes.string,
+		required: PropTypes.object,
 		onChange: PropTypes.func.isRequired,
 		defaultValues: PropTypes.object,
 		purchasable: PropTypes.object
 	}
 
+	static defaultProp = {
+		required: {name: true, number: true, expiry: true, cvc: true}
+	}
+
 	state = {
 		errors: null,
+		empty: {name: true, number: true, expiry: true, cvc: true},
 		valid: false
 	}
 
-	onChange = ({ complete, errors, createToken }) => {
+	onChange = ({ complete, errors, empty, createToken }) => {
 		if (complete && !errors) {
 			this.props.onChange(createToken);
-			this.setState({ valid: true });
+			this.setState({ valid: true, errors: null, empty });
 		} else {
-			this.setState({ valid: false, errors });
+			this.setState({ valid: false, errors: null, empty });
 		}
 	}
 
 	validate () {
-		return this.state.valid;
+		const {valid, empty} = this.state;
+
+		if (valid) {return true;}
+
+		if (empty) {
+			const errors = {};
+
+			if (empty.name) {
+				errors['data-name-error'] = true;
+			}
+
+			if (empty.number) {
+				errors['data-number-error'] = true;
+			}
+
+			if (empty.expiry) {
+				errors['data-expiry-error'] = true;
+			}
+
+			if (empty.cvc) {
+				errors['data-cvc-error'] = true;
+			}
+
+			this.setState({
+				errors
+			});
+		}
+
+		return false;
 	}
 
+
 	render () {
-		const { props: { className, defaultValues = {}, purchasable }} = this;
+		const {
+			props: { className, defaultValues = {}, purchasable },
+			state: {errors}
+		} = this;
 
 		return (
-			<fieldset className={cx('credit-card-form', className)}>
+			<fieldset className={cx('credit-card-form', className)} {...(errors || {})}>
 				<legend>Credit Card</legend>
 				<CreditCard onChange={this.onChange} purchasable={purchasable} defaultValues={defaultValues} />
+				{errors && (
+					<div className="error-message">
+						{t('requiredField')}
+					</div>
+				)}
 			</fieldset>
 		);
 	}

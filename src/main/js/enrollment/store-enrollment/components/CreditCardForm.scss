@@ -3,6 +3,8 @@
 
 
 fieldset.credit-card-form {
+	position: relative;
+
 	.nti-credit-card-form {
 		@extend %form-fieldset;
 
@@ -25,6 +27,29 @@ fieldset.credit-card-form {
 			font-style: normal;
 			font-weight: 100;
 		}
+	}
+
+
+	&[data-name-error] .name-input,
+	&[data-number-error] .card-input .card-number,
+	&[data-expiry-error] .card-input .card-expiry,
+	&[data-cvc-error] .card-input .card-cvc {
+		border: 1px solid $primary-red;
+		box-shadow: inset 4px 0 0 0 $primary-red;
+	}
+
+	.error-message {
+		position: absolute;
+		bottom: 0;
+		left: 0.5rem;
+		z-index: 10;
+		background: $primary-red;
+		font-size: 0.8rem;
+		color: $secondary-red;
+		border: 1px solid $secondary-red;
+		padding: 0 0.25rem;
+		display: block;
+		margin: 0;
 	}
 }
 
