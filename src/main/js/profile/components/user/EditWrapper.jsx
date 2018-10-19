@@ -14,7 +14,7 @@ export default Router.for([
 				return `${base}edit/`;
 			}
 
-			return null;
+			return base;
 		},
 		component: User.Edit})
 ]);
