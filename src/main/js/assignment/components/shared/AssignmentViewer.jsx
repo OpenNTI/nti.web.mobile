@@ -63,10 +63,17 @@ class AssignmentViewer extends React.Component {
 		const state = {};
 
 		try {
-			const [assignment,history] = await Promise.all([
+			const [initAssignment,history] = await Promise.all([
 				ensureNotSummary(assignments.getAssignment(id)),
 				assignments.getHistoryItem(id, userId)
 			]);
+
+			const maybeAutoStart = initAssignment.shouldAutoStart();
+			let assignment = initAssignment;
+
+			if (maybeAutoStart && !initAssignment.hasLink('PracticeSumbission')) {
+				assignment = await initAssignment.start();
+			}
 
 			Object.assign(state, {assignment, history});
 		}
