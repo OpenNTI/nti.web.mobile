@@ -68,7 +68,7 @@ class AssignmentViewer extends React.Component {
 				assignments.getHistoryItem(id, userId)
 			]);
 
-			const maybeAutoStart = initAssignment.shouldAutoStart();
+			const maybeAutoStart = initAssignment.shouldAutoStart && initAssignment.shouldAutoStart();
 			let assignment = initAssignment;
 
 			if (maybeAutoStart && !initAssignment.hasLink('PracticeSumbission')) {
