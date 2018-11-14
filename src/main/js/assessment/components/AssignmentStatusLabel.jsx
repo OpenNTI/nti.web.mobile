@@ -12,7 +12,7 @@ const toUnitString = scoped('common.units');
 const toUnitSingularString = scoped('common.units.SINGULARS');
 
 const Assignment = getModel('assessment.assignment');
-const HistoryItem = getModel('assessment.assignmenthistoryitem');
+const HistoryItemContainer = getModel('assessment.userscourseassignmenthistoryitemcontainer');
 
 const isToday = (d) => isSameDay(new Date(), d);
 
@@ -41,7 +41,7 @@ export default class AssignmentStatusLabel extends React.Component {
 
 	static propTypes = {
 		assignment: PropTypes.instanceOf(Assignment),
-		historyItem: PropTypes.instanceOf(HistoryItem),
+		historyItem: PropTypes.instanceOf(HistoryItemContainer),
 
 		showTimeWithDate: PropTypes.bool
 	};
@@ -49,6 +49,22 @@ export default class AssignmentStatusLabel extends React.Component {
 	state = {
 		showDetail: null
 	};
+
+	componentDidMount = () => {
+		this.setHistoryItem();
+	};
+
+	componentDidUpdate = (oldProps) => {
+		if(this.props.historyItem !== oldProps.historyItem) {
+			this.setHistoryItem();
+		}
+	};
+
+	setHistoryItem () {
+		const {historyItem} = this.props;
+
+		this.setState({historyItem: historyItem && historyItem.getMostRecentHistoryItem && historyItem.getMostRecentHistoryItem()});
+	}
 
 	isAvailable = () => {
 		const now = new Date();
@@ -74,17 +90,17 @@ export default class AssignmentStatusLabel extends React.Component {
 	};
 
 	isSubmitted = () => {
-		const {props: {historyItem}} = this;
+		const {state: {historyItem}} = this;
 		return historyItem && historyItem.isSubmitted();
 	};
 
 	isSyntheticSubmission = () => {
-		const {props: {historyItem}} = this;
+		const {state: {historyItem}} = this;
 		return historyItem && historyItem.isSyntheticSubmission();
 	};
 
 	isExcused = () => {
-		const {props: {historyItem: i}} = this;
+		const {state: {historyItem: i}} = this;
 		return i && i.isGradeExcused && i.isGradeExcused();
 	};
 
@@ -94,7 +110,7 @@ export default class AssignmentStatusLabel extends React.Component {
 	};
 
 	getCompletedDateTime = () => {
-		const {props: {historyItem: i}} = this;
+		const {state: {historyItem: i}} = this;
 		return i && i.isSubmitted() && i.getCreatedTime();
 	};
 
