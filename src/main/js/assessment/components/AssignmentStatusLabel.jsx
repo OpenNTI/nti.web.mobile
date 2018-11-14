@@ -50,20 +50,10 @@ export default class AssignmentStatusLabel extends React.Component {
 		showDetail: null
 	};
 
-	componentDidMount = () => {
-		this.setHistoryItem();
-	};
-
-	componentDidUpdate = (oldProps) => {
-		if(this.props.historyItem !== oldProps.historyItem) {
-			this.setHistoryItem();
-		}
-	};
-
-	setHistoryItem () {
+	getHistoryItem () {
 		const {historyItem} = this.props;
 
-		this.setState({historyItem: historyItem && historyItem.getMostRecentHistoryItem && historyItem.getMostRecentHistoryItem()});
+		return historyItem && historyItem.getMostRecentHistoryItem && historyItem.getMostRecentHistoryItem();
 	}
 
 	isAvailable = () => {
@@ -90,18 +80,18 @@ export default class AssignmentStatusLabel extends React.Component {
 	};
 
 	isSubmitted = () => {
-		const {state: {historyItem}} = this;
+		const historyItem = this.getHistoryItem();
 		return historyItem && historyItem.isSubmitted();
 	};
 
 	isSyntheticSubmission = () => {
-		const {state: {historyItem}} = this;
+		const historyItem = this.getHistoryItem();
 		return historyItem && historyItem.isSyntheticSubmission();
 	};
 
 	isExcused = () => {
-		const {state: {historyItem: i}} = this;
-		return i && i.isGradeExcused && i.isGradeExcused();
+		const historyItem = this.getHistoryItem();
+		return historyItem && historyItem.isGradeExcused && historyItem.isGradeExcused();
 	};
 
 	isDraft = () => {
@@ -110,8 +100,8 @@ export default class AssignmentStatusLabel extends React.Component {
 	};
 
 	getCompletedDateTime = () => {
-		const {state: {historyItem: i}} = this;
-		return i && i.isSubmitted() && i.getCreatedTime();
+		const historyItem = this.getHistoryItem();
+		return historyItem && historyItem.isSubmitted() && historyItem.getCreatedTime();
 	};
 
 	getDuration = () => {
