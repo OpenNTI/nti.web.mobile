@@ -387,7 +387,11 @@ class Store extends StorePrototype {
 		let key = this[GetAssessmentKey](assessment);
 		let s = this.getSubmissionData(assessment);
 
-		const submission = container && container.getMostRecentHistoryItem && container.getMostRecentHistoryItem();
+		let submission = container;
+
+		if(container.getMostRecentHistoryItem) {
+			submission = container.getMostRecentHistoryItem();
+		}
 
 		let questions = submission.getQuestions ? submission.getQuestions() : [submission];
 		let assessedUnit = null;
