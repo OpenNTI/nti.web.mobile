@@ -27,7 +27,8 @@ export default class PerformanceHeader extends React.Component {
 		const { assignments } = props;
 		const id = assignments && assignments.getFinalGradeAssignmentId();
 		if(id) {
-			const historyItem = await assignments.getHistoryItem(id);
+			const container = await assignments.getHistoryItem(id);
+			const historyItem = container && container.getMostRecentHistoryItem && container.getMostRecentHistoryItem();
 			if (historyItem) {
 				this.setState({ id, grade: historyItem.grade });
 			}
