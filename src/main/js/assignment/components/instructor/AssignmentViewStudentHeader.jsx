@@ -82,7 +82,14 @@ class InstructorAssignmentViewStudentHeader extends React.Component {
 	render () {
 
 		const {userId, assignmentId} = this.props;
-		const {history, assignment} = this.state;
+		const {history: container, assignment} = this.state;
+
+		let history = container;
+
+		if(container && container.getMostRecentHistoryItem) {
+			history = container.getMostRecentHistoryItem();
+		}
+
 		const {grade} = history || {};
 
 		const props = { assignmentId, userId, item: history };
