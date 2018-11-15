@@ -71,7 +71,16 @@ class AssignmentViewer extends React.Component {
 			const maybeAutoStart = initAssignment.shouldAutoStart && initAssignment.shouldAutoStart();
 			let assignment = initAssignment;
 
-			if (maybeAutoStart && !initAssignment.hasLink('PracticeSumbission')) {
+			if(history && history.getMostRecentHistoryItem) {
+				const historyItem = history.getMostRecentHistoryItem();
+
+				if(historyItem && historyItem.MetadataAttemptItem) {
+					const historicalAssignment = await historyItem.MetadataAttemptItem.fetchLink('Assignment');
+					await initAssignment.refresh(historicalAssignment);
+					assignment = initAssignment;
+				}
+			}
+			else if (maybeAutoStart && !initAssignment.hasLink('PracticeSubmission')) {
 				assignment = await initAssignment.start();
 			}
 
