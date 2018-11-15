@@ -19,10 +19,16 @@ class AssignmentStatus extends React.Component {
 
 	render () {
 
-		const {assignment, history} = this.props;
+		const {assignment, history: container} = this.props;
 
 		if(!assignment) {
 			return null;
+		}
+
+		let history = container;
+
+		if(container && container.getMostRecentHistoryItem) {
+			history = container.getMostRecentHistoryItem();
 		}
 
 		const due = assignment.getDueDate();
