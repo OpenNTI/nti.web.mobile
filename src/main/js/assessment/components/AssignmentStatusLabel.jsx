@@ -12,7 +12,6 @@ const toUnitString = scoped('common.units');
 const toUnitSingularString = scoped('common.units.SINGULARS');
 
 const Assignment = getModel('assessment.assignment');
-const HistoryItemContainer = getModel('assessment.userscourseassignmenthistoryitemcontainer');
 
 const isToday = (d) => isSameDay(new Date(), d);
 
@@ -41,7 +40,7 @@ export default class AssignmentStatusLabel extends React.Component {
 
 	static propTypes = {
 		assignment: PropTypes.instanceOf(Assignment),
-		historyItem: PropTypes.instanceOf(HistoryItemContainer),
+		historyItem: PropTypes.object,
 
 		showTimeWithDate: PropTypes.bool
 	};
@@ -51,9 +50,15 @@ export default class AssignmentStatusLabel extends React.Component {
 	};
 
 	getHistoryItem () {
-		const {historyItem} = this.props;
+		const {historyItem: container} = this.props;
 
-		return historyItem && historyItem.getMostRecentHistoryItem && historyItem.getMostRecentHistoryItem();
+		let historyItem = container;
+
+		if(container && container.getMostRecentHistoryItem) {
+			historyItem = container.getMostRecentHistoryItem();
+		}
+
+		return historyItem;
 	}
 
 	isAvailable = () => {
