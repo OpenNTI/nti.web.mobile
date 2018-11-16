@@ -63,7 +63,7 @@
     "@nti/web-course": "^1.32.0",
     "@nti/web-discussions": "0.x.x",
     "@nti/web-help": "0.x.x",
-    "@nti/web-library": "^1.3.0",
+    "@nti/web-library": "^1.4.0",
     "@nti/web-modeled-content": "^1.5.0",
     "@nti/web-payments": "^1.0.0",
     "@nti/web-profiles": "^1.12.0",
