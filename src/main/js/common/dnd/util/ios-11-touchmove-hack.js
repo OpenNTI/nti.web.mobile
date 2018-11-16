@@ -1,9 +1,6 @@
 import {default as isTouch, PointerEvents} from '@nti/util-detection-touch';
 import iOSVersion from '@nti/util-ios-version';
-import {
-	addEventListener as _addEventListener,
-	removeEventListener as _removeEventListener,
-} from '@nti/lib-dom';
+
 
 const [major, minor] = iOSVersion() || [];
 const isBroken = isTouch && major > 11 || (major === 11 && minor >= 3);
@@ -25,16 +22,16 @@ export default !isBroken ? {} : {
 
 		const handler = safariTouchMoveHandler.bind(this);
 
-		_addEventListener(global,
+		global.addEventListener(
 			PointerEvents.pointerMove,
 			handler,
 			options
 		);
 
-		this.removeSafariHack = () => _removeEventListener(
-			global,
+		this.removeSafariHack = () => global.removeEventListener(
 			PointerEvents.pointerMove,
-			handler
+			handler,
+			options
 		);
 	},
 
