@@ -12,7 +12,7 @@ import {
 	getScrollParent
 } from '@nti/lib-dom';
 
-// import SafariHack from '../util/ios-11-touchmove-hack';
+import SafariHack from '../util/ios-11-touchmove-hack';
 
 import Base, {TYPE_SHAPE} from './Base';
 
@@ -68,7 +68,7 @@ function isDirection (dir, key, a, b) {
 
 
 export default {
-	mixins: [Base],
+	mixins: [Base, SafariHack],
 
 	canDragY: canDrag('y'),
 	canDragX: canDrag('x'),
