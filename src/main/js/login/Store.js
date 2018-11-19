@@ -110,7 +110,8 @@ class Store extends StorePrototype {
 			'logon.ou.sso',
 			'logon.ats.imis',
 			'logon.ensync.imis',
-			'logon.ifsta.oauth'
+			'logon.ifsta.oauth',
+			'logon.your.membership'
 		];
 
 		return whiteList
