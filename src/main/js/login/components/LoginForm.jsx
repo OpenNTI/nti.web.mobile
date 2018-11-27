@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import QueryString from 'query-string';
+import cx from 'classnames';
 import {Link} from 'react-router-component';
 import Logger from '@nti/util-logger';
 import {Loading} from '@nti/web-commons';
@@ -17,6 +18,16 @@ import {updateWithNewUsername, login} from '../Actions';
 import OAuthButtons from './OAuthButtons';
 import RecoveryLinks from './RecoveryLinks';
 import SupportLinks from './SupportLinks';
+
+function getWrapper (node) {
+	let current = node;
+
+	while (current) {
+		if (current.matches('.login-wrapper')) { return current; }
+
+		current = current.parentNode;
+	}
+}
 
 
 const logger = Logger.get('login:components:LoginForm');
@@ -86,13 +97,31 @@ export default createReactClass({
 	},
 
 
+	onClick (e) {
+		const {clientX, clientY} = e;
+		const wrapper = getWrapper(e.target);
+
+		if (!wrapper) { return; }
+
+		const rect = wrapper.getBoundingClientRect();
+
+		if (Math.abs(rect.right - clientX) <= 40 && Math.abs(rect.bottom - clientY) <= 40) {
+			this.setState({
+				forceNextThoughtLogin: true
+			});
+		}
+	},
+
+
 	render () {
-		const {blankPassword, busy, error, username, password} = this.state || {};
+		const {blankPassword, busy, error, username, password, forceNextThoughtLogin} = this.state || {};
 
 		const disabled = busy || blankPassword || !Store.getLoginLink();
+		const hasAccountCreation = !!Store.getLink(LINK_ACCOUNT_CREATE);
+		const hasNextThoughtLogin = forceNextThoughtLogin || Store.getAvailableOAuthLinks().length <= 0 || hasAccountCreation;
 
 		return (
-			<div className="login-wrapper">
+			<div className={cx('login-wrapper', {'nextthought-login': hasNextThoughtLogin})} onClick={this.onClick}>
 				<form ref={this.attachFormRef} className="login-form" onSubmit={this.handleSubmit} noValidate>
 					{busy ? ( <Loading.Mask /> ) : (
 						<div>
@@ -101,36 +130,48 @@ export default createReactClass({
 								<div className="message">{this.formatError(error)}</div>
 							}
 							<fieldset>
-								<div className="field-container" data-title="Username">
-									<input ref={this.attachUsernameInputRef}
-										name="username"
-										type="text"
-										placeholder="Username"
-										autoCorrect="off"
-										autoCapitalize="off"
-										tabIndex="1"
-										aria-label="Username"
-										autoComplete=""
-										defaultValue={username}
-										onChange={this.updateUsername}/>
-								</div>
-								<div className="field-container" data-title="Password">
-									<input ref={this.attachPasswordInputRef}
-										name="password"
-										type="password"
-										autoComplete="off"
-										placeholder="Password"
-										tabIndex="2"
-										aria-label="Password"
-										defaultValue={password}
-										onChange={this.updatePassword}/>
-								</div>
+								{hasNextThoughtLogin && (
+									<div className="field-container" data-title="Username">
+										<input ref={this.attachUsernameInputRef}
+											name="username"
+											type="text"
+											placeholder="Username"
+											autoCorrect="off"
+											autoCapitalize="off"
+											tabIndex="1"
+											aria-label="Username"
+											autoComplete=""
+											defaultValue={username}
+											onChange={this.updateUsername}/>
+									</div>
+								)}
+								{hasNextThoughtLogin && (
+									<div className="field-container" data-title="Password">
+										<input ref={this.attachPasswordInputRef}
+											name="password"
+											type="password"
+											autoComplete="off"
+											placeholder="Password"
+											tabIndex="2"
+											aria-label="Password"
+											defaultValue={password}
+											onChange={this.updatePassword}/>
+									</div>
+								)}
 
-								<div className="submit-row">
-									<button id="login:rel:password" type="submit" disabled={disabled}>
-										{t('login')}
-									</button>
-								</div>
+								{hasNextThoughtLogin && (
+									<div className="submit-row">
+										<button id="login:rel:password" type="submit" disabled={disabled}>
+											{t('login')}
+										</button>
+									</div>
+								)}
+
+								{!hasNextThoughtLogin && (
+									<div className="oauth-header">
+										{t('oauth.header')}
+									</div>
+								)}
 
 								<OAuthButtons />
 
@@ -141,7 +182,7 @@ export default createReactClass({
 								)}
 							</fieldset>
 						</div>)}
-					<RecoveryLinks />
+					{hasNextThoughtLogin && (<RecoveryLinks />)}
 				</form>
 
 				<SupportLinks />
