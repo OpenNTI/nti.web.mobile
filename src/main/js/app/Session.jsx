@@ -10,7 +10,7 @@ import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 import {logout} from 'login/Actions';
 
-import Impersonate from './Impersonate';
+import Impersonate from './right-overlay/Impersonate';
 
 /**
  * Renders the user session box (user's avatar, name, logout link, profile link)

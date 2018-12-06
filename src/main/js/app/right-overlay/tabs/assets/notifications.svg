@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>mob-nav-bell</title>
+    <desc>Created with Sketch.</desc>
+    <g id="mob-nav-bell" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="30" height="30"></rect>
+        <path d="M25,22 L25,24 L5,24 L5,22 C6.05263158,22 6.92982456,21.1666667 7.63157895,19.5 C8.68421053,17 7.63157895,12.5 9.21052632,10 C10.7894737,7.5 12.3684211,8 13.4210526,7 C14.4736842,6 13.4210526,5 15,5 C16.5789474,5 15.5263158,6 16.5789474,7 C17.6315789,8 19.2105263,7.5 20.7894737,10 C22.3684211,12.5 21.3157895,17 22.3684211,19.5 C23.0701754,21.1666667 23.9473684,22 25,22 Z M11.6703322,25 L18.3296678,25 C17.738371,26.1824737 16.4696821,27 15,27 C13.5303179,27 12.261629,26.1824737 11.6703322,25 Z" id="Combined-Shape" fill="#787878" fill-rule="nonzero"></path>
+    </g>
+</svg>

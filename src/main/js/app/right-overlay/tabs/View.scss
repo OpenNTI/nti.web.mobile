@@ -1,0 +1,30 @@
+@import "~@nti/style-common";
+
+.nti-mobile-drawer-tab-panel {
+	.nti-mobile-drawer-tabs {
+		display: flex;
+		min-height: 42px;
+		box-shadow: 0 1px 1px $border-grey-light;
+
+		> * {
+			flex: 0 0 33.333%;
+
+			&.active {
+				box-shadow: inset 0 -2px 0 $primary-blue;
+			}
+		}
+
+		.tab-label {
+			overflow: hidden;
+			text-indent: -9999px;
+			background: radial-gradient($tertiary-grey 0, $tertiary-grey 50%, transparent 55%) center / 28px 28px no-repeat;
+			cursor: pointer;
+
+			@each $tab in notifications, calendar, contacts {
+				&.#{$tab} {
+					background-image: url('./assets/#{$tab}.svg');
+				}
+			}
+		}
+	}
+}

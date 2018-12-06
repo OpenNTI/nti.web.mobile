@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {addClass, removeClass, getViewportHeight} from '@nti/lib-dom';
 import {Footer, LockScroll, ConflictResolutionHandler, Updates} from '@nti/web-commons';
+import cx from 'classnames';
 
 import Notifications from 'notifications/components/View';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
 
-import Session from './Session';
+import RightDrawerContent from './right-overlay';
 
 const LEFT_MENU_OPEN = 'offcanvas-overlap-right';
 const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
@@ -54,7 +55,7 @@ export default class extends React.Component {
 
 	render () {
 		const height = {height: getViewportHeight()};
-		const state = this.getOverlayState() || '';
+		const overlay = this.getOverlayState();
 		const {children} = this.props;
 
 		return (
@@ -62,17 +63,14 @@ export default class extends React.Component {
 				<ConflictResolutionHandler/>
 				<LibraryInvalidationListener />
 				<Updates.Monitor baseUrl={this.context.basePath}/>
-				{this.getOverlayState() != null && (<LockScroll/> )}
+				{overlay != null && (<LockScroll/> )}
 
-				<div className={`off-canvas-wrap ${state}`} data-offcanvas>
+				<div className={cx('off-canvas-wrap', overlay)} data-offcanvas>
 					<div className="inner-wrap">
 
-
 						<aside className="right-off-canvas-menu" style={height} ref={this.attachRightMenuRef}>
-							{this.getOverlayState() != null && ( <Session /> )}
-							{this.getOverlayState() != null && ( <Notifications/> )}
+							{overlay && <RightDrawerContent />}
 						</aside>
-
 
 						<section className="main-section">
 							{children}

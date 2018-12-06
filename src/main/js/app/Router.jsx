@@ -12,6 +12,7 @@ import {
 import Logger from '@nti/util-logger';
 
 //Main View Handlers
+import Calendar from 'calendar';
 import Catalog from 'catalog/components/ViewLoader';
 import ContactUs from 'contact-us/components/View';
 import Contacts from 'contacts/components/ViewLoader';
@@ -34,6 +35,7 @@ const ENVIRONMENT = environment.defaultEnvironment;
 const logger = Logger.get('root:router');
 
 const HANDLER_BY_NAME = {
+	Calendar,
 	Catalog,
 	ContactUs,
 	Contacts,
