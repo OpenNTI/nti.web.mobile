@@ -725,10 +725,11 @@ $off-canvas-bg: #fbfbfb;
 
 // Off Canvas Menu List Variables
 // $off-canvas-label-padding: 0;
-// $off-canvas-label-color: #999;
-// $off-canvas-label-text-transform: uppercase;
+$off-canvas-label-color: $body-font-color;
+$off-canvas-label-text-transform: none;
+$off-canvas-label-font-size: 0.875rem;
 // $off-canvas-label-font-weight: $font-weight-bold;
-// $off-canvas-label-bg: #444;
+$off-canvas-label-bg: white;
 $off-canvas-label-border-top: none;
 $off-canvas-label-border-bottom: none;
 $off-canvas-label-margin:0;

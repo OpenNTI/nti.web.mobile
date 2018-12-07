@@ -61,13 +61,16 @@ export default createReactClass({
 		}
 
 		return (
-			<ul className="off-canvas-list">
-				<li><label>Notifications</label></li>
-				{list.length ? list.map(getNotificationItem) : <Empty/>}
-				{list.hasMore ?
-					<LoadMore onClick={this.onLoadMore} store={list}/> : null
-				}
-			</ul>
+			<div className="notifications">
+				<h3>Notifications</h3>
+				<ul className="off-canvas-list">
+					{/* <li><label>Notifications</label></li> */}
+					{list.length ? list.map(getNotificationItem) : <Empty/>}
+					{list.hasMore ?
+						<LoadMore onClick={this.onLoadMore} store={list}/> : null
+					}
+				</ul>
+			</div>
 		);
 	}
 });

@@ -4,7 +4,7 @@
 	.nti-mobile-drawer-tabs {
 		display: flex;
 		min-height: 42px;
-		box-shadow: 0 1px 1px $border-grey-light;
+		border-bottom: 1px solid $border-grey-light;
 
 		> * {
 			flex: 0 0 33.333%;
@@ -30,5 +30,17 @@
 
 	.nti-mobile-drawer-tab-content {
 		background: white;
+
+		h3 {
+			color: $primary-grey;
+			font-family: "Open Sans", sans-serif;
+			font-size: 0.875rem;
+			line-height: 1;
+			font-weight: 600;
+			padding: 1em;
+			margin: 0;
+			background: white;
+			border-bottom: 1px solid $border-grey-light;
+		}
 	}
 }

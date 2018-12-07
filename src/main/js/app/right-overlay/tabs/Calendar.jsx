@@ -30,7 +30,7 @@ class Events extends React.PureComponent {
 			<div className="upcoming-calendar-events">
 				<h3>Upcoming Events</h3>
 				<NotableEvents>
-					<a href={`${basePath}calendar`}>{t('allEvents')}</a>
+					<a className="all-events-link" href={`${basePath}calendar`}>{t('allEvents')}</a>
 				</NotableEvents>
 			</div>
 		);
