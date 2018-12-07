@@ -4,7 +4,7 @@ import {Switch} from '@nti/web-commons';
 import cx from 'classnames';
 
 import Notifications from './Notifications';
-import Events from './Events';
+import Calendar from './Calendar';
 import Contacts from './Contacts';
 
 const NOTIFICATIONS = 'notifications';
@@ -24,7 +24,7 @@ const TABS = {
 	},
 	[CALENDAR]: {
 		label: t(CALENDAR),
-		component: Events
+		component: Calendar
 	},
 	[CONTACTS]: {
 		label: t(CONTACTS),

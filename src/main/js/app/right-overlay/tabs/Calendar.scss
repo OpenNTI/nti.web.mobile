@@ -1,0 +1,20 @@
+@import "~@nti/style-common";
+
+.nti-mobile-drawer-tab-content {
+	.upcoming-calendar-events {
+		h3 {
+			color: $primary-grey;
+			font-family: "Open Sans", sans-serif;
+			font-size: 0.875rem;
+			line-height: 1;
+			font-weight: 600;
+			padding: 1em;
+			margin: 0;
+		}
+
+		.day-header {
+			color: $secondary-grey;
+			background: $quad-grey;
+		}
+	}
+}

@@ -54,7 +54,6 @@ export default class extends React.Component {
 	getOverlayState = () => { return (this.state || {}).overlay; };
 
 	render () {
-		const height = {height: getViewportHeight()};
 		const overlay = this.getOverlayState();
 		const {children} = this.props;
 
@@ -68,7 +67,7 @@ export default class extends React.Component {
 				<div className={cx('off-canvas-wrap', overlay)} data-offcanvas>
 					<div className="inner-wrap">
 
-						<aside className="right-off-canvas-menu" style={height} ref={this.attachRightMenuRef}>
+						<aside className="right-off-canvas-menu" ref={this.attachRightMenuRef}>
 							{overlay && <RightDrawerContent />}
 						</aside>
 

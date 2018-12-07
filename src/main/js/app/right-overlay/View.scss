@@ -1,0 +1,31 @@
+.nti-mobile-right-overlay {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+
+	& > * {
+		flex: 0 0 auto;
+	}
+
+	.nti-mobile-drawer-tab-panel {
+		flex: 1 1 auto;
+		overflow: auto;
+		display: flex;
+		flex-direction: column;
+
+		.nti-mobile-drawer-tabs {
+			flex: 0 0 auto;
+		}
+
+		.nti-mobile-drawer-tab-content {
+			flex: 1 1 auto;
+			overflow: auto;
+
+			.upcoming-calendar-events h3 {
+				position: sticky;
+				top: 0;
+				background: white;
+			}
+		}
+	}
+}

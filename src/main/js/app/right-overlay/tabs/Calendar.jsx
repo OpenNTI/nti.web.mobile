@@ -5,6 +5,7 @@ import {NotableEvents} from '@nti/web-calendar';
 import {HOC} from '@nti/web-commons';
 
 const t = scoped('app.user-overlay.calendar-events', {
+	heading: 'Upcoming Events',
 	allEvents: 'All Events'
 });
 
@@ -20,10 +21,11 @@ class Events extends React.PureComponent {
 		const {basePath} = this.props;
 
 		return (
-			<>
-			<NotableEvents />
-			<a href={`${basePath}calendar`}>{t('allEvents')}</a>
-			</>
+			<div className="upcoming-calendar-events">
+				<h3>Upcoming Events</h3>
+				<NotableEvents />
+				<a href={`${basePath}calendar`}>{t('allEvents')}</a>
+			</div>
 		);
 	}
 }
