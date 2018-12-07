@@ -64,6 +64,7 @@
     "@nti/web-course": "^1.32.0",
     "@nti/web-discussions": "^0.15.0",
     "@nti/web-help": "0.x.x",
+    "@nti/web-integrations": "^1.0.0-alpha.20180711160926",
     "@nti/web-library": "*",
     "@nti/web-modeled-content": "^1.5.0",
     "@nti/web-payments": "^1.0.0",

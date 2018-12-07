@@ -24,6 +24,9 @@
 export default [
 	{handler: 'Welcome',		path: '/onboarding(/*)'},
 	{handler: 'Object',			path: '/object/:objectId(/*)'},
+	// TODO: Figure out a way to handle this routing at the calendar level
+	{handler: 'Webinar',		path: '/calendar/webinar/:webinarId(/*)'},
+	{handler: 'Event',			path: '/calendar/event/:eventId(/*)'},
 	{handler: 'Login',			path: '/login(/*)'},
 	{handler: 'Calendar',		path: '/calendar(/*)'},
 	{handler: 'Catalog',		path: '/catalog(/*)'},

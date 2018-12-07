@@ -1,16 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Calendar} from '@nti/web-calendar';
-import {DarkMode} from '@nti/web-commons';
+// import PropTypes from 'prop-types';
 
-export default class View extends React.Component {
+import CalendarRouter from './CalendarRouter';
+
+export default class CalendarView extends React.Component {
+	// static contextTypes: {
+	// 	router: PropTypes.object
+	// }
+	//
+	//
+	// static childContextTypes: {
+	// 	router: PropTypes.object
+	// }
+	//
+	// getChildContext () {
+	// 	return {
+	// 		router: {
+	// 			...(this.context.router || {}),
+	// 			baseroute: '/mobile/calendar/',
+	// 			// getRouteFor: () => {}
+	// 		}
+	// 	};
+	// }
 
 	render () {
-		return (
-			<>
-				<DarkMode/>
-				<Calendar className="nti-mobile-calendar" />
-			</>
-		);
+		return <CalendarRouter/>;
 	}
 }
