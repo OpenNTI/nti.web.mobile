@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {addClass, removeClass, getViewportHeight} from '@nti/lib-dom';
+import {addClass, removeClass} from '@nti/lib-dom';
 import {Footer, LockScroll, ConflictResolutionHandler, Updates} from '@nti/web-commons';
 import cx from 'classnames';
 
