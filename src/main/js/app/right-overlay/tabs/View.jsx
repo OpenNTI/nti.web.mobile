@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import Notifications from './Notifications';
 import Calendar from './Calendar';
-import Contacts from './Contacts';
+import Contacts from './contacts';
 
 const NOTIFICATIONS = 'notifications';
 const CALENDAR = 'calendar';
