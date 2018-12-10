@@ -4,15 +4,16 @@
 .invite-button {
 	display: block;
 	margin: 0 1rem 2rem;
-	padding: .625rem 1rem;
-	box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+	padding: 0.625rem 1rem;
+	box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
 	position: relative;
 
-	&:after {
+	&::after {
 		@extend %chevron-right;
+
 		color: $tertiary-grey;
 		position: absolute;
-		right: .625rem;
+		right: 0.625rem;
 		top: 50%;
 		transform: translateY(-50%);
 	}
