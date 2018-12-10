@@ -1,3 +1,5 @@
+@import "~@nti/style-common";
+
 .nti-mobile-right-overlay {
 	display: flex;
 	flex-direction: column;
@@ -8,7 +10,7 @@
 	}
 
 	.nti-mobile-drawer-tab-panel {
-		flex: 1 1 auto;
+		flex: 0 1 auto;
 		overflow: auto;
 		display: flex;
 		flex-direction: column;
@@ -20,6 +22,19 @@
 		.nti-mobile-drawer-tab-content {
 			flex: 1 1 auto;
 			overflow: auto;
+		}
+	}
+
+	> .controls {
+		flex: 1 1 auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		background: $panel-background;
+		box-shadow: inset 0 5px 5px -5px $tertiary-grey; // spread to prevent showing up on the sides
+
+		> * {
+			flex: 0 0 auto;
 		}
 	}
 }

@@ -11,7 +11,9 @@ export default function View () {
 			<Impersonate />
 			<UserCard />
 			<Tabs />
-			<LogOut />
+			<div className="controls">
+				<LogOut />
+			</div>
 		</div>
 	);
 }

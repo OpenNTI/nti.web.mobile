@@ -5,6 +5,6 @@ import {logout} from 'login/Actions';
 
 export default function LogOut (props) {
 	return (
-		<Button className="logout" onClick={logout}>Log Out</Button>
+		<Button className="logout-button" onClick={logout}>Log Out</Button>
 	);
 }
