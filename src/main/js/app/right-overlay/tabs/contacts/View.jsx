@@ -66,7 +66,7 @@ class ContactsView extends React.Component {
 
 		return (
 			<div className="contacts-list-wrapper">
-				<h3>Contacts</h3>
+				<h3>{t('heading')}</h3>
 				{
 					loading
 						? <Loading.Ellipsis />
