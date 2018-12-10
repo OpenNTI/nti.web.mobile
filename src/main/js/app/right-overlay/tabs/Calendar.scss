@@ -10,6 +10,8 @@
 		.calendar-body {
 			padding-bottom: 0;
 			border-radius: 0;
+			max-height: none;
+			min-height: 0;
 
 			.calendar-day:last-child {
 				border-bottom: 1px solid $quad-grey;
