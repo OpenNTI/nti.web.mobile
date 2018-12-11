@@ -7,6 +7,7 @@ import cx from 'classnames';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
 
 import RightDrawerContent from './right-overlay';
+import DialogsRouter from './DialogsRouter';
 
 const LEFT_MENU_OPEN = 'offcanvas-overlap-right';
 const RIGHT_MENU_OPEN = 'offcanvas-overlap-left';
@@ -60,6 +61,7 @@ export default class extends React.Component {
 			<div className="app-container">
 				<ConflictResolutionHandler/>
 				<LibraryInvalidationListener />
+				<DialogsRouter />
 				<Updates.Monitor baseUrl={this.context.basePath}/>
 				{overlay != null && (<LockScroll/> )}
 

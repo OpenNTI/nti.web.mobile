@@ -26,13 +26,13 @@ class Events extends React.PureComponent {
 	}
 
 	render () {
-		const {basePath} = this.props;
+		// const {basePath} = this.props;
 
 		return (
 			<div className="upcoming-calendar-events">
 				<h3>Upcoming Events</h3>
 				<NotableEvents>
-					<a className="all-events-link" href={`${basePath}calendar`}>{t('allEvents')}</a>
+					<a className="all-events-link" href="#calendar">{t('allEvents')}</a>
 				</NotableEvents>
 			</div>
 		);

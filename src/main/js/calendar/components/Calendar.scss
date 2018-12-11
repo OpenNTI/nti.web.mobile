@@ -1,5 +1,7 @@
 .calendar-main.nti-mobile-calendar {
 	max-width: 100%;
+	height: 100vh;
+	overflow: auto;
 
 	.calendar-body {
 		.calendar-day {
@@ -42,3 +44,15 @@
 		}
 	}
 }
+
+// .nti-mobile-calendar {
+// 	max-width: 480px;
+// 	height: 100vh; // facilitates calendar body scrolling/pull-to-load-more
+// 	margin: 0 auto;
+// }
+//
+// .modal-content {
+// 	.nti-mobile-calendar {
+// 		width: 100%;
+// 	}
+// }
