@@ -4,7 +4,6 @@ import {addClass, removeClass} from '@nti/lib-dom';
 import {Footer, LockScroll, ConflictResolutionHandler, Updates} from '@nti/web-commons';
 import cx from 'classnames';
 
-import Notifications from 'notifications/components/View';
 import LibraryInvalidationListener from 'library/components/InvalidationListener';
 
 import RightDrawerContent from './right-overlay';
