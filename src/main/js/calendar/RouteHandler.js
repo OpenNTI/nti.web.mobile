@@ -11,6 +11,7 @@ export const getRouteFor = (obj, context) => {
 			Prompt.modal(<Event.View
 				getAvailableCalendars={() => []}
 				event={obj}
+				nonDialog
 			/>);
 		};
 	}
