@@ -1,10 +1,18 @@
+import React from 'react';
 import {Models} from '@nti/lib-interfaces';
 import {encodeForURI} from '@nti/lib-ntiids';
 import {Prompt} from '@nti/web-commons';
+import {Event} from '@nti/web-calendar';
+import {GotoWebinar} from '@nti/web-integrations';
 
 export const getRouteFor = (obj, context) => {
 	if(obj.MimeType === Models.calendar.CourseCalendarEvent.MimeType) {
-		return `mobile/calendar/event/${encodeForURI(obj.getID())}`;
+		return () => {
+			Prompt.modal(<Event.View
+				getAvailableCalendars={() => []}
+				event={obj}
+			/>);
+		};
 	}
 	else if(obj.MimeType === Models.calendar.AssignmentCalendarEvent.MimeType) {
 		const {courseNTIID} = context;
@@ -30,7 +38,13 @@ export const getRouteFor = (obj, context) => {
 		const webinarID = webinarLinkObj && webinarLinkObj.ntiid;
 
 		if(webinarID) {
-			return `mobile/calendar/webinar/${encodeForURI(webinarID)}`;
+			return () => {
+				Prompt.modal(<GotoWebinar.Registration
+					item={{webinar:obj}}
+					onBeforeDismiss={()=>{}}
+					nonDialog
+				/>);
+			};
 		}
 	}
 };

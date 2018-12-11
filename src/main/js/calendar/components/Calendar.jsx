@@ -7,7 +7,7 @@ export default class CalendarContainer extends React.Component {
 		return (
 			<>
 				<DarkMode/>
-				<Calendar className="nti-mobile-calendar" />
+				<Calendar className="nti-mobile-calendar" onClose={() => {global.history.back();}}/>
 			</>
 		);
 	}

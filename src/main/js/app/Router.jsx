@@ -12,8 +12,6 @@ import {
 import Logger from '@nti/util-logger';
 
 //Main View Handlers
-import Webinar from 'calendar/components/Webinar';
-import Event from 'calendar/components/Event';
 import Calendar from 'calendar';
 import Catalog from 'catalog/components/ViewLoader';
 import ContactUs from 'contact-us/components/View';
@@ -49,9 +47,7 @@ const HANDLER_BY_NAME = {
 	Login,
 	Profile,
 	Object: ObjectResolver,
-	Welcome,
-	Webinar,
-	Event
+	Welcome
 };
 
 const SendGAEvent = 'Router:SendGAEvent';
