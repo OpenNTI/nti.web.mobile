@@ -71,6 +71,7 @@ export default class Content extends React.Component {
 	componentWillUnmount () {
 		this.scheduleUpdate.cancel();
 		this.cleanupWidgets();
+		this.unmounted = true;
 	}
 
 
@@ -182,6 +183,10 @@ export default class Content extends React.Component {
 
 
 	updatePrestine () {
+		if (this.unmounted) {
+			return;
+		}
+
 		let current = this.getCurrent();
 		let prestine = current && current.cloneNode(true);
 		this.updatingPrestine = true;
