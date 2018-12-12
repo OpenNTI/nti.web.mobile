@@ -47,9 +47,11 @@ const HANDLERS = {
 		const webinarID = webinarLinkObj && webinarLinkObj.ntiid;
 
 		if(webinarID) {
-			return () => {
+			return async () => {
+				const webinar = await obj.fetchLinkParsed('Webinar');
+
 				Prompt.modal(<GotoWebinar.Registration
-					item={{webinar:obj}}
+					item={{webinar}}
 					onBeforeDismiss={()=>{}}
 					nonDialog
 				/>);
