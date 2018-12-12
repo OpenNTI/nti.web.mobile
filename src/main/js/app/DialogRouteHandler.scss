@@ -1,4 +1,6 @@
 .mobile-app-dialog-route {
+	z-index: 1005; // ugh
+
 	.modal-content {
 		width: 100vw;
 	}
