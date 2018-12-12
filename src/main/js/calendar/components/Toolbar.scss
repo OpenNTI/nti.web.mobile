@@ -1,0 +1,14 @@
+.mobile-calendar-view-toolbar {
+	background: #2d2d2d;
+	color: white;
+	border-bottom: 1px solid black;
+	display: flex;
+
+	> * {
+		flex: 1 1 auto;
+	}
+
+	.calendar-header {
+		border-bottom: none;
+	}
+}
