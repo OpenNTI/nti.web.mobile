@@ -18,7 +18,7 @@ const UNKNOWN = ({MimeType} = {}) => logger.warn(`No handler for MimeType: '${Mi
 
 const HANDLERS = {
 	[CourseEventType]: (obj, context) => {
-		Prompt.modal(<Event.View
+		return () => Prompt.modal(<Event.View
 			getAvailableCalendars={() => []}
 			event={obj}
 			nonDialog
