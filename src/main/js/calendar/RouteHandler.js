@@ -30,13 +30,6 @@ const HANDLERS = {
 	},
 
 	[WebinarEventType]: (obj, context) => {
-		if(obj.hasLink('JoinWebinar')) {
-			let testAnchor = document.createElement('a');
-			testAnchor.href = obj.getLink('JoinWebinar');
-
-			return testAnchor.href;
-		}
-
 		if(!obj.hasLink('JoinWebinar') && !obj.hasLink('WebinarRegister')) {
 			return () => {
 				Prompt.alert('This webinar is no longer available');
@@ -50,11 +43,16 @@ const HANDLERS = {
 			return async () => {
 				const webinar = await obj.fetchLinkParsed('Webinar');
 
-				Prompt.modal(<GotoWebinar.Registration
-					item={{webinar}}
-					onBeforeDismiss={()=>{}}
-					nonDialog
-				/>);
+				if(webinar.hasLink('WebinarRegister')) {
+					Prompt.modal(<GotoWebinar.Registration
+						item={{webinar}}
+						onBeforeDismiss={()=>{}}
+						nonDialog
+					/>);
+				}
+				else if(webinar.hasLink('JoinWebinar')) {
+					window.open(webinar.getLink('JoinWebinar'), '_blank');
+				}
 			};
 		}
 	}
