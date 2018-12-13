@@ -8,13 +8,12 @@
 	opacity: 0.2;
 }
 
-
 .kill-transitions {
 	transition: none !important;
 }
 
 .disabled {
-	opacity:0.4;
+	opacity: 0.4;
 }
 
 //iOS8 fails to fully transition from light to dark on body when the content
@@ -35,7 +34,7 @@
 }
 
 .animate {
-	transition: all .3s ease-out;
+	transition: all 0.3s ease-out;
 }
 
 .button-row {
@@ -48,7 +47,7 @@
 
 .error[data-error-message]::after {
 	content: attr(data-error-message);
-	position:absolute;
+	position: absolute;
 	top: 0;
 	left: 1.5rem;
 	max-width: 86%;
