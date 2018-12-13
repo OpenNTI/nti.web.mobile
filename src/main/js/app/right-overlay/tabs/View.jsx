@@ -5,6 +5,7 @@ import {Switch} from '@nti/web-commons';
 import Storage from '@nti/web-storage';
 import cx from 'classnames';
 
+import Footer from './Footer';
 import Notifications from './Notifications';
 import Calendar from './Calendar';
 import Contacts from './contacts';
@@ -15,6 +16,8 @@ const CONTACTS = 'contacts';
 
 const storageKey = 'app:right-overlay:tabs:selected-tab';
 
+const withFooter = Cmp => props => <><Cmp {...props} /><Footer /></>;
+
 const t = scoped('app.user-overlay.tabs', {
 	[NOTIFICATIONS]: 'Notifications',
 	[CALENDAR]: 'Calendar',
@@ -24,15 +27,15 @@ const t = scoped('app.user-overlay.tabs', {
 const TABS = {
 	[NOTIFICATIONS]: {
 		label: t(NOTIFICATIONS),
-		component: Notifications
+		component: withFooter(Notifications)
 	},
 	[CALENDAR]: {
 		label: t(CALENDAR),
-		component: Calendar
+		component: withFooter(Calendar)
 	},
 	[CONTACTS]: {
 		label: t(CONTACTS),
-		component: Contacts
+		component: withFooter(Contacts)
 	},
 };
 
