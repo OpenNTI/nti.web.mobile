@@ -37,6 +37,8 @@
 	}
 
 	.calendar-body {
+		position: relative; // positioning context for loading spinner
+
 		.calendar-day {
 			.day-events {
 				.event-generic-meta, .assignment-main-container, .webinar-content {
