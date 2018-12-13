@@ -28,6 +28,7 @@
 .scroll-lock {
 	&, & > body {
 		// height: 100%;
+		max-height: 100vh;
 		overflow: hidden !important;
 		position: relative; //NTI-6270
 	}
