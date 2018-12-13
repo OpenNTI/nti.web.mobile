@@ -13,6 +13,7 @@ export default class CalendarContainer extends React.Component {
 					additionalControls={BackButton}
 					className="nti-mobile-calendar"
 					onClose={() => {global.history.back();}}
+					readOnly
 				/>
 			</div>
 		);
