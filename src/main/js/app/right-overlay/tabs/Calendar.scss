@@ -7,15 +7,18 @@
 			background: $quad-grey;
 		}
 
-		.calendar-body {
+		.notable-events {
 			padding-bottom: 0;
 			border-radius: 0;
 			max-height: none;
 			min-height: 100px; // allow room for loading spinner
 			position: relative; // provide positioning context for loading spinner
+			border-bottom: 1px solid $quad-grey;
 
-			.calendar-day:last-child {
-				border-bottom: 1px solid $quad-grey;
+			&.loading {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 		}
 
