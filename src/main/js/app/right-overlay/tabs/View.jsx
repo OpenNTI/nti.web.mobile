@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {scoped} from '@nti/lib-locale';
 import {Switch} from '@nti/web-commons';
 import Storage from '@nti/web-storage';
+import {DateIcon} from '@nti/web-calendar';
 import cx from 'classnames';
 
 import Footer from './Footer';
@@ -31,6 +32,7 @@ const TABS = {
 	},
 	[CALENDAR]: {
 		label: t(CALENDAR),
+		labelCmp: <DateIcon small />,
 		component: withFooter(Calendar)
 	},
 	[CONTACTS]: {
@@ -66,8 +68,8 @@ class Tab extends React.Component {
 
 export default class View extends React.Component {
 
-	renderTrigger = ([key, {label}]) => (
-		<Tab key={key} item={key} className={key} title={label}>{label}</Tab>
+	renderTrigger = ([key, {label, labelCmp = label}]) => (
+		<Tab key={key} item={key} className={key} title={label}>{labelCmp}</Tab>
 	)
 
 	renderItem = ([key, {label, component}]) => (

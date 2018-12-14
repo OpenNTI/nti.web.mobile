@@ -20,10 +20,18 @@
 			background: radial-gradient($tertiary-grey 0, $tertiary-grey 50%, transparent 55%) center / 28px 28px no-repeat;
 			cursor: pointer;
 
-			@each $tab in notifications, calendar, contacts {
+			@each $tab in notifications, /*calendar,*/ contacts {
 				&.#{$tab} {
 					background-image: url('./assets/#{$tab}.svg');
 				}
+			}
+
+			&.calendar {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				background: none;
 			}
 		}
 	}
