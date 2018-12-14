@@ -1,45 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from '@nti/lib-locale';
 import {Switch} from '@nti/web-commons';
 import Storage from '@nti/web-storage';
-import {DateIcon} from '@nti/web-calendar';
 import cx from 'classnames';
 
-import Footer from './Footer';
-import Notifications from './Notifications';
-import Calendar from './Calendar';
-import Contacts from './contacts';
-
-const NOTIFICATIONS = 'notifications';
-const CALENDAR = 'calendar';
-const CONTACTS = 'contacts';
+import {getTabs} from './util';
 
 const storageKey = 'app:right-overlay:tabs:selected-tab';
-
-const withFooter = Cmp => props => <><Cmp {...props} /><Footer /></>;
-
-const t = scoped('app.user-overlay.tabs', {
-	[NOTIFICATIONS]: 'Notifications',
-	[CALENDAR]: 'Calendar',
-	[CONTACTS]: 'Contacts'
-});
-
-const TABS = {
-	[NOTIFICATIONS]: {
-		label: t(NOTIFICATIONS),
-		component: withFooter(Notifications)
-	},
-	[CALENDAR]: {
-		label: t(CALENDAR),
-		labelCmp: <DateIcon small />,
-		component: withFooter(Calendar)
-	},
-	[CONTACTS]: {
-		label: t(CONTACTS),
-		component: withFooter(Contacts)
-	},
-};
 
 class Tab extends React.Component {
 	static propTypes = {
@@ -68,6 +35,17 @@ class Tab extends React.Component {
 
 export default class View extends React.Component {
 
+	state = {}
+
+	componentDidMount () {
+		this.setUp();
+	}
+
+	setUp = async () => {
+		const tabs = await getTabs();
+		this.setState({tabs});
+	}
+
 	renderTrigger = ([key, {label, labelCmp = label}]) => (
 		<Tab key={key} item={key} className={key} title={label}>{labelCmp}</Tab>
 	)
@@ -82,15 +60,21 @@ export default class View extends React.Component {
 	)
 
 	render () {
-		const active = Storage.getItem(storageKey) || Object.keys(TABS)[0];
+		const {tabs} = this.state;
+
+		if (!tabs) {
+			return null;
+		}
+
+		const active = Storage.getItem(storageKey) || Object.keys(tabs)[0];
 
 		return (
 			<Switch.Panel className="nti-mobile-drawer-tab-panel" active={active}>
 				<Switch.Controls className="nti-mobile-drawer-tabs">
-					{Object.entries(TABS).map(this.renderTrigger)}
+					{Object.entries(tabs).map(this.renderTrigger)}
 				</Switch.Controls>
 				<Switch.Container className="nti-mobile-drawer-tab-content">
-					{Object.entries(TABS).map(this.renderItem)}
+					{Object.entries(tabs).map(this.renderItem)}
 				</Switch.Container>
 			</Switch.Panel>
 		);
