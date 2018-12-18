@@ -11,6 +11,5 @@ export function dropCourse (courseId) {
 }
 
 function dispatch (type, data) {
-	AppDispatcher.handleRequestAction({type: 'Course-Enrollment-Changed', data: {}});
 	AppDispatcher.handleRequestAction(Object.assign(data, {type}));
 }
