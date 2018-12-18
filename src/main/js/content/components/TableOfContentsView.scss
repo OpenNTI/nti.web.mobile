@@ -1,14 +1,24 @@
 @import "~@nti/style-common";
 @import "utils/placeholders";
 
-.table-of-contents {
+.table-of-contents-view {
 	max-width: 500px;
 	margin: 0 auto;
-	background: white;
 
-	a {
-		text-decoration: none;
-		color: inherit;
+	.search-component {
+		margin: 0;
+		border-radius: 0;
+		border-bottom: 1px solid $border-grey-light;
+		box-shadow: none;
+	}
+
+	.table-of-contents {
+		background: white;
+
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
 	}
 }
 
