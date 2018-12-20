@@ -15,15 +15,12 @@
 		}
 
 		.tab-label {
-			overflow: hidden;
-			text-indent: -9999px;
-			background: radial-gradient($tertiary-grey 0, $tertiary-grey 50%, transparent 55%) center / 28px 28px no-repeat;
 			cursor: pointer;
 
-			@each $tab in notifications, /*calendar,*/ contacts {
-				&.#{$tab} {
-					background-image: url('./assets/#{$tab}.svg');
-				}
+			&.contacts {
+				overflow: hidden;
+				text-indent: -9999px;
+				background: url('./assets/contacts.svg') center / 28px 28px no-repeat;
 			}
 
 			&.calendar {
@@ -32,6 +29,14 @@
 				align-items: center;
 				justify-content: center;
 				background: none;
+			}
+
+			&.active {
+				filter: url('#active-tab-filter');
+			}
+
+			@at-root #active-tab-filter feFlood {
+				flood-color: $primary-blue;
 			}
 		}
 	}

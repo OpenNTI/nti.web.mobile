@@ -1,0 +1,23 @@
+.nti-mobile-drawer-tabs {
+	.tab-label {
+		&.notifications {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			> * {
+				flex: 0 0 28px;
+			}
+
+			--badge-offset-x: 4px;
+			--badge-offset-y: -8px;
+
+			.notifications-icon {
+				width: 100%;
+				height: auto;
+				display: block;
+				margin: 0 auto;
+			}
+		}
+	}
+}

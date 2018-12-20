@@ -6,6 +6,7 @@ import Notifications from '../Notifications';
 import Calendar from '../Calendar';
 import Contacts from '../contacts';
 import Footer from '../Footer';
+import NotificationsTab from '../NotificationsTab';
 
 import hasCalendars from './has-calendars';
 
@@ -25,6 +26,7 @@ export default async function getTabs () {
 	return {
 		[NOTIFICATIONS]: {
 			label: t(NOTIFICATIONS),
+			labelCmp: <NotificationsTab />,
 			component: withFooter(Notifications)
 		},
 		...(!(await hasCalendars()) ? {} : {
