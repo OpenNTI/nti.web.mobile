@@ -4,6 +4,7 @@ import {Switch} from '@nti/web-commons';
 import Storage from '@nti/web-storage';
 import cx from 'classnames';
 
+import Filters from './Filters';
 import {getTabs} from './util';
 
 const storageKey = 'app:right-overlay:tabs:selected-tab';
@@ -69,14 +70,17 @@ export default class View extends React.Component {
 		const active = Storage.getItem(storageKey) || Object.keys(tabs)[0];
 
 		return (
-			<Switch.Panel className="nti-mobile-drawer-tab-panel" active={active}>
-				<Switch.Controls className="nti-mobile-drawer-tabs">
-					{Object.entries(tabs).map(this.renderTrigger)}
-				</Switch.Controls>
-				<Switch.Container className="nti-mobile-drawer-tab-content">
-					{Object.entries(tabs).map(this.renderItem)}
-				</Switch.Container>
-			</Switch.Panel>
+			<>
+				<Filters />
+				<Switch.Panel className="nti-mobile-drawer-tab-panel" active={active}>
+					<Switch.Controls className="nti-mobile-drawer-tabs">
+						{Object.entries(tabs).map(this.renderTrigger)}
+					</Switch.Controls>
+					<Switch.Container className="nti-mobile-drawer-tab-content">
+						{Object.entries(tabs).map(this.renderItem)}
+					</Switch.Container>
+				</Switch.Panel>
+			</>
 		);
 	}
 }
