@@ -13,9 +13,15 @@ export default class NotificationsTab extends React.Component {
 		this.setUp();
 	}
 
+	componentWillUnmount () {
+		this.unmounted = true;
+	}
+
 	async setUp () {
 		const count = await getCount();
-		this.setState({count});
+		if (!this.unmounted) {
+			this.setState({count});
+		}
 	}
 
 	render () {
