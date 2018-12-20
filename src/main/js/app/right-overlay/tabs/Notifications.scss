@@ -1,0 +1,11 @@
+.notifications-list-wrapper {
+	position: relative;
+	min-height: 100px; // allow room for loading spinner
+
+	.loading-spinner {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}

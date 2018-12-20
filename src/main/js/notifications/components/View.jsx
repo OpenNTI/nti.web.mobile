@@ -57,7 +57,7 @@ export default createReactClass({
 	render () {
 		let list = this.getItems();
 		if (!list.map) {
-			return <Loading.Mask />;
+			return <Loading.Spinner />;
 		}
 
 		return (

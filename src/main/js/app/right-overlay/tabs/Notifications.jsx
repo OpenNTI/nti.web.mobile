@@ -4,6 +4,8 @@ import List from 'notifications/components/View';
 
 export default function Notifications (props) {
 	return (
-		<List />
+		<div className="notifications-list-wrapper">
+			<List />
+		</div>
 	);
 }
