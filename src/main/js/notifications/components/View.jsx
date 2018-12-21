@@ -2,6 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import {Loading} from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
+import cx from 'classnames';
 
 import Store from '../Store';
 import {load, loadMore} from '../Actions';
@@ -56,20 +57,21 @@ export default createReactClass({
 
 	render () {
 		let list = this.getItems();
-		if (!list.map) {
-			return <Loading.Spinner />;
-		}
+		const loading = !list.map;
 
 		return (
-			<div className="notifications">
-				<h3>Notifications</h3>
-				<ul className="off-canvas-list">
-					{/* <li><label>Notifications</label></li> */}
-					{list.length ? list.map(getNotificationItem) : <Empty/>}
-					{list.hasMore ?
-						<LoadMore onClick={this.onLoadMore} store={list}/> : null
-					}
-				</ul>
+			<div className={cx('notifications', {loading})}>
+				{loading
+					? <Loading.Spinner />
+					: (
+						<ul className="off-canvas-list">
+							{list.length ? list.map(getNotificationItem) : <Empty/>}
+							{list.hasMore ?
+								<LoadMore onClick={this.onLoadMore} store={list}/> : null
+							}
+						</ul>
+					)
+				}
 			</div>
 		);
 	}
