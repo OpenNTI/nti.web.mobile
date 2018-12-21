@@ -58,17 +58,16 @@ export default createReactClass({
 	render () {
 		let list = this.getItems();
 		const loading = !list.map;
+		const empty = !list.length;
 
 		return (
-			<div className={cx('notifications', {loading})}>
+			<div className={cx('notifications', {loading, empty})}>
 				{loading
 					? <Loading.Spinner />
-					: (
+					: empty ? <Empty /> : (
 						<ul className="off-canvas-list">
-							{list.length ? list.map(getNotificationItem) : <Empty/>}
-							{list.hasMore ?
-								<LoadMore onClick={this.onLoadMore} store={list}/> : null
-							}
+							{ !empty && list.map(getNotificationItem) }
+							{ list.hasMore && <LoadMore onClick={this.onLoadMore} store={list}/> }
 						</ul>
 					)
 				}

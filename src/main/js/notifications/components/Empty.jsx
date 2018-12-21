@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function Empty () {
 	return (
-		<li className="notification-item empty">
+		<div className="notifications-empty-message">
 			All Caught Up!
-		</li>
+		</div>
 	);
 }
