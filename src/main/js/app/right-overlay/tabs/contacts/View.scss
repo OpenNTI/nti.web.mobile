@@ -1,6 +1,15 @@
 @import "~@nti/style-common";
 
 .contacts-list-wrapper {
+	.no-contacts {
+		padding: 3rem 1rem;
+		font-size: 0.875rem;
+		text-align: center;
+		color: $tertiary-grey;
+		border-bottom: 1px solid $quad-grey;
+		font-style: italic;
+	}
+
 	.contacts-list {
 		list-style: none;
 		padding: 0;

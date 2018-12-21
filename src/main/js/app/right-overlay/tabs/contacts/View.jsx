@@ -11,6 +11,7 @@ import {default as Store, CONTACTS, LOADING} from './Store';
 
 const t = scoped('app.user-overlay.contact-list', {
 	heading: 'Contacts',
+	empty: 'No contacts found',
 	allContacts: 'All Contacts',
 	error: 'Unable to display contacts. An error occurred.'
 });
@@ -39,7 +40,9 @@ class ContactsView extends React.Component {
 	}
 
 	renderEmpty () {
-
+		return (
+			<div className="no-contacts">{t('empty')}</div>
+		);
 	}
 
 	renderContacts () {
