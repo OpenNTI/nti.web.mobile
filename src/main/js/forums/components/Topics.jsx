@@ -41,7 +41,7 @@ export default createReactClass({
 		forumId: PropTypes.string,
 		forum: PropTypes.object,
 		contentPackage: PropTypes.shape({
-			getID: PropTypes.fun
+			getID: PropTypes.func
 		})
 	},
 
