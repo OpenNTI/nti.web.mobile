@@ -1,8 +1,8 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
+import PropTypes from 'prop-types';
 import {scoped} from '@nti/lib-locale';
 
-import Paging from '../mixins/Paging';
+import {compose as Paging} from '../mixins/Paging';
 
 import List from './List';
 import PageControls from './PageControls';
@@ -13,20 +13,23 @@ const DEFAULT_TEXT = {
 
 const t = scoped('forums.topic.list', DEFAULT_TEXT);
 
-export default createReactClass({
-	displayName: 'TopicList',
+export default
+@Paging
+class TopicList extends React.Component {
 
-	mixins: [Paging],
+	static propTypes = {
+		container: PropTypes.string
+	}
 
 	componentDidMount () {
 		this.setItemContentsState();
-	},
+	}
 
 	componentDidUpdate (prevProps) {
 		if (this.props.container !== prevProps.container) {
 			this.setItemContentsState();
 		}
-	},
+	}
 
 	setItemContentsState (props = this.props) {
 		if (props.container) {
@@ -35,7 +38,7 @@ export default createReactClass({
 				itemContents: props.container
 			});
 		}
-	},
+	}
 
 	render () {
 		let emptyText = t('empty');
@@ -49,5 +52,4 @@ export default createReactClass({
 			</div>
 		);
 	}
-
-});
+}

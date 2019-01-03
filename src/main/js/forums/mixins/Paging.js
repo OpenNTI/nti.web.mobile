@@ -3,7 +3,7 @@ import {getConfigFor} from '@nti/web-client';
 
 let pageSize;
 
-export default {
+const mixin = {
 	currentPage () {
 		let loc = global.location || {};
 		let cp = parseInt(QueryString.parse(loc.search).p || 1, 10);
@@ -40,3 +40,10 @@ export default {
 	}
 
 };
+
+export default mixin;
+
+export function compose (Cmp) {
+	Object.assign(Cmp.prototype, mixin);
+	return Cmp;
+}
