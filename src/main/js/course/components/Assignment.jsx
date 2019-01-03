@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Loading} from '@nti/web-commons';
-import {decodeFromURI, encodeForURI} from '@nti/lib-ntiids';
+import {decodeFromURI} from '@nti/lib-ntiids';
 
 import AssignmentsProvider from 'assignment/components/bindings/AssignmentsProvider';
 import AssignmentView from 'assignment/components/shared/Assignments';
@@ -26,7 +26,15 @@ class Assignment extends React.Component {
 	}
 
 	getContext () {
-		let {outlineId, course} = this.props.children.props;
+		let {
+			children: {
+				props: {
+					outlineId,
+					course
+				}
+			}
+		} = this.props;
+		
 		let {router} = this.context;
 
 		let id = decodeFromURI(outlineId);
