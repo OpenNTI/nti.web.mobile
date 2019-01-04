@@ -10,6 +10,8 @@ import NotificationsTab from '../NotificationsTab';
 
 import hasCalendars from './has-calendars';
 
+import {TAB_ICON_CLASSNAME} from './';
+
 const NOTIFICATIONS = 'notifications';
 const CALENDAR = 'calendar';
 const CONTACTS = 'contacts';
@@ -32,12 +34,13 @@ export default async function getTabs () {
 		...(!(await hasCalendars()) ? {} : {
 			[CALENDAR]: {
 				label: t(CALENDAR),
-				labelCmp: <DateIcon small />,
+				labelCmp: <DateIcon small className={TAB_ICON_CLASSNAME} />,
 				component: withFooter(Calendar)
 			},
 		}),
 		[CONTACTS]: {
 			label: t(CONTACTS),
+			labelCmp: <div className={TAB_ICON_CLASSNAME}>{t(CONTACTS)}</div>,
 			component: withFooter(Contacts)
 		},
 	};

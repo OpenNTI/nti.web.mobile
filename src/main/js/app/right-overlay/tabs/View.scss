@@ -17,9 +17,10 @@
 		.tab-label {
 			cursor: pointer;
 
-			&.contacts {
+			&.contacts .nti-mobile-drawer-tab-icon {
 				overflow: hidden;
 				text-indent: -9999px;
+				height: 100%;
 				background: url('./assets/contacts.svg') center / 28px 28px no-repeat;
 			}
 
@@ -31,7 +32,7 @@
 				background: none;
 			}
 
-			&.active {
+			&.active .nti-mobile-drawer-tab-icon {
 				filter: url('#active-tab-filter');
 			}
 
