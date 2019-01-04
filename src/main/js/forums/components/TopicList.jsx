@@ -18,7 +18,7 @@ export default
 class TopicList extends React.Component {
 
 	static propTypes = {
-		container: PropTypes.string
+		container: PropTypes.object
 	}
 
 	componentDidMount () {
