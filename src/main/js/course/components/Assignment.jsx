@@ -21,7 +21,12 @@ class Assignment extends React.Component {
 
 	static propTypes = {
 		assignments: PropTypes.object,
-		course: PropTypes.object,
+		children: PropTypes.shape({
+			props: PropTypes.shape({
+				outlineId: PropTypes.string,
+				course: PropTypes.object
+			})
+		}),
 		loading: PropTypes.bool,
 	}
 
@@ -34,7 +39,7 @@ class Assignment extends React.Component {
 				}
 			}
 		} = this.props;
-		
+
 		let {router} = this.context;
 
 		let id = decodeFromURI(outlineId);

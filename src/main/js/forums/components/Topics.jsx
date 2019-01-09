@@ -32,7 +32,7 @@ const Transition = x => <CSSTransition appear classNames="fade-out-in" timeout={
 
 const ERROR_CODE = '404 Not Found';
 
-export default createReactClass({
+const Topics = createReactClass({
 	displayName: 'Topics',
 
 	mixins: [Mixins.NavigatableMixin, StoreEventsMixin, LoadForum],
@@ -148,7 +148,8 @@ export default createReactClass({
 											>
 												Delete
 											</a>
-										</li>)}
+										</li>
+									)}
 									{canEdit && (
 										<li>
 											<a
@@ -173,3 +174,5 @@ export default createReactClass({
 		);
 	}
 });
+
+export default Topics;
