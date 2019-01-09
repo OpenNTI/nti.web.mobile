@@ -13,7 +13,8 @@ export default createReactClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteableType: '_meeting'
+		// 'meeting' should cover both cases, but it's be nice to have an explicit list of what we're looking for here
+		noteableType: ['_meeting', 'meeting']
 	},
 
 	propTypes: {
