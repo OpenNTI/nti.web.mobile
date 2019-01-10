@@ -34,6 +34,10 @@
 
 			&.active .nti-mobile-drawer-tab-icon {
 				filter: url('#active-tab-filter');
+
+				// NTI-7213 - on iOS the filter causes the icon to intermittently disappear.
+				// Forcing hardware acceleration with a 3d transform seems to fix it.
+				transform: translate3d(0, 0, 0);
 			}
 
 			@at-root #active-tab-filter feFlood {
