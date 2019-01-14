@@ -12,7 +12,7 @@ import Invite from 'invitations/components/Send';
 import Discussions from 'forums/components/View';
 
 import {getCourse} from '../Actions';
-import {LESSONS, INFO} from '../Sections';
+import {LESSONS, INFO, SCORMCONTENT} from '../Sections';
 
 import Page from './Page';
 import CourseInfo from './CourseInfo';
@@ -111,7 +111,10 @@ export default class CourseView extends React.Component {
 
 	renderContent () {
 		const course = this.getCourse();
-		const entryPoint = course && course.CatalogEntry && course.CatalogEntry.Preview ? INFO : LESSONS;
+		const {PreferredAccess} = course;
+		const isScorm = PreferredAccess && PreferredAccess.isScorm;
+
+		const entryPoint = course && course.CatalogEntry && course.CatalogEntry.Preview ? INFO : isScorm ? SCORMCONTENT : LESSONS;
 		return React.createElement(Router.Locations, {contextual: true},
 			...ROUTES.map(route=>
 				route.path ?
