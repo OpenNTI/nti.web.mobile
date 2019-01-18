@@ -10,7 +10,7 @@ export default class NotificationsTab extends React.Component {
 
 	render () {
 		return (
-			<div onClick={this.markViewed}>
+			<div>
 				<img src={ICON} className={cx(TAB_ICON_CLASSNAME, 'notifications-icon')} />
 			</div>
 		);
