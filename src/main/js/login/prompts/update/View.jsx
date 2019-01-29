@@ -8,6 +8,10 @@ export default class LoginUpdatePrompt extends React.Component {
 	async componentDidMount () {
 		const entity = await getAppUser();
 
+		if (!ProfileUpdate.profileNeedsUpdate(entity)) {
+			this.onDismiss();
+		}
+
 		this.setState({
 			entity
 		});
