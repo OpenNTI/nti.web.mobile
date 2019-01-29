@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from '@nti/lib-commons';
+import {NavigationBar} from '@nti/web-assignment-editor';
 
 import Store from '../Store';
 
@@ -65,17 +66,31 @@ export default class extends React.Component {
 			return null;
 		}
 
-		let grade = item && item.getGradeValue();
-		let date = (item && item.getCreatedTime()) || new Date();
 
-		let late = this.isLate(date);
-		let state = late ? 'late' : nonSubmit ? '' : 'ontime';
+		return admin ? this.renderAdmin(assignment, item) : this.renderStudent(assignment, item);
+	}
+
+
+	renderStudent (assignment, historyItem) {
+		return (
+			<NavigationBar.Status assignment={assignment} historyItem={historyItem} />
+		);
+	}
+
+
+	renderAdmin (assignment, historyItem) {
+		const nonSubmit = assignment.isNonSubmit();
+		const grade = historyItem && historyItem.getGradeValue();
+		const date = (historyItem && historyItem.getCreatedTime()) || new Date();
+
+		const late = this.isLate(date);
+		const state = late ? 'late' : nonSubmit ? '' : 'ontime';
 
 		return (
 			<div className={'header assessment common assignment ' + state}>
 				<div className="meta">
 					<h4>{assignment.title}</h4>
-					<AssignmentStatusLabel assignment={assignment} historyItem={item} showTimeWithDate/>
+					<AssignmentStatusLabel assignment={assignment} historyItem={historyItem} showTimeWithDate/>
 				</div>
 
 				{isEmpty(grade) ? null : (
