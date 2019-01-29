@@ -36,8 +36,7 @@
   ],
   "dependencies": {
     "@nti/lib-ntiids": "^1.3.0",
-    "@nti/util-logger": "^1.0.1",
-    "@nti/web-assignment-editor": "^1.25.0"
+    "@nti/util-logger": "^1.0.1"
   },
   "devDependencies": {
     "@nti/app-scripts": "^2.2.3",
@@ -56,6 +55,7 @@
     "@nti/style-common": "^1.6.2",
     "@nti/util-detection-touch": "^1.0.0",
     "@nti/util-ios-version": "^1.0.0",
+    "@nti/web-assignment-editor": "^1.25.0",
     "@nti/web-calendar": "^1.0.0-alpha.20181204192621",
     "@nti/web-catalog": "0.x.x",
     "@nti/web-client": "^1.1.0",
