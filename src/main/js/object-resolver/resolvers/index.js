@@ -3,12 +3,14 @@ import Logger from '@nti/util-logger';
 import AssignmentObjects from './AssignmentObjects';
 import CourseObjects from './CourseObjects';
 import Entities from './Entities';
+import Events from './Events';
 import LibraryPath from './LibraryPath';
 import RandomContentPages from './RandomContentPages';
 
 const handlers = [
 	AssignmentObjects,
 	CourseObjects,
+	Events,
 	Entities,
 	LibraryPath,
 	RandomContentPages,
