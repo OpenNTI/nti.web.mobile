@@ -60,14 +60,12 @@ export default class extends React.Component {
 			);
 		}
 
-		let nonSubmit = assignment.isNonSubmit();
-
-		if (admin || !item && !nonSubmit) {
+		if (admin) {
 			return null;
 		}
 
 
-		return admin ? this.renderAdmin(assignment, item) : this.renderStudent(assignment, item);
+		return this.renderStudent(assignment, item);
 	}
 
 
