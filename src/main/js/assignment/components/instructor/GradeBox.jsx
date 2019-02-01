@@ -50,8 +50,9 @@ class GradeBox extends React.Component {
 
 
 	onItemChanged = (grade = this.props.grade) => {
-		const {value = ''} = grade || {};
-		this.setState({value});
+		const value = grade && grade.getValue();
+
+		this.setState({value: value || ''});
 	}
 
 
