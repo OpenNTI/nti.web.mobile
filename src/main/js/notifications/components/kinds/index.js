@@ -7,6 +7,7 @@ import BlogEntryPost from './BlogEntryPost';
 import Chat from './Chat';
 import ChatGroup from './ChatGroup';
 import Contact from './Contact';
+import Event from './Event';
 import Feedback from './Feedback';
 import ForumComment from './ForumComment';
 import ForumTopic from './ForumTopic';
@@ -23,6 +24,7 @@ const KINDS = [
 	Chat,
 	ChatGroup,
 	Contact,
+	Event,
 	Feedback,
 	ForumComment,
 	ForumTopic,
