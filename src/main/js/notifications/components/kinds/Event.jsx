@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {scoped} from '@nti/lib-locale';
 import {Event} from '@nti/web-calendar';
@@ -12,6 +13,9 @@ const t = scoped('mobile.notifications.components.kinds.Event', {
 });
 
 export default createReactClass({
+	propTypes: {
+		item: PropTypes.object
+	},
 	displayName: 'EventType',
 	mixins: [NoteableMixin],
 
@@ -20,9 +24,9 @@ export default createReactClass({
 	},
 
 	isCreated () {
-		const {item} = this.state;
+		const {item} = this.props;
 
-		return item.getCreatedTime() === item.getLastModified();
+		return item && item.ChangeType === 'Created';
 	},
 
 
