@@ -8,7 +8,7 @@ import {StoreEventsMixin} from '@nti/lib-store';
 import QuestionWidget from 'assessment/components/Question';
 import PollWidget from 'assessment/components/Poll';
 import Store from 'assessment/Store';
-import {SYNC} from 'assessment/Constants';
+import {SYNC, ASSIGNMENT_RESET} from 'assessment/Constants';
 
 import Mixin from './Mixin';
 
@@ -20,7 +20,8 @@ export default createReactClass({
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[SYNC]: 'synchronizeFromStore'
+		[SYNC]: 'synchronizeFromStore',
+		[ASSIGNMENT_RESET]: 'synchronizeFromStore'
 	},
 
 	statics: {

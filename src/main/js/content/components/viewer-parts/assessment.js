@@ -13,7 +13,8 @@ export default {
 
 	propTypes: {
 		assessment: PropTypes.object,
-		assessmentHistory: PropTypes.object
+		assessmentHistory: PropTypes.object,
+		onTryAgain: PropTypes.func
 	},
 
 
@@ -65,6 +66,7 @@ export default {
 
 
 	renderAssessmentHeader () {
+		const {onTryAgain} = this.props;
 		const {state: {page}} = this;
 		let quiz = this.getAssessment();
 		if (!page || !quiz) {
@@ -73,7 +75,8 @@ export default {
 
 		return React.createElement(SetHeaderWidget, {
 			assessment: quiz,
-			page
+			page,
+			onTryAgain
 		});
 	},
 

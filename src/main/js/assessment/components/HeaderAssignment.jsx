@@ -15,7 +15,8 @@ export default class extends React.Component {
 	static displayName = 'HeaderAssignment';
 
 	static propTypes = {
-		assessment: PropTypes.object
+		assessment: PropTypes.object,
+		onTryAgain: PropTypes.func
 	};
 
 	componentDidMount () {
@@ -41,6 +42,15 @@ export default class extends React.Component {
 		let ot = a.isOverTime && a.isOverTime();
 		return ot || a.isLate(date);
 	};
+
+
+	onTryAgain = () => {
+		const {onTryAgain} = this.props;
+
+		if (onTryAgain) {
+			onTryAgain();
+		}
+	}
 
 	render () {
 		let assignment = this.props.assessment;
@@ -71,7 +81,7 @@ export default class extends React.Component {
 
 	renderStudent (assignment, historyItem) {
 		return (
-			<NavigationBar.Status assignment={assignment} historyItem={historyItem} />
+			<NavigationBar.Status assignment={assignment} historyItem={historyItem} onTryAgain={this.onTryAgain} />
 		);
 	}
 

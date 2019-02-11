@@ -7,6 +7,7 @@ import {submit as performSubmit} from './Api';
 import {
 	INTERACTED,
 	RESET,
+	ASSIGNMENT_RESET,
 	CLEAR,
 	SUBMIT_BEGIN,
 	SUBMIT_END,
@@ -27,6 +28,10 @@ export function partInteracted (part, value, savepointBuffer) {
 
 export function resetAssessment (assessment, retainAnswers = false) {
 	AppDispatcher.handleViewAction({ type: RESET, assessment, retainAnswers });
+}
+
+export function resetAssignment (assignment) {
+	AppDispatcher.handleViewAction({type: ASSIGNMENT_RESET, assignment});
 }
 
 

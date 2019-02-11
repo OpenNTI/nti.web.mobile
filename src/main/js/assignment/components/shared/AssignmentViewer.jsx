@@ -5,8 +5,19 @@ import {Error as Err, Loading} from '@nti/web-commons';
 
 import {Component as ContextContributor} from 'common/mixins/ContextContributor';
 import ContentViewer from 'content/components/ViewerLoader';
+import {resetAssignment} from 'assessment/Actions';
 
 import Assignments from '../bindings/Assignments';
+
+function getAssignmentHistory (assignment, assignments) {
+	const {CurrentMetadataAttemptItem: attempt} = assignment || {};
+
+	if (attempt) {
+		return attempt.getHistoryItem();
+	}
+
+	return assignments.getHistoryItem(assignment.getID());
+}
 
 export default
 @Assignments.connect
@@ -63,10 +74,12 @@ class AssignmentViewer extends React.Component {
 		const state = {};
 
 		try {
-			const [initAssignment,history] = await Promise.all([
-				ensureNotSummary(assignments.getAssignment(id)),
-				assignments.getHistoryItem(id, userId)
-			]);
+			const initAssignment = await ensureNotSummary(assignments.getAssignment(id));
+			const history = userId ? await assignments.getHistoryItem(id, userId) : await getAssignmentHistory(initAssignment, assignments);
+			// const [initAssignment,history] = await Promise.all([
+			// 	ensureNotSummary(assignments.getAssignment(id)),
+			// 	assignments.getHistoryItem(id, userId)
+			// ]);
 
 			const maybeAutoStart = initAssignment.shouldAutoStart && initAssignment.shouldAutoStart();
 			let assignment = initAssignment;
@@ -115,6 +128,25 @@ class AssignmentViewer extends React.Component {
 	}
 
 
+	onTryAgain = async () => {
+		const {assignment} = this.state;
+
+		try {
+			await assignment.start();
+
+			resetAssignment(assignment);
+
+			this.setState({
+				assignment,
+				history: null
+			});
+		} catch (e) {
+			//swallow
+		}
+
+	}
+
+
 	render () {
 		const {
 			props: {
@@ -142,6 +174,7 @@ class AssignmentViewer extends React.Component {
 					<ContentViewer {...this.props}
 						assessment={assignment}
 						assessmentHistory={history}
+						onTryAgain={this.onTryAgain}
 						contentPackage={course}
 						course={course}
 						explicitContext={explicitContext || this}

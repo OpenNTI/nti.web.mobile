@@ -11,6 +11,7 @@ import {
 	SUBMIT_BEGIN,
 	SUBMIT_END,
 	RESET,
+	ASSIGNMENT_RESET,
 	INTERACTED,
 	CLEAR,
 	ERROR,
@@ -40,6 +41,7 @@ const OnAggregationToggle = Symbol('Toggle Aggregation');
 const OnClear = Symbol('on:Clear');
 const OnInteracted = Symbol('on:Interacted');
 const OnReset = Symbol('on:Submit:Reset');
+const OnAssignmentReset = Symbol('on:Assignment:Reset');
 const OnSubmitStart = Symbol('on:Submit:Begin');
 const OnSubmitEnd = Symbol('on:Submit:End');
 const SaveProgress = Symbol('Save Progress');
@@ -78,7 +80,8 @@ class Store extends StorePrototype {
 			[CLEAR]: OnClear,
 			[RESET]: OnReset,
 			[INTERACTED]: OnInteracted,
-			[TOGGLE_AGGREGATED_VIEW]: OnAggregationToggle
+			[TOGGLE_AGGREGATED_VIEW]: OnAggregationToggle,
+			[ASSIGNMENT_RESET]: OnAssignmentReset
 		});
 
 		this.assignmentHistoryItems = {};
@@ -153,6 +156,17 @@ class Store extends StorePrototype {
 				});
 		}
 		this.emitChange({type: RESET});
+	}
+
+	[OnAssignmentReset] (payload) {
+		const {assignment} = payload.action;
+		const key = this[GetAssessmentKey](assignment);
+
+		delete this.assignmentHistoryItems[key];
+		delete this.data[key];
+		delete this.assessed[key];
+
+		this.emitChange({type: ASSIGNMENT_RESET});
 	}
 
 

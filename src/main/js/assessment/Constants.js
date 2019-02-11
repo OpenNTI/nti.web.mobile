@@ -9,6 +9,8 @@ export const SYNC = 'assessment:Sync';
 export const SUBMIT_BEGIN = 'assessment:Begin';
 export const SUBMIT_END = 'assessment:End';
 
+export const ASSIGNMENT_RESET = 'assessment:assignment-reset';
+
 export const HELP_VIEW_HINT = 'assessment:Help:View Hint';
 export const HELP_VIEW_SOLUTION = 'assessment:Help:View Solution';
 
