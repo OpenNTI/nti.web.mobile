@@ -101,7 +101,8 @@ export default class extends React.Component {
 
 		let admin = Store.isAdministrative(assessment);
 		let disabled = admin || !Store.canSubmit(assessment);
-		let cannotReset = Store.isSubmitted(assessment) || disabled;
+
+		let cannotReset = Store.isSubmitted(assessment) || disabled || assessment.isAssignment;
 
 		let unanswered = forceNumber(Store.countUnansweredQuestions(assessment));
 		let status = unanswered ? 'incomplete' : 'complete';
