@@ -13,6 +13,7 @@ import {
 	ListHeader as Header,
 	Loading
 } from '@nti/web-commons';
+import {ProgressWidgets} from '@nti/web-course';
 
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
@@ -97,6 +98,7 @@ export default createReactClass({
 
 	render () {
 		const {props: {className, item}, state: {outline, loading}} = this;
+		const isCompletable = !!item.CompletionPolicy;
 
 		if (loading) {
 			return (<Loading.Mask />);
@@ -110,7 +112,12 @@ export default createReactClass({
 
 				{this.props.children}
 
-				<Header>Outline</Header>
+				{isCompletable && (
+					<ProgressWidgets.OutlineHeader course={item} />
+				)}
+				{!isCompletable && (
+					<Header>Outline</Header>
+				)}
 				<ActiveStateContainer>
 					<ul className="outline">
 						<li>{this.renderTree(outline.contents)}</li>
