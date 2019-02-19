@@ -167,6 +167,7 @@ class Store extends StorePrototype {
 		delete this.assessed[key];
 
 		this.emitChange({type: ASSIGNMENT_RESET});
+		this.emitChange({type: SYNC});
 	}
 
 
