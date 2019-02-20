@@ -9,8 +9,8 @@ import {resetAssignment} from 'assessment/Actions';
 
 import Assignments from '../bindings/Assignments';
 
-function getAssignmentHistory (assignment, assignments) {
-	const {CurrentMetadataAttemptItem: attempt} = assignment || {};
+async function getAssignmentHistory (assignment, assignments) {
+	const attempt = assignment && assignment.getLatestAttempt ? await assignment.getLatestAttempt() : null;
 
 	if (attempt) {
 		return attempt.getHistoryItem();
@@ -76,6 +76,7 @@ class AssignmentViewer extends React.Component {
 		try {
 			const initAssignment = await ensureNotSummary(assignments.getAssignment(id));
 			const history = userId ? await assignments.getHistoryItem(id, userId) : await getAssignmentHistory(initAssignment, assignments);
+			const historyItem = history && history.getMostRecentHistoryItem ? history.getMostRecentHistoryItem() : history;
 			// const [initAssignment,history] = await Promise.all([
 			// 	ensureNotSummary(assignments.getAssignment(id)),
 			// 	assignments.getHistoryItem(id, userId)
@@ -84,9 +85,7 @@ class AssignmentViewer extends React.Component {
 			const maybeAutoStart = initAssignment.shouldAutoStart && initAssignment.shouldAutoStart();
 			let assignment = initAssignment;
 
-			if(history && history.getMostRecentHistoryItem) {
-				const historyItem = history.getMostRecentHistoryItem();
-
+			if (historyItem) {
 				if(historyItem && historyItem.MetadataAttemptItem && historyItem.MetadataAttemptItem.hasLink('Assignment')) {
 					const historicalAssignment = await historyItem.MetadataAttemptItem.fetchLink('Assignment');
 					await initAssignment.refresh(historicalAssignment);
