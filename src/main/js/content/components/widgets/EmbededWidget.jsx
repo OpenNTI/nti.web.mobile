@@ -18,17 +18,19 @@ export default createReactClass({
 
 	propTypes: {
 		item: PropTypes.object,
-		contentPackage: PropTypes.object
+		contentPackage: PropTypes.object,
+		page: PropTypes.object
 	},
 
 
 	render () {
-		const {item, contentPackage} = this.props;
+		const {item, contentPackage, page} = this.props;
 
 		return (
 			<Widgets.EmbeddedWidget
 				item={item}
 				contentPackage={contentPackage}
+				page={page.pageInfo}
 				maxWidth={getViewportWidth()}
 			/>
 		);
