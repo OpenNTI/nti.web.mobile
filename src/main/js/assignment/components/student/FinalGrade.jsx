@@ -11,17 +11,20 @@ export default function FinalGrade ({grade}) {
 		return <span className={classes}>Not yet entered</span>;
 	}
 
+	const value = grade.getValue();
+	const letter = grade.getLetter();
+
 	return (
 		<span className={classes}>
-			{grade.value && <span className="grade-value">{grade.value}</span>}
-			{grade.letter && <span className="grade-letter">{grade.letter}</span>}
+			{value && <span className="grade-value">{value}</span>}
+			{letter && <span className="grade-letter">{letter}</span>}
 		</span>
 	);
 }
 
 FinalGrade.propTypes = {
 	grade: PropTypes.shape({
-		value: PropTypes.string,
-		letter: PropTypes.string
+		getValue: PropTypes.func,
+		getLetter: PropTypes.func
 	})
 };
