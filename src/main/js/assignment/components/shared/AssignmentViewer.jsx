@@ -172,7 +172,7 @@ class AssignmentViewer extends React.Component {
 				) : (
 					<ContentViewer {...this.props}
 						assessment={assignment}
-						assessmentHistory={history}
+						assessmentHistory={history || undefined}
 						onTryAgain={this.onTryAgain}
 						contentPackage={course}
 						course={course}
