@@ -119,6 +119,10 @@ class Store extends StorePrototype {
 			.filter(Boolean)
 			.reduce((a, b) => Object.assign(a, b), {});
 	}
+
+	get hasOAuthLinks () {
+		return Object.keys(this.getAvailableOAuthLinks() || {}).length > 0;
+	}
 }
 
 export default new Store();
