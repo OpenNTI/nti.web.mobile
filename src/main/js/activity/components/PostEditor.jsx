@@ -23,7 +23,9 @@ export default class PostEditor extends React.Component {
 		error: PropTypes.object,
 		busy: PropTypes.bool,
 
-		showSharing: PropTypes.bool
+		showSharing: PropTypes.bool,
+
+		warning: PropTypes.node,
 	};
 
 	state = {};
@@ -93,7 +95,7 @@ export default class PostEditor extends React.Component {
 	};
 
 	render () {
-		let {error, busy, showSharing} = this.props;
+		let {error, busy, showSharing, warning} = this.props;
 		let {disabled} = this.state;
 
 
@@ -103,6 +105,8 @@ export default class PostEditor extends React.Component {
 					<div className="error-message">
 						{error ? t(`common.errorMessages.codes.${error.code}`, error) : null}
 					</div>
+
+					{warning || null}
 
 					{showSharing && (
 						<ShareWith ref={this.attachSharing} scope={this} />

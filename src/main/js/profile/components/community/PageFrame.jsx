@@ -138,9 +138,14 @@ export default createReactClass({
 			<nav className="fullscreen-sections">
 				{items.map((x, i)=> (
 					x.title !== 'Forum' && (
-						<Link key={i} href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')}
+						<Link
+							key={i} href={(`/activity/${x.ID}/`).replace(/\/\//g, '/')}
 							style={animationDelay(i)}
-							onClick={this.toggleMenu}>{x.title}</Link>
+							onClick={this.toggleMenu}
+						>
+							<span>{x.title}</span>
+							{x.EmailNotifications && (<i className="icon-bell" />)}
+						</Link>
 					)
 				))}
 			</nav>
