@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Error as Err} from '@nti/web-commons';
+import {Forums} from '@nti/web-discussions';
 
 import PostEditor from 'activity/components/PostEditor';
 import {Editor} from 'modeled-content';
@@ -12,6 +13,7 @@ export default class extends React.Component {
 	static propTypes = {
 		entity: PropTypes.object.isRequired,
 		store: PropTypes.shape({
+			emailNoticiation: PropTypes.bool,
 			postToActivity: PropTypes.func
 		}).isRequired
 	};
@@ -54,11 +56,15 @@ export default class extends React.Component {
 	};
 
 	render () {
-		const {state: {busy, error}, props: {entity}} = this;
+		const {state: {busy, error}, props: {entity, store}} = this;
 
 		if (error && error.statusCode !== 422) {
 			return <Err error={error} />;
 		}
+
+		const message = store && store.emailNoticiation ?
+			(<Forums.EmailNotificationBar />) :
+			null;
 
 		return (
 			<div className="write-something">
@@ -67,6 +73,7 @@ export default class extends React.Component {
 						showSharing={!!entity.isUser}
 						onSubmit={this.onSubmit}
 						onCancel={this.onCancel}
+						warning={message}
 						error={error}
 						busy={busy}/>
 				) : (
