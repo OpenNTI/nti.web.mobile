@@ -118,7 +118,7 @@ export default createReactClass({
 
 		const disabled = busy || blankPassword || !Store.getLoginLink();
 		const hasAccountCreation = !!Store.getLink(LINK_ACCOUNT_CREATE);
-		const hasNextThoughtLogin = forceNextThoughtLogin || Store.hasOAuthLinks || hasAccountCreation;
+		const hasNextThoughtLogin = forceNextThoughtLogin || !Store.hasOAuthLinks || hasAccountCreation;
 
 		return (
 			<div className={cx('login-wrapper', {'nextthought-login': hasNextThoughtLogin})} onClick={this.onClick}>
