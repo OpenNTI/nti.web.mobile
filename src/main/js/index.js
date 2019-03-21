@@ -17,6 +17,7 @@ import LoginStore from 'login/Store';
 import AppView from './app/View';
 //webpack magic
 import '../resources/scss/app.scss';
+import '@nti/style-common/variables.css';
 
 initErrorReporter();
 initLocale();
