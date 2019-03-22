@@ -90,34 +90,35 @@ export default createReactClass({
 
 					{removePageWrapping
 						? ( <Content {...this.props}/> )
-						: ( <div>
-							<div className="profile-top-controls">
-								{topLeft}
-								<Controls entity={entity}/>
-							</div>
-							<div className="profile">
-								<nav>
-									<Head entity={entity}
-										narrow={narrow}
-										sections={sections}
-										selected={selected}
-										onMenuToggle={this.toggleMenu}
-									/>
-								</nav>
+						: (
+							<div>
+								<div className="profile-top-controls">
+									{topLeft}
+									<Controls entity={entity}/>
+								</div>
+								<div className="profile">
+									<nav>
+										<Head entity={entity}
+											narrow={narrow}
+											sections={sections}
+											selected={selected}
+											onMenuToggle={this.toggleMenu}
+										/>
+									</nav>
 
-								<TransitionGroup className="coordinate-root">
-									{narrow && showMenu ? (
-										<Transition key="menu">
-											{this.renderMenu()}
-										</Transition>
-									) : (
-										<Transition key="content">
-											<section><Content {...this.props} filterParams={filterParams}/></section>
-										</Transition>
-									)}
-								</TransitionGroup>
+									<TransitionGroup className="coordinate-root">
+										{narrow && showMenu ? (
+											<Transition key="menu">
+												{this.renderMenu()}
+											</Transition>
+										) : (
+											<Transition key="content">
+												<section><Content {...this.props} filterParams={filterParams}/></section>
+											</Transition>
+										)}
+									</TransitionGroup>
+								</div>
 							</div>
-						</div>
 						)}
 
 				</Background>

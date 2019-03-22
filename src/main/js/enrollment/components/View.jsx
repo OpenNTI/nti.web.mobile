@@ -135,6 +135,7 @@ export default createReactClass({
 			<Comp {...this.props}
 				courseId={courseId}
 				enrollment={enrollment}
-			/>);
+			/>
+		);
 	}
 });

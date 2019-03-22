@@ -108,7 +108,8 @@ export default class AnnotationBar extends React.Component {
 					'selected': (item === x.toLowerCase() && !busy) || busy === x.toLowerCase(),
 					'busy': busy === x.toLowerCase()
 				})}
-				onClick={this.onHighlight}>Highlight</Button> ));
+				onClick={this.onHighlight}>Highlight</Button>
+		));
 
 		return (
 			<div className="add annotation toolbar" ref={this.ref}>
