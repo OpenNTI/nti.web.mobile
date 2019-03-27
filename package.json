@@ -57,7 +57,7 @@
     "@nti/util-ios-version": "^1.0.0",
     "@nti/web-assignment-editor": "^1.25.0",
     "@nti/web-calendar": "^1.0.0-alpha.20181204192621",
-    "@nti/web-catalog": "0.x.x",
+    "@nti/web-catalog": "^0.24.0",
     "@nti/web-client": "^1.1.0",
     "@nti/web-commons": "0.x.x",
     "@nti/web-contacts": "0.x.x",
