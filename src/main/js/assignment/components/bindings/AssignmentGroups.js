@@ -11,6 +11,8 @@ export default class AssignmentGroups extends React.Component {
 			<AssignmentGroups _component={component} {...props} ref={ref}/>
 		));
 
+		cmp.displayName = `AssignmentGroupsFwdRef(${component.displayName || component.name || ''})`;
+
 		return HOCUtils.hoistStatics(cmp, component, 'AssignmentGroups');
 	}
 
