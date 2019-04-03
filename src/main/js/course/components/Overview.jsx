@@ -17,7 +17,6 @@ import {Component as ContextSender} from 'common/mixins/ContextSender';
 
 const logger = Logger.get('course:components:Overview');
 
-
 export default class CourseLessonOverview extends React.Component {
 
 	static propTypes = {
@@ -55,7 +54,7 @@ export default class CourseLessonOverview extends React.Component {
 
 	getRouteFor = (obj, context) => {
 		const {context: {router}, state: {assignments}} = this;
-		const getID = o => o['target-NTIID'] || o['Target-NTIID'] || (o.getID ? o.getID() : o['NTIID']);
+		const getID = o => o['target-NTIID'] || o['Target-NTIID'] || o.target || (o.getID ? o.getID() : o['NTIID']);
 		const getEncodedID = o => encodeForURI(getID(o));
 		const {MimeType: type} = obj || {};
 		const env = router.getEnvironment();

@@ -14,13 +14,4 @@
 		max-height: none;
 		overflow: visible;
 	}
-
-	.profile-update-sallt-profile-field-group {
-		//the only client that has this is OPSRC, so just
-		//hard code this for now. In the future we might
-		//need to check if its the last input in the list
-		.nti-multi-select-input .nti-select-input.open {
-			margin-bottom: 210px;
-		}
-	}
 }
