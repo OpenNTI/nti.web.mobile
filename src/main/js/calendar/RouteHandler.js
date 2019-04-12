@@ -9,11 +9,17 @@ import {GotoWebinar} from '@nti/web-integrations';
 const logger = Logger.get('app:calendar:route-handler');
 
 const {
-	CalendarEventRef: {MimeType: CalendarEventRefType},
-	CourseCalendarEvent: {MimeType: CourseEventType},
-	AssignmentCalendarEvent: {MimeType: AssignmentEventType},
-	WebinarCalendarEvent: {MimeType: WebinarEventType}
-} = Models.calendar;
+	calendar: {
+		CalendarEventRef: {MimeType: CalendarEventRefType},
+		CourseCalendarEvent: {MimeType: CourseEventType},
+		AssignmentCalendarEvent: {MimeType: AssignmentEventType},
+		WebinarCalendarEvent: {MimeType: WebinarEventType},
+	},
+	integrations: {
+		Webinar: {MimeType: WebinarType},
+		WebinarAsset: {MimeType: WebinarAssetType}
+	}
+} = Models;
 
 const UNKNOWN = ({MimeType} = {}) => logger.warn(`No handler for MimeType: '${MimeType}'`);
 
@@ -25,6 +31,29 @@ function modalEventView (event, context) {
 	/>);
 }
 
+function webinarHandler (webinar, context) {
+	return () => {
+		if (webinar.hasLink('WebinarRegister')) {
+			Prompt.modal(<GotoWebinar.Registration
+				item={{webinar}}
+				onBeforeDismiss={()=>{}}
+				nonDialog
+			/>);
+		}
+		else if (webinar.hasLink('JoinWebinar')) {
+			window.open(webinar.getLink('JoinWebinar'), '_blank');
+		}
+	};
+}
+
+function webinarUnavailable (obj) {
+	if (!obj.hasLink('JoinWebinar') && !obj.hasLink('WebinarRegister')) {
+		return () => {
+			Prompt.alert('This webinar is no longer available');
+		};
+	}
+}
+
 const HANDLERS = {
 	[CourseEventType]: (obj, context) => modalEventView(obj, context),
 
@@ -34,32 +63,26 @@ const HANDLERS = {
 		return `mobile/course/${encodeForURI(courseNTIID)}/assignments/${encodeForURI(AssignmentNTIID)}`;
 	},
 
+	[WebinarType]: (webinar, context) => webinarUnavailable(webinar) || webinarHandler(webinar, context),
+	[WebinarAssetType]: ({webinar}, context) => webinarUnavailable(webinar) || webinarHandler(webinar, context),
+
 	[WebinarEventType]: (obj, context) => {
-		if(!obj.hasLink('JoinWebinar') && !obj.hasLink('WebinarRegister')) {
-			return () => {
-				Prompt.alert('This webinar is no longer available');
-			};
+		const unavailable = webinarUnavailable(obj);
+
+		if (unavailable) {
+			return unavailable;
 		}
 
-		const webinarLinkObj = obj.Links.filter(x=>x.rel === 'Webinar')[0];
-		const webinarID = webinarLinkObj && webinarLinkObj.ntiid;
+		const webinarId = obj.getLinkProperty('Webinar', 'ntiid');
 
-		if(webinarID) {
+		if (webinarId) {
 			return async () => {
 				const webinar = await obj.fetchLinkParsed('Webinar');
-
-				if(webinar.hasLink('WebinarRegister')) {
-					Prompt.modal(<GotoWebinar.Registration
-						item={{webinar}}
-						onBeforeDismiss={()=>{}}
-						nonDialog
-					/>);
-				}
-				else if(webinar.hasLink('JoinWebinar')) {
-					window.open(webinar.getLink('JoinWebinar'), '_blank');
-				}
+				return webinarHandler(webinar, context)();
 			};
 		}
+
+		logger.warn('Unable to route webinar event. No \'Webinar\' link ntiid?', obj);
 	}
 };
 
