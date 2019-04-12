@@ -9,6 +9,7 @@ import {GotoWebinar} from '@nti/web-integrations';
 const logger = Logger.get('app:calendar:route-handler');
 
 const {
+	CalendarEventRef: {MimeType: CalendarEventRefType},
 	CourseCalendarEvent: {MimeType: CourseEventType},
 	AssignmentCalendarEvent: {MimeType: AssignmentEventType},
 	WebinarCalendarEvent: {MimeType: WebinarEventType}
@@ -16,14 +17,18 @@ const {
 
 const UNKNOWN = ({MimeType} = {}) => logger.warn(`No handler for MimeType: '${MimeType}'`);
 
+function modalEventView (event, context) {
+	return () => Prompt.modal(<Event.View
+		getAvailableCalendars={() => []}
+		event={event}
+		nonDialog
+	/>);
+}
+
 const HANDLERS = {
-	[CourseEventType]: (obj, context) => {
-		return () => Prompt.modal(<Event.View
-			getAvailableCalendars={() => []}
-			event={obj}
-			nonDialog
-		/>);
-	},
+	[CourseEventType]: (obj, context) => modalEventView(obj, context),
+
+	[CalendarEventRefType]: (obj, context) => modalEventView(obj.CalendarEvent, context),
 
 	[AssignmentEventType]: ({AssignmentNTIID}, {courseNTIID}) => {
 		return `mobile/course/${encodeForURI(courseNTIID)}/assignments/${encodeForURI(AssignmentNTIID)}`;

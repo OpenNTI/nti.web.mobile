@@ -14,6 +14,7 @@ import {
 } from '@nti/web-commons';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
+import {getRouteFor as calendarRouteFor} from 'calendar/RouteHandler';
 
 const logger = Logger.get('course:components:Overview');
 
@@ -66,6 +67,11 @@ export default class CourseLessonOverview extends React.Component {
 				&& /question(set|bank)/i.test(type)
 				&& assignments.isAssignment(getID(obj));
 		};
+
+		const calendarRoute = calendarRouteFor(obj, context);
+		if (calendarRoute) {
+			return calendarRoute;
+		}
 
 		if (/video/i.test(type)) {
 			route = path.join(env.getPath(), 'videos', getEncodedID(obj));
