@@ -96,9 +96,10 @@ export default class CourseLessonOverview extends React.Component {
 			if (!topic) {
 				return null;
 			}
-			
+
 			const forumId = encodeForURI(topic.ContainerId);
-			return path.join('..', 'discussions', forumId, getEncodedID(obj));
+			const topicId = encodeForURI(topic.getID());
+			return path.join('..', 'discussions', forumId, topicId);
 		}
 		else if (/discussion/i.test(type)) {
 			//Its still resolving... ignore.
