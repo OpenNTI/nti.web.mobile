@@ -91,14 +91,14 @@ export default class CourseLessonOverview extends React.Component {
 			route = path.join('..', 'discussions', encodeForURI(obj.ContainerId), encodeForURI(obj.NTIID));
 		}
 		else if (/discussionref/i.test(type)) {
-			obj.resolveTarget(); // preemptively kick off the request
+			const {topic} = context || {};
 
-			return async () => {
-				const topic = await obj.resolveTarget();
-				const forumId = encodeForURI(topic.ContainerId);
-				route = path.join('..', 'discussions', forumId, getEncodedID(obj));
-				router.navigate(route);
-			};
+			if (!topic) {
+				return null;
+			}
+			
+			const forumId = encodeForURI(topic.ContainerId);
+			return path.join('..', 'discussions', forumId, getEncodedID(obj));
 		}
 		else if (/discussion/i.test(type)) {
 			//Its still resolving... ignore.
