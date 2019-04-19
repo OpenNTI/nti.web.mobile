@@ -20,14 +20,19 @@ function setSeen () {
 	Storage.setItem(getStorageKey(), seen);
 }
 
+// key === value, e.g. {lessons: 'lessons'}
+const IDENTITY_CONTEXT_MAPPINGS = [
+	'lessons',
+	'assignments',
+	'discussions',
+	'info',
+	'scorm',
+	'videos',
+	'content'
+].reduce((acc, x) => ({...acc, [x]: x}), {});
+
 const CONTEXT_PATHS = {
-	lessons: 'lessons',
-	assignments: 'assignments',
-	discussions: 'discussions',
-	info: 'info',
-	videos: 'videos',
-	content: 'content',
-	
+	...IDENTITY_CONTEXT_MAPPINGS,
 	scorm: 'scormcontent',
 };
 
