@@ -20,6 +20,17 @@ function setSeen () {
 	Storage.setItem(getStorageKey(), seen);
 }
 
+const CONTEXT_PATHS = {
+	lessons: 'lessons',
+	assignments: 'assignments',
+	discussions: 'discussions',
+	info: 'info',
+	videos: 'videos',
+	content: 'content',
+	
+	scorm: 'scormcontent',
+};
+
 class CourseNavigationTabs extends React.Component {
 	static propTypes = {
 		course: PropTypes.object.isRequired
@@ -66,25 +77,9 @@ class CourseNavigationTabs extends React.Component {
 
 		const base = this.getBaseRoute();
 
-		let path = '';
+		const path = CONTEXT_PATHS[context] || '';
 
-		if (context === 'lessons') {
-			path = 'lessons/';
-		} else if (context === 'assignments') {
-			path = 'assignments/';
-		} else if (context === 'discussions') {
-			path = 'discussions/';
-		} else if (context === 'info') {
-			path = 'info/';
-		} else if (context === 'scorm') {
-			path = 'scormcontent/';
-		} else if (context === 'videos') {
-			path = 'videos/';
-		} else if (context === 'content') {
-			path = 'content/';
-		}
-
-		return `${base}${path}`;
+		return `${base}${path}/`;
 	}
 
 
