@@ -18,7 +18,7 @@ import Overview from './Overview';
 
 
 const ROUTES = [
-	{path: '/:outlineId/items(/*)',                    handler: Items },
+	{path: '/:outlineId/items(/*)',                 handler: Items },
 	{path: '/:outlineId/content/:rootId(/*)',		handler: Content },
 	{path: '/:outlineId/assignment/:rootId(/*)',	handler: Assignments },
 	{path: '/:outlineId/external-content/:relatedWorkRefId(/discussions)(/*)',	handler: External },

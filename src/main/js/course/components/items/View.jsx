@@ -4,6 +4,8 @@ import {decodeFromURI, encodeForURI} from '@nti/lib-ntiids';
 import {Content, Overview} from '@nti/web-course';
 import {getHistory} from '@nti/web-routing';
 
+import overrides from './overrides';
+
 const TRIM_REGEX = /^.*\/items/;
 const NEW_ROUTE_REPLACE_REGEX = /\/items\/.*$/;
 const TRIM_LEADING = /^\//;
@@ -50,6 +52,7 @@ function getOverviewPart (obj, context) {
 	return getURLPart(obj);
 }
 
+
 export default class CourseItems extends React.Component {
 	static getOverviewPart = getOverviewPart
 
@@ -87,6 +90,10 @@ export default class CourseItems extends React.Component {
 			.replace(TRIM_LEADING, '');
 	}
 
+	getReturnPath () {
+		return this.context.router.makeHref('');
+	}
+
 	getPath () {
 		return this.context.router.getPath();
 	}
@@ -112,6 +119,12 @@ export default class CourseItems extends React.Component {
 				lesson={lesson}
 				selection={selection}
 				requiredOnly={Overview.isFilteredToRequired()}
+				overrides={overrides}
+
+				returnPath={this.getReturnPath()}
+
+				noAside
+				noHeader
 			/>
 		);
 	}

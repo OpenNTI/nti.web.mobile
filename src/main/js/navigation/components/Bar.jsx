@@ -127,7 +127,7 @@ export default createReactClass({
 		logger.debug('Context Path: %s', contextPath.map(a=> a ? a.label : void 0).join(', '));
 		this.setState({
 			current,
-			returnTo,
+			returnTo: current && current.returnOverride ? current.returnOverride : returnTo,
 			resolving: false
 		});
 	},
