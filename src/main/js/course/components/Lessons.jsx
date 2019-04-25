@@ -11,12 +11,14 @@ import {LESSONS} from '../Sections';
 import Assignments from './Assignment';
 import Content from './Content';
 import External from './ExternalContent';
+import Items from './items';
 import Media from './Media';
 import Outline from './OutlineView';
 import Overview from './Overview';
 
 
 const ROUTES = [
+	{path: '/:outlineId/items(/*)',                    handler: Items },
 	{path: '/:outlineId/content/:rootId(/*)',		handler: Content },
 	{path: '/:outlineId/assignment/:rootId(/*)',	handler: Assignments },
 	{path: '/:outlineId/external-content/:relatedWorkRefId(/discussions)(/*)',	handler: External },

@@ -16,7 +16,10 @@ import {
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 import {getRouteFor as calendarRouteFor} from 'calendar/RouteHandler';
 
+import Items from './items';
+
 const logger = Logger.get('course:components:Overview');
+
 
 export default class CourseLessonOverview extends React.Component {
 
@@ -47,9 +50,16 @@ export default class CourseLessonOverview extends React.Component {
 			router: {
 				...(nav || {}),
 				baseroute: nav && nav.makeHref(''),
-				getRouteFor: this.getRouteFor,
+				getRouteFor: this.getItemRouteFor,//this.getRouteFor,
 			}
 		};
+	}
+
+	getItemRouteFor = (obj, context) => {
+		const {context: {router}} = this;
+		const env = router.getEnvironment();
+
+		return path.join(env.getPath(), 'items', Items.getOverviewPart(obj, context)) + '/';
 	}
 
 
