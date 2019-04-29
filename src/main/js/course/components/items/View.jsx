@@ -52,7 +52,7 @@ function getOverviewPart (obj, context) {
 }
 
 function getFullRoute (lesson, obj, context) {
-	return `${getURLPart(lesson)}/items/${getOverviewPart(obj)}`;
+	return `${getURLPart(lesson)}/items/${getOverviewPart(obj, context)}`;
 }
 
 
