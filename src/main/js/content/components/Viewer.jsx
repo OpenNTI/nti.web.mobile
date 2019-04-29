@@ -61,7 +61,8 @@ export default createReactClass({
 		pageSource: PropTypes.object, //used to specify a custom pager
 		onPageLoaded: PropTypes.func,
 
-		className: PropTypes.string
+		className: PropTypes.string,
+		noNavigation: PropTypes.bool
 	},
 
 	backingStore: Store,
@@ -135,7 +136,7 @@ export default createReactClass({
 		const current = getComparable(this.state);
 		const previous = getComparable(prevState);
 
-		if (!equals(current, previous)) {
+		if (!equals(current, previous) && !this.props.noNavigation) {
 			const {currentPage, pageSource} = this.state;
 			//We transition between discussions, NoteEditor and content...
 			//those transitions delay "componentWillUnmount" which is one of the
@@ -177,6 +178,8 @@ export default createReactClass({
 
 
 	getPageID (props = this.props) {
+		if (props.pageId) { return props.pageId; }
+
 		const h = this.getPropsFromRoute(props);
 		return decodeFromURI(h.pageId || props.rootId);
 	},
@@ -253,7 +256,7 @@ export default createReactClass({
 	},
 
 	renderBottomPager () {
-		if (isAssignment(this.getAssessment())) {
+		if (isAssignment(this.getAssessment()) || this.props.noNavigation) {
 			return null;
 		}
 

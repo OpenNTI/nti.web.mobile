@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ContentView from 'content/components/Index';
+import ContentView from 'content/components/ViewerLoader';
 
 import Page from '../Page';
 import Registry from '../Registry';
@@ -9,11 +9,11 @@ import Registry from '../Registry';
 function getPageId (location) {
 	const {item} = location;
 
-	return item && item.getID();
+	return item.target;
 }
 
 function getRootId (pageId, location) {
-	const {items} = location;
+	const {items = []} = location;
 
 	for (let item of items) {
 		const id = item.getID && item.getID();
@@ -45,11 +45,12 @@ const handles = (obj) => {
 
 export default
 @Registry.register(handles)
-class CourseItemAssignment extends React.Component {
+class CourseItemReading extends React.Component {
 	static propTypes = {
 		course: PropTypes.object,
 		location: PropTypes.object
 	}
+
 
 	render () {
 		const {course, location} = this.props;
@@ -58,7 +59,12 @@ class CourseItemAssignment extends React.Component {
 
 		return (
 			<Page {...this.props}>
-				<ContentView pageId={pageId} rootId={rootId} contentPackage={course} />
+				<ContentView
+					pageId={pageId}
+					rootId={rootId}
+					contentPackage={course}
+					noNavigation
+				/>
 			</Page>
 		);
 	}

@@ -18,6 +18,7 @@ function getRouteParts (path) {
 
 		for (let part of parts) {
 			if (!part) { continue; }
+			if (part === 'discussions') { break; }
 
 			selection.push(decodeFromURI(part));
 		}
