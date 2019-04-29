@@ -16,6 +16,8 @@ export default {
 		this.getRoutes().push(makeRoute('/:pageId(/)'));
 
 		this.registerContentViewerSubRoute('/discussions(/*)', {discussions: true});
+
+		this.getRoutes().push(makeRoute('/:rootId/:pageId(/)'));
 	},
 
 

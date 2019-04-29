@@ -127,8 +127,10 @@ export default createReactClass({
 		logger.debug('Context Path: %s', contextPath.map(a=> a ? a.label : void 0).join(', '));
 		this.setState({
 			current,
-			returnTo: current && current.returnOverride ? current.returnOverride : returnTo,
-			pagerProps: current && current.pagerProps,
+			returnTo: current && current.returnOverride ?
+				current.returnOverride :
+				(returnTo && (returnTo.returnOverride || returnTo) ),
+			pagerProps: (current && current.pagerProps) || (returnTo && returnTo.pagerProps),
 			resolving: false
 		});
 	},

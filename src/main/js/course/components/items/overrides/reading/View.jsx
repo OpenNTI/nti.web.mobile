@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {encodeForURI} from '@nti/lib-ntiids';
 
 import ContentView from 'content/components/ViewerLoader';
 
@@ -9,7 +10,7 @@ import Registry from '../Registry';
 function getPageId (location) {
 	const {item} = location;
 
-	return item.target;
+	return item.target || item.getID();
 }
 
 function getRootId (pageId, location) {
@@ -53,15 +54,18 @@ class CourseItemReading extends React.Component {
 
 
 	render () {
-		const {course, location} = this.props;
+		const {course, location, ...otherProps} = this.props;
 		const pageId = getPageId(location);
 		const rootId = getRootId(pageId, location);
+
+		debugger;
 
 		return (
 			<Page {...this.props}>
 				<ContentView
+					{...otherProps}
 					pageId={pageId}
-					rootId={rootId}
+					rootId={encodeForURI(rootId)}
 					contentPackage={course}
 					noNavigation
 				/>

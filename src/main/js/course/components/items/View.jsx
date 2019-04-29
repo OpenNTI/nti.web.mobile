@@ -118,12 +118,16 @@ export default class CourseItems extends React.Component {
 	}
 
 	render () {
-		const {course} = this.props;
+		const {course, ...otherProps} = this.props;
 		const {selection} = this.getRouteParts();
 		const lesson = this.getLessonId();
 
+		delete otherProps.outlineId;
+
 		return (
 			<Content.Pager
+				{...otherProps}
+
 				course={course}
 				lesson={lesson}
 				selection={selection}
