@@ -1,8 +1,28 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
+import ContentView from 'content/components/Index';
 
 import Page from '../Page';
 import Registry from '../Registry';
+
+function getPageId (location) {
+	const {item} = location;
+
+	return item && item.getID();
+}
+
+function getRootId (pageId, location) {
+	const {items} = location;
+
+	for (let item of items) {
+		const id = item.getID && item.getID();
+
+		if (id) { return id; }
+	}
+
+	return pageId;
+}
 
 const MIME_TYPES = {
 	'application/vnd.nextthought.ltiexternaltoolasset': true,
@@ -26,12 +46,19 @@ const handles = (obj) => {
 export default
 @Registry.register(handles)
 class CourseItemAssignment extends React.Component {
+	static propTypes = {
+		course: PropTypes.object,
+		location: PropTypes.object
+	}
+
 	render () {
+		const {course, location} = this.props;
+		const pageId = getPageId(location);
+		const rootId = getRootId(pageId, location);
+
 		return (
 			<Page {...this.props}>
-				<h1>
-					Reading
-				</h1>
+				<ContentView pageId={pageId} rootId={rootId} contentPackage={course} />
 			</Page>
 		);
 	}
