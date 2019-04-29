@@ -1,3 +1,5 @@
+import {resolve} from 'path';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -56,13 +58,31 @@ export default class CourseItemOverridePage extends React.Component {
 
 function getContext () {
 	const context = this;
-	const {lessonInfo, returnPath} = context.props;
+	const {lessonInfo, location, returnPath, next, previous} = context.props;
+	const {getRouteFor, baseroute} = context.context.router;
 	const {title} = lessonInfo || {};
+
+	const getHref = (item, itemContext) => {
+		const itemRoute = getRouteFor(item, itemContext);
+
+		return resolve(baseroute, itemRoute);
+	};
 
 	return {
 		returnOverride: {
 			label: title || '',
 			href: returnPath
+		},
+		pagerProps: {
+			current: location,
+			next: {
+				href: next && next.item ? getHref(next.item, next) : null,
+				title: 'Next Item'
+			},
+			prev: {
+				href: previous && previous.item ? getHref(previous.item, previous) : null,
+				title: 'Previous Item'
+			}
 		}
 	};
 }

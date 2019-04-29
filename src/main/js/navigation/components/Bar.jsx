@@ -128,6 +128,7 @@ export default createReactClass({
 		this.setState({
 			current,
 			returnTo: current && current.returnOverride ? current.returnOverride : returnTo,
+			pagerProps: current && current.pagerProps,
 			resolving: false
 		});
 	},
@@ -350,7 +351,7 @@ export default createReactClass({
 
 	renderBar () {
 		const {supportsSearch, border, className, useCommonTabs} = this.props;
-		let {pageSource, currentPage, context, resolving, searchOpen} = this.state;
+		let {pageSource, currentPage, context, resolving, searchOpen, pagerProps} = this.state;
 		const root = pageSource && pageSource.root;
 		const toc = root && root.toc;
 		const isRealPages = (toc && !!toc.realPageIndex) || false;
@@ -362,7 +363,8 @@ export default createReactClass({
 					{this.getCenter()}
 				</section>
 				<section>
-					{pageSource && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} toc={toc} />}
+					{pageSource && !pagerProps && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} toc={toc} />}
+					{pagerProps && (<Pager {...pagerProps} navigatableContext={context} />)}
 					{supportsSearch && (<a href="#"><i className="icon-search launch-search" onClick={this.launchSearch} /></a>)}
 					{this.getRight()}
 				</section>

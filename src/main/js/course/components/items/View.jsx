@@ -8,7 +8,6 @@ import overrides from './overrides';
 
 const TRIM_REGEX = /^.*\/items/;
 const NEW_ROUTE_REPLACE_REGEX = /\/items\/.*$/;
-const TRIM_LEADING = /^\//;
 
 function getRouteParts (path) {
 	try {
@@ -52,12 +51,17 @@ function getOverviewPart (obj, context) {
 	return getURLPart(obj);
 }
 
+function getFullRoute (lesson, obj, context) {
+	return `${getURLPart(lesson)}/items/${getOverviewPart(obj)}`;
+}
+
 
 export default class CourseItems extends React.Component {
 	static getOverviewPart = getOverviewPart
 
 	static propTypes = {
-		course: PropTypes.object
+		course: PropTypes.object,
+		outlineId: PropTypes.string,
 	}
 
 	static contextTypes = {
@@ -81,17 +85,21 @@ export default class CourseItems extends React.Component {
 		};
 	}
 
-	getItemRouteFor (obj, context) {
-		const path = this.getPath();
-		const itemRoute = getOverviewPart(obj, context);
+	getItemRouteFor = (obj, context) => {
+		const {outlineId} = this.props;
+		const {lesson:lessonOverride} = context || {};
+		const lesson = {
+			NTIID: lessonOverride ? lessonOverride.ContentNTIID : decodeFromURI(outlineId)
+		};
 
-		return path
-			.replace(NEW_ROUTE_REPLACE_REGEX, `/items/${itemRoute}`)
-			.replace(TRIM_LEADING, '');
+		return getFullRoute(lesson, obj, context);
 	}
 
 	getReturnPath () {
-		return this.context.router.makeHref('');
+		const path = this.getPath();
+		const returnPath = path.replace(NEW_ROUTE_REPLACE_REGEX, '');
+
+		return this.context.router.makeHref(returnPath);
 	}
 
 	getPath () {
