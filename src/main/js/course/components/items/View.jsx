@@ -15,16 +15,21 @@ function getRouteParts (path) {
 		const parts = trimmed.split('/');
 
 		let selection = [];
+		let discussions = false;
 
 		for (let part of parts) {
 			if (!part) { continue; }
-			if (part === 'discussions') { break; }
+			if (part === 'discussions') {
+				discussions = true;
+				break;
+			}
 
 			selection.push(decodeFromURI(part));
 		}
 
 		return {
-			selection
+			selection,
+			discussions
 		};
 	} catch (e) {
 		return null;
@@ -79,6 +84,7 @@ export default class CourseItems extends React.Component {
 		return {
 			router: {
 				...(nav || {}),
+				// makeHref: this.makeHref,
 				baseroute: nav && nav.makeHref(''),
 				history: getHistory(),
 				getRouteFor: this.getItemRouteFor//this.getRouteFor,

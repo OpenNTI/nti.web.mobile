@@ -58,8 +58,6 @@ class CourseItemReading extends React.Component {
 		const pageId = getPageId(location);
 		const rootId = getRootId(pageId, location);
 
-		debugger;
-
 		return (
 			<Page {...this.props}>
 				<ContentView

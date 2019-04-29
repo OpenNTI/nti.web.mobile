@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 import createReactClass from 'create-react-class';
 /* See: https://github.com/mozilla/vtt.js#usage */
 import {
@@ -72,7 +73,10 @@ export default createReactClass({
 		videoId: PropTypes.string,
 		course: PropTypes.object,
 
-		showDiscussions: PropTypes.bool
+		showDiscussions: PropTypes.bool,
+		lightMode: PropTypes.bool,
+		gutterPrefix: PropTypes.string,
+		noNavigation: PropTypes.bool
 	},
 
 	attachVideoRef (x) { this.video = x; },
@@ -137,10 +141,12 @@ export default createReactClass({
 
 
 	getContext () {
-		let {videoId} = this.props;
+		let {videoId, gutterPrefix} = this.props;
+		const id = gutterPrefix != null ? gutterPrefix : videoId;
+
 		return Promise.resolve({
 			label: 'Video',
-			href: this.makeHref(videoId + '/')
+			href: this.makeHref(id + '/')
 		});
 	},
 
@@ -343,7 +349,7 @@ export default createReactClass({
 
 
 	render () {
-		let {showDiscussions, videoId} = this.props;
+		let {showDiscussions, videoId, lightMode, gutterPrefix} = this.props;
 		let {annotations, storeProvider, selectedDiscussions, error, video, cues, regions, slides, currentTime, loading} = this.state;
 
 		loading = loading || !video;
@@ -361,8 +367,8 @@ export default createReactClass({
 		}
 
 		return (
-			<div className="transcripted-video">
-				<DarkMode/>
+			<div className={cx('transcripted-video', {'light-mode': lightMode})}>
+				{!lightMode && (<DarkMode/>) }
 				{!video ? None : (
 					<Video ref={this.attachVideoRef}
 						src={video}
@@ -385,7 +391,12 @@ export default createReactClass({
 							slides={slides}
 						/>
 					)}
-					<Gutter ref={this.attachGutterRef} items={annotations} selectFilter={this.setDiscussionFilter} prefix={videoId}/>
+					<Gutter
+						ref={this.attachGutterRef}
+						items={annotations}
+						selectFilter={this.setDiscussionFilter}
+						prefix={gutterPrefix != null ? gutterPrefix : videoId}
+					/>
 				</div>
 
 			</div>
