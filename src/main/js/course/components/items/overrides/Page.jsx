@@ -2,7 +2,6 @@ import {resolve} from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
 export default class CourseItemOverridePage extends React.Component {

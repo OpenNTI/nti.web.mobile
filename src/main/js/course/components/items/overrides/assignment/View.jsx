@@ -1,8 +1,20 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import {encodeForURI} from '@nti/lib-ntiids';
+import {Loading} from '@nti/web-commons';
+
+import AssignmentsProvider from 'assignment/components/bindings/AssignmentsProvider';
+import AssignmentViewer from 'assignment/components/shared/AssignmentViewer';
 
 import Page from '../Page';
 import Registry from '../Registry';
+
+
+function getAssignmentId (location) {
+	const {item} = location || {};
+
+	return item && (item.target || item.getID());
+}
 
 const MIME_TYPES = {
 	'application/vnd.nextthought.assessment.discussionassignment': true,
@@ -20,13 +32,30 @@ const handles = (obj) => {
 
 export default
 @Registry.register(handles)
+@AssignmentsProvider.connect
 class CourseItemAssignment extends React.Component {
+	static propTypes = {
+		course: PropTypes.object,
+		location: PropTypes.object,
+
+		loading: PropTypes.bool,
+		assignments: PropTypes.object
+	}
+
 	render () {
+		const {location, course, loading, assignments} = this.props;
+		const assignmentId = getAssignmentId(location);
+
 		return (
 			<Page {...this.props}>
-				<h1>
-					Assignment
-				</h1>
+				{loading && (<Loading.Spinner.Large />)}
+				{!loading && (
+					<AssignmentViewer
+						course={course}
+						assignments={assignments}
+						rootId={encodeForURI(assignmentId)}
+					/>
+				)}
 			</Page>
 		);
 	}

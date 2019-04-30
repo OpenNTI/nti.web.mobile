@@ -1,0 +1,8 @@
+.mobile-course-items {
+	max-width: 700px;
+	margin: 0 auto;
+	position: relative;
+	top: -45px;
+	padding-top: 45px;
+	min-height: calc(100vh - 45px);
+}
