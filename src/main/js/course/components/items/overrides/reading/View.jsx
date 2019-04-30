@@ -8,9 +8,11 @@ import Page from '../Page';
 import Registry from '../Registry';
 
 function getPageId (location) {
-	const {item} = location;
+	const {item} = location || {};
 
-	return item.target || item.getID();
+	if (!item) { return null; }
+
+	return item.isContent ? item.target : item.getID();
 }
 
 function getRootId (pageId, location) {
