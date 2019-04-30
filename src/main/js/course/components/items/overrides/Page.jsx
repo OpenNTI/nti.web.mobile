@@ -2,6 +2,7 @@ import {resolve} from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
 export default class CourseItemOverridePage extends React.Component {
@@ -73,7 +74,7 @@ function getContext () {
 			href: returnPath
 		},
 		pagerProps: {
-			current: location,
+			current: location && location.item && location.item.getID(),
 			next: {
 				href: next && next.item ? getHref(next.item, next) : null,
 				title: 'Next Item'
