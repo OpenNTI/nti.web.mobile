@@ -1,8 +1,10 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import {Content} from '@nti/web-course';
 
 import Page from '../Page';
 import Registry from '../Registry';
+
+const {Webinar} = Content.Viewer.ContentTypes;
 
 const MIME_TYPES = {
 	'application/vnd.nextthought.webinarasset': true
@@ -21,9 +23,7 @@ class CourseItemAssignment extends React.Component {
 	render () {
 		return (
 			<Page {...this.props}>
-				<h1>
-					Webinar
-				</h1>
+				<Webinar {...this.props} />
 			</Page>
 		);
 	}
