@@ -12,7 +12,7 @@ function getPageId (location) {
 
 	if (!item) { return null; }
 
-	return item.isContent ? item.target : item.getID();
+	return item.getID();
 }
 
 function getRootId (pageId, location) {
