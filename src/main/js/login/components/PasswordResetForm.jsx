@@ -59,7 +59,7 @@ export default class PasswordResetForm extends React.Component {
 
 
 			let {username, token} = this.props;
-			getServer().resetPassword(username, password, token)
+			getServer().resetPassword(decodeURIComponent(username), password, token)
 				.then(() => this.setState({success: true}))
 				.catch(x => {
 					let error = t(x.code, {fallback: x.message});
