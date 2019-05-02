@@ -88,7 +88,6 @@ export default class CourseItems extends React.Component {
 		return {
 			router: {
 				...(nav || {}),
-				// makeHref: this.makeHref,
 				baseroute: nav && nav.makeHref(''),
 				history: getHistory(),
 				getRouteFor: this.getItemRouteFor//this.getRouteFor,

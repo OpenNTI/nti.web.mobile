@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {encodeForURI, isNTIID} from '@nti/lib-ntiids';
-import Router, {Location} from 'react-router-component';
+import Router, {Location, NotFound} from 'react-router-component';
 import {Error as Err, Loading, Mixins} from '@nti/web-commons';
 import {StoreEventsMixin} from '@nti/lib-store';
 
@@ -32,7 +32,8 @@ export default createReactClass({
 	],
 
 	propTypes: {
-		topicId: PropTypes.string
+		topicId: PropTypes.string,
+		contextOverride: PropTypes.object
 	},
 
 	backingStore: Store,
@@ -56,7 +57,10 @@ export default createReactClass({
 	// title bar back arrow
 	getContext () {
 		let topic = this.getTopic();
-		let {topicId} = this.props;
+		let {topicId, contextOverride} = this.props;
+
+		if (contextOverride) { return contextOverride; }
+
 		let href = this.makeHref('/' + (isNTIID(topicId) ? encodeForURI(topicId) : topicId) + '/');
 		let label = topic && topic.headline ? topic.headline.title : 'Topic';
 
@@ -87,14 +91,20 @@ export default createReactClass({
 
 		return (
 			<Router.Locations contextual>
-				<Location path="/"
-					handler={Topic}
+				<Location path="/discussions/:postId(/*)"
+					handler={Post}
 					topic={topic}
 					page={currentPage}
 					{...this.props}
 				/>
 				<Location path="/:postId/"
 					handler={Post}
+					topic={topic}
+					page={currentPage}
+					{...this.props}
+				/>
+				<NotFound
+					handler={Topic}
 					topic={topic}
 					page={currentPage}
 					{...this.props}

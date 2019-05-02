@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Topic from 'forums/components/Topic';
+import Topic from 'forums/components/TopicView';
 
 import Page from '../Page';
 import Registry from '../Registry';
@@ -30,6 +30,20 @@ class CourseItemAssignment extends React.Component {
 		location: PropTypes.object
 	}
 
+	static contextTypes = {
+		router: PropTypes.object
+	}
+
+	getContextOverride () {
+		const {location} = this.props;
+		const {router} = this.context;
+
+		return {
+			href: router.makeHref(router.getPath().replace(/\/discussions.*$/g, '/')),
+			label: location && location.item && location.item.title
+		};
+	}
+
 	render () {
 		const {location} = this.props;
 		const topicId = getTopicId(location);
@@ -37,7 +51,7 @@ class CourseItemAssignment extends React.Component {
 		return (
 			<Page {...this.props}>
 				<div className="forums-wrapper">
-					<Topic topicId={topicId} />
+					<Topic topicId={topicId} contextOverride={this.getContextOverride()}/>
 				</div>
 			</Page>
 		);

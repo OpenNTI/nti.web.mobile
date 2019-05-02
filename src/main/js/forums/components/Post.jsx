@@ -104,7 +104,7 @@ export default createReactClass({
 		if (inReplyTo) {
 			result.push({
 				label,
-				href: this.getNavigable().makeHref(encodeForURI(inReplyTo) + '/')
+				href: this.getNavigable().makeHref('discussions/' + encodeForURI(inReplyTo) + '/')
 			});
 		}
 

@@ -148,7 +148,7 @@ export default createReactClass({
 		const modifiedOn = item.getLastModified();
 		const message = item.body;
 		const numComments = this.getNumberOfComments();
-		const href = this.makeHref('/' + encodeForURI(this.getItemId()) + '/', false);
+		const href = this.makeHref('/discussions/' + encodeForURI(this.getItemId()) + '/', false);
 
 		const edited = (Math.abs(modifiedOn - createdOn) > 0);
 
