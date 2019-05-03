@@ -245,7 +245,7 @@ export default class CourseLessonOverview extends React.Component {
 
 			try {
 				return (
-					<Overview.Lesson course={course} outlineNode={node} overview={overview}/>
+					<Overview.Lesson course={course} outlineNode={node} overview={overview} doNotPlayVideosInline />
 				);
 			} catch (e) {
 				if (e.message !== 'No Items to render') {
