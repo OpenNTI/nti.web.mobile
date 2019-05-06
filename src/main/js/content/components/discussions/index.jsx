@@ -95,7 +95,8 @@ export default createReactClass({
 
 
 	onUserDataChange (store, props = this.props) {
-		let items, {filter} = props;
+		let items, {filter, contentPackage} = props;
+		const id = `${contentPackage.getID()}-discussions`;
 
 		if (store) {
 			items = [];
@@ -111,7 +112,7 @@ export default createReactClass({
 			loading: false,
 			items,
 			store,
-			pageSource: new PageSource(items)});
+			pageSource: new PageSource(items, '', id)});
 	},
 
 	attachRef (ref) { this.router = ref; },

@@ -24,6 +24,38 @@ const logger = Logger.get('NavigationBar');
 const menuOpenBodyClass = 'nav-menu-open';
 
 
+function getPageSourceInfo (pageSource, currentPage) {
+	if (!pageSource || !currentPage) { return null; }
+
+	const id = pageSource && (pageSource.id || (pageSource.root && pageSource.root.getID()));
+	const root = pageSource && pageSource.root;
+	const toc = root && root.toc;
+	const isRealPages = (toc && !!toc.realPageIndex) || false;
+
+	let current;
+	let total;
+
+	if (isRealPages) {
+		const {realPageIndex} = toc || {};
+		const allPages = realPageIndex && realPageIndex.NTIIDs[root.getID()];
+
+		total = allPages && allPages[allPages.length - 1];
+		current = realPageIndex && realPageIndex.NTIIDs[currentPage][0];
+	} else {
+		const pages = pageSource && pageSource.getPagesAround(currentPage, root);
+
+		current = pages ? pages.index + 1 : 0;
+		total = pages ? pages.total : 0;
+	}
+
+	return {
+		id,
+		current,
+		total
+	};
+}
+
+
 function ensureSlash (str) {
 	const split = /[?#]/.exec(str);
 	let args = '';
@@ -97,9 +129,13 @@ export default createReactClass({
 				searchOpen: false
 			});
 		}
+
+		this.maybeFlashPages();
 	},
 
+
 	attachSearchRef (x) { this.search = x; },
+
 
 	getChildContext () {
 		if (!this.props.useCommonTabs) { return null; }
@@ -112,11 +148,56 @@ export default createReactClass({
 		};
 	},
 
+
 	getInitialState () {
 		return {
 			resolving: true,
 			menuOpen: this.props.menuInitialState === 'open'
 		};
+	},
+
+	maybeFlashPages () {
+		const {pageSource, currentPage, flashPage, showFlash: wasShowing} = this.state;
+		const info = getPageSourceInfo(pageSource, currentPage);
+
+		if (!info) {
+			if (wasShowing) {
+				this.setState({
+					showFlash: false,
+					flashPage: null
+				});
+			}
+
+			return;
+		}
+
+		const {id, current, total} = info;
+		const {id:prevId, current:prevPage, total:prevTotal} = flashPage || {};
+
+		const sameFlash = prevId === id && prevPage === current && prevTotal === total;
+
+		if (sameFlash) {
+			return;
+		}
+
+		const show = id === prevId && current !== prevPage;
+		const newFlash = {id, current, total};
+
+		if (wasShowing && show) {
+			this.setState({
+				showFlash: false,
+				flashPage: newFlash
+			}, () => {
+				this.setState({
+					showFlash: true
+				});
+			});
+		} else {
+			this.setState({
+				showFlash: show,
+				flashPage: newFlash
+			});
+		}
 	},
 
 
@@ -364,14 +445,32 @@ export default createReactClass({
 				<section className={cx('middle', {'has-pager': pageSource, resolving})}>
 					{this.getCenter()}
 				</section>
-				<section>
+				<section className={cx('right-section')}>
 					{pageSource && !pagerProps && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} toc={toc} />}
 					{pagerProps && (<Pager {...pagerProps} navigatableContext={context} />)}
 					{supportsSearch && (<a href="#"><i className="icon-search launch-search" onClick={this.launchSearch} /></a>)}
 					{this.getRight()}
 				</section>
 				{searchOpen && this.renderSearch()}
+				{this.renderFlashPage()}
 			</nav>
+		);
+	},
+
+
+	renderFlashPage () {
+		const {showFlash, flashPage: page} = this.state;
+
+		if (!showFlash || !page || !page.total) { return null; }
+
+		const {current, total} = page;
+
+		return (
+			<div className="flash-page-bar">
+				<div className="flash-page">
+					<strong>{current}</strong> of <strong>{total}</strong>
+				</div>
+			</div>
 		);
 	},
 
