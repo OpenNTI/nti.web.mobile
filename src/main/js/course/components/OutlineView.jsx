@@ -113,7 +113,7 @@ export default createReactClass({
 				{this.props.children}
 
 				{isCompletable && (
-					<ProgressWidgets.OutlineHeader course={item} />
+					<ProgressWidgets.OutlineHeader course={item} noCertificateFrame />
 				)}
 				{!isCompletable && (
 					<Header>Outline</Header>
