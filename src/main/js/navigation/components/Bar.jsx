@@ -55,6 +55,14 @@ function getPageSourceInfo (pageSource, currentPage) {
 	};
 }
 
+function getPagerPropsInfo (pagerProps) {
+	return {
+		id: pagerProps.root,
+		current: (pagerProps.currentIndex || 0) + 1,
+		total: pagerProps.total || 0
+	};
+}
+
 
 function ensureSlash (str) {
 	const split = /[?#]/.exec(str);
@@ -157,8 +165,8 @@ export default createReactClass({
 	},
 
 	maybeFlashPages () {
-		const {pageSource, currentPage, flashPage, showFlash: wasShowing} = this.state;
-		const info = getPageSourceInfo(pageSource, currentPage);
+		const {pageSource, pagerProps, currentPage, flashPage, showFlash: wasShowing} = this.state;
+		const info = pagerProps ? getPagerPropsInfo(pagerProps) : getPageSourceInfo(pageSource, currentPage);
 
 		if (!info) {
 			if (wasShowing) {

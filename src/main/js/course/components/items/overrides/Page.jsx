@@ -74,7 +74,10 @@ function getContext () {
 			href: returnPath
 		},
 		pagerProps: {
+			root: lessonInfo && lessonInfo.outlineNodeId,
 			current: location && location.item && location.item.getID(),
+			currentIndex: lessonInfo && lessonInfo.currentItemIndex,
+			total: lessonInfo && lessonInfo.totalItems,
 			next: {
 				href: next && next.item ? getHref(next.item, next) : null,
 				title: 'Next Item'
