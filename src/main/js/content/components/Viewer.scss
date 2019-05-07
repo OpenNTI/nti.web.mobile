@@ -30,6 +30,10 @@
 		left: 0;
 		right: 0;
 
+		&:empty {
+			display: none;
+		}
+
 		//Mask out the bleedthrough while animating in/out.
 		&[class*='toast'] {
 			@extend %rounded-inset-border;
