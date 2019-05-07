@@ -153,7 +153,7 @@ export default class Highlight extends Annotation {
 				contentNode,
 				reader.getContentNodeClean(),
 				this.getRecordField('ContainerId'),
-				reader.getPageID()
+				reader.getPageInfoID()
 			);
 		}
 
