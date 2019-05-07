@@ -6,3 +6,8 @@
 	padding-top: 45px;
 	min-height: calc(100vh - 45px);
 }
+
+.mobile-course-items :global(.assignment-placeholder) {
+	max-height: 730px;
+	overflow: hidden;
+}
