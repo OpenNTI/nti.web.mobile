@@ -239,6 +239,11 @@ export default createReactClass({
 
 		let topic = this.getTopic();
 
+		//if we made it here and don't have a topic
+		//something is still setting up (or tearing down...)
+		//but there doesn't seem to be any harm in just rendering null
+		if (!topic) { return null; }
+
 		let props = {
 			item: topic.headline,
 			onSubmit: this.saveEdit,
