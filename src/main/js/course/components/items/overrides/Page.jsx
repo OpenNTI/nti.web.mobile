@@ -73,6 +73,7 @@ function getContext () {
 			label: title || '',
 			href: returnPath
 		},
+		ntiid: lessonInfo.outlineNodeId,
 		pagerProps: {
 			root: lessonInfo && lessonInfo.outlineNodeId,
 			current: location && location.item && location.item.getID(),

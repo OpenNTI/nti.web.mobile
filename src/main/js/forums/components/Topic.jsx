@@ -48,7 +48,8 @@ export default createReactClass({
 
 	propTypes: {
 		topicId: PropTypes.string,
-		showComments: PropTypes.bool
+		showComments: PropTypes.bool,
+		analyticsData: PropTypes.object
 	},
 
 
@@ -106,7 +107,7 @@ export default createReactClass({
 
 
 	getAnalyticsData () {
-		const {topicId} = this.props;
+		const {topicId, analyticsData} = this.props;
 
 		const analyticsContext = () => {
 			let h = getHistory() || [];
@@ -116,11 +117,15 @@ export default createReactClass({
 			return h;
 		};
 
+		const extraData = analyticsData || {
+			rootContextId: Store.getContextID(),
+			context: analyticsContext()
+		};
+
 		return {
 			type: 'TopicView',
 			resourceId: topicId,
-			rootContextId: Store.getContextID(),
-			context: analyticsContext()
+			...extraData
 		};
 	},
 

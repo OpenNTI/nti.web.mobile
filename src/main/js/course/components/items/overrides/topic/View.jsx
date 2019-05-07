@@ -27,7 +27,9 @@ export default
 @Registry.register(handles)
 class CourseItemAssignment extends React.Component {
 	static propTypes = {
-		location: PropTypes.object
+		location: PropTypes.object,
+		course: PropTypes.object,
+		lessonInfo: PropTypes.object
 	}
 
 	static contextTypes = {
@@ -44,6 +46,20 @@ class CourseItemAssignment extends React.Component {
 		};
 	}
 
+
+	getAnalyticsData = () => {
+		const {course, lessonInfo} = this.props;
+		const context = [
+			course && course.getID(),
+			lessonInfo && lessonInfo.outlineNodeId
+		];
+
+		return {
+			context: context.filter(Boolean),
+			rootContextId: course && course.getID()
+		};
+	}
+
 	render () {
 		const {location} = this.props;
 		const topicId = getTopicId(location);
@@ -51,7 +67,11 @@ class CourseItemAssignment extends React.Component {
 		return (
 			<Page {...this.props}>
 				<div className="forums-wrapper">
-					<Topic topicId={topicId} contextOverride={this.getContextOverride()}/>
+					<Topic
+						topicId={topicId}
+						contextOverride={this.getContextOverride()}
+						analyticsData={this.getAnalyticsData()}
+					/>
 				</div>
 			</Page>
 		);
