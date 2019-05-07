@@ -184,6 +184,12 @@ export default createReactClass({
 		return decodeFromURI(h.pageId || props.rootId);
 	},
 
+	getPageInfoID () {
+		const {page} = this.state;
+
+		return page && page.pageInfo && page.pageInfo.getID && page.pageInfo.getID();
+	},
+
 
 	onStoreChange () {
 		const id = this.getPageID();

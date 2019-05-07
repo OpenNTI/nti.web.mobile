@@ -56,7 +56,8 @@ export default {
 				});
 			}
 
-			let isFragmentRef = href.charAt(0) === '#' || (frag.length && id === this.getPageID());
+			const samePage = id === this.getPageID() || id === this.getPageInfoID();
+			let isFragmentRef = href.charAt(0) === '#' || (frag.length && samePage);
 
 			if (!isFragmentRef && !isNTIID(id)) {
 				//This seems to work...if this doesn't open the link into a new
