@@ -64,6 +64,7 @@ export default createReactClass({
 		item: PropTypes.object,
 
 		contentPackage: PropTypes.object,
+		onContentReady: PropTypes.func,
 
 		onFocus: PropTypes.func,
 
@@ -148,7 +149,7 @@ export default createReactClass({
 								video: v,
 								loading: false,
 								poster
-							}));
+							}, () => this.maybeUpdateReaderContent()));
 				})
 				.catch(this.onError);
 		} catch (e) {
@@ -170,10 +171,19 @@ export default createReactClass({
 							video: v,
 							loading: false,
 							poster
-						});
+						}, () => this.maybeUpdateReaderContent());
 					});
 			})
 			.catch(this.onError);
+	},
+
+
+	maybeUpdateReaderContent () {
+		const {onContentReady} = this.props;
+
+		if (onContentReady) {
+			onContentReady();
+		}
 	},
 
 
