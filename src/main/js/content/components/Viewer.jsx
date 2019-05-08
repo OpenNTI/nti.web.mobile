@@ -153,14 +153,20 @@ export default createReactClass({
 	},
 
 
-	getDataIfNeeded (props = this.props) {
+	loadDataNeeded (props = this.props) {
 		const pageId = this.getPageID(props);
 		const rootId = this.getRootID(props);
 		const { currentPage, currentRoot } = this.state;
-		const newPage = pageId !== currentPage;
-		const newRoot = rootId !== currentRoot;
 
-		if (newPage || newRoot) {
+		return pageId !== currentPage || rootId !== currentRoot;
+	},
+
+
+	getDataIfNeeded (props = this.props) {
+		if (this.loadDataNeeded()) {
+			const pageId = this.getPageID(props);
+			const rootId = this.getRootID(props);
+
 			this.setState({
 				currentRoot: rootId,
 				currentPage: pageId,

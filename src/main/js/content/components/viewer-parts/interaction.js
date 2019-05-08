@@ -11,12 +11,8 @@ export default {
 		this.maybeScrollToFragment();
 	},
 
-	componentWillReceiveProps () {
-		this.maybeScrollToFragment();
-	},
-
 	componentDidUpdate (_, prevState) {
-		if (this.state.loading !== prevState.loading) {
+		if (this.state.loading !== prevState.loading || !this.loadDataNeeded()) {
 			this.maybeScrollToFragment();
 		}
 	},
@@ -137,6 +133,7 @@ export default {
 
 	maybeScrollToFragment () {
 		let {content} = this;
+
 		if (!content || !content.content) {
 			return;
 		}
