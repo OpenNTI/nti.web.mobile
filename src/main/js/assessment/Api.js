@@ -55,6 +55,14 @@ export function submit (assessment) {
 			}
 			return response;
 		})
+		.then((resp) => {
+			if (isAssignment(assessment)) {
+				return assessment.refresh()
+					.then(() => resp);
+			}
+
+			return resp;
+		})
 		.catch(reason => {
 			//force this to always fulfill.
 			logger.error('There was an error submitting the assessment: %o', reason.message || reason);
