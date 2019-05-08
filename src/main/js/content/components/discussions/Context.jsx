@@ -131,7 +131,8 @@ export default class extends React.Component {
 		let renderable = new Annotation(item, {
 			getContentNode: () => root,
 			getContentNodeClean: () => root,
-			getPageID: () => pageId
+			getPageID: () => pageId,
+			getPageInfoID: () => pageId
 		});
 
 
