@@ -96,7 +96,7 @@ export default createReactClass({
 
 	onUserDataChange (store, props = this.props) {
 		let items, {filter, contentPackage} = props;
-		const id = `${contentPackage.getID()}-discussions`;
+		const id = `${contentPackage ? contentPackage.getID() : store.rootId}-discussions`;
 
 		if (store) {
 			items = [];
