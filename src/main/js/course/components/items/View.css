@@ -5,6 +5,8 @@
 	top: -45px;
 	padding-top: 45px;
 	min-height: calc(100vh - 45px);
+
+	--course-content-up-next-padding: 1rem;
 }
 
 .mobile-course-items :global(.assignment-placeholder) {
