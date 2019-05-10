@@ -24,6 +24,18 @@ export default class AnnotationBar extends React.Component {
 
 	state = {}
 
+
+	componentDidUpdate () {
+		const {item} = this.props;
+		const {busy} = this.state;
+
+		if (item && item.highlightColorName === busy) {
+			this.setState({
+				busy: null
+			});
+		}
+	}
+
 	getRange = () => {
 		try {
 			const selection = window.getSelection();
