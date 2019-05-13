@@ -4,9 +4,10 @@ import createReactClass from 'create-react-class';
 import { Enrollment } from '@nti/web-course';
 import { getHistory } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
-import { Mixins, Loading } from '@nti/web-commons';
+import { Mixins, Loading, Prompt } from '@nti/web-commons';
 import Logger from '@nti/util-logger';
 import {getAppUsername, User} from '@nti/web-client';
+import {Contact} from '@nti/web-help';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -64,7 +65,8 @@ export default createReactClass({
 	getInitialState () {
 		return {
 			error: null,
-			pending: false
+			pending: false,
+			showContact: false
 		};
 	},
 
@@ -143,9 +145,19 @@ export default createReactClass({
 	},
 
 	getRouteFor (option, context) {
+		if (option && option.type === 'contact-support') {
+			return () => {
+				this.setState({
+					showContact: true
+				});
+			};
+		}
+
 		const isIMIS = option.MimeType === 'application/vnd.nextthought.courseware.ensyncimisexternalenrollmentoption';
 		const isEnrolled = option.MimeType === 'application/vnd.nextthought.courseware.courseinstanceenrollment';
 		const isAdmin = option.MimeType === 'application/vnd.nextthought.courseware.courseinstanceadministrativerole';
+
+
 		if (context === 'open' && (isEnrolled || isAdmin)) {
 			return this.handleCourse(option);
 		} else if (context === 'enroll') {
@@ -165,9 +177,17 @@ export default createReactClass({
 		}
 	},
 
+
+	onHelpDismissed () {
+		this.setState({
+			showContact: false
+		});
+	},
+
+
 	render () {
 		const entry = this.getEntry();
-		const { error, pending } = this.state;
+		const { error, pending, showContact } = this.state;
 
 		if (!entry) {
 			return null;
@@ -180,11 +200,18 @@ export default createReactClass({
 		}
 
 		if (pending) {
-			return <Loading.Mask message="Loading..." />;
+			return (<Loading.Mask message="Loading..." />);
 		}
 
 		return (
-			<Enrollment.Options catalogEntry={entry} />
+			<>
+				<Enrollment.Options catalogEntry={entry} />
+				{showContact && (
+					<Prompt.Dialog onBeforeDismiss={this.onHelpDismissed}>
+						<Contact />
+					</Prompt.Dialog>
+				)}
+			</>
 		);
 	}
 });
