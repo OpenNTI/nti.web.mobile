@@ -202,7 +202,7 @@ export default createReactClass({
 			});
 		} else {
 			this.setState({
-				showFlash: show,
+				showFlash: true,
 				flashPage: newFlash
 			});
 		}
@@ -474,7 +474,7 @@ export default createReactClass({
 		const {current, total} = page;
 
 		return (
-			<div className="flash-page-bar">
+			<div key={page.id} className="flash-page-bar">
 				<div className="flash-page">
 					<strong>{current}</strong> of <strong>{total}</strong>
 				</div>
