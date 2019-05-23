@@ -107,7 +107,7 @@ export default createReactClass({
 
 
 	render () {
-		const {part, index, viewerIsAdministrative} = this.props;
+		const {children, part, index, viewerIsAdministrative} = this.props;
 		const {content, wordbank} = part || {};
 		const {helpVisible} = this.state;
 
@@ -127,12 +127,12 @@ export default createReactClass({
 					<div className={css}>
 						{getInputWidget(part, index)}
 					</div>
-					{this.renderChildren()}
-					{
-						helpVisible ?
-							this.renderHelpView() :
-							this.renderHelpButton()
-					}
+					{helpVisible ? this.renderHelpView() : (
+						<>
+							{children}
+							{this.renderHelpButton()}
+						</>
+					)}
 				</div>
 			</div>
 		);
@@ -166,16 +166,6 @@ export default createReactClass({
 				<a href="#" className="help-link" onClick={handler}>{label}</a>
 			</div>
 		);
-	},
-
-
-	renderChildren () {
-		let {helpVisible} = this.state;
-		let {children} = this.props;
-
-		if (helpVisible) { return; }
-
-		return React.Children.map(children, x=>React.cloneElement(x));
 	},
 
 
