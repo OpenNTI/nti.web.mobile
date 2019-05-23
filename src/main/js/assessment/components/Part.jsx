@@ -49,7 +49,7 @@ export default createReactClass({
 
 
 	synchronizeFromStore () {
-		let {part} = this.props;
+		const {part} = this.props;
 
 		if (this.state.helpVisible && !Store.isSubmitted(part)) {
 			this.onCloseHelp();
@@ -107,11 +107,11 @@ export default createReactClass({
 
 
 	render () {
-		let {part, index, viewerIsAdministrative} = this.props;
-		let {content, wordbank} = part || {};
-		let {helpVisible} = this.state;
+		const {part, index, viewerIsAdministrative} = this.props;
+		const {content, wordbank} = part || {};
+		const {helpVisible} = this.state;
 
-		let css = cx('form-input', {
+		const css = cx('form-input', {
 			'hidden': helpVisible,
 			'administrative': viewerIsAdministrative
 		});
@@ -140,10 +140,10 @@ export default createReactClass({
 
 
 	renderHelpButton (label) {
-		let {part} = this.props;
-		let {helpVisible} = this.state;
-		let hints = part && Store.getHints(part);
-		let solution = part && Store.getSolution(part);
+		const {part} = this.props;
+		const {helpVisible} = this.state;
+		const hints = part && Store.getHints(part);
+		const solution = part && Store.getSolution(part);
 		let handler = null;
 
 		if (helpVisible) {
@@ -180,12 +180,12 @@ export default createReactClass({
 
 
 	renderHelpView () {
-		let map = {
+		const map = {
 			[HELP_VIEW_HINT]: this.renderHint,
 			[HELP_VIEW_SOLUTION]: this.renderSolution
 		};
 
-		let handler = map[this.state.helpVisible];
+		const handler = map[this.state.helpVisible];
 		if (handler) {
 			return handler();
 		}
@@ -193,8 +193,8 @@ export default createReactClass({
 
 
 	renderHint () {
-		let part = this.props.part || {};
-		let hint = ((part.hints || [])[this.state.activeHint] || {}).value || '';
+		const part = this.props.part || {};
+		const hint = ((part.hints || [])[this.state.activeHint] || {}).value || '';
 
 		return (
 			<div className="part-help hint">
@@ -207,7 +207,7 @@ export default createReactClass({
 
 
 	renderSolution () {
-		let {index, part} = this.props;
+		const {index, part} = this.props;
 
 		return (
 			<div className="part-help solution">
