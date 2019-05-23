@@ -52,9 +52,9 @@ export default class NoteEditor extends React.Component {
 	get canEditSharing () {
 		const {item} = this.props;
 
-		if (!item) { return false; }
+		if (!item) { return true; }
 
-		if (!item.isModifiable) { return true; }
+		if (!item.isModifiable) { return false; }
 
 		const refCount = item.ReferencedByCount;
 
