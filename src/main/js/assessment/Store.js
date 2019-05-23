@@ -19,6 +19,7 @@ import {
 } from './Constants';
 import {
 	isAssignment,
+	isSurvey,
 	getMainSubmittable,
 	updatePartsWithAssessedParts
 } from './utils';
@@ -148,7 +149,7 @@ class Store extends StorePrototype {
 		if (retainAnswers) {
 			this.getSubmissionData(assessment).markSubmitted(false);
 		} else {
-			let reloadAnswers = !isAssignment(assessment);
+			let reloadAnswers = !isAssignment(assessment) && !isSurvey(assessment);
 			this.setupAssessment(assessment, reloadAnswers)
 				.then(() => {
 					this[SaveProgress](assessment, 1);
