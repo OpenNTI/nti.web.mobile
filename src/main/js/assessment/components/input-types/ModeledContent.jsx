@@ -55,6 +55,10 @@ export default createReactClass({
 			value = value.value;
 		}
 
+		if (value == null) {
+			return [''];
+		}
+
 		return value;
 	},
 
