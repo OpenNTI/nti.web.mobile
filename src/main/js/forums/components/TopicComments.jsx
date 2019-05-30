@@ -15,11 +15,6 @@ import List from './List';
 import PageControls from './PageControls';
 
 
-const loadData = 'TopicComments:load';
-const commentAdded = 'TopicComments:commentAdded';
-const showCommentAddedMessage = 'TopicComments:showCommentAddedMessage';
-const showJumpToLastPage = 'TopicComments:showJumpToLastPage';
-
 export default createReactClass({
 	displayName: 'TopicComments',
 
@@ -28,7 +23,7 @@ export default createReactClass({
 	backingStore: Store,
 	backingStoreEventHandlers: {
 		[COMMENT_ADDED] (event) {
-			this[commentAdded](event);
+			this.commentAdded(event);
 		}
 	},
 
@@ -38,42 +33,42 @@ export default createReactClass({
 	},
 
 	componentDidMount () {
-		this[loadData]();
+		this.loadData();
 	},
 
 	componentDidUpdate (prevProps) {
 		if (this.props.currentPage !== prevProps.currentPage) {
 			this.setState({ loading: true });
-			this[loadData]();
+			this.loadData();
 		}
 	},
 
 	getInitialState () {
 		return {
 			loading: true,
-			[showJumpToLastPage]: false
+			showJumpToLastPage: false
 		};
 	},
 
-	[commentAdded] (/*event*/) {
-		this[loadData]()
+	commentAdded (/*event*/) {
+		this.loadData()
 			.then(() => {
 				// if a comment was added and it's not on the current page
 				// offer a link to get there.
 				let pi = this.pagingInfo();
 				if (pi.currentPage() !== pi.numPages) {
-					this[showCommentAddedMessage]();
+					this.showCommentAddedMessage();
 				}
 			});
 	},
 
-	[showCommentAddedMessage] () {
+	showCommentAddedMessage (show = true) {
 		this.setState({
-			[showJumpToLastPage]: true
+			showJumpToLastPage: show
 		});
 	},
 
-	[loadData] (topicId = this.props.topicId) {
+	loadData (topicId = this.props.topicId) {
 		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
 			.then(
 				result => {
@@ -126,7 +121,7 @@ export default createReactClass({
 								</CSSTransition>
 							</TransitionGroup>
 						</section>
-						{this.state[showJumpToLastPage] && this.jumpToLastPageMessage()}
+						{this.state.showJumpToLastPage && this.jumpToLastPageMessage()}
 						<PageControls paging={pageInfo} />
 					</div>
 				) :
