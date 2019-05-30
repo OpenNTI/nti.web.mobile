@@ -90,8 +90,12 @@ export default createReactClass({
 	},
 
 	jumpToLastPageMessage () {
-		let lastPage = this.pagingInfo().numPages;
-		return <Notice className="small">Comment added. <Link className="link" href={'/?p=' + lastPage}>Jump to last page?</Link></Notice>;
+		const {numPages: lastPage} = this.pagingInfo();
+		return (
+			<Notice className="small" onClick={() => this.showCommentAddedMessage(false)}>
+				Comment added. <Link className="link" href={'/?p=' + lastPage}>Jump to last page?</Link>
+			</Notice>
+		);
 	},
 
 	render () {
