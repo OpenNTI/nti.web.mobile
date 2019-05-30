@@ -3,6 +3,7 @@ import React from 'react';
 import {SelectBox} from '@nti/web-commons';
 
 const OPTIONS = [
+	{ label: 'All Students', value: 'All'},
 	{ label: 'Open Students', value: 'Open'},
 	{ label: 'Enrolled Students', value: 'ForCredit'}
 ];
