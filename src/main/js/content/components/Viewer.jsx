@@ -88,7 +88,7 @@ export default createReactClass({
 		const course = getCourse(contentPackage);
 		const courseId = course && course.getID();
 
-		const resourceId = this.getPageID();
+		const resourceId = this.getPageInfoID();
 
 		return {
 			type,
@@ -314,11 +314,12 @@ export default createReactClass({
 		//Annotations cannot resolve their anchors if the
 		//content ref is not present... so don't even try.
 		const gutterItems = this.content ? annotations : void 0;
+		const analyticsData = this.getAnalyticsData();
 
 		return (
 			<Fade key="content">
 				<div ref={x => this.node = x}>
-					<ViewEvent {...this.getAnalyticsData()}/>
+					{analyticsData && analyticsData.resourceId ? (<ViewEvent {...analyticsData}/>) : null}
 					<div className="content-body">
 						{this.renderAssessmentHeader()}
 						<div className="coordinate-root">
