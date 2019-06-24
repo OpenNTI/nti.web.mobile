@@ -5,10 +5,15 @@ import PropTypes from 'prop-types';
 import {searchable, contextual} from '@nti/web-search';
 import {View as SearchableLibrary} from '@nti/web-library';
 import {encodeForURI} from '@nti/lib-ntiids';
+import {Navigation} from '@nti/web-content';
 
 import NavigationBar from 'navigation/components/Bar';
 
 import Branding from './Branding';
+
+function getRememberedRoute (obj) {
+	return Navigation.RememberedRoutes.getRememberedRoute([obj.getID ? obj.getID() : obj]);
+}
 
 export default
 @searchable()
@@ -52,7 +57,7 @@ class Home extends React.Component {
 		if (/course(.*)enrollment/i.test(type) || /courseinstanceadministrativerole/i.test(type)) {
 			route = path.join(basePath, 'course', getEncodedIDCourse(obj));
 		} else if (/contentpackagebundle/i.test(type)) {
-			route = path.join(basePath, 'content', obj.getID());
+			route = getRememberedRoute(obj) || path.join(basePath, 'content', obj.getID());
 		} else if (/community/i.test(type)) {
 			route = path.join(basePath, 'profile', obj.getID());
 		}

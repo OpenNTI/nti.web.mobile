@@ -1,95 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from '@nti/lib-locale';
-import { isFlag } from '@nti/web-client';
-import Storage from '@nti/web-storage';
 
 import Page from 'common/components/Page';
 
-import * as Sections from '../Sections';
-
-const getLabel = scoped('content.sections', {
-	activity: 'Activity',
-	discussions: 'Discussions',
-	index: 'Book',
-	info: 'Info',
-	videos: 'Videos',
-	notebook: 'Notebook'
-});
-
-const storageKey = 'nti-content-tabs-seen';
-
-function hasBeenSeen () {
-	const seen = Storage.getItem(storageKey) === 'seen';
-
-	if(!seen) {
-		setSeen();
-	}
-
-	return seen;
-}
-
-function setSeen () {
-	Storage.setItem(storageKey, 'seen');
-}
+import NavigationTabs from './NavigationTabs';
 
 export default class ContentPage extends React.Component {
-
 	static propTypes = {
 		contentPackage: PropTypes.object.isRequired,
 		children: PropTypes.any
-	};
-
-	componentDidMount () {
-		this.setup();
-	}
-
-	componentDidUpdate ({contentPackage}) {
-		if (this.props.contentPackage !== contentPackage) {
-			this.setup();
-		}
-	}
-
-	setup (props = this.props) {
-		let {contentPackage} = props;
-		let menu = [];
-
-		let push = x => menu.push({
-			label: getLabel(x.toLowerCase()),
-			href: Sections[x]
-		});
-
-
-		for(let s of Object.keys(Sections)) {
-			push(s);
-		}
-
-		if (!contentPackage.hasDiscussions()) {
-			menu = menu.filter(x=> x.href !== Sections.DISCUSSIONS);
-		}
-
-		if (!isFlag('show-notebook-tab')) {
-			menu = menu.filter(x => x.href !== Sections.NOTEBOOK);
-		}
-
-		this.setState({menu});
 	}
 
 	render () {
-		let {menu} = this.state || {};
-		let {children} = this.props;
+		const {children, contentPackage, ...otherProps} = this.props;
 
-		if (menu && menu.length < 2) {
-			menu = null;
-		}
-
-		const props = {
-			...this.props,
-			menuInitialState: hasBeenSeen() ? 'closed' : 'open',
-			availableSections: menu,
-			children: React.Children.map(children, x => React.cloneElement(x))
-		};
-
-		return React.createElement(Page, props);
+		return (
+			<>
+				<NavigationTabs contentPackage={contentPackage} />
+				<Page {...otherProps} contentPackage={contentPackage} useCommonTabs>
+					{React.Children.map(children, x => React.cloneElement(x))}
+				</Page>
+			</>
+		);
 	}
 }
