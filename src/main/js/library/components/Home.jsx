@@ -57,7 +57,7 @@ class Home extends React.Component {
 		if (/course(.*)enrollment/i.test(type) || /courseinstanceadministrativerole/i.test(type)) {
 			route = path.join(basePath, 'course', getEncodedIDCourse(obj));
 		} else if (/contentpackagebundle/i.test(type)) {
-			route = getRememberedRoute(obj) || path.join(basePath, 'content', obj.getID());
+			route = getRememberedRoute(obj) || path.join(basePath, 'content', encodeForURI(obj.getID()));
 		} else if (/community/i.test(type)) {
 			route = path.join(basePath, 'profile', obj.getID());
 		}
