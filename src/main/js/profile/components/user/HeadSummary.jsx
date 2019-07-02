@@ -41,7 +41,7 @@ export default class extends React.Component {
 		}
 
 		let {positions, education, location} = user;
-		let homePage = user.home_page; //eslint-disable-line camecase
+		let homePage = user.home_page;
 
 		let position = ArrayUtils.ensure(positions)[0]; //TODO: pick "latest" (start year)?
 
