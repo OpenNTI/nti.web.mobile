@@ -96,6 +96,10 @@ export default class CourseItems extends React.Component {
 	}
 
 	getItemRouteFor = (obj, context) => {
+		if (obj.isOutlineNode) {
+			return `${getURLPart(obj)}/`;
+		}
+
 		const {outlineId} = this.props;
 		const {lesson:lessonOverride} = context || {};
 		const lesson = {
