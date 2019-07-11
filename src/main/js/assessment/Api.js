@@ -1,4 +1,5 @@
 import Logger from '@nti/util-logger';
+import {Events} from '@nti/web-session';
 
 import ReadOnlyStore from './Store';
 import {getMainSubmittable, isAssignment} from './utils';
@@ -59,6 +60,15 @@ export function submit (assessment) {
 			if (isAssignment(assessment)) {
 				return assessment.refresh()
 					.then(() => resp);
+			}
+
+			return resp;
+		})
+		.then((resp) => {
+			if (isAssignment(assessment)) {
+				Events.emit(Events.ASSIGNMENT_SUBMITTED, assessment);
+			} else {
+				Events.emit(Events.ASSESSMENT_SUBMITTED, assessment);
 			}
 
 			return resp;
