@@ -190,14 +190,19 @@ export default class ShareWith extends React.Component {
 
 	onSelectionChange = (entity) => {
 		let {state: {selection}} = this;
-		let result = selection.isSelected(entity)
+		const selected = selection.isSelected(entity);
+		let result = selected
 			? selection.remove(entity)
 			: selection.add(entity);
 
 		// this.focusSearch();
 
 		if (result) {
-			this.forceUpdate();
+			if (selected) {
+				this.forceUpdate();
+			} else {
+				this.setState({ search: ''});
+			}
 		}
 	};
 
