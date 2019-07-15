@@ -5,6 +5,12 @@ import PropTypes from 'prop-types';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
+function isConstrained (next) {
+	const {item} = next || {};
+
+	return item.isOutlineNode && item.contentIsConstrained;
+}
+
 export default class CourseItemOverridePage extends React.Component {
 	static propTypes = {
 		course: PropTypes.object,
@@ -80,11 +86,11 @@ function getContext () {
 			currentIndex: lessonInfo && lessonInfo.currentItemIndex,
 			total: lessonInfo && lessonInfo.totalItems,
 			next: {
-				href: next && next.item ? getHref(next.item, next) : null,
+				href: next && next.item && !isConstrained(next) ? getHref(next.item, next) : null,
 				title: 'Next Item'
 			},
 			prev: {
-				href: previous && previous.item ? getHref(previous.item, previous) : null,
+				href: previous && previous.item && !isConstrained(previous) ? getHref(previous.item, previous) : null,
 				title: 'Previous Item'
 			}
 		}
