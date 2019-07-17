@@ -180,7 +180,7 @@ export default class ShareWith extends React.Component {
 	onInputChange = () => {
 		let search = (this.getSearchBoxEl() || {}).value;
 
-		if (!search || search === '') {
+		if (!search || search === '' || trim(search) === '') {
 			search = void 0;
 		}
 
