@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {DateTime, Presentation} from '@nti/web-commons';
 import {getService} from '@nti/web-client';
+import {scoped} from '@nti/lib-locale';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -10,6 +11,10 @@ import DisplayName from 'common/components/DisplayName';
 import NoteableMixin from '../mixins/Noteable';
 
 let CATALOG_CACHE = {};
+
+const t = scoped('nti-web-mobile.notifications.components.kinds.Grade', {
+	grade: 'grade'
+});
 
 async function resolveCatalogEntry (id) {
 	const service = await getService();
@@ -71,7 +76,7 @@ export default createReactClass({
 					<div className="wrap">
 						{creator && <DisplayName entity={creator} suppressProfileLink/>}
 						{catalogEntry && <span>{catalogEntry.Title}</span>}
-						<span> graded {AssignmentName}{CourseName ? ` in ${CourseName}` : ''}</span>
+						<span> {t('grade')} {AssignmentName}{CourseName ? ` in ${CourseName}` : ''}</span>
 						<DateTime date={this.getEventTime()} relative />
 					</div>
 				</a>

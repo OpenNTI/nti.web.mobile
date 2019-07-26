@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {scoped} from '@nti/lib-locale';
 import {
 	ActiveState,
 	ActiveStateContainer,
@@ -7,6 +8,13 @@ import {
 } from '@nti/web-commons';
 
 import Assignments from '../bindings/Assignments';
+
+const t = scoped('nti-web-mobile.assignment.components.shared.Tabs', {
+	heading: 'Assignments',
+	assignments: 'Assignments',
+	gradesAndPerformance: 'Grades & Performance',
+	activity: 'Activity'
+});
 
 export default
 @Assignments.connect
@@ -33,12 +41,12 @@ class Tabs extends React.Component {
 
 		return (
 			<div className="assignments-nav">
-				<Header>Assignments</Header>
+				<Header>{t('heading')}</Header>
 				<ActiveStateContainer>
 					<ul className="filters">
-						<li><ActiveState tag="a" href="/" hasChildren>Assignments</ActiveState></li>
-						<li><PerformanceLink {...PerformanceLinkProps}>Grades &amp; Performance</PerformanceLink></li>
-						<li><ActivityLink {...ActivityLinkProps}>Activity</ActivityLink></li>
+						<li><ActiveState tag="a" href="/" hasChildren>{t('assignments')}</ActiveState></li>
+						<li><PerformanceLink {...PerformanceLinkProps}>{t('gradesAndPerformance')}</PerformanceLink></li>
+						<li><ActivityLink {...ActivityLinkProps}>{t('activity')}</ActivityLink></li>
 					</ul>
 				</ActiveStateContainer>
 			</div>

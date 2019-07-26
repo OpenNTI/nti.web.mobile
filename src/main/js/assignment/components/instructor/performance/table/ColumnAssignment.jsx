@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {encodeForURI} from '@nti/lib-ntiids';
+import {scoped} from '@nti/lib-locale';
+
+const t = scoped('nt-web-mobile.assignment.components.instructor.performance.table.ColumnAssignment', {
+	label: 'Assignment'
+});
 
 export default class extends React.Component {
 	static displayName = 'GradebookColumnAssignment';
 
 	static label () {
-		return 'Assignment';
+		return t('label');
 	}
 
 	static className = 'col-assignment';

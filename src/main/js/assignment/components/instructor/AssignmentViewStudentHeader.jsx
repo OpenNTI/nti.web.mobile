@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {PropType as NTIID} from '@nti/lib-ntiids';
 import { equals } from '@nti/lib-commons';
+import {scoped} from '@nti/lib-locale';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
@@ -10,6 +11,10 @@ import Assignments from '../bindings/Assignments';
 import ActionsMenu from './ActionsMenu';
 import GradeBox from './GradeBox';
 import Status from './AssignmentStatus';
+
+const t = scoped('nti-web-mobile.assignment.components.instructor.AssignmentViewStudentHeader', {
+	grade: 'Assignment Grade'
+});
 
 
 export default
@@ -102,7 +107,7 @@ class InstructorAssignmentViewStudentHeader extends React.Component {
 					<div className="controls">
 						<Status history={history} assignment={assignment} />
 						<div className="grade">
-							<div className="label">Assignment Grade</div>
+							<div className="label">{t('grade')}</div>
 							<GradeBox {...props} grade={grade} />
 						</div>
 						<ActionsMenu {...props} />
