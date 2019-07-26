@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {encodeForURI} from '@nti/lib-ntiids';
 import {scoped} from '@nti/lib-locale';
 
-const t = scoped('nt-web-mobile.assignment.components.instructor.performance.table.ColumnAssignment', {
+const t = scoped('nti-web-mobile.assignment.components.instructor.performance.table.ColumnAssignment', {
 	label: 'Assignment'
 });
 
