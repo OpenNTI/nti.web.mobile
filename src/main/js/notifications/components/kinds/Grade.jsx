@@ -13,7 +13,7 @@ import NoteableMixin from '../mixins/Noteable';
 let CATALOG_CACHE = {};
 
 const t = scoped('nti-web-mobile.notifications.components.kinds.Grade', {
-	grade: 'grade'
+	grade: 'graded'
 });
 
 async function resolveCatalogEntry (id) {
