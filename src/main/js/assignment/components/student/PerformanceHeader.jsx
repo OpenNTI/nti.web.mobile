@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import {scoped} from '@nti/lib-locale';
 
 import FinalGrade from './FinalGrade';
 import CompletionRatio from './CompletionRatio';
+
+const t = scoped('nti-web-mobile.assignment.component.student.PerformanceHeader', {
+	courseGrade: 'Course Grade',
+	assignmentsCompleted: 'Assignments Completed'
+});
 
 export default class PerformanceHeader extends React.Component {
 
@@ -43,11 +49,11 @@ export default class PerformanceHeader extends React.Component {
 		return (
 			<div className="performance-header">
 				<div className="course-grade">
-					<span className="label">Course Grade</span>
+					<span className="label">{t('courseGrade')}</span>
 					<span className="value"><FinalGrade grade={grade}/></span>
 				</div>
 				<div className="completed-assignments">
-					<span className="label">Assignments Completed</span>
+					<span className="label">{t('assignmentsCompleted')}</span>
 					<span className="value"><CompletionRatio assignments={assignments} /></span>
 				</div>
 			</div>

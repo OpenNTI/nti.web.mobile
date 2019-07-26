@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {BufferedInput} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import AssignmentGroups from '../bindings/AssignmentGroups';
 
 import SortBox from './SortBox';
+
+const t = scoped('nti-web-mobile.assignment.component.shared.SearchSortBar', {
+	placeholder: 'Search Assignments'
+});
 
 export default
 @AssignmentGroups.connect
@@ -40,7 +45,7 @@ class SearchSortBar extends React.Component {
 				<SortBox onChange={this.onOrderChange} value={store.order}/>
 				<BufferedInput className="search" delay={2000}
 					type="search"
-					placeholder="Search Assignments"
+					placeholder={t('placeholder')}
 					onChange={this.onSearchChange}
 					defaultValue={store.search} />
 			</div>

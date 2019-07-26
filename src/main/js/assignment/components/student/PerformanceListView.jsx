@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {SortOrder} from '@nti/lib-interfaces';
 import {EmptyList, HOC} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import Assignments from '../bindings/Assignments';
 
@@ -10,6 +11,10 @@ import PerformanceHeader from './PerformanceHeader';
 import PerformanceItem from './PerformanceItem';
 import PerformanceListViewHeading from './PerformanceListViewHeading';
 
+
+const t = scoped('nti-web-mobile.assignment.components.student.PerformanceListView', {
+	assignmentName: 'Assignment Name'
+});
 
 const columns = [
 	{
@@ -19,7 +24,7 @@ const columns = [
 	},
 	{
 		className: 'assignment-title',
-		label: 'Assignment Name',
+		get label () { return t('assignmentName'); },
 		sortOn: 'title'
 	},
 	{
