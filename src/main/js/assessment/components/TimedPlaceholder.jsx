@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {scoped} from '@nti/lib-locale';
 
 import Placeholder from './Placeholder';
+
+const t = scoped('mobile.assessment.components.TimeLockedPlaceholder', {
+	header: 'Timed Assignment',
+	message: 'Timed assignments are currently not supported on the mobile app.'
+});
 
 export default class extends React.Component {
 	static displayName = 'TimedPlaceholder';
@@ -27,9 +33,9 @@ export default class extends React.Component {
 
 		let props = {
 			assignment: assignment,
-			message: 'Timed assignments are currently not supported on the mobile app.',
+			message: t('message'),
 			buttonLabel: 'Back',
-			pageTitle: 'Timed Assignment',
+			pageTitle: t('header'),
 			onConfirm: this.onStart
 		};
 
