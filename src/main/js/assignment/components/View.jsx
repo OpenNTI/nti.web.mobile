@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Loading} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {Component as ContextContributor} from 'common/mixins/ContextContributor';
 
@@ -8,6 +9,9 @@ import AssignmentsProvider from './bindings/AssignmentsProvider';
 import Student from './student/View';
 import Instructor from './instructor/View';
 
+const t = scoped('nti-web-mobile.assignment.components.View', {
+	label: 'Assignments'
+});
 
 export default
 @AssignmentsProvider.connect
@@ -50,6 +54,6 @@ async function getContext () {
 
 	return {
 		href: context.makeHref('/assignments/'),
-		label: 'Assignments'
+		label: t('label')
 	};
 }

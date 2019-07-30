@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {DateTime} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import AssignmentSummary from '../bindings/AssignmentSummary';
 
 import FilterMenu from './FilterMenu';
 import PageControls from './PageControls';
 import OptionsMenu from './OptionsMenu';
+
+const t = scoped('nti-web-mobile.assignment.components.instructor.AssignmentHeader', {
+	view: 'View Assignment'
+});
 
 export default
 @AssignmentSummary.connect
@@ -37,7 +42,7 @@ class InstructorAssignmentHeader extends React.Component {
 					<DateTime date={assignment.getDueDate()}/>
 					<FilterMenu {...this.props}/>
 				</div>
-				<div className="extras"><a href="../">View Assignment</a></div>
+				<div className="extras"><a href="../">{t('view')}</a></div>
 			</div>
 		);
 	}

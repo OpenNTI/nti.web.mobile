@@ -1,12 +1,20 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {SelectBox} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
+
+const t = scoped('nti-web-mobile.assignment.components.instructor.performance.CategorySelect', {
+	all: 'All Items',
+	actionable: 'Actionable Items',
+	overdue: 'Overdue Items',
+	ungraded: 'Ungraded Items'
+});
 
 const OPTIONS = [
-	{ label: 'All Items', value: 'all'},
-	{ label: 'Actionable Items', value: 'actionable'},
-	{ label: 'Overdue Items', value: 'overdue'},
-	{ label: 'Ungraded Items', value: 'ungraded'}
+	{ get label () { return t('all'); }, value: 'all'},
+	{ get label () { return t('actionable'); }, value: 'actionable'},
+	{ get label () { return t('overdue'); }, value: 'overdue'},
+	{ get label () { return t('ungraded'); }, value: 'ungraded'}
 ];
 
 export default class ItemCategorySelect extends React.Component {
