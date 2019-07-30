@@ -112,7 +112,8 @@ class Store extends StorePrototype {
 			'logon.ensync.imis',
 			'logon.ifsta.oauth',
 			'logon.your.membership',
-			'logon.nrwa'
+			'logon.nrwa',
+			'logon.hrpros'
 		];
 
 		return whiteList
