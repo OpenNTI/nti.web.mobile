@@ -245,6 +245,11 @@
 		line-height: 2.6;
 		color: white;
 
+		&.hrpros {
+			background-color: #ec4941;
+			border: none;
+		}
+
 		&[disabled]:active,
 		&[disabled] {
 			box-shadow: none;
