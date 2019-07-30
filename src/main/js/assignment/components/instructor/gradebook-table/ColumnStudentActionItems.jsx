@@ -6,7 +6,16 @@ import {rawContent} from '@nti/lib-commons';
 
 import StudentLink from './StudentLink';
 
-const t = scoped('common.units');
+const t = scoped('nti-web-mobile.assignment.components.instructor.gradebook-table.ColumnStudentActionItems', {
+	overdue: {
+		one: '%(count)s Assignment Overdue',
+		other: '%(count)s Assignments Overdue'
+	},
+	ungraded: {
+		one: '%(count)s Assignment Ungraded',
+		other: '%(count)s Assignments Ungraded'
+	}
+});
 
 export default class ColumnStudentActionItems extends React.Component {
 
@@ -27,11 +36,11 @@ export default class ColumnStudentActionItems extends React.Component {
 
 		let actions = [];
 		if(item.overdue > 0) {
-			actions.push(`${t('assignments', {count: item.overdue})} overdue`);
+			actions.push(t('overdue', {count: item.overdue}));
 		}
 
 		if(item.ungraded > 0) {
-			actions.push(`${t('assignments', {count: item.ungraded})} ungraded`);
+			actions.push(t('ungraded', {count: item.ungraded}));
 		}
 
 		if (actions.length === 0) {

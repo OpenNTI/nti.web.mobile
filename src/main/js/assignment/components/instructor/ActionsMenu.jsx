@@ -4,12 +4,19 @@ import cx from 'classnames';
 import {PropType as NTIID} from '@nti/lib-ntiids';
 import {HOC, Prompt} from '@nti/web-commons';
 import Logger from '@nti/util-logger';
+import {scoped} from '@nti/lib-locale';
 
 import Assignments from '../bindings/Assignments';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 
 const logger = Logger.get('assignment:components:instructor:ActionsMenu');
+
+const t = scoped('nti-web-mobile.assignment.components.instructor.ActionsMenu', {
+	reset: 'Reset Assignment',
+	excuse: 'Excuse Grade',
+	unexcuse: 'Unexcuse Grade'
+});
 
 export default
 @Assignments.connect
@@ -103,7 +110,7 @@ class InstructorActionsMenu extends React.Component {
 		const {open} = this.state;
 		const classes = cx('gradebook-actions-menu', { open });
 
-		const excuseAction = grade && grade.isExcused() ? 'Unexcuse Grade' : 'Excuse Grade';
+		const excuseAction = grade && grade.isExcused() ? t('unexcuse') : t('excuse');
 
 		return !grade ? null : (
 			<div onClick={this.toggleMenu} className={classes}>
@@ -111,7 +118,7 @@ class InstructorActionsMenu extends React.Component {
 				{open && (
 					<MenuTransitionGroup>
 						<ul key="menu">
-							<li onClick={this.resetAssignment}>Reset Assignment</li>
+							<li onClick={this.resetAssignment}>{t('reset')}</li>
 							<li onClick={this.excuse}>{excuseAction}</li>
 						</ul>
 					</MenuTransitionGroup>
