@@ -21,6 +21,7 @@ const t = scoped('nti-web-mobile.assessment.components.AssignmentStatusLabel', {
 	completed: 'Completed',
 	due: 'Due',
 	graded: 'Graded',
+	excusedGrade: 'Excused Grade'
 });
 
 function selectValue (values, context) {
@@ -365,7 +366,7 @@ export default class AssignmentStatusLabel extends React.Component {
 						)}
 
 						{this.isExcused() && (
-							<span className="excused">Excused Grade</span>
+							<span className="excused">{t('excusedGrade')}</span>
 						)}
 					</span>
 				</h6>
