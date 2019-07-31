@@ -15,7 +15,11 @@ const logger = Logger.get('assignment:components:instructor:ActionsMenu');
 const t = scoped('nti-web-mobile.assignment.components.instructor.ActionsMenu', {
 	reset: 'Reset Assignment',
 	excuse: 'Excuse Grade',
-	unexcuse: 'Unexcuse Grade'
+	unexcuse: 'Unexcuse Grade',
+	resetWarning: {
+		self: 'This will reset the assignment. All work will be deleted and is not recoverable.',
+		other: 'This will reset this assignment for this student. It is not recoverable.\nFeedback and work will be deleted.'
+	}
 });
 
 export default
@@ -84,8 +88,8 @@ class InstructorActionsMenu extends React.Component {
 		};
 
 		const msg = !item.isCreatedByAppUser
-			? 'This will reset this assignment for this student. It is not recoverable.\nFeedback and work will be deleted.'
-			: 'This will reset the assignment. All work will be deleted and is not recoverable.';
+			? t('resetWarning.other')
+			: t('resetWarning.self');
 
 		Prompt.areYouSure(msg)
 			.then(reset)
