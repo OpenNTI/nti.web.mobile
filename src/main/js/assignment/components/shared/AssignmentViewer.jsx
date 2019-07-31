@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {decodeFromURI} from '@nti/lib-ntiids';
 import {Error as Err, Loading} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {Component as ContextContributor} from 'common/mixins/ContextContributor';
 import ContentViewer from 'content/components/ViewerLoader';
@@ -18,6 +19,10 @@ async function getAssignmentHistory (assignment, assignments) {
 
 	return assignments.getHistoryItem(assignment.getID());
 }
+
+const t = scoped('nti-web-mobile.assignment.components.shared.AssignmentViewer', {
+	label: 'Assignment'
+});
 
 export default
 @Assignments.connect
@@ -193,7 +198,7 @@ function ensureNotSummary (a) {
 async function getContext () {
 	const {rootId} = this.props;
 	return {
-		label: 'Assignment',//This is good enough
+		label: t('label'),
 		ntiid: decodeFromURI(rootId),
 		href: this.makeHref(rootId)
 	};
