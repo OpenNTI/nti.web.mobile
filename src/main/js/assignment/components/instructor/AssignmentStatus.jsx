@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import {DateTime, HOC} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
+const t = scoped('nti-web-mobile.assignment.components.instructor.AssignmentViewStudentHeader', {
+	graded: 'Graded',
+	submitted: 'Submitted'
+});
 
 export default
 @HOC.ItemChanges.compose
@@ -46,7 +51,7 @@ class AssignmentStatus extends React.Component {
 			status = <span><DateTime date={due} relativeTo={submitted} suffix={false}/> late</span>;
 		}
 		else {
-			status = <span>{synthetic ? 'Graded' : 'Submitted'} <DateTime date={submitted} /></span>;
+			status = <span>{synthetic ? t('graded') : t('submitted')} <DateTime date={submitted} /></span>;
 		}
 
 		const classes = cx('assignment-status', {
