@@ -15,6 +15,14 @@ const Assignment = getModel('assessment.assignment');
 
 const isToday = (d) => isSameDay(new Date(), d);
 
+const t = scoped('nti-web-mobile.assessment.components.AssignmentStatusLabel', {
+	available: 'Available',
+	availableNow: 'Available Now',
+	completed: 'Completed',
+	due: 'Due',
+	graded: 'Graded',
+});
+
 function selectValue (values, context) {
 	const isNotted = selectValue.isNotted = (selectValue.isNotted || RegExp.prototype.test.bind(/^!/));
 
@@ -269,11 +277,11 @@ export default class AssignmentStatusLabel extends React.Component {
 		const dateClose = assignment.getDueDate();
 		const dueToday = !complete && this.isDueToday();
 
-		const AVAILABLE = 'Available';
-		const AVAILABLE_NOW = 'Available Now';
-		const COMPLETED = 'Completed';
-		const DUE = 'Due';
-		const GRADED = 'Graded';
+		const AVAILABLE = t('available');
+		const AVAILABLE_NOW = t('availableNow');
+		const COMPLETED = t('completed');
+		const DUE = t('due');
+		const GRADED = t('graded');
 
 		const map = {
 			// Completed or Graded Assignment
