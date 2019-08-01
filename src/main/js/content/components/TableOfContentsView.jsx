@@ -30,7 +30,7 @@ export default createReactClass({
 		const {contentPackage} = this.props;
 
 		return (
-			<TableOfContents.View contentPackage={contentPackage} banner />
+			<TableOfContents.View contentPackage={contentPackage} banner showLastPage />
 		);
 	}
 });
