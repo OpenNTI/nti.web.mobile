@@ -8,6 +8,16 @@ const logger = Logger.get('assessment:api');
 
 const isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
 
+async function syncAssignmentWithResponse (assignment, resp) {
+	try {
+		const raw = await resp.MetadataAttemptItem.fetchLink('Assignment');
+
+		return assignment.refresh(raw);
+	} catch (e) {
+		return assignment.refresh();
+	}
+}
+
 export function loadPreviousState (assessment) {
 	let main = getMainSubmittable(assessment);
 	let load;
@@ -58,7 +68,7 @@ export function submit (assessment) {
 		})
 		.then((resp) => {
 			if (isAssignment(assessment)) {
-				return assessment.refresh()
+				return syncAssignmentWithResponse(assessment, resp)
 					.then(() => resp);
 			}
 
