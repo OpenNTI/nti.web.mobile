@@ -1,6 +1,8 @@
 import { Models } from '@nti/lib-interfaces';
 import Logger from '@nti/util-logger';
 import StorePrototype from '@nti/lib-store';
+import {Prompt} from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 
 import {loadPreviousState, saveProgress} from './Api';
 import {
@@ -24,6 +26,17 @@ import {
 	updatePartsWithAssessedParts
 } from './utils';
 
+const t = scoped('nti-web-mobile.assessment.Store', {
+	assignments: {
+		errors: {
+			alreadySubmitted: {
+				title: 'This assignment has already been submitted',
+				msg: 'Clicking OK will reload the assignment and show the submission',
+				button: 'OK'
+			}
+		}
+	}
+});
 
 const logger = Logger.get('assessment:store');
 
@@ -46,6 +59,7 @@ const OnAssignmentReset = Symbol('on:Assignment:Reset');
 const OnSubmitStart = Symbol('on:Submit:Begin');
 const OnSubmitEnd = Symbol('on:Submit:End');
 const SaveProgress = Symbol('Save Progress');
+const MaybeMoveToSubmitted = Symbol('Maybe Move to Submitted');
 
 function getQuestion (thing, part) {
 	let id = part && (part.getQuestionId ?
@@ -246,6 +260,8 @@ class Store extends StorePrototype {
 					logger.warn('Error Saving Progress: %o', e);
 					if (e.statusCode === 409) {
 						this.setError (part, e);
+					} else if (e.statusCode === 422 && e.code === 'MissingMetadataAttemptInProgressError') {
+						this[MaybeMoveToSubmitted](part);
 					}
 				})
 				.then(() => {
@@ -253,6 +269,36 @@ class Store extends StorePrototype {
 					this.emitChange({type: BUSY_SAVEPOINT});
 				});
 		});
+	}
+
+
+	async [MaybeMoveToSubmitted] (part) {
+		const main = getMainSubmittable(part);
+		try {
+			await Prompt.alert(
+				t('assignments.errors.alreadySubmitted.msg'),
+				t('assignments.errors.alreadySubmitted.title'),
+				{
+					confirmButtonLabel: t('assignments.errors.alreadySubmitted.button')
+				}
+			);
+
+			await main.refresh();
+			
+			const history = await main.fetchLinkParsed('History');
+
+			if (history && history.MetadataAttemptItem && history.MetadataAttemptItem.hasLink('Assignment')) {
+				const raw = await history.MetadataAttemptItem.fetchLink('Assignment');
+
+				await main.refresh(raw);
+			}
+
+			this[ApplySubmission](main, history);
+			this.getSubmissionData(history).markSubmitted(true);
+			this.emitChange({type: SYNC});
+		} catch (e) {
+			//swallow
+		}
 	}
 
 
