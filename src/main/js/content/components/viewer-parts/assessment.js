@@ -10,6 +10,8 @@ import SetSubmissionWidget from 'assessment/components/Submission';
 export {isAssignment, isSurvey};
 
 function getContentHash (assessment) {
+	if (!assessment) { return null; }
+
 	return assessment.getQuestions().map(x => x.getID()).join(',');
 }
 
@@ -45,7 +47,11 @@ export default {
 
 
 	needsAssessmentUpdate (props = this.props) {
-		const contentHash = getContentHash(props.assessment);
+		const {assessment} = props;
+
+		if (!assessment) { return false; }
+
+		const contentHash = getContentHash(assessment);
 		const {currentContentHash} = this.state;
 
 		return contentHash !== currentContentHash;
@@ -54,6 +60,8 @@ export default {
 
 	getAssessmentState (props = this.props) {
 		const {assessment} = props;
+
+		if (!assessment) { return {}; }
 
 		return {currentContentHash: getContentHash(assessment)};
 	},
