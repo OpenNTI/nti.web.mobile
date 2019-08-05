@@ -158,7 +158,7 @@ export default createReactClass({
 		const rootId = this.getRootID(props);
 		const { currentPage, currentRoot } = this.state;
 
-		return pageId !== currentPage || rootId !== currentRoot;
+		return pageId !== currentPage || rootId !== currentRoot || this.needsAssessmentUpdate(props);
 	},
 
 
@@ -170,7 +170,8 @@ export default createReactClass({
 			this.setState({
 				currentRoot: rootId,
 				currentPage: pageId,
-				...this.getResetState()
+				...this.getResetState(),
+				...this.getAssessmentState(props)
 			}, () =>
 				loadPage(pageId, props.contentPackage, props)
 			);

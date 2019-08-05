@@ -9,6 +9,10 @@ import SetSubmissionWidget from 'assessment/components/Submission';
 
 export {isAssignment, isSurvey};
 
+function getContentHash (assessment) {
+	return assessment.getQuestions().map(x => x.getID()).join(',');
+}
+
 export default {
 
 	propTypes: {
@@ -37,6 +41,21 @@ export default {
 		if(assess) {
 			Store.teardownAssessment(assess);
 		}
+	},
+
+
+	needsAssessmentUpdate (props = this.props) {
+		const contentHash = getContentHash(props.assessment);
+		const {currentContentHash} = this.state;
+
+		return contentHash !== currentContentHash;
+	},
+
+
+	getAssessmentState (props = this.props) {
+		const {assessment} = props;
+
+		return {currentContentHash: getContentHash(assessment)};
 	},
 
 
