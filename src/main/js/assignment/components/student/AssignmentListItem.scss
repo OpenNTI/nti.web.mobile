@@ -25,4 +25,14 @@
 	&.complete::after {
 		color: $primary-green;
 	}
+
+	&.failed::after {
+		content: '';
+		background-image: url('./assets/fail.svg');
+		background-size: contain;
+		background-position: center center;
+		background-repeat: no-repeat;
+		width: 1.5rem;
+		height: 1.5rem;
+	}
 }
