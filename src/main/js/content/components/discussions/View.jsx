@@ -24,7 +24,10 @@ export default createReactClass({
 		store: PropTypes.object.isRequired,
 		itemId: PropTypes.string.isRequired,
 
-		edit: PropTypes.bool
+		edit: PropTypes.bool,
+
+		contextOverride: PropTypes.object,
+		extraRouterProps: PropTypes.object
 	},
 
 
@@ -52,7 +55,9 @@ export default createReactClass({
 
 
 	getContext () {
-		const {state: {item, itemId: ntiid}, props: {itemId: encodedId}} = this;
+		const {state: {item, itemId: ntiid}, props: {itemId: encodedId, contextOverride}} = this;
+
+		if (contextOverride) { return contextOverride; }
 
 		return {
 			label: (item && item.title) || 'Note',
@@ -63,12 +68,12 @@ export default createReactClass({
 
 
 	render () {
-		const {props: {edit}, state: {item}} = this;
+		const {props: {edit, extraRouterProps}, state: {item}} = this;
 
 		return !item ? (
 			<NotFound/>
 		) : edit ? (
-			<Edit item={item} {...this.props}/>
+			<Edit item={item} {...this.props} {...(extraRouterProps || {})}/>
 		) : (
 			<Locations contextual>
 				<Location path="/:commentId/edit(/*)" handler={ViewComment} root={item} {...this.props} edit/>
