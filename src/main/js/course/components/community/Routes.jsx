@@ -4,22 +4,16 @@ import Router from 'react-router-component';
 
 import Community from './View';
 
-const ROUTES = [
-	{path: '/:channel/:topic(/*)', handler: Community},
-	{path: '/:channel(/*)', handler: Community},
-	{path: '/', handler: Community}
-];
 
-export default function MobileCourseCommunityRoutes (props) {
-	return (
-		<Router.Locations contextual>
-			{
-				ROUTES.map((route) => {
-					return (
-						<Router.Location key={route.path} {...props} {...route} />
-					);
-				})
-			}
-		</Router.Locations>
-	);
+
+export default class MobileCourseCommunityRoutes extends React.Component {
+	render () {
+		return (
+			<Router.Locations contextual identifier="community-router">
+				<Router.Location path="/:channel/:channelTopic(/*)" handler={Community} {...this.props} />
+				<Router.Location path="/:channel(/*)" handler={Community} {...this.props} />
+				<Router.Location path="/" handler={Community} {...this.props} />
+			</Router.Locations>
+		);
+	}
 }

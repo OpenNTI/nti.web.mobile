@@ -51,7 +51,7 @@ async function getContext () {
 	const context = this;//this will be called with the ContextContributor's context ("this")
 
 	return {
-		href: context.makeHref('/community/'),
+		href: context.makeHref(''),
 		label: t('label')
 	};
 }

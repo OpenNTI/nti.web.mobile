@@ -33,7 +33,8 @@ export default createReactClass({
 
 	propTypes: {
 		topicId: PropTypes.string,
-		contextOverride: PropTypes.object
+		contextOverride: PropTypes.object,
+		extraRouterProps: PropTypes.object
 	},
 
 	backingStore: Store,
@@ -85,12 +86,13 @@ export default createReactClass({
 			return <Loading.Mask />;
 		}
 
-		let topic = this.getTopic();
+		const {extraRouterProps} = this.props;
 
+		let topic = this.getTopic();
 		let currentPage = this.currentPage();
 
 		return (
-			<Router.Locations contextual>
+			<Router.Locations contextual identifier="topic-router" {...(extraRouterProps || {})}>
 				<Location path="/discussions/:postId(/*)"
 					handler={Post}
 					topic={topic}
