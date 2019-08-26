@@ -25,6 +25,7 @@ const IDENTITY_CONTEXT_MAPPINGS = [
 	'lessons',
 	'assignments',
 	'discussions',
+	'community',
 	'info',
 	'scorm',
 	'videos',

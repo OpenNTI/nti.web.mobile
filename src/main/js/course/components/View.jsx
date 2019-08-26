@@ -15,6 +15,7 @@ import {getCourse} from '../Actions';
 import {LESSONS, INFO, SCORMCONTENT} from '../Sections';
 
 import Page from './Page';
+import Community from './community';
 import CourseInfo from './CourseInfo';
 import Lessons from './Lessons';
 import Activity from './Activity';
@@ -24,6 +25,7 @@ import ScormContent from './ScormContent';
 const ROUTES = [
 	{path: '/videos(/*)', handler: Page, pageContent: Media},
 	{path: '/lessons(/*)', handler: Page, pageContent: Lessons},
+	{path: '/community(/*)', handler: Page, pageContent: Community},
 	{path: '/discussions(/*)', handler: Page, pageContent: Discussions},
 	{path: '/info/invite(/*)', handler: Page, pageContent: Invite},
 	{path: '/info(/*)', handler: Page, pageContent: CourseInfo},
