@@ -31,7 +31,7 @@ export default class CourseCommunityView extends React.Component {
 		return {
 			router: {
 				...(nav || {}),
-				baseroute: nav && nav.makeHref('community')
+				baseroute: nav && nav.makeHref('')
 			}
 		};
 	}
