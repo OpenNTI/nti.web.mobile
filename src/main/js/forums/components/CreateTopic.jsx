@@ -18,7 +18,8 @@ export default createReactClass({
 	mixins: [ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
-		forum: PropTypes.object.isRequired
+		forum: PropTypes.object.isRequired,
+		onTopicCreated: PropTypes.func
 	},
 
 	attachRef (x) { this.editor = x; },
@@ -51,6 +52,13 @@ export default createReactClass({
 			this.setState({
 				busy: false
 			});
+
+			const {onTopicCreated} = this.props;
+
+			if (onTopicCreated) {
+				return onTopicCreated(event.topic);
+			}
+
 			let topicId = event.topic.getID();
 			let path = encodeForURI(topicId);
 			this.navigate('/' + path + '/', {replace: true});

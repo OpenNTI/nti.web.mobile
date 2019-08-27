@@ -9,7 +9,7 @@ import Topic from '../../../../../forums/components/TopicView';
 import Styles from './View.css';
 
 const cx = classnames.bind(Styles);
-const handles = (obj) => obj && obj.isTopic;
+const handles = (obj) => obj && obj.isTopic && !obj.isNewTopic;
 
 const CLEAN_PATH_REGEX = /^(.*)(discussions.*)$/g;
 
