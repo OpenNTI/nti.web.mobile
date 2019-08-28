@@ -30,7 +30,13 @@ const MIME_TYPES = {
 	'dynamicfriendslist': 'community',
 	'forums.dflboard': 'forums.communityboard',
 	'forums.dflforum': (o) => `/${encode(o.getID())}/`,
-	'forums.communityboard': () => '/discussions/',
+	'forums.communityboard': (o, prev) => {
+		if (prev.isCourse) {
+			return '/community/';
+		}
+
+		return '/discussions/';
+	},
 
 	'forums.communityforum': (o, prev) => {
 		if (prev && /community$/i.test(prev.MimeType)) {
@@ -155,6 +161,7 @@ export default class LibraryPathResolver {
 		let {object} = this;
 		let objectPath = object.getContextPath();
 		return objectPath.then(result => {
+			debugger;
 			result = result[0];
 			if (!result) {
 				return Promise.reject('Not Found');
