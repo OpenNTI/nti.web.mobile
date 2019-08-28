@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames/bind';
 import {scoped} from '@nti/lib-locale';
 import {Community} from '@nti/web-course';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
+import Styles from './View.css';
 import {overrides} from './overrides';
 
+const cx = classnames.bind(Styles);
 const t = scoped('nti-web-mobile.course.community.View', {
 	label: 'Community'
 });
@@ -41,7 +44,9 @@ export default class CourseCommunityView extends React.Component {
 
 		return (
 			<ContextSender getContext={getContext} {...this.props}>
-				<Community course={course} overrides={overrides} />
+				<div className={cx('mobile-course-community')}>
+					<Community course={course} overrides={overrides} />
+				</div>
 			</ContextSender>
 		);
 	}

@@ -1,0 +1,3 @@
+.mobile-course-community :global(.report-button) {
+	display: none;
+}
