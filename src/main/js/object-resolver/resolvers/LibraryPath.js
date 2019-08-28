@@ -161,7 +161,6 @@ export default class LibraryPathResolver {
 		let {object} = this;
 		let objectPath = object.getContextPath();
 		return objectPath.then(result => {
-			debugger;
 			result = result[0];
 			if (!result) {
 				return Promise.reject('Not Found');
