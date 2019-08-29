@@ -45,7 +45,7 @@ let Store = { ...EventEmitter.prototype, displayName: 'enrollment.Store',
 	},
 
 	isEnrolled (courseId) {
-		if (enrollmentStatus.hasOwnProperty(courseId)) {
+		if (Object.prototype.hasOwnProperty.call(enrollmentStatus,courseId)) {
 			return enrollmentStatus[courseId];
 		}
 		return false;

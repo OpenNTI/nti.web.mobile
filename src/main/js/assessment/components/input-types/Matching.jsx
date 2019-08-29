@@ -114,7 +114,7 @@ export default createReactClass({
 		let submitted = this.isSubmitted();
 		let solution = submitted && this.getSolution();
 
-		let isUsed = i => (this.state.value || {}).hasOwnProperty(i);
+		let isUsed = i => Object.prototype.hasOwnProperty.call(this.state.value || {}, i);
 
 		return (
 			<div className="matching">

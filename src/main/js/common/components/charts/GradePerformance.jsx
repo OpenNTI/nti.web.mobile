@@ -100,12 +100,14 @@ export default class GradePerformance extends React.Component {
 	}
 
 	testAnimationProperties = () => {
-		if (this.state && this.state.hasOwnProperty('canAnimate')) {
+		const has = (x, k) => Object.prototype.hasOwnProperty.call(x, k);
+
+		if (this.state && has(this.state, 'canAnimate')) {
 			return this.state.canAnimate;
 		}
 
 		let ctx = document.createElement('canvas').getContext('2d'),
-			hasDashOffset = ctx.hasOwnProperty('lineDashOffset') || ctx.hasOwnProperty('mozDashOffset'),
+			hasDashOffset = has(ctx, 'lineDashOffset') || has(ctx, 'mozDashOffset'),
 			hasSetLineDash = !!ctx.setLineDash;
 
 		return hasDashOffset && hasSetLineDash;

@@ -145,7 +145,7 @@ export default createReactClass({
 		const result = { ...this.state.defaultValues};
 
 		for (i in elements) {
-			if (!elements.hasOwnProperty(i) || !elements[i]) { continue; }
+			if (!Object.prototype.hasOwnProperty.call(elements,i) || !elements[i]) { continue; }
 			if (i === 'card') { continue; }
 
 			v = elements[i];

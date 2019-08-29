@@ -95,7 +95,7 @@ export default ({ ...EventEmitter.prototype, fieldValues: {},
 		if(target.type === 'checkbox' && !target.checked) {
 			delete this.fieldValues[name];
 		}
-		else if (value || this.fieldValues.hasOwnProperty(name)) {
+		else if (value || Object.prototype.hasOwnProperty.call(this.fieldValues,name)) {
 			// ^ don't set an empty value if there's not already
 			// an entry for this field in this.state.fieldValues
 			this.setValue(name, value);

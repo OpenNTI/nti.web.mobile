@@ -25,7 +25,7 @@ export function verifyBillingInfo (stripePublicKey, formData, createToken) {
 		const result = {};
 
 		const copy = x => {
-			if (data.hasOwnProperty(x)) {
+			if (Object.prototype.hasOwnProperty.call(data,x)) {
 				result[x] = data[x];
 			}
 		};

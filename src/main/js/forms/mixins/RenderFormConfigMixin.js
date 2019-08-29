@@ -25,6 +25,7 @@ const inputMap = {
 };
 
 const isFunction = f => typeof f === 'function';
+const hasProp = (x, k) => Object.prototype.hasOwnProperty.call(x, k);
 
 export default {
 
@@ -187,7 +188,7 @@ export default {
 		let value = target.value;
 		let tmp = { ...this.state.fieldValues};
 
-		if (value || tmp.hasOwnProperty(field)) {
+		if (value || hasProp(tmp,field)) {
 			// don't set an empty value if there's not already
 			// an entry for this field in this.state.fieldValues
 			tmp[field] = value;
@@ -203,7 +204,7 @@ export default {
 
 		if (formatters) {
 			for (i in formatters) {
-				if (formatters.hasOwnProperty(i)) {
+				if (hasProp(formatters,i)) {
 					ref = this.refs[i];
 
 					if (!ref) { continue; }
