@@ -35,6 +35,7 @@ TopicHeadline.propTypes = {
 	item: PropTypes.shape({
 		creator: PropTypes.string,
 		body: PropTypes.array,
+		headline: PropTypes.object,
 		title: PropTypes.string,
 		getCreatedTime: PropTypes.func
 	}),

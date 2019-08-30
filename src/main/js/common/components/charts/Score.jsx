@@ -8,6 +8,8 @@ export default class Score extends React.Component {
 		colors: PropTypes.arrayOf(PropTypes.string),
 		pixelDensity: PropTypes.number,
 		score: PropTypes.number,
+		width: PropTypes.number,
+		height: PropTypes.number,
 		inlinePercent: PropTypes.bool
 	}
 

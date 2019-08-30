@@ -16,7 +16,11 @@ const NOTIFICATIONS = 'notifications';
 const CALENDAR = 'calendar';
 const CONTACTS = 'contacts';
 
-const withFooter = Cmp => props => <><Cmp {...props} /><Footer /></>;
+const withFooter = Cmp => {
+	return function FooterJoiner (props) {
+		return <><Cmp {...props} /><Footer /></>;
+	};
+};
 
 const t = scoped('app.user-overlay.tabs', {
 	[NOTIFICATIONS]: 'Notifications',

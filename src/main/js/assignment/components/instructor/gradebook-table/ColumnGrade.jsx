@@ -11,7 +11,11 @@ class GradebookColumnGrade extends React.Component {
 	static propTypes = {
 		assignments: PropTypes.object.isRequired,
 		item: PropTypes.shape({
-			grade: PropTypes.object
+			grade: PropTypes.object,
+			hasFinalGrade: PropTypes.bool,
+			user: PropTypes.shape({
+				getID: PropTypes.func
+			})
 		}).isRequired
 	}
 

@@ -19,7 +19,9 @@ export default createReactClass({
 		courseId: PropTypes.string,
 		entryId: PropTypes.string,
 		enrollment: PropTypes.shape({
-			Purchasable: PropTypes.object
+			Purchasable: PropTypes.object,
+			getPurchasable: PropTypes.func,
+			getPurchasableForGifting: PropTypes.func,
 		}).isRequired
 	},
 

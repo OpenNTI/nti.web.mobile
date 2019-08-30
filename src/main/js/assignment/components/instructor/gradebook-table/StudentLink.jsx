@@ -12,7 +12,8 @@ class StudentLink extends React.Component {
 
 	static propTypes = {
 		item: PropTypes.shape({
-			username: PropTypes.string
+			username: PropTypes.string,
+			user: PropTypes.any
 		}).isRequired,
 		children: PropTypes.any,
 		showAvatars: PropTypes.bool

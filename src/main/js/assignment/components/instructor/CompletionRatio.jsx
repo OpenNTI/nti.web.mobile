@@ -8,7 +8,9 @@ CompletionRatio.propTypes = {
 		enrolledTotalCount: PropTypes.number
 	}).isRequired,
 	assignment: PropTypes.shape({
-		submittedCount: PropTypes.number
+		UserCompletionCount: PropTypes.number,
+		submittedCount: PropTypes.number,
+		submittedCountTotalPossible: PropTypes.number,
 	}).isRequired
 };
 
