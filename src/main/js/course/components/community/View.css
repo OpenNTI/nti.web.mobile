@@ -1,3 +1,7 @@
 .mobile-course-community :global(.report-button) {
 	display: none;
 }
+
+.mobile-course-community :global(.community-edit-link) {
+	display: none;
+}
