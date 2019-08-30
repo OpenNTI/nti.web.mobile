@@ -47,7 +47,13 @@ const MIME_TYPES = {
 	'forums.personalblog': () => '/thoughts/',
 	'forums.personalblogentry': (o) => `/${encode(o.getID())}/`,
 	'forums.dflheadlinetopic': 'forums.communityheadlinetopic',
-	'forums.communityheadlinetopic': (o) => `/${encode(o.getID())}/`,
+	'forums.communityheadlinetopic': (o, prev, next, obj) => {
+		if (!next && obj && obj.isComment) {
+			return `/${encode(o.getID())}/discussions/`;
+		}
+		return `/${encode(o.getID())}/`;
+	},
+
 
 	'assignmentref': 'relatedworkref',
 	'questionsetref': 'relatedworkref',
