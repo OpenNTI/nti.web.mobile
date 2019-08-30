@@ -6,7 +6,9 @@ let pageSize;
 const mixin = {
 	currentPage () {
 		let loc = global.location || {};
-		let cp = parseInt(QueryString.parse(loc.search).p || 1, 10);
+		let search = QueryString.parse(loc.search);
+
+		let cp = parseInt(search.p || search.page || 1, 10);
 		return cp;
 	},
 
