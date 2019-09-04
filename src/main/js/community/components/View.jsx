@@ -41,7 +41,7 @@ export default class CommunityView extends React.Component {
 		return {
 			router: {
 				...(nav || {}),
-				baseroute: `/community/${entityId}/`
+				baseroute: nav &&  nav.makeHref(`/mobile/community/${entityId}/`)
 			}
 		};
 	}
