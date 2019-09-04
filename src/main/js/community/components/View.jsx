@@ -5,7 +5,7 @@ import {scoped} from '@nti/lib-locale';
 import {decodeFromURI} from '@nti/lib-ntiids';
 import {User, getAppUser} from '@nti/web-client';
 import {Community} from '@nti/web-profiles';
-import {Loading, Error as ErrorCmp} from '@nti/web-commons';
+import {Loading, Error as ErrorCmp, Background} from '@nti/web-commons';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 import Page from 'common/components/Page';
@@ -78,13 +78,15 @@ export default class CommunityView extends React.Component {
 
 		return (
 			<Page supportsSearch border>
-				<ContextSender getContext={getContext} {...this.props}>
-					<div className={cx('mobile-community')}>
-						{!community && !error && (<Loading.Spinner.Large />)}
-						{!community && error && (<ErrorCmp error={error} />)}
-						{community && (<Community.View community={community} />)}
-					</div>
-				</ContextSender>
+				<Background className="community" imgUrl={community && community.backgroundURL}>
+					<ContextSender getContext={getContext} {...this.props}>
+						<div className={cx('mobile-community')}>
+							{!community && !error && (<Loading.Spinner.Large />)}
+							{!community && error && (<ErrorCmp error={error} />)}
+							{community && (<Community.View community={community} />)}
+						</div>
+					</ContextSender>
+				</Background>
 			</Page>
 		);
 	}
