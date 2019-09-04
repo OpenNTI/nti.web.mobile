@@ -6,8 +6,8 @@ import {encodeForURI} from '@nti/lib-ntiids';
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
 // import Edit from '../../../../../content/components/discussions/EditNote';
-import ViewComment from '../../../../../content/components/discussions/ViewComment';
-import Detail from '../../../../../content/components/discussions/Detail';
+import ViewComment from '../../../../content/components/discussions/ViewComment';
+import Detail from '../../../../content/components/discussions/Detail';
 
 export default class CommunitNoteOverride extends React.Component {
 	static propTypes = {

@@ -4,7 +4,7 @@ import classnames from 'classnames/bind';
 
 import Registry from '../Registry';
 import Page from '../Page';
-import Topic from '../../../../../forums/components/TopicView';
+import Topic from '../../../../forums/components/TopicView';
 
 import Styles from './View.css';
 

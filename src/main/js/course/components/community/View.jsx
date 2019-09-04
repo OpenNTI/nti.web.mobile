@@ -5,9 +5,9 @@ import {scoped} from '@nti/lib-locale';
 import {Community} from '@nti/web-course';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
+import {overrides} from 'community/components/overrides';
 
 import Styles from './View.css';
-import {overrides} from './overrides';
 
 const cx = classnames.bind(Styles);
 const t = scoped('nti-web-mobile.course.community.View', {

@@ -45,7 +45,7 @@ function getContext () {
 	const {channel} = this.props;
 	const {router} = this.context;
 
-	const route = router ? router.makeHref(encodeForURI(channel.getID())) : encodeForURI(channel.getID());
+	const route = router ? router.getRouteFor(channel) : encodeForURI(channel.getID());
 
 	return {
 		returnOverride: {

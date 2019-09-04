@@ -11,6 +11,7 @@ import {Component as ContextSender} from 'common/mixins/ContextSender';
 import Page from 'common/components/Page';
 
 import Styles from './View.css';
+import {overrides} from './overrides';
 
 const cx = classnames.bind(Styles);
 const t = scoped('nti-web-mobile.community.View', {
@@ -36,12 +37,11 @@ export default class CommunityView extends React.Component {
 
 	getChildContext () {
 		const {router: nav} = this.context;
-		const {entityId} = this.props;
 
 		return {
 			router: {
 				...(nav || {}),
-				baseroute: nav &&  nav.makeHref(`/mobile/community/${entityId}/`)
+				baseroute: nav &&  nav.makeHref('')
 			}
 		};
 	}
@@ -83,7 +83,7 @@ export default class CommunityView extends React.Component {
 						<div className={cx('mobile-community')}>
 							{!community && !error && (<Loading.Spinner.Large />)}
 							{!community && error && (<ErrorCmp error={error} />)}
-							{community && (<Community.View community={community} />)}
+							{community && (<Community.View community={community} overrides={overrides} />)}
 						</div>
 					</ContextSender>
 				</Background>
@@ -97,7 +97,7 @@ async function getContext () {
 
 	return [
 		{
-			href: this.context.basePath,
+			href: '/mobile/',
 			label: t('home')
 		},
 		{

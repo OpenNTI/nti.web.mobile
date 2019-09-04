@@ -5,7 +5,7 @@ import {LinkTo} from '@nti/web-routing';
 
 import Registry from '../Registry';
 import Page from '../Page';
-import CreateTopic from '../../../../../forums/components/CreateTopic';
+import CreateTopic from '../../../../forums/components/CreateTopic';
 
 import Styles from './View.css';
 

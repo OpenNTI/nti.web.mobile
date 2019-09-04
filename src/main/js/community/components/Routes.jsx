@@ -3,12 +3,14 @@ import Router from 'react-router-component';
 
 import Community from './View';
 
-export default function MobileCommunityRoutes (props) {
-	return (
-		<Router.Locations contextual identifier="community-router">
-			<Router.Location path="/:channel/:channelTopic(/*)" handler={Community} {...props} />
-			<Router.Location path="/:channel(/*)" handler={Community} {...props} />
-			<Router.Location path="/" handler={Community} {...props} />
-		</Router.Locations>
-	);
+export default class MobileCommunityRoutes extends React.Component {
+	render () {
+		return (
+			<Router.Locations contextual identifier="community-router">
+				<Router.Location path="/:channel/:channelTopic(/*)" handler={Community} {...this.props} />
+				<Router.Location path="/:channel(/*)" handler={Community} {...this.props} />
+				<Router.Location path="/" handler={Community} {...this.props} />
+			</Router.Locations>
+		);
+	}
 }
