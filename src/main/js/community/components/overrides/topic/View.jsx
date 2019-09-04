@@ -9,7 +9,7 @@ import Topic from '../../../../forums/components/TopicView';
 import Styles from './View.css';
 
 const cx = classnames.bind(Styles);
-const handles = (obj) => obj && obj.isTopic && !obj.isNewTopic;
+const handles = (obj) => obj && (obj.isTopic || obj.isBlogEntry) && !obj.isNewTopic;
 
 const CLEAN_PATH_REGEX = /^(.*)(discussions.*)$/g;
 
@@ -87,7 +87,7 @@ class NTIMobileCommunityTopic extends React.Component {
 				<div className={cx('forums-wrapper', 'community-topic')}>
 					<Topic
 						topicId={topic.getID()}
-						forum={channel.backer}
+						forum={topic.isBlogEntry ? null : channel.backer}
 						contextOverride={this.getContextOverride()}
 						analyticsData={this.getAnalyticsData()}
 						extraRouterProps={this.getExtraRouterProps()}
