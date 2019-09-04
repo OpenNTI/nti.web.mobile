@@ -1,0 +1,7 @@
+.mobile-community :global(.report-button) {
+	display: none;
+}
+
+.mobile-community :global(.community-edit-link) {
+	display: none;
+}

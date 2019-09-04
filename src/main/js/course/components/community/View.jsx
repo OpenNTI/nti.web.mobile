@@ -55,6 +55,7 @@ export default class CourseCommunityView extends React.Component {
 async function getContext () {
 	const context = this;//this will be called with the ContextContributor's context ("this")
 
+	//TODO: get the label from the course tab name.
 	return {
 		href: context.makeHref(''),
 		label: t('label')

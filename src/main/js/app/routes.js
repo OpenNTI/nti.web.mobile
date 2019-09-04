@@ -35,5 +35,6 @@ export default [
 	// {handler: 'Forums',		path: '/forums(/*)'},
 	{handler: 'Library',		path: '/library(/*)'},
 	{handler: 'Profile',		path: '/profile/:entityId(/*)'},
+	{handler: 'Community',      path: '/community/:entityId(/*)'},
 	{handler: 'Home',			path: '/'}
 ];

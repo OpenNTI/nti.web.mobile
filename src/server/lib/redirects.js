@@ -20,7 +20,7 @@ const HANDLERS = {
 	handleObjectRedirects: /\/(id|ntiid|object)\//i,
 	handleInvitationRedirects: /(invitations\/accept)|(catalog\/redeem)/i,
 	handleLibraryRedirects: /^library/i,
-	handleProfileRedirects: /\/(user|group|community)/i,
+	handleProfileRedirects: /\/(user|group)/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
 	handleLibraryPathRedirects: /^\/[^/]+\/library/i,
 	handleCatalogPathRedirects: /^\/[^/]+\/catalog\/nti-course-catalog-entry/i,
@@ -62,7 +62,7 @@ exports = module.exports = {
 		 *	/mobile/profile/<user>/...
 		 */
 
-		const pattern = /\/(?:user|group|commnunity)\/(.*)/;
+		const pattern = /\/(?:user|group)\/(.*)/;
 		const [, rest] = query.match(pattern) || [];
 
 		if (!rest) {

@@ -1,0 +1,106 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import classnames from 'classnames/bind';
+import {scoped} from '@nti/lib-locale';
+import {decodeFromURI} from '@nti/lib-ntiids';
+import {User, getAppUser} from '@nti/web-client';
+import {Community} from '@nti/web-profiles';
+import {Loading, Error as ErrorCmp} from '@nti/web-commons';
+
+import {Component as ContextSender} from 'common/mixins/ContextSender';
+import Page from 'common/components/Page';
+
+import Styles from './View.css';
+
+const cx = classnames.bind(Styles);
+const t = scoped('nti-web-mobile.community.View', {
+	label: 'Community',
+	home: 'Home'
+});
+
+export default class CommunityView extends React.Component {
+	static propTypes = {
+		entityId: PropTypes.string.isRequired
+	}
+
+	static contextTypes = {
+		basePath: PropTypes.string,
+		router: PropTypes.object
+	}
+
+	static childContextTypes = {
+		router: PropTypes.object
+	}
+
+	state = {}
+
+	getChildContext () {
+		const {router: nav} = this.context;
+		const {entityId} = this.props;
+
+		return {
+			router: {
+				...(nav || {}),
+				baseroute: `/community/${entityId}/`
+			}
+		};
+	}
+
+	componentDidMount () {
+		this.setup();
+	}
+
+	componentDidUpdate (prevProps) {
+		const {entityId} = this.props;
+		const {entityId:prevId} = prevProps;
+
+		if (entityId !== prevId) {
+			this.setState({
+				community: null,
+				error: null
+			}, () => this.setup());
+		}
+	}
+
+	async setup () {
+		const {entityId} = this.props;
+
+		try {
+			const community = await (entityId === 'me' ? getAppUser() : User.resolve({entityId: decodeFromURI(entityId)}, true));
+			this.setState({community});
+		} catch (e) {
+			this.setState({error: e, community: null});
+		}
+	}
+
+	render () {
+		const {community, error} = this.state;
+
+		return (
+			<Page supportsSearch border>
+				<ContextSender getContext={getContext} {...this.props}>
+					<div className={cx('mobile-community')}>
+						{!community && !error && (<Loading.Spinner.Large />)}
+						{!community && error && (<ErrorCmp error={error} />)}
+						{community && (<Community.View community={community} />)}
+					</div>
+				</ContextSender>
+			</Page>
+		);
+	}
+}
+
+async function getContext () {
+	const context = this;//this will be called with the ContextContributor's context ("this")
+
+	return [
+		{
+			href: this.context.basePath,
+			label: t('home')
+		},
+		{
+			href: context.makeHref(''),
+			label: t('label')
+		}
+	];
+}
