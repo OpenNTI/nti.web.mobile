@@ -68,6 +68,8 @@ class ContentNavigationTabs extends React.Component {
 			part = 'd';
 		} else if (context === 'notebook') {
 			part = 'n';
+		} else if (context === 'community') {
+			part = 'community';
 		}
 
 		return `${base}${part}/`;

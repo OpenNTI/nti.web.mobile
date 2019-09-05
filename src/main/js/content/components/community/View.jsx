@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import {scoped} from '@nti/lib-locale';
-import {Community} from '@nti/web-course';
+import {Community} from '@nti/web-content';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 import {overrides} from 'community/components/overrides';
@@ -10,13 +10,13 @@ import {overrides} from 'community/components/overrides';
 import Styles from '../../../community/components/View.css';
 
 const cx = classnames.bind(Styles);
-const t = scoped('nti-web-mobile.course.community.View', {
+const t = scoped('nti-web-mobile.content.community.View', {
 	label: 'Community'
 });
 
 export default class CourseCommunityView extends React.Component {
 	static propTypes = {
-		course: PropTypes.object.isRequired
+		contentPackage: PropTypes.object.isRequired
 	}
 
 	static contextTypes = {
@@ -40,12 +40,12 @@ export default class CourseCommunityView extends React.Component {
 	}
 
 	render () {
-		const {course} = this.props;
+		const {contentPackage} = this.props;
 
 		return (
 			<ContextSender getContext={getContext} {...this.props}>
 				<div className={cx('mobile-community')}>
-					<Community course={course} overrides={overrides} />
+					<Community content={contentPackage} overrides={overrides} />
 				</div>
 			</ContextSender>
 		);

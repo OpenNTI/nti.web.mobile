@@ -16,6 +16,7 @@ import NotFound from 'notfound/components/View';
 import Discussions from 'forums/components/View';
 
 
+import Community from './community';
 import Index from './Index';
 import Page from './Page';
 import Notebook from './Notebook';
@@ -25,6 +26,7 @@ const ROUTES = [
 	{path: '/o(/*)', pageContent: Index},
 	{path: '/d(/*)', pageContent: Discussions},
 	{path: '/n(/*)', pageContent: Notebook},
+	{path: '/community(/*)', pageContent: Community},
 	// {path: '/info', pageContent: PackageInfo},
 	{}//not found
 ];
