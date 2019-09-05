@@ -18,7 +18,13 @@ export const isPageInfo = o => typeof o !== 'string'
 const getTarget = x => x.target || x[Object.keys(x).filter(k => /target-ntiid/i.test(k))[0]];
 
 const MIME_TYPES = {
-	'contentpackage': (o) => `/content/${encode(o.getID())}/o/`,
+	'contentpackage': (o, prev, next) => {
+		if (next.isBoard) {
+			return `/content/${encode(o.getID())}`;
+		}
+
+		return `/content/${encode(o.getID())}/o/`;
+	},
 	'contentpackagebundle': 'contentpackage',
 	'publishablecontentpackagebundle': 'contentpackage',
 
@@ -29,9 +35,10 @@ const MIME_TYPES = {
 	'community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
 	'dynamicfriendslist': 'community',
 	'forums.dflboard': 'forums.communityboard',
+	'forums.contentboard': 'forums.communityboard',
 	'forums.dflforum': (o) => `/${encode(o.getID())}/`,
 	'forums.communityboard': (o, prev) => {
-		if (prev.isCourse) {
+		if (prev.isCourse || prev.isBundle) {
 			return '/community/';
 		}
 
