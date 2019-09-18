@@ -59,7 +59,7 @@ class Home extends React.Component {
 		} else if (/contentpackagebundle/i.test(type)) {
 			route = getRememberedRoute(obj) || path.join(basePath, 'content', encodeForURI(obj.getID()));
 		} else if (/community/i.test(type)) {
-			route = path.join(basePath, 'community', encodeForURI(obj.Username));
+			route = path.join(basePath, 'community', encodeURIComponent(obj.Username));
 		}
 
 		return route;
