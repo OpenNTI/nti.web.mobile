@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import {scoped} from '@nti/lib-locale';
-import {decodeFromURI} from '@nti/lib-ntiids';
 import {User, getAppUser} from '@nti/web-client';
 import {Community} from '@nti/web-profiles';
 import {Loading, Error as ErrorCmp} from '@nti/web-commons';
@@ -66,7 +65,7 @@ export default class CommunityView extends React.Component {
 		const {entityId} = this.props;
 
 		try {
-			const community = await (entityId === 'me' ? getAppUser() : User.resolve({entityId: decodeFromURI(entityId)}, true));
+			const community = await (entityId === 'me' ? getAppUser() : User.resolve({entityId: decodeURIComponent(entityId)}, true));
 			this.setState({community});
 		} catch (e) {
 			this.setState({error: e, community: null});
