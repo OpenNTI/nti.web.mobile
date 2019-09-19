@@ -4,10 +4,11 @@ import classnames from 'classnames/bind';
 import {scoped} from '@nti/lib-locale';
 import {User, getAppUser} from '@nti/web-client';
 import {Community} from '@nti/web-profiles';
-import {Loading, Error as ErrorCmp} from '@nti/web-commons';
+import {Loading} from '@nti/web-commons';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 import Page from 'common/components/Page';
+import NotFound from 'notfound/components/View';
 
 import Styles from './View.css';
 import {overrides} from './overrides';
@@ -15,7 +16,8 @@ import {overrides} from './overrides';
 const cx = classnames.bind(Styles);
 const t = scoped('nti-web-mobile.community.View', {
 	label: 'Community',
-	home: 'Home'
+	home: 'Home',
+	notFound: 'Community not found.'
 });
 
 export default class CommunityView extends React.Component {
@@ -80,11 +82,18 @@ export default class CommunityView extends React.Component {
 				<ContextSender getContext={getContext} {...this.props}>
 					<div className={cx('mobile-community')}>
 						{!community && !error && (<Loading.Spinner.Large />)}
-						{!community && error && (<ErrorCmp error={error} />)}
+						{!community && error && this.renderError(error)}
 						{community && (<Community.View community={community} overrides={overrides} />)}
 					</div>
 				</ContextSender>
 			</Page>
+		);
+	}
+
+
+	renderError (error) {
+		return (
+			<NotFound message={t('notFound')} />
 		);
 	}
 }

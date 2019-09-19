@@ -5,3 +5,12 @@
 .mobile-community :global(.community-edit-link) {
 	display: none;
 }
+
+.mobile-community :global(.not-found h2),
+.mobile-community :global(.not-found .sadface) {
+	display: none;
+}
+
+.mobile-community :global(.not-found p) {
+	font-size: 1.25rem;
+}
