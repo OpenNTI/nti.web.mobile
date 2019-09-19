@@ -32,12 +32,16 @@ const MIME_TYPES = {
 	'courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
 	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getContentId())}/`,
 	'courses.scormcourseinstance': (o) => `/course/${encode(o.getID())}`,
-	'community': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
+	'community': (o) => `/community/${encodeURIComponent(o.getID())}/`,
 	'dynamicfriendslist': 'community',
 	'forums.dflboard': 'forums.communityboard',
 	'forums.contentboard': 'forums.communityboard',
 	'forums.dflforum': (o) => `/${encode(o.getID())}/`,
 	'forums.communityboard': (o, prev) => {
+		if (prev.isCommunity) {
+			return '';
+		}
+
 		if (prev.isCourse || prev.isBundle) {
 			return '/community/';
 		}
