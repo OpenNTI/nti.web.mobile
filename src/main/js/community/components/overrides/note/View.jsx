@@ -11,9 +11,13 @@ import Note from './Note';
 const cx = classnames.bind(Styles);
 const handles = (obj) => obj && obj.isNote;
 
-const cleanPath = (path) => {
+const cleanPath = (path, community) => {
 	const parts = path.split('/');
-	const communityPartIndex = parts.indexOf('community');
+	let communityPartIndex = parts.indexOf('community');
+
+	if (parts[communityPartIndex + 1] === encodeURIComponent(community.Username)) {
+		communityPartIndex += 1;
+	}
 
 	//Replace the channel id and topic id parts of the route
 	return parts.slice(communityPartIndex + 3).join('/') || '/';
@@ -49,6 +53,7 @@ class NTIMobileCommunityTopic extends React.Component {
 
 
 	getExtraRouterProps = () => {
+		const {community} = this.props;
 		const {router} = this.context;
 		const {route} = router || {};
 		const {location} = route || {};
@@ -57,7 +62,7 @@ class NTIMobileCommunityTopic extends React.Component {
 		if (!pathname) { return null; }
 
 		return {
-			path: cleanPath(pathname)
+			path: cleanPath(pathname, community)
 		};
 	}
 
