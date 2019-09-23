@@ -113,7 +113,8 @@ class Store extends StorePrototype {
 			'logon.ifsta.oauth',
 			'logon.your.membership',
 			'logon.nrwa',
-			'logon.hrpros'
+			'logon.hrpros',
+			'logon.mygov'
 		];
 
 		return whiteList

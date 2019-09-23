@@ -250,6 +250,11 @@
 			border: none;
 		}
 
+		&.mygov {
+			background-color: #0279c0;
+			border: none;
+		}
+
 		&[disabled]:active,
 		&[disabled] {
 			box-shadow: none;
