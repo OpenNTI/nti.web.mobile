@@ -55,8 +55,6 @@ export default createReactClass({
 					<hr/>
 					<div className="row">
 						<div className="small-10 small-centered columns">
-							<div className="sadface">:(</div>
-
 							<h2>Error ({code})</h2>
 							<p>{message}</p>
 
