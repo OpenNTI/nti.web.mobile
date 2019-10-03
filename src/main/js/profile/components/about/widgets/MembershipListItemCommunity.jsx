@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import {DisplayName, Avatar} from '@nti/web-commons';
 
 import Link from '../../ProfileLink';
 

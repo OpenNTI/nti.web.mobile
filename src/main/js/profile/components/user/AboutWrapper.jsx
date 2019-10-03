@@ -8,6 +8,10 @@ export default Router.for([
 		getRouteFor: (obj, context) => {
 			if (!(obj.isUser || obj.isGroup || obj.isCommunity)) { return; }
 
+			if (obj.isCommunity) {
+				return `mobile/community/${encodeURIComponent(obj.Username)}`;
+			}
+
 			return `mobile/profile/${UserUtil.encode(obj.Username)}/`;
 		},
 		component: User.About})

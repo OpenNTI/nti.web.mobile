@@ -18,10 +18,6 @@ export default createReactClass({
 	render () {
 		let {entity, ...props} = this.props;
 
-		if (typeof entity === 'object') {
-			entity = entity.getID();
-		}
-
 		props = Object.assign(props, {
 			onClick: (...args) => this.navigateToProfile(entity, ...args)
 		});

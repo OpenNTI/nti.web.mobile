@@ -5,6 +5,10 @@ import {Mixins} from '@nti/web-commons';
 const logger = Logger.get('profile:mixins:ProfileLink');
 
 export function profileHref (id = getAppUsername()) {
+	if (id.isCommunity) {
+		return (`community/${encodeURIComponent(id.Username)}/`).replace(/\/\//g, '/');
+	}
+
 	id = id && id.getID ? id.getID() : id;
 	return (`profile/${User.encode(id)}/`).replace(/\/\//g, '/');
 }
