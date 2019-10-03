@@ -58,6 +58,7 @@ async function getContext () {
 	//TODO: get the label from the course tab name.
 	return {
 		href: context.makeHref(''),
-		label: t('label')
+		label: t('label'),
+		supportsSearch: true
 	};
 }
