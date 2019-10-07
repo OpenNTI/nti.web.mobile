@@ -15,6 +15,7 @@ export const isPageInfo = o => typeof o !== 'string'
 	: /pageinfo$/i.test(o);
 
 
+
 const getTarget = x => x.target || x[Object.keys(x).filter(k => /target-ntiid/i.test(k))[0]];
 
 const MIME_TYPES = {
@@ -33,7 +34,7 @@ const MIME_TYPES = {
 	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getContentId())}/`,
 	'courses.scormcourseinstance': (o) => `/course/${encode(o.getID())}`,
 	'community': (o) => `/community/${encodeURIComponent(o.getID())}/`,
-	'dynamicfriendslist': 'community',
+	'dynamicfriendslist': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
 	'forums.dflboard': 'forums.communityboard',
 	'forums.contentboard': 'forums.communityboard',
 	'forums.dflforum': (o) => `/${encode(o.getID())}/`,
@@ -178,6 +179,7 @@ export default class LibraryPathResolver {
 		let {object} = this;
 		let objectPath = object.getContextPath();
 		return objectPath.then(result => {
+			debugger;
 			result = result[0];
 			if (!result) {
 				return Promise.reject('Not Found');
