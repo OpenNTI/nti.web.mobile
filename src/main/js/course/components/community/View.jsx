@@ -56,9 +56,12 @@ async function getContext () {
 	const context = this;//this will be called with the ContextContributor's context ("this")
 
 	//TODO: get the label from the course tab name.
-	return {
-		href: context.makeHref(''),
-		label: t('label'),
-		supportsSearch: true
-	};
+	return [
+		{
+			href: context.makeHref(''),
+			label: t('label'),
+			supportsSearch: true
+		},
+		'community' // include 'community' in analytics event path
+	];
 }

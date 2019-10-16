@@ -130,6 +130,9 @@ export default class CourseView extends React.Component {
 
 async function getContext () {
 	const context = this;//called with ContextContributor's scope.
+	const {course} = context.props;
+	const ntiid = course && course.getID && course.getID();
+
 	return [
 		{
 			source: 'course/components/View',
@@ -140,6 +143,9 @@ async function getContext () {
 			//so while this node points back to the library, it allows us a common point to supply a scope
 			//for saving UGD.
 			scope: context.props.course
+		},
+		{
+			ntiid // include course id in analytics event path
 		}
 	];
 }
