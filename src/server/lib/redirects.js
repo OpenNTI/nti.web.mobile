@@ -1,7 +1,7 @@
 /*eslint strict:0, import/no-commonjs:0, import/order:0*/
 'use strict';
 const path = require('path');
-const {HREF, encodeForURI, decodeFromURI} = require('@nti/lib-ntiids');
+const {HREF, isNTIID, encodeForURI, decodeFromURI} = require('@nti/lib-ntiids');
 const logger = require('./logger');
 
 const SEGMENT_HANDLERS = {
@@ -106,7 +106,7 @@ exports = module.exports = {
 		 * To:
 		 *  <basepath>/catalog/item/<id>
 		 */
-		const pattern = /catalog\/nti-course-catalog-entry\/(.*)/;
+		const pattern = /catalog\/nti-course-catalog-entry\/([^/]*)/;
 		let [, id] = query.match(pattern) || [];
 
 		if (!id) {
@@ -118,6 +118,9 @@ exports = module.exports = {
 			id = encodeForURI(HREF.encodeIdFrom(id));
 		}
 
+		if (isNTIID(id)) {
+			id = encodeForURI(id);
+		}
 
 		const url = path.join(this.basepath, 'catalog', 'item', id);
 		res.redirect(url);
