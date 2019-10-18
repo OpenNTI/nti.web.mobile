@@ -186,7 +186,7 @@ export default createReactClass({
 		const startDate = vendorInfo && vendorInfo.getStartDate();
 		const endDate = vendorInfo && vendorInfo.getEndDate();
 		const creditHours = 'No College Credit';//t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
-		const refund = t('noRefunds');
+
 		const oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
 		const total = this.getFormattedPrice(this.state.currency, this.state.currentPrice || 0);
 		const discount = this.state.couponDiscount || '';
@@ -238,10 +238,6 @@ export default createReactClass({
 							<div className="credits cell">
 								<span className="label">{t('hours')}</span>
 								<span className="value">{creditHours}</span>
-							</div>
-							<div className="refunds cell">
-								<span className="label">{t('refunds')}</span>
-								<span className="value red">{refund}</span>
 							</div>
 						</div>
 
