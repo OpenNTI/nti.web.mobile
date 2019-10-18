@@ -79,7 +79,7 @@ export default class CommunityView extends React.Component {
 
 		return (
 			<Page supportsSearch border>
-				<ContextSender getContext={getContext} {...this.props}>
+				<ContextSender community={community} getContext={getContext} {...this.props}>
 					<div className={cx('mobile-community')}>
 						{!community && !error && (<Loading.Spinner.Large />)}
 						{!community && error && this.renderError(error)}
@@ -100,6 +100,8 @@ export default class CommunityView extends React.Component {
 
 async function getContext () {
 	const context = this;//this will be called with the ContextContributor's context ("this")
+	const {community} = context.props;
+	const ntiid = community && community.getID ? community.getID() : undefined;
 
 	return [
 		{
@@ -109,6 +111,7 @@ async function getContext () {
 		{
 			href: context.makeHref(''),
 			label: t('label')
-		}
-	];
+		},
+		ntiid
+	].filter(Boolean);
 }
