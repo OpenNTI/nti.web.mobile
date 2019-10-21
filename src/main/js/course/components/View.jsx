@@ -137,15 +137,13 @@ async function getContext () {
 		{
 			source: 'course/components/View',
 			label: 'Courses',
+			ntiid, // include course id in analytics event path,
 			href: context.getBasePath(),
 			//You may be asking why is this on this context node, instead of on the next level down...
 			//The reason is to not repeat ourselves. Each route below this point would just echo this value,
 			//so while this node points back to the library, it allows us a common point to supply a scope
 			//for saving UGD.
 			scope: context.props.course
-		},
-		{
-			ntiid // include course id in analytics event path
 		}
 	];
 }

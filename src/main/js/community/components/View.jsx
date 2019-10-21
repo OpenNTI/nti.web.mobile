@@ -110,8 +110,9 @@ async function getContext () {
 		},
 		{
 			href: context.makeHref(''),
-			label: t('label')
-		},
-		ntiid
-	].filter(Boolean);
+			label: t('label'),
+			supportsSearch: true,
+			ntiid
+		}
+	];
 }
