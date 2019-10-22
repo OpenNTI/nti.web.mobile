@@ -90,7 +90,7 @@
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-loadable": "^5.3.1",
-    "react-router-component": "github:STRML/react-router-component#ba8e79b779",
+    "react-router-component": "github:STRML/react-router-component#ba8e79b779e6c5b59de45605fa921a7876d1c8da",
     "react-transition-group": "^4.2.2",
     "uuid": "^3.0.0",
     "vtt.js": "^0.13.0",
