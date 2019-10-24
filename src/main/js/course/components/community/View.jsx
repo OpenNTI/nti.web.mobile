@@ -60,8 +60,8 @@ async function getContext () {
 		{
 			href: context.makeHref(''),
 			label: t('label'),
+			analyticsId: 'community',
 			supportsSearch: true
-		},
-		'community' // include 'community' in analytics event path
+		}
 	];
 }
