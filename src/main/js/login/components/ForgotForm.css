@@ -1,0 +1,66 @@
+
+:global(.login-wrapper).recovery form {
+	width: 344px;
+}
+
+
+.recovery fieldset {
+	margin: 0 20px;
+}
+
+.recovery .col {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	min-height: 340px;
+	padding-top: 1em;
+}
+
+.recovery * {
+	color: #757474;
+	font-family: "Open Sans";
+	font-size: 14px;
+	line-height: 1.357142857;
+}
+
+.recovery h2,
+.recovery h4 {
+	color: #494949;
+	font-size: 18px;
+	font-weight: normal;
+	line-height: 1.333333333;
+}
+
+.fill {
+	flex: 1 1 auto;
+}
+
+.recovery button {
+	width: 100%;
+}
+
+.recovery a {
+	display: block;
+	color: #3FB3F6;
+	font-weight: 600;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+.success h2 {
+	max-width: 240px;
+    margin: 0 auto 20px;
+}
+
+.success {
+	align-items: stretch;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	height: 340px;
+}
+
+.success::before {
+	content: url(./assets/mail-large.svg);
+	margin: 40px auto 30px;
+}

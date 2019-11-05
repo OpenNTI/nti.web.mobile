@@ -19,7 +19,7 @@ export default {
 		username: 'username',
 		password: 'password',
 		recoverpassword: 'Reset Password',
-		recoverusername: 'Recover Username',
+		recoverusername: 'Send Username',
 		EmailAddressInvalid: 'The email address you have entered is not valid.',
 		resetSuccessful: 'Your password has been reset.'
 	},
