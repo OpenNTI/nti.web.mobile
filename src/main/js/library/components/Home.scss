@@ -1,5 +1,10 @@
 @import "~@nti/style-common";
 
+.library-branding-asset {
+	max-height: 100%;
+	width: auto;
+}
+
 nav.nav-bar.searchable-library {
 	margin-bottom: 10px;
 
@@ -9,19 +14,6 @@ nav.nav-bar.searchable-library {
 
 	.launch-search {
 		color: white;
-	}
-
-	.search-container {
-		background-color: #525252;
-
-		input {
-			background-color: #494949;
-			color: white;
-		}
-
-		.icon-bold-x {
-			color: white;
-		}
 	}
 }
 

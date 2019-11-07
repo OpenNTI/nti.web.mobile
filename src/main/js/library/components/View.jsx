@@ -1,14 +1,15 @@
 import React from 'react';
-import {DarkMode} from '@nti/web-commons';
+import {DarkMode, Theme} from '@nti/web-commons';
 
 import LibraryView from './Home';
 
 
 export default function View () {
+	const background = Theme.useThemeProperty('library.background');
 
 	return (
 		<>
-			<DarkMode/>
+			{background === 'light' ? null : (<DarkMode/>)}
 			<LibraryView/>
 		</>
 	);

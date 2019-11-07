@@ -89,12 +89,30 @@ nav.nav-bar {
 
 		.icon-search {
 			flex: 0 0 auto;
+			color: $primary-grey;
+			display: inline-block;
+			font-size: 1.3rem;
+			margin: 0 0.3rem 0 0;
+
+			&.light {
+				color: white;
+			}
+
+			&.dark {
+				color: rgba(0, 0, 0, 0.3);
+			}
 		}
 
 		input {
 			flex: 1 1 auto;
 			margin: 0;
 			border: 0;
+			background: white;
+
+			&.dark {
+				background: rgba(255, 255, 255, 0.15);
+				color: white;
+			}
 		}
 
 		.close-search {
@@ -104,11 +122,31 @@ nav.nav-bar {
 			text-align: center;
 			flex: 0 0 auto;
 			color: $primary-grey;
+
+			.light {
+				color: white;
+			}
+
+			.dark {
+				color: rgba(0, 0, 0, 0.3);
+			}
 		}
 	}
 
-	.launch-search {
+	.launch-search,
+	&.searchable-library .launch-search {
 		color: $primary-grey;
+		display: inline-block;
+		font-size: 1.3rem;
+		margin: 13px 0;
+
+		&.light {
+			color: white;
+		}
+
+		&.dark {
+			color: rgba(0, 0, 0, 0.3);
+		}
 	}
 
 	h1 {

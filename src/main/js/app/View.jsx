@@ -4,8 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {environment, CaptureClicks, Link} from 'react-router-component';
 import {Session} from '@nti/web-session';
-import {reportError} from '@nti/web-client';
-import {Error, Loading, Layouts} from '@nti/web-commons';
+import {reportError, getConfigFor} from '@nti/web-client';
+import {Error, Loading, Layouts, Theme} from '@nti/web-commons';
 import Logger from '@nti/util-logger';
 import {
 	addChangeListener as addLocaleChangeListener,
@@ -63,6 +63,7 @@ export default class App extends React.Component {
 
 	componentDidMount () {
 		addLocaleChangeListener(this.onStringsChange);
+		this.applyTheme();
 	}
 
 
@@ -81,6 +82,22 @@ export default class App extends React.Component {
 
 
 	attachRef = x => this.frame = x
+
+
+	applyTheme () {
+		const branding = getConfigFor('branding');
+		const themeProperties = Theme.buildTheme.DefaultProperties;
+
+		themeProperties.assets.fullLogo.href = Theme.buildTheme.makeAssetHREFFallbacks('/site-assets/shared/brand_mobile.png');
+
+		const theme = Theme.buildTheme(themeProperties);
+
+		theme.setOverrides(Theme.siteBrandToTheme(branding));
+
+		this.setState({
+			theme
+		});
+	}
 
 
 	gotoURL = (url) => {
@@ -105,7 +122,7 @@ export default class App extends React.Component {
 
 
 	render () {
-		const {state: {hasError, mask}, props: {path}} = this;
+		const {state: {hasError, mask, theme}, props: {path}} = this;
 		const isGated = /\/(login|onboarding)/i.test(path || global.location.href);
 
 		const Wrapper = isGated ? 'div' : AppContainer;
@@ -120,13 +137,15 @@ export default class App extends React.Component {
 
 
 		return (
-			<Session>
-				<CaptureClicks gotoURL={this.gotoURL}>
-					<Wrapper ref={this.attachRef}>
-						<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
-					</Wrapper>
-				</CaptureClicks>
-			</Session>
+			<Theme.Apply theme={theme}>
+				<Session>
+					<CaptureClicks gotoURL={this.gotoURL}>
+						<Wrapper ref={this.attachRef}>
+							<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
+						</Wrapper>
+					</CaptureClicks>
+				</Session>
+			</Theme.Apply>
 		);
 	}
 }

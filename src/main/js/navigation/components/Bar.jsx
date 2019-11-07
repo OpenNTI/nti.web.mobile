@@ -106,7 +106,8 @@ export default createReactClass({
 		border: PropTypes.bool,
 		useCommonTabs: PropTypes.bool,
 		menuInitialState: PropTypes.oneOf(['open', 'closed']),
-		searchTerm: PropTypes.string
+		searchTerm: PropTypes.string,
+		theme: PropTypes.object
 	},
 
 	getDefaultProps () {
@@ -441,14 +442,17 @@ export default createReactClass({
 
 
 	renderBar () {
-		const {supportsSearch, border, className, useCommonTabs} = this.props;
+		const {supportsSearch, border, className, useCommonTabs, theme} = this.props;
 		let {pageSource, current, currentPage, context, resolving, searchOpen, pagerProps} = this.state;
 		const root = pageSource && pageSource.root;
 		const toc = root && root.toc;
 		const isRealPages = (toc && !!toc.realPageIndex) || false;
 
 		return (
-			<nav className={cx('nav-bar', {border, 'use-common-tabs': useCommonTabs}, className)}>
+			<nav
+				className={cx('nav-bar', {border, 'use-common-tabs': useCommonTabs}, className)}
+				style={{background: theme && theme.backgroundColor}}
+			>
 				{this.getLeft()}
 				<section className={cx('middle', {'has-pager': pageSource, resolving})}>
 					{this.getCenter()}
@@ -456,7 +460,11 @@ export default createReactClass({
 				<section className={cx('right-section')}>
 					{pageSource && !pagerProps && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} toc={toc} />}
 					{pagerProps && (<Pager {...pagerProps} navigatableContext={context} />)}
-					{(supportsSearch || (current && current.supportsSearch)) && (<a href="#"><i className="icon-search launch-search" onClick={this.launchSearch} /></a>)}
+					{(supportsSearch || (current && current.supportsSearch)) && (
+						<a href="#">
+							<i className={cx('icon-search launch-search', theme && theme.icon)} onClick={this.launchSearch} />
+						</a>
+					)}
 					{this.getRight()}
 				</section>
 				{searchOpen && this.renderSearch()}
@@ -517,12 +525,15 @@ export default createReactClass({
 
 
 	renderSearch () {
+		const {theme} = this.props;
+		const icon = theme && theme.icon;
+
 		return (
-			<div className="search-container">
-				<i className="icon-search" />
-				<Input ref={this.attachSearchRef} />
+			<div className="search-container" style={{backgroundColor: theme && theme.backgroundColor}} >
+				<i className={cx('icon-search', icon)} />
+				<Input className={cx(theme && theme.search)} ref={this.attachSearchRef} />
 				<a href="#" className="close-search" onClick={this.closeSearch}>
-					<i className="icon-bold-x"/>
+					<i className={cx('icon-bold-x', icon)}/>
 				</a>
 			</div>
 		);

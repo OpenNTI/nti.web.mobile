@@ -5,14 +5,24 @@ import PropTypes from 'prop-types';
 import {searchable, contextual} from '@nti/web-search';
 import {View as SearchableLibrary} from '@nti/web-library';
 import {encodeForURI} from '@nti/lib-ntiids';
+import {Theme} from '@nti/web-commons';
 import {Navigation} from '@nti/web-content';
 
 import NavigationBar from 'navigation/components/Bar';
 
-import Branding from './Branding';
 
 function getRememberedRoute (obj) {
 	return Navigation.RememberedRoutes.getRememberedRoute([obj.getID ? obj.getID() : obj]);
+}
+
+function LibraryNavBar (props) {
+	const theme = Theme.useThemeProperty('library.navigation');
+
+	return (
+		<NavigationBar {...props} theme={theme}>
+			<Theme.Asset className="library-branding-asset" property={theme.branding} position="left"/>
+		</NavigationBar>
+	);
 }
 
 export default
@@ -71,10 +81,7 @@ class Home extends React.Component {
 
 		return (
 			<>
-				<NavigationBar supportsSearch className="searchable-library" searchTerm={searchTerm}>
-					<Branding position="left"/>
-				</NavigationBar>
-
+				<LibraryNavBar supportsSearch className="searchable-library" searchTerm={searchTerm} />
 				<SearchableLibrary />
 			</>
 		);
