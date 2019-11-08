@@ -1,8 +1,15 @@
 @import "~@nti/style-common";
 
+.library-branding-container {
+	max-width: 150px;
+	overflow: hidden;
+	height: 45px;
+}
+
 .library-branding-asset {
 	max-height: 45px;
 	width: auto;
+	display: block;
 }
 
 nav.nav-bar.searchable-library {

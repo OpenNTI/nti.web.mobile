@@ -20,7 +20,9 @@ function LibraryNavBar (props) {
 
 	return (
 		<NavigationBar {...props} theme={theme}>
-			<Theme.Asset className="library-branding-asset" property={theme.branding} position="left"/>
+			<div className="library-branding-container" position="left">
+				<Theme.Asset className="library-branding-asset" property={theme.branding} />
+			</div>
 		</NavigationBar>
 	);
 }
