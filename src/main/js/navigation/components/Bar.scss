@@ -66,6 +66,7 @@ nav.nav-bar {
 	position: relative;
 	display: flex;
 	background: #fff;
+	min-height: 45px;
 	z-index: 1002;
 
 	&.border {
@@ -249,6 +250,10 @@ nav.nav-bar {
 
 		&.right-section {
 			text-align: right;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
 
 			.pager .counts {
 				display: none;
