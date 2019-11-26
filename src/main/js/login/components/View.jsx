@@ -5,13 +5,9 @@ import Redirect from 'navigation/components/Redirect';
 export default function LoginView () {
 	const href = global.location?.href;
 	const url = new URL(href);
-	const returnParam = url.searchParams.get('return');
+	const returnParam = url.searchParams.get('return') || '/mobile';
 
-	let redirect = '/login/';
-
-	if (returnParam) {
-		redirect = `${redirect}?return=${encodeURIComponent(returnParam)}`;
-	}
+	let redirect = `/login/?return=${encodeURIComponent(returnParam)}`;
 
 	return (
 		<Redirect location={redirect} force />
