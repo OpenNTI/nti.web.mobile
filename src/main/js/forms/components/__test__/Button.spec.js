@@ -19,7 +19,7 @@ describe('FooBar', ()=> {
 		document.body.appendChild(container);
 
 		//TODO: update example to use ref callback since render()'s return value is deprecated.
-		component = ReactDOM.render(
+		component = ReactDOM.render(//eslint-disable-line
 			React.createElement(Button, {href: '#'}, 'Test'),
 			container
 		);
