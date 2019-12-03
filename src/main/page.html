@@ -54,7 +54,7 @@
 		<script type="text/javascript">
 			window.onerror = function(msg) {
 				if (!window.appInitialized) {
-					window.location.replace('/login/unsupported.html?error='+encodeURIComponent(msg));
+					window.location.replace('/login/unsupported?error='+encodeURIComponent(msg));
 				}
 			}
 		</script>
