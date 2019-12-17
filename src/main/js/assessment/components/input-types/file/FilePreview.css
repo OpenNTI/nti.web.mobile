@@ -1,0 +1,31 @@
+.file-preview {
+	display: flex;
+	font-size: 0.875rem;
+	font-weight: bold;
+	box-shadow: 0 0 0 1px var(--tertiary-grey);
+}
+
+.file-preview .info {
+	line-height: normal;
+	padding: 0.5em 1em;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.file-preview .info > * {
+	flex: 0 1 auto;
+}
+
+.file-preview .info .metadata > * {
+	margin-right: 0.5em;
+}
+
+.file-preview .file-icon {
+	flex: 0 1 auto;
+	box-shadow: 1px 0 0 var(--tertiary-grey);
+}
+
+.file-preview .file-size {
+	color: var(--secondary-grey);
+}

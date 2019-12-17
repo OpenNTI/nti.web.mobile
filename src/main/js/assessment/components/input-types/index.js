@@ -2,7 +2,7 @@ import React from 'react';
 
 import Unknown from './Unknown';
 //
-// import File from './File';
+import File from './file';
 //
 import FreeResponse from './FreeResponse';
 import ModeledContent from './ModeledContent';
@@ -22,7 +22,7 @@ import FillInTheBlankWithWordBank from './FillInTheBlankWithWordBank';
 
 const KINDS = [
 	Unknown,
-	// File,
+	File,
 	FreeResponse,
 	ModeledContent,
 	MultipleChoice,
