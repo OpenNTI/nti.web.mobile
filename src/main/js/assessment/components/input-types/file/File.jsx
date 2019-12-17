@@ -80,7 +80,7 @@ export default createReactClass({
 		const {item} = this.props;
 		const errs = item?.validateFile?.(file);
 		this.setState({errs});
-		return errs.length === 0;
+		return !errs || errs.length === 0;
 	},
 
 	attachRef (x) { this.fileInput = x; },
