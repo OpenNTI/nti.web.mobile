@@ -1,0 +1,6 @@
+.file-upload .file-input.with-value {
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	position: absolute;
+}

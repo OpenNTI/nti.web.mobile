@@ -7,7 +7,7 @@ import styles from './FilePreview.css';
 
 const cx = classnames.bind(styles);
 
-export default function FilePreview ({value}) {
+export default function FilePreview ({value, onChange, onClear}) {
 	if (!value) {return null;}
 
 	const {
@@ -32,6 +32,8 @@ export default function FilePreview ({value}) {
 				</div>
 				<div className={cx('controls')}>
 					{href && <a href={href} download className={cx('download')}>Download</a>}
+					{onChange && <button className={cx('change-button')} onClick={onChange}>Change</button>}
+					{onClear && <i className={cx('icon-bold-x', 'clear-button')} onClick={onClear} />}
 				</div>
 			</div>
 		</div>
@@ -39,6 +41,8 @@ export default function FilePreview ({value}) {
 }
 
 FilePreview.propTypes = {
+	onChange: PropTypes.func,
+	onClear: PropTypes.func,
 	value: PropTypes.shape({
 		FileMimeType: PropTypes.string.isRequired,
 		name: PropTypes.string,

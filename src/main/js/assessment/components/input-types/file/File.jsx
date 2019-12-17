@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { isEmpty } from '@nti/lib-commons';
 import { Input } from '@nti/web-commons';
+import classnames from 'classnames/bind';
 
 import InputType, {stopEvent} from '../Mixin';
 
 import Preview from './FilePreview';
+import styles from './File.css';
 
-const hasValue = x => x && !isEmpty(x.value);
-
+const cx = classnames.bind(styles);
 
 /**
  * This input type represents File upload
@@ -43,39 +43,37 @@ export default createReactClass({
 		// console.log(this.getFileReader().result);
 		this.setState({
 			value: {
-				...(this.state.value || {}),
+				...(this.state.value || {}), // mimetype, filename
 				value: this.getFileReader().result
 			}
 		});
-			
+
 		this.handleInteraction();
 	},
 
-	onFileLoadEnd (e) {
-		console.log(e);
-	},
+	// onFileLoadEnd (e) {
+	// 	console.log(e);
+	// },
 
-	onFileProgress (e) {
-		console.log(e);
-	},
+	// onFileProgress (e) {
+	// 	console.log(e);
+	// },
 
 	onFileChange (file) {
-		console.log(file);
-		if (!file) {return;}
-		this.handleInteraction();
+		const value = !file ? null : {
+			MimeType: 'application/vnd.nextthought.assessment.uploadedfile',
+			filename: file.filename || file.name,
+			FileMimeType: file.type,
+			size: file.size,
+			value: null
+		};
 
+		this.setState({value}, this.handleInteraction);
 
-		this.setState({
-			value: {
-				MimeType: 'application/vnd.nextthought.assessment.uploadedfile',
-				filename: file.filename || file.name,
-				FileMimeType: file.type,
-				value: null
-			}
-		});
-
-		const reader = this.getFileReader();
-		reader.readAsDataURL(file);
+		if (file) {
+			const reader = this.getFileReader();
+			reader.readAsDataURL(file);
+		}
 	},
 
 	checkFileValidity (file) {
@@ -85,22 +83,47 @@ export default createReactClass({
 		return errs.length === 0;
 	},
 
+	attachRef (x) { this.fileInput = x; },
+
+	changeFile (e) {
+		stopEvent(e);
+		this.fileInput?.input?.click();
+	},
+
+	clearFile (e) {
+		stopEvent(e);
+		this.fileInput?.clearFile();
+	},
+
 	render () {
 		const {valid, value} = this.state;
 		const message = valid === false ? 'Unacceptable file chosen.' : null;
 		const readOnly = this.isSubmitted();
+		const hasValue = !!value;
 
 		return (
-			<div className="file-upload-form">
-				{!readOnly && <Input.File onFileChange={this.onFileChange} checkValid={this.checkFileValidity} />}
+			<div className={cx('file-upload')}>
+				{!readOnly && (
+					<Input.File
+						className={cx('file-input', {'with-value': hasValue})}
+						ref={this.attachRef}
+						onFileChange={this.onFileChange}
+						checkValid={this.checkFileValidity}
+					/>
+				)}
 				{message && (
 					<div>{message}</div>
 				)}
-				<Preview value={value} />
+				{value && (
+					<Preview
+						value={value}
+						onClear={readOnly ? null : this.clearFile}
+						onChange={readOnly ? null : this.changeFile}
+					/>
+				)}
 			</div>
 		);
 	},
-
 
 	getValue () {
 		return this.state.value;

@@ -6,8 +6,10 @@ import Logger from '@nti/util-logger';
 import {getModel} from '@nti/lib-interfaces';
 import {Loading} from '@nti/web-commons';
 import {rawContent} from '@nti/lib-commons';
+import {scoped as locale} from '@nti/lib-locale';
 import {getPageContent, PageDescriptor} from '@nti/lib-content-processing';
 
+import GotoItem from 'common/components/GotoItem';
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import {select as getAnnotation} from '../viewer-parts/annotations';
@@ -16,6 +18,10 @@ import {getWidget} from '../widgets';
 
 
 const logger = Logger.get('content:components:discussions:Context');
+
+const t = locale('activity.item', {
+	goto: 'Read More'
+});
 
 const PageInfo = getModel('pageinfo');
 
@@ -202,15 +208,22 @@ export default class extends React.Component {
 					? ( <ContentAcquirePrompt {...props} relatedItem={item} data={error}/> )
 					: ( null )
 				)
-				: (typeof context === 'string')
-					? ( <div ref={this.attachRef} {...props} {...rawContent(context)}/> )
-					: (
-						<div ref={this.attachRef} {...props}>
-							{
-								React.createElement(context.type,
-									{...context.props, ref: this.attachWRef})
-							}
-						</div>
-					);
+				: (
+					<div>
+						{
+							(typeof context === 'string')
+								? ( <div ref={this.attachRef} {...props} {...rawContent(context)}/> )
+								: (
+									<div ref={this.attachRef} {...props}>
+										{
+											React.createElement(context.type,
+												{...context.props, ref: this.attachWRef})
+										}
+									</div>
+								)
+						}
+						<GotoItem item={item}>{t('goto')}</GotoItem>
+					</div>
+				);
 	}
 }

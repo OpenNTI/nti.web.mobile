@@ -3,6 +3,7 @@
 	font-size: 0.875rem;
 	font-weight: bold;
 	box-shadow: 0 0 0 1px var(--tertiary-grey);
+	position: relative;
 }
 
 .file-preview .info {
@@ -17,6 +18,22 @@
 	flex: 0 1 auto;
 }
 
+.file-preview .controls {
+	font-weight: bold;
+}
+
+.file-preview .clear-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0.5rem;
+	cursor: pointer;
+}
+
+.file-preview .controls > :not(.clear-button) {
+	margin-right: 1.5em;
+}
+
 .file-preview .info .metadata > * {
 	margin-right: 0.5em;
 }
@@ -28,4 +45,12 @@
 
 .file-preview .file-size {
 	color: var(--secondary-grey);
+}
+
+.file-preview .change-button {
+	background: none;
+	padding: 0;
+	display: inline;
+	color: var(--primary-blue, #3fb3f6);
+	font-weight: inherit;
 }
