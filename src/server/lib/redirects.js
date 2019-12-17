@@ -24,6 +24,8 @@ const HANDLERS = {
 	//the path may not always start with /app/ but it will always be have one path segment in front.
 	handleLibraryPathRedirects: /^\/[^/]+\/library/i,
 	handleCatalogPathRedirects: /^\/[^/]+\/catalog\/nti-course-catalog-entry/i,
+	handleBundlePathRedirect: /^\/[^/]+\/bundle/i,
+	handleCommunityPathRedirect: /^\/[^/]+\/community/i
 };
 
 exports = module.exports = {
@@ -173,6 +175,34 @@ exports = module.exports = {
 		}
 
 		next();
+	},
+
+
+	handleBundlePathRedirect (query, res, next) {
+		const partMap = {
+			app: '',
+			bundle: 'content',
+			content: 'o',
+			notebook: 'n'
+		};
+
+		const fixed = query.split('/')
+			.map(part => partMap[part] == null ? part : partMap[part])
+			.filter(Boolean);
+
+		res.redirect(path.join(this.basepath, ...fixed));
+	},
+
+	handleCommunityPathRedirect (query, res, next) {
+		const partMap = {
+			app: ''
+		};
+
+		const fixed = query.split('/')
+			.map(part => partMap[part] == null ? part : partMap[part])
+			.filter(Boolean);
+
+		res.redirect(path.join(this.basepath, ...fixed));
 	},
 
 
