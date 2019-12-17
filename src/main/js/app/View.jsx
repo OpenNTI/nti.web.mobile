@@ -7,6 +7,7 @@ import {Session} from '@nti/web-session';
 import {reportError, getConfigFor} from '@nti/web-client';
 import {Error, Loading, Layouts, Theme} from '@nti/web-commons';
 import Logger from '@nti/util-logger';
+import {parent} from '@nti/lib-dom';
 import {
 	addChangeListener as addLocaleChangeListener,
 	removeChangeListener as removeLocaleChangeListener
@@ -64,6 +65,8 @@ export default class App extends React.Component {
 	componentDidMount () {
 		addLocaleChangeListener(this.onStringsChange);
 		this.applyTheme();
+
+		this.addGlobalLinkFixer();
 	}
 
 
@@ -82,6 +85,22 @@ export default class App extends React.Component {
 
 
 	attachRef = x => this.frame = x
+
+	addGlobalLinkFixer () {
+		if (typeof document === 'undefined') { return; }
+
+		const {basePath} = this.props;
+		const app = URL.resolve((global.location || {}).href || '', basePath);
+
+		document.addEventListener('click', (e) => {
+			const anchor = parent(e.target, 'a');
+			const {href} = anchor || {};
+
+			if ((href || '').startsWith(app)) { return; }
+
+			anchor.rel = (`${anchor.rel || ''} external`).trim();
+		}, true);
+	}
 
 
 	applyTheme () {
