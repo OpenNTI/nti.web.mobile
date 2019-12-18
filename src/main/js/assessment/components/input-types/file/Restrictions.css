@@ -1,0 +1,8 @@
+.restrictions {
+	font-size: 0.875rem;
+}
+
+.restrictions .label {
+	font-weight: bold;
+	margin-right: 0.5em;
+}

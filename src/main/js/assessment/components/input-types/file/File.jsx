@@ -1,15 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Input } from '@nti/web-commons';
+import { Errors, Input } from '@nti/web-commons';
+import {scoped} from '@nti/lib-locale';
 import classnames from 'classnames/bind';
 
 import InputType, {stopEvent} from '../Mixin';
 
 import Preview from './FilePreview';
+import Restrictions from './Restrictions';
 import styles from './File.css';
 
 const cx = classnames.bind(styles);
+
+const t = scoped('nti-web-mobile.assessment.inputtypes.file', {
+	uploadButton: 'Upload a File'
+});
+
 
 /**
  * This input type represents File upload
@@ -96,23 +103,31 @@ export default createReactClass({
 	},
 
 	render () {
-		const {valid, value} = this.state;
-		const message = valid === false ? 'Unacceptable file chosen.' : null;
+		const {item} = this.props;
+		const {errs, value} = this.state;
 		const readOnly = this.isSubmitted();
 		const hasValue = !!value;
 
 		return (
 			<div className={cx('file-upload')}>
 				{!readOnly && (
-					<Input.File
-						className={cx('file-input', {'with-value': hasValue})}
-						ref={this.attachRef}
-						onFileChange={this.onFileChange}
-						checkValid={this.checkFileValidity}
-					/>
+					<div>
+						<Input.File
+							className={cx('file-input', {'with-value': hasValue})}
+							buttonClass={cx('upload-button')}
+							omitFilename
+							ref={this.attachRef}
+							label={t('uploadButton')}
+							onFileChange={this.onFileChange}
+							checkValid={this.checkFileValidity}
+						/>
+						{!value && (
+							<Restrictions item={item} />
+						)}
+					</div>
 				)}
-				{message && (
-					<div>{message}</div>
+				{errs?.length > 0 && (
+					<Errors.Message error={errs[0]} />
 				)}
 				{value && (
 					<Preview

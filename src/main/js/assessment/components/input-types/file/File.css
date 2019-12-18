@@ -1,3 +1,11 @@
+.file-upload .file-input {
+	display: block;
+}
+
+.file-upload .file-input .upload-button {
+	display: block;
+}
+
 .file-upload .file-input.with-value {
 	max-height: 0;
 	overflow: hidden;
