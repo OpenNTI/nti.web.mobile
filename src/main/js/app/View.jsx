@@ -96,7 +96,7 @@ export default class App extends React.Component {
 			const anchor = parent(e.target, 'a');
 			const {href} = anchor || {};
 
-			if ((href || '').startsWith(app)) { return; }
+			if (!anchor || (href || '').startsWith(app)) { return; }
 
 			anchor.rel = (`${anchor.rel || ''} external`).trim();
 		}, true);
