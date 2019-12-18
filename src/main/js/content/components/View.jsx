@@ -21,9 +21,29 @@ import Index from './Index';
 import Page from './Page';
 import Notebook from './Notebook';
 
+FindPage.propTypes = {
+	contentPackage: PropTypes.object
+};
+function FindPage ({contentPackage}) {
+	const path = global.location && global.location.pathname;
+	const pack = contentPackage && contentPackage.ContentPackages && contentPackage.ContentPackages[0];
+
+	if (!path || !pack) { return null; }
+
+	const [pre, page] = path.split('/page/');
+	const root = pack.getID();
+
+	const newPath = `${pre}/o/${root}/${page}`;
+
+	return (
+		<Redirect location={newPath} force />
+	);
+}
+
 const ROUTES = [
 	// {path: '/v(/*)', pageContent: Media},
 	{path: '/o(/*)', pageContent: Index},
+	{path: '/page(/*)', pageContent: FindPage},
 	{path: '/d(/*)', pageContent: Discussions},
 	{path: '/n(/*)', pageContent: Notebook},
 	{path: '/community(/*)', pageContent: Community},

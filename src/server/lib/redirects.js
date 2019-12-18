@@ -182,7 +182,7 @@ exports = module.exports = {
 		const partMap = {
 			app: '',
 			bundle: 'content',
-			content: 'o',
+			content: 'page',
 			notebook: 'n'
 		};
 
