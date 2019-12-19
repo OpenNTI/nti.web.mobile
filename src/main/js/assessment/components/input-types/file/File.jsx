@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -85,7 +86,12 @@ export default createReactClass({
 
 	checkFileValidity (file) {
 		const {item} = this.props;
-		const errs = item?.validateFile?.(file);
+		// const errs = item?.validateFile?.(file);
+		console.group('validating file');
+		console.log(file);
+		const errs = item.validateFile(file);
+		console.log(errs);
+		console.groupEnd();
 		this.setState({errs});
 		return !errs || errs.length === 0;
 	},
