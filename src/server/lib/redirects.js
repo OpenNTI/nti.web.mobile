@@ -37,6 +37,7 @@ exports = module.exports = {
 			// the query (q) is deprecated, but
 			// if its present, it trumps the path (p)
 			let redirectParam = req.query.q || req.query.p;
+			let redirectFragment = req.query.f;
 			if (!redirectParam) {
 				return next();
 			}
@@ -46,7 +47,7 @@ exports = module.exports = {
 			for (let handlerName of Object.keys(HANDLERS)) {
 				let test = HANDLERS[handlerName];
 				if (redirectParam.match(test)) {
-					return this[handlerName](redirectParam, res, next);
+					return this[handlerName](redirectParam, res, next, redirectFragment);
 				}
 			}
 
@@ -178,7 +179,7 @@ exports = module.exports = {
 	},
 
 
-	handleBundlePathRedirect (query, res, next) {
+	handleBundlePathRedirect (query, res, next, fragment) {
 		const partMap = {
 			app: '',
 			bundle: 'content',
@@ -190,7 +191,13 @@ exports = module.exports = {
 			.map(part => partMap[part] == null ? part : partMap[part])
 			.filter(Boolean);
 
-		res.redirect(path.join(this.basepath, ...fixed));
+		let url = path.join(this.basepath, ...fixed);
+
+		if (fragment) {
+			url = `${url}#${fragment}`;
+		}
+
+		res.redirect(url);
 	},
 
 	handleCommunityPathRedirect (query, res, next) {

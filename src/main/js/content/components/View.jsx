@@ -26,6 +26,7 @@ FindPage.propTypes = {
 };
 function FindPage ({contentPackage}) {
 	const path = global.location && global.location.pathname;
+	const hash = global.location && global.location.hash;
 	const pack = contentPackage && contentPackage.ContentPackages && contentPackage.ContentPackages[0];
 
 	if (!path || !pack) { return null; }
@@ -33,7 +34,7 @@ function FindPage ({contentPackage}) {
 	const [pre, page] = path.split('/page/');
 	const root = pack.getID();
 
-	const newPath = `${pre}/o/${root}/${page}`;
+	const newPath = `${pre}/o/${root}/${page}/${hash || ''}`;
 
 	return (
 		<Redirect location={newPath} force />
