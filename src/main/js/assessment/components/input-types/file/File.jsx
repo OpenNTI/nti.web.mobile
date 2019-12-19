@@ -29,7 +29,8 @@ export default createReactClass({
 	statics: {
 		inputType: [
 			'File'
-		]
+		],
+		containerClass: cx('file-upload-container')
 	},
 
 	propTypes: {
@@ -88,6 +89,7 @@ export default createReactClass({
 		const {item} = this.props;
 		// const errs = item?.validateFile?.(file);
 		const errs = item.validateFile(file);
+
 		this.setState({errs});
 		return !errs || errs.length === 0;
 	},

@@ -1,3 +1,9 @@
+:global(.form-input.administrative).file-upload-container,
+:global(.form-input.administrative).file-upload-container * {
+	pointer-events: all; /* override the administrative css to allow downloads */
+	opacity: 1;
+}
+
 .file-upload .file-input {
 	display: block;
 }

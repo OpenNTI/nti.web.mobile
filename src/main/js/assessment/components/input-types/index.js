@@ -35,17 +35,25 @@ const KINDS = [
 	FillInTheBlankWithWordBank
 ];
 
-export function getInputWidget (item, index) {
-	let Item = Unknown;
+function inputComponent (item) {
 
 	for (let Type of KINDS) {
 		if (Type !== Unknown && Type.handles && Type.handles(item)) {
-			Item = Type;
-			break;
+			return Type;
 		}
 	}
 
-	return React.createElement(Item, {
+	return Unknown;
+}
+
+export function containerClass (item) {
+	return inputComponent(item).containerClass;
+}
+
+export function getInputWidget (item, index) {
+	const Component = inputComponent(item);
+
+	return React.createElement(Component, {
 		ref: 'input',
 		key: 'question-input-' + index,
 		index, item

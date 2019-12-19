@@ -12,7 +12,7 @@ import {
 	HELP_VIEW_SOLUTION
 } from '../Constants';
 
-import {getInputWidget} from './input-types';
+import {containerClass, getInputWidget} from './input-types';
 import {getSolutionWidget} from './solution-types';
 import WordBank from './WordBank';
 import Content from './Content';
@@ -114,7 +114,7 @@ export default createReactClass({
 		const css = cx('form-input', {
 			'hidden': helpVisible,
 			'administrative': viewerIsAdministrative
-		});
+		}, containerClass(part));
 
 
 		return (
