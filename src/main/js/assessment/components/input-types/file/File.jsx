@@ -87,11 +87,7 @@ export default createReactClass({
 	checkFileValidity (file) {
 		const {item} = this.props;
 		// const errs = item?.validateFile?.(file);
-		console.group('validating file');
-		console.log(file);
 		const errs = item.validateFile(file);
-		console.log(errs);
-		console.groupEnd();
 		this.setState({errs});
 		return !errs || errs.length === 0;
 	},
