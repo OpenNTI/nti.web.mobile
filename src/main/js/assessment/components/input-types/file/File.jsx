@@ -72,7 +72,7 @@ export default createReactClass({
 		const value = !file ? null : {
 			MimeType: 'application/vnd.nextthought.assessment.uploadedfile',
 			filename: file.filename || file.name,
-			FileMimeType: file.type,
+			...(file.type ? {FileMimeType: file.type} : {}),
 			size: file.size,
 			value: null
 		};

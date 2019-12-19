@@ -44,7 +44,7 @@ FilePreview.propTypes = {
 	onChange: PropTypes.func,
 	onClear: PropTypes.func,
 	value: PropTypes.shape({
-		FileMimeType: PropTypes.string.isRequired,
+		FileMimeType: PropTypes.string,
 		name: PropTypes.string,
 		filename: PropTypes.string,
 		size: PropTypes.number.isRequired,
