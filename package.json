@@ -47,7 +47,7 @@
     "@nti/lib-decorators": "^1.5.0",
     "@nti/lib-dispatcher": "^1.0.0",
     "@nti/lib-dom": "^1.9.0",
-    "@nti/lib-interfaces": "^1.116.0",
+    "@nti/lib-interfaces": "^1.129.0",
     "@nti/lib-locale": "^1.2.0",
     "@nti/lib-ranges": "^1.0.0",
     "@nti/lib-store": "^1.2.0",
