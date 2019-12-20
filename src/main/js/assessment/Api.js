@@ -38,7 +38,7 @@ export function saveProgress (assessment) {
 		return Promise.reject('Nothing to do.');
 	}
 
-	return main.postSavePoint(progress);
+	return main.postSavePoint(progress, true);
 }
 
 

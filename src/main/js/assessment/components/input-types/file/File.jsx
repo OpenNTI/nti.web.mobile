@@ -17,19 +17,10 @@ const t = scoped('nti-web-mobile.assessment.inputtypes.file', {
 	uploadButton: 'Upload a File'
 });
 
-function getQuestionSet (item) {
-	return item.parent('MimeType', 'application/vnd.nextthought.naquestionset');
-}
-
-function getSubmissionPart (savepoint, item) {
-	// savepoint.Submission.parts[0].questions[1].parts[0]
+function getSubmissionPartValue (savepoint, item) {
 	try {
-		const questionSet = getQuestionSet(item);
-		const qsid = questionSet.getID();
-		const submissionQuestionSet = (savepoint.Submission.parts || []).find(({questionSetId}) => questionSetId === qsid);
-		const questionId = item.getQuestionId();
-		const question = (submissionQuestionSet.questions || []).find(({questionId: qid}) => qid === questionId);
-		return question.parts[item.getPartIndex()];
+		const questionSubmission = savepoint.Submission.getQuestion(item.getQuestionId());
+		return questionSubmission.getPartValue(item.getPartIndex());
 	}
 	catch (e) {
 		return undefined;
@@ -96,7 +87,7 @@ export default createReactClass({
 
 	onProgressSaved (savepoint, question) {
 		const {item} = this.props;
-		const submissionPart = getSubmissionPart(savepoint, item);
+		const submissionPart = getSubmissionPartValue(savepoint, item);
 		this.setValue(submissionPart);
 		question.setPartValue(item.getPartIndex(), submissionPart);
 	},
