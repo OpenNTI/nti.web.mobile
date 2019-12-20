@@ -131,7 +131,7 @@ export default {
 
 		this.setState({ interacted: true, value: v });
 		if (!locked) {
-			partInteracted(p.item, v, delay);
+			partInteracted(p.item, v, delay, this.onProgressSaved);
 		}
 	}
 };

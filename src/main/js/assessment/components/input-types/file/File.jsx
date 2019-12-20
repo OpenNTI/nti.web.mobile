@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -18,6 +17,24 @@ const t = scoped('nti-web-mobile.assessment.inputtypes.file', {
 	uploadButton: 'Upload a File'
 });
 
+function getQuestionSet (item) {
+	return item.parent('MimeType', 'application/vnd.nextthought.naquestionset');
+}
+
+function getSubmissionPart (savepoint, item) {
+	// savepoint.Submission.parts[0].questions[1].parts[0]
+	try {
+		const questionSet = getQuestionSet(item);
+		const qsid = questionSet.getID();
+		const submissionQuestionSet = (savepoint.Submission.parts || []).find(({questionSetId}) => questionSetId === qsid);
+		const questionId = item.getQuestionId();
+		const question = (submissionQuestionSet.questions || []).find(({questionId: qid}) => qid === questionId);
+		return question.parts[item.getPartIndex()];
+	}
+	catch (e) {
+		return undefined;
+	}
+}
 
 /**
  * This input type represents File upload
@@ -60,14 +77,6 @@ export default createReactClass({
 		this.handleInteraction();
 	},
 
-	// onFileLoadEnd (e) {
-	// 	console.log(e);
-	// },
-
-	// onFileProgress (e) {
-	// 	console.log(e);
-	// },
-
 	onFileChange (file) {
 		const value = !file ? null : {
 			MimeType: 'application/vnd.nextthought.assessment.uploadedfile',
@@ -83,6 +92,13 @@ export default createReactClass({
 			const reader = this.getFileReader();
 			reader.readAsDataURL(file);
 		}
+	},
+
+	onProgressSaved (savepoint, question) {
+		const {item} = this.props;
+		const submissionPart = getSubmissionPart(savepoint, item);
+		this.setValue(submissionPart);
+		question.setPartValue(item.getPartIndex(), submissionPart);
 	},
 
 	checkFileValidity (file) {

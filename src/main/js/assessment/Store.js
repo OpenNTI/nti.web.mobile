@@ -191,7 +191,7 @@ class Store extends StorePrototype {
 
 	[OnInteracted] (payload) {
 		let {action} = payload;
-		let {part, value, savepointBuffer} = action;
+		let {part, value, savepointBuffer, callback} = action;
 
 		let key = this[GetAssessmentKey](part);
 		let s = this.data[key];
@@ -215,7 +215,7 @@ class Store extends StorePrototype {
 
 		this.clearError(part);
 
-		this[SaveProgress](part, savepointBuffer);
+		this[SaveProgress](part, savepointBuffer, callback);
 
 		this.emitChange({type: INTERACTED});
 	}
@@ -227,7 +227,7 @@ class Store extends StorePrototype {
 	}
 
 
-	[SaveProgress] (part, buffer = 1000) {
+	[SaveProgress] (part, buffer = 1000, callback) {
 		let main = getMainSubmittable(part);
 		if (!main.postSavePoint) {
 			return;
@@ -264,9 +264,16 @@ class Store extends StorePrototype {
 						this[MaybeMoveToSubmitted](part);
 					}
 				})
-				.then(() => {
+				.then((r) => {
 					this.markBusy(part, false);
 					this.emitChange({type: BUSY_SAVEPOINT});
+					if (callback) {
+						let key = this[GetAssessmentKey](part);
+						let s = this.data[key];
+						let question = getQuestion(s, part);
+
+						callback(r, question);
+					}
 				});
 		});
 	}

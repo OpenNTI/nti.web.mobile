@@ -19,10 +19,11 @@ import {
  * @param {Part} part      Question Part model.
  * @param {any} value      The value
  * @param {number} [savepointBuffer] The optional delay to buffer the save point call by.
+ * @param {function} [progressSaveCb] The optional callback to invoke after saving progress. If provided it will be invoked with the resulting SavepointItem and the QuestionSubmission.
  * @returns {void}
  */
-export function partInteracted (part, value, savepointBuffer) {
-	AppDispatcher.handleViewAction({ type: INTERACTED, part, value, savepointBuffer });
+export function partInteracted (part, value, savepointBuffer, progressSaveCb) {
+	AppDispatcher.handleViewAction({ type: INTERACTED, part, value, savepointBuffer, callback: progressSaveCb });
 }
 
 
