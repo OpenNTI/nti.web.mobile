@@ -607,6 +607,12 @@ class Store extends StorePrototype {
 	}
 
 
+	isPracticeSubmission (part) {
+		let data = this.data[this[GetAssessmentKey](part)];
+		return Boolean(data && data.isPracticeSubmission);
+	}
+
+
 	isWordBankEntryUsed (wordBankEntry) {
 		let {wid} = wordBankEntry;
 		let submission = this.getSubmissionData(wordBankEntry);

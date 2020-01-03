@@ -34,6 +34,8 @@ export default createReactClass({
 		item: PropTypes.object,
 		page: PropTypes.object,
 
+		perspective: PropTypes.string,
+
 		//Static Rendering Path:
 		record: PropTypes.object
 	},
@@ -76,7 +78,7 @@ export default createReactClass({
 
 
 	render () {
-		const {props: {item}, state: {question}} = this;
+		const {props: {item, perspective}, state: {question}} = this;
 
 		if (!question) {
 			return (
@@ -87,7 +89,7 @@ export default createReactClass({
 		const Widget = question.isPoll ? PollWidget : QuestionWidget;
 
 		return  (
-			<Widget question={question} number={item.number}/>
+			<Widget question={question} number={item.number} perspective={perspective} />
 		);
 	}
 });

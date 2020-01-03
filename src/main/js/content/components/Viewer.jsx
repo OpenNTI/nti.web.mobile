@@ -57,6 +57,7 @@ export default createReactClass({
 	propTypes: {
 		rootId: PropTypes.string,
 		pageId: PropTypes.string,
+		userId: PropTypes.string,
 		contentPackage: PropTypes.object,
 		pageSource: PropTypes.object, //used to specify a custom pager
 		onPageLoaded: PropTypes.func,
@@ -283,7 +284,7 @@ export default createReactClass({
 	},
 
 	renderGroupContents () {
-		const {contentPackage} = this.props;
+		const {contentPackage, userId} = this.props;
 
 		const {
 			annotations, stagedNote, page,
@@ -324,13 +325,16 @@ export default createReactClass({
 					<div className="content-body">
 						{this.renderAssessmentHeader()}
 						<div className="coordinate-root">
-							<BodyContent ref={x => this.content = x}
+							<BodyContent
+								ref={x => this.content = x}
 								onClick={this.onContentClick}
 								onUserSelectionChange={this.maybeOfferAnnotations}
 								onContentReady={this.handleContentUpdate}
 								contentPackage={contentPackage}
 								pageId={page.getCanonicalID()}
-								page={page}/>
+								page={page}
+								perspective={userId}
+							/>
 
 							{this.renderAssessmentFeedback()}
 
