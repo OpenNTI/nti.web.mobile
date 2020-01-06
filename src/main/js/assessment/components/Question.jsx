@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import {StoreEventsMixin} from '@nti/lib-store';
-import {isFlag, getAppUsername} from '@nti/web-client';
+import {isFlag} from '@nti/web-client';
 
 import {Mixin as DragDropOrchestrator} from 'common/dnd';
 
@@ -26,8 +26,7 @@ export default createReactClass({
 
 	propTypes: {
 		question: PropTypes.object.isRequired,
-		number: PropTypes.string,
-		perspective: PropTypes.string
+		number: PropTypes.string
 	},
 
 
@@ -86,12 +85,9 @@ export default createReactClass({
 
 
 	render () {
-		let {question, number, perspective} = this.props;
+		let {question, number} = this.props;
 
 		let admin = Store.isAdministrative(question);
-		let practiceSubmission = Store.isPracticeSubmission(question);
-		let myPerspective = !perspective || perspective === getAppUsername();
-		let adminView = !myPerspective || !practiceSubmission;
 
 		let a = Store.getAssessedQuestion(question, question.getID());
 		let parts = question.parts;
@@ -108,7 +104,7 @@ export default createReactClass({
 		}
 
 		let css = cx('question', status.toLowerCase(), {
-			administrative: adminView,
+			administrative: admin,
 			'not-assessed': !a
 		});
 

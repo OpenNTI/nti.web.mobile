@@ -3,6 +3,7 @@ import Logger from '@nti/util-logger';
 import StorePrototype from '@nti/lib-store';
 import {Prompt} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
+import {getAppUsername} from '@nti/web-client';
 
 import {loadPreviousState, saveProgress} from './Api';
 import {
@@ -402,7 +403,7 @@ class Store extends StorePrototype {
 	}
 
 
-	setupAssessment (assessment, progress, administrative) {
+	setupAssessment (assessment, progress, administrative, perspective) {
 		let main = getMainSubmittable(assessment);
 		if (!main) {
 			return;
@@ -414,7 +415,11 @@ class Store extends StorePrototype {
 
 		let data = main.getSubmission();
 		this.data[main.getID()] = data;
-		if (administrative) {
+
+		const myPerspective = !perspective || perspective === getAppUsername();
+		const isPractice = myPerspective && data.isPracticeSubmission;
+
+		if (administrative && !isPractice) {
 			data.isAdministrative = true;
 		}
 

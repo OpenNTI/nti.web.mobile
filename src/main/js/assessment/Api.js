@@ -54,7 +54,7 @@ export function submit (assessment) {
 						? response
 						: Promise.reject(e));
 
-			if (isAssignment(assessment) && !isHistoryItem(response.Class)) {
+			if (isAssignment(assessment) && !data.isPracticeSubmission && !isHistoryItem(response.Class)) {
 				const loadHistoryFromSubmission = response.getHistory
 					? response.getHistory()
 					: Promise.reject('No Link');

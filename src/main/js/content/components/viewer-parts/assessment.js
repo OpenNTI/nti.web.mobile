@@ -20,7 +20,8 @@ export default {
 	propTypes: {
 		assessment: PropTypes.object,
 		assessmentHistory: PropTypes.object,
-		onTryAgain: PropTypes.func
+		onTryAgain: PropTypes.func,
+		userId: PropTypes.string
 	},
 
 
@@ -69,7 +70,7 @@ export default {
 
 	setupAssessment (props = this.props, state = this.state) {
 		const assess = this.getAssessment(props, state);
-		const {contentPackage, assessmentHistory = true} = props;
+		const {contentPackage, assessmentHistory = true, userId} = props;
 
 		// To be administrative, the content package must be decendent to
 		// an CourseInstanceAdministrativeRole AND its for an Instructor,
@@ -81,7 +82,7 @@ export default {
 						assess && isAssignment(assess)
 		);
 
-		Store.setupAssessment(assess, assessmentHistory, admin);
+		Store.setupAssessment(assess, assessmentHistory, admin, userId);
 	},
 
 
@@ -123,6 +124,7 @@ export default {
 
 
 	renderAssessmentSubmission () {
+		const {userId} = this.props;
 		const {page} = this.state;
 		const quiz = this.getAssessment();
 		if (!page || !quiz || quiz.IsTimedAssignment || !areAssessmentsSupported()) {
@@ -131,7 +133,8 @@ export default {
 
 		return React.createElement(SetSubmissionWidget, {
 			assessment: quiz,
-			page
+			perspective: userId,
+			page,
 		});
 	}
 };
