@@ -26,7 +26,7 @@ class Performance extends React.Component {
 		const {props: {rootId}, state: {summary}} = this;
 
 		return (
-			<ContextSender getContext={getContext}>
+			<ContextSender getContext={rootId ? getContext : null}>
 				{rootId ? (
 					<Assignment {...this.props} pageSource={summary.getPageSource()} />
 				) : (

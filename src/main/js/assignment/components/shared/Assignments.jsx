@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Component as ContextSender} from 'common/mixins/ContextSender';
-
 import Assignments from '../bindings/Assignments';
 
 import AssignmentsListView from './AssignmentsListView';
@@ -27,14 +25,8 @@ class AssignmentsView extends React.Component {
 	render () {
 		const {props: {rootId}, state: {store}} = this;
 
-		return (
-			<ContextSender>
-				{rootId  ? (
-					<Assignment {...this.props} pageSource={store.pageSource} />
-				) : (
-					<PageFrame pageContent={AssignmentsListView} {...this.props} />
-				)}
-			</ContextSender>
-		);
+		return rootId ?
+			(<Assignment {...this.props} pageSource={store.pageSource} />) : 
+			(<PageFrame pageContent={AssignmentsListView} {...this.props} />);
 	}
 }
