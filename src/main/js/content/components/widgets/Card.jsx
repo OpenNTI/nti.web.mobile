@@ -7,6 +7,7 @@ import {isNTIID, encodeForURI} from '@nti/lib-ntiids';
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
 import Mixin from './Mixin';
+import './Card.scss';
 
 export default createReactClass({
 	displayName: 'NTICard',
@@ -94,8 +95,14 @@ export default createReactClass({
 
 	render () {
 		const {item, contentPackage} = this.props;
+		const href = this.getHref();
+
+		if (!href) {
+			return <p className="content-not-found">Unable to load reading.</p>;
+		}
+
 		return (
-			<a href={this.getHref()} onClick={this.handleClick} target={this.isExternal() ? '_blank' : null}>
+			<a href={href} onClick={this.handleClick} target={this.isExternal() ? '_blank' : null}>
 				<Card item={item} contentPackage={contentPackage} />
 			</a>
 		);
