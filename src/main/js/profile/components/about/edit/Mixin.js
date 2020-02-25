@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import uuid from 'uuid';
+import {v4 as uuid} from 'uuid';
 
 export default {
 	propTypes: {
@@ -37,7 +37,7 @@ export default {
 		items = items ? items.slice() : [];
 
 		items.push({
-			id: uuid.v4()
+			id: uuid()
 		});
 
 		this.setState({items});
