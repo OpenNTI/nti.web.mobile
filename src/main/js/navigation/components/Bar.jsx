@@ -78,6 +78,7 @@ function ensureSlash (str) {
 	return str + args;
 }
 
+
 export default createReactClass({
 	displayName: 'NavigationBar',
 	mixins: [StoreEventsMixin, Mixins.BasePath, Mixins.NavigatableMixin],
@@ -211,8 +212,17 @@ export default createReactClass({
 
 
 	fillIn (state = this.state) {
+		const {supportsSearch} = this.props;
 		const {path: contextPath = []} = state;
 		const [current, returnTo] = contextPath.slice().reverse();
+
+		const {searchOpen} = this.state;
+		const willSupportSearch = supportsSearch || current.supportsSearch;
+		const shouldClearSearch = searchOpen && !willSupportSearch;
+
+		if (shouldClearSearch) {
+			this.search?.clear();
+		}
 
 		logger.debug('Context Path: %s', contextPath.map(a=> a ? a.label : void 0).join(', '));
 		this.setState({
@@ -221,7 +231,8 @@ export default createReactClass({
 				current.returnOverride :
 				(returnTo && (returnTo.returnOverride || returnTo) ),
 			pagerProps: (current && current.pagerProps) || (returnTo && returnTo.pagerProps),
-			resolving: false
+			resolving: false,
+			searchOpen: shouldClearSearch ? false : searchOpen
 		});
 	},
 
@@ -394,6 +405,9 @@ export default createReactClass({
 	},
 
 	launchSearch (e, backAction) {
+		e.stopPropagation();
+		e.preventDefault();
+
 		this.setState({
 			searchOpen: true,
 			menuOpen: false
@@ -461,8 +475,8 @@ export default createReactClass({
 					{pageSource && !pagerProps && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} toc={toc} />}
 					{pagerProps && (<Pager {...pagerProps} navigatableContext={context} />)}
 					{(supportsSearch || (current && current.supportsSearch)) && (
-						<a href="#">
-							<i className={cx('icon-search launch-search', theme && theme.icon)} onClick={this.launchSearch} />
+						<a href="#" onClick={this.launchSearch}>
+							<i className={cx('icon-search launch-search', theme && theme.icon)}  />
 						</a>
 					)}
 					{this.getRight()}

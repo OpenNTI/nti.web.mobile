@@ -78,7 +78,7 @@ export default class CommunityView extends React.Component {
 		const {community, error} = this.state;
 
 		return (
-			<Page supportsSearch border>
+			<Page border>
 				<ContextSender community={community} getContext={getContext} {...this.props}>
 					<div className={cx('mobile-community')}>
 						{!community && !error && (<Loading.Spinner.Large />)}
