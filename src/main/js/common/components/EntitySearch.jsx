@@ -58,7 +58,13 @@ export default class extends React.Component {
 
 					this.setState({results});
 				})
-				.catch(error => this.setState({error}))
+				.catch(error => {
+					if (stillValid()) {
+						this.setState({
+							error:  {...error, message: error.Message}
+						});
+					}
+				})
 		);
 
 	};
