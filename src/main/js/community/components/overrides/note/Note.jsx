@@ -5,7 +5,7 @@ import {encodeForURI} from '@nti/lib-ntiids';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
-// import Edit from '../../../../../content/components/discussions/EditNote';
+import Edit from '../../../../content/components/discussions/EditNote';
 import ViewComment from '../../../../content/components/discussions/ViewComment';
 import Detail from '../../../../content/components/discussions/Detail';
 
@@ -22,6 +22,7 @@ export default class CommunitNoteOverride extends React.Component {
 		return (
 			<ContextSender getContext={getContext} {...this.props}>
 				<Router.Locations contextual {...(extraRouterProps || {})}>
+					<Router.Location path="/edit" handler={Edit} item={note} returnHref="" {...otherProps} />
 					<Router.Location path="/:commentId/edit(/*)" handler={ViewComment} root={note} {...otherProps} edit />
 					<Router.Location path="/:commentId(/*)" handler={ViewComment} root={note} {...otherProps} />
 					<Router.NotFound handler={Detail} item={note} {...otherProps} />
