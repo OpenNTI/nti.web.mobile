@@ -17,7 +17,8 @@ export default createReactClass({
 
 	propTypes: {
 		item: PropTypes.object,
-		contentPackage: PropTypes.object
+		contentPackage: PropTypes.object,
+		returnHref: PropTypes.string,
 	},
 
 
@@ -29,8 +30,8 @@ export default createReactClass({
 
 
 	returnToView () {
-		const {props: {item}} = this;
-		const href = encodeForURI(item.getID());
+		const {props: {item, returnHref}} = this;
+		const href = returnHref ?? encodeForURI(item.getID());
 
 		this.navigate(href, {replace: true});
 	},
