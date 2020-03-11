@@ -405,8 +405,8 @@ export default createReactClass({
 	},
 
 	launchSearch (e, backAction) {
-		e.stopPropagation();
-		e.preventDefault();
+		e?.stopPropagation();
+		e?.preventDefault();
 
 		this.setState({
 			searchOpen: true,
