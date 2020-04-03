@@ -280,6 +280,8 @@ export default createReactClass({
 
 
 	renderCommonTabs () {
+		if (this.state.resolving) { return null; }
+
 		const {CatalogEntry} = this.props.course || {};
 
 		let inPreview = false;
