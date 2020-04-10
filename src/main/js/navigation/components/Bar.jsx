@@ -145,6 +145,7 @@ export default createReactClass({
 
 
 	attachSearchRef (x) { this.search = x; },
+	commonTabsRef: React.createRef(),
 
 
 	getChildContext () {
@@ -280,7 +281,7 @@ export default createReactClass({
 
 
 	renderCommonTabs () {
-		if (this.state.resolving) { return null; }
+		if (this.state.resolving && !this.commonTabsRef.current) { return null; }
 
 		const {CatalogEntry} = this.props.course || {};
 
@@ -297,7 +298,7 @@ export default createReactClass({
 		}
 
 		return (
-			<div className="common-tabs">
+			<div className="common-tabs" ref={this.commonTabsRef}>
 				<Navigation renderTab={this.renderTab}/>
 				{inPreview && <div className="preview">{label}</div>}
 			</div>
