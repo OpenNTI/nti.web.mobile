@@ -181,11 +181,11 @@ export default createReactClass({
 	render () {
 		const {props: {locked, purchasable}} = this;
 
-		const type = 'Lifelong Learner';
+		const type = 'One-Time Purchase';
 		const {vendorInfo} = purchasable;
 		const startDate = vendorInfo && vendorInfo.getStartDate();
 		const endDate = vendorInfo && vendorInfo.getEndDate();
-		const creditHours = 'No College Credit';//t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
+		// const creditHours = 'No College Credit';//t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
 
 		const oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
 		const total = this.getFormattedPrice(this.state.currency, this.state.currentPrice || 0);
@@ -234,12 +234,12 @@ export default createReactClass({
 						</div>
 
 
-						<div className="credits-and-refunds small-6 medium-4 columns">
+						{/*<div className="credits-and-refunds small-6 medium-4 columns">
 							<div className="credits cell">
 								<span className="label">{t('hours')}</span>
 								<span className="value">{creditHours}</span>
 							</div>
-						</div>
+						</div>*/}
 
 
 						<div className="price-and-coupon small-12 medium-4 columns">
