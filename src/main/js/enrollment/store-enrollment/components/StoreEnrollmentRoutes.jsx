@@ -18,7 +18,7 @@ import PaymentConfirm from './PaymentConfirm';
 
 
 const t = scoped('enrollment.store', {
-	title: 'Enroll as a Lifelong Learner',
+	title: 'Enroll with a One-Time Purchase',
 });
 
 /**
