@@ -9,7 +9,7 @@ Detail.propTypes = {
 export default function Detail ({entry}) {
 	return (
 		<div className="course-detail-view">
-			<Info catalogEntry={entry}/>
+			<Info.Inline catalogEntry={entry}/>
 			<div className="footer"/>
 		</div>
 	);
