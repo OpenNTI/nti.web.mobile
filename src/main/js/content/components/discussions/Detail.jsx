@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Mixins} from '@nti/web-commons';
+import {Viewer} from '@nti/web-discussions';
 
 import {Panel as Body} from 'modeled-content';
 
@@ -33,6 +34,23 @@ export default createReactClass({
 		lite: PropTypes.bool
 	},
 
+	contextTypes: {
+		router: PropTypes.object
+	},
+
+	childContextTypes: {
+		router: PropTypes.object
+	},
+
+	getChildContext () {
+		return {
+			router: {
+				...(this.context.router || {}),
+				baseroute: this.context?.router?.makeHref('') ?? ''
+			}
+		};
+	},
+
 
 	onEdit () {
 		this.navigate('/edit');
@@ -44,6 +62,11 @@ export default createReactClass({
 		const {body} = item;
 		const isReply = item.isReply();
 
+		if (!lite) {
+			return (
+				<Viewer discussion={item} />
+			);
+		}
 
 		return (
 			<div className={`discussion-${isReply ? 'reply' : 'detail'}`}>
