@@ -8,6 +8,7 @@ import {Loading} from '@nti/web-commons';
 import {rawContent} from '@nti/lib-commons';
 import {scoped as locale} from '@nti/lib-locale';
 import {getPageContent, PageDescriptor} from '@nti/lib-content-processing';
+import {Viewer} from '@nti/web-discussions';
 
 import GotoItem from 'common/components/GotoItem';
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
@@ -31,7 +32,7 @@ function is403 (e) {
 }
 
 
-export default class extends React.Component {
+class DiscussionContext extends React.Component {
 	static displayName = 'Context';
 
 	static propTypes = {
@@ -227,3 +228,20 @@ export default class extends React.Component {
 				);
 	}
 }
+
+DiscussionContextOverride.propTypes = {
+	item: PropTypes.any,
+	container: PropTypes.any
+};
+function DiscussionContextOverride ({item, container}) {
+	if (!item.isNote) { return null; }
+
+	return (
+		<DiscussionContext item={item} contextPackage={container} />
+	);
+}
+
+Viewer.setContextOverride(DiscussionContextOverride);
+
+
+export default DiscussionContext;

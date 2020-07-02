@@ -70,6 +70,7 @@ export default createReactClass({
 			return (
 				<Viewer
 					discussion={item}
+					container={contentPackage}
 					onClose={this.onClose}
 				/>
 			);
