@@ -56,6 +56,10 @@ export default createReactClass({
 		this.navigate('/edit');
 	},
 
+	onClose () {
+		this.context?.router?.navigate?.('..');
+	},
+
 
 	render () {
 		const {state: {replying}, props: {contentPackage, item, lite}} = this;
@@ -64,7 +68,10 @@ export default createReactClass({
 
 		if (!lite) {
 			return (
-				<Viewer discussion={item} />
+				<Viewer
+					discussion={item}
+					onClose={this.onClose}
+				/>
 			);
 		}
 
