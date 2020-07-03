@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Prompt, Mixins} from '@nti/web-commons';
-import {getHistory, createPath} from '@nti/web-routing';
+import {getHistory, createPath, Router} from '@nti/web-routing';
 import {
 	environment,
 	Locations,
@@ -28,6 +28,8 @@ import NotFoundPage from 'notfound/components/View';
 import ObjectResolver from 'object-resolver/components/View';
 import Welcome from 'login/prompts/View';
 import NavStore from 'navigation/Store';
+
+import {profileHref} from '../profile/mixins/ProfileLink';
 
 import RouteMap from './routes';
 
@@ -56,6 +58,12 @@ const SendGAEvent = 'Router:SendGAEvent';
 const SetPath = '_original:SetPath';
 
 const routerHistory = getHistory();
+
+Router.setGlobalGetRouteFor((obj) => {
+	if (obj.isUser || obj.isCommunity || obj.isGroup) {
+		return `/mobile/${profileHref(obj)}`;
+	}
+});
 
 export default createReactClass({
 	displayName: 'Router',
