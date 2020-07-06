@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import {Prompt, Mixins} from '@nti/web-commons';
+import {encodeForURI} from '@nti/lib-ntiids';
 import {getHistory, createPath, Router} from '@nti/web-routing';
 import {
 	environment,
@@ -60,6 +61,10 @@ const SetPath = '_original:SetPath';
 const routerHistory = getHistory();
 
 Router.setGlobalGetRouteFor((obj) => {
+	if (obj.isCommunity && obj.isCourseCommunity) {
+		return `/mobile/course/${encodeForURI(obj.courseId)}/community/`;
+	}
+
 	if (obj.isUser || obj.isCommunity || obj.isGroup) {
 		return `/mobile/${profileHref(obj)}`;
 	}
