@@ -30,8 +30,8 @@
     "registry": "https://npm.nextthought.com"
   },
   "bundledDependencies": [
-    "@nti/lib-logger",
-    "@nti/lib-ntiids"
+    "@nti/lib-ntiids",
+    "@nti/util-logger"
   ],
   "dependencies": {},
   "devDependencies": {
