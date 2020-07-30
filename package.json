@@ -30,12 +30,10 @@
     "registry": "https://npm.nextthought.com"
   },
   "bundledDependencies": [
-    "@nti/lib-ntiids",
-    "@nti/util-logger"
+    "@nti/lib-ntiids"
   ],
   "dependencies": {
-    "@nti/lib-ntiids": "NextThought/nti.lib.ntiids",
-    "@nti/util-logger": "NextThought/nti.util.logger"
+    "@nti/lib-ntiids": "NextThought/nti.lib.ntiids"
   },
   "devDependencies": {
     "@nti/app-scripts": "^2.22.0",
@@ -54,6 +52,7 @@
     "@nti/style-common": "NextThought/nti.style.common",
     "@nti/util-detection-touch": "NextThought/nti.util.detection.touch",
     "@nti/util-ios-version": "NextThought/nti.util.ios-version",
+    "@nti/util-logger": "NextThought/nti.util.logger",
     "@nti/web-app": "latest",
     "@nti/web-assignment-editor": "NextThought/nti.web.assignment-editor",
     "@nti/web-calendar": "NextThought/nti.web.calendar",
