@@ -32,9 +32,7 @@
   "bundledDependencies": [
     "@nti/lib-ntiids"
   ],
-  "dependencies": {
-    "@nti/lib-ntiids": "NextThought/nti.lib.ntiids"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@nti/app-scripts": "^2.22.0",
     "@nti/lib-analytics": "NextThought/nti.lib.analytics",
@@ -46,6 +44,7 @@
     "@nti/lib-dom": "NextThought/nti.lib.dom",
     "@nti/lib-interfaces": "NextThought/nti.lib.interfaces",
     "@nti/lib-locale": "NextThought/nti.lib.locale",
+    "@nti/lib-ntiids": "NextThought/nti.lib.ntiids",
     "@nti/lib-ranges": "NextThought/nti.lib.ranges",
     "@nti/lib-store": "NextThought/nti.lib.store",
     "@nti/lib-whiteboard": "NextThought/nti.lib.whiteboard",
