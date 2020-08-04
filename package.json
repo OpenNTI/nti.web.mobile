@@ -65,7 +65,7 @@
     "@nti/web-course": "NextThought/nti.web.course",
     "@nti/web-discussions": "NextThought/nti.web.discussions",
     "@nti/web-help": "NextThought/nti.web.help",
-    "@nti/web-integrations": "NextThought/nti.web.integrations",
+    "@nti/web-integrations": "github:NextThought/nti.web.integrations#v1.13.0",
     "@nti/web-library": "NextThought/nti.web.library",
     "@nti/web-login": "latest",
     "@nti/web-modeled-content": "NextThought/nti.web.modeled-content",
