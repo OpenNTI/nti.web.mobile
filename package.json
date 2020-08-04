@@ -46,7 +46,7 @@
     "@nti/lib-decorators": "NextThought/nti.lib.decorators",
     "@nti/lib-dispatcher": "NextThought/nti.lib.dispatcher",
     "@nti/lib-dom": "NextThought/nti.lib.dom",
-    "@nti/lib-interfaces": "NextThought/nti.lib.interfaces",
+    "@nti/lib-interfaces": "github:NextThought/nti.lib.interfaces#v1.137.1",
     "@nti/lib-locale": "NextThought/nti.lib.locale",
     "@nti/lib-ranges": "NextThought/nti.lib.ranges",
     "@nti/lib-store": "NextThought/nti.lib.store",
