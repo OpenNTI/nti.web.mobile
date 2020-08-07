@@ -38,7 +38,7 @@ export default class extends React.Component {
 	};
 
 	keyFor = (item) => {
-		return item.getID ? item.getID() : hash(item);
+		return item.getID ? item.getID() : hash(item, {ignoreUnknown: true});
 	};
 
 	render () {
