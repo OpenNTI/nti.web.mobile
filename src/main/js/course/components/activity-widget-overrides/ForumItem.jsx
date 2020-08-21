@@ -1,3 +1,4 @@
+import './ForumItem.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {DateTime, Report} from '@nti/web-commons';

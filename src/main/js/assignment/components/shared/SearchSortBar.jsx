@@ -1,3 +1,4 @@
+import './SearchSortBar.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {BufferedInput} from '@nti/web-commons';

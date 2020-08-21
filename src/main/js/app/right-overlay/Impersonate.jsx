@@ -1,3 +1,4 @@
+import './Impersonate.scss';
 import Url from 'url';
 
 import React from 'react';

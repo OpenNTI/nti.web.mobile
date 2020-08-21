@@ -35,7 +35,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@nti/app-scripts": "^2.22.0",
+    "@nti/app-scripts": "^2.26.0",
     "@nti/lib-analytics": "NextThought/nti.lib.analytics",
     "@nti/lib-anchors": "NextThought/nti.lib.anchors",
     "@nti/lib-commons": "NextThought/nti.lib.commons",

@@ -1,3 +1,4 @@
+import './BlogComment.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';

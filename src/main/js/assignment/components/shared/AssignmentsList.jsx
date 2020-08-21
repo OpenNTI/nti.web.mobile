@@ -1,3 +1,4 @@
+import './AssignmentsList.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Loading, EmptyList} from '@nti/web-commons';

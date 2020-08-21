@@ -1,3 +1,4 @@
+import './View.scss';
 import Url from 'url';
 
 import React from 'react';

@@ -1,3 +1,4 @@
+import './Note.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {isFlag} from '@nti/web-client';

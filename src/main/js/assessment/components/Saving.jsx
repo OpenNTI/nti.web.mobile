@@ -1,3 +1,4 @@
+import './Saving.scss';
 import React from 'react';
 
 export default function SavingProgress () {

@@ -1,3 +1,4 @@
+import './LogOut.scss';
 import React from 'react';
 import {Button} from '@nti/web-commons';
 

@@ -1,3 +1,4 @@
+import './Calendar.scss';
 import React from 'react';
 import {DarkMode} from '@nti/web-commons';
 import {Calendar} from '@nti/web-calendar';

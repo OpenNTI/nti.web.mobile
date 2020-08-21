@@ -1,3 +1,4 @@
+import './WordBank.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';

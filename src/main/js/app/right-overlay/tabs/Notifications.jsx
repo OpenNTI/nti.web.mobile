@@ -1,3 +1,4 @@
+import './Notifications.scss';
 import React from 'react';
 
 import List from 'notifications/components/View';

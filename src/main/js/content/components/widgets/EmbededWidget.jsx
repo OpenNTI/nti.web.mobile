@@ -1,3 +1,4 @@
+import './EmbededWidget.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';

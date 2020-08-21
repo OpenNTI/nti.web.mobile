@@ -1,3 +1,4 @@
+import './HeaderAssignment.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from '@nti/lib-commons';

@@ -1,3 +1,4 @@
+import './GradebookTable.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {SortOrder} from '@nti/lib-interfaces';

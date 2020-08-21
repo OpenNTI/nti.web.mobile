@@ -1,3 +1,4 @@
+import './AssignmentViewStudentHeader.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {PropType as NTIID} from '@nti/lib-ntiids';

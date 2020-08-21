@@ -1,3 +1,4 @@
+import './Highlight.scss';
 import cx from 'classnames';
 import Logger from '@nti/util-logger';
 import * as Anchors from '@nti/lib-anchors';

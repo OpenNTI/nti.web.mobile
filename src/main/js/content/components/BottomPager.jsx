@@ -1,3 +1,4 @@
+import './BottomPager.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Pager } from '@nti/web-content';

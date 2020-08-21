@@ -1,3 +1,4 @@
+import './View.scss';
 import React from 'react';
 
 import Impersonate from './Impersonate';

@@ -1,3 +1,4 @@
+import './Context.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOMServer from 'react-dom/server';

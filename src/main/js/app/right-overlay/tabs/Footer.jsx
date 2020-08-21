@@ -1,3 +1,4 @@
+import './Footer.scss';
 import React from 'react';
 
 import LogOut from './LogOut';

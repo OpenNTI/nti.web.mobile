@@ -1,3 +1,4 @@
+import './Filters.scss';
 import React from 'react';
 import {HOC} from '@nti/web-commons';
 

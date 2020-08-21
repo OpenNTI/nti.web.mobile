@@ -1,3 +1,4 @@
+import './Overview.scss';
 import path from 'path';
 
 import React from 'react';

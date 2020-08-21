@@ -1,3 +1,4 @@
+import './StudentAssignmentsTable.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {SortOrder} from '@nti/lib-interfaces';

@@ -1,3 +1,4 @@
+import './View.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Contact} from '@nti/web-help';

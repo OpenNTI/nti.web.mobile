@@ -1,3 +1,4 @@
+import './Mixin.scss';
 import {addClass, removeClass, getEventTarget, TransitionEvents} from '@nti/lib-dom';
 import Logger from '@nti/util-logger';
 

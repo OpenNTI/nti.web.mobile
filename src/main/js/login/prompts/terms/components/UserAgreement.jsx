@@ -1,3 +1,4 @@
+import './UserAgreement.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {getServer} from '@nti/web-client';

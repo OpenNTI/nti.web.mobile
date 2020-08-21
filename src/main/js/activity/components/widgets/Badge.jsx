@@ -1,3 +1,4 @@
+import './Badge.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {DateTime} from '@nti/web-commons';

@@ -1,3 +1,4 @@
+import './View.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {Loading} from '@nti/web-commons';

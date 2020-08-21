@@ -1,3 +1,4 @@
+import './AppFrame.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import {addClass, removeClass} from '@nti/lib-dom';
