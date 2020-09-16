@@ -8,7 +8,7 @@ export default {
 	},
 	oauth: {
 		header: 'Sign in with your account to access your content.',
-		ats: 'Login with your PRMIA account',
+		ats: 'Log in with your PRMIA account',
 		facebook: 'Log in with Facebook',
 		google: 'Log in with Google',
 		openid: 'Log in with OpenID',
