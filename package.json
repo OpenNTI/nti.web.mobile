@@ -54,6 +54,7 @@
     "@nti/util-ios-version": "NextThought/nti.util.ios-version",
     "@nti/util-logger": "NextThought/nti.util.logger",
     "@nti/web-app": "latest",
+    "@nti/web-assessment": "github:NextThought/nti.web.assessment",
     "@nti/web-assignment-editor": "NextThought/nti.web.assignment-editor",
     "@nti/web-calendar": "NextThought/nti.web.calendar",
     "@nti/web-catalog": "NextThought/nti.web.catalog",

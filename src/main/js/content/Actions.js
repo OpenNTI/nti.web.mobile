@@ -1,16 +1,57 @@
 import Logger from '@nti/util-logger';
-import {getService} from '@nti/web-client';
+import {getService, getAppUsername} from '@nti/web-client';
+import {Survey} from '@nti/web-assessment';
 import {dispatch} from '@nti/lib-dispatcher';
+import {getModel} from '@nti/lib-interfaces';
 import {
 	PAGE_LOADED,
 	PAGE_FAILED,
 	getPackage,
 	getPageContent,
-	loadPageDescriptor as load
+	loadPageDescriptor as load,
+	registerGenerator
 } from '@nti/lib-content-processing';
 
 const logger = Logger.get('content:actions');
 
+const SurveyRefModel = getModel('surveyref');
+const SurveyModel = getModel('nasurvey');
+const PageInfoModel = getModel('pageinfo');
+
+registerGenerator(
+	[...SurveyRefModel.MimeTypes, SurveyModel.MimeTypes],
+	async (service, context, object) => {
+		const survey = object instanceof SurveyRefModel ?
+			await service.getObject(object.target) :
+			object;
+
+		const NTIID = survey.getID();
+		const {content, AssessmentItems} = await Survey.Viewer.Utils.createPageInfo(survey, context);
+
+		const pi = new PageInfoModel(service, context, {
+			ContentPackageNTIID: 'placeholder',
+			ID: NTIID,
+			NTIID,
+			Links: [
+				{
+					Class: 'Link',
+					href: `/dataserver2/users/${encodeURIComponent(getAppUsername())}/Pages(${encodeURIComponent(NTIID)})/UserGeneratedData`,
+					rel: 'UserGeneratedData'
+				},
+				{
+					Class: 'Link',
+					href: `/dataserver2/users/${encodeURIComponent(getAppUsername())}/Pages(${encodeURIComponent(NTIID)})/RelevantContainedUserGeneratedData`,
+					rel: 'RelevantContainedUserGeneratedData'
+				}
+			]
+		});
+
+		pi.AssessmentItems = AssessmentItems;
+		pi.getContent = () => Promise.resolve(content);
+
+		return pi;
+	}
+);
 
 /**
  *	@param {string} ntiid Content Page - NTIID
