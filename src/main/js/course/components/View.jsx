@@ -88,9 +88,9 @@ export default class CourseView extends React.Component {
 			}
 
 			if ((course && course.error) || !entry) {
-				return !course || course.notFound || !entry ?
+				return !course || course.notFound ?
 					(<NotFound/>) :
-					(<ErrorWidget error={course.error}/>);
+					(<ErrorWidget error={course.error || {statusCode: 403}}/>);
 			}
 
 			// Background imgUrl props use to fall back to '/mobile/resources/images/default-course/background.png'
