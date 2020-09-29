@@ -88,7 +88,7 @@ export default class CourseView extends React.Component {
 			}
 
 			if ((course && course.error) || !entry) {
-				return !course || course.notFound ?
+				return !course || course.notFound || !entry ?
 					(<NotFound/>) :
 					(<ErrorWidget error={course.error}/>);
 			}
