@@ -22,7 +22,7 @@ registerGenerator(
 	[...SurveyRefModel.MimeTypes, SurveyModel.MimeTypes],
 	async (service, context, object) => {
 		const survey = object instanceof SurveyRefModel ?
-			await service.getObject(object.target) :
+			(context.getInquiry ? await context.getInquiry(object.target) : await service.getObject(object.target)) :
 			object;
 
 		const NTIID = survey.getID();
