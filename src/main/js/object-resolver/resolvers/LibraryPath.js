@@ -19,7 +19,7 @@ export const isPageInfo = o => typeof o !== 'string'
 const getTarget = x => x.target || x[Object.keys(x).filter(k => /target-ntiid/i.test(k))[0]];
 
 const MIME_TYPES = {
-	'contentpackage': (o, prev, next) => {
+	'contentpackage' (o, prev, next)  {
 		if (next.isBoard) {
 			return `/content/${encode(o.getID())}`;
 		}
@@ -38,7 +38,7 @@ const MIME_TYPES = {
 	'forums.dflboard': 'forums.communityboard',
 	'forums.contentboard': 'forums.communityboard',
 	'forums.dflforum': (o) => `/${encode(o.getID())}/`,
-	'forums.communityboard': (o, prev) => {
+	'forums.communityboard' (o, prev) {
 		if (prev.isCommunity) {
 			return '';
 		}
@@ -50,7 +50,7 @@ const MIME_TYPES = {
 		return '/discussions/';
 	},
 
-	'forums.communityforum': (o, prev) => {
+	'forums.communityforum' (o, prev) {
 		if (prev && /community$/i.test(prev.MimeType)) {
 			return `/${o.ID}/`;
 		}
@@ -59,7 +59,7 @@ const MIME_TYPES = {
 	'forums.personalblog': () => '/thoughts/',
 	'forums.personalblogentry': (o) => `/${encode(o.getID())}/`,
 	'forums.dflheadlinetopic': 'forums.communityheadlinetopic',
-	'forums.communityheadlinetopic': (o, prev, next, obj) => {
+	'forums.communityheadlinetopic' (o, prev, next, obj) {
 		if (!next && obj && obj.isComment) {
 			return `/${encode(o.getID())}/discussions/`;
 		}
@@ -71,7 +71,7 @@ const MIME_TYPES = {
 	'questionsetref': 'relatedworkref',
 	'pollref': 'relatedworkref',
 	'surveyref': 'relatedworkref',
-	'relatedworkref': (o, prev, next) => {
+	'relatedworkref' (o, prev, next, target) {
 		let c = '/content/';
 
 		if (o.isExternal) {
@@ -93,7 +93,7 @@ const MIME_TYPES = {
 	},
 
 
-	'pageinfo': (o, prev, next, target) => {
+	'pageinfo' (o, prev, next, target) {
 		let c = `${encode(o.getID())}/`;
 
 
@@ -113,7 +113,7 @@ const MIME_TYPES = {
 	'ntislidedeck': () => '',
 
 	'ntivideo': 'ntivideoref',
-	'ntivideoref': (o, prev, next, target) => {
+	'ntivideoref' (o, prev, next, target) {
 		let c = `/videos/${encode(o.getID())}/`;
 		if(next && /pageinfo$/i.test(next.MimeType)) {
 			next[IGNORE] = true;
@@ -171,7 +171,7 @@ export default class LibraryPathResolver {
 			return 'Unknown Path Component';
 		}
 
-		return p(o, a[i - 1], a[i + 1], object);
+		return p.call(this, o, a[i - 1], a[i + 1], object);
 	}
 
 
