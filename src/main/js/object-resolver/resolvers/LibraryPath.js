@@ -76,7 +76,7 @@ const MIME_TYPES = {
 
 		if (prev.isOutlineNode) {
 			this.lessonItems.add(target);
-			c = `/item/${encode(o.getID())}`;
+			c = `/items/${encode(o.getID())}`;
 		}
 		else if (o.isExternal) {
 			c = `/external-content/${encode(o.getID())}`;
