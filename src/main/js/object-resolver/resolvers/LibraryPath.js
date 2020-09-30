@@ -145,8 +145,8 @@ export default class LibraryPathResolver {
 	}
 
 
-	getPathPart (o, i, a) {
-		let {object} = this;
+	getPathPart = (o, i, a) => {
+		const {object} = this;
 		if (o[IGNORE]) {
 			o = a[i + 1]; //once we ignore, we continue to ignore.
 			if (o) {
@@ -155,7 +155,7 @@ export default class LibraryPathResolver {
 			return '';
 		}
 
-		let key = (o.MimeType || o.mimeType || o.Class).replace(/application\/vnd\.nextthought\./, '').toLowerCase();
+		const key = (o.MimeType || o.mimeType || o.Class).replace(/application\/vnd\.nextthought\./, '').toLowerCase();
 
 		let p = MIME_TYPES[key];
 		while(typeof p === 'string') {
@@ -175,27 +175,25 @@ export default class LibraryPathResolver {
 	}
 
 
-	getPath () {
-		let {object} = this;
-		let objectPath = object.getContextPath();
-		return objectPath.then(result => {
-			result = result[0];
-			if (!result) {
-				return Promise.reject('Not Found');
-			}
+	async getPath () {
+		const {object} = this;
+		const [result] = await object.getContextPath();
 
-			let path = result.map(this.getPathPart.bind(this)),
-				ugd = object.headline || object;
+		if (!result) {
+			return Promise.reject('Not Found');
+		}
 
-			//This is primarily for UGD... all UGD at this momement is either a Note or Highlight. (Forum/Blog stuff is already handled)
+		const path = result.map(this.getPathPart);
+		const ugd = object.headline || object;
 
-			// if the object has a 'body' we will assume the object is a note or note-like and append the path accordingly...
-			if (ugd.body) {
-				let id = (object.references || [])[0] || object.getID();
-				path.push(`/${encode(id)}/`);
-			}
+		//This is primarily for UGD... all UGD at this mom7ent is either a Note or Highlight. (Forum/Blog stuff is already handled)
 
-			return join(...path);
-		});
+		// if the object has a 'body' we will assume the object is a note or note-like and append the path accordingly...
+		if (ugd.body) {
+			const id = (object.references || [])[0] || object.getID();
+			path.push(`/${encode(id)}/`);
+		}
+
+		return join(...path);
 	}
 }
