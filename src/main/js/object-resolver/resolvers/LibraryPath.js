@@ -74,7 +74,11 @@ const MIME_TYPES = {
 	'relatedworkref' (o, prev, next, target) {
 		let c = '/content/';
 
-		if (o.isExternal) {
+		if (prev.isOutlineNode) {
+			this.lessonItems.add(target);
+			c = `/item/${encode(o.getID())}`;
+		}
+		else if (o.isExternal) {
 			c = `/external-content/${encode(o.getID())}`;
 			if (next) {
 				next[IGNORE] = true;
@@ -97,7 +101,7 @@ const MIME_TYPES = {
 		let c = `${encode(o.getID())}/`;
 
 
-		if (next && isPageInfo(next.MimeType)) {
+		if (next && isPageInfo(next.MimeType) || this.lessonItems.has(target)) {
 			c = '';
 		}
 
@@ -129,6 +133,7 @@ const MIME_TYPES = {
 
 
 export default class LibraryPathResolver {
+	lessonItems = new Set();
 
 	static handles (o) {
 		return o.hasLink && o.hasLink('LibraryPath');
