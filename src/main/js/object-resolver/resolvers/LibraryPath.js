@@ -3,6 +3,7 @@ import {join} from 'path';
 // import {Service} from '@nti/lib-interfaces';
 import Logger from '@nti/util-logger';
 import {encodeForURI as encode} from '@nti/lib-ntiids';
+import {Models} from '@nti/lib-interfaces';
 
 import {profileHref} from 'profile/mixins/ProfileLink';
 
@@ -67,18 +68,21 @@ const MIME_TYPES = {
 	},
 
 
-	'assignmentref': 'relatedworkref',
-	'questionsetref': 'relatedworkref',
-	'pollref': 'relatedworkref',
-	'surveyref': 'relatedworkref',
-	'relatedworkref' (o, prev, next, target) {
-		let c = '/content/';
-
+	'assignmentref': '--lessonItemRef',
+	'questionsetref': '--lessonItemRef',
+	'pollref': '--lessonItemRef',
+	'surveyref': '--lessonItemRef',
+	'--lessonItemRef' (o, prev, next, target) {
 		if (prev.isOutlineNode) {
 			this.lessonItems.add(target);
-			c = `/items/${encode(o.getID())}`;
+			return `/items/${encode(o.getID())}`;
 		}
-		else if (o.isExternal) {
+		return MIME_TYPES.relatedworkref.apply(this, arguments);
+	},
+	'relatedworkref' (o, prev, next) {
+		let c = '/content/';
+
+		if (o.isExternal) {
 			c = `/external-content/${encode(o.getID())}`;
 			if (next) {
 				next[IGNORE] = true;
