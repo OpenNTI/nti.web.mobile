@@ -8,11 +8,11 @@ textarea {
 	outline: none;
 	-webkit-appearance: none;
 	border-style: solid;
-	border-color: $border-grey;
-	box-shadow: inset 0 0 0 0 $border-grey;
+	border-color: var(--border-grey);
+	box-shadow: inset 0 0 0 0 var(--border-grey);
 
 	&.required {
-		box-shadow: inset 4px 0 0 0 $border-grey;
+		box-shadow: inset 4px 0 0 0 var(--border-grey);
 		&:focus {
 			box-shadow: inset 4px 0 0 0 var(--border-blue) !important;
 		}

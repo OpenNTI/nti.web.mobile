@@ -11,7 +11,7 @@
 .write-something {
 	& > label {
 		background: white;
-		border: 1px solid $border-grey;
+		border: 1px solid var(--border-grey);
 		padding: .5em;
 		border-radius: 3px;
 		color: lightgray;

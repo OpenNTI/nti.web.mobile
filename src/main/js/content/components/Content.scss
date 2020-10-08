@@ -384,7 +384,7 @@ nti\:content {
 		}
 
 		&.border-top {
-			border-top: 0.0625rem solid $border-grey;
+			border-top: 0.0625rem solid var(--border-grey);
 		}
 	}
 

@@ -270,7 +270,7 @@
 		}
 
 		box-shadow: 0 -1px 0 0 #fff; //top white line above border
-		border-top: 1px solid $border-grey;
+		border-top: 1px solid var(--border-grey);
 
 		li {
 			position: relative;

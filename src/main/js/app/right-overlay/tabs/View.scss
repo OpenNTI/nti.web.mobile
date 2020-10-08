@@ -4,7 +4,7 @@
 	.nti-mobile-drawer-tabs {
 		display: flex;
 		min-height: 42px;
-		border-bottom: 1px solid $border-grey-light;
+		border-bottom: 1px solid var(--border-grey)-light;
 
 		> * {
 			flex: 1 1 33.333%;
@@ -58,7 +58,7 @@
 			padding: 1em;
 			margin: 0;
 			background: white;
-			border-bottom: 1px solid $border-grey-light;
+			border-bottom: 1px solid var(--border-grey)-light;
 		}
 	}
 }

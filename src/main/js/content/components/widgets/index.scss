@@ -14,14 +14,14 @@ widget.selected > *:first-child::after {
 widget:empty {
 	display: inline-block;
 	padding: 3rem;
-	border: 1px solid $border-grey;
+	border: 1px solid var(--border-grey);
 	background: $panel-background;
 	position: relative;
 	text-align: center;
 	color: white;
 	&:after {
 		content: 'Coming soon to mobile';
-		color: $border-grey;
+		color: var(--border-grey);
 	}
 }
 

@@ -92,7 +92,7 @@
 		position: relative;
 
 		&.sections {
-			border-top: 1px solid $border-grey;
+			border-top: 1px solid var(--border-grey);
 			background: #fff;
 
 			li {

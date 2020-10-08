@@ -6,14 +6,14 @@
 
 	.scene {
 		background: #fff;
-		border: 1px solid $border-grey;
+		border: 1px solid var(--border-grey);
 
 		.bar {
 			display: flex;
 			align-items: center;
 
 			&:not(:last-child) {
-				border-bottom: 1px solid $border-grey;
+				border-bottom: 1px solid var(--border-grey);
 			}
 
 			.axis-label {
@@ -36,7 +36,7 @@
 				align-items: center;
 				display: flex;
 				position: relative;
-				// box-shadow: -1px 0 0 0 $border-grey;
+				// box-shadow: -1px 0 0 0 var(--border-grey);
 
 
 				.bar-series-segment {
@@ -58,7 +58,7 @@
 				transform: translate3d(-50%, -95%, 0);
 				padding: 0.3125rem 0.625rem;
 				border-radius: 3px;
-				border: 1px solid $border-grey;
+				border: 1px solid var(--border-grey);
 				background: $panel-background;
 				color: var(--primary-grey);
 				font-weight: normal;

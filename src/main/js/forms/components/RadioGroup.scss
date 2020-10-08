@@ -8,7 +8,7 @@
 		}
 	}
 	&.required > p {
-		box-shadow: inset 4px 0 0 0 $border-grey;
+		box-shadow: inset 4px 0 0 0 var(--border-grey);
 		padding-left: 1rem;
 	}
 	&.error {

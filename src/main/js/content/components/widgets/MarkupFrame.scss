@@ -3,7 +3,7 @@
 .markupframe {
 	position: relative;
 	display: block;
-	border: 1px solid $border-grey; //#dadada;
+	border: 1px solid var(--border-grey); //#dadada;
 
 	&.card {
 		overflow: hidden;
@@ -56,7 +56,7 @@
 	}
 
 	.bar {
-		border-top: 1px solid $border-grey; //#dadada;
+		border-top: 1px solid var(--border-grey); //#dadada;
 		cursor: default;
 		display: block;
 		position: relative;
@@ -89,7 +89,7 @@
 		}
 
 		a.bar-cell {
-			border-left: 1px solid $border-grey; //#dadada;
+			border-left: 1px solid var(--border-grey); //#dadada;
 		}
 	}
 }

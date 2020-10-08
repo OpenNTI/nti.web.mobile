@@ -70,7 +70,7 @@ nav.nav-bar {
 	z-index: 1002;
 
 	&.border {
-		box-shadow: 0 1px 0 0 $border-grey;
+		box-shadow: 0 1px 0 0 var(--border-grey);
 	}
 
 	.hide-nav & {
@@ -262,7 +262,7 @@ nav.nav-bar {
 		left: 0;
 		right: 0;
 		border-radius: 0 0 1px 1px;//iOS hack to show box-shadow
-		box-shadow: 0 0 0 1px $border-grey-light;
+		box-shadow: 0 0 0 1px var(--border-grey)-light;
 
 		.darkmode & {
 			background: #525252;
