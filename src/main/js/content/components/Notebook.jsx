@@ -2,7 +2,7 @@ import './Notebook.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getHistory, LinkTo } from '@nti/web-routing';
-import { Stream } from '@nti/web-content';
+import { Stream } from '@nti/web-profiles';
 import { getModel } from '@nti/lib-interfaces';
 import { User } from '@nti/web-client';
 import { encodeForURI } from '@nti/lib-ntiids';
