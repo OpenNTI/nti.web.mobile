@@ -23,7 +23,7 @@
 	}
 	.actions {
 		margin-top: 2rem;
-		background: $secondary-green;
+		background: var(--secondary-green);
 		text-align: center;
 		a {
 			color: white;

@@ -55,7 +55,7 @@
 				color: var(--primary-red);
 			}
 			&.valid {
-				color: $secondary-green;
+				color: var(--secondary-green);
 			}
 			&.working::after {
 				content: '.\a0.\a0.';
@@ -83,7 +83,7 @@
 			}
 
 			.amount {
-				color: $secondary-green;
+				color: var(--secondary-green);
 			}
 		}
 

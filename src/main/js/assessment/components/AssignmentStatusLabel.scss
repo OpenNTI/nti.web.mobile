@@ -44,7 +44,7 @@
 
 		&.completed:not(.overdue):not(.overtime):not(.due-today) .state {
 			cursor: pointer;
-			color: $secondary-green;
+			color: var(--secondary-green);
 		}
 
 

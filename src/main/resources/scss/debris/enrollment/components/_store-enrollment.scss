@@ -6,7 +6,7 @@
 	}
 	.price {
 		float: right;
-		color: $secondary-green;
+		color: var(--secondary-green);
 	}
 	.description {
 		clear: both;

@@ -28,7 +28,7 @@ nav.nav-bar.searchable-library {
 	.button.library-add {
 		padding: 0.3125rem 1rem;
 		border-radius: 5px;
-		background: $secondary-green;
+		background: var(--secondary-green);
 		font-size: 0.75rem;
 		font-weight: 700;
 		text-transform: none;
