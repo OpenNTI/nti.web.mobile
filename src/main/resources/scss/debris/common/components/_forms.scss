@@ -14,7 +14,7 @@ textarea {
 	&.required {
 		box-shadow: inset 4px 0 0 0 $border-grey;
 		&:focus {
-			box-shadow: inset 4px 0 0 0 $border-blue !important;
+			box-shadow: inset 4px 0 0 0 var(--border-blue) !important;
 		}
 	}
 
@@ -24,7 +24,7 @@ textarea {
 	}
 
 	&:focus {
-		border-color: $border-blue !important;
+		border-color: var(--border-blue) !important;
 	}
 
 	&[readonly] {
