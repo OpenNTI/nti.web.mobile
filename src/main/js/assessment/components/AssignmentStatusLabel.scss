@@ -82,7 +82,7 @@
 
 		&.due-today {
 			cursor: pointer;
-			color: $primary-orange;
+			color: var(--primary-orange);
 		}
 
 		.excused {
