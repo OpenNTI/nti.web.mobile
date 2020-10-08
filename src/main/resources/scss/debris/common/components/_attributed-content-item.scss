@@ -24,7 +24,7 @@
 	.wrap {
 		font-size: 0.875rem;
 		line-height: 2;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 		margin: 0 0 0 $m;
 
 		.meta > * { margin-right: 0.5em; }

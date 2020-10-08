@@ -79,7 +79,7 @@
 		margin: 0 (-($pad - 0.625rem)) 2rem;
 		a {
 			padding: 0.7rem 2rem 0.7625rem;
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 			font-size: 0.75rem;
 		}
 
@@ -93,7 +93,7 @@
 			padding-bottom: 0.7625rem;
 
 			&.disabled {
-				background: $secondary-grey;
+				background: var(--secondary-grey);
 			}
 		}
 	}

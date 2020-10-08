@@ -49,7 +49,7 @@
 
 			&.icon-search {
 				text-shadow: 1px 2px 1px white, -1px -2px 1px white;
-				color: $secondary-grey;
+				color: var(--secondary-grey);
 				font-size: 1.4rem;
 			}
 		}
@@ -81,7 +81,7 @@
 		.image-caption {
 			font-size: 0.875rem;
 			font-weight: normal;
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 		}
 
 		.bar-cell {

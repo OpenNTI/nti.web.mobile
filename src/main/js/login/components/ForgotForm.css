@@ -17,7 +17,7 @@
 }
 
 .recovery * {
-	color: #757474;
+	color: var(--secondary-grey);
 	font-family: "Open Sans";
 	font-size: 14px;
 	line-height: 1.357142857;

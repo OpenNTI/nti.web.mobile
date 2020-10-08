@@ -29,7 +29,7 @@ textarea {
 
 	&[readonly] {
 		background: none;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 	}
 }
 

@@ -356,7 +356,7 @@ nav.nav-bar {
 		color: $tertiary-grey;
 
 		&[href] {
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 		}
 	}
 

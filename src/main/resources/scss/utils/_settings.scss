@@ -112,7 +112,7 @@ $secondary-color: #e7e7e7;
 
 //We use this as cursors values for enabling the option of having custom cursors in the whole site's stylesheet
 // $cursor-crosshair-value: crosshair;
-$cursor-default-value: $secondary-grey;
+$cursor-default-value: var(--secondary-grey);
 // $cursor-pointer-value: pointer;
 // $cursor-help-value: help;
 // $cursor-text-value: text;

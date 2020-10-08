@@ -55,7 +55,7 @@
 		&:after {
 			border-radius: 1px;
 			height: 4px;
-			background-color: $secondary-grey;
+			background-color: var(--secondary-grey);
 			position: absolute;
 			display: block;
 			content: '';

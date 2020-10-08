@@ -85,7 +85,7 @@
 		list-style-type: none;
 		margin: 0;
 		li {
-			$icon-color: $secondary-grey;
+			$icon-color: var(--secondary-grey);
 			$icon-size: 1.5em;
 			line-height: $icon-size * 1.5;
 			position: relative;

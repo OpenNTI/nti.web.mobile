@@ -73,7 +73,7 @@ ul.activity {
 	h1 {
 		font-family: $body-font-family;
 		font-size: 1.25rem;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 		word-wrap: break-word;
 	}
 

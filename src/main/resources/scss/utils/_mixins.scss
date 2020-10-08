@@ -46,7 +46,7 @@
 	min-width: 200px;
 	li {
 		white-space: nowrap;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 		text-transform: none;
 		font-weight: 600;
 		font-size: .9rem;
