@@ -55,7 +55,7 @@
 	}
 
 	.agreement {
-		background: $quad-grey;
+		background: var(--quad-grey);
 		padding: 0.5rem $pad;
 		margin: 0 (-($pad - 0.625rem)) 2rem;
 

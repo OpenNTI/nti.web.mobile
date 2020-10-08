@@ -9,7 +9,7 @@
 		.string-item {
 			// flex-basis: 46%;
 			padding: .5em 1em;
-			background: $quad-grey;
+			background: var(--quad-grey);
 			box-shadow: 0 0 0 0.0625rem var(--tertiary-grey);
 			font-weight: bold;
 			// overflow: hidden;

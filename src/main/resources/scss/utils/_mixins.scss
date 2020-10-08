@@ -59,7 +59,7 @@
 			font-weight: 700;
 		}
 		&.search-item {
-			background: $quad-grey;
+			background: var(--quad-grey);
 			padding: .5rem $padding;
 		}
 		input {

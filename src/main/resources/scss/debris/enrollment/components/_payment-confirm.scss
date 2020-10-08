@@ -31,7 +31,7 @@
 	}
 
 	.subscribe {
-		background: $quad-grey;
+		background: var(--quad-grey);
 		padding: 0 $pad 0.5rem;
 		margin: 1rem (-$pad) 2rem;
 

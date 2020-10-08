@@ -28,7 +28,7 @@
 	}
 	.output-list {
 		h1 {
-			background: $quad-grey;
+			background: var(--quad-grey);
 		    font-size: .75rem;
 		    font-family: 'Open Sans';
 		    font-weight: 700;
@@ -57,7 +57,7 @@
 		border-width: 1px 0 0 0;
 
 		text-align: right;
-		background: $quad-grey;
+		background: var(--quad-grey);
 
 		button {
 			margin: 0;

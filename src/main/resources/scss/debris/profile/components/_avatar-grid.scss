@@ -71,7 +71,7 @@
 
 			// white-space: nowrap;
 			margin: $mgn ($mgn * 2) $mgn 0;
-			background: $quad-grey;
+			background: var(--quad-grey);
 			padding: 0;
 			position: relative;
 

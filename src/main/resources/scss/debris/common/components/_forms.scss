@@ -58,7 +58,7 @@ label:not(.css3unsupported) {
 	&.radio {
 		span {
 			@extend %labelspan;
-			background: $quad-grey;
+			background: var(--quad-grey);
 			padding: 1rem;
 			margin-bottom: .25rem;
 			display: inline-block;

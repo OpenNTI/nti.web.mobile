@@ -78,7 +78,7 @@ ul.activity {
 	}
 
 	& > h1 {
-		border-bottom: 0.0625rem solid $quad-grey;
+		border-bottom: 0.0625rem solid var(--quad-grey);
 		padding: .2em 0;
 	}
 
@@ -100,14 +100,14 @@ ul.activity {
 	}
 
 	.breadcrumb {
-		border-bottom: 1px solid $quad-grey;
+		border-bottom: 1px solid var(--quad-grey);
 		padding-left: 0;
 		padding-bottom: $item-padding / 2;
 		margin: #{-($item-padding / 2)} #{-$item-padding} 0;
 	}
 
 	.heading {
-		border-bottom: 1px solid $quad-grey;
+		border-bottom: 1px solid var(--quad-grey);
 		display: block;
 		padding-bottom: 1rem;
 		margin: 0 0 1rem 0;

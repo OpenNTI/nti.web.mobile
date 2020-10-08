@@ -73,7 +73,7 @@
 
 @media (min-width: 769px) {
 	.assignments-nav {
-		background: $quad-grey;
+		background: var(--quad-grey);
 		margin: 0 .3125rem 0 0;
 
 		position: sticky;

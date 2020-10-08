@@ -3,8 +3,8 @@
 .gradebook .column-heading {
 	padding-top: .5em;
 	padding-bottom: .5em;
-	border-top: 1px solid $quad-grey;
-	border-bottom: 1px solid $quad-grey;
+	border-top: 1px solid var(--quad-grey);
+	border-bottom: 1px solid var(--quad-grey);
 
 	.heading {
 		display: inline-block;
