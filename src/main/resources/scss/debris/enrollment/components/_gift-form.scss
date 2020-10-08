@@ -8,7 +8,7 @@
 
 	div.fromLabel {
 		margin: -1rem 0 0.5rem;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		font-style: italic;
 	}
 }
@@ -19,7 +19,7 @@
 	max-width: 750px;
 
 	h1, h2, h3, h4, h5 {
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		font-family: $body-font-family;
 	}
 

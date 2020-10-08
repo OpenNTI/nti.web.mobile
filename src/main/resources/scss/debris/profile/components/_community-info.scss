@@ -9,7 +9,7 @@
 		background: $quad-grey;
 		position: relative;
 		overflow: hidden;
-		// border-bottom: 1px solid $tertiary-grey;
+		// border-bottom: 1px solid var(--tertiary-grey);
 
 		&, & ~ * {
 			padding: 1.5rem 1rem;
@@ -79,7 +79,7 @@
 				position: absolute;
 				top: 0; right: 0.125rem;
 				font-weight: 100;
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 			}
 		}
 	}

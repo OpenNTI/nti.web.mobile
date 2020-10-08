@@ -7,7 +7,7 @@
 		&::before {
 			content: '√';
 			font-family: 'icomoon';
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 	}
 	.complete {

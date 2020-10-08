@@ -23,7 +23,7 @@
 	}
 
 	.placeholder {
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		padding-bottom: 1rem;
 		font: {
 			size: 0.875rem;
@@ -74,7 +74,7 @@
 		time {
 			text-transform: uppercase;
 			vertical-align: middle;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			float: right;
 			font: {
 				size: 0.625rem;

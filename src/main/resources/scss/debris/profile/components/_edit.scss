@@ -10,7 +10,7 @@
 		text-transform: uppercase;
 	    font-size: .625rem;
 	    font-weight: 700;
-	    color: #b8b8b8;
+	    color: var(--tertiary-grey);
 	    margin-top: 0.5rem;
 	}
 	input {
@@ -37,7 +37,7 @@
 		.remove {
 			float: right;
 			font-size: 1.5rem;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 	}
 
@@ -81,7 +81,7 @@
 	.fixed-footer {
 		height: 4rem;
 		.the-fixed {
-			border: 1px solid $tertiary-grey;
+			border: 1px solid var(--tertiary-grey);
 			border-width: 1px 0 0 0;
 			background: #f8f8f8;
 			position: fixed;

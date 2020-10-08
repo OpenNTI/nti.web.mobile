@@ -21,7 +21,7 @@
 		white-space: normal;
 
 		&, &:hover, &:focus {
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 	}
 }

@@ -21,7 +21,7 @@
 	& > .the-fixed {
 		$background: #f8f8f8;
 
-		border: 1px solid $tertiary-grey;
+		border: 1px solid var(--tertiary-grey);
 		border-width: 1px 0 0;
 		background: $background;
 		position: fixed;
@@ -60,7 +60,7 @@
 				left: -1px;
 				right: -1px;
 				height: 20px;
-				border: 1px solid $tertiary-grey;
+				border: 1px solid var(--tertiary-grey);
 				border-width: 0 1px;
 			}
 		}

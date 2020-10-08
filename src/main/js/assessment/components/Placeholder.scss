@@ -109,7 +109,7 @@
 					position: relative;
 					min-height: 38px;
 					background: #ffffff;
-					border: 1px solid #b8b8b8;
+					border: 1px solid var(--tertiary-grey);
 
 					.answer {
 						position: relative;
@@ -117,7 +117,7 @@
 						vertical-align: middle;
 						min-height: 38px;
 						background: #ffffff;
-						border: 0px solid #b8b8b8;
+						border: 0px solid var(--tertiary-grey);
 						border-bottom-width: 1px;
 						padding-left: 54px;
 

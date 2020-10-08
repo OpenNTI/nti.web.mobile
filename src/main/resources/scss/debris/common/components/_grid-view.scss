@@ -146,12 +146,12 @@ li.catalog-item {
 		font-size: 0.75rem;
 		font-weight: 600;
 		text-transform: uppercase;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 
 		& + h5 {
 			@extend %middot-before;
 
-			// color: $tertiary-grey;
+			// color: var(--tertiary-grey);
 			// font-size: 0.55rem;
 			// text-transform: uppercase;
 		}

@@ -18,7 +18,7 @@
 			weight: 400;
 			size: 0.625rem;
 		}
-		color: #b8b8b8;
+		color: var(--tertiary-grey);
 
 		& > *:not(:last-child)::after {
 			text-decoration: none !important;

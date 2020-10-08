@@ -3,7 +3,7 @@
 
 .note-editor-frame {
 	background: #f8f8f8;
-	border: 1px solid #b8b8b8;
+	border: 1px solid var(--tertiary-grey);
 	border-radius: 5px;
 	margin: 0.375rem;
 	flex: 1 1 auto;
@@ -73,8 +73,8 @@
 					box-shadow: 1px 1px 0 0 $primary-blue;
 					border: 1px solid $primary-blue;
 					&.disabled {
-						border-color: $tertiary-grey;
-						box-shadow: 1px 1px 0 0 $tertiary-grey;
+						border-color: var(--tertiary-grey);
+						box-shadow: 1px 1px 0 0 var(--tertiary-grey);
 					}
 
 					font-size: 0.8125rem;

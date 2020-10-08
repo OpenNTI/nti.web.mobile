@@ -1,13 +1,13 @@
 @import "~@nti/style-common";
 
 .question-part .multiple-choice {
-	border: 1px solid $tertiary-grey;
+	border: 1px solid var(--tertiary-grey);
 	margin: 0 0 1rem 0;
 
 	.choice {
 		display: block;
 		position: relative;
-		border: 0px solid $tertiary-grey;
+		border: 0px solid var(--tertiary-grey);
 		line-height: 2;
 		min-height: 60px;
 

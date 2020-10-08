@@ -353,7 +353,7 @@ nav.nav-bar {
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 
 		&[href] {
 			color: var(--secondary-grey);

@@ -11,7 +11,7 @@
 	overflow: hidden;
 
 	&.draft {
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 
 		.required {
 			color: var(--primary-grey);
@@ -24,7 +24,7 @@
 		}
 
 		&.not-available {
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 
 		&.required {
@@ -112,7 +112,7 @@
 	position: absolute;
 	background-color: rgba(43,43,43,0.9);
 	padding: 3px 5px;
-	color: $tertiary-grey;
+	color: var(--tertiary-grey);
 	font-size: 0.625rem;
 	font-weight: 700;
 	text-transform: uppercase;

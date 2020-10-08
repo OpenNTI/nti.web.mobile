@@ -26,7 +26,7 @@
 			border-bottom-left-radius: 4px;
 
 			&::placeholder {
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 			}
 
 			@include responsive-range(mobile) {

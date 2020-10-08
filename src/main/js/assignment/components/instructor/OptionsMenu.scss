@@ -13,7 +13,7 @@
 		padding: 0.28em .4em;
 		border: 1px solid #dcdcdc;
 		border-radius: 3px;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 	}
 	&.open::before {
 		@include menu-click-mask;

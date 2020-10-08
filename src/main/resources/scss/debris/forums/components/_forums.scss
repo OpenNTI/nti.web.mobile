@@ -26,7 +26,7 @@ $indent: 0.9375rem;
 	}
 	.current {
 		text-align: center;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		white-space: nowrap;
 	}
 	.next {
@@ -117,7 +117,7 @@ $indent: 0.9375rem;
 			display: block;
 			min-height: 1rem;
 			font-size: .75rem;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			white-space: nowrap;
 			float: right;
 			padding-right: 1.5rem;
@@ -133,7 +133,7 @@ $indent: 0.9375rem;
 		&.deleted {
 
 			.wrap {
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 				margin-left: 0;
 			}
 			padding: .6875rem 0;
@@ -146,7 +146,7 @@ $indent: 0.9375rem;
 	.deleteditemgroup {
 		$avatarsize: 35px;
 		font-size: .75rem;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		background: $quad-grey;
 		padding: 1rem;
 		padding-bottom: 0;
@@ -266,7 +266,7 @@ $indent: 0.9375rem;
 		.meta, .activity {
 			font-size: .75rem;
 			display: block;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			padding: .5rem 0;
 			font-family: 'Open Sans';
 			font-weight: 600;

@@ -14,7 +14,7 @@
 	display: table;
 	table-layout: fixed;
 	width: 100%;
-	border: 1px solid $tertiary-grey;
+	border: 1px solid var(--tertiary-grey);
 	margin-bottom: 1rem;
 
 	.match-row {
@@ -34,7 +34,7 @@
 	.cell {
 		display: table-cell;
 		padding: 1rem;
-		border: 1px solid $tertiary-grey;
+		border: 1px solid var(--tertiary-grey);
 		vertical-align: middle;
 		border-top-width: 0;
 
@@ -59,7 +59,7 @@
 					cursor: grabbing;
 				}
 
-				box-shadow: 0 0 0 1px $tertiary-grey;
+				box-shadow: 0 0 0 1px var(--tertiary-grey);
 				background: rgba(white, 0.8);
 				z-index: 10000;
 

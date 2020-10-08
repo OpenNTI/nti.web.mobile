@@ -37,5 +37,5 @@
 
 	.rank-first { color: $primary-green; }
 	.rank-second { color: var(--primary-grey); }
-	.rank-none { color: $tertiary-grey; opacity: 0.9;}
+	.rank-none { color: var(--tertiary-grey); opacity: 0.9;}
 }

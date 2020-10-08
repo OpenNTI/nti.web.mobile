@@ -11,7 +11,7 @@
 	.title {
 		.sub {
 			text-transform: uppercase;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			font-size: 0.6rem;
 			font-weight: 700;
 			display: block;
@@ -77,7 +77,7 @@
 			}
 
 			.old-amount {
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 				text-decoration: line-through;
 				margin-right: 0.4em;
 			}
@@ -112,7 +112,7 @@
 			top: -5.5rem;
 
 			.label {
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 			}
 
 			.value {

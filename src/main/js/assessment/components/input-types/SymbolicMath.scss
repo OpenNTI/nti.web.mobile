@@ -28,7 +28,7 @@
 
 			&[data-label]::after{
 				font-style: italic !important;
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 				content: attr(data-label);
 				margin: 0.3em;
 			}
