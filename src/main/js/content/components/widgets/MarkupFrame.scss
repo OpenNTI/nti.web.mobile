@@ -62,7 +62,7 @@
 		position: relative;
 		// z-index: 3;
 		padding: 0 0.875rem 1.25rem;
-		background: $panel-background; //#fafafa;
+		background: var(--panel-background); //#fafafa;
 		min-height: 2.3125rem;
 
 		span:first-child {

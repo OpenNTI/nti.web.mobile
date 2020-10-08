@@ -4,7 +4,7 @@
 .discussions {
 	@extend %hardware-render;
 	overflow: hidden;
-	background: $panel-background;
+	background: var(--panel-background);
 	border: {
 		style: solid;
 		color: var(--border-grey)-alt;

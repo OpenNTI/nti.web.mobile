@@ -3,7 +3,7 @@
 .question-part .matching {
 
 	.terms {
-		background: $panel-background;
+		background: var(--panel-background);
 		border: 1px solid var(--border-grey);
 		border-radius: 5px;
 		padding-bottom: 1rem;

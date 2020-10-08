@@ -4,7 +4,7 @@
 .aggregated-modeled-content {
 	.toolbar {
 		display: flex;
-		background: $panel-background;
+		background: var(--panel-background);
 		border: 1px solid var(--border-grey);
 		border-width: 1px 0 0 0;
 

@@ -4,7 +4,7 @@
 	color: var(--primary-grey);
 
 	.scoreboard {
-		background: $panel-background;
+		background: var(--panel-background);
 		border: 1px solid var(--border-grey);
 
 		margin-left: 0.75rem;//1.1875rem;

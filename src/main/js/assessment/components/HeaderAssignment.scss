@@ -9,7 +9,7 @@
 	padding-left: calc(0.625rem + 40px);
 	min-height: calc(2rem + 40px);
 
-	background: $panel-background;
+	background: var(--panel-background);
 	border: 0 solid #dddddd;
 	border-width: 1px 0;
 	display: flex;

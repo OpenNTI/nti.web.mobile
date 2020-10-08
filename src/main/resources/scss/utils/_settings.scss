@@ -721,7 +721,7 @@ $tabbar-color: #333;
 // $off-canvas-width: rem-calc(290);
 $off-canvas-width: 90%;
 // $off-canvas-bg: #333;
-$off-canvas-bg: #fbfbfb;
+$off-canvas-bg: var(--panel-background);
 
 // Off Canvas Menu List Variables
 // $off-canvas-label-padding: 0;

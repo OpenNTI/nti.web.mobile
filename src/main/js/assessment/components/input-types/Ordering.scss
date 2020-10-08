@@ -124,9 +124,9 @@
 		}
 	}
 
-	.over .ordinal {background: rgba($panel-background,0.6);}
+	.over .ordinal {background: rgba(var(--panel-background),0.6);}
 	.ordinal{
-		background: $panel-background;
+		background: var(--panel-background);
 	}
 
 	.value{

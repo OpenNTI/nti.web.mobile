@@ -1,11 +1,11 @@
 @import "~@nti/style-common";
-$alt-grey: darken($panel-background, 3.9%); // #f1f1f1
+$alt-grey: darken(var(--panel-background), 3.9%); // #f1f1f1
 
 .search-sort-bar {
 	display: flex;
 	align-items: center;
 	height: 3.125rem;
-	background: $panel-background;
+	background: var(--panel-background);
 	border-color: $alt-grey;
 	border-style: solid;
 	border-width: 1px 0;
