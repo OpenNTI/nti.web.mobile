@@ -31,8 +31,8 @@
 
 
 	.error-message {
-		color: $secondary-red;
-		border: 1px solid $secondary-red;
+		color: var(--secondary-red);
+		border: 1px solid var(--secondary-red);
 		background: var(--primary-red);
 
 		display: block;

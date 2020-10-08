@@ -53,10 +53,10 @@
 	left: 1.5rem;
 	max-width: 86%;
 	background: var(--primary-red);
-	color: $secondary-red;
+	color: var(--secondary-red);
 	display: block;
 	padding: 0.25rem;
-	border: 1px solid $secondary-red;
+	border: 1px solid var(--secondary-red);
 	font-size: 0.75rem;
 	font-weight: 600;
 	font-style: italic;

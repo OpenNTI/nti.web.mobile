@@ -45,8 +45,8 @@ fieldset.credit-card-form {
 		z-index: 10;
 		background: var(--primary-red);
 		font-size: 0.8rem;
-		color: $secondary-red;
-		border: 1px solid $secondary-red;
+		color: var(--secondary-red);
+		border: 1px solid var(--secondary-red);
 		padding: 0 0.25rem;
 		display: block;
 		margin: 0;
