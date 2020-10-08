@@ -23,7 +23,7 @@
 	}
 
 	.username {
-		color: $primary-grey;
+		color: var(--primary-grey);
 		max-width: 100%;
 		overflow: hidden;
 		text-overflow: ellipsis;

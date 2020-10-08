@@ -2,7 +2,7 @@
 @import "utils/placeholders";
 
 .header.assessment.common {
-	color: $primary-grey;
+	color: var(--primary-grey);
 	position: relative;
 	padding: 0;
 	padding-left: 50px;

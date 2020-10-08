@@ -46,7 +46,7 @@
 	cursor: pointer;
 
 	span {
-		color: $primary-grey;
+		color: var(--primary-grey);
 		font-size: .875rem;
 		font-weight: 600;
 		line-height: 1;

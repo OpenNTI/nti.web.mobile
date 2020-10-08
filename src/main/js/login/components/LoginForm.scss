@@ -165,7 +165,7 @@
 	.oauth-header {
 		text-align: center;
 		font: normal 400 0.875rem/1.3 $body-font-family;
-		color: $primary-grey;
+		color: var(--primary-grey);
 		padding: 0 10px;
 		margin-bottom: 61px;
 	}

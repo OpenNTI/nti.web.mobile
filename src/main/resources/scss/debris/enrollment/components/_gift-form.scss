@@ -29,7 +29,7 @@
 	}
 
 	legend {
-		color: $primary-grey;
+		color: var(--primary-grey);
 		font-weight: 600;
 	}
 
@@ -45,7 +45,7 @@
 
 		legend {
 			font-size: 1rem;
-			color: $primary-grey;
+			color: var(--primary-grey);
 		}
 	}
 

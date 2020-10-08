@@ -25,7 +25,7 @@
 
 .recovery h2,
 .recovery h4 {
-	color: #494949;
+	color: var(--primary-grey);
 	font-size: 18px;
 	font-weight: normal;
 	line-height: 1.333333333;

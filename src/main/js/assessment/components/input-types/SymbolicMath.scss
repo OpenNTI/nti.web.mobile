@@ -37,7 +37,7 @@
 
 	.mathquill-editable,
 	.mathquill-rendered-math {
-		color: $primary-grey;
+		color: var(--primary-grey);
 		border-color: white;
 
 		&.hasCursor,

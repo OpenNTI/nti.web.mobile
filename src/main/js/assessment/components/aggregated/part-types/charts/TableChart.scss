@@ -36,6 +36,6 @@
 	}
 
 	.rank-first { color: $primary-green; }
-	.rank-second { color: $primary-grey; }
+	.rank-second { color: var(--primary-grey); }
 	.rank-none { color: $tertiary-grey; opacity: 0.9;}
 }

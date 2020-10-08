@@ -1,6 +1,6 @@
 
 .pricing-info {
-	color: $primary-grey;
+	color: var(--primary-grey);
 	margin-bottom: 2rem;
 	padding: 0 0.625rem;
 
@@ -42,7 +42,7 @@
 
 		.label {
 			background: none;
-			color: $primary-grey;
+			color: var(--primary-grey);
 			display: block;
 			font-size: 0.6rem;
 			font-weight: 700;
@@ -67,7 +67,7 @@
 		}
 
 		.value {
-			color: $primary-grey;
+			color: var(--primary-grey);
 			display: block;
 			font-size: 1.1rem;
 			font-weight: 400;

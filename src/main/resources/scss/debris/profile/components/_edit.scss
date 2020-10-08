@@ -113,7 +113,7 @@
 			&.link {
 				background: none;
 				border-width: 0;
-				color: $primary-grey;
+				color: var(--primary-grey);
 				font-weight: 300;
 				text-decoration: underline;
 				text-transform: none;

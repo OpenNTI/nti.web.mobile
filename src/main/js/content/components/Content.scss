@@ -422,7 +422,7 @@ nti\:content {
 	}
 
 	.page-contents {
-		color: $primary-grey;
+		color: var(--primary-grey);
 		font-size: 1rem;
 		font-weight: normal;
 		position: relative;
@@ -796,7 +796,7 @@ nti\:content {
 	}
 
 	#footnotes {
-		color: $primary-grey;
+		color: var(--primary-grey);
 		margin-top: 2em;
 		font-size: small;
 		font-weight: normal;

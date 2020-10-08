@@ -78,7 +78,7 @@
 
 			.prompt {
 				background: #ffffff;
-				color: #494949;
+				color: var(--primary-grey);
 				overflow: hidden;
 				position: relative;
 				padding: 17px 0.75rem 15px;
@@ -113,7 +113,7 @@
 
 					.answer {
 						position: relative;
-						color: #494949;
+						color: var(--primary-grey);
 						vertical-align: middle;
 						min-height: 38px;
 						background: #ffffff;
