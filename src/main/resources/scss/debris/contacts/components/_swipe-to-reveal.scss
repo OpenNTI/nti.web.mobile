@@ -43,7 +43,7 @@
 	width: 100%;
 	&.caution {
 		&, &:hover, &:focus {
-			background: $primary-red;
+			background: var(--primary-red);
 		}
 	}
 	&.disabled {

@@ -54,7 +54,7 @@
 				color: $primary-blue;
 				cursor: pointer;
 				&.delete {
-					color: $primary-red;
+					color: var(--primary-red);
 				}
 			}
 			a {

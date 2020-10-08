@@ -29,9 +29,9 @@
 			color: $primary-green;
 		}
 		&.late {
-			color: $primary-red;
+			color: var(--primary-red);
 			&::before {
-				color: $primary-red;
+				color: var(--primary-red);
 			}
 		}
 	}

@@ -52,7 +52,7 @@
 			text-transform: uppercase;
 
 			&.invalid {
-				color: $primary-red;
+				color: var(--primary-red);
 			}
 			&.valid {
 				color: $secondary-green;
@@ -73,7 +73,7 @@
 			font-weight: 400;
 
 			&.red {
-				color: $primary-red;
+				color: var(--primary-red);
 			}
 
 			.old-amount {

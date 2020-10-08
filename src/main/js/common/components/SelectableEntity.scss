@@ -102,7 +102,7 @@
 		&.removable {
 			&::after {
 				content: 'X';
-				background-color: $primary-red;
+				background-color: var(--primary-red);
 			}
 		}
 	}

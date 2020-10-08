@@ -59,7 +59,7 @@
 	&.missing-data {
 		margin: 2rem;
 		border: 0;
-		color: $primary-red;
+		color: var(--primary-red);
 		font-weight: bold;
 	}
 

@@ -11,7 +11,7 @@
 
 	.status-line {
 		padding-left: 0.75rem;
-		color: $primary-red;
+		color: var(--primary-red);
 		font-weight: 300;
 		align-self: center;
 		order: 1;

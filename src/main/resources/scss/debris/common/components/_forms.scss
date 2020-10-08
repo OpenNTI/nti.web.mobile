@@ -20,7 +20,7 @@ textarea {
 
 	&.error {
 		border-color: $border-red;
-		box-shadow: inset 4px 0 0 0 $primary-red !important;
+		box-shadow: inset 4px 0 0 0 var(--primary-red) !important;
 	}
 
 	&:focus {

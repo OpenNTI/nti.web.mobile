@@ -4,7 +4,7 @@ button.delete-icon {
 	width: 3rem;
 	height: 2.5rem;
 	padding: 0;
-	background-color: $primary-red;
+	background-color: var(--primary-red);
 	border-radius: .25rem;
 	color: transparent;
 	position: relative;

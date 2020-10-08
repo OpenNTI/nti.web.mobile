@@ -52,7 +52,7 @@
 
 		.over {
 			cursor: pointer;
-			color: $primary-red;
+			color: var(--primary-red);
 		}
 
 		.over,
@@ -86,7 +86,7 @@
 		}
 
 		.excused {
-			background-color: #F35252;
+			background-color: var(--primary-red);
 			color: #fff;
 			padding: 0.2em 0.3em;
 			display: inline-block;
@@ -99,7 +99,7 @@
 
 
 		&.late {
-			color: $primary-red;
+			color: var(--primary-red);
 		}
 
 		time {

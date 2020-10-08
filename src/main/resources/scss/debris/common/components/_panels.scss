@@ -10,7 +10,7 @@ figure {
 
 	&.caution {
 		@extend %isPanel;
-		@include panel($bg: transparentize($primary-red, 0.9)); //TODO: restyle without foundation.
+		@include panel($bg: transparentize(var(--primary-red), 0.9)); //TODO: restyle without foundation.
 	}
 }
 

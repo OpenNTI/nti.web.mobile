@@ -8,7 +8,7 @@
 
 	.unfollow-button {
 		&, &:hover {
-			background-color: $primary-red;
+			background-color: var(--primary-red);
 		}
 	}
 }
