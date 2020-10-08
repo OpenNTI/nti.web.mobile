@@ -18,7 +18,7 @@
 	}
 	&.follow::after {
 		content: '\e601'; // add user icon
-		color: $primary-green;
+		color: var(--primary-green);
 	}
 
 	&.loading {

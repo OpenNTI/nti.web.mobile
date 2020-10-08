@@ -6,7 +6,7 @@
 	display: flex;
 
 	&.complete {
-		.status-line{color: $primary-green;}
+		.status-line{color: var(--primary-green);}
 	}
 
 	.status-line {
