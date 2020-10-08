@@ -70,8 +70,8 @@
 
 				.save {
 					border-bottom-right-radius: 4px;
-					box-shadow: 1px 1px 0 0 $primary-blue;
-					border: 1px solid $primary-blue;
+					box-shadow: 1px 1px 0 0 var(--primary-blue);
+					border: 1px solid var(--primary-blue);
 					&.disabled {
 						border-color: var(--tertiary-grey);
 						box-shadow: 1px 1px 0 0 var(--tertiary-grey);

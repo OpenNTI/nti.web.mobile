@@ -10,7 +10,7 @@
 			flex: 1 1 33.333%;
 
 			&.active {
-				box-shadow: inset 0 -2px 0 $primary-blue;
+				box-shadow: inset 0 -2px 0 var(--primary-blue);
 			}
 		}
 
@@ -41,7 +41,7 @@
 			}
 
 			@at-root #active-tab-filter feFlood {
-				flood-color: $primary-blue;
+				flood-color: var(--primary-blue);
 			}
 		}
 	}

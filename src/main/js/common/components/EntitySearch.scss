@@ -11,7 +11,7 @@
 	.button {
 		display: block;
 		background: none;
-		color: $primary-blue;
+		color: var(--primary-blue);
 		text-transform: uppercase;
 		letter-spacing: 0;
 		padding: 1rem;

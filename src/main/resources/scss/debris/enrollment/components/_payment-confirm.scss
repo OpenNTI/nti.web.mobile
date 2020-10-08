@@ -46,7 +46,7 @@
 		}
 
 		a {
-			color: $primary-blue;
+			color: var(--primary-blue);
 		}
 
 		p {
@@ -75,7 +75,7 @@
 				float: left;
 				padding-left: 9px;
 				top: -6px;
-				color: #3fb3f6;
+				color: var(--primary-blue);
 				cursor: pointer;
 				text-transform: uppercase;
 				font-size: 0.55em;

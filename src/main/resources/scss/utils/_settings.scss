@@ -60,7 +60,7 @@ $body-font-weight: $font-weight-normal;
 
 // We use these as default colors throughout
 // $primary-color: #008CBA;
-$primary-color: $primary-blue;
+$primary-color: var(--primary-blue);
 $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -185,7 +185,7 @@ $header-font-color: var(--primary-grey);
 // $anchor-text-decoration: none;
 // $anchor-text-decoration-hover: none;
 // $anchor-font-color: $primary-color;
-$anchor-font-color-hover: $primary-blue;
+$anchor-font-color-hover: var(--primary-blue);
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;

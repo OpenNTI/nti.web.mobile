@@ -94,8 +94,8 @@ li.catalog-item {
 		background: white;
 
 		&.add {
-			border: 1px solid $primary-blue;
-			color: $primary-blue;
+			border: 1px solid var(--primary-blue);
+			color: var(--primary-blue);
 		}
 
 		&.drop {

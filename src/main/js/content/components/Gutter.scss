@@ -15,7 +15,7 @@
 		$offset: -0.65rem;
 		position: absolute;
 		left: 0;
-		color: $primary-blue;
+		color: var(--primary-blue);
 		background: rgba(255,255,255,0.7);
 		font-size: 0.75rem;
 		padding: 0.4rem (-$offset) 0.4rem 0.5rem;
@@ -25,7 +25,7 @@
 		/*border: 1px solid;*/
 
 		&.active {
-			background: #3fb3f6;
+			background: var(--primary-blue);
 			color: #fff !important;
 			font-weight: bolder;
 			box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.4);

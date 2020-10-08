@@ -33,7 +33,7 @@ nti\:content {
 
 		&[href],
 		&:link {
-			color: $primary-blue;
+			color: var(--primary-blue);
 		}
 	}
 }

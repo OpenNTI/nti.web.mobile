@@ -55,7 +55,7 @@
 	}
 
 	&.upcoming {
-		background: rgba($primary-blue, 0.95);
+		background: rgba(var(--primary-blue), 0.95);
 		letter-spacing: 0.06em;
 
 		&::after {
@@ -66,7 +66,7 @@
 			height: 0;
 			border-style: solid;
 			border-width: 0 0 1.6875rem 0.3125rem;
-			border-color: transparent transparent transparent rgba($primary-blue, 0.95);
+			border-color: transparent transparent transparent rgba(var(--primary-blue), 0.95);
 		}
 	}
 }

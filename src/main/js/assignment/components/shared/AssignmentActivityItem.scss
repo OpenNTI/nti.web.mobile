@@ -14,7 +14,7 @@
 
 			&::before {
 				content: '•';
-				color: $primary-blue;
+				color: var(--primary-blue);
 				position: absolute;
 				left: 0.25em;
 			}
@@ -38,7 +38,7 @@
 		}
 
 		.assignment-name {
-			color: $primary-blue;
+			color: var(--primary-blue);
 		}
 
 		&::after {

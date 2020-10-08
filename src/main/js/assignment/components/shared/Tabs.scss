@@ -18,7 +18,7 @@
 		
 		a {
 			background-color: white;
-			color: $primary-blue;
+			color: var(--primary-blue);
 			padding-right:.5rem;
 			padding-left:.5rem;
 			padding-bottom: .75rem;
@@ -97,8 +97,8 @@
 			}
 
 			.active {
-				background: $primary-blue;
-				box-shadow: inset 3px 0 0 0 darken($primary-blue, 20%);
+				background: var(--primary-blue);
+				box-shadow: inset 3px 0 0 0 darken(var(--primary-blue), 20%);
 				color: white;
 				font-weight: 700;
 				&::before {

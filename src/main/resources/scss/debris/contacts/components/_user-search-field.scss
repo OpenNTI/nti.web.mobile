@@ -8,7 +8,7 @@
 			flex: 1 1 auto;
 		}
 		.selected-item {
-			background: $primary-blue;
+			background: var(--primary-blue);
 			font-size: .6875rem;
 			margin-right:.25em;
 			color: white;
@@ -80,7 +80,7 @@
 
 .add-people {
 	background: white;
-	color: $primary-blue;
+	color: var(--primary-blue);
 	padding: 0;
 	margin: 0 0 .5rem .625rem;
 	span {

@@ -68,7 +68,7 @@
 		}
 
 		.username {
-			color: $primary-blue;
+			color: var(--primary-blue);
 			font-family: $body-font-family;
 			font-weight: 700;
 			font-size: 0.75rem;
@@ -133,7 +133,7 @@
 	padding: 0 1.25rem;
 	display: inline-block;
 	color: white;
-	background: $primary-blue;
+	background: var(--primary-blue);
 	text-transform: uppercase;
 	font-weight: 700;
 	font-size: 0.75rem;

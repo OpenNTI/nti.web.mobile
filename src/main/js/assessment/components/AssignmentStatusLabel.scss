@@ -48,7 +48,7 @@
 		}
 
 
-		.link { color: $primary-blue; cursor: pointer; }
+		.link { color: var(--primary-blue); cursor: pointer; }
 
 		.over {
 			cursor: pointer;

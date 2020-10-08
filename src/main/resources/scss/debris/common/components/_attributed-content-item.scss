@@ -30,7 +30,7 @@
 		.meta > * { margin-right: 0.5em; }
 
 		.name {
-			color: $primary-blue;
+			color: var(--primary-blue);
 			cursor: pointer;
 		}
 
@@ -51,7 +51,7 @@
 
 		.footer {
 			a.link {
-				color: $primary-blue;
+				color: var(--primary-blue);
 				cursor: pointer;
 				&.delete {
 					color: var(--primary-red);

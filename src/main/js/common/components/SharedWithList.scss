@@ -7,7 +7,7 @@
 	address, a { cursor: pointer; }
 
 	span, address, a {
-		color: $primary-blue;
+		color: var(--primary-blue);
 
 		//TODO: move these connective articles into a localizable form
 		&:not(:last-child)::after {

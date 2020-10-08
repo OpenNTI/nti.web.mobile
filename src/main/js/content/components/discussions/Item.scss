@@ -34,7 +34,7 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		color: $primary-blue;
+		color: var(--primary-blue);
 		line-height: 0.9375;
 		font: {
 			style: normal;

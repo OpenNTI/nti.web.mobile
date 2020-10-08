@@ -3,8 +3,8 @@
 	position: relative;
 	user-select: none;
 	touch-action: none;
-	color: $primary-blue;
-	border: 1px solid $primary-blue;
+	color: var(--primary-blue);
+	border: 1px solid var(--primary-blue);
 	border-radius: 3px;
 	background: #fff;
 	box-shadow: 1px 1px 1px 0px rgba(0, 0, 0, 0.2);
@@ -31,7 +31,7 @@
 	&:active,
 	html:not(.touch) &:hover {
 		color: #fff;
-		background: $primary-blue;
+		background: var(--primary-blue);
 	}
 
 	&.dragging,
@@ -97,7 +97,7 @@
 }
 
 div.drop.target .over{
-	box-shadow: inset 0 0 0 3px $primary-blue;
+	box-shadow: inset 0 0 0 3px var(--primary-blue);
 }
 
 span.drop.target {

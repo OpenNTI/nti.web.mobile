@@ -79,7 +79,7 @@
 
 			&.yellow {background: #EDE619;}
 			&.green {background: #4CE67F;}
-			&.blue {background: #3FB3F6;}
+			&.blue {background: var(--primary-blue);}
 
 			&::after {
 				content: " " attr(data-color);
@@ -115,9 +115,9 @@
 			font-family: $body-font-family;
 			flex: 0 0 auto;
 			margin: 0;
-			background: $primary-blue;
+			background: var(--primary-blue);
 			color: #fff;
-			border: 1px solid $primary-blue;
+			border: 1px solid var(--primary-blue);
 			border-top-right-radius: 4px;
 
 			i.icon-discuss {

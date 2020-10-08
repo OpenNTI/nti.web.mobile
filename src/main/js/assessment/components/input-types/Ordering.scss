@@ -27,7 +27,7 @@
 		}
 
 		&.over {
-			background: rgba($primary-blue, 0.6);
+			background: rgba(var(--primary-blue), 0.6);
 		}
 	}
 

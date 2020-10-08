@@ -12,7 +12,7 @@
 		width: $icon-size;
 	}
 	.badge-name {
-		color: $primary-blue;
+		color: var(--primary-blue);
 	}
 	time {
 		color: var(--tertiary-grey);

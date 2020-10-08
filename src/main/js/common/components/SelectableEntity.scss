@@ -44,7 +44,7 @@
 		text-align: right;
 
 		&.selected {
-			color: $primary-blue;
+			color: var(--primary-blue);
 		}
 	}
 
@@ -80,7 +80,7 @@
 
 		&.selected {
 			&::after {
-				background: $primary-blue;
+				background: var(--primary-blue);
 				border: 0.0625rem solid #3687b6;
 				box-shadow: inset 0 0.0625rem 0.0625rem 0 rgba(#fff, 0.5);
 			}
@@ -94,7 +94,7 @@
 				box-shadow: none;
 				animation: rotation 0.9s infinite linear;
 				border-color: $border;
-				background: radial-gradient(ellipse 5px 20px, $border 21%, rgba($primary-blue, 0.4) 21%) white;
+				background: radial-gradient(ellipse 5px 20px, $border 21%, rgba(var(--primary-blue), 0.4) 21%) white;
 				margin-top: -($iconsize/2); // the rotation overwrites our transform for vertical centering.
 			}
 		}
