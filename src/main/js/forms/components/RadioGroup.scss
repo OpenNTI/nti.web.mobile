@@ -13,7 +13,7 @@
 	}
 	&.error {
 		& > p {
-			border-color: $border-red;
+			border-color: var(--border-red);
 			box-shadow: inset 4px 0 0 0 var(--primary-red) !important;
 			padding-left: 1rem;
 		}
