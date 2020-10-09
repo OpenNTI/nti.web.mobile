@@ -10,12 +10,12 @@
 		text-align:center;
 		list-style: none;
 		font-size: .6875rem;
-		
+
 		li {
 			float: none;
 			display: inline-block;
 		}
-		
+
 		a {
 			background-color: white;
 			color: var(--primary-blue);
@@ -28,7 +28,7 @@
 				@include count-badge();
 			}
 		}
-		
+
 		.active {
 			position:relative;
 			$opacity: .1;
@@ -98,7 +98,7 @@
 
 			.active {
 				background: var(--primary-blue);
-				box-shadow: inset 3px 0 0 0 darken(var(--primary-blue), 20%);
+				box-shadow: inset 3px 0 0 0 var(--border-blue);
 				color: white;
 				font-weight: 700;
 				&::before {

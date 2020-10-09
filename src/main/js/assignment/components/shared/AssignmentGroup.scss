@@ -1,13 +1,12 @@
 @import "~@nti/style-common";
 @import "utils/placeholders";
-$alt-grey: darken(var(--panel-background), 3.9%); // #f1f1f1
 
 .assignment-group {
 	$vertical-spacing: 1.5rem;
 	padding-bottom: $vertical-spacing/2;
 	margin: 0 -1rem #{$vertical-spacing/2} -1rem;
 	padding: 0 1rem #{$vertical-spacing/2} 1rem;
-	box-shadow: 0 1px 0 $alt-grey;
+	box-shadow: 0 1px 0 var(--panel-background-alt);
 	&.instructor {
 		& > h2 {
 			display: flex;
