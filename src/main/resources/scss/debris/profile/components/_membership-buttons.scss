@@ -2,13 +2,13 @@
 .profile-top-controls-buttons {
 	.follow-button {
 		&, &:hover {
-			background-color: $secondary-green;
+			background-color: var(--secondary-green);
 		}
 	}
 
 	.unfollow-button {
 		&, &:hover {
-			background-color: $primary-red;
+			background-color: var(--primary-red);
 		}
 	}
 }

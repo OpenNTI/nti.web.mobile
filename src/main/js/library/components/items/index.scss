@@ -61,14 +61,14 @@
 			}
 
 			h3 {
-				color: $primary-grey;
+				color: var(--primary-grey);
 				font-weight: 300;
 				font-size: 1rem;
 				max-height: 3rem;
 			}
 
 			h5 {
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 				font-size: 0.5rem;
 				white-space: nowrap;
 			}
@@ -81,7 +81,7 @@
 				font-size: 0.75rem;
 				font-style: normal;
 				overflow: hidden;
-				color: $primary-blue;
+				color: var(--primary-blue);
 			}
 		}
 	}
@@ -92,7 +92,7 @@
 		position: relative;
 
 		&.sections {
-			border-top: 1px solid $border-grey;
+			border-top: 1px solid var(--border-grey);
 			background: #fff;
 
 			li {
@@ -111,10 +111,10 @@
 					display: block;
 					overflow: hidden;
 					max-height: 4em;
-					color: $tertiary-grey;
+					color: var(--tertiary-grey);
 
 					&[href] {
-						color: $secondary-grey;
+						color: var(--secondary-grey);
 					}
 				}
 			}

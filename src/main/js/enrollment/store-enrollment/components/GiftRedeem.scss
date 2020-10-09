@@ -18,7 +18,7 @@
 		}
 
 		input {
-			color: $primary-grey;
+			color: var(--primary-grey);
 			font-size: 16px;
 			width: 296px;
 			padding: 0 20px;
@@ -26,7 +26,7 @@
 			border-bottom-left-radius: 4px;
 
 			&::placeholder {
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 			}
 
 			@include responsive-range(mobile) {
@@ -37,7 +37,7 @@
 		button {
 			width: 104px;
 			border-radius: 0 4px 4px 0;
-			background-color: #3fb3f6;
+			background-color: var(--primary-blue);
 			border-color: transparent;
 			font-size: 16px;
 			color: #fff;

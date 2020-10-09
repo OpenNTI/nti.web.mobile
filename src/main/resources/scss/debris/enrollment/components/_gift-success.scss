@@ -32,9 +32,9 @@
 	}
 
 	h3{
-		color: $secondary-green;
+		color: var(--secondary-green);
 		font-size: 1.5em;
-		font-family: $body-font-family;
+		font-family: var(--body-font-family);
 		margin-bottom: 10px;
 		position: relative;
 		padding-left: 35px;
@@ -58,7 +58,7 @@
 
 		strong {
 			font-weight: 600;
-			color: $primary-grey;
+			color: var(--primary-grey);
 		}
 
 		a {
@@ -88,7 +88,7 @@
 			line-height: 30px;
 			margin-right: 0.5em;
 			background: none;
-			color: $primary-grey;
+			color: var(--primary-grey);
 			font-size: 1em;
 			padding: 0;
 		}

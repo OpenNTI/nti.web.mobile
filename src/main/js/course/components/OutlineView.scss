@@ -29,9 +29,9 @@
 		// text-overflow: ellipsis;
 		// white-space: nowrap;
 		max-height: 4em;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		&[href] {
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 			padding-right: 1em; // leave room for the chevron
 
 			&::after {
@@ -55,7 +55,7 @@
 	}
 
 	.active {
-		background: $primary-blue;
+		background: var(--primary-blue);
 		box-shadow: inset 3px 0 0 0 #107eed;
 		a[href] {
 			color: #ffffff;
@@ -85,7 +85,7 @@
 
 	li > h1 {
 		margin: 1.875rem 0 0;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 		position: relative;
 
 		font-style: normal;
@@ -102,7 +102,7 @@
 		font-style: normal;
 		font-weight: 400;
 		font-size: 0.6em;
-		font-family: $body-font-family;
+		font-family: var(--body-font-family);
 
 		padding: 0.3125rem 1.25rem 0.25rem;
 		background: #f4f4f4 !important;
@@ -110,7 +110,7 @@
 		box-shadow: inset 0 1px 0 0 #efefef, inset 0 -1px 0 0 #efefef;
 		margin-bottom: 0.5em;
 		margin-top: 3.5em;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 	}
 
 	li > div {

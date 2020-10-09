@@ -51,7 +51,7 @@
 	background: none;
 	padding: 0;
 	display: inline;
-	color: var(--primary-blue, #3fb3f6);
+	color: var(--primary-blue);
 	font-weight: inherit;
 	font-size: inherit;
 }

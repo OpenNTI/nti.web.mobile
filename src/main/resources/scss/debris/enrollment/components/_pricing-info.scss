@@ -1,6 +1,6 @@
 
 .pricing-info {
-	color: $primary-grey;
+	color: var(--primary-grey);
 	margin-bottom: 2rem;
 	padding: 0 0.625rem;
 
@@ -11,7 +11,7 @@
 	.title {
 		.sub {
 			text-transform: uppercase;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			font-size: 0.6rem;
 			font-weight: 700;
 			display: block;
@@ -36,13 +36,13 @@
 		padding: 1rem;
 		padding-left: 100rem !important;
 		padding-right: 100rem !important;
-		background: $quad-grey;
+		background: var(--quad-grey);
 		box-shadow: inset 0 1px 0 0 #eee;
 		margin: 0 -100rem;
 
 		.label {
 			background: none;
-			color: $primary-grey;
+			color: var(--primary-grey);
 			display: block;
 			font-size: 0.6rem;
 			font-weight: 700;
@@ -52,10 +52,10 @@
 			text-transform: uppercase;
 
 			&.invalid {
-				color: $primary-red;
+				color: var(--primary-red);
 			}
 			&.valid {
-				color: $secondary-green;
+				color: var(--secondary-green);
 			}
 			&.working::after {
 				content: '.\a0.\a0.';
@@ -67,23 +67,23 @@
 		}
 
 		.value {
-			color: $primary-grey;
+			color: var(--primary-grey);
 			display: block;
 			font-size: 1.1rem;
 			font-weight: 400;
 
 			&.red {
-				color: $primary-red;
+				color: var(--primary-red);
 			}
 
 			.old-amount {
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 				text-decoration: line-through;
 				margin-right: 0.4em;
 			}
 
 			.amount {
-				color: $secondary-green;
+				color: var(--secondary-green);
 			}
 		}
 
@@ -112,7 +112,7 @@
 			top: -5.5rem;
 
 			.label {
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 			}
 
 			.value {

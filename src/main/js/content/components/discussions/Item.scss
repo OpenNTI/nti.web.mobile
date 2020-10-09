@@ -7,7 +7,7 @@
 	padding-top: .3125rem;
 	border: {
 		style: solid;
-		color: $border-grey-alt;
+		color: var(--border-grey-alt);
 		width: 0 0 1px 0;
 	}
 
@@ -18,7 +18,7 @@
 			weight: 400;
 			size: 0.625rem;
 		}
-		color: #b8b8b8;
+		color: var(--tertiary-grey);
 
 		& > *:not(:last-child)::after {
 			text-decoration: none !important;
@@ -34,7 +34,7 @@
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
-		color: $primary-blue;
+		color: var(--primary-blue);
 		line-height: 0.9375;
 		font: {
 			style: normal;
@@ -52,7 +52,7 @@
 		max-height: 5rem;
 		margin: 0 0 0.625rem -0.625rem;
 		padding-left: 0.625rem;
-		color: $primary-grey;
+		color: var(--primary-grey);
 		line-height: 1.5625;
 		font: {
 			style: italic;
@@ -65,7 +65,7 @@
 			max-width: 200px;
 			margin: 0.1875rem;
 			margin-bottom: 0.5rem;
-			border: 1px solid $border-grey-alt;
+			border: 1px solid var(--border-grey-alt);
 			box-shadow: 0.125rem 0.1875rem 0.0625rem 0 rgba(0,0,0,0.13);
 			border-radius: 1px;//iOS fix for box-shadow
 		}

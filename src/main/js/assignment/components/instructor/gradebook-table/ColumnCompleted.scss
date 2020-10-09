@@ -7,7 +7,7 @@
 		&::before {
 			content: '√';
 			font-family: 'icomoon';
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 	}
 	.complete {
@@ -26,12 +26,12 @@
 			top: 50%;
 			left: 0;
 			transform: translate3d(0,-50%,0);
-			color: $primary-green;
+			color: var(--primary-green);
 		}
 		&.late {
-			color: $primary-red;
+			color: var(--primary-red);
 			&::before {
-				color: $primary-red;
+				color: var(--primary-red);
 			}
 		}
 	}

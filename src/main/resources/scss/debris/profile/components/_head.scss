@@ -1,7 +1,7 @@
 
 .profile-head {
 	// margin: 1rem 0.625rem;
-	background: $primary-grey;
+	background: var(--primary-grey);
 	color: white;
 	position: relative;
 	margin-bottom: .25rem;
@@ -23,7 +23,7 @@
 			line-height: $lineheight; // probably already
 			max-height: $lineheight * 3; // 3 lines
 			overflow: hidden;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 		.label {
 			line-height: 1.5em;
@@ -32,7 +32,7 @@
 		.group-subhead {
 			font-size: .75rem;
 			font-weight: 700;
-			font-family: $body-font-family;
+			font-family: var(--body-font-family);
 		}
 		.group-subhead-icon {
 
@@ -56,7 +56,7 @@
 	.label {
 		background: none;
 		display: block;
-		font: normal 600 1.1rem/2 $header-font-family;
+		font: normal 600 1.1rem/2 var(--header-font-family);
 		overflow: hidden;
 		text-align: left;
 		text-overflow: ellipsis;
@@ -85,7 +85,7 @@
 		list-style-type: none;
 		margin: 0;
 		li {
-			$icon-color: $secondary-grey;
+			$icon-color: var(--secondary-grey);
 			$icon-size: 1.5em;
 			line-height: $icon-size * 1.5;
 			position: relative;
@@ -167,13 +167,13 @@
 	background-color: rgba(0,0,0,0.15);
 
 	& > li, {
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		text-transform: uppercase;
 		overflow: hidden;
 		a {
 			display: block;
 			padding: 0.5rem;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			box-shadow: 1px 0 0 0 rgba(0,0,0,0.15);
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -182,8 +182,8 @@
 
 			&.active {
 				color: white;
-				background: $primary-blue;
-				box-shadow: 1px 0 0 0 $primary-blue;
+				background: var(--primary-blue);
+				box-shadow: 1px 0 0 0 var(--primary-blue);
 			}
 
 			&.profile-nav-more-trigger  {
@@ -202,8 +202,8 @@
 .profile .empty-list.user-details {
 	margin: 0.25rem 0;
 	&, h1 {
-		font-family: $body-font-family;
-		color: $tertiary-grey;
+		font-family: var(--body-font-family);
+		color: var(--tertiary-grey);
 	}
 }
 

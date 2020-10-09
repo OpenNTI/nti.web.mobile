@@ -10,15 +10,15 @@
 		text-align:center;
 		list-style: none;
 		font-size: .6875rem;
-		
+
 		li {
 			float: none;
 			display: inline-block;
 		}
-		
+
 		a {
 			background-color: white;
-			color: $primary-blue;
+			color: var(--primary-blue);
 			padding-right:.5rem;
 			padding-left:.5rem;
 			padding-bottom: .75rem;
@@ -28,7 +28,7 @@
 				@include count-badge();
 			}
 		}
-		
+
 		.active {
 			position:relative;
 			$opacity: .1;
@@ -73,7 +73,7 @@
 
 @media (min-width: 769px) {
 	.assignments-nav {
-		background: $quad-grey;
+		background: var(--quad-grey);
 		margin: 0 .3125rem 0 0;
 
 		position: sticky;
@@ -90,15 +90,15 @@
 				display: block;
 				a {
 					padding: .625em 1em;
-					color: $secondary-grey;
+					color: var(--secondary-grey);
 					margin: 0;
 					background: none;
 				}
 			}
 
 			.active {
-				background: $primary-blue;
-				box-shadow: inset 3px 0 0 0 darken($primary-blue, 20%);
+				background: var(--primary-blue);
+				box-shadow: inset 3px 0 0 0 var(--border-blue);
 				color: white;
 				font-weight: 700;
 				&::before {

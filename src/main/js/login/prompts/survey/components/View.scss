@@ -20,14 +20,14 @@
 		padding: 0.625rem;
 
 		h3 {
-			font: normal normal 1.1rem/1.5 $body-font-family;
-			color: $primary-grey;
+			font: normal normal 1.1rem/1.5 var(--body-font-family);
+			color: var(--primary-grey);
 			padding: 0;
 		}
 
 		.subtext {
 			font-size: 0.75rem;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 
 		& > * {

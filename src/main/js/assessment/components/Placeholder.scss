@@ -46,7 +46,7 @@
 		}
 
 		h1 {
-			color: $secondary-green;
+			color: var(--secondary-green);
 		}
 
 		.bold {
@@ -55,7 +55,7 @@
 
 		.red {
 			font-weight: 500;
-			color: $primary-red;
+			color: var(--primary-red);
 		}
 	}
 
@@ -70,7 +70,7 @@
 		}
 
 		.question {
-			background: #fbfbfb;
+			background: var(--panel-background);
 			border: 1px solid #e2e2e2;
 			border-radius: 3px;
 			box-shadow: 0px 1px 2px 1px rgba(0, 0, 0, 0.08);
@@ -78,7 +78,7 @@
 
 			.prompt {
 				background: #ffffff;
-				color: #494949;
+				color: var(--primary-grey);
 				overflow: hidden;
 				position: relative;
 				padding: 17px 0.75rem 15px;
@@ -109,15 +109,15 @@
 					position: relative;
 					min-height: 38px;
 					background: #ffffff;
-					border: 1px solid #b8b8b8;
+					border: 1px solid var(--tertiary-grey);
 
 					.answer {
 						position: relative;
-						color: #494949;
+						color: var(--primary-grey);
 						vertical-align: middle;
 						min-height: 38px;
 						background: #ffffff;
-						border: 0px solid #b8b8b8;
+						border: 0px solid var(--tertiary-grey);
 						border-bottom-width: 1px;
 						padding-left: 54px;
 

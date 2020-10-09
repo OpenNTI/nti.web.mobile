@@ -5,8 +5,8 @@
 		padding: 3rem 1rem;
 		font-size: 0.875rem;
 		text-align: center;
-		color: $tertiary-grey;
-		border-bottom: 1px solid $quad-grey;
+		color: var(--tertiary-grey);
+		border-bottom: 1px solid var(--quad-grey);
 		font-style: italic;
 	}
 
@@ -39,6 +39,6 @@
 		font-size: 0.875rem;
 		font-weight: 600;
 		padding: 1em;
-		border-bottom: 1px solid $quad-grey;
+		border-bottom: 1px solid var(--quad-grey);
 	}
 }

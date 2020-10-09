@@ -4,7 +4,7 @@
 	display: block;
 	position: relative;
 	overflow: hidden;
-	background: $panel-background;
+	background: var(--panel-background);
 	line-height: 1.2em;
 
 	.avatar {
@@ -23,7 +23,7 @@
 	}
 
 	.username {
-		color: $primary-grey;
+		color: var(--primary-grey);
 		max-width: 100%;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -44,7 +44,7 @@
 		text-transform: none;
 		line-height: 2;
 		padding: 0.5rem;
-		border: 0.0625rem solid $border-blue;
+		border: 0.0625rem solid var(--border-blue);
 		border-radius: 5px;
 		margin: 0.3125rem;
 	}
@@ -67,7 +67,7 @@
 			cursor: pointer;
 			flex: 1 1 50%;
 			text-align: center;
-			background: $primary-blue;
+			background: var(--primary-blue);
 			line-height: 3em;
 			font-size: .875rem;
 			box-shadow: 0 0 0 2px white;

@@ -1,6 +1,6 @@
 .card-write-something {
-	background: $tertiary-grey;
-	background: $quad-grey;
+	background: var(--tertiary-grey);
+	background: var(--quad-grey);
 
 	figure.error {
 		position: static;
@@ -11,7 +11,7 @@
 .write-something {
 	& > label {
 		background: white;
-		border: 1px solid $border-grey;
+		border: 1px solid var(--border-grey);
 		padding: .5em;
 		border-radius: 3px;
 		color: lightgray;
@@ -31,9 +31,9 @@
 
 
 	.error-message {
-		color: $secondary-red;
-		border: 1px solid $secondary-red;
-		background: $primary-red;
+		color: var(--secondary-red);
+		border: 1px solid var(--secondary-red);
+		background: var(--primary-red);
 
 		display: block;
 		margin: 0 0 0.5rem;

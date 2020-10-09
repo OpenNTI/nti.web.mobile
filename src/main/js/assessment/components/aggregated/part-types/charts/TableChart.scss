@@ -4,11 +4,11 @@
 	margin: 1rem 0.625rem;
 	padding: 0;
 	width: calc(100% - 1.25rem);
-	border: 1px solid $border-grey;
+	border: 1px solid var(--border-grey);
 	background: #fff;
 
 	tr {
-		border-bottom: 1px solid $border-grey;
+		border-bottom: 1px solid var(--border-grey);
 	}
 
 	thead, tbody {
@@ -35,7 +35,7 @@
 		font-size: 1rem;
 	}
 
-	.rank-first { color: $primary-green; }
-	.rank-second { color: $primary-grey; }
-	.rank-none { color: $tertiary-grey; opacity: 0.9;}
+	.rank-first { color: var(--primary-green); }
+	.rank-second { color: var(--primary-grey); }
+	.rank-none { color: var(--tertiary-grey); opacity: 0.9;}
 }

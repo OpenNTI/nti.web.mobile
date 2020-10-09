@@ -14,7 +14,7 @@
 	display: table;
 	table-layout: fixed;
 	width: 100%;
-	border: 1px solid $tertiary-grey;
+	border: 1px solid var(--tertiary-grey);
 	margin-bottom: 1rem;
 
 	.match-row {
@@ -27,14 +27,14 @@
 		}
 
 		&.over {
-			background: rgba($primary-blue, 0.6);
+			background: rgba(var(--primary-blue), 0.6);
 		}
 	}
 
 	.cell {
 		display: table-cell;
 		padding: 1rem;
-		border: 1px solid $tertiary-grey;
+		border: 1px solid var(--tertiary-grey);
 		vertical-align: middle;
 		border-top-width: 0;
 
@@ -59,7 +59,7 @@
 					cursor: grabbing;
 				}
 
-				box-shadow: 0 0 0 1px $tertiary-grey;
+				box-shadow: 0 0 0 1px var(--tertiary-grey);
 				background: rgba(white, 0.8);
 				z-index: 10000;
 
@@ -98,16 +98,16 @@
 			}
 
 			&.correct {
-				// background: $correct;
-				// border-color: $correct;
+				// background: var(--correct);
+				// border-color: var(--correct);
 				&::before {
 					background-image: url(./assets/circle-check-green-18.png);
 				}
 			}
 
 			&.incorrect {
-				// background: $incorrect;
-				// border-color: $incorrect;
+				// background: var(--incorrect);
+				// border-color: var(--incorrect);
 				&::before {
 					background-image: url(./assets/circle-x-red-18.png);
 				}
@@ -124,9 +124,9 @@
 		}
 	}
 
-	.over .ordinal {background: rgba($panel-background,0.6);}
+	.over .ordinal {background: rgba(var(--panel-background),0.6);}
 	.ordinal{
-		background: $panel-background;
+		background: var(--panel-background);
 	}
 
 	.value{

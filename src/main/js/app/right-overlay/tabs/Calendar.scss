@@ -3,8 +3,8 @@
 .nti-mobile-drawer-tab-content {
 	.upcoming-calendar-events {
 		.day-header {
-			color: $secondary-grey;
-			background: $quad-grey;
+			color: var(--secondary-grey);
+			background: var(--quad-grey);
 		}
 
 		.notable-events {
@@ -13,7 +13,7 @@
 			max-height: none;
 			min-height: 100px; // allow room for loading spinner
 			position: relative; // provide positioning context for loading spinner
-			border-bottom: 1px solid $quad-grey;
+			border-bottom: 1px solid var(--quad-grey);
 
 			&.loading {
 				display: flex;
@@ -28,7 +28,7 @@
 			font-size: 0.875rem;
 			font-weight: 600;
 			padding: 1em;
-			border-bottom: 1px solid $quad-grey;
+			border-bottom: 1px solid var(--quad-grey);
 		}
 	}
 

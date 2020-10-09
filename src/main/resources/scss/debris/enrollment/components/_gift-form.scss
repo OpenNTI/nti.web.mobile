@@ -8,7 +8,7 @@
 
 	div.fromLabel {
 		margin: -1rem 0 0.5rem;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		font-style: italic;
 	}
 }
@@ -19,8 +19,8 @@
 	max-width: 750px;
 
 	h1, h2, h3, h4, h5 {
-		color: $tertiary-grey;
-		font-family: $body-font-family;
+		color: var(--tertiary-grey);
+		font-family: var(--body-font-family);
 	}
 
 	h2 {
@@ -29,7 +29,7 @@
 	}
 
 	legend {
-		color: $primary-grey;
+		color: var(--primary-grey);
 		font-weight: 600;
 	}
 
@@ -45,7 +45,7 @@
 
 		legend {
 			font-size: 1rem;
-			color: $primary-grey;
+			color: var(--primary-grey);
 		}
 	}
 
@@ -55,7 +55,7 @@
 	}
 
 	.agreement {
-		background: $quad-grey;
+		background: var(--quad-grey);
 		padding: 0.5rem $pad;
 		margin: 0 (-($pad - 0.625rem)) 2rem;
 
@@ -71,7 +71,7 @@
 		}
 
 		a {
-			color: $primary-blue;
+			color: var(--primary-blue);
 		}
 	}
 
@@ -79,12 +79,12 @@
 		margin: 0 (-($pad - 0.625rem)) 2rem;
 		a {
 			padding: 0.7rem 2rem 0.7625rem;
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 			font-size: 0.75rem;
 		}
 
 		button {
-			background: $secondary-green;
+			background: var(--secondary-green);
 			text-transform: none;
 			font-style: italic;
 			font-weight: 700;
@@ -93,7 +93,7 @@
 			padding-bottom: 0.7625rem;
 
 			&.disabled {
-				background: $secondary-grey;
+				background: var(--secondary-grey);
 			}
 		}
 	}

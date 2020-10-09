@@ -6,12 +6,12 @@
 	display: flex;
 
 	&.complete {
-		.status-line{color: $primary-green;}
+		.status-line{color: var(--primary-green);}
 	}
 
 	.status-line {
 		padding-left: 0.75rem;
-		color: $primary-red;
+		color: var(--primary-red);
 		font-weight: 300;
 		align-self: center;
 		order: 1;
@@ -21,7 +21,7 @@
 	.button.reset {
 		background: none;
 		border-width: 0;
-		color: $primary-grey;
+		color: var(--primary-grey);
 		font-weight: 300;
 		text-decoration: underline;
 		text-transform: none;
@@ -37,15 +37,15 @@
 		margin: 0;
 		font-size: 0.75rem;
 		font-weight: 600;
-		background: $primary-blue;
-		border-color: $border-blue;
+		background: var(--primary-blue);
+		border-color: var(--border-blue);
 		color: #fff;
 
 		&.disabled {
 			opacity: 1;
-			background: $disabled-button-background;
-			border-color: $disabled-button-border;
-			color: $disabled-button-color;
+			background: var(--disabled-button-background);
+			border-color: var(--disabled-button-border);
+			color: var(--disabled-button-color);
 		}
 	}
 }

@@ -4,12 +4,12 @@
 	.actionable {
 		font-size: .625rem;
 		font-weight: 600;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		text-transform: uppercase;
 
 		&.ungraded,
 		&.overdue {
-			color: $primary-red;
+			color: var(--primary-red);
 		}
 
 		@media screen and (min-width: 500px) {

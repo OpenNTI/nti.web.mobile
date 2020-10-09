@@ -31,14 +31,14 @@
 	}
 
 	h1 {
-		font-family: $body-font-family;
+		font-family: var(--body-font-family);
 		font-size: 1.25rem;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 		word-wrap: break-word;
 	}
 
 	& > h1 {
-		border-bottom: 0.0625rem solid $quad-grey;
+		border-bottom: 0.0625rem solid var(--quad-grey);
 		padding: .2em 0;
 	}
 
@@ -75,7 +75,7 @@
 		font-size: 1rem;
 		font-weight: 700;
 		margin: 0;
-		font-family: $body-font-family;
+		font-family: var(--body-font-family);
 	}
 	.title {
 

@@ -17,7 +17,7 @@
 	.menu-label {
 		&::after {
 			@extend %chevron-down;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			font-size: 1em;
 			position: absolute;
 			right: .6rem;
@@ -40,7 +40,7 @@
 		li {
 			padding: .5rem .6rem;
 			&.selected {
-				background: $primary-blue;
+				background: var(--primary-blue);
 				color: white;
 			}
 		}

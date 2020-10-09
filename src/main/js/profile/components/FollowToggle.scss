@@ -14,11 +14,11 @@
 		width: 2em;
 		height: 2em;
 		font-family: 'icomoon';
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 	}
 	&.follow::after {
 		content: '\e601'; // add user icon
-		color: $primary-green;
+		color: var(--primary-green);
 	}
 
 	&.loading {

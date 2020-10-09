@@ -2,7 +2,7 @@ ul.action-links {
 	list-style-type: none;
 	font-size: .625rem;
 	margin: 0;
-	color: $tertiary-grey;
+	color: var(--tertiary-grey);
 
 	& > li {
 		@extend .action-link;

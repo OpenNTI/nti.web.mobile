@@ -14,7 +14,7 @@
 		padding-bottom: 2rem;
 
 		.transcript {
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 
 			.gutter .bin {
 				background: none;
@@ -24,7 +24,7 @@
 			.cues a.active {
 				background-color: rgba(63, 179, 246, 0.25); /* 25% primary blue */
 				box-shadow: 0 0 0 4px rgba(63, 179, 246, 0.25);
-				color: $secondary-grey;
+				color: var(--secondary-grey);
 			}
 		}
 	}

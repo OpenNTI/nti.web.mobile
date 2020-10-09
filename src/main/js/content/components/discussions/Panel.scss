@@ -23,7 +23,7 @@
 	}
 
 	.placeholder {
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		padding-bottom: 1rem;
 		font: {
 			size: 0.875rem;
@@ -41,7 +41,7 @@
 			top: 0.25rem;
 			left: -0.625rem;
 			font-size: 10px;
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 			transform: rotateX(180deg) rotateZ(-90deg);
 		}
 	}
@@ -55,7 +55,7 @@
 		}
 
 		.username {
-			color: $primary-blue;
+			color: var(--primary-blue);
 		}
 	}
 
@@ -74,7 +74,7 @@
 		time {
 			text-transform: uppercase;
 			vertical-align: middle;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			float: right;
 			font: {
 				size: 0.625rem;

@@ -9,7 +9,7 @@
 	margin: 0;
 	padding: 0.625rem;
 	// padding: 0 $headermargin;
-	background: $quad-grey;
+	background: var(--quad-grey);
 	border-bottom: 1px solid #ddd;
 	position: relative;
 	z-index: 99; // so the shadow isn't clipped by the table that follows
@@ -68,7 +68,7 @@
 				background: none;
 				text-transform: uppercase;
 				font-weight: 700;
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 				font-size: 0.625rem;
 			}
 

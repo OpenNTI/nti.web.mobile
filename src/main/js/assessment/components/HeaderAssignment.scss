@@ -2,14 +2,14 @@
 @import "utils/placeholders";
 
 .header.assessment.common {
-	color: $primary-grey;
+	color: var(--primary-grey);
 	position: relative;
 	padding: 0;
 	padding-left: 50px;
 	padding-left: calc(0.625rem + 40px);
 	min-height: calc(2rem + 40px);
 
-	background: $panel-background;
+	background: var(--panel-background);
 	border: 0 solid #dddddd;
 	border-width: 1px 0;
 	display: flex;
@@ -47,7 +47,7 @@
 	}
 
 	h4,h5,h6 {
-		font-family: $body-font-family;
+		font-family: var(--body-font-family);
 	}
 
 	h4 {
@@ -57,7 +57,7 @@
 	}
 
 	h6 {
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 		font-size: 0.625rem;
 		font-weight: 700;
 		text-transform: uppercase;
@@ -76,14 +76,14 @@
 	.grade {
 		font-size: 0.875rem;
 		font-weight: 600;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 	}
 
 	.late {
-		color: $primary-red;
+		color: var(--primary-red);
 	}
 }
 
 .assignment-navigation-bar-status-assignment {
-	border-top: 1px solid $border-grey-light;
+	border-top: 1px solid var(--border-grey-light);
 }

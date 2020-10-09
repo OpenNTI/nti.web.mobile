@@ -17,15 +17,15 @@
 }
 
 .recovery * {
-	color: #757474;
-	font-family: "Open Sans";
+	color: var(--secondary-grey);
+	font-family: var(--body-font-family);
 	font-size: 14px;
 	line-height: 1.357142857;
 }
 
 .recovery h2,
 .recovery h4 {
-	color: #494949;
+	color: var(--primary-grey);
 	font-size: 18px;
 	font-weight: normal;
 	line-height: 1.333333333;
@@ -41,7 +41,7 @@
 
 .recovery a {
 	display: block;
-	color: #3FB3F6;
+	color: var(--primary-blue);
 	font-weight: 600;
 	text-align: center;
 	margin-bottom: 30px;

@@ -2,8 +2,8 @@
 @import "utils/placeholders";
 
 .wordbank {
-	background: $panel-background;
-	border: 1px solid $border-grey;
+	background: var(--panel-background);
+	border: 1px solid var(--border-grey);
 	border-radius: 5px;
 	padding-bottom: 1rem;
 	margin: -1rem 0 1rem 0;
@@ -21,8 +21,8 @@
 			background: #fff !important;//block the hover background
 			visibility: visible;
 			box-shadow: none;
-			border: 1px dashed $border-grey;
-			color: $border-grey;
+			border: 1px dashed var(--border-grey);
+			color: var(--border-grey);
 			cursor: default;
 			animation: fadeIn .6s linear;
 		}

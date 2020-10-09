@@ -24,18 +24,18 @@
 	.wrap {
 		font-size: 0.875rem;
 		line-height: 2;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 		margin: 0 0 0 $m;
 
 		.meta > * { margin-right: 0.5em; }
 
 		.name {
-			color: $primary-blue;
+			color: var(--primary-blue);
 			cursor: pointer;
 		}
 
 		time {
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 
 		.message {
@@ -45,23 +45,23 @@
 			time {
 				display: block;
 				font-size: 0.6875rem;
-				color: $tertiary-grey;
+				color: var(--tertiary-grey);
 			}
 		}
 
 		.footer {
 			a.link {
-				color: $primary-blue;
+				color: var(--primary-blue);
 				cursor: pointer;
 				&.delete {
-					color: $primary-red;
+					color: var(--primary-red);
 				}
 			}
 			a {
 				display: inline-block;
 				&::after {
-					color: $tertiary-grey;
-					font: normal 500 12px/20px $body-font-family;
+					color: var(--tertiary-grey);
+					font: normal 500 12px/20px var(--body-font-family);
 					text-decoration: none !important;
 					position: static;
 					content: '\00B7';

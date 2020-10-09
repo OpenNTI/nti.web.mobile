@@ -3,7 +3,7 @@
 .markupframe {
 	position: relative;
 	display: block;
-	border: 1px solid $border-grey; //#dadada;
+	border: 1px solid var(--border-grey); //#dadada;
 
 	&.card {
 		overflow: hidden;
@@ -49,20 +49,20 @@
 
 			&.icon-search {
 				text-shadow: 1px 2px 1px white, -1px -2px 1px white;
-				color: $secondary-grey;
+				color: var(--secondary-grey);
 				font-size: 1.4rem;
 			}
 		}
 	}
 
 	.bar {
-		border-top: 1px solid $border-grey; //#dadada;
+		border-top: 1px solid var(--border-grey); //#dadada;
 		cursor: default;
 		display: block;
 		position: relative;
 		// z-index: 3;
 		padding: 0 0.875rem 1.25rem;
-		background: $panel-background; //#fafafa;
+		background: var(--panel-background); //#fafafa;
 		min-height: 2.3125rem;
 
 		span:first-child {
@@ -75,13 +75,13 @@
 			display: block;
 			font-size: 1rem;
 			font-weight: 600;
-			color: $primary-grey;
+			color: var(--primary-grey);
 		}
 
 		.image-caption {
 			font-size: 0.875rem;
 			font-weight: normal;
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 		}
 
 		.bar-cell {
@@ -89,7 +89,7 @@
 		}
 
 		a.bar-cell {
-			border-left: 1px solid $border-grey; //#dadada;
+			border-left: 1px solid var(--border-grey); //#dadada;
 		}
 	}
 }

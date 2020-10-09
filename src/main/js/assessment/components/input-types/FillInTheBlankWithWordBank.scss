@@ -25,7 +25,7 @@
 			padding: 0.5em;
 			font-size: 1rem;
 			display: inline-block;
-			color: $primary-grey;
+			color: var(--primary-grey);
 		}
 
 		&:empty {
@@ -43,7 +43,7 @@
 			height: 24px;
 			left: $o; right: $o; bottom: -0.2em;
 
-			border: 2px solid $border-grey;
+			border: 2px solid var(--border-grey);
 			border-radius: 3px;
 			clip: rect(20px auto auto auto);
 		}
@@ -51,13 +51,13 @@
 
 		.drag.source {
 			&.correct {
-				background: $correct;
-				border-color: $correct;
+				background: var(--correct);
+				border-color: var(--correct);
 			}
 
 			&.incorrect {
-				background: $incorrect;
-				border-color: $incorrect;
+				background: var(--incorrect);
+				border-color: var(--incorrect);
 			}
 		}
 	}

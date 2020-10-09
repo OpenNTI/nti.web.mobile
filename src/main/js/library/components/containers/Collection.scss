@@ -9,11 +9,11 @@
 		text-transform: uppercase;
 		font-weight: 700;
 		font-size: 0.625rem;
-		font-family: $body-font-family;
+		font-family: var(--body-font-family);
 
 		label {
 			display: inline;
-			color: $secondary-grey;
+			color: var(--secondary-grey);
 			margin: 0.5em;
 			font-size: 1em;
 			font-weight: inherit;

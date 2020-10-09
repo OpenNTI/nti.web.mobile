@@ -4,8 +4,8 @@
 .aggregated-free-response {
 	.toolbar {
 		display: flex;
-		background: $panel-background;
-		border: 1px solid $border-grey;
+		background: var(--panel-background);
+		border: 1px solid var(--border-grey);
 		border-width: 1px 0 0 0;
 
 		.page-info {
@@ -14,7 +14,7 @@
 			line-height: 2;
 			font-size: 0.875rem;
 			font-style: italic;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 
 		a.next, a.prev {
@@ -39,6 +39,6 @@
 
 	.response {
 		padding: 1rem;
-		border: 1px solid $border-grey;
+		border: 1px solid var(--border-grey);
 	}
 }

@@ -10,7 +10,7 @@
 	input:not([type]) {
 		width: 100%;
 		border: none;
-		box-shadow: 0 1px $tertiary-grey;
+		box-shadow: 0 1px var(--tertiary-grey);
 		padding: .5em 0;
 		&::placeholder {
 			font-style: italic;
@@ -19,7 +19,7 @@
 
 	.user-search {
 		.input-list {
-			box-shadow: 0 1px #b8b8b8;
+			box-shadow: 0 1px var(--tertiary-grey);
 			margin-bottom: 1px;
 		}
 		.output-list {

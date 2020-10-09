@@ -7,7 +7,7 @@
 	}
 
 	line-height: 1.7;
-	font-family: 'Open Sans', sans-serif;
+	font-family: var(--body-font-family);
 	font-size: 0.75rem;
 	padding: 0.5rem 0.1rem 0.5rem 0.3rem;
 
@@ -22,7 +22,7 @@
 		font-size: 0.75em;
 		font-weight: 700;
 		text-transform: uppercase;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 	}
 
 	.avatar, .grade, .badge {

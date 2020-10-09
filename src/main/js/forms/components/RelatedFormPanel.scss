@@ -2,15 +2,15 @@
 
 .helptext {
 	font-size: .6875rem;
-	color: $secondary-grey;
+	color: var(--secondary-grey);
 }
 
 .form-render {
 	clear: both;
 	.panel-button {
 		padding: 2rem;
-		background-color: $tertiary-grey;
-		background-color: $quad-grey;
+		background-color: var(--tertiary-grey);
+		background-color: var(--quad-grey);
 		margin: 1rem 0;
 	}
 	.notice {

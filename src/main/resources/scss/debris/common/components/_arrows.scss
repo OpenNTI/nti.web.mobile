@@ -1,4 +1,4 @@
-$arrow-color: $tertiary-grey;
+$arrow-color: var(--tertiary-grey);
 
 @mixin arrow($direction:right, $size:.5rem) {
 		content: '';

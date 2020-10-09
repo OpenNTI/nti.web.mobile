@@ -52,10 +52,10 @@
 		}
 
 		& > .solutions {
-			border: 1px solid $border-grey;
+			border: 1px solid var(--border-grey);
 			padding: 0.4rem;
 			margin: 0;
-			background: $panel-background;
+			background: var(--panel-background);
 		}
 	}
 
@@ -81,7 +81,7 @@
 
 	a.help-link {
 		font-size: 0.875rem;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 	}
 
 	.form-input.administrative {

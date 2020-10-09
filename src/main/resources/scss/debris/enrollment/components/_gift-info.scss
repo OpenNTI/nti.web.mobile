@@ -16,7 +16,7 @@
 	margin: 0 (-($pad - 0.625rem)) 2rem;
 
 	label {
-		color: $secondary-green;
+		color: var(--secondary-green);
 		font-weight: 600;
 		margin: 0.65625rem 0;
 	}

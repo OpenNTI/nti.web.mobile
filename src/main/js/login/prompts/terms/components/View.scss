@@ -46,14 +46,14 @@
 	header {
 		padding: 0.625rem;
 		h3 {
-			font: bold normal 1rem/1.5 $body-font-family;
+			font: bold normal 1rem/1.5 var(--body-font-family);
 			color: #fd817f;
 			margin: 0;
 			padding: 0;
 		}
 		.you-should {
 			font-size: 0.75rem;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 	}
 

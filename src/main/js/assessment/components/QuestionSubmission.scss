@@ -19,15 +19,15 @@
 		margin: 0;
 		font-size: 0.75rem;
 		font-weight: 600;
-		background: $primary-blue;
-		border-color: $border-blue;
+		background: var(--primary-blue);
+		border-color: var(--border-blue);
 		color: #fff;
 
 		&.disabled {
 			opacity: 1;
-			background: $disabled-button-background;
-			border-color: $disabled-button-border;
-			color: $disabled-button-color;
+			background: var(--disabled-button-background);
+			border-color: var(--disabled-button-border);
+			color: var(--disabled-button-color);
 		}
 	}
 

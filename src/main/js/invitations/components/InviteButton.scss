@@ -11,7 +11,7 @@
 	&::after {
 		@extend %chevron-right;
 
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 		position: absolute;
 		right: 0.625rem;
 		top: 50%;

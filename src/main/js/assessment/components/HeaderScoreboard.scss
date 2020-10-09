@@ -1,11 +1,11 @@
 @import "~@nti/style-common";
 
 .header.assessment {
-	color: $primary-grey;
+	color: var(--primary-grey);
 
 	.scoreboard {
-		background: $panel-background;
-		border: 1px solid $border-grey;
+		background: var(--panel-background);
+		border: 1px solid var(--border-grey);
 
 		margin-left: 0.75rem;//1.1875rem;
 		margin-right: 0.75rem;
@@ -26,7 +26,7 @@
 		font-weight: 700;
 		box-shadow: 0 1px 0 0 white;
 		text-transform: uppercase;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 
 		time {
 			float: right;
@@ -68,15 +68,15 @@
 		}
 
 		.tally-box {
-			font-family: "Open Sans", sans-serif;
+			font-family: var(--body-font-family);
 			font-style: italic;
 			padding: 0 0.5rem;
 
 			h4 {
-				color: $primary-grey;
+				color: var(--primary-grey);
 				font-weight: 600;
 				font-size: 0.9rem;
-				font-family: 'Open Sans';
+				font-family: var(--body-font-family);
 				margin-bottom: 0;
 			}
 		}
@@ -91,11 +91,11 @@
 				margin-right: 0.5rem;
 
 				&.questions {
-					color: #b8b8b8;
+					color: var(--tertiary-grey);
 				}
 
 				&.due-date:not(.late) {
-					color: #b8b8b8;
+					color: var(--tertiary-grey);
 				}
 
 				&.correct {

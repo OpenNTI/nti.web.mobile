@@ -4,9 +4,9 @@
 	text-align: right;
 	font-weight: 600;
 	&.late {
-		color: $primary-red;
+		color: var(--primary-red);
 	}
 	.is-excused {
-		color: $primary-red;
+		color: var(--primary-red);
 	}
 }

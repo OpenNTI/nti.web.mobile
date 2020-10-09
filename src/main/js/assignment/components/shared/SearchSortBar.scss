@@ -1,12 +1,11 @@
 @import "~@nti/style-common";
-$alt-grey: darken($panel-background, 3.9%); // #f1f1f1
 
 .search-sort-bar {
 	display: flex;
 	align-items: center;
 	height: 3.125rem;
-	background: $panel-background;
-	border-color: $alt-grey;
+	background: var(--panel-background);
+	border-color: var(--panel-background-alt);
 	border-style: solid;
 	border-width: 1px 0;
 
@@ -17,7 +16,7 @@ $alt-grey: darken($panel-background, 3.9%); // #f1f1f1
 
 	input.search {
 		margin: 0;
-		box-shadow: inset 1px 0 0 0 $alt-grey !important;
+		box-shadow: inset 1px 0 0 0 var(--panel-background-alt) !important;
 		background: none;
 		border: none !important;
 		padding: .40625rem .75rem;

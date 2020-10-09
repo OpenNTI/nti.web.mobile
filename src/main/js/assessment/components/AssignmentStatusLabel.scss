@@ -11,10 +11,10 @@
 	overflow: hidden;
 
 	&.draft {
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 
 		.required {
-			color: $primary-grey;
+			color: var(--primary-grey);
 		}
 	}
 
@@ -24,7 +24,7 @@
 		}
 
 		&.not-available {
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 		}
 
 		&.required {
@@ -44,15 +44,15 @@
 
 		&.completed:not(.overdue):not(.overtime):not(.due-today) .state {
 			cursor: pointer;
-			color: $secondary-green;
+			color: var(--secondary-green);
 		}
 
 
-		.link { color: $primary-blue; cursor: pointer; }
+		.link { color: var(--primary-blue); cursor: pointer; }
 
 		.over {
 			cursor: pointer;
-			color: $primary-red;
+			color: var(--primary-red);
 		}
 
 		.over,
@@ -82,11 +82,11 @@
 
 		&.due-today {
 			cursor: pointer;
-			color: $primary-orange;
+			color: var(--primary-orange);
 		}
 
 		.excused {
-			background-color: #F35252;
+			background-color: var(--primary-red);
 			color: #fff;
 			padding: 0.2em 0.3em;
 			display: inline-block;
@@ -99,7 +99,7 @@
 
 
 		&.late {
-			color: $primary-red;
+			color: var(--primary-red);
 		}
 
 		time {
@@ -112,7 +112,7 @@
 	position: absolute;
 	background-color: rgba(43,43,43,0.9);
 	padding: 3px 5px;
-	color: $tertiary-grey;
+	color: var(--tertiary-grey);
 	font-size: 0.625rem;
 	font-weight: 700;
 	text-transform: uppercase;

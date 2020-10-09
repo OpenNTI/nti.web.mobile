@@ -31,7 +31,7 @@
 		// 	background:inherit;
 		// }
 		&.active {
-			background: $primary-blue;
+			background: var(--primary-blue);
 		}
 	}
 }

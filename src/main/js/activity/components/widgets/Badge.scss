@@ -12,10 +12,10 @@
 		width: $icon-size;
 	}
 	.badge-name {
-		color: $primary-blue;
+		color: var(--primary-blue);
 	}
 	time {
-		color: #b8b8b8;
+		color: var(--tertiary-grey);
 		text-transform: uppercase;
 		font-weight: 600;
 		font-size: 0.625rem;

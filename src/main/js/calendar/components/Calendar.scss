@@ -18,7 +18,7 @@
 			left: 1rem;
 			bottom: 0;
 			font-size: 0.875rem;
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 
 			> :not(.calendar-back-button) {
 				display: none;

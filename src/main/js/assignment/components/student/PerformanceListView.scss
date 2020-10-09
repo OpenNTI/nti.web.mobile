@@ -41,7 +41,7 @@
 		font-size: 0.5rem;
 		text-transform: uppercase;
 		font-weight: 700;
-		color: $tertiary-grey;
+		color: var(--tertiary-grey);
 
 		& > * {
 			padding: $cellpadding ($cellpadding * 3);
@@ -61,7 +61,7 @@
 
 			position: relative;
 			font-weight: 900;
-			$arrowcolor: $tertiary-grey;
+			$arrowcolor: var(--tertiary-grey);
 
 			&::after {
 				content: '';

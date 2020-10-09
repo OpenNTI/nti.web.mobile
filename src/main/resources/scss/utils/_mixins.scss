@@ -10,7 +10,7 @@
 	padding:.2em .5em;
 	margin-left:.25em;
 	display: inline-block;
-	font-family: $body-font-family;
+	font-family: var(--body-font-family);
 	font-weight: bold;
 	margin-right:-.25em;
 }
@@ -46,20 +46,20 @@
 	min-width: 200px;
 	li {
 		white-space: nowrap;
-		color: $secondary-grey;
+		color: var(--secondary-grey);
 		text-transform: none;
 		font-weight: 600;
 		font-size: .9rem;
 		padding: .25rem $padding;
 		&.title {
-			color: $tertiary-grey;
+			color: var(--tertiary-grey);
 			text-transform: uppercase;
 			font-size: .625rem;
 			padding-top: .625rem;
 			font-weight: 700;
 		}
 		&.search-item {
-			background: $quad-grey;
+			background: var(--quad-grey);
 			padding: .5rem $padding;
 		}
 		input {
@@ -67,7 +67,7 @@
 			box-sizing: border-box;
 		}
 		&.selected {
-			background: $primary-blue;
+			background: var(--primary-blue);
 			color: white;
 		}
 	}
