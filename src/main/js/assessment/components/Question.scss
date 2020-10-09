@@ -23,13 +23,13 @@
 		margin: 0 0 -1em;
 
 		.status {
-			color: $neutral;
+			color: var(--neutral);
 			font-style: italic;
 		}
 	}
 
-	&.correct .question-title .status{ color: $correct; }
-	&.incorrect .question-title .status{ color: $incorrect; }
+	&.correct .question-title .status{ color: var(--correct); }
+	&.incorrect .question-title .status{ color: var(--incorrect); }
 
 	&.not-assessed.administrative {
 		opacity: 0.4;

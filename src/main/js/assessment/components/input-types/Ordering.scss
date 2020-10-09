@@ -98,16 +98,16 @@
 			}
 
 			&.correct {
-				// background: $correct;
-				// border-color: $correct;
+				// background: var(--correct);
+				// border-color: var(--correct);
 				&::before {
 					background-image: url(./assets/circle-check-green-18.png);
 				}
 			}
 
 			&.incorrect {
-				// background: $incorrect;
-				// border-color: $incorrect;
+				// background: var(--incorrect);
+				// border-color: var(--incorrect);
 				&::before {
 					background-image: url(./assets/circle-x-red-18.png);
 				}

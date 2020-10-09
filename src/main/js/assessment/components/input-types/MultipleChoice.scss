@@ -38,9 +38,9 @@
 		}
 
 
-		input:checked + div { box-shadow: inset 4px 0 0 0 $neutral; }
-		&.correct input:checked + div {	box-shadow: inset 4px 0 0 0 $correct; }
-		&.incorrect input:checked + div { box-shadow: inset 4px 0 0 0 $incorrect; }
+		input:checked + div { box-shadow: inset 4px 0 0 0 var(--neutral); }
+		&.correct input:checked + div {	box-shadow: inset 4px 0 0 0 var(--correct); }
+		&.incorrect input:checked + div { box-shadow: inset 4px 0 0 0 var(--incorrect); }
 
 
 		input[type=radio] + div::before {

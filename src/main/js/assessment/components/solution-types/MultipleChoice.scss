@@ -6,7 +6,7 @@
 		min-height: 32px;
 		display: block;
 		position: relative;
-		color: $correct;
+		color: var(--correct);
 		&, p {line-height: 2;}
 
 		p:last-child {

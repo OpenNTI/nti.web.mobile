@@ -51,13 +51,13 @@
 
 		.drag.source {
 			&.correct {
-				background: $correct;
-				border-color: $correct;
+				background: var(--correct);
+				border-color: var(--correct);
 			}
 
 			&.incorrect {
-				background: $incorrect;
-				border-color: $incorrect;
+				background: var(--incorrect);
+				border-color: var(--incorrect);
 			}
 		}
 	}
