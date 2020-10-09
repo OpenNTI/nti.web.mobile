@@ -5,12 +5,18 @@ figure {
 
 	&.info {
 		@extend %isPanel;
-		@include panel($bg: rgba(var(--primary-blue), 0.9)); //TODO: restyle without foundation.
+
+		@include panel($bg: blue); //TODO: restyle without foundation.
+
+		background: rgba(var(--primary-blue), 0.9);
 	}
 
 	&.caution {
 		@extend %isPanel;
-		@include panel($bg: rgba(var(--primary-red), 0.9)); //TODO: restyle without foundation.
+
+		@include panel($bg: red); //TODO: restyle without foundation.
+
+		background: rgba(var(--primary-red), 0.9); //TODO: restyle without foundation.
 	}
 }
 
@@ -18,7 +24,6 @@ figure {
 	&[class*="library-"] {
 		background: none;
 		border: none;
-
 		font-size: 2rem;
 	}
 }

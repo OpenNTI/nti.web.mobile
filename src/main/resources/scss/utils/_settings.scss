@@ -2,6 +2,11 @@
 // foundation.zurb.com
 // Licensed under MIT Open Source
 
+$panel-background: #fbfbfb;
+$primary-blue: #3fb3f6;
+$primary-grey: #494949;
+$secondary-grey: #757474;
+
 //
 // FOUNDATION SETTINGS
 //
@@ -44,7 +49,7 @@ $include-html-global-classes: $include-html-classes;
 
 // We use these to control various global styles
 // $body-bg: #fff;
-$body-font-color: var(--primary-grey);
+$body-font-color: $primary-grey;
 $body-font-family: var(--body-font-family);
 $font-weight-normal:normal;
 $body-font-weight: $font-weight-normal;
@@ -60,7 +65,7 @@ $body-font-weight: $font-weight-normal;
 
 // We use these as default colors throughout
 // $primary-color: #008CBA;
-$primary-color: var(--primary-blue);
+$primary-color: $primary-blue;
 $secondary-color: #e7e7e7;
 // $alert-color: #f04124;
 // $success-color: #43AC6A;
@@ -112,7 +117,7 @@ $secondary-color: #e7e7e7;
 
 //We use this as cursors values for enabling the option of having custom cursors in the whole site's stylesheet
 // $cursor-crosshair-value: crosshair;
-$cursor-default-value: var(--secondary-grey);
+$cursor-default-value: $secondary-grey;
 // $cursor-pointer-value: pointer;
 // $cursor-help-value: help;
 // $cursor-text-value: text;
@@ -127,7 +132,7 @@ $cursor-default-value: var(--secondary-grey);
 // $header-font-family: $body-font-family;
 // $header-font-weight: $font-weight-normal;
 // $header-font-style: normal;
-$header-font-color: var(--primary-grey);
+$header-font-color: $primary-grey;
 // $header-line-height: 1.4;
 // $header-top-margin: .2rem;
 // $header-bottom-margin: .5rem;
@@ -185,7 +190,7 @@ $header-font-color: var(--primary-grey);
 // $anchor-text-decoration: none;
 // $anchor-text-decoration-hover: none;
 // $anchor-font-color: $primary-color;
-$anchor-font-color-hover: var(--primary-blue);
+$anchor-font-color-hover: $primary-blue;
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
@@ -249,7 +254,7 @@ $anchor-font-color-hover: var(--primary-blue);
 // $accordion-navigation-bg-color: #efefef  ;
 // $accordion-navigation-hover-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -5%);
 // $accordion-navigation-active-bg-color: scale-color($accordion-navigation-bg-color, $lightness: -3%);
-$accordion-navigation-font-color: var(--primary-grey);
+$accordion-navigation-font-color: $primary-grey;
 // $accordion-navigation-font-size: rem-calc(16);
 // $accordion-navigation-font-family: $body-font-family;
 
@@ -657,7 +662,7 @@ $input-include-glowing-effect: false;
 // We use these to control text styles.
 // $keystroke-font: "Consolas", "Menlo", "Courier", monospace;
 // $keystroke-font-size: inherit;
-$keystroke-font-color: var(--primary-grey);
+$keystroke-font-color: $primary-grey;
 // $keystroke-font-color-alt: #fff;
 // $keystroke-function-factor: -7%;
 
@@ -721,7 +726,7 @@ $tabbar-color: #333;
 // $off-canvas-width: rem-calc(290);
 $off-canvas-width: 90%;
 // $off-canvas-bg: #333;
-$off-canvas-bg: var(--panel-background);
+$off-canvas-bg: $panel-background;
 
 // Off Canvas Menu List Variables
 // $off-canvas-label-padding: 0;
@@ -817,7 +822,7 @@ $off-canvas-overlay-background-hover: rgba(#000, 0.3);
 // We use these to set the list-item properties
 // $pagination-li-float: $default-float;
 // $pagination-li-height: rem-calc(24);
-$pagination-li-font-color: var(--primary-grey);
+$pagination-li-font-color: $primary-grey;
 // $pagination-li-font-size: rem-calc(14);
 // $pagination-li-margin: rem-calc(5);
 
@@ -1132,14 +1137,14 @@ $table-border-style: none;
 // These control the table head styles
 // $table-head-bg: #f5f5f5  ;
 // $table-head-font-size: rem-calc(14);
-$table-head-font-color: var(--primary-grey);
+$table-head-font-color: $primary-grey;
 // $table-head-font-weight: $font-weight-bold;
 // $table-head-padding: rem-calc(8 10 10);
 
 // These control the row padding and font styles
 // $table-row-padding: rem-calc(9 10);
 // $table-row-font-size: rem-calc(14);
-$table-row-font-color: var(--primary-grey);
+$table-row-font-color: $primary-grey;
 // $table-line-height: rem-calc(18);
 
 // These are for controlling the display and margin of tables
@@ -1156,7 +1161,7 @@ $table-row-font-color: var(--primary-grey);
 // $tabs-navigation-bg-color: #efefef  ;
 // $tabs-navigation-active-bg-color: #fff;
 // $tabs-navigation-hover-bg-color: scale-color($tabs-navigation-bg-color, $lightness: -6%);
-$tabs-navigation-font-color: var(--primary-grey);
+$tabs-navigation-font-color: $primary-grey;
 // $tabs-navigation-active-font-color: $tabs-navigation-font-color;
 // $tabs-navigation-font-size: rem-calc(16);
 // $tabs-navigation-font-family: $body-font-family;
