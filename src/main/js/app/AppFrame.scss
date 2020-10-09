@@ -9,7 +9,7 @@
 
 ul.off-canvas-list {
 	clear: both;
-	font-family: $header-font-family;
+	font-family: var(--header-font-family);
 
 	ul {
 		list-style: none;

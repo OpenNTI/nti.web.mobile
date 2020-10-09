@@ -34,7 +34,7 @@
 	h3{
 		color: var(--secondary-green);
 		font-size: 1.5em;
-		font-family: $body-font-family;
+		font-family: var(--body-font-family);
 		margin-bottom: 10px;
 		position: relative;
 		padding-left: 35px;

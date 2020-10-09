@@ -9,7 +9,7 @@
 		text-transform: uppercase;
 		font-weight: 700;
 		font-size: 0.625rem;
-		font-family: $body-font-family;
+		font-family: var(--body-font-family);
 
 		label {
 			display: inline;

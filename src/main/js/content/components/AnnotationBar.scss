@@ -112,7 +112,7 @@
 			padding: .8125rem 1rem;
 			// padding-left: 1rem;
 			text-indent: 0;
-			font-family: $body-font-family;
+			font-family: var(--body-font-family);
 			flex: 0 0 auto;
 			margin: 0;
 			background: var(--primary-blue);

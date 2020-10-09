@@ -301,7 +301,7 @@ nav.nav-bar {
 			border-radius: 40px;
 			background: rgba(33, 33, 33, 0.9);
 
-			font: italic 600 0.875rem/40px $body-font-family;
+			font: italic 600 0.875rem/40px var(--body-font-family);
 			color: white;
 			white-space: nowrap;
 			text-overflow: ellipsis;

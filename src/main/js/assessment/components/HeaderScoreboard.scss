@@ -68,7 +68,7 @@
 		}
 
 		.tally-box {
-			font-family: "Open Sans", sans-serif;
+			font-family: var(--body-font-family);
 			font-style: italic;
 			padding: 0 0.5rem;
 
@@ -76,7 +76,7 @@
 				color: var(--primary-grey);
 				font-weight: 600;
 				font-size: 0.9rem;
-				font-family: 'Open Sans';
+				font-family: var(--body-font-family);
 				margin-bottom: 0;
 			}
 		}

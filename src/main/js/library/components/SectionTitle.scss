@@ -3,7 +3,7 @@
 .library-section-title-old {
 	flex: 1 1 auto;
 	color: var(--tertiary-grey);
-	font: normal normal 1.25rem $body-font-family;
+	font: normal normal 1.25rem var(--body-font-family);
 	margin: 0;
 }
 

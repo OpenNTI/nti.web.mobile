@@ -60,7 +60,7 @@
 			color: #fff;
 			margin: 0;
 			font: {
-				family: $body-font-family;
+				family: var(--body-font-family);
 				size: 1.5rem;
 				weight: 600;
 			}

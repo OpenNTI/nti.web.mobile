@@ -1,7 +1,7 @@
 @import "~@nti/style-common";
 
 .content-not-found {
-	font: normal 300 1.25rem $body-font-family;
+	font: normal 300 1.25rem var(--body-font-family);
 	margin-top: 2rem;
 	text-align: center;
 	color: var(--tertiary-grey);

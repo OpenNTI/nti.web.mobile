@@ -61,7 +61,7 @@
 				display: inline-block;
 				&::after {
 					color: var(--tertiary-grey);
-					font: normal 500 12px/20px $body-font-family;
+					font: normal 500 12px/20px var(--body-font-family);
 					text-decoration: none !important;
 					position: static;
 					content: '\00B7';

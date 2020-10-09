@@ -10,7 +10,7 @@
 	padding:.2em .5em;
 	margin-left:.25em;
 	display: inline-block;
-	font-family: $body-font-family;
+	font-family: var(--body-font-family);
 	font-weight: bold;
 	margin-right:-.25em;
 }
