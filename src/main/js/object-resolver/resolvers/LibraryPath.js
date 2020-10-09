@@ -75,7 +75,13 @@ const MIME_TYPES = {
 	'--lessonItemRef' (o, prev, next, target) {
 		if (prev.isOutlineNode) {
 			this.lessonItems.add(target);
-			return `/items/${encode(o.getID())}`;
+			let c = `/items/${encode(o.getID())}`;
+
+			if (!next && target && target.body) {
+				c += '/discussions/';
+			}
+
+			return c;
 		}
 		return MIME_TYPES.relatedworkref.apply(this, arguments);
 	},
