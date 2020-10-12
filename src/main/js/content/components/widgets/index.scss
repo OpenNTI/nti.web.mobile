@@ -19,12 +19,12 @@ widget:empty {
 	position: relative;
 	text-align: center;
 	color: white;
-	&:after {
+
+	&::after {
 		content: 'Coming soon to mobile';
 		color: var(--border-grey);
 	}
 }
-
 
 widget[data-type$="vnd.nextthought.canvas"] {
 	background-color: white;
@@ -36,10 +36,10 @@ widget[data-type$="vnd.nextthought.canvas"] {
 		content: '';
 		display: block;
 		width: 239px;
-		/*height: 239px; */
+
+		/* height: 239px; */
 		padding-bottom: 100%;
 		max-width: 100%;
-
 		background-repeat: no-repeat;
 		background-image: url(../assets/whiteboard_error_loading_image.png);
 	}

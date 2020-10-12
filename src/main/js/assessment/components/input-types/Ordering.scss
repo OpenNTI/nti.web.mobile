@@ -7,7 +7,7 @@
 }
 
 .ordered.solutions .box {
-	margin: -.4rem;
+	margin: -0.4rem;
 }
 
 .question-part .ordering {
@@ -27,7 +27,7 @@
 		}
 
 		&.over {
-			background: rgba(var(--primary-blue), 0.6);
+			background: rgba(var(--primary-blue-rgb), 0.6);
 		}
 	}
 
@@ -48,7 +48,7 @@
 			border-left-width: 0;
 		}
 
-		p:last-of-type {margin-bottom: 0;}
+		p:last-of-type { margin-bottom: 0; }
 
 		.draggable {
 			touch-action: none;
@@ -70,21 +70,18 @@
 				}
 			}
 
-
-
 			margin: -1rem;
 			padding: 1rem;
 			padding-right: 3rem;
 
 			&.correct, &.incorrect {
 				padding-left: 2rem;
+
 				&::before {
 					content: '';
-
 					position: absolute;
 					top: 1.25rem;
 					left: 0.5rem;
-
 					display: inline-block;
 					width: 18px;
 					height: 18px;
@@ -120,17 +117,16 @@
 			opacity: 0.7;
 			right: 0.5rem;
 			top: 50%;
-			transform: translate3d(0,-50%,0);
+			transform: translate3d(0, -50%, 0);
 		}
 	}
 
-	.over .ordinal {background: rgba(var(--panel-background),0.6);}
-	.ordinal{
+	.over .ordinal { background: rgba(var(--panel-background), 0.6); }
+
+	.ordinal {
 		background: var(--panel-background);
 	}
 
 	.value{
 	}
-
-
 }
