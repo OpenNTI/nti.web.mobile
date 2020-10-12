@@ -8,7 +8,7 @@ figure {
 
 		@include panel($bg: blue); //TODO: restyle without foundation.
 
-		background: rgba(var(--primary-blue), 0.9);
+		background: rgba(var(--primary-blue-rgb), 0.9);
 	}
 
 	&.caution {
@@ -16,7 +16,7 @@ figure {
 
 		@include panel($bg: red); //TODO: restyle without foundation.
 
-		background: rgba(var(--primary-red), 0.9); //TODO: restyle without foundation.
+		background: rgba(var(--primary-red-rgb), 0.9); //TODO: restyle without foundation.
 	}
 }
 

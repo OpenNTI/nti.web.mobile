@@ -3,7 +3,7 @@
 
 widget.selected > *:first-child::after {
 	content: '';
-	background: rgba(var(--primary-blue), 0.15);
+	background: rgba(var(--primary-blue-rgb), 0.15);
 	position: absolute;
 	top: -1rem;
 	left: -1rem;
