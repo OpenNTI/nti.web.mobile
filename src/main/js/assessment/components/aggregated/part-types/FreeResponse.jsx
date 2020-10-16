@@ -21,7 +21,8 @@ export default createReactClass({
 	},
 
 
-	componentDidMount () { this.setup(); },
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount () { this.setup(); },
 	componentDidUpdate (props) {
 		if (this.props.item !== props.item) {
 			this.setup();
