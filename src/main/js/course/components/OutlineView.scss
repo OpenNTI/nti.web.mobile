@@ -10,13 +10,14 @@
 
 	ul {
 		position: relative;
+
 		&, ul {
 			list-style: none;
 			margin-left: 0;
 		}
 	}
 
-	li ul {margin-left: 0;}
+	li ul { margin-left: 0; }
 
 	li, h1, h3 {
 		position: relative; // to get the chevron on the anchor below to line up.
@@ -30,15 +31,17 @@
 		// white-space: nowrap;
 		max-height: 4em;
 		color: var(--tertiary-grey);
+
 		&[href] {
 			color: var(--secondary-grey);
 			padding-right: 1em; // leave room for the chevron
 
 			&::after {
 				@extend %chevron-right;
+
 				position: absolute;
 				font-size: inherit;
-				right: .5em;
+				right: 0.5em;
 				top: 50%;
 				transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
 			}
@@ -56,9 +59,10 @@
 
 	.active {
 		background: var(--primary-blue);
-		box-shadow: inset 3px 0 0 0 #107eed;
+		box-shadow: inset 3px 0 0 0 rgba(var(--accent-color-overlay), 0.2);
+
 		a[href] {
-			color: #ffffff;
+			color: #fff;
 			font-weight: 600;
 		}
 	}
@@ -67,6 +71,7 @@
 		& > h1 {
 			margin: 0;
 		}
+
 		& > h3 {
 			margin-top: 0;
 		}
@@ -80,30 +85,26 @@
 		top: 0;
 		height: 0.167em;
 		background: #e7e8ed;
-		box-shadow: inset 0 -1px 0 0 #dddddd;
+		box-shadow: inset 0 -1px 0 0 #ddd;
 	}
 
 	li > h1 {
 		margin: 1.875rem 0 0;
 		color: var(--secondary-grey);
 		position: relative;
-
 		font-style: normal;
 		font-weight: 100;
 		font-size: 1.5em;
-
 		text-transform: none;
 		padding: 0.8125rem 0.42em 0.5625rem;
 	}
 
 	li > h3 {
 		text-transform: uppercase;
-
 		font-style: normal;
 		font-weight: 400;
 		font-size: 0.6em;
 		font-family: var(--body-font-family);
-
 		padding: 0.3125rem 1.25rem 0.25rem;
 		background: #f4f4f4 !important;
 		font-weight: 600;
@@ -126,7 +127,7 @@
 		left: 0.5rem;
 		transform: translateY(-50%) scale(0.7);
 
-		&  + a {
+		& + a {
 			margin-left: 1.5rem;
 		}
 	}
