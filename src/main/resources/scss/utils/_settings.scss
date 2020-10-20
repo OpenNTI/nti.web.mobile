@@ -132,7 +132,7 @@ $cursor-default-value: $secondary-grey;
 // $header-font-family: $body-font-family;
 // $header-font-weight: $font-weight-normal;
 // $header-font-style: normal;
-$header-font-color: $primary-grey;
+$header-font-color: var(--primary-grey);
 // $header-line-height: 1.4;
 // $header-top-margin: .2rem;
 // $header-bottom-margin: .5rem;
@@ -156,14 +156,14 @@ $header-font-color: $primary-grey;
 
 // These control how subheaders are styled.
 // $subheader-line-height: 1.4;
-// $subheader-font-color: scale-color($header-font-color, $lightness: 35%);
+$subheader-font-color: var(--secondary-grey);
 // $subheader-font-weight: $font-weight-normal;
 // $subheader-top-margin: .2rem;
 // $subheader-bottom-margin: .5rem;
 
 // A general <small> styling
 // $small-font-size: 60%;
-// $small-font-color: scale-color($header-font-color, $lightness: 35%);
+$small-font-color: var(--tertiary-grey);
 
 // We use these to style paragraphs
 // $paragraph-font-family: inherit;
@@ -189,8 +189,8 @@ $header-font-color: $primary-grey;
 // We use these to style anchors
 // $anchor-text-decoration: none;
 // $anchor-text-decoration-hover: none;
-// $anchor-font-color: $primary-color;
-$anchor-font-color-hover: $primary-blue;
+$anchor-font-color: var(--primary-blue);
+$anchor-font-color-hover: var(--primary-blue);
 
 // We use these to style the <hr> element
 // $hr-border-width: 1px;
@@ -213,11 +213,11 @@ $anchor-font-color-hover: $primary-blue;
 // $definition-list-margin-bottom: rem-calc(12);
 
 // We use these to style blockquotes
-// $blockquote-font-color: scale-color($header-font-color, $lightness: 35%);
+$blockquote-font-color: var(--tertiary-grey);
 // $blockquote-padding: rem-calc(9 20 0 19);
 // $blockquote-border: 1px solid #ddd;
 // $blockquote-cite-font-size: rem-calc(13);
-// $blockquote-cite-font-color: scale-color($header-font-color, $lightness: 23%);
+$blockquote-cite-font-color: var(--secondary-grey);
 // $blockquote-cite-link-color: $blockquote-cite-font-color;
 
 // Acronym styles
@@ -311,7 +311,6 @@ $accordion-navigation-font-color: $primary-grey;
 // $block-grid-elements: 12;
 // $block-grid-default-spacing: rem-calc(20);
 // $align-block-grid-to-grid: false;
-
 
 // Enables media queries for block-grid classes. Set to false if writing semantic HTML.
 // $block-grid-media-queries: true;
@@ -702,7 +701,7 @@ $magellan-padding: 0 !important;
 
 // $include-html-off-canvas-classes: $include-html-classes;
 
-$tabbar-bg: rgba(0,0,0,0);
+$tabbar-bg: rgba(0, 0, 0, 0);
 // $tabbar-bg: #333;
 // $tabbar-height: rem-calc(45);
 // $tabbar-icon-width: $tabbar-height;
@@ -895,7 +894,6 @@ $pagination-li-font-color: $primary-grey;
 // $price-money-size: rem-calc(32);
 // $price-money-font-family: $body-font-family;
 
-
 // We use these to control the description styles
 // $price-bg: #fff;
 // $price-desc-color: #777;
@@ -1068,7 +1066,6 @@ $pagination-li-font-color: $primary-grey;
 $sub-nav-padding: rem-calc(3 16);
 // $sub-nav-border-radius: 3px;
 // $sub-nav-font-color-hover: scale-color($sub-nav-font-color, $lightness: -25%);
-
 
 // We use these to control the active item styles
 $sub-nav-active-font-weight: $font-weight-normal;
