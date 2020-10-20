@@ -24,9 +24,9 @@ export default {
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (this.props.item !== nextProps.item) {
-			this.updateData(nextProps);
+	componentDidUpdate (prevProps) {
+		if (this.props.item !== prevProps.item) {
+			this.updateData();
 		}
 	},
 

@@ -13,9 +13,9 @@ export default {
 	},
 
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.items !== this.props.items) {
-			this.initItems(nextProps);
+	componentDidUpdate (prevProps) {
+		if (prevProps.items !== this.props.items) {
+			this.initItems();
 		}
 	},
 

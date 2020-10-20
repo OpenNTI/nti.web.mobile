@@ -47,7 +47,8 @@ export default {
 	},
 
 
-	componentWillMount () {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount () {
 		const storeValue = Store.getPartValue(this.props.item);
 		const defaultValue = (this.getDefaultValue && storeValue === void 0) ? this.getDefaultValue() : void 0;
 

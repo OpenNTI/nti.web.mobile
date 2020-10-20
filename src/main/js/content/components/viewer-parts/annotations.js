@@ -50,28 +50,24 @@ export default {
 		}
 	},
 
-	componentWillUpdate (_, nextState) {
-		let {annotations} = this.state;
-		let store = getStore(this.state);
-		let nextStore = getStore(nextState);
+	componentDidUpdate (_, prevState) {
+		const {annotations} = prevState;
+		const prevStore = getStore(prevState);
+		const store = getStore(this.state);
 
-		if (store && store !== nextStore) {
-			store.removeListener('change', this.onUserDataChange);
+		if (prevStore && prevStore !== store) {
+			prevStore.removeListener('change', this.onUserDataChange);
 			if (annotations) {
-				for (let i of Object.keys(annotations)) {
+				for (const i of Object.keys(annotations)) {
 					delete annotations[i];
 				}
 			}
 		}
 
-		if (nextStore && nextStore !== store) {
-			nextStore.addListener('change', this.onUserDataChange);
+		if (store && store !== prevStore) {
+			store.addListener('change', this.onUserDataChange);
 		}
-	},
 
-
-	componentDidUpdate (_, prevState) {
-		const store = getStore(this.state);
 		this.renderAnnotations(store);
 
 		const {stagedNote} = this.state;

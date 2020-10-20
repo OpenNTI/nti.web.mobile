@@ -13,13 +13,14 @@ export default {
 		this.setUpStore();
 	},
 
-	componentWillReceiveProps () {
+	getSnapshotBeforeUpdate () {
 		this.setUpStore();
+		return null;
 	},
 
-	componentWillUpdate (_, nextState) {
-		let {store} = this.state;
-		let nextStore = nextState.store;
+	componentDidUpdate (_, prevState) {
+		let {store} = prevState;
+		let nextStore = this.state.store;
 
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onStoreChange);

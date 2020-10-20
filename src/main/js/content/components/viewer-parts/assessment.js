@@ -25,16 +25,16 @@ export default {
 	},
 
 
-	componentWillUpdate (nextProps, nextState) {
-		const prev = this.getAssessment(this.props, this.state);
-		const next = this.getAssessment(nextProps, nextState);
+	componentDidUpdate (prevProps, prevState) {
+		const prev = this.getAssessment(prevProps, prevState);
+		const next = this.getAssessment(this.props, this.state);
 
 		const assessmentChanged = (next && next.getID()) !== (prev && prev.getID());
-		const historyChanged = nextProps.assessmentHistory !== this.props.assessmentHistory;
+		const historyChanged = prevProps.assessmentHistory !== this.props.assessmentHistory;
 
-		if (assessmentChanged || historyChanged || (nextState.page && !Store.isActive(next))) {
+		if (assessmentChanged || historyChanged || (this.state.page && !Store.isActive(next))) {
 			Store.teardownAssessment(prev);
-			this.setupAssessment(nextProps, nextState);
+			this.setupAssessment(this.props, this.state);
 		}
 	},
 

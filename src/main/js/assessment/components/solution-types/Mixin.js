@@ -46,7 +46,8 @@ export default {
 	},
 
 
-	componentWillMount () {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount () {
 		Store.addChangeListener(this[onStoreChange]);
 		this[onStoreChange]();
 	},
@@ -58,8 +59,8 @@ export default {
 	},
 
 
-	componentWillReceiveProps (props) {
-		this[onStoreChange](props);
+	componentDidUpdate () {
+		this[onStoreChange]();
 	},
 
 

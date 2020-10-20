@@ -7,7 +7,7 @@ const SCROLL = Symbol('Scroll-To-Target-Delay');
 
 export default {
 
-	componentWillMount () {
+	componentDidMount () {
 		this.maybeScrollToFragment();
 	},
 

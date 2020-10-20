@@ -23,7 +23,8 @@ export default {
 		};
 	},
 
-	async componentWillMount () {
+	// eslint-disable-next-line camelcase
+	async UNSAFE_componentWillMount () {
 		this.resolving = null;
 		const entry = await this.resolveEntry();
 		EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);

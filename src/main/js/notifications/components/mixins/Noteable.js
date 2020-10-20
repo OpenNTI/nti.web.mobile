@@ -23,7 +23,8 @@ export default {
 
 	getInitialState () { return {}; },
 
-	componentWillMount () {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount () {
 		let change = this.props.item;
 		let item = change.Item || change;
 		let username = item.creator || item.Creator;

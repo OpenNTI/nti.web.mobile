@@ -29,7 +29,7 @@ export default {
 		this.mounted = false;
 	},
 
-	componentWillReceiveProps () { this.ensureLibraryLoaded(); },
+	componentDidUpdate () { this.ensureLibraryLoaded(); },
 
 	ensureLibraryLoaded () {
 		let promise = load();//will return the same promise every time until reloaded.

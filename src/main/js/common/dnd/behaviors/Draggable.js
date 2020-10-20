@@ -179,7 +179,8 @@ export default {
 	},
 
 
-	componentWillMount () {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount () {
 		let {x, y} = this.props.start;
 		this.setState({x: x, y: y});
 	},

@@ -46,7 +46,8 @@ export default {
 	},
 
 
-	componentWillMount () {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount () {
 		const {props: {item, questionPart: part}} = this;
 		const results = item.getResults(part);
 		// console.debug(results);

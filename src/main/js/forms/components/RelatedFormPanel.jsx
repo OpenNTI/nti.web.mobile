@@ -92,12 +92,8 @@ let RelatedFormPanel = createReactClass({
 		}
 	},
 
-	//eslint-disable-next-line camelcase
-	UNSAFE_componentWillUpdate () {
-		this[visibleFields].length = 0;
-	},
-
 	componentDidUpdate () {
+		this[visibleFields].length = 0;
 		let visible = this[getVisibleFieldRefs]();
 		FieldValuesStore.setAvailableFields(visible);
 	},

@@ -13,7 +13,8 @@ const LoadData = 'LoadForum:LoadData';
 const logger = Logger.get('forums:mixins:LoadForum');
 
 export default {
-	componentWillMount () {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount () {
 		if (!this.registerStoreEventHandler) {
 			logger.warn('this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)');
 			return;
@@ -28,9 +29,9 @@ export default {
 		this[LoadData](this.props.forumId);
 	},
 
-	componentWillReceiveProps (nextProps) {
-		if (nextProps.forumId !== this.props.forumId || paging.batchStart() !== this.state.batchStart) {
-			this[LoadData](nextProps.forumId);
+	componentDidUpdate (prevProps, prevState) {
+		if (prevProps.forumId !== this.props.forumId || paging.batchStart() !== prevState.batchStart) {
+			this[LoadData](this.props.forumId);
 			this.setState({
 				loading: true,
 				batchStart: paging.batchStart()

@@ -8,7 +8,8 @@ const logger = Logger.get('forums:mixins:KeepItemInState');
 
 export default {
 
-	componentWillMount () {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillMount () {
 		if (!this.registerStoreEventHandler) {
 			logger.warn('this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)');
 			return;
@@ -16,10 +17,10 @@ export default {
 		this.registerStoreEventHandler(ITEM_LOADED, LoadedHandler);
 	},
 
-	componentWillReceiveProps (nextProps) {
+	componentDidUpdate (prevProps) {
 		this.setState({
 			busy: false,
-			item: nextProps.item || this.props.item
+			item: this.props.item || prevProps.item
 		});
 	},
 
