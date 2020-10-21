@@ -31,16 +31,12 @@ export default {
 
 	componentDidUpdate () { this.ensureLibraryLoaded(); },
 
-	ensureLibraryLoaded () {
-		let promise = load();//will return the same promise every time until reloaded.
+	async ensureLibraryLoaded () {
+		await load();
 
-		promise.then(() => {
-			if (this.mounted) {
-				this.setState({loading: false});
-			}
-		});
-
-		return promise;
+		if (this.mounted && this.state.loading) {
+			this.setState({loading: false});
+		}
 	},
 
 

@@ -17,10 +17,11 @@ export default {
 		this.registerStoreEventHandler(ITEM_LOADED, LoadedHandler);
 	},
 
-	componentDidUpdate (prevProps) {
+	// eslint-disable-next-line camelcase
+	UNSAFE_componentWillReceiveProps (nextProps) {
 		this.setState({
 			busy: false,
-			item: this.props.item || prevProps.item
+			item: nextProps.item || this.props.item
 		});
 	},
 

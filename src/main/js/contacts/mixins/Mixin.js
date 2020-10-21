@@ -13,14 +13,8 @@ export default {
 		this.setUpStore();
 	},
 
-	getSnapshotBeforeUpdate () {
-		this.setUpStore();
-		return null;
-	},
-
-	componentDidUpdate (_, prevState) {
-		let {store} = prevState;
-		let nextStore = this.state.store;
+	async componentDidUpdate (_, {store}) {
+		const nextStore = await this.setUpStore();
 
 		if (store && store !== nextStore) {
 			store.removeListener('change', this.onStoreChange);
@@ -41,9 +35,12 @@ export default {
 		this.forceUpdate();
 	},
 
-	setUpStore () {
-		getStore(this.storeType)
-			.then(store => this.setState({store}));
+	async setUpStore () {
+		const store = await getStore(this.storeType);
+		if (this.state.store !== store) {
+			this.setState({store});
+		}
+		return store;
 	}
 
 };

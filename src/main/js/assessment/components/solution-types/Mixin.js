@@ -64,13 +64,15 @@ export default {
 	},
 
 
-	[onStoreChange] (props) {
-		let part = (props || {}).item || this.props.item;
-		let solution = Store.getSolution(part);
-		let explanation = Store.getExplanation(part);
-		this.setState({
-			solution: solution,
-			explanation: explanation
-		});
+	[onStoreChange] (props = this.props) {
+		const part = props?.item;
+		const solution = Store.getSolution(part);
+		const explanation = Store.getExplanation(part);
+		if (this.state.solution !== solution || this.state.explanation !== explanation) {
+			this.setState({
+				solution: solution,
+				explanation: explanation
+			});
+		}
 	}
 };
