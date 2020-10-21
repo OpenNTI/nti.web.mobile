@@ -150,7 +150,7 @@ export default createReactClass({
 
 
 	getChildContext () {
-		if (!this.props.useCommonTabs) { return null; }
+		if (!this.props.useCommonTabs) { return {}; }
 
 		return {
 			router: {
