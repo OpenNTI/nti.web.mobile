@@ -4,36 +4,41 @@
 	background: var(--primary-grey);
 	color: white;
 	position: relative;
-	margin-bottom: .25rem;
+	margin-bottom: 0.25rem;
 
 	.username {
 		font-size: $h3-font-size;
 	}
 
 	.user {
-		margin-bottom: .25rem; // minimum gap before the tabs
+		margin-bottom: 0.25rem; // minimum gap before the tabs
 	}
 
 	.group {
 		background: #373a43;
 		padding: 2rem;
+
 		.description {
 			$lineheight: 1.5em;
-			font-size: .75rem;
+
+			font-size: 0.75rem;
 			line-height: $lineheight; // probably already
 			max-height: $lineheight * 3; // 3 lines
 			overflow: hidden;
 			color: var(--tertiary-grey);
 		}
+
 		.label {
 			line-height: 1.5em;
 			margin-bottom: 1rem;
 		}
+
 		.group-subhead {
-			font-size: .75rem;
+			font-size: 0.75rem;
 			font-weight: 700;
 			font-family: var(--body-font-family);
 		}
+
 		.group-subhead-icon {
 
 		}
@@ -70,26 +75,25 @@
 	}
 }
 
-
-
 .profile-head-summary {
 	padding: 0 0.625rem;
 
 	.social-links {
-		margin: 0 0 .5rem 0;
+		margin: 0 0 0.5rem 0;
 	}
 
 	.profile-head-summary-attrs {
 		clear: both;
-		font-size: .6875rem;
+		font-size: 0.6875rem;
 		list-style-type: none;
 		margin: 0;
+
 		li {
 			$icon-color: var(--secondary-grey);
 			$icon-size: 1.5em;
+
 			line-height: $icon-size * 1.5;
 			position: relative;
-
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -97,22 +101,25 @@
 			&::before {
 				font-family: 'icomoon';
 				color: $icon-color;
-				padding-right: .4em;
+				padding-right: 0.4em;
 				position: relative;
 				top: 0.1em;
 				line-height: 0;
 				font-size: 1.5em;
 			}
+
 			&.education {
 				&::before {
 					content: '\e60a';
 				}
 			}
+
 			&.affiliation {
 				&::before {
 					content: '\e60c';
 				}
 			}
+
 			&.location {
 				&::before {
 					content: '\e60b';
@@ -122,6 +129,7 @@
 					&:last-child::after {
 						content: none;
 					}
+
 					&::after {
 						@extend %middot;
 					}
@@ -141,7 +149,6 @@
 		display: inline-block;
 		text-align: center;
 	}
-
 }
 
 .profile-more-items-menu.flyout {
@@ -164,17 +171,18 @@
 	margin: 0;
 	font-size: 0.75rem;
 	font-weight: 600;
-	background-color: rgba(0,0,0,0.15);
+	background-color: rgba(0, 0, 0, 0.15);
 
 	& > li, {
 		color: var(--tertiary-grey);
 		text-transform: uppercase;
 		overflow: hidden;
+
 		a {
 			display: block;
 			padding: 0.5rem;
 			color: var(--tertiary-grey);
-			box-shadow: 1px 0 0 0 rgba(0,0,0,0.15);
+			box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.15);
 			overflow: hidden;
 			text-overflow: ellipsis;
 			position: relative;
@@ -186,7 +194,7 @@
 				box-shadow: 1px 0 0 0 var(--primary-blue);
 			}
 
-			&.profile-nav-more-trigger  {
+			&.profile-nav-more-trigger {
 				font-size: 1rem;
 			}
 		}
@@ -195,12 +203,13 @@
 
 .group {
 	.profile-nav {
-		background-color: rgba(0,0,0,0.35);
+		background-color: rgba(0, 0, 0, 0.35);
 	}
 }
 
 .profile .empty-list.user-details {
 	margin: 0.25rem 0;
+
 	&, h1 {
 		font-family: var(--body-font-family);
 		color: var(--tertiary-grey);
@@ -214,11 +223,13 @@
 
 			.profile-avatar-container {
 				$size: 180px;
+
 				float: none;
 				margin: 0;
 				max-width: $size;
 				height: $size;
 				flex: 0 0.5 $size;
+
 				svg {
 					width: 100%;
 					height: auto;
@@ -232,6 +243,7 @@
 
 		.profile-head-summary-attrs {
 			margin: 0;
+
 			li {
 				white-space: nowrap;
 				overflow: hidden;

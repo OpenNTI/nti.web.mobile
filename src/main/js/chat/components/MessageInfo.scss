@@ -38,15 +38,13 @@
 		top: 0.5rem;
 		color: var(--primary-blue);
 		opacity: 0.5;
-
 		white-space: nowrap;
 		display: block;
 		max-width: 90%;
 		overflow: hidden;
 		text-overflow: ellipsis;
-
 		text-transform: uppercase;
-		font: {size: 0.625rem; weight: 600;}
+		font: { size: 0.625rem; weight: 600; }
 	}
 
 	.message-body {
@@ -65,9 +63,9 @@
 
 	time {
 		text-transform: uppercase;
-		font: {size: 0.625rem; weight: 100;}
-		color: var(--tertiary-grey);
+		font: { size: 0.625rem; weight: 100; }
 
+		color: var(--tertiary-grey);
 		position: absolute;
 		left: 0;
 		bottom: 0.25rem;

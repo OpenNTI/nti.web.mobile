@@ -1,7 +1,6 @@
 @import "~@nti/style-common";
 
 .question-part .fill-in-the-blank {
-
 	.active .blank:empty {
 		font-size: 1.5em;
 		line-height: 2;
@@ -38,16 +37,17 @@
 
 		&::after {
 			$o: 0;
+
 			content: '';
 			position: absolute;
 			height: 24px;
-			left: $o; right: $o; bottom: -0.2em;
-
+			left: $o;
+			right: $o;
+			bottom: -0.2em;
 			border: 2px solid var(--border-grey);
 			border-radius: 3px;
 			clip: rect(20px auto auto auto);
 		}
-
 
 		.drag.source {
 			&.correct {

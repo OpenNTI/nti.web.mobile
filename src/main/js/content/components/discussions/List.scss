@@ -3,6 +3,7 @@
 
 .discussions {
 	@extend %hardware-render;
+
 	overflow: hidden;
 	background: var(--panel-background);
 	border: {

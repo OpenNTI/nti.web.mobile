@@ -9,33 +9,38 @@
 	background: white;
 	z-index: 9999;
 	padding: 3rem 1rem 1rem;
+
 	.close {
 		position: absolute;
-		top: .5rem;
-		right: .5rem;
+		top: 0.5rem;
+		right: 0.5rem;
 		color: var(--tertiary-grey);
 		cursor: pointer;
 	}
+
 	.content {
 		height: 100%;
+
 		h3 {
 			font-family: monospace;
 			font-weight: 100;
 			font-size: 1.17em;
 		}
+
 		.page-contents {
 			display: flex;
 			height: 100%;
 			flex-direction: column;
 		}
+
 		pre {
 			flex: 1 1 auto;
-    		font: normal normal 1em/1 monospace;
-    		background: var(--quad-grey);
-    		border: 1px solid #ddd;
-    		padding: 18px 20px;
-    		margin: 0;
-    		overflow: auto;
+			font: normal normal 1em/1 monospace;
+			background: var(--quad-grey);
+			border: 1px solid #ddd;
+			padding: 18px 20px;
+			margin: 0;
+			overflow: auto;
 		}
 	}
 }

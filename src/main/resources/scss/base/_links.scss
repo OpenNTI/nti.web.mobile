@@ -1,12 +1,13 @@
 ul.action-links {
 	list-style-type: none;
-	font-size: .625rem;
+	font-size: 0.625rem;
 	margin: 0;
 	color: var(--tertiary-grey);
 
 	& > li {
 		@extend .action-link;
 		@extend %middot-after;
+
 		&:last-child::after {
 			content: none;
 		}
@@ -19,16 +20,16 @@ ul.action-links {
 	display: inline-block;
 }
 
-
 a.with-arrow[href] {
 	position: relative;
 	padding-right: 1em; // leave room for the chevron
 
 	&::after {
 		@extend %chevron-right;
+
 		position: absolute;
 		font-size: inherit;
-		right: .5em;
+		right: 0.5em;
 		top: 50%;
 		transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
 	}

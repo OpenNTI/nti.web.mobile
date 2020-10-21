@@ -17,7 +17,7 @@
 	margin: 0;
 	font-size: 0.75rem;
 	font-weight: 600;
-	background-color: rgba(0,0,0,0.15);
+	background-color: rgba(0, 0, 0, 0.15);
 
 	& > li {
 		flex: 1 1 auto;
@@ -26,11 +26,12 @@
 		text-align: center;
 		text-transform: uppercase;
 		overflow: hidden;
+
 		a {
 			display: block;
 			padding: 0.5rem;
 			color: var(--tertiary-grey);
-			box-shadow: 1px 0 0 0 rgba(0,0,0,0.15);
+			box-shadow: 1px 0 0 0 rgba(0, 0, 0, 0.15);
 			overflow: hidden;
 			text-overflow: ellipsis;
 			position: relative;
@@ -47,14 +48,15 @@
 
 %spinner {
 	$size: 2em;
-	border: 2px solid rgba(0,0,0,.05);
-	border-top-color: rgba(0,0,0,.1);
-	border-right-color: rgba(0,0,0,.1);
+
+	border: 2px solid rgba(0, 0, 0, 0.05);
+	border-top-color: rgba(0, 0, 0, 0.1);
+	border-right-color: rgba(0, 0, 0, 0.1);
 	border-radius: 50%;
 	width: $size;
 	height: $size;
 	line-height: 1;
-	animation: rotation .9s infinite linear;
+	animation: rotation 0.9s infinite linear;
 	margin-top: -$size/2; // the animation uses transform, which overwrites our translateY, so use margin to get vertical centering since we know the size
 }
 
@@ -63,12 +65,13 @@
 		list-style: none;
 		margin: 0;
 	}
+
 	header {
 		background: var(--primary-grey);
 	}
 
 	.search-summary {
-		font-size: .75rem;
+		font-size: 0.75rem;
 		font-weight: 700;
 		color: var(--tertiary-grey);
 		margin-bottom: 2rem;
@@ -82,26 +85,32 @@
 
 .contacts-page-content {
 	padding: 1rem 0.625rem;
+
 	h2 {
 		font-size: 1.5rem;
 		line-height: 1;
 		font-weight: 100;
 		font-family: var(--body-font-family);
 	}
+
 	.selectable-entities {
 		background-color: white;
+
 		.selectable-entity {
-			margin-bottom: .25rem;
-			transition: background-color .25s ease-out;
+			margin-bottom: 0.25rem;
+			transition: background-color 0.25s ease-out;
+
 			&.unselected {
 				background: #fff2cb;
-				box-shadow: inset 0 1px 2px 0 rgba(0,0,0,.1);
+				box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+
 				.username {
 					position: relative;
+
 					&::after {
 						content: '';
 						height: 2px;
-						background: rgba(0,0,0,.4);
+						background: rgba(0, 0, 0, 0.4);
 						position: absolute;
 						top: 50%;
 						left: 0;

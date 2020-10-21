@@ -1,8 +1,8 @@
 @import "~@nti/style-common";
 
 .gradebook .column-heading {
-	padding-top: .5em;
-	padding-bottom: .5em;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
 	border-top: 1px solid var(--quad-grey);
 	border-bottom: 1px solid var(--quad-grey);
 
@@ -13,12 +13,14 @@
 	}
 
 	&.sorted {
-		$arrowsize: .5em; // sort arrow size
+		$arrowsize: 0.5em; // sort arrow size
+
 		position: relative;
 		color: var(--primary-grey);
 
 		.sort-arrow {
-			margin-left: .25em;
+			margin-left: 0.25em;
+
 			&::after { // sort arrow
 				content: '';
 				width: 0;
@@ -37,7 +39,7 @@
 
 		&.desc .sort-arrow::after {
 			border-top-color: inherit;
-			transform: translateY(-($arrowsize * .5));
+			transform: translateY(-($arrowsize * 0.5));
 		}
 	}
 }

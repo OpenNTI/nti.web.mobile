@@ -13,6 +13,7 @@
 
 	thead, tbody {
 		background: none;
+
 		tr {
 			th, td {
 				font-weight: normal;
@@ -37,5 +38,5 @@
 
 	.rank-first { color: var(--primary-green); }
 	.rank-second { color: var(--primary-grey); }
-	.rank-none { color: var(--tertiary-grey); opacity: 0.9;}
+	.rank-none { color: var(--tertiary-grey); opacity: 0.9; }
 }

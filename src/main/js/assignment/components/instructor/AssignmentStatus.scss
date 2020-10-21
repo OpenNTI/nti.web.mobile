@@ -3,9 +3,11 @@
 .assignment-status {
 	text-align: right;
 	font-weight: 600;
+
 	&.late {
 		color: var(--primary-red);
 	}
+
 	.is-excused {
 		color: var(--primary-red);
 	}

@@ -16,6 +16,7 @@
 			font-weight: 700;
 			display: block;
 		}
+
 		.main {
 			display: block;
 			font-size: 1.5rem;
@@ -27,6 +28,7 @@
 	.cell {
 		display: block;
 		min-height: 5rem;
+
 		&.total {
 			min-height: 4rem;
 		}
@@ -54,15 +56,17 @@
 			&.invalid {
 				color: var(--primary-red);
 			}
+
 			&.valid {
 				color: var(--secondary-green);
 			}
+
 			&.working::after {
 				content: '.\a0.\a0.';
 				display: inline-block;
 				overflow: hidden;
 				vertical-align: bottom;
-				animation: loadingellipse .75s .2s infinite linear;
+				animation: loadingellipse 0.75s 0.2s infinite linear;
 			}
 		}
 
@@ -98,7 +102,7 @@
 }
 
 @keyframes loadingellipse {
-	25% {width: 0; }
+	25% { width: 0; }
 	50% { width: 0.466667em; }
 	75% { width: 0.933333em; }
 	100% { width: 1.4em; }

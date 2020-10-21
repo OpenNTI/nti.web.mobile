@@ -23,40 +23,38 @@
 		left: 0;
 		right: 0;
 		background-color: #f0f0f0;
-		box-shadow: 0 0 5px 0 rgba(0,0,0,0.35);
+		box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.35);
 		clip: rect(300px, auto, 310px, auto);
 		border-radius: 350em / 5em;
 	}
 
-	h3{
+	h3 {
 		font: normal 400 1.375rem/1 var(--body-font-family);
 		color: var(--secondary-grey);
 		margin: 0;
 	}
 
-	.message{
+	.message {
 		font: normal 500 0.875rem/1.5 var(--body-font-family);
 		color: var(--secondary-grey);
-		margin: 0.3125rem 0 1rem 0
+		margin: 0.3125rem 0 1rem 0;
 	}
 }
 
-
 .feedback.entry {
-
 	background-color: var(--panel-background);
 	border: 1px solid #f0f0f0;
 	border-top: none;
 	box-shadow: inset 0 1px 0 0 #fff;
 	overflow: hidden;
 
-	.input-area{
+	.input-area {
 		border: 1px solid #dcdcdc;
 		background-color: white;
 		line-height: 2.45rem;
 		margin: 0.625rem;
 
-		.placeholder{
+		.placeholder {
 			color: var(--tertiary-grey);
 			display: block;
 			font-size: 0.875rem;
@@ -64,11 +62,10 @@
 			font-weight: 600;
 			margin-left: 0.625rem;
 		}
-
 	}
 }
 
-.feedback.modeled-content-editor{
+.feedback.modeled-content-editor {
 	position: relative;
 
 	&.busy {
@@ -87,7 +84,6 @@
 	}
 }
 
-
 .feedback.list {
 	background-color: var(--panel-background);
 	border: 1px solid #f0f0f0;
@@ -95,9 +91,7 @@
 	border-bottom: none;
 }
 
-
 .feedback.item {
-
 	html:not(.touch) & {
 		.footer {
 			visibility: hidden;

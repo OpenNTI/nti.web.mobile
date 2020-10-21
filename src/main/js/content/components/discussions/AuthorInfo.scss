@@ -24,7 +24,6 @@
 		font-size: 0.875rem;
 	}
 
-
 	time {
 		color: var(--tertiary-grey);
 		text-transform: uppercase;
@@ -34,11 +33,13 @@
 
 	.reply-name-wrapper {
 		position: relative;
+
 		.activity-item & {
 			font-size: 0.75rem;
 		}
+
 		.username + time {
-			margin-left: .5em;
+			margin-left: 0.5em;
 		}
 	}
 
@@ -63,7 +64,7 @@
 		}
 	}
 
-	address {display: inline;}
+	address { display: inline; }
 
 	a[rel=author] {
 		margin-right: 0.3125rem;
@@ -74,5 +75,4 @@
 		text-overflow: ellipsis;
 		vertical-align: bottom;
 	}
-
 }

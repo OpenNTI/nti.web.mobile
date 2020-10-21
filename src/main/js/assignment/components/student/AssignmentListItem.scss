@@ -4,7 +4,7 @@
 	display: block;
 	position: relative;
 	padding-left: 2rem;
-	font-size: .875rem;
+	font-size: 0.875rem;
 	margin-bottom: 1em;
 
 	&, &:focus, &:hover {
@@ -18,8 +18,8 @@
 		position: absolute;
 		top: 50%;
 		left: 0;
-		transform: translate3d(0,-50%,0);
-		color: rgba(0,0,0,.1);
+		transform: translate3d(0, -50%, 0);
+		color: rgba(0, 0, 0, 0.1);
 	}
 
 	&.complete::after {

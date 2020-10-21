@@ -4,20 +4,24 @@
 	.heading {
 		color: transparent;
 		width: 1em;
+
 		&::before {
 			content: '√';
 			font-family: 'icomoon';
 			color: var(--tertiary-grey);
 		}
 	}
+
 	.complete {
 		position: relative;
 		width: 1.5rem;
 		overflow: hidden;
+
 		time {
 			text-indent: 999px;
 			display: block;
 		}
+
 		&::before {
 			content: '√';
 			font-family: 'icomoon';
@@ -25,11 +29,13 @@
 			position: absolute;
 			top: 50%;
 			left: 0;
-			transform: translate3d(0,-50%,0);
+			transform: translate3d(0, -50%, 0);
 			color: var(--primary-green);
 		}
+
 		&.late {
 			color: var(--primary-red);
+
 			&::before {
 				color: var(--primary-red);
 			}

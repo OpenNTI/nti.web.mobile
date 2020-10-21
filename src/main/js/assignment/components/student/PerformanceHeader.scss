@@ -6,6 +6,7 @@
 	background: var(--panel-background);
 	padding: 1rem;
 	box-shadow: 0 1px 0 0 #e0e0e0;
+
 	.label {
 		display: block;
 		background: transparent;
@@ -16,6 +17,7 @@
 		font-weight: 700;
 		font-size: 0.6rem;
 	}
+
 	.value {
 		font-style: italic;
 	}

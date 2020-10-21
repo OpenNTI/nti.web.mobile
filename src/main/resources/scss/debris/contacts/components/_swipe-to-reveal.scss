@@ -1,7 +1,8 @@
 .swipers {
 	overflow: hidden;
+
 	& > div {
-		margin-bottom: .25rem;
+		margin-bottom: 0.25rem;
 	}
 }
 
@@ -16,7 +17,7 @@
 }
 
 .stro-container.transition-back {
-	transition: all .4s ease;
+	transition: all 0.4s ease;
 }
 
 .stro-left,
@@ -34,18 +35,20 @@
 	// shows a sliver of the right controls when we use 33.3333% widths.
 	// getting rid of the left controls lets us use integers (50% width instead of 33.3333)
 	width: 0;
-	overflow:hidden;
+	overflow: hidden;
 }
 
 .stro-button {
 	position: absolute;
 	height: 100%;
 	width: 100%;
+
 	&.caution {
 		&, &:hover, &:focus {
 			background: var(--primary-red);
 		}
 	}
+
 	&.disabled {
 		&, &:hover, &:focus {
 			background: var(--secondary-grey);
@@ -63,13 +66,16 @@
 .stro-button.stro-right-button {
 	left: 0;
 }
+
 .stro-button.stro-right-button span {
 	left: 0;
 	text-align: center;
 }
+
 .stro-button.stro-left-button {
 	right: 0;
 }
+
 .stro-button.stro-left-button span {
 	right: 0;
 	text-align: center;
@@ -78,6 +84,6 @@
 .stro-container.show-right-buttons,
 .stro-container.show-left-buttons,
 .stro-container.show-right-buttons .stro-button,
-.stro-container.show-left-buttons .stro-button{
-	transition: all .3s ease;
+.stro-container.show-left-buttons .stro-button {
+	transition: all 0.3s ease;
 }

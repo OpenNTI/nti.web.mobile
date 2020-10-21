@@ -40,15 +40,14 @@
 
 		&::before {
 			@extend %icon-gift;
+
 			position: absolute;
 			top: 0.2rem;
 			right: $pad;
-
 			content: '';
 			width: 34px;
 			height: 33px;
 		}
-
 	}
 
 	&.disabled {
@@ -56,18 +55,18 @@
 			opacity: 0.6;
 		}
 	}
-
 }
 
 /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) {
 	.gift-info {
-
 		.line {
 			display: flex;
+
 			input, div.box, & > span {
 				position: relative;
 				margin: 0 0.4rem 0 0;
+
 				&:last-child {
 					margin: 0;
 				}
@@ -80,7 +79,6 @@
 			div.box {
 				flex: 1 0 66%;
 			}
-
 		}
 	}
 }

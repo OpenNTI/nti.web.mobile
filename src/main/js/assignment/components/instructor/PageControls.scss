@@ -7,26 +7,31 @@
 	position: relative;
 	width: 150px;
 	background: white;
-	padding: .5rem .6rem;
-	font-size: .875rem;
+	padding: 0.5rem 0.6rem;
+	font-size: 0.875rem;
 	border: 1px solid #dcdcdc;
 	border-radius: 3px;
+
 	&.open::before {
 		@include menu-click-mask;
 	}
+
 	.menu-label {
 		&::after {
 			@extend %chevron-down;
+
 			color: var(--tertiary-grey);
 			font-size: 1em;
 			position: absolute;
-			right: .6rem;
+			right: 0.6rem;
 			top: 50%;
 			transform: translateY(-45%);
 		}
 	}
+
 	.page-menu {
 		@include menu-shadow;
+
 		list-style: none;
 		position: absolute;
 		left: 0;
@@ -34,11 +39,13 @@
 		margin: 0;
 		width: 100%;
 		background: white;
-		font-size: .875rem;
+		font-size: 0.875rem;
 		z-index: 9999;
 		border: 1px solid #dcdcdc;
+
 		li {
-			padding: .5rem .6rem;
+			padding: 0.5rem 0.6rem;
+
 			&.selected {
 				background: var(--primary-blue);
 				color: white;

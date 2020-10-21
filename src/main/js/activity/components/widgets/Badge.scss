@@ -2,18 +2,22 @@
 
 .badge-earned {
 	$icon-size: 100px;
+
 	position: relative;
 	padding-left: $icon-size + 10px;
 	min-height: $icon-size;
+
 	img {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: $icon-size;
 	}
+
 	.badge-name {
 		color: var(--primary-blue);
 	}
+
 	time {
 		color: var(--tertiary-grey);
 		text-transform: uppercase;

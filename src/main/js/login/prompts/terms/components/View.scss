@@ -2,7 +2,10 @@
 
 .terms-of-service-prompt {
 	position: fixed;
-	top: 0; left: 0; right: 0; bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	display: flex;
 	flex-direction: column;
 
@@ -45,12 +48,14 @@
 
 	header {
 		padding: 0.625rem;
+
 		h3 {
 			font: bold normal 1rem/1.5 var(--body-font-family);
 			color: #fd817f;
 			margin: 0;
 			padding: 0;
 		}
+
 		.you-should {
 			font-size: 0.75rem;
 			color: var(--tertiary-grey);
@@ -65,20 +70,25 @@
 			content: '';
 			z-index: 10;
 			position: absolute;
-			left: 0; right: 0; top: 0;
+			left: 0;
+			right: 0;
+			top: 0;
 			height: 10px;
-			box-shadow: inset 0 10px 5px -10px rgba(0,0,0,0.5);
+			box-shadow: inset 0 10px 5px -10px rgba(0, 0, 0, 0.5);
 		}
 
 		&::after {
 			top: auto;
 			bottom: 0;
-			box-shadow: inset 0 -10px 5px -10px rgba(0,0,0,0.5);
+			box-shadow: inset 0 -10px 5px -10px rgba(0, 0, 0, 0.5);
 		}
 
 		.agreement {
 			position: absolute;
-			top: 0; left: 0; right: 0; bottom: 0;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
 		}
 	}
 }

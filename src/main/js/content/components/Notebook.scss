@@ -1,11 +1,11 @@
 @import "~@nti/style-common";
 
 .compact {
-    margin: 0 auto;
+	margin: 0 auto;
 	background: transparent;
 
 	.stream-infinite-scroll {
-		padding: 0px rem-calc(10px);
+		padding: 0 rem-calc(10px);
 	}
 
 	.stream-bookmark .heading, .stream-highlight .heading {
@@ -16,6 +16,7 @@
 	.stream-bookmark {
 		.bookmark-content {
 			padding: 20px 10px;
+
 			.bookmark-context {
 				overflow: hidden;
 			}

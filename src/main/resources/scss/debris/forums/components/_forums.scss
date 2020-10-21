@@ -3,7 +3,7 @@ a.blockLink {
 }
 
 .comment-form-heading {
-	font-size: .75rem;
+	font-size: 0.75rem;
 	padding: 1rem 0;
 }
 
@@ -11,48 +11,53 @@ $indent: 0.9375rem;
 
 .page-controls {
 	@include block-grid(3); //TODO: restyle without foundation mixins & grid system.
+
 	position: relative;
-	font-size:.875rem;
+	font-size: 0.875rem;
+
 	.item {
-		padding: .5rem 1.4rem; // the horizontal padding makes room for the arrows.
+		padding: 0.5rem 1.4rem; // the horizontal padding makes room for the arrows.
 	}
+
 	.previous {
 		position: relative;
-		 .link {
+
+		.link {
 			&::before {
 				@include arrow(left);
 			}
-		 }
+		}
 	}
+
 	.current {
 		text-align: center;
 		color: var(--tertiary-grey);
 		white-space: nowrap;
 	}
+
 	.next {
 		position: relative;
 		text-align: right;
+
 		.link {
 			&::after {
 				@include arrow(right);
 			}
 		}
 	}
+
 	.page-select {
 		appearance: none !important;
 		width: 3em;
-		margin-right: .5em;
+		margin-right: 0.5em;
 	}
 }
-
 
 .forums-wrapper {
 	padding-left: 0.9375rem;
 	padding-right: 0.9375rem;
 	width: 100%;
-
-
-	padding-bottom:1rem;
+	padding-bottom: 1rem;
 	position: relative; // Error component is position: absolute; we want it to appear in the content area if it has to appear at all.
 	min-height: 10em; // loading widget is vertically centered. don't want it overlapping the heading.
 
@@ -66,7 +71,7 @@ $indent: 0.9375rem;
 		padding: 0.5rem 1rem;
 		color: white;
 		display: block;
-		margin:  0 #{-$indent} 0;
+		margin: 0 #{-$indent} 0;
 	}
 
 	.breadcrumbs,
@@ -76,15 +81,16 @@ $indent: 0.9375rem;
 		width: auto;
 		border-radius: 0;
 	}
-	.breadcrumbs {border-width: 1px 0;}
+	.breadcrumbs { border-width: 1px 0; }
 
 	.comment-form, .forum-form {
 		margin-top: 1rem;
+
 		input {
 			font-size: 1rem;
 			color: var(--primary-grey);
 			border: 1px solid black;
-			padding: .6rem;
+			padding: 0.6rem;
 			width: 100%;
 			margin-bottom: 1rem;
 			border-radius: 0;
@@ -110,13 +116,14 @@ $indent: 0.9375rem;
 
 	.postitem {
 		@extend .attributed-content-item;
+
 		padding-left: 0;
 		padding-right: 0;
 
 		.threadlink {
 			display: block;
 			min-height: 1rem;
-			font-size: .75rem;
+			font-size: 0.75rem;
 			color: var(--tertiary-grey);
 			white-space: nowrap;
 			float: right;
@@ -131,12 +138,13 @@ $indent: 0.9375rem;
 		}
 
 		&.deleted {
-
 			.wrap {
 				color: var(--tertiary-grey);
 				margin-left: 0;
 			}
-			padding: .6875rem 0;
+
+			padding: 0.6875rem 0;
+
 			.threadlink {
 				margin-top: 0;
 			}
@@ -145,20 +153,24 @@ $indent: 0.9375rem;
 
 	.deleteditemgroup {
 		$avatarsize: 35px;
-		font-size: .75rem;
+
+		font-size: 0.75rem;
 		color: var(--tertiary-grey);
 		background: var(--quad-grey);
 		padding: 1rem;
 		padding-bottom: 0;
 		min-height: 4rem;
 		margin: 0 -1rem;
+
 		.collapsible {
 			margin-left: $avatarsize + 10px;
+
 			&.expanded ul {
 				margin-top: 1.5rem;
 				border-top: 1px solid #f0f0f0;
 			}
 		}
+
 		.avatar {
 			float: left;
 			width: $avatarsize;
@@ -167,21 +179,23 @@ $indent: 0.9375rem;
 	}
 
 	section {
-		margin-top:1rem;
+		margin-top: 1rem;
 
 		&.topics-section {
-			margin-top: 0px;
+			margin-top: 0;
 		}
 
 		h1 {
-			font-size: .6875rem;
+			font-size: 0.6875rem;
 			text-transform: uppercase;
 			font-family: var(--body-font-family);
 		}
+
 		&.recent-activity {
 			.forum-topics {
 				background: var(--quad-grey);
 			}
+
 			.count {
 				@include count-badge();
 			}
@@ -218,6 +232,7 @@ $indent: 0.9375rem;
 		.bin {
 			border-bottom: 4px solid var(--quad-grey);
 			margin-bottom: 2rem;
+
 			h2 {
 				font-size: 1rem;
 				font-weight: 600;
@@ -225,18 +240,23 @@ $indent: 0.9375rem;
 				margin-top: 1rem;
 			}
 		}
+
 		.group-heading {
 			@extend %group-heading;
 		}
+
 		.board {
 			@extend %group-heading;
 		}
+
 		.forum-li {
-			padding: .625rem 0;
+			padding: 0.625rem 0;
 			border-bottom: 1px dotted $panel-border-color;
+
 			&:last-child {
 				border-bottom: none;
 			}
+
 			h3 {
 				// text-transform: uppercase;
 				// font-size: 1rem;
@@ -259,27 +279,29 @@ $indent: 0.9375rem;
 		.meta {
 			.name {
 				display: block;
-				line-height:1em;
+				line-height: 1em;
 			}
 		}
 
 		.meta, .activity {
-			font-size: .75rem;
+			font-size: 0.75rem;
 			display: block;
 			color: var(--tertiary-grey);
-			padding: .5rem 0;
+			padding: 0.5rem 0;
 			font-family: var(--body-font-family);
 			font-weight: 600;
 		}
 
 		ul.forum-topics {
-			border-top:1px solid $panel-border-color;
+			border-top: 1px solid $panel-border-color;
 			margin-left: -$indent;
 			margin-right: -$indent;
+
 			li {
 				@extend .attributed-content-item;
-				padding:0 0 0 $indent;
-				border:1px solid transparent;
+
+				padding: 0 0 0 $indent;
+				border: 1px solid transparent;
 				border-bottom-color: $panel-border-color;
 
 				.wrap {
@@ -287,7 +309,7 @@ $indent: 0.9375rem;
 				}
 
 				.attribution {
-					font-size: .75rem;
+					font-size: 0.75rem;
 					line-height: 1rem;
 					font-weight: 600;
 				}
@@ -298,23 +320,27 @@ $indent: 0.9375rem;
 
 				.topic-link {
 					display: block;
-					padding: .5rem 0;
+					padding: 0.5rem 0;
+
 					.title {
 						display: inline-block;
 						max-width: 99%; // leave room for the arrow
 						line-height: 1.25rem;
 					}
+
 					.activity {
-						font-size: .75rem;
+						font-size: 0.75rem;
 						padding: 0;
 						margin: 0;
 						line-height: 1rem;
+
 						.username {
-							margin-right:.25em;
+							margin-right: 0.25em;
 						}
+
 						.replies-wrapper, .likes {
 							display: inline;
-							margin-right:.5rem;
+							margin-right: 0.5rem;
 						}
 					}
 				}
@@ -325,7 +351,7 @@ $indent: 0.9375rem;
 	.nav-up {
 		@include grid-row(); //TODO: restyle without foundation mixins & grid system.
 		a {
-			display:block;
+			display: block;
 			padding: $panel-padding;
 			position: relative;
 			background: gray;
@@ -357,5 +383,6 @@ $indent: 0.9375rem;
 
 .forum-board-group {
 	@include grid-row(); //TODO: restyle without foundation mixins & grid system.
+
 	margin-top: $panel-margin-bottom;
 }

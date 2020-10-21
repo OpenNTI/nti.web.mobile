@@ -13,6 +13,7 @@ textarea {
 
 	&.required {
 		box-shadow: inset 4px 0 0 0 var(--border-grey);
+
 		&:focus {
 			box-shadow: inset 4px 0 0 0 var(--border-blue) !important;
 		}
@@ -39,28 +40,25 @@ select.error {
 	margin-bottom: 1rem;
 }
 
-
-
-
 %labelspan {
 	//iOS tab bug fix.
 	pointer-events: none;
+
 	a {
 		pointer-events: all;
 	}
-
 }
 // css3unsupported is not a class we use, but the :not() isn't supported in IE8 ..we're using it as a feature test.
 // so this block of style will not apply at all in IE8. (or android 2.x)
 // so the system default checkbox will be left as is.
 label:not(.css3unsupported) {
-
 	&.radio {
 		span {
 			@extend %labelspan;
+
 			background: var(--quad-grey);
 			padding: 1rem;
-			margin-bottom: .25rem;
+			margin-bottom: 0.25rem;
 			display: inline-block;
 			width: 90%;
 		}
@@ -72,6 +70,7 @@ label:not(.css3unsupported) {
 
 		& + span {
 			@extend %labelspan;
+
 			display: block;
 			line-height: 1.5;
 			padding-left: 1.5rem;
@@ -94,12 +93,12 @@ label:not(.css3unsupported) {
 		}
 	}
 
-
 	& > input[type="checkbox"] {
 		& + span::before {
 			background-image: url(../../../../images/icons/checkbox-14.png);
 			background-size: 14px;
 		}
+
 		&:checked + span::before {
 			background-image: url(../../../../images/icons/checkbox-14_active.png);
 		}

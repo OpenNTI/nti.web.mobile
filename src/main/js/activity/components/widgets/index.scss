@@ -2,6 +2,7 @@
 
 .ugd.heading {
 	$iconsize: 2.75rem;
+
 	position: relative;
 	// padding-left: $iconsize + 15px;
 	margin-bottom: 2rem;
@@ -30,20 +31,18 @@ ul.activity {
 	}
 }
 
-
 .activity-item {
 
-	$item-padding: .625rem;
+	$item-padding: 0.625rem;
+
 	position: relative;
 	background: white;
 	padding: $item-padding;
 	padding-left: 0.75rem;
-
 	margin: 0.3125rem 0;
-	font-size: .875rem;
+	font-size: 0.875rem;
 	word-break: break-word;
 	background: var(--panel-background);
-
 
 	.avatar {
 		width: 3.5rem;
@@ -52,23 +51,26 @@ ul.activity {
 
 	.avatar-heading {
 		position: relative;
+
 		& > .avatar {
 			position: absolute;
 			top: 0;
 			left: 0;
 		}
+
 		.wrap {
 			margin: 0 0 1rem 4.375rem;
 			min-height: 2.5rem;
+
 			h1 {
 				margin-bottom: 0;
 			}
+
 			.meta {
-				font-size: .75rem;
+				font-size: 0.75rem;
 			}
 		}
 	}
-
 
 	h1 {
 		font-family: var(--body-font-family);
@@ -79,7 +81,7 @@ ul.activity {
 
 	& > h1 {
 		border-bottom: 0.0625rem solid var(--quad-grey);
-		padding: .2em 0;
+		padding: 0.2em 0;
 	}
 
 	.charms {
@@ -92,8 +94,8 @@ ul.activity {
 
 	.breadcrumb-list {
 		margin: -0.625rem 0;
-		padding: 0.1875rem .625rem;
-		box-shadow: 0 1px 4px 0px rgba(30,30,30,0.05);
+		padding: 0.1875rem 0.625rem;
+		box-shadow: 0 1px 4px 0 rgba(30, 30, 30, 0.05);
 		border-bottom: 1px solid #f0f0f0;
 		border-radius: 3px 3px 0 0;
 		z-index: 999; // to get the shadow to overlay the bookmark lucky charm
@@ -113,7 +115,7 @@ ul.activity {
 		margin: 0 0 1rem 0;
 	}
 
-	
+
 
 	.body {
 		position: relative;
@@ -122,6 +124,7 @@ ul.activity {
 
 	.footer {
 		margin-top: 1rem;
+
 		& > * {
 			display: inline-block;
 			margin-right: 1rem;

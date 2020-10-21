@@ -1,39 +1,44 @@
 $arrow-color: var(--tertiary-grey);
 
-@mixin arrow($direction:right, $size:.5rem) {
-		content: '';
-		position: absolute;
-		top: 50%;
-		margin-top: -$size/2;
-		@include _direction($direction, $size);
-		border: 2px solid transparent;
-		border-top-color: $arrow-color;
-		border-right-color: $arrow-color;
-		width: $size;
-		height: $size;
-		border-radius: 2px;
+@mixin arrow($direction:right, $size:0.5rem) {
+	content: '';
+	position: absolute;
+	top: 50%;
+	margin-top: -$size/2;
+
+	@include _direction($direction, $size);
+
+	border: 2px solid transparent;
+	border-top-color: $arrow-color;
+	border-right-color: $arrow-color;
+	width: $size;
+	height: $size;
+	border-radius: 2px;
 }
 
 //$_directions: (right: 45, left: -45);
 
 @mixin _direction($direction, $size) {
 	@if $direction == right {
-		transform: rotate3d(0,0,1,45deg);
+		transform: rotate3d(0, 0, 1, 45deg);
 		right: $size * 1.5;
 	}
+
 	@else if $direction == left {
-		transform: rotate3d(0,0,1,-135deg);
+		transform: rotate3d(0, 0, 1, -135deg);
 		left: $size * 1.5;
 	}
+
 	@else if $direction == up {
-		transform: rotate3d(0,0,1,-45deg);
+		transform: rotate3d(0, 0, 1, -45deg);
 		right: $size * 1.5;
 	}
+
 	@else if $direction == down {
-		transform: rotate3d(0,0,1,135deg);
+		transform: rotate3d(0, 0, 1, 135deg);
 		right: $size * 1.5;
 	}
-//	transform: rotate3d(0,0,1, map-get($_directions, $direction)deg);
+	//	transform: rotate3d(0,0,1, map-get($_directions, $direction)deg);
 }
 
 .arrow-right {
@@ -52,11 +57,12 @@ $arrow-color: var(--tertiary-grey);
 	@include arrow(down);
 }
 
-
 .disclosure-triangle {
 	$size: 1em;
+
 	position: relative;
 	padding-left: $size;
+
 	&::before {
 		content: '';
 		width: 0;
@@ -71,7 +77,8 @@ $arrow-color: var(--tertiary-grey);
 		transition-property: all;
 		transition-duration: 0.3s;
 	}
+
 	&.open::before {
-		transform: rotate3d(0, 0, 1, 90deg); 
+		transform: rotate3d(0, 0, 1, 90deg);
 	}
 }

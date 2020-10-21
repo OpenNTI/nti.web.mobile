@@ -1,6 +1,7 @@
 .profile-body-container {
 	display: flex;
-	margin-top: .25rem;
+	margin-top: 0.25rem;
+
 	.profile-body-main {
 		flex: 1 1 auto;
 		min-width: 0;
@@ -9,17 +10,20 @@
 		.profile-card {
 			margin-top: 0;
 		}
+
 		h2 {
 			font-family: var(--body-font-family);
 			font-size: 1.5rem;
 			font-weight: 100;
 		}
 	}
+
 	.profile-body-aside {
 		flex: 0 0 250px;
-		margin-left: .25rem;
+		margin-left: 0.25rem;
 		display: none;
 	}
+
 	@media screen and (min-width: 500px) {
 		.profile-body-aside { // show sidebar on wide screens
 			display: block;

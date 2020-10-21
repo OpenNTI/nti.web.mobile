@@ -1,7 +1,6 @@
 @import "~@nti/style-common";
 
 .question-part .matching {
-
 	.terms {
 		background: var(--panel-background);
 		border: 1px solid var(--border-grey);
@@ -20,11 +19,10 @@
 				border: 1px dashed var(--border-grey);
 				color: var(--border-grey);
 				cursor: default;
-				animation: fadeIn .6s linear;
+				animation: fadeIn 0.6s linear;
 			}
 		}
 	}
-
 
 	.box {
 		border: 1px solid var(--tertiary-grey);
@@ -39,7 +37,7 @@
 	.target {
 		display: block;
 		position: relative;
-		border: 0px solid var(--tertiary-grey);
+		border: 0 solid var(--tertiary-grey);
 		line-height: 2;
 		padding: 1rem;
 

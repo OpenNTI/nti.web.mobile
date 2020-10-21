@@ -4,6 +4,7 @@
 	color: white;
 	padding: 1rem;
 	min-height: 9.5rem;
+
 	h1, h2, h3, h4, h5, h6, input, input:focus {
 		color: white;
 		font-size: 1.5rem;
@@ -15,6 +16,7 @@
 		font-family: var(--header-font-family);
 		padding: 0;
 	}
+
 	.rename.controls {
 		position: absolute;
 		left: 0;
@@ -22,6 +24,7 @@
 		width: 100%;
 		text-align: right;
 		background: rgba(255, 255, 255, 0.2);
+
 		button {
 			margin: 0;
 		}

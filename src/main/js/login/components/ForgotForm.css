@@ -3,7 +3,6 @@
 	width: 344px;
 }
 
-
 .recovery fieldset {
 	margin: 0 20px;
 }
@@ -49,7 +48,7 @@
 
 .success h2 {
 	max-width: 240px;
-    margin: 0 auto 20px;
+	margin: 0 auto 20px;
 }
 
 .success {

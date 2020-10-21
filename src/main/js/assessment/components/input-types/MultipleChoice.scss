@@ -7,7 +7,7 @@
 	.choice {
 		display: block;
 		position: relative;
-		border: 0px solid var(--tertiary-grey);
+		border: 0 solid var(--tertiary-grey);
 		line-height: 2;
 		min-height: 60px;
 
@@ -21,6 +21,7 @@
 
 			& + div {
 				$pad: 1rem;
+
 				padding: $pad 0 $pad 50px;
 				min-height: inherit;
 
@@ -37,18 +38,18 @@
 			}
 		}
 
-
 		input:checked + div { box-shadow: inset 4px 0 0 0 var(--neutral); }
-		&.correct input:checked + div {	box-shadow: inset 4px 0 0 0 var(--correct); }
+		&.correct input:checked + div { box-shadow: inset 4px 0 0 0 var(--correct); }
 		&.incorrect input:checked + div { box-shadow: inset 4px 0 0 0 var(--incorrect); }
-
 
 		input[type=radio] + div::before {
 			background-image: url(./assets/radio-button-16.png);
 		}
+
 		input[type=radio]:checked + div::before {
 			background-image: url(./assets/radio-button-16_active.png);
 		}
+
 		html:not(.touch) &:hover input[type=radio],
 		input[type=radio]:focus,
 		input[type=radio]:active {
@@ -56,7 +57,6 @@
 				background-image: url(./assets/radio-button-16_hover.png);
 			}
 		}
-
 
 		&.correct input[type]:checked + div::before { background-image: url(./assets/circle-check-green-18.png); }
 		&.incorrect input[type]:checked + div::before { background-image: url(./assets/circle-x-red-18.png); }
@@ -75,15 +75,16 @@
 			overflow: hidden;
 			display: block;
 			padding-right: 0.5rem;
+
 			p {
 				font-size: inherit;
 				line-height: inherit;
 				margin-bottom: 1.25em;
+
 				&:last-child {
 					margin-bottom: 0;
 				}
 			}
 		}
 	}
-
 }

@@ -34,12 +34,13 @@
 	.meta, .actions {
 		margin: 0.3125rem;
 		margin-left: 25%;
-
 	}
 
 	.impersonate {
 		display: block;
-		position: absolute; top: 0; right: 0;
+		position: absolute;
+		top: 0;
+		right: 0;
 		font-size: inherit;
 		text-transform: none;
 		line-height: 2;
@@ -63,14 +64,16 @@
 		clear: both;
 		margin: 0;
 		margin-bottom: 0.125rem;
+
 		li {
 			cursor: pointer;
 			flex: 1 1 50%;
 			text-align: center;
 			background: var(--primary-blue);
 			line-height: 3em;
-			font-size: .875rem;
+			font-size: 0.875rem;
 			box-shadow: 0 0 0 2px white;
+
 			a {
 				color: white;
 				display: block;

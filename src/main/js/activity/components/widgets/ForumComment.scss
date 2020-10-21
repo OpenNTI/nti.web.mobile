@@ -1,7 +1,6 @@
 @import "~@nti/style-common";
 
 .activity-item .forum-comment {
-
 	.charms {
 		float: right;
 		position: relative;
@@ -10,7 +9,7 @@
 
 	.wrap {
 		position: relative;
-		font-size: .75rem;
+		font-size: 0.75rem;
 		min-height: 4rem;
 
 		.avatar {
@@ -20,12 +19,13 @@
 			top: 0;
 			left: 0;
 		}
+
 		time {
 			color: var(--tertiary-grey);
-			font-size: .625rem;
+			font-size: 0.625rem;
 			text-transform: uppercase;
-
 		}
+
 		.username {
 			font-weight: 600;
 		}

@@ -2,21 +2,25 @@
 
 .radiogroup {
 	margin-bottom: 1rem;
+
 	label {
 		input {
-			margin-right: .5rem;
+			margin-right: 0.5rem;
 		}
 	}
+
 	&.required > p {
 		box-shadow: inset 4px 0 0 0 var(--border-grey);
 		padding-left: 1rem;
 	}
+
 	&.error {
 		& > p {
 			border-color: var(--border-red);
 			box-shadow: inset 4px 0 0 0 var(--primary-red) !important;
 			padding-left: 1rem;
 		}
+
 		label {
 			color: inherit;
 		}

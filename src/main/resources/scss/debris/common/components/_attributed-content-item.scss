@@ -41,7 +41,6 @@
 		.message {
 			//@include note-body;
 
-
 			time {
 				display: block;
 				font-size: 0.6875rem;
@@ -53,12 +52,15 @@
 			a.link {
 				color: var(--primary-blue);
 				cursor: pointer;
+
 				&.delete {
 					color: var(--primary-red);
 				}
 			}
+
 			a {
 				display: inline-block;
+
 				&::after {
 					color: var(--tertiary-grey);
 					font: normal 500 12px/20px var(--body-font-family);
@@ -70,6 +72,7 @@
 					padding: 0 0.5em;
 					background: none;
 				}
+
 				&:last-of-type::after {
 					content: '';
 					display: none;

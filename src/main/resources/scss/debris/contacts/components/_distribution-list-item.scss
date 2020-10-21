@@ -1,19 +1,21 @@
 .contacts-list {
 	.meta {
-		font-size: .6875em;
+		font-size: 0.6875em;
 		font-weight: 700;
 		color: var(--tertiary-grey);
 	}
+
 	.delete {
 		position: absolute;
 		top: 50%;
-		right: .5em;
+		right: 0.5em;
 		width: 2em;
 		height: 2em;
 		transform: translateY(-50%);
 		font-family: 'icomoon';
 		color: var(--tertiary-grey);
 		line-height: 1;
+
 		&::after {
 			content: 'X';
 			transform: translateY(-50%);

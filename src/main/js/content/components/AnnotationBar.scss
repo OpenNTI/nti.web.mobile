@@ -6,7 +6,7 @@
 	padding-left: 0.5625rem;
 
 	.ugd {
-		margin: 0.594rem .3125rem;
+		margin: 0.594rem 0.3125rem;
 		flex: 1 1 auto;
 		text-indent: -1000px;
 		overflow: hidden;
@@ -21,11 +21,11 @@
 
 		&.busy::after {
 			content: '';
-			animation: rotation .9s infinite linear;
+			animation: rotation 0.9s infinite linear;
 			width: 100% !important;
 			height: 100% !important;
 			border: 6px solid transparent;
-			border-left-color: rgba(0,0,0,0.3);
+			border-left-color: rgba(0, 0, 0, 0.3);
 			background: inherit;
 			position: absolute;
 			top: 0 !important;
@@ -36,6 +36,7 @@
 
 		&.delete {
 			$stroke: #b2b2b2;
+
 			flex: 0 1 auto;
 			border: 0;
 			padding: 0;
@@ -69,6 +70,7 @@
 
 		&.highlight {
 			$color: rgba(0, 0, 0, 0.2);
+
 			flex: 0 1 auto;
 			padding: 0;
 			border-radius: 100%;
@@ -77,16 +79,16 @@
 			border: 0;
 			box-shadow: inset 0 0 0 1px $color;
 
-			&.yellow {background: #EDE619;}
-			&.green {background: #4CE67F;}
-			&.blue {background: var(--primary-blue);}
+			&.yellow { background: #ede619; }
+			&.green { background: #4ce67f; }
+			&.blue { background: var(--primary-blue); }
 
 			&::after {
 				content: " " attr(data-color);
 			}
 
 			&.selected {
-				box-shadow: inset 0 0 0 1px $color, 0 0 0 3px #e2e2e2, 0 0 0 4px #BFBFBF;
+				box-shadow: inset 0 0 0 1px $color, 0 0 0 3px #e2e2e2, 0 0 0 4px #bfbfbf;
 
 				&::before {
 					content: '';
@@ -99,7 +101,7 @@
 					overflow: hidden;
 					left: 50%;
 					top: 55%;
-					transform: translate3d(-50%, 50%, 0) translate3d(0.5px,-13.5px,0) rotate(45deg) skewY(5deg);
+					transform: translate3d(-50%, 50%, 0) translate3d(0.5px, -13.5px, 0) rotate(45deg) skewY(5deg);
 					box-sizing: border-box;
 					border-radius: 1px;
 				}
@@ -109,7 +111,7 @@
 		&.note {
 			font-size: 0.875rem;
 			font-weight: 700;
-			padding: .8125rem 1rem;
+			padding: 0.8125rem 1rem;
 			// padding-left: 1rem;
 			text-indent: 0;
 			font-family: var(--body-font-family);
@@ -124,7 +126,6 @@
 				font-size: 24px !important;
 			}
 		}
-
 	}
 
 	.spacer {

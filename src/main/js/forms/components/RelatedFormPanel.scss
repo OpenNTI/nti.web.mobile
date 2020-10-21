@@ -1,18 +1,20 @@
 @import "~@nti/style-common";
 
 .helptext {
-	font-size: .6875rem;
+	font-size: 0.6875rem;
 	color: var(--secondary-grey);
 }
 
 .form-render {
 	clear: both;
+
 	.panel-button {
 		padding: 2rem;
 		background-color: var(--tertiary-grey);
 		background-color: var(--quad-grey);
 		margin: 1rem 0;
 	}
+
 	.notice {
 		margin: 1rem 0;
 	}

@@ -5,9 +5,10 @@ button.delete-icon {
 	height: 2.5rem;
 	padding: 0;
 	background-color: var(--primary-red);
-	border-radius: .25rem;
+	border-radius: 0.25rem;
 	color: transparent;
 	position: relative;
+
 	&::after {
 		content: '\e60d';
 		font-family: 'icomoon';
@@ -23,11 +24,11 @@ button.delete-icon {
 }
 
 .distribution-list-detail {
-
 	button {
 		// specifically under the distribution list detail.
 		&.delete-icon {
 			@extend %hardware-render;
+
 			position: absolute;
 			top: 1rem;
 			right: 1rem;
@@ -35,11 +36,9 @@ button.delete-icon {
 
 		&.rename {
 			background: none;
-			font-size: .75rem;
-			letter-spacing: .1em;
+			font-size: 0.75rem;
+			letter-spacing: 0.1em;
 			padding: 0;
 		}
 	}
-
-
 }

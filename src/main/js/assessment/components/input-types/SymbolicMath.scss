@@ -4,7 +4,10 @@
 	position: relative;
 
 	& > .debug {
-		top: -4rem; left: 0; right: 0; width: 100%;
+		top: -4rem;
+		left: 0;
+		right: 0;
+		width: 100%;
 		position: absolute;
 		border-width: 1px;
 		display: none;
@@ -26,7 +29,7 @@
 			border: none;
 			width: 100%;
 
-			&[data-label]::after{
+			&[data-label]::after {
 				font-style: italic !important;
 				color: var(--tertiary-grey);
 				content: attr(data-label);
@@ -59,6 +62,7 @@
 		overflow: hidden;
 
 		$symbol-list: sqrt square parens approx pi leq geq neq;
+
 		@each $symbol in $symbol-list {
 			&.#{$symbol}::after {
 				content: url(./assets/symbolic-math-input/#{$symbol}.png);
@@ -67,12 +71,12 @@
 
 		&::after {
 			position: absolute;
-			top: 50%; left: 50%;
+			top: 50%;
+			left: 50%;
 			transform: translate(-50%, -50%);
 			line-height: 0;
 			display: block;
 		}
-
 	}
 
 	.shortcuts {

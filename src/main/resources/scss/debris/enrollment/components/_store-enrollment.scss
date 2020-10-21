@@ -1,13 +1,16 @@
 .store-enrollment {
 	padding: 1.5rem 0;
+
 	.title {
 		float: left;
-		line-height: .4;
+		line-height: 0.4;
 	}
+
 	.price {
 		float: right;
 		color: var(--secondary-green);
 	}
+
 	.description {
 		clear: both;
 		margin-bottom: 0;
@@ -17,26 +20,34 @@
 .gift-options-wrapper {
 	margin-bottom: 2rem;
 	padding: 0 1rem;
+
 	.gift-options {
-		$border-color: rgba(0,0,0,.1);
+		$border-color: rgba(0, 0, 0, 0.1);
+
 		list-style-type: none;
 		margin: 0;
 		box-shadow: 0 0 0 1px $border-color;
+
 		& > * {
 			position: relative;
+
 			a {
 				display: block;
-				padding: .625rem 1rem;
+				padding: 0.625rem 1rem;
 			}
+
 			border-top: 1px solid $border-color;
+
 			&:first-child {
 				border-top: none;
 			}
-			&:after {
+
+			&::after {
 				@extend %chevron-right;
+
 				color: var(--tertiary-grey);
 				position: absolute;
-				right: .625rem;
+				right: 0.625rem;
 				top: 50%;
 				transform: translateY(-50%);
 			}

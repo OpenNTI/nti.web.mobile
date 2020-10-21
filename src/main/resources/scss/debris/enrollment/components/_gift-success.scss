@@ -1,6 +1,7 @@
 .gift-success {
 	$pad: 0.9375rem;
-	margin: 0.5rem 0rem;
+
+	margin: 0.5rem 0;
 
 	.panel {
 		background-color: white;
@@ -10,10 +11,13 @@
 	.actions {
 		margin: auto;
 		width: 80%;
+
 		/* 	display: flex; */
 		a {
 			margin: 1rem;
+
 			/* 	flex: 1 1 auto; */
+
 			/* 	order: 1; */
 
 			& + a {
@@ -21,17 +25,16 @@
 			}
 		}
 
-
 		.button {
 			display: block;
 		}
 	}
 
-	.pricing-info .info{
+	.pricing-info .info {
 		padding: 1rem;
 	}
 
-	h3{
+	h3 {
 		color: var(--secondary-green);
 		font-size: 1.5em;
 		font-family: var(--body-font-family);
@@ -41,13 +44,15 @@
 
 		&::before {
 			@extend %icon-assignment-ontime-small;
+
 			content: '';
 			position: absolute;
 			top: 0;
 			left: 0;
 			width: 28px;
 			height: 28px;
-			background: {color: transparent; position: center center;}
+			background: { color: transparent; position: center center; }
+
 			background-size: contain;
 		}
 	}
@@ -119,7 +124,7 @@
 
 /* min-width 641px, medium screens */
 @media only screen and (min-width: 40.063em) {
-	.gift-success{
+	.gift-success {
 		margin: 1rem auto;
 		padding: 0 1rem;
 		max-width: 750px;

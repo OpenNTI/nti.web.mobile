@@ -1,5 +1,4 @@
 .profile-edit {
-
 	.editor-pane.center {
 		& > div {
 			word-break: break-word;
@@ -8,11 +7,12 @@
 
 	label {
 		text-transform: uppercase;
-	    font-size: .625rem;
-	    font-weight: 700;
-	    color: var(--tertiary-grey);
-	    margin-top: 0.5rem;
+		font-size: 0.625rem;
+		font-weight: 700;
+		color: var(--tertiary-grey);
+		margin-top: 0.5rem;
 	}
+
 	input {
 		width: 100%;
 	}
@@ -24,7 +24,7 @@
 	}
 
 	.busy {
-		background: rgba(255,255,255, 0.9);
+		background: rgba(255, 255, 255, 0.9);
 		position: fixed;
 		top: 0;
 		bottom: 0;
@@ -34,6 +34,7 @@
 
 	.entry {
 		margin-bottom: 1rem;
+
 		.remove {
 			float: right;
 			font-size: 1.5rem;
@@ -47,6 +48,7 @@
 		& > div {
 			flex: 1 1 auto;
 			margin: 0 0.25rem;
+
 			&:last-child {
 				margin-right: 0;
 			}
@@ -60,12 +62,14 @@
 	.interests-edit {
 		.string-item {
 			position: relative;
+
 			.remove {
 				position: absolute;
-				right: .5em;
+				right: 0.5em;
 				top: 50%;
 				transform: translateY(-50%);
 			}
+
 			input {
 				position: absolute;
 				top: 0;
@@ -80,6 +84,7 @@
 
 	.fixed-footer {
 		height: 4rem;
+
 		.the-fixed {
 			border: 1px solid var(--tertiary-grey);
 			border-width: 1px 0 0 0;
@@ -93,6 +98,7 @@
 		.controls {
 			text-align: right;
 		}
+
 		.button, button {
 			letter-spacing: normal;
 			padding: 0.75rem 1rem 0.8625rem;
@@ -125,8 +131,8 @@
 			bottom: 3rem;
 			left: 0;
 			right: 0;
-			box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.8);//inset 1px 1px 0 rgba(255,255,255,0.3);
-			border: 0px solid var(--secondary-red);
+			box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.8);//inset 1px 1px 0 rgba(255,255,255,0.3);
+			border: 0 solid var(--secondary-red);
 			border-radius: 0;//.3rem;
 			background: var(--primary-red);
 			color: var(--secondary-red);
@@ -134,9 +140,7 @@
 			z-index: 99999;
 			font-size: 1rem;
 			text-align: left;
-
 			animation: fadeInUp 0.5s;
-
 
 			a {
 				display: block;
@@ -145,24 +149,24 @@
 				right: 0;
 				bottom: 0;
 				width: 3rem;
-
 				text-indent: 4rem;
 				overflow: hidden;
-
 
 				&::after {
 					background-image: url(../../../../images/icons/circle-x-red-18.png);
 					content: '';
 					position: absolute;
 					display: block;
-					top: 50%; left: 50%;
-					width: 18px; height: 18px;
+					top: 50%;
+					left: 50%;
+					width: 18px;
+					height: 18px;
 					border-radius: 18px;
 					margin: -9px 0 0 -9px;
 					box-shadow: 0 0 15px -3px var(--secondary-red);
 					background: {
 						position: 0 0;
-						repeat: no-repeat
+						repeat: no-repeat;
 					};
 				}
 			}

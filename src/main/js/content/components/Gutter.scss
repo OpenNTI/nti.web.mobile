@@ -7,28 +7,32 @@
 	width: 1rem;
 	z-index: 9;
 	//Degugging:
-	/*bottom: 0;*/
-	/*border-left: 1px dashed grey;*/
+
+	/* bottom: 0; */
+
+	/* border-left: 1px dashed grey; */
 	//Debug End
 
 	.bin {
 		$offset: -0.65rem;
+
 		position: absolute;
 		left: 0;
 		color: var(--primary-blue);
-		background: rgba(255,255,255,0.7);
+		background: rgba(255, 255, 255, 0.7);
 		font-size: 0.75rem;
 		padding: 0.4rem (-$offset) 0.4rem 0.5rem;
 		border-radius: 3px;
 		transform: translate3d($offset, -0.35rem, 0);
 		//Debugging:
-		/*border: 1px solid;*/
+
+		/* border: 1px solid; */
 
 		&.active {
 			background: var(--primary-blue);
 			color: #fff !important;
 			font-weight: bolder;
-			box-shadow: 1px 1px 1px 0 rgba(0,0,0,0.4);
+			box-shadow: 1px 1px 1px 0 rgba(0, 0, 0, 0.4);
 		}
 	}
 }

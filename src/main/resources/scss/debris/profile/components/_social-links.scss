@@ -1,13 +1,15 @@
 ul.social-links {
 	$size: 2rem;
+
 	list-style-type: none;
 	display: flex;
 	flex-wrap: wrap;
-	font-size: .6875rem;
+	font-size: 0.6875rem;
+
 	& > li {
 		a {
 			display: block;
-			margin: .5rem 1rem 0 0;
+			margin: 0.5rem 1rem 0 0;
 			text-indent: 100%;
 			white-space: nowrap;
 			overflow: hidden;
@@ -15,15 +17,19 @@ ul.social-links {
 			height: $size;
 			background-size: $size;
 			background-repeat: no-repeat;
+
 			&.social-twitter {
 				@extend %profile-social-twitter;
 			}
+
 			&.social-facebook {
 				@extend %profile-social-facebook;
 			}
+
 			&.social-googleplus {
 				@extend %profile-social-googleplus;
 			}
+
 			&.social-linkedin {
 				@extend %profile-social-linkedin;
 			}

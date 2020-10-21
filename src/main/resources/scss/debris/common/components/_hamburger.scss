@@ -7,52 +7,51 @@
 	padding: 19px 0 0 8px;
 	cursor: pointer;
 
-
 	&.small {
 		width: 20px;
 		height: 20px;
 		padding: 6px 0 0 0;
+
 		span {
 			border-radius: 0;
 			width: 20px;
 
-
 			&,
-			&:before,
-			&:after {
+			&::before,
+			&::after {
 				height: 3px;
 			}
 
-			&:before { top: -6px; }
-			&:after { bottom: -6px; }
+			&::before { top: -6px; }
+			&::after { bottom: -6px; }
 		}
 	}
 
 	&.large {
 		padding: 20px 0 0 5px;
+
 		span {
 			width: 35px;
 
-
 			&,
-			&:before,
-			&:after {
+			&::before,
+			&::after {
 				height: 5px;
 			}
 
-			&:before { top: -10px; }
-			&:after { bottom: -10px; }
+			&::before { top: -10px; }
+			&::after { bottom: -10px; }
 		}
 	}
 
 	span {
 		width: 28px;
 		will-change: background-color;
-		transition: background-color .5s ease-in-out;
+		transition: background-color 0.5s ease-in-out;
 
 		&,
-		&:before,
-		&:after {
+		&::before,
+		&::after {
 			border-radius: 1px;
 			height: 4px;
 			background-color: var(--secondary-grey);
@@ -65,14 +64,14 @@
 			}
 		}
 
-		&:before { top: -8px; }
-		&:after { bottom: -8px; }
+		&::before { top: -8px; }
+		&::after { bottom: -8px; }
 
-		&:before,
-		&:after {
+		&::before,
+		&::after {
 			width: 100%;
 			will-change: transform;
-			transition: transform .5s ease-in-out;
+			transition: transform 0.5s ease-in-out;
 		}
 	}
 
@@ -80,19 +79,18 @@
 		span {
 			background-color: transparent;
 
-			&:before,
-			&:after {
+			&::before,
+			&::after {
 				top: 0;
 			}
 
-			&:before {
-				transform: rotate3d(0,0,1, 45deg);
+			&::before {
+				transform: rotate3d(0, 0, 1, 45deg);
 			}
 
-			&:after {
-				transform: rotate3d(0,0,1, -45deg);
+			&::after {
+				transform: rotate3d(0, 0, 1, -45deg);
 			}
 		}
-
 	}
 }

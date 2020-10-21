@@ -6,13 +6,10 @@
 	.scoreboard {
 		background: var(--panel-background);
 		border: 1px solid var(--border-grey);
-
 		margin-left: 0.75rem;//1.1875rem;
 		margin-right: 0.75rem;
-
 		padding: 0.5rem;
 		border-radius: 0.3rem;
-
 		position: relative;
 		overflow: hidden;
 	}
@@ -34,7 +31,6 @@
 	}
 
 	.body {
-
 		display: flex;
 
 		.score {
@@ -47,14 +43,13 @@
 				margin: 0;
 				top: 50%;
 				left: 0;
-				transform: translate3d(0,-50%,0);
+				transform: translate3d(0, -50%, 0);
 			}
 		}
 
 		.reset-button {
 			flex: 0 0 6.75rem;
 			position: relative;
-
 
 			button {
 				font-size: 0.6875rem;
@@ -63,7 +58,7 @@
 				margin: 0;
 				top: 50%;
 				right: 0;
-				transform: translate3d(0,-50%,0);
+				transform: translate3d(0, -50%, 0);
 			}
 		}
 
@@ -110,12 +105,10 @@
 					color: #e95a57;
 				}
 			}
-
 		}
 	}
 
-
-	.body:after {
+	.body::after {
 		content: " ";
 		display: block;
 		height: 0;

@@ -5,6 +5,7 @@
 
 	.activity-columns {
 		display: flex;
+
 		& > * {
 			flex: 1 1 350px;
 		}
@@ -18,8 +19,8 @@
 	.bucketed-items {
 		& > * {
 			background: white;
-			padding: .625rem;
-			margin: 1rem .5rem;
+			padding: 0.625rem;
+			margin: 1rem 0.5rem;
 			border-radius: 3px;
 		}
 	}
@@ -28,7 +29,7 @@
 		background: transparent;
 		color: white;
 		padding: 0;
-		margin: 0 .5rem;
+		margin: 0 0.5rem;
 		text-transform: uppercase;
 	}
 
@@ -54,6 +55,7 @@
 
 	.footer {
 		text-align: center;
+
 		& > * {
 			margin: 0;
 		}
@@ -63,5 +65,4 @@
 		max-height: 15rem;
 		overflow: hidden;
 	}
-
 }

@@ -4,6 +4,7 @@
 	.avatar {
 		width: 2.5rem;
 		height: 2.5rem;
+
 		+ .wrap {
 			margin-left: 3rem;
 		}
@@ -21,9 +22,10 @@
 		position: relative;
 		padding-left: 2.5rem;
 
-		.avatar{
+		.avatar {
 			position: absolute;
-			top: 0; left: 0;
+			top: 0;
+			left: 0;
 			width: 2rem;
 			height: 2rem;
 		}

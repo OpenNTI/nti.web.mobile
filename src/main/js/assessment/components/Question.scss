@@ -6,11 +6,9 @@
 	.page-contents & {
 		margin-left: -0.75rem;//-1.1875rem;
 		margin-right: -0.75rem;
-
 		padding-left: 0.75rem;//1.1875rem;
 		padding-right: 0.75rem;
 	}
-
 
 	border: 1px solid #f1f1f1;
 	border-width: 1px 0 0;
@@ -28,8 +26,8 @@
 		}
 	}
 
-	&.correct .question-title .status{ color: var(--correct); }
-	&.incorrect .question-title .status{ color: var(--incorrect); }
+	&.correct .question-title .status { color: var(--correct); }
+	&.incorrect .question-title .status { color: var(--incorrect); }
 
 	&.not-assessed.administrative {
 		opacity: 0.4;
@@ -38,7 +36,7 @@
 	.question-number {
 		display: inline-block;
 		// float: left;
-		margin: 1rem .4em 0;
+		margin: 1rem 0.4em 0;
 	}
 
 	.question-content:not(:empty) {
@@ -51,6 +49,7 @@
 
 	.error {
 		position: relative;
+
 		pre {
 			max-height: 13rem;
 		}
@@ -81,9 +80,10 @@
 		a {
 			font-size: 0.8rem;
 			text-align: right;
-			span.icon-report {margin-right: 0.5em;}
+			span.icon-report { margin-right: 0.5em; }
 
 			white-space: nowrap;
+
 			&:not(:last-child) {
 				margin-right: 0.5em;
 			}

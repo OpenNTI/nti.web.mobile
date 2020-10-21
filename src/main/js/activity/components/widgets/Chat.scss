@@ -13,9 +13,11 @@
 				repeat: no-repeat;
 			}
 		}
+
 		ul.meta {
 			margin: 0;
 			list-style-type: none;
+
 			li {
 				display: inline-block;
 				margin-right: 1em;
@@ -29,6 +31,5 @@
 		.username {
 			color: var(--primary-blue);
 		}
-
 	}
 }

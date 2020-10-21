@@ -1,9 +1,10 @@
 .community-info {
 	@extend %hardware-render;
+
 	overflow: hidden;
 	background: #fff;
 	border-radius: 0.3125rem;
-	box-shadow: 0 0 0.625rem -0.25rem rgba(0,0,0,0.5);
+	box-shadow: 0 0 0.625rem -0.25rem rgba(0, 0, 0, 0.5);
 
 	.heading {
 		background: var(--quad-grey);
@@ -33,11 +34,11 @@
 
 		h3, h5 {
 			font-family: var(--body-font-family);
-			margin: 0
+			margin: 0;
 		}
 	}
 
-	ul {list-style: none; margin: 0;}
+	ul { list-style: none; margin: 0; }
 
 	.membership-breakdown {
 		box-shadow: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0.26);
@@ -46,8 +47,9 @@
 			display: block;
 			background: var(--quad-grey);
 			position: relative;
+
 			& + li {
-				box-shadow: inset 0 .0625rem 0 0 #f0f0f0;
+				box-shadow: inset 0 0.0625rem 0 0 #f0f0f0;
 			}
 		}
 
@@ -76,8 +78,10 @@
 
 			&::after {
 				@extend %chevron-right;
+
 				position: absolute;
-				top: 0; right: 0.125rem;
+				top: 0;
+				right: 0.125rem;
 				font-weight: 100;
 				color: var(--tertiary-grey);
 			}

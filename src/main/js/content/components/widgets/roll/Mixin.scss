@@ -2,7 +2,7 @@
 @import "utils/placeholders";
 
 %transition-image {
-	transition: transform .25s ease-out;
+	transition: transform 0.25s ease-out;
 }
 
 .media-roll {
@@ -14,21 +14,17 @@
 	.page-contents & {
 		margin-left: -0.75rem;//-1.1875rem;
 		margin-right: -0.75rem;
-
 		padding: 0.75rem;//1.1875rem;
 	}
-
-
 
 	a.zoom {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		transform: translate3d(-50%,-50%,0);
-
+		transform: translate3d(-50%, -50%, 0);
 		font-size: 1.5rem;
-		color: rgba(255,255,255, 0.5);
-		text-shadow: 0 0 4px rgba(0,0,0,0.5);
+		color: rgba(255, 255, 255, 0.5);
+		text-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 		padding: 20% 30%;
 		opacity: 0.5;
 	}
@@ -46,23 +42,19 @@
 		top: 50%;
 		left: 50%;
 
-
 		.buttons {
 			display: block;
 			position: relative;
 			overflow: hidden;
-
 			line-height: 0;
-
 			top: -25px;
 			left: -50%;
-
 			border-radius: 5em;
-			background-color: rgba(0,0,0,0.8);
-			box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15),//stroke
+			background-color: rgba(0, 0, 0, 0.8);
+			box-shadow:
+				inset 0 0 0 1px rgba(255,255,255,0.15),//stroke
 						0 0 3px 0 black;//shadow
 		}
-
 
 		.label {
 			display: block;
@@ -77,12 +69,12 @@
 			background: none;
 		}
 
-
 		.play, .player {
 			float: left;
 			display: inline-block;
 			border-radius: 50px;
 			margin: 0.2em;
+
 			&::before {
 				position: relative;
 				overflow: hidden;
@@ -91,6 +83,7 @@
 
 		.play::before {
 			@extend %icon-play;
+
 			content: '';
 			display: inline-block;
 			width: 43px;
@@ -99,6 +92,7 @@
 
 		.player::before {
 			@extend %icon-transcript;
+
 			content: '';
 			display: inline-block;
 			width: 42px;
@@ -108,7 +102,8 @@
 
 	button {
 		position: absolute;
-		top: 2rem; bottom: 2rem;
+		top: 2rem;
+		bottom: 2rem;
 		z-index: 10;
 		margin: 0;
 		padding: 0;
@@ -118,20 +113,21 @@
 		height: auto;
 		background: {
 			// color: initial;
-			color: rgba(0,0,0,0.2) !important;
+			color: rgba(0, 0, 0, 0.2) !important;
 			size: 3rem;
 			repeat: no-repeat;
 		}
 
 		&:focus {
 			outline: none;
-			background-color: rgba(0,0,0,0.8);
+			background-color: rgba(0, 0, 0, 0.8);
 		}
 
 		&.prev {
 			&::after {
 				@extend %chevron-left-white;
 			}
+
 			left: 0;
 			border-radius: 0 0.6rem 0.6rem 0;
 			background-position: -10px 50%;
@@ -141,14 +137,14 @@
 			&::after {
 				@extend %chevron-right-white;
 			}
+
 			right: 0;
 			border-radius: 0.6rem 0 0 0.6rem;
 			background-position: 10px 50%;
 		}
 	}
 
-	.nti-video {margin: 0;padding-top: 0;}
-
+	.nti-video { margin: 0; padding-top: 0; }
 
 	&.video-roll .stage {
 		padding-bottom: 56.34%;
@@ -158,9 +154,7 @@
 		overflow: hidden;
 		padding-bottom: 66%;
 		position: relative;
-
 		perspective: 100px;
-
 		box-shadow: inset 0 0 3px black;
 		background: #f0f0f0;
 
@@ -177,7 +171,11 @@
 
 	.item {
 		@extend %hardware-render;
-		position: absolute; top: 0; left: 0; bottom: 0;
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
 		width: 100%;
 		z-index: 1;
 
@@ -201,11 +199,10 @@
 				font: normal bold 10vw/1 var(--body-font-family);
 				white-space: nowrap;
 				transform: translate(-50%, -50%) rotate(20deg);
-				color: rgba(204,204,204, 0.5);
+				color: rgba(204, 204, 204, 0.5);
 			}
 		}
 	}
-
 
 	.item {
 		&.prev {
@@ -219,47 +216,44 @@
 	}
 
 	.stage.transitioning {
-
 		.item {
 			@extend %transition-image;
-			transform: translate3d(0,0,0);
+
+			transform: translate3d(0, 0, 0);
 
 			&.prev {
-				transform: translate3d(0,0,-5px) !important;
+				transform: translate3d(0, 0, -5px) !important;
 			}
 		}
 
 		&.next {
-
 			.item.next {
-				transform: translate3d(-100%,0,0) !important;
+				transform: translate3d(-100%, 0, 0) !important;
 			}
 
 			.item.current,
 			.item.prev {
-				transform: translate3d(0,0,-5px) !important;
+				transform: translate3d(0, 0, -5px) !important;
 			}
-
 		}
 
 		&.prev {
-
 			.item.prev,
 			.item.next {
-				transform: translate3d(0,0,0) !important;
+				transform: translate3d(0, 0, 0) !important;
 			}
 
 			.item.current {
-				transform: translate3d(100%,0,0) !important;
+				transform: translate3d(100%, 0, 0) !important;
 			}
 
 			.item.prev {}
-
 		}
 	}
 
 	ul {
 		@extend %touch-scroll;
+
 		display: block;
 		white-space: nowrap;
 		margin: 0;
@@ -284,7 +278,7 @@
 				position: center center;
 			}
 
-			&.video .icon{
+			&.video .icon {
 				font-size: 1.5em;
 			}
 
@@ -292,13 +286,12 @@
 				position: absolute;
 				display: block;
 				font: normal normal 1.2rem/1 var(--body-font-family);
-				color: #ffffff;
-				background: rgba(0,0,0,0.7);
-				padding: 0px 3px;
+				color: #fff;
+				background: rgba(0, 0, 0, 0.7);
+				padding: 0 3px;
 				border-radius: 90px;
 				top: 50%;
 				left: 50%;
-
 				transform: translate3d(-50%, -50%, 0);
 
 				&::before {
@@ -309,10 +302,10 @@
 			&.active {
 				a {
 					box-shadow: inset 0 0 0 4px var(--primary-blue);
-					background-color: rgba(0,0,0,0.5);
+					background-color: rgba(0, 0, 0, 0.5);
 				}
 
-				.icon{
+				.icon {
 					&::before {
 						opacity: 1;
 						font-size: 1.25em;
