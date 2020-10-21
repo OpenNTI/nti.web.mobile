@@ -1,9 +1,8 @@
 import {join} from 'path';
 
-// import {Service} from '@nti/lib-interfaces';
+// import {Models, Service} from '@nti/lib-interfaces';
 import Logger from '@nti/util-logger';
 import {encodeForURI as encode} from '@nti/lib-ntiids';
-import {Models} from '@nti/lib-interfaces';
 
 import {profileHref} from 'profile/mixins/ProfileLink';
 

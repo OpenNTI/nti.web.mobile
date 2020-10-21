@@ -7,7 +7,9 @@ export default class Pie extends React.Component {
 		title: PropTypes.string,
 		colors: PropTypes.arrayOf(PropTypes.string),
 		pixelDensity: PropTypes.number,
-		series: PropTypes.arrayOf(PropTypes.object)
+		series: PropTypes.arrayOf(PropTypes.object),
+		width: PropTypes.number,
+		height: PropTypes.number,
 	}
 
 	static defaultProps = {
