@@ -1,7 +1,12 @@
-import Loadable from 'react-loadable';
+import React, { Suspense } from 'react';
 import {Loading} from '@nti/web-commons';
 
-export default Loadable({
-	loader: () => import(/* webpackChunkName: "course" */'./View'),
-	loading: Loading.Mask,
-});
+const View = React.lazy(() => import(/* webpackChunkName: "course" */'./View'));
+
+export default function Loader (props) {
+	return (
+		<Suspense fallback={<Loading.Mask/>}>
+			<View {...props} />
+		</Suspense>
+	);
+}
