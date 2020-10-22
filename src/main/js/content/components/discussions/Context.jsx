@@ -8,7 +8,7 @@ import {getModel} from '@nti/lib-interfaces';
 import {Loading} from '@nti/web-commons';
 import {rawContent} from '@nti/lib-commons';
 import {scoped as locale} from '@nti/lib-locale';
-import {getPageContent, PageDescriptor} from '@nti/lib-content-processing';
+import {getPageContent, getGeneratedPageInfo, PageDescriptor} from '@nti/lib-content-processing';
 import {Viewer} from '@nti/web-discussions';
 
 import GotoItem from 'common/components/GotoItem';
@@ -26,6 +26,7 @@ const t = locale('activity.item', {
 });
 
 const PageInfo = getModel('pageinfo');
+const Survey = getModel('nasurvey');
 
 
 function is403 (e) {
@@ -69,7 +70,7 @@ class DiscussionContext extends React.Component {
 		this.setState({error: null, found: false, loading: true, scoped: false, fragment: false});
 
 		item.getContextData()
-			.then(x => x instanceof PageInfo ?
+			.then(x => x instanceof PageInfo || x instanceof Survey ?
 				this.setPageContext(item, x) :
 				this.setWidgetContainerContext(item, x)
 			)
@@ -77,6 +78,8 @@ class DiscussionContext extends React.Component {
 	};
 
 	setPageContext = (item, pageInfo) => {
+		if (pageInfo instanceof Survey) { return getGeneratedPageInfo(pageInfo).then(x => this.setPageContext(item, x)); }
+
 		getPageContent(pageInfo)
 			.then(x => new PageDescriptor(x.pageInfo.getID(), x))
 			.then(x => {
@@ -96,7 +99,8 @@ class DiscussionContext extends React.Component {
 		let props = {
 			record: object,
 			applicableRange: item.applicableRange,
-			contentPackage
+			contentPackage,
+			inContext: true
 		};
 
 		try {

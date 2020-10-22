@@ -17,7 +17,8 @@ export default createReactClass({
 	mixins: [StoreEventsMixin],
 
 	propTypes: {
-		question: PropTypes.object //Poll model
+		question: PropTypes.object, //Poll model
+		inContext: PropTypes.bool
 	},
 
 	backingStore: Store,
@@ -40,10 +41,10 @@ export default createReactClass({
 
 	render () {
 		const {props} = this;
-		const {question} = props;
+		const {question, inContext} = props;
 
 		const submitted = Store.isSubmitted(question);
-		const showAggregation = Store.aggregationViewState(question);
+		const showAggregation = !inContext && Store.aggregationViewState(question);
 		const results = showAggregation ? 'Hide Results' : 'Show Results';
 		const report = question.getLink(SURVEY_REPORT_LINK);
 		const showReport = report && question.individual;
