@@ -1,41 +1,9 @@
 @import "~@nti/style-common";
 
-@mixin highlight-colors($onParentSelector: true, $selector:'') {
-	$highlight-colors: (
-		// (name, menu color, hover, regular color)
-		('yellow',var(--highlight-colors-yellow-menu),var(--highlight-colors-yellow-hover),var(--highlight-colors-yellow)),
-		('green',var(--highlight-colors-green-menu),var(--highlight-colors-green-hover),var(--highlight-colors-green)),
-		('blue',var(--highlight-colors-blue-menu),var(--highlight-colors-blue-hover),var(--highlight-colors-blue))
-	);
-
-	@each $item in $highlight-colors {
-		$name: nth($item, 1);
-		$menu_color: nth($item, 2);
-		$hover_color: nth($item, 3);
-		$highlight_color: nth($item, 4);
-
-		$prefix: if($onParentSelector, '&', '');
-
-		$withColor: "#{$prefix}.#{$name} #{$selector}";
-		$withOutColor: "#{$prefix} #{$selector}";
-
-		$computedSelector: if($name=='blue', $withOutColor, $withColor);
-
-		#{$computedSelector} {
-			background-color: $highlight_color;
-			box-shadow: 0 0 3px 0 $highlight_color;
-
-			&.highlight-mouse-over {
-				background-color: $hover_color;
-			}
-		}
-	}
-}
-
 .application-highlight {
-	&.suppressed {
-		//do nothing special when range is suppressed.
-	}
+	// &.suppressed {
+	//	// do nothing special when range is suppressed.
+	// }
 
 	& + li.part,
 	& + li.exercise {
@@ -57,7 +25,33 @@
 		}
 
 		&.colored {
-			@include highlight-colors();
+			&.yellow {
+				background-color: var(--highlight-colors-yellow);
+				box-shadow: 0 0 3px 0 var(--highlight-colors-yellow);
+
+				&.highlight-mouse-over {
+					background-color: var(--highlight-colors-yellow-hover);
+				}
+			}
+
+			&.green {
+				background-color: var(--highlight-colors-green);
+				box-shadow: 0 0 3px 0 var(--highlight-colors-green);
+
+				&.highlight-mouse-over {
+					background-color: var(--highlight-colors-green-hover);
+				}
+			}
+
+			&,
+			&.blue {
+				background-color: var(--highlight-colors-blue);
+				box-shadow: 0 0 3px 0 var(--highlight-colors-blue);
+
+				&.highlight-mouse-over {
+					background-color: var(--highlight-colors-blue-hover);
+				}
+			}
 		}
 
 		&:not(.colored) {
