@@ -6,7 +6,7 @@ import Filters from '../Filters';
 import LibraryAccessor from './LibraryAccessor';
 
 
-const stringCompare = naturalSort({caseSensitive: false});
+const stringCompare = naturalSort();
 
 const logger = Logger.get('library:mixins:SectionAware');
 

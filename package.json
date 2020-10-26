@@ -85,7 +85,7 @@
     "foundation-sites": "5.5.3",
     "html-reactifier": "^2.0.0",
     "iso8601-duration": "^1.1.1",
-    "natural-orderby": "^1.0.0",
+    "natural-orderby": "^2.0.3",
     "object-hash": "^1.1.0",
     "prop-types": "^15.5.10",
     "query-string": "^6.1.0",

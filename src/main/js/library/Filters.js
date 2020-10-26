@@ -30,7 +30,7 @@ const getLabel = scoped('library.category', {
 });
 
 function courseSortComparatorFunc (a, b) {
-	const strComp = naturalSort({caseSensitive: false});
+	const strComp = naturalSort();
 
 	return strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID)
 		|| strComp((a || {}).title, (b || {}).title);
