@@ -12,8 +12,7 @@
 		$name: nth($item, 1);
 		$menu_color: nth($item, 2);
 		$hover_color: nth($item, 3);
-		$highlight_color: rgba($hover_color, 0.65);
-		// $highlight_color: nth($item, 4);
+		$highlight_color: nth($item, 4);
 
 		$prefix: if($onParentSelector, '&', '');
 
