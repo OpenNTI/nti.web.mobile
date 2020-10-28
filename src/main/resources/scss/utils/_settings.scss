@@ -378,10 +378,28 @@ $button-font-family: $body-font-family;
 // We use these to control button border and hover styles.
 // $button-border-width: 0px;
 // $button-border-style: solid;
-$button-bg-color: $primary-color;
+$button-bg-color: false;//$primary-color;
 $button-bg-hover: $button-bg-color;
 // $button-border-color: $button-bg-hover;
-$secondary-button-bg-hover: $secondary-color;
+
+button, .button {
+	&, &:hover, &:focus {
+		background-color: var(--primary-blue);
+		border-color: var(--primary-blue);
+		color: var(--button-color-alt, white);
+	}
+
+	&.secondary {
+		&, &:hover, &:focus {
+			background-color: var(--button-background);
+			border-color: var(--button-border);
+			color: var(--button-color, var(--primary-grey, black));
+		}
+	}
+}
+
+$secondary-button-bg-color: false;
+$secondary-button-bg-hover: false;
 // $secondary-button-border-color: $secondary-button-bg-hover;
 // $success-button-bg-hover: scale-color($success-color, $lightness: $button-function-factor);
 // $success-button-border-color: $success-button-bg-hover;
