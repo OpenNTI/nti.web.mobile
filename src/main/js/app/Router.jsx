@@ -149,7 +149,7 @@ export default createReactClass({
 		const {ga, location} = global;
 
 		if (!ga) {
-			logger.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
+			// logger.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
 			return;
 		}
 
