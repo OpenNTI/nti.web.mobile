@@ -84,9 +84,10 @@ export default {
 	},
 
 
+	// This should be renamed to "isReadOnly"
 	isSubmitted () {
 		const {item} = this.props;
-		return Store.isSubmitted(item) || Store.isAdministrative(item);
+		return Store.isSubmitted(item) || Store.isAdministrative(item) || !Store.isAvailable(item);
 	},
 
 

@@ -292,7 +292,7 @@ class Store extends StorePrototype {
 			);
 
 			await main.refresh();
-			
+
 			const history = await main.fetchLinkParsed('History');
 
 			if (history && history.MetadataAttemptItem && history.MetadataAttemptItem.hasLink('Assignment')) {
@@ -546,6 +546,9 @@ class Store extends StorePrototype {
 		return !this.getBusyState(assessment) && !admin && s && s.canSubmit();
 	}
 
+	isAvailable (assessment) {
+		return getMainSubmittable(assessment).isAvailable();
+	}
 
 	isSubmitted (assessment) {
 		let main = getMainSubmittable(assessment);
