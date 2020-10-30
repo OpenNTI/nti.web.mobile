@@ -547,7 +547,12 @@ class Store extends StorePrototype {
 	}
 
 	isAvailable (assessment) {
-		return getMainSubmittable(assessment).isAvailable();
+		const main = getMainSubmittable(assessment);
+		if (typeof main.isAvailable === 'function') {
+			return main.isAvailable();
+		}
+
+		return true;
 	}
 
 	isSubmitted (assessment) {
