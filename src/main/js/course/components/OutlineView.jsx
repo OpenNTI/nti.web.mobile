@@ -1,4 +1,6 @@
 import './OutlineView.scss';
+import path from 'path';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
@@ -11,10 +13,10 @@ import {
 	Banner,
 	Ellipsed,
 	CalendarCard,
-	ListHeader as Header,
 	Loading
 } from '@nti/web-commons';
-import {ProgressWidgets} from '@nti/web-course';
+import {Router} from '@nti/web-routing';
+import {Overview} from '@nti/web-course';
 
 import ContextSender from 'common/mixins/ContextSender';
 //import NavigationAware from 'common/mixins/NavigationAware';
@@ -22,8 +24,14 @@ import CourseLinker from 'library/mixins/CourseContentLink';
 
 import {LESSONS} from '../Sections';
 
+import Items from './items';
+
 
 const logger = Logger.get('course:components:OutlineView');
+
+const {Outline} = Overview;
+
+const getOutlineNode = (x) => x.parent('isOutlineNode');
 
 export default createReactClass({
 	displayName: 'CourseOutlineView',
@@ -38,6 +46,11 @@ export default createReactClass({
 		className: PropTypes.string,
 		item: PropTypes.object.isRequired
 	},
+
+	contextTypes: {
+		router: PropTypes.object
+	},
+
 
 	getDefaultProps () {
 		return {
@@ -61,6 +74,18 @@ export default createReactClass({
 		if (prevProps.item !== item) {
 			this.fillIn(this.props);
 		}
+	},
+
+	getRemainingItemsRoute (obj, context) {
+		const {context: {router}} = this;
+		const env = router.getEnvironment();
+
+		const outlineNode = getOutlineNode(obj);
+
+		return path.join(
+			env.getPath(),
+			Items.getFullRoute({NTIID: outlineNode?.ContentNTIID ?? outlineNode?.NTIID}, obj, context)
+		) + '/';
 	},
 
 
@@ -99,7 +124,6 @@ export default createReactClass({
 
 	render () {
 		const {props: {className, item}, state: {outline, loading}} = this;
-		const isCompletable = !!item.CompletionPolicy;
 
 		if (loading) {
 			return (<Loading.Mask />);
@@ -113,12 +137,10 @@ export default createReactClass({
 
 				{this.props.children}
 
-				{isCompletable && (
-					<ProgressWidgets.OutlineHeader course={item} noCertificateFrame />
-				)}
-				{!isCompletable && (
-					<Header>Outline</Header>
-				)}
+				<Router.RouteForProvider getRouteFor={this.getRemainingItemsRoute}>
+					<Outline.Header course={item} />
+				</Router.RouteForProvider>
+
 				<ActiveStateContainer>
 					<ul className="outline">
 						<li>{this.renderTree(outline.contents)}</li>

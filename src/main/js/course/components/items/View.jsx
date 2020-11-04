@@ -68,6 +68,7 @@ function getFullRoute (lesson, obj, context) {
 
 export default class CourseItems extends React.Component {
 	static getOverviewPart = getOverviewPart
+	static getFullRoute = getFullRoute
 
 	static propTypes = {
 		course: PropTypes.object,
