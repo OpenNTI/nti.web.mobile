@@ -89,6 +89,7 @@ export default createReactClass({
 		let {question, number} = this.props;
 
 		let admin = Store.isAdministrative(question);
+		const isAvailable = Store.isAvailable(question);
 
 		let a = Store.getAssessedQuestion(question, question.getID());
 		let parts = question.parts;
@@ -105,6 +106,7 @@ export default createReactClass({
 		}
 
 		let css = cx('question', status.toLowerCase(), {
+			'unavailable': !isAvailable,
 			administrative: admin,
 			'not-assessed': !a
 		});
