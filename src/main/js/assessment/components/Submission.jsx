@@ -113,7 +113,13 @@ export default class extends React.Component {
 		const savePoint = busy === BUSY_SAVEPOINT;
 		const mainSubmittable = getMainSubmittable(assessment);
 
-		if (admin || Store.isSubmitted(assessment) || !areAssessmentsSupported() || Store.aggregationViewState(assessment) || isNoSubmit(mainSubmittable)) {
+		if (admin ||
+			// !Store.isAvailable(assessment) ||
+			Store.isSubmitted(assessment) ||
+			!areAssessmentsSupported() ||
+			Store.aggregationViewState(assessment) ||
+			isNoSubmit(mainSubmittable)
+		) {
 			return null;
 		}
 
