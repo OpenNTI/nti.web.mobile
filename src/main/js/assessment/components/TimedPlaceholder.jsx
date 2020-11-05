@@ -4,7 +4,7 @@ import {scoped} from '@nti/lib-locale';
 
 import Placeholder from './Placeholder';
 
-const t = scoped('mobile.assessment.components.TimeLockedPlaceholder', {
+const t = scoped('mobile.assessment.components.TimedPlaceholder', {
 	header: 'Timed Assignment',
 	message: 'Timed assignments are currently not supported on the mobile app.'
 });
