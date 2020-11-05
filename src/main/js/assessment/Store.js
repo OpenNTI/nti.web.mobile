@@ -541,9 +541,10 @@ class Store extends StorePrototype {
 
 
 	canSubmit (assessment) {
-		let s = this.getSubmissionData(assessment);
-		let admin = this.isAdministrative(assessment);
-		return !this.getBusyState(assessment) && !admin && s && s.canSubmit();
+		const s = this.getSubmissionData(assessment);
+		const admin = this.isAdministrative(assessment);
+		const available = this.isAvailable(assessment);
+		return !this.getBusyState(assessment) && !admin && available && s && s.canSubmit();
 	}
 
 	isAvailable (assessment) {
