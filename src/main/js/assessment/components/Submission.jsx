@@ -98,20 +98,20 @@ export default class extends React.Component {
 	};
 
 	render () {
-		let {assessment} = this.props;
+		const {assessment} = this.props;
 
-		let admin = Store.isAdministrative(assessment);
-		let disabled = admin || !Store.canSubmit(assessment);
+		const admin = Store.isAdministrative(assessment);
+		const disabled = !Store.canSubmit(assessment);
 
-		let cannotReset = Store.isSubmitted(assessment) || disabled || assessment.isAssignment;
+		const cannotReset = Store.isSubmitted(assessment) || disabled || assessment.isAssignment;
 
-		let unanswered = forceNumber(Store.countUnansweredQuestions(assessment));
-		let status = unanswered ? 'incomplete' : 'complete';
+		const unanswered = forceNumber(Store.countUnansweredQuestions(assessment));
+		const status = unanswered ? 'incomplete' : 'complete';
 
 		let busy = Store.getBusyState(assessment);
-		let error = Store.getError(assessment);
-		let savePoint = busy === BUSY_SAVEPOINT;
-		let mainSubmittable = getMainSubmittable(assessment);
+		const error = Store.getError(assessment);
+		const savePoint = busy === BUSY_SAVEPOINT;
+		const mainSubmittable = getMainSubmittable(assessment);
 
 		if (admin || Store.isSubmitted(assessment) || !areAssessmentsSupported() || Store.aggregationViewState(assessment) || isNoSubmit(mainSubmittable)) {
 			return null;
