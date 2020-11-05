@@ -11,14 +11,13 @@ const t = scoped('mobile.assessment.components.TimeLockedPlaceholder', {
 	noDate: 'This assignment has not opened yet. Come back later.'
 });
 
-export default class extends React.Component {
-	static displayName = 'TimeLockedPlaceholder';
+TimeLockedPlaceholder.propTypes = {
+	assignment: PropTypes.object
+};
 
-	static propTypes = {
-		assignment: PropTypes.object
-	};
+export default function TimeLockedPlaceholder ({assignment}) {
 
-	onBack = (e) => {
+	const onConfirm = React.useCallback((e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -26,22 +25,19 @@ export default class extends React.Component {
 
 		//Temp:
 		global.history.go(-1);
+	}, []);
+
+	const available = assignment.getAvailableForSubmissionBeginning();
+	const date = available && DateTime.format(available, 'dddd, MMMM D [at] h:mmA z');
+	const props = {
+		assignment,
+		message: date ? t('date', {date}) : t('noDate'),
+		buttonLabel: 'Back',
+		pageTitle: t('header'),
+		onConfirm,
 	};
 
-	render () {
-		const {props:{assignment}} = this;
-		const available = assignment.getAvailableForSubmissionBeginning();
-		const date = available && DateTime.format(available, 'dddd, MMMM D [at] h:mmA z');
-		const props = {
-			assignment,
-			message: date ? t('date', {date}) : t('noDate'),
-			buttonLabel: 'Back',
-			pageTitle: t('header'),
-			onConfirm: this.onBack
-		};
-
-		return (
-			<Placeholder {...props} />
-		);
-	}
+	return (
+		<Placeholder {...props} />
+	);
 }

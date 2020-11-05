@@ -9,14 +9,13 @@ const t = scoped('mobile.assessment.components.TimedPlaceholder', {
 	message: 'Timed assignments are currently not supported on the mobile app.'
 });
 
-export default class extends React.Component {
-	static displayName = 'TimedPlaceholder';
+TimedPlaceholder.propTypes = {
+	assignment: PropTypes.object
+};
 
-	static propTypes = {
-		assignment: PropTypes.object
-	};
+export default function TimedPlaceholder ({assignment}) {
 
-	onStart = (e) => {
+	const onConfirm = React.useCallback((e) => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -24,23 +23,21 @@ export default class extends React.Component {
 
 		//Temp:
 		global.history.go(-1);
+	}, []);
+
+	//You have <strong>5 minutes</strong> to complete this Timed Assignment.
+	//<span className="red">Once you've started, the timer will not stop.</span>
+
+	const props = {
+		assignment,
+		message: t('message'),
+		buttonLabel: 'Back',
+		pageTitle: t('header'),
+		onConfirm
 	};
 
-	render () {
-		//You have <strong>5 minutes</strong> to complete this Timed Assignment.
-		//<span className="red">Once you've started, the timer will not stop.</span>
-		let {assignment} = this.props;
-
-		let props = {
-			assignment: assignment,
-			message: t('message'),
-			buttonLabel: 'Back',
-			pageTitle: t('header'),
-			onConfirm: this.onStart
-		};
-
-		return (
-			<Placeholder {...props} />
-		);
-	}
+	return (
+		<Placeholder {...props} />
+	);
 }
+
