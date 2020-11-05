@@ -28,16 +28,14 @@ export default function TimedPlaceholder ({assignment}) {
 	//You have <strong>5 minutes</strong> to complete this Timed Assignment.
 	//<span className="red">Once you've started, the timer will not stop.</span>
 
-	const props = {
-		assignment,
-		message: t('message'),
-		buttonLabel: 'Back',
-		pageTitle: t('header'),
-		onConfirm
-	};
-
 	return (
-		<Placeholder {...props} />
+		<Placeholder
+			assignment={assignment}
+			buttonLabel="Back"
+			message={t('message')}
+			onConfirm={onConfirm}
+			pageTitle={t('header')}
+		/>
 	);
 }
 

@@ -29,15 +29,14 @@ export default function TimeLockedPlaceholder ({assignment}) {
 
 	const available = assignment.getAvailableForSubmissionBeginning();
 	const date = available && DateTime.format(available, 'dddd, MMMM D [at] h:mmA z');
-	const props = {
-		assignment,
-		message: date ? t('date', {date}) : t('noDate'),
-		buttonLabel: 'Back',
-		pageTitle: t('header'),
-		onConfirm,
-	};
 
 	return (
-		<Placeholder {...props} />
+		<Placeholder
+			assignment={assignment}
+			buttonLabel={'Back'}
+			message={date ? t('date', {date}) : t('noDate')}
+			onConfirm={onConfirm}
+			pageTitle={t('header')}
+		/>
 	);
 }
