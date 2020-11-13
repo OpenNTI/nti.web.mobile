@@ -2,7 +2,7 @@ import Logger from '@nti/util-logger';
 import {Events} from '@nti/web-session';
 
 import ReadOnlyStore from './Store';
-import {getMainSubmittable, isAssignment} from './utils';
+import {getMainSubmittable, isAssignment, isSurvey} from './utils';
 
 const logger = Logger.get('assessment:api');
 
@@ -64,6 +64,10 @@ export function submit (assessment) {
 						? fallback()
 						: Promise.reject(reason));
 			}
+			else if (isSurvey(assessment)) {
+				return main.refresh().then(() => response);
+			}
+
 			return response;
 		})
 		.then((resp) => {
