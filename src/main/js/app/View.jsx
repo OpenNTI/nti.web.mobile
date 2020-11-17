@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {environment, CaptureClicks, Link} from 'react-router-component';
 import {Session} from '@nti/web-session';
-import {reportError, getConfigFor} from '@nti/web-client';
+import {reportError, getConfig} from '@nti/web-client';
 import {Error, Loading, Layouts, Theme} from '@nti/web-commons';
 import Logger from '@nti/util-logger';
 import {parent} from '@nti/lib-dom';
@@ -104,7 +104,7 @@ export default class App extends React.Component {
 
 
 	applyTheme () {
-		const branding = getConfigFor('branding');
+		const branding = getConfig('branding');
 		const themeProperties = Theme.buildTheme.DefaultProperties;
 
 		themeProperties.assets.fullLogo.href = Theme.buildTheme.makeAssetHREFFallbacks('/site-assets/shared/brand_mobile.png');

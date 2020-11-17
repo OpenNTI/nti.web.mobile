@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {addFeatureCheckClasses, Orientation} from '@nti/lib-dom';
 import {init as initLocale} from '@nti/lib-locale';
-import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfigFor, initErrorReporter} from '@nti/web-client';
+import {overrideConfigAndForceCurrentHost, getServerURI, getReturnURL, getConfig, initErrorReporter} from '@nti/web-client';
 
 
 import {ensureTopFrame} from 'common/utils/iframe-buster';
@@ -35,7 +35,7 @@ overrideConfigAndForceCurrentHost();
 
 console.debug('Client is using host: %s', getServerURI()); //eslint-disable-line
 
-const basePath = (x => (x = getConfigFor(x), typeof x === 'string' ? x : '/'))('basepath');
+const basePath = (x => (x = getConfig(x), typeof x === 'string' ? x : '/'))('basepath');
 
 
 ReactDOM.render(

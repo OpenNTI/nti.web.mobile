@@ -4,7 +4,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import {scoped} from '@nti/lib-locale';
 import {encodeForURI} from '@nti/lib-ntiids';
-import {getConfigFor} from '@nti/web-client';
+import {getConfig} from '@nti/web-client';
 import {EmptyState} from '@nti/web-commons';
 
 import Mixin from './Mixin';
@@ -44,7 +44,7 @@ export default createReactClass({
 
 	componentDidMount () {
 		//Hack until we can get context to work
-		this.basePath = (x => (x = getConfigFor(x), typeof x === 'string' ? x : '/'))('basepath');
+		this.basePath = (x => (x = getConfig(x), typeof x === 'string' ? x : '/'))('basepath');
 
 		this.setState({href: this.getHref()});
 	},

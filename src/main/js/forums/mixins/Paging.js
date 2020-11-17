@@ -1,5 +1,5 @@
 import QueryString from 'query-string';
-import {getConfigFor} from '@nti/web-client';
+import {getConfig} from '@nti/web-client';
 
 let pageSize;
 
@@ -14,7 +14,7 @@ const mixin = {
 
 	getPageSize () {
 		if (pageSize == null) {
-			pageSize = getConfigFor('discussions').pageSize || 20;
+			pageSize = getConfig('discussions').pageSize || 20;
 		}
 		return pageSize;
 	},
