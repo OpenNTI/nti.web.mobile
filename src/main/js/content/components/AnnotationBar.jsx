@@ -115,7 +115,7 @@ export default class AnnotationBar extends React.Component {
 			item = item.highlightColorName;
 		}
 
-		const hightlighters = onSetHighlight && ['Yellow', 'Green', 'Blue'].map(x => (
+		const hightlighters = onSetHighlight && ['Yellow', 'Green', 'Blue', 'Blackout'].map(x => (
 			<Button key={x} data-color={x}
 				className={cx('ugd highlight', x.toLowerCase(), {
 					'selected': (item === x.toLowerCase() && !busy) || busy === x.toLowerCase(),

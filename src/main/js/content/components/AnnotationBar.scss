@@ -38,7 +38,7 @@
 			$stroke: #b2b2b2;
 
 			flex: 0 1 auto;
-			border: 0;
+			// border: 0;
 			padding: 0;
 			width: 1.875rem;
 			height: 1.875rem;
@@ -69,33 +69,38 @@
 		}
 
 		&.highlight {
-			$color: rgba(0, 0, 0, 0.2);
-
+			color: rgba(0, 0, 0, 0.5);
 			flex: 0 1 auto;
 			padding: 0;
 			border-radius: 100%;
 			width: 1.875rem;
 			height: 1.875rem;
 			border: 0;
-			box-shadow: inset 0 0 0 1px $color;
+			box-shadow: inset 0 0 0 1px currentColor;
 
 			&.yellow { background: #ede619; }
 			&.green { background: #4ce67f; }
 			&.blue { background: var(--primary-blue); }
+
+			&.blackout {
+				background: #000;
+				color: rgba(255, 255, 255, 0.5);
+			}
 
 			&::after {
 				content: " " attr(data-color);
 			}
 
 			&.selected {
-				box-shadow: inset 0 0 0 1px $color, 0 0 0 3px #e2e2e2, 0 0 0 4px #bfbfbf;
+				box-shadow: inset 0 0 0 1px #0003, 0 0 0 3px #e2e2e2, 0 0 0 4px #bfbfbf;
 
 				&::before {
 					content: '';
 					display: block;
 					width: 7px;
 					height: 11px;
-					border: solid rgba(0, 0, 0, 0.5);
+					// border: solid rgba(0, 0, 0, 0.5);
+					border: solid currentColor;
 					border-width: 0 3px 3px 0;
 					position: absolute;
 					overflow: hidden;

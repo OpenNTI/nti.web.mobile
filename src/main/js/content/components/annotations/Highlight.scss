@@ -52,6 +52,18 @@
 					background-color: var(--highlight-colors-blue-hover);
 				}
 			}
+
+			&.blackout {
+				&, &::selection {
+					background: var(--primary-grey);
+					color: transparent;
+					box-shadow: none;
+
+					&.highlight-mouse-over {
+						background: var(--primary-grey);
+					}
+				}
+			}
 		}
 
 		&:not(.colored) {
