@@ -59,6 +59,10 @@
 					color: transparent;
 					box-shadow: none;
 
+					img,a {
+						visibility: hidden;
+					}
+
 					&.highlight-mouse-over {
 						background: var(--primary-grey);
 					}
