@@ -21,7 +21,7 @@ widget:empty {
 	color: white;
 
 	&::after {
-		content: 'Coming soon to mobile';
+		content: 'Error loading content.';
 		color: var(--border-grey);
 	}
 }
