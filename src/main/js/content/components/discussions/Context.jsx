@@ -51,6 +51,9 @@ class DiscussionContext extends React.Component {
 		this.updateContext();
 	}
 
+	componentWillUnmount () {
+		this.setState = () => {};
+	}
 
 	componentDidUpdate ({item}, state) {
 		let {error} = this.state;
@@ -66,35 +69,44 @@ class DiscussionContext extends React.Component {
 		this.focusApplicableRange();
 	}
 
-	updateContext = ({item} = this.props) => {
+	updateContext = async ({item} = this.props) => {
 		this.setState({error: null, found: false, loading: true, scoped: false, fragment: false});
 
-		item.getContextData()
-			.then(x => x instanceof PageInfo || x instanceof Survey ?
-				this.setPageContext(item, x) :
-				this.setWidgetContainerContext(item, x)
-			)
-			.catch(error => this.setState({error, loading: false}));
+		try {
+			let data = await item.getContextData();
+
+			if (data instanceof Survey) {
+				data = await getGeneratedPageInfo(data);
+			}
+
+			if(data instanceof PageInfo) {
+				this.setPageContext(data);
+			}
+			else {
+				this.setWidgetContainerContext(data);
+			}
+		}
+		catch(error) {
+			this.setState({error, loading: false});
+		}
 	};
 
-	setPageContext = (item, pageInfo) => {
-		if (pageInfo instanceof Survey) { return getGeneratedPageInfo(pageInfo).then(x => this.setPageContext(item, x)); }
+	setPageContext = async (pageInfo) => {
+		const pageContent = await getPageContent(pageInfo);
+		const descriptor = new PageDescriptor(pageContent.pageInfo.getID(), pageContent);
 
-		getPageContent(pageInfo)
-			.then(x => new PageDescriptor(x.pageInfo.getID(), x))
-			.then(x => {
-				let pageId = x.getID();
-				let context = React.createElement(Content, {
-					page: x,
-					pageId,
-					onContentReady: () => this.setState({contextReady: true})
-				});
+		const pageId = descriptor.getID();
+		const context = React.createElement(Content, {
+			page: descriptor,
+			pageId,
+			onContentReady: () => this.setState({contextReady: true})
+		});
 
-				this.setState({loading: false, fragment: true, context, pageId});
-			});
+		this.setState({loading: false, fragment: true, context, pageId});
+
 	};
 
-	setWidgetContainerContext = (_, object) => {
+	setWidgetContainerContext = (object) => {
 		let {item, contentPackage} = this.props;
 		let props = {
 			record: object,
