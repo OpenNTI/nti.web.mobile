@@ -53,13 +53,13 @@
 				}
 			}
 
-			&.blackout {
+			&.blackout.blackout {
 				&, &::selection {
 					background: var(--primary-grey);
-					color: transparent;
+					color: rgba(0, 0, 0, 0) !important;
 					box-shadow: none;
 
-					img,a {
+					img,a,a:link,a[href],* {
 						visibility: hidden;
 					}
 
