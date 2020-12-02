@@ -24,6 +24,7 @@
 export default [
 	{handler: 'Welcome',		path: '/onboarding(/*)'},
 	{handler: 'Object',			path: '/object/:objectId(/*)'},
+	{handler: 'Object',         path: '/id/:objectId(/*)'},
 	{handler: 'Login',			path: '/login(/*)'},
 	{handler: 'Calendar',		path: '/calendar(/*)'},
 	{handler: 'Catalog',		path: '/catalog(/*)'},
