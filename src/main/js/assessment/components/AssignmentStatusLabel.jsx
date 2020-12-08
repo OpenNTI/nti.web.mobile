@@ -7,7 +7,7 @@ import {DateTime} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 import {getEventTarget} from '@nti/lib-dom';
 import * as Duration from 'iso8601-duration';
-import isSameDay from 'date-fns/is_same_day';
+import { isSameDay } from 'date-fns';
 
 const toUnitString = scoped('common.units');
 const toUnitSingularString = scoped('common.units.SINGULARS');

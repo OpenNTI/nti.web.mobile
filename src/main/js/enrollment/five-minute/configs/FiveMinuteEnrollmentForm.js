@@ -1,6 +1,4 @@
-import isSameDay from 'date-fns/is_same_day';
-import isAfter from 'date-fns/is_after';
-import subYears from 'date-fns/sub_years';
+import { isAfter, isSameDay, subYears } from 'date-fns';
 import {scoped} from '@nti/lib-locale';
 
 import * as Constants from 'forms/Constants';
