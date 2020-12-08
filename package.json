@@ -80,7 +80,7 @@
     "array-range": "^1.0.1",
     "classnames": "^2.0.0",
     "create-react-class": "^15.5.3",
-    "date-fns": "^1.29.0",
+    "date-fns": "^2.16.1",
     "email-validator": "^2.0.4",
     "foundation-sites": "5.5.3",
     "html-reactifier": "^2.0.0",
