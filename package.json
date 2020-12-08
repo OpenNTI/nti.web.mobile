@@ -82,7 +82,7 @@
     "create-react-class": "^15.5.3",
     "date-fns": "^1.29.0",
     "email-validator": "^2.0.4",
-    "foundation-sites": "5.5.3",
+    "foundation-sites": "6.6.3",
     "html-reactifier": "^2.0.0",
     "iso8601-duration": "^1.1.1",
     "natural-orderby": "^2.0.3",
