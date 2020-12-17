@@ -58,14 +58,14 @@
 					background: var(--primary-grey);
 					color: rgba(0, 0, 0, 0) !important;
 					box-shadow: none;
+				}
 
-					img,a,a:link,a[href],* {
-						visibility: hidden;
-					}
+				img, a, a:link, a[href], * {
+					visibility: hidden;
+				}
 
-					&.highlight-mouse-over {
-						background: var(--primary-grey);
-					}
+				&.highlight-mouse-over {
+					background: var(--primary-grey);
 				}
 			}
 		}
