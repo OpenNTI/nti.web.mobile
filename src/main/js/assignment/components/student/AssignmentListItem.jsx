@@ -44,10 +44,11 @@ class AssignmentItem extends React.Component {
 
 	render () {
 		const {props: {assignment}, state: {history}} = this;
-		const failed = assignment && assignment.CompletedItem && !assignment.CompletedItem.Success;
+		const complete = assignment?.CompletedItem;
+		const failed = complete?.Success === false;
 
 		return (
-			<a className={cx('assignment-item', { complete: !!history, failed })} href={`./${encodeForURI(assignment.getID())}/`}>
+			<a className={cx('assignment-item', { complete, failed })} href={`./${encodeForURI(assignment.getID())}/`}>
 				<div>
 					{assignment.title}
 					<TotalPointsLabel assignment={assignment}/>
