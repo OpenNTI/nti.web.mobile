@@ -1,6 +1,6 @@
 {
   "name": "@nti/web-mobile",
-  "version": "2020.13.0",
+  "version": "2020.13.1",
   "description": "NextThought Web Application",
   "author": "nextthought",
   "license": "UNLICENSED",
@@ -29,10 +29,6 @@
   "publishConfig": {
     "registry": "https://npm.nextthought.com"
   },
-  "bundledDependencies": [
-    "@nti/lib-ntiids",
-    "@nti/util-logger"
-  ],
   "dependencies": {},
   "devDependencies": {
     "@nti/app-scripts": "^2.26.0",
@@ -96,5 +92,9 @@
     "uuid": "^8.3.0",
     "vtt.js": "^0.13.0",
     "zpad": "^0.5.0"
-  }
+  },
+  "bundleDependencies": [
+    "@nti/lib-ntiids",
+    "@nti/util-logger"
+  ]
 }
