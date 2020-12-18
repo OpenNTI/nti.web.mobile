@@ -138,7 +138,7 @@ export default createReactClass({
 				{this.props.children}
 
 				<Router.RouteForProvider getRouteFor={this.getRemainingItemsRoute}>
-					<Outline.Header course={item} />
+					<Outline.Header course={item} active/>
 				</Router.RouteForProvider>
 
 				<ActiveStateContainer>
