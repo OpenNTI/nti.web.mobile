@@ -102,7 +102,7 @@ export default createReactClass({
 		}
 
 		return (
-			<a href={href} onClick={this.handleClick} target={this.isExternal() ? '_blank' : null}>
+			<a href={href} onClick={this.handleClick} rel="noreferrer" target={this.isExternal() ? '_blank' : null}>
 				<Card item={item} contentPackage={contentPackage} />
 			</a>
 		);
