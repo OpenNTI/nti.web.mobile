@@ -4,7 +4,7 @@ import cx from 'classnames';
 import {encodeForURI} from '@nti/lib-ntiids';
 import {DateTime, HOC} from '@nti/web-commons';
 
-const DATE_FORMAT = 'MM/DD';
+const DATE_FORMAT = DateTime.MONTH_DAY_PADDED;
 
 export default
 @HOC.ItemChanges.compose

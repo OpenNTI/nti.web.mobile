@@ -90,7 +90,7 @@ export default class HeaderScoreboard extends React.Component {
 				<div className="scoreboard">
 					<div className="header">
 						Scoreboard
-						<DateTime date={state.dateSubmitted} format="LLL"/>
+						<DateTime date={state.dateSubmitted} format={DateTime.MONTH_NAME_DAY_YEAR_TIME}/>
 					</div>
 					<div className="body">
 						<div className="score">

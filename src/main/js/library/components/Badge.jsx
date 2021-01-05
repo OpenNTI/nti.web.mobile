@@ -27,7 +27,7 @@ export default function Badge ({item}) {
 			label = (
 				<span>
 					<DateTime date={item.getStartDate()} className="long"/>
-					<DateTime date={item.getStartDate()} className="short" format="ll"/>
+					<DateTime date={item.getStartDate()} className="short" format={DateTime.MONTH_ABBR_DAY_YEAR}/>
 				</span>
 			);
 		}

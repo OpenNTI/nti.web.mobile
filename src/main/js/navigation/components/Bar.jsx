@@ -295,7 +295,7 @@ export default createReactClass({
 		let label = 'In Preview';
 
 		if(CatalogEntry && CatalogEntry.getStartDate()) {
-			label += ' - Starts ' + DateTime.format(CatalogEntry.getStartDate(), 'll');
+			label += ' - Starts ' + DateTime.format(CatalogEntry.getStartDate(), DateTime.MONTH_ABBR_DAY_YEAR);
 		}
 
 		return (

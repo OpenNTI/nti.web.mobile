@@ -24,7 +24,7 @@ export default class GradebookColumnCompleted extends React.Component {
 		});
 		return (
 			<div className={classes}>
-				{completedTime && <DateTime date={completedTime} format="MM/DD" />}
+				{completedTime && <DateTime date={completedTime} format={DateTime.MONTH_DAY_PADDED} />}
 			</div>
 		);
 	}

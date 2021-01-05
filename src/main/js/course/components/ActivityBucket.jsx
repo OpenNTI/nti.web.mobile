@@ -10,7 +10,7 @@ import selectWidgetOverride from './activity-widget-overrides';
 
 const logger = Logger.get('course:components:ActivityBucket');
 
-const startDateFormat = 'MMMM D';
+const startDateFormat = DateTime.MONTH_NAME_DAY;
 const MIN_COL_WIDTH = 260;
 const MAX_WIDTH = 1024;
 
@@ -160,7 +160,7 @@ export default createReactClass({
 
 		let {bucket} = this.props;
 		let {columns} = this.state;
-		let endDateFormat = bucket.start.getMonth() === bucket.end.getMonth() ? 'D' : startDateFormat;
+		let endDateFormat = bucket.start.getMonth() === bucket.end.getMonth() ? DateTime.DAY_OF_THE_MONTH : startDateFormat;
 		return (
 			<li className="activity-bucket activity-item">
 				<div className="header"><DateTime date={bucket.start} format={startDateFormat} /> - <DateTime date={bucket.end} format={endDateFormat} /></div>

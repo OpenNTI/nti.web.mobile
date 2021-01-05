@@ -55,7 +55,7 @@ export default class FeedbackListItem extends React.Component {
 						: (
 							<div className="message">
 								<Panel body={body}/>
-								{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
+								{edited && <DateTime date={modifiedOn} format={DateTime.MONTH_NAME_DAY_YEAR_TIME} prefix="Modified: "/>}
 							</div>
 						)}
 

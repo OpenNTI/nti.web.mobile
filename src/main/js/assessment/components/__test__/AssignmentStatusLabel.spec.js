@@ -20,8 +20,8 @@ const getNode = cmp => ReactDOM.findDOMNode(cmp); //eslint-disable-line
 
 const getText = cmp => (getNode(cmp) || {}).textContent;
 
-const EXPECTED_DAY_FORMAT = 'dddd, MMMM D';
-const EXPECTED_DAYTIME_FORMAT = 'dddd, MMMM D h:mm A z';
+const EXPECTED_DAY_FORMAT = DateTime.WEEKDAY_MONTH_NAME_DAY;
+const EXPECTED_DAYTIME_FORMAT = DateTime.WEEKDAY_MONTH_NAME_DAY_TIME_WITH_ZONE;
 
 describe('AssignmentStatusLabel', () => {
 
@@ -141,7 +141,7 @@ describe('AssignmentStatusLabel', () => {
 
 			//Today assignment
 			assignment = MockAssignment({ [START]: today, [END]: void 0 });
-			let hours = DateTime.format(today, 'h:mm A z');
+			let hours = DateTime.format(today, DateTime.TIME_WITH_ZONE);
 
 			testRender({assignment})
 				.map(getText)

@@ -68,7 +68,7 @@ const MessageInfo = createReactClass({
 						<Body body={item.body}/>
 						<div className="spacer"/>
 					</div>
-					<DateTime date={item.getCreatedTime()} format="h:mm:ss a"/>
+					<DateTime date={item.getCreatedTime()} format={DateTime.TIME_SECONDS}/>
 				</div>
 				{this.renderChildren()}
 			</div>

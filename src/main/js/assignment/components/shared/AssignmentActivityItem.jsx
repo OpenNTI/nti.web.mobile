@@ -59,9 +59,9 @@ export default class ActivityItem extends React.Component {
 		const {feedbackAuthor, date, type, unread, user, assignment} = event;
 		const today = new Date((new Date()).setHours(0, 0, 0, 0));
 
-		let format = 'MMM D'; // "Jan 2" ... Short month, Day of month without zero padding
+		let format = DateTime.MONTH_ABBR_DAY; // "Jan 2" ... Short month, Day of month without zero padding
 		if (date > today) {
-			format = 'h:mm a'; // "8:05 pm" ...Hours without zero padding, ":", minutes with zero padding, lower-case "am/pm"
+			format = DateTime.TIME; // "8:05 pm" ...Hours without zero padding, ":", minutes with zero padding, lower-case "am/pm"
 		}
 
 		const href = (

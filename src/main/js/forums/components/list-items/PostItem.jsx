@@ -206,7 +206,7 @@ export default createReactClass({
 						</div>
 						<div className="message">
 							<ModeledContentPanel body={message} />
-							{edited && <DateTime date={modifiedOn} format="LLL" prefix="Modified: "/>}
+							{edited && <DateTime date={modifiedOn} format={DateTime.MONTH_NAME_DAY_YEAR_TIME} prefix="Modified: "/>}
 						</div>
 						<ActionsComp
 							item={item}

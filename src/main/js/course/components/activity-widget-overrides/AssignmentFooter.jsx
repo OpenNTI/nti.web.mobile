@@ -12,7 +12,7 @@ export default class extends React.Component {
 	};
 
 	static defaultProps = {
-		dateFormat: 'dddd, MMMM D'
+		dateFormat: DateTime.WEEKDAY_MONTH_NAME_DAY
 	};
 
 	render () {

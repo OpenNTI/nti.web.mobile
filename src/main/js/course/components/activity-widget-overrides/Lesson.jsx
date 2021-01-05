@@ -23,7 +23,7 @@ export default createReactClass({
 
 	getDefaultProps () {
 		return {
-			dateFormat: 'dddd, MMMM D'
+			dateFormat: DateTime.WEEKDAY_MONTH_NAME_DAY
 		};
 	},
 

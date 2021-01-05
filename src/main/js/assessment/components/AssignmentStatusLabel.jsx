@@ -22,8 +22,11 @@ const t = scoped('nti-web-mobile.assessment.components.AssignmentStatusLabel', {
 	completed: 'Completed',
 	due: 'Due',
 	graded: 'Graded',
-	excusedGrade: 'Excused Grade'
+	excusedGrade: 'Excused Grade',
+	submittedAt: 'Submitted at %(time)s',
 });
+
+const submittedAt = f => t('submittedAt', {time: f(DateTime.TIME_DATE_STAMP)});
 
 function selectValue (values, context) {
 	const isNotted = selectValue.isNotted = (selectValue.isNotted || RegExp.prototype.test.bind(/^!/));
@@ -329,8 +332,8 @@ export default class AssignmentStatusLabel extends React.Component {
 		});
 
 		const dateFormat = showTimeWithDate
-			? 'dddd, MMMM D h:mm A z'
-			: 'dddd, MMMM D';
+			? DateTime.WEEKDAY_MONTH_NAME_DAY_TIME_WITH_ZONE
+			: DateTime.WEEKDAY_MONTH_NAME_DAY;
 
 		if (!text) {
 			return null;
@@ -362,7 +365,7 @@ export default class AssignmentStatusLabel extends React.Component {
 								onClick={this.onShowStatusDetail}
 								date={date}
 								showToday={!complete/*only show today if we aren't submitted*/}
-								format={isToday(date) ? 'h:mm A z' : dateFormat}
+								format={isToday(date) ? DateTime.TIME_WITH_ZONE : dateFormat}
 								todayText="Today at {time}"/>
 						)}
 
@@ -402,7 +405,7 @@ export default class AssignmentStatusLabel extends React.Component {
 						over && (
 							<span key="over" className="part">{this.getNaturalDuration(dur, 1)} {over}</span>
 						),
-						<span key="datetime" className="part"><DateTime date={date} format="[Submitted at] h:mm A MM/DD/YYYY"/></span>
+						<span key="datetime" className="part"><DateTime date={date} format={submittedAt}/></span>
 					]}
 				</div>
 			</div>

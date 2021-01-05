@@ -28,7 +28,7 @@ export default function TimeLockedPlaceholder ({assignment}) {
 	}, []);
 
 	const available = assignment.getAvailableForSubmissionBeginning();
-	const date = available && DateTime.format(available, 'dddd, MMMM D [at] h:mmA z');
+	const date = available && DateTime.format(available, DateTime.WEEKDAY_MONTH_NAME_DAY_AT_TIME_WITH_ZONE);
 
 	return (
 		<Placeholder
