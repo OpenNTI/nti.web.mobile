@@ -36,6 +36,7 @@
   "dependencies": {},
   "devDependencies": {
     "@nti/app-scripts": "^2.31.8",
+    "@nti/foundation-sites-fork": "5.5.3-patch.1",
     "@nti/lib-analytics": "NextThought/nti.lib.analytics",
     "@nti/lib-anchors": "NextThought/nti.lib.anchors",
     "@nti/lib-commons": "NextThought/nti.lib.commons",
@@ -81,7 +82,6 @@
     "create-react-class": "^15.5.3",
     "date-fns": "^2.16.1",
     "email-validator": "^2.0.4",
-    "foundation-sites": "5.5.3",
     "html-reactifier": "^2.0.0",
     "iso8601-duration": "^1.1.1",
     "natural-orderby": "^2.0.3",
