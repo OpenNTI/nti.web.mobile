@@ -172,7 +172,6 @@ export default createReactClass({
 		this[SendGAEvent]();
 
 
-		// debugger;
 		// We can get the title and set it here.
 	},
 
