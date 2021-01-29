@@ -1,2 +1,2 @@
-export Avatar from './components/Avatar';
-export DisplayName from './components/DisplayName';
+export { default as Avatar } from './components/Avatar';
+export { default as DisplayName } from './components/DisplayName';

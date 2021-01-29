@@ -1,2 +1,2 @@
-export Highlight from './Highlight';
-export Note from './Note';
+export { default as Highlight } from './Highlight';
+export { default as Note } from './Note';

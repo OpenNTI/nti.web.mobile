@@ -1,1 +1,1 @@
-export closeDialog from './close-dialog';
+export { default as closeDialog } from './close-dialog';
