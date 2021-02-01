@@ -19,25 +19,22 @@ try {
 
 exports = module.exports = {
 
-	register (expressApp, config) {
-		const resolveDev = (dev) ? dev.setupDeveloperMode(config) : Promise.resolve();
+	async register (expressApp, config) {
+		const devmode = (dev) ? await dev.setupDeveloperMode(config) : false;
 
-		return resolveDev.then(devmode => {
-			redirects.register(expressApp, config);
+		redirects.register(expressApp, config);
 
-			if (devmode) {
-				expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets
-			}
+		if (devmode) {
+			expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets
+		}
 
-			return {
-				devmode,
+		return {
+			devmode,
 
-				assets,
+			assets,
 
-				sessionSetup
-			};
-		});
-
+			sessionSetup
+		};
 	}
 
 };
