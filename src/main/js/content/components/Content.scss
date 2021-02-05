@@ -1,15 +1,12 @@
 @import "~@nti/style-common";
 
-// stylelint-disable-next-line
 widget {
 	display: block;
 }
 
-// stylelint-disable-next-line
 nti\:content {
 	user-select: text;
 
-	// stylelint-disable-next-line
 	widget {
 		text-indent: initial;
 		user-select: none;
@@ -20,7 +17,6 @@ nti\:content {
 	}
 
 	.figure {
-		// stylelint-disable-next-line
 		widget ~ .caption {
 			display: none;
 		}
@@ -120,7 +116,7 @@ nti\:content {
 		background-color: #f0f0f0;
 		padding-top: 0.3125rem;
 		padding-bottom: 0.3125rem;
-		font-family: Monaco, 'Courier New', Courier, fixed;
+		font-family: Monaco, 'Courier New', Courier, fixed, serif;
 		padding-left: 4ex;
 
 		&.code .ln {
@@ -247,7 +243,7 @@ nti\:content {
 		padding-top: 0.5em;
 		padding-bottom: 0.5em;
 		padding-left: 4ex;
-		font-family: times;
+		font-family: times, serif;
 		line-height: normal;
 	}
 
@@ -475,17 +471,12 @@ nti\:content {
 		.subsubparagraph {
 			&.title {
 				font-weight: bold;
+				font-size: 1rem;
 			}
 		}
 
 		.subsubsection.title {
 			font-size: 1.4em;
-		}
-
-		.paragraph.title,
-		.subparagraph.title,
-		.subsubparagraph.title {
-			font-size: 1rem;
 		}
 
 		.bibitem > p.par {

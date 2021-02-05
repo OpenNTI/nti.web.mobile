@@ -281,14 +281,14 @@ function addComment (topic, parent, comment) {
 }
 
 /**
- * @param {object} payload An item with these keys:
+ * @param {Object} payload An item with these keys:
  * @param {Post} payload.postItem the post to be updated.
- * @param {object} payload.newValue properties to update and save on the item.
+ * @param {Object} payload.newValue properties to update and save on the item.
  * 	{
  *		title: 'new title',
  * 		body: [...] // as returned by the editor component's getValue()
  *	}
- * @return {Promise} A promise fulfilling with no value.
+ * @returns {Promise} A promise fulfilling with no value.
  */
 function saveComment (payload) {
 	let {postItem, newValue} = payload.action;

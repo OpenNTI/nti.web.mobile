@@ -4,8 +4,6 @@
 	.active .blank:empty {
 		font-size: 1.5em;
 		line-height: 2;
-
-		&::before {}
 	}
 
 	.drop.target {

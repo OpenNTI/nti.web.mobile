@@ -55,7 +55,7 @@ export function updatePartsWithAssessedParts (part, assessed) {
 /**
  * Checks if the user agent matches the native android browser
  * http://stackoverflow.com/questions/14701951/javascript-detect-android-native-browser
- * @return {Bool} true if it doesn't match
+ * @returns {Bool} true if it doesn't match
  */
 export function areAssessmentsSupported () {
 	let nua = navigator.userAgent;

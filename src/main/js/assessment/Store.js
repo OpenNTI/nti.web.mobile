@@ -438,7 +438,7 @@ class Store extends StorePrototype {
 
 		const load = typeof progress === 'object'
 			? Promise.resolve(progress)
-			: loadPreviousState(assessment); //eslint-disable-line no-use-before-define
+			: loadPreviousState(assessment);
 
 		return load
 			.then(submission => this[ApplySubmission](assessment, submission))

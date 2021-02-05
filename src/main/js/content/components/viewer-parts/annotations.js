@@ -199,7 +199,7 @@ export default {
 	 *
 	 * @param {Range} range DOM Range.
 	 *
-	 * @return {Object} The common applicable fields.
+	 * @returns {Object} The common applicable fields.
 	 */
 	selectionToCommonUGD (range) {
 		if (!range || range.collapsed) {

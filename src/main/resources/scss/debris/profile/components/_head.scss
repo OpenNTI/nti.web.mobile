@@ -5,6 +5,7 @@
 	color: white;
 	position: relative;
 	margin-bottom: 0.25rem;
+	overflow: hidden;
 
 	.username {
 		font-size: $h3-font-size;
@@ -38,14 +39,9 @@
 			font-weight: 700;
 			font-family: var(--body-font-family);
 		}
-
-		.group-subhead-icon {
-
-		}
 	}
 
-	position: relative;
-	overflow: hidden;
+
 
 	.profile-avatar-container {
 		max-width: 3rem;
@@ -55,8 +51,6 @@
 		float: left;
 		margin: 0.5rem;
 	}
-
-	img, svg {}
 
 	.label {
 		background: none;
@@ -99,7 +93,7 @@
 			text-overflow: ellipsis;
 
 			&::before {
-				font-family: 'icomoon';
+				font-family: 'icomoon', serif;
 				color: $icon-color;
 				padding-right: 0.4em;
 				position: relative;

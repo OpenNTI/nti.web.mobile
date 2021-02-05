@@ -154,7 +154,7 @@ export default createReactClass({
 
 
 	/**
-	 * @return {Element} the appropriate widget for each enrollment option.
+	 * @returns {Element} the appropriate widget for each enrollment option.
 	 * this will (almost?) always return a single widget, as
 	 * it's unlikely that the user is enrolled in more than
 	 * one option for a given course.

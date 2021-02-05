@@ -127,7 +127,7 @@ export default class Content extends React.Component {
 	renderWidget = (tagName, props, children) => {
 		props = props || {};//ensure we have an object.
 
-		let {id} = props; //eslint-disable-line react/prop-types
+		let {id} = props;
 		let {widgets} = this.state;
 		let {renderCustomWidget} = this.props;
 
