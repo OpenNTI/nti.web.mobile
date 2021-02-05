@@ -1,4 +1,3 @@
-/*eslint-disable react/jsx-no-bind*/
 /*
 	react-swipe-to-reveal-options looks to be dead.
 	We've imported the code here and translated it to ES6.

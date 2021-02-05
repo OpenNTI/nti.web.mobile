@@ -116,7 +116,7 @@ export default ({ ...EventEmitter.prototype, fieldValues: {},
 	 * Clear values whose names are not in keep
 	 *
 	 * @param {Set} keep The set of field names to keep.
-	 * @return {void}
+	 * @returns {void}
 	 */
 	pruneValues (keep) {
 		let removed = [];

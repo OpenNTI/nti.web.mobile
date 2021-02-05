@@ -21,18 +21,16 @@
 	&.group {
 		background: #505560;
 	}
-}
 
-.profile {
-	min-height: 100vh;
-}
-
-.profile-wrapper {
 	& > * {
 		max-width: 800px;
 		margin-left: auto;
 		margin-right: auto;
 	}
+}
+
+.profile {
+	min-height: 100vh;
 }
 
 // transcript overrides.  TODO: is there a way to not need these overrides?

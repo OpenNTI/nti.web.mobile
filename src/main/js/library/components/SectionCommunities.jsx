@@ -18,7 +18,7 @@ export default createReactClass({
 	componentDidMount () {
 		getService()
 			.then(service => service.getCommunities())
-			.then(store => this.setState({store})); //eslint-disable-line
+			.then(store => this.setState({store}));
 
 	},
 
