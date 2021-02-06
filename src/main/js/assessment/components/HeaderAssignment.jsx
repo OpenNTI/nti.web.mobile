@@ -8,6 +8,7 @@ import Store from '../Store';
 
 import AssignmentStatusLabel from './AssignmentStatusLabel';
 import Grade from './Grade';
+import SubmissionMaskedPlaceholder from './SubmissionMaskedPlaceholder';
 import TimedPlaceholder from './TimedPlaceholder';
 import TimeLockedPlaceholder from './TimeLockedPlaceholder';
 
@@ -57,6 +58,12 @@ export default class extends React.Component {
 		let assignment = this.props.assessment;
 		let item = Store.getAssignmentHistoryItem(assignment);
 		let admin = Store.isAdministrative(assignment);
+
+		if (!admin && item && (assignment.parts ?? []).length !== 0) {
+			return (
+				<SubmissionMaskedPlaceholder assignment={assignment} />
+			);
+		}
 
 		if (!admin && assignment.IsTimedAssignment /*&& !assignment.isStarted()*/) {
 			return (
