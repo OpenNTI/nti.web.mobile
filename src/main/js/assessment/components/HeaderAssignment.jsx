@@ -59,7 +59,7 @@ export default class extends React.Component {
 		let item = Store.getAssignmentHistoryItem(assignment);
 		let admin = Store.isAdministrative(assignment);
 
-		if (!admin && item && (assignment.parts ?? []).length !== 0) {
+		if (!admin && item && assignment.HideAfterSubmission) {
 			return (
 				<SubmissionMaskedPlaceholder assignment={assignment} />
 			);
