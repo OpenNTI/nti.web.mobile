@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {BufferedInput, HOC} from '@nti/web-commons';
 
 import PageControls from '../PageControls';
@@ -7,9 +8,7 @@ import PageControls from '../PageControls';
 import EnrollmentSelect from './EnrollmentSelect';
 import CategorySelect from './CategorySelect';
 
-export default
-@HOC.ItemChanges.compose
-class SearchSortBar extends React.Component {
+class FilterSearchBar extends React.Component {
 
 	static propTypes = {
 		summary: PropTypes.object.isRequired // GradeBookSummary object
@@ -66,3 +65,8 @@ class SearchSortBar extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(FilterSearchBar, [
+	HOC.ItemChanges.compose
+]);

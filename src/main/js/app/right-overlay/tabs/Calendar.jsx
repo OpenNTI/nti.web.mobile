@@ -1,6 +1,7 @@
 import './Calendar.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {scoped} from '@nti/lib-locale';
 import {NotableEvents} from '@nti/web-calendar';
 import {HOC} from '@nti/web-commons';
@@ -18,8 +19,6 @@ const t = scoped('app.user-overlay.calendar-events', {
 
 const getErrorMessage = e => <div className="calendar-display-error">{t('error')}</div>;
 
-@HOC.BasePath.connect
-@ErrorBoundary(getErrorMessage)
 class Events extends React.PureComponent {
 
 	static propTypes = {
@@ -39,10 +38,16 @@ class Events extends React.PureComponent {
 	}
 }
 
+const EventsConnected = decorate(Events, [
+	HOC.BasePath.connect,
+	ErrorBoundary(getErrorMessage),
+]);
+
+
 export default Router.for([
 	Route({
 		path: '/',
 		getRouteFor,
-		component: Events
+		component: EventsConnected
 	})
 ]);

@@ -19,9 +19,7 @@ const handles = (obj) => {
 	return item && MIME_TYPES[item.MimeType];
 };
 
-export default
-@Registry.register(handles)
-class CourseItemAssignment extends React.Component {
+export default class CourseItemAssignment extends React.Component {
 	static propTypes = {
 		course: PropTypes.object,
 		location: PropTypes.object,
@@ -96,3 +94,5 @@ class CourseItemAssignment extends React.Component {
 	}
 
 }
+
+Registry.register(handles)(CourseItemAssignment);

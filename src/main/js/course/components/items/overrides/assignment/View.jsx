@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {encodeForURI} from '@nti/lib-ntiids';
+import {decorate} from '@nti/lib-commons';
 import {Loading} from '@nti/web-commons';
 
 import AssignmentsProvider from 'assignment/components/bindings/AssignmentsProvider';
@@ -30,9 +31,6 @@ const handles = (obj) => {
 	return item && MIME_TYPES[item.MimeType];
 };
 
-export default
-@Registry.register(handles)
-@AssignmentsProvider.connect
 class CourseItemAssignment extends React.Component {
 	static propTypes = {
 		course: PropTypes.object,
@@ -60,3 +58,8 @@ class CourseItemAssignment extends React.Component {
 		);
 	}
 }
+
+export default decorate(CourseItemAssignment, [
+	Registry.register(handles),
+	AssignmentsProvider.connect,
+]);

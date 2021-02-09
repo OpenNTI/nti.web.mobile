@@ -1,14 +1,13 @@
 import './AssignmentsList.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {Loading, EmptyList} from '@nti/web-commons';
 
 import AssignmentGroups from '../bindings/AssignmentGroups';
 
 import AssignmentGroup from './AssignmentGroup';
 
-export default
-@AssignmentGroups.connect
 class AssignmentsList extends React.Component {
 
 	static propTypes = {
@@ -39,3 +38,7 @@ class AssignmentsList extends React.Component {
 		);
 	}
 }
+
+export default decorate(AssignmentsList, [
+	AssignmentGroups.connect
+]);

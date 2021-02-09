@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
@@ -8,9 +9,6 @@ import Assignments from '../../bindings/Assignments';
 import FilterSearchBar from './FilterSearchBar';
 import SummaryTable from './SummaryTable';
 
-
-export default
-@Assignments.connect
 class Performance extends React.Component {
 	static propTypes = {
 		assignments: PropTypes.object
@@ -50,3 +48,8 @@ async function getContext () {
 		href: context.makeHref('/performance/')
 	};
 }
+
+
+export default decorate(Performance, [
+	Assignments.connect
+]);

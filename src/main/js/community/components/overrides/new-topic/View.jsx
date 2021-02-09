@@ -12,9 +12,7 @@ import Styles from './View.css';
 const cx = classnames.bind(Styles);
 const handles = obj => obj && obj.isNewTopic;
 
-export default
-@Registry.register(handles)
-class NTIMobileCommunityNewTopic extends React.Component {
+export default class NTIMobileCommunityNewTopic extends React.Component {
 	static propTypes = {
 		channel: PropTypes.shape({
 			backer: PropTypes.object
@@ -41,3 +39,5 @@ class NTIMobileCommunityNewTopic extends React.Component {
 		);
 	}
 }
+
+Registry.register(handles)(NTIMobileCommunityNewTopic);

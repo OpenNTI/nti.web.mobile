@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
@@ -8,9 +9,6 @@ import Assignments from '../../bindings/Assignments';
 import StudentHeader from './StudentHeader';
 import StudentAssignmentsTable from './table/StudentAssignmentsTable';
 
-
-export default
-@Assignments.connect
 class PerformanceStudent extends React.Component {
 
 	static propTypes = {
@@ -45,3 +43,8 @@ async function getContext () {
 		href: contextSender.makeHref('/performance/' + userId)
 	}];
 }
+
+
+export default decorate(PerformanceStudent, [
+	Assignments.connect
+]);

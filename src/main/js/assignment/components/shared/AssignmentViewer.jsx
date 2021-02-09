@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {decodeFromURI} from '@nti/lib-ntiids';
+import {decorate} from '@nti/lib-commons';
 import {Error as Err, Loading} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -24,8 +25,6 @@ const t = scoped('nti-web-mobile.assignment.components.shared.AssignmentViewer',
 	label: 'Assignment'
 });
 
-export default
-@Assignments.connect
 class AssignmentViewer extends React.Component {
 
 	static propTypes = {
@@ -203,3 +202,7 @@ async function getContext () {
 		href: this.makeHref(rootId)
 	};
 }
+
+export default decorate(AssignmentViewer, [
+	Assignments.connect
+]);

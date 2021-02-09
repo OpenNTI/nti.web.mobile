@@ -1,6 +1,7 @@
 import './Tabs.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {scoped} from '@nti/lib-locale';
 import {
 	ActiveState,
@@ -17,8 +18,6 @@ const t = scoped('nti-web-mobile.assignment.components.shared.Tabs', {
 	activity: 'Activity'
 });
 
-export default
-@Assignments.connect
 class Tabs extends React.Component {
 
 	static propTypes = {
@@ -54,3 +53,8 @@ class Tabs extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(Tabs, [
+	Assignments.connect
+]);

@@ -1,9 +1,8 @@
 import './Filters.scss';
 import React from 'react';
+import {decorate} from '@nti/lib-commons';
 import {HOC} from '@nti/web-commons';
 
-export default
-@HOC.SingleInstance
 class Filters extends React.Component {
 	render () {
 		return (
@@ -16,3 +15,7 @@ class Filters extends React.Component {
 		);
 	}
 }
+
+export default decorate(Filters, [
+	HOC.SingleInstance
+]);

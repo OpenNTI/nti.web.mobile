@@ -2,6 +2,7 @@ import './OptionsMenu.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {decorate} from '@nti/lib-commons';
 
 import AssignmentSummary from '../bindings/AssignmentSummary';
 import {Receiver as ShowAvatars} from '../bindings/ShowAvatars';
@@ -9,9 +10,6 @@ import {Receiver as ShowAvatars} from '../bindings/ShowAvatars';
 import MenuTransitionGroup from './MenuTransitionGroup';
 import PageSizeMenuOption from './PageSizeMenuOption';
 
-export default
-@AssignmentSummary.connect
-@ShowAvatars.connect
 class OptionsMenu extends React.Component {
 
 	static propTypes = {
@@ -84,3 +82,9 @@ class OptionsMenu extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(OptionsMenu, [
+	AssignmentSummary.connect,
+	ShowAvatars.connect
+]);

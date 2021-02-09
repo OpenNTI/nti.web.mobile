@@ -2,7 +2,7 @@ import './GradeBox.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { isEmpty } from '@nti/lib-commons';
+import {decorate, isEmpty } from '@nti/lib-commons';
 import { Models } from '@nti/lib-interfaces';
 import { PropType as NTIID } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
@@ -12,9 +12,6 @@ import Assignments from '../bindings/Assignments';
 
 const logger = Logger.get('assignment:components:instructor:GradeBox');
 
-export default
-@Assignments.connect
-@HOC.ItemChanges.compose
 class GradeBox extends React.Component {
 
 	static propTypes = {
@@ -130,3 +127,8 @@ class GradeBox extends React.Component {
 		);
 	}
 }
+
+export default decorate(GradeBox, [
+	Assignments.connect,
+	HOC.ItemChanges.compose
+]);

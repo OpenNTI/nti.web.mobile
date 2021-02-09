@@ -1,6 +1,7 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {scoped} from '@nti/lib-locale';
 import {HOC, Loading} from '@nti/web-commons';
 
@@ -19,14 +20,6 @@ const t = scoped('app.user-overlay.contact-list', {
 
 const getErrorMessage = e => <div className="contacts-display-error">{t('error')}</div>;
 
-export default
-@HOC.BasePath.connect
-@ErrorBoundary(getErrorMessage)
-@Store.connect({
-	store: 'store',
-	[LOADING]: 'loading',
-	[CONTACTS]: 'contacts'
-})
 class ContactsView extends React.Component {
 	static propTypes = {
 		store: PropTypes.object,
@@ -83,3 +76,13 @@ class ContactsView extends React.Component {
 		);
 	}
 }
+
+export default decorate(ContactsView, [
+	HOC.BasePath.connect,
+	ErrorBoundary(getErrorMessage),
+	Store.connect({
+		store: 'store',
+		[LOADING]: 'loading',
+		[CONTACTS]: 'contacts'
+	})
+]);

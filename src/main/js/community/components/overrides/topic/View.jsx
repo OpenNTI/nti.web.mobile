@@ -13,9 +13,7 @@ const handles = (obj) => obj && (obj.isTopic || obj.isBlogEntry) && !obj.isNewTo
 
 const CLEAN_PATH_REGEX = /^(.*)(discussions.*)$/g;
 
-export default
-@Registry.register(handles)
-class NTIMobileCommunityTopic extends React.Component {
+export default class NTIMobileCommunityTopic extends React.Component {
 	static propTypes = {
 		community: PropTypes.object,
 		topic: PropTypes.object.isRequired,
@@ -97,3 +95,5 @@ class NTIMobileCommunityTopic extends React.Component {
 		);
 	}
 }
+
+Registry.register(handles)(NTIMobileCommunityTopic);

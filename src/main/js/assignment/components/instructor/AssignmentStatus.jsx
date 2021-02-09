@@ -2,6 +2,7 @@ import './AssignmentStatus.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {decorate} from '@nti/lib-commons';
 import {DateTime, HOC} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -10,8 +11,6 @@ const t = scoped('nti-web-mobile.assignment.components.instructor.AssignmentView
 	submitted: 'Submitted'
 });
 
-export default
-@HOC.ItemChanges.compose
 class AssignmentStatus extends React.Component {
 
 	static propTypes = {
@@ -68,3 +67,8 @@ class AssignmentStatus extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(AssignmentStatus, [
+	HOC.ItemChanges.compose
+]);

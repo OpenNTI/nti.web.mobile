@@ -1,6 +1,7 @@
 import './Activity.scss';
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {
 	EmptyList,
 	Error,
@@ -17,8 +18,6 @@ import AssignmentActivityItem from './AssignmentActivityItem';
 
 const Child = ({children}) => children;
 
-export default
-@Assignments.connect
 class Activity extends React.Component {
 	static propTypes = {
 		assignments: PropTypes.object.isRequired
@@ -127,3 +126,8 @@ class Activity extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(Activity, [
+	Assignments.connect
+]);

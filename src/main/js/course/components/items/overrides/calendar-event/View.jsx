@@ -21,9 +21,7 @@ const handles = (obj) => {
 	return item && MIME_TYPES[item.MimeType];
 };
 
-export default
-@Registry.register(handles)
-class CourseItemAssignment extends React.Component {
+export default class CourseItemCalendarEvent extends React.Component {
 	static propTypes = {
 		location: PropTypes.shape({
 			item: PropTypes.object
@@ -41,3 +39,5 @@ class CourseItemAssignment extends React.Component {
 		);
 	}
 }
+
+Registry.register(handles)(CourseItemCalendarEvent);

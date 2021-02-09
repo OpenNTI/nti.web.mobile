@@ -2,6 +2,7 @@ import './CreditCardForm.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {decorate} from '@nti/lib-commons';
 import {mixin} from '@nti/lib-decorators';
 import {ExternalLibraryManager} from '@nti/web-client';
 import {scoped} from '@nti/lib-locale';
@@ -12,8 +13,6 @@ const t = scoped('enrollment.forms', {
 	requiredField: 'Field is required.'
 });
 
-export default
-@mixin(ExternalLibraryManager)
 class CreditCardForm extends React.Component {
 	static propTypes = {
 		className: PropTypes.string,
@@ -94,3 +93,7 @@ class CreditCardForm extends React.Component {
 		);
 	}
 }
+
+export default decorate(CreditCardForm, [
+	mixin(ExternalLibraryManager)
+]);

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {Loading} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -13,8 +14,6 @@ const t = scoped('nti-web-mobile.assignment.components.View', {
 	label: 'Assignments'
 });
 
-export default
-@AssignmentsProvider.connect
 class AssignmentsView extends React.Component {
 
 	static propTypes = {
@@ -57,3 +56,8 @@ async function getContext () {
 		label: t('label')
 	};
 }
+
+
+export default decorate(AssignmentsView, [
+	AssignmentsProvider.connect
+]);

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {decorate} from '@nti/lib-commons';
 
 import AssignmentSummary from '../bindings/AssignmentSummary';
 
@@ -17,8 +18,6 @@ const killEvent = (e) => {
 	e.preventDefault();
 };
 
-export default
-@AssignmentSummary.connect
 class FilterMenu extends React.Component {
 	static propTypes = {
 		store: PropTypes.object
@@ -103,3 +102,7 @@ class FilterMenu extends React.Component {
 		);
 	}
 }
+
+export default decorate(FilterMenu, [
+	AssignmentSummary.connect
+]);

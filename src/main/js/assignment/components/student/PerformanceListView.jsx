@@ -2,6 +2,7 @@ import './PerformanceListView.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {decorate} from '@nti/lib-commons';
 import {SortOrder} from '@nti/lib-interfaces';
 import {EmptyList, HOC} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
@@ -45,8 +46,6 @@ const columns = [
 	}
 ];
 
-export default
-@Assignments.connect
 class PerformanceListView extends React.Component {
 
 	static propTypes = {
@@ -117,3 +116,7 @@ class PerformanceListView extends React.Component {
 		);
 	}
 }
+
+export default decorate(PerformanceListView, [
+	Assignments.connect
+]);

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 
 import Assignments from '../../bindings/Assignments';
 import GradeBox from '../GradeBox';
 
-export default
-@Assignments.connect
-class GradebookColumnGrade extends React.Component {
+
+class ColumnGrade extends React.Component {
 
 	static propTypes = {
 		assignments: PropTypes.object.isRequired,
@@ -40,3 +40,7 @@ class GradebookColumnGrade extends React.Component {
 		);
 	}
 }
+
+export default decorate(ColumnGrade, [
+	Assignments.connect
+]);

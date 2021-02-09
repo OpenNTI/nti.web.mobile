@@ -2,6 +2,7 @@ import './SummaryTable.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {SortOrder} from '@nti/lib-interfaces';
+import {decorate} from '@nti/lib-commons';
 import {Loading, HOC} from '@nti/web-commons';
 
 import Table from '../gradebook-table/Table';
@@ -9,9 +10,6 @@ import ColumnStudentActionItems from '../gradebook-table/ColumnStudentActionItem
 import ColumnGrade from '../gradebook-table/ColumnGrade';
 import {Provider as ShowAvatars} from '../../bindings/ShowAvatars';
 
-export default
-@ShowAvatars.connect
-@HOC.ItemChanges.compose
 class PerformanceSummaryTable extends React.Component {
 
 	static propTypes = {
@@ -55,3 +53,9 @@ class PerformanceSummaryTable extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(PerformanceSummaryTable, [
+	ShowAvatars.connect,
+	HOC.ItemChanges.compose
+]);

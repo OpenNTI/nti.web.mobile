@@ -3,6 +3,7 @@ import path from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {searchable, contextual} from '@nti/web-search';
 import {View as SearchableLibrary} from '@nti/web-library';
 import {encodeForURI} from '@nti/lib-ntiids';
@@ -28,9 +29,6 @@ function LibraryNavBar (props) {
 	);
 }
 
-export default
-@searchable()
-@contextual('Home')
 class Home extends React.Component {
 	static contextTypes = {
 		router: PropTypes.object,
@@ -90,3 +88,8 @@ class Home extends React.Component {
 		);
 	}
 }
+
+export default decorate(Home, [
+	searchable(),
+	contextual('Home')
+]);

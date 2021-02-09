@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
 
@@ -9,8 +10,6 @@ import Assignment from '../shared/AssignmentViewer';
 
 import PerformanceListView from './PerformanceListView';
 
-export default
-@Assignments.connect
 class Performance extends React.Component {
 
 	static propTypes = {
@@ -36,6 +35,10 @@ class Performance extends React.Component {
 		);
 	}
 }
+
+export default decorate(Performance, [
+	Assignments.connect
+]);
 
 async function getContext () {
 	return {

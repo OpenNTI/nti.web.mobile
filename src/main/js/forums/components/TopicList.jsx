@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {scoped} from '@nti/lib-locale';
 
 import {compose as Paging} from '../mixins/Paging';
@@ -13,8 +14,6 @@ const DEFAULT_TEXT = {
 
 const t = scoped('forums.topic.list', DEFAULT_TEXT);
 
-export default
-@Paging
 class TopicList extends React.Component {
 
 	static propTypes = {
@@ -53,3 +52,8 @@ class TopicList extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(TopicList, [
+	Paging
+]);

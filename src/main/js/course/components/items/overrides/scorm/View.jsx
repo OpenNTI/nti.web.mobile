@@ -17,9 +17,7 @@ const handles = (obj) => {
 	return item && MIME_TYPES[item.MimeType];
 };
 
-export default
-@Registry.register(handles)
-class CourseItemSCORM extends React.Component {
+export default class CourseItemSCORM extends React.Component {
 	render () {
 		return (
 			<Page {...this.props}>
@@ -28,3 +26,5 @@ class CourseItemSCORM extends React.Component {
 		);
 	}
 }
+
+Registry.register(handles)(CourseItemSCORM);

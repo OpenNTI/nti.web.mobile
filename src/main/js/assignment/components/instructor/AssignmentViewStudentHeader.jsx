@@ -2,7 +2,7 @@ import './AssignmentViewStudentHeader.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {PropType as NTIID} from '@nti/lib-ntiids';
-import { equals } from '@nti/lib-commons';
+import {decorate, equals } from '@nti/lib-commons';
 import {scoped} from '@nti/lib-locale';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
@@ -18,9 +18,7 @@ const t = scoped('nti-web-mobile.assignment.components.instructor.AssignmentView
 });
 
 
-export default
-@Assignments.connect
-class InstructorAssignmentViewStudentHeader extends React.Component {
+class AssignmentViewStudentHeader extends React.Component {
 
 	static propTypes = {
 		assignmentId: NTIID,
@@ -118,3 +116,7 @@ class InstructorAssignmentViewStudentHeader extends React.Component {
 		);
 	}
 }
+
+export default decorate(AssignmentViewStudentHeader, [
+	Assignments.connect
+]);

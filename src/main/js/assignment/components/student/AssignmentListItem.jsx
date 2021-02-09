@@ -2,6 +2,7 @@ import './AssignmentListItem.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {decorate} from '@nti/lib-commons';
 import {encodeForURI} from '@nti/lib-ntiids';
 import {HOC} from '@nti/web-commons';
 
@@ -10,11 +11,7 @@ import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 import Assignments from '../bindings/Assignments';
 import TotalPointsLabel from '../shared/TotalPointsLabel';
 
-
-export default
-@Assignments.connect
-@HOC.ItemChanges.compose
-class AssignmentItem extends React.Component {
+class AssignmentListItem extends React.Component {
 
 	static propTypes = {
 		assignment: PropTypes.object.isRequired,
@@ -58,3 +55,9 @@ class AssignmentItem extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(AssignmentListItem, [
+	Assignments.connect,
+	HOC.ItemChanges.compose,
+]);

@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {SelectBox} from '@nti/web-commons';
 
 import Assignments from '../bindings/Assignments';
 
 const ORDER_BY = (name, i) => i.props.assignments[`ORDER_BY_${name}`];
 
-export default
-@Assignments.connect
 class SortBox extends React.Component {
 
 	static propTypes = {
@@ -41,3 +40,8 @@ class SortBox extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(SortBox, [
+	Assignments.connect
+]);

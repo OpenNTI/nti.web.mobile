@@ -1,6 +1,7 @@
 import './AssignmentHeader.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {DateTime} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -14,9 +15,7 @@ const t = scoped('nti-web-mobile.assignment.components.instructor.AssignmentHead
 	view: 'View Assignment'
 });
 
-export default
-@AssignmentSummary.connect
-class InstructorAssignmentHeader extends React.Component {
+class AssignmentHeader extends React.Component {
 	static propTypes = {
 		assignment: PropTypes.object,
 		store: PropTypes.object,
@@ -48,3 +47,7 @@ class InstructorAssignmentHeader extends React.Component {
 		);
 	}
 }
+
+export default decorate(AssignmentHeader, [
+	AssignmentSummary.connect
+]);

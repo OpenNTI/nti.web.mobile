@@ -2,6 +2,7 @@ import './GradebookTable.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {SortOrder} from '@nti/lib-interfaces';
+import {decorate} from '@nti/lib-commons';
 
 import AssignmentSummary from '../../bindings/AssignmentSummary';
 
@@ -14,9 +15,7 @@ import Actions from './ColumnActions';
 
 const COLUMNS = [Student, Completed, Score, Feedback, Actions];
 
-export default
-@AssignmentSummary.connect
-class GradebookTable extends React.Component {
+class GradeBookTable extends React.Component {
 
 	static propTypes = {
 		assignment: PropTypes.object,
@@ -50,3 +49,8 @@ class GradebookTable extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(GradeBookTable, [
+	AssignmentSummary.connect
+]);

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {Loading} from '@nti/web-commons';
 
 import {Component as ContextSender} from 'common/mixins/ContextSender';
@@ -10,10 +11,7 @@ import AssignmentSummary from '../bindings/AssignmentSummary';
 import AssignmentHeader from './AssignmentHeader';
 import GradebookTable from './gradebook-table/GradebookTable';
 
-export default
-@AssignmentSummary.connect
-@ShowAvatars.connect
-class InstructorAssignmentView extends React.Component {
+class AssignmentView extends React.Component {
 
 	static propTypes = {
 		assignment: PropTypes.object.isRequired,
@@ -61,3 +59,9 @@ async function getContext () {
 		href: context.makeHref(rootId + '/students/')
 	};
 }
+
+
+export default decorate(AssignmentView, [
+	AssignmentSummary.connect,
+	ShowAvatars.connect
+]);

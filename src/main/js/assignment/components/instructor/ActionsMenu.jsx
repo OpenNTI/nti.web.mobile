@@ -2,6 +2,7 @@ import './ActionsMenu.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {decorate} from '@nti/lib-commons';
 import {PropType as NTIID} from '@nti/lib-ntiids';
 import {HOC, Prompt} from '@nti/web-commons';
 import Logger from '@nti/util-logger';
@@ -23,10 +24,7 @@ const t = scoped('nti-web-mobile.assignment.components.instructor.ActionsMenu', 
 	}
 });
 
-export default
-@Assignments.connect
-@HOC.ItemChanges.compose
-class InstructorActionsMenu extends React.Component {
+class ActionsMenu extends React.Component {
 
 	static propTypes = {
 		userId: PropTypes.string.isRequired,
@@ -132,3 +130,9 @@ class InstructorActionsMenu extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(ActionsMenu, [
+	Assignments.connect,
+	HOC.ItemChanges.compose,
+]);

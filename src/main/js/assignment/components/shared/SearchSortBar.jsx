@@ -1,6 +1,7 @@
 import './SearchSortBar.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {BufferedInput} from '@nti/web-commons';
 import {scoped} from '@nti/lib-locale';
 
@@ -12,8 +13,6 @@ const t = scoped('nti-web-mobile.assignment.component.shared.SearchSortBar', {
 	placeholder: 'Search Assignments'
 });
 
-export default
-@AssignmentGroups.connect
 class SearchSortBar extends React.Component {
 	static propTypes = {
 		store: PropTypes.object
@@ -53,3 +52,7 @@ class SearchSortBar extends React.Component {
 		);
 	}
 }
+
+export default decorate(SearchSortBar, [
+	AssignmentGroups.connect
+]);

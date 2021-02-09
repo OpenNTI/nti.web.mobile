@@ -2,6 +2,7 @@ import './AssignmentListItem.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import {decorate} from '@nti/lib-commons';
 import {scoped} from '@nti/lib-locale';
 import {encodeForURI} from '@nti/lib-ntiids';
 
@@ -18,9 +19,7 @@ const DEFAULT_TEXT = {
 
 const t = scoped('assessment.assignments.list.item', DEFAULT_TEXT);
 
-export default
-@Assignments.connect
-class AssignmentItem extends React.Component {
+class AssignmentListItem extends React.Component {
 
 	static propTypes = {
 		assignment: PropTypes.object.isRequired,
@@ -50,3 +49,7 @@ class AssignmentItem extends React.Component {
 		);
 	}
 }
+
+export default decorate(AssignmentListItem, [
+	Assignments.connect
+]);

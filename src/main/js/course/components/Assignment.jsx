@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 import {Loading} from '@nti/web-commons';
 import {decodeFromURI} from '@nti/lib-ntiids';
 
@@ -15,8 +16,6 @@ const courseHref = (currPath) => {
 	return currPath.substring(0, currPath.indexOf('/assignment/'));
 };
 
-export default
-@AssignmentsProvider.connect
 class Assignment extends React.Component {
 
 	static propTypes = {
@@ -82,3 +81,8 @@ class Assignment extends React.Component {
 
 	}
 }
+
+
+export default decorate(Assignment, [
+	AssignmentsProvider.connect
+]);

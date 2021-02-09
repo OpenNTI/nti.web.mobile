@@ -1,14 +1,13 @@
 import './StudentLink.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import {decorate} from '@nti/lib-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 
 import {Receiver as ShowAvatars} from '../../bindings/ShowAvatars';
 
-export default
-@ShowAvatars.connect
 class StudentLink extends React.Component {
 
 	static propTypes = {
@@ -34,3 +33,8 @@ class StudentLink extends React.Component {
 		);
 	}
 }
+
+
+export default decorate(StudentLink, [
+	ShowAvatars.connect
+]);

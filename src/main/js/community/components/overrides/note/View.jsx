@@ -23,9 +23,7 @@ const cleanPath = (path, community) => {
 	return parts.slice(communityPartIndex + 3).join('/') || '/';
 };
 
-export default
-@Registry.register(handles)
-class NTIMobileCommunityTopic extends React.Component {
+export default class NTIMobileCommunityTopic extends React.Component {
 	static propTypes = {
 		course: PropTypes.object,
 		community: PropTypes.object,
@@ -83,3 +81,5 @@ class NTIMobileCommunityTopic extends React.Component {
 		);
 	}
 }
+
+Registry.register(handles)(NTIMobileCommunityTopic);
