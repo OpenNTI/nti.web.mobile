@@ -33,9 +33,12 @@
 		<script type="text/javascript">
 			window.onerror = function(msg) {
 				if (!window.appInitialized) {
-					window.location.replace('/login/unsupported.html?error='+encodeURIComponent(msg));
+					window.location.replace('/unsupported?error='+encodeURIComponent(msg));
 				}
 			}
+			// if (!new RegExp(<%= JSON.stringify(SUPPORTED_AGENTS) %>).test(navigator.userAgent)) {
+			// 	location.replace('/unsupported');
+			// }
 		</script>
 		<div id="content">
 			<!--html:server-values-->
