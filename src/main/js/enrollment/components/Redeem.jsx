@@ -2,16 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { decodeFromURI } from '@nti/lib-ntiids';
 
-import {Component as ContextSender} from 'common/mixins/ContextSender';
+import { Component as ContextSender } from 'common/mixins/ContextSender';
 
 import GiftRedeem from '../store-enrollment/components/GiftRedeem';
 
 export default class Redeem extends React.Component {
 	static propTypes = {
-		entryId: PropTypes.string
-	}
+		entryId: PropTypes.string,
+	};
 
-	render () {
+	render() {
 		return (
 			<React.Fragment>
 				<ContextSender getContext={getContext} {...this.props} />
@@ -21,7 +21,7 @@ export default class Redeem extends React.Component {
 	}
 }
 
-async function getContext () {
+async function getContext() {
 	//this will be called with the contextSender's context ("this")
 	const context = this;
 	const { entryId } = context.props;
@@ -30,10 +30,10 @@ async function getContext () {
 		{
 			label: 'Course',
 			ntiid: decodeFromURI(entryId),
-			href: context.makeHref('item/' + entryId + '/enrollment/')
+			href: context.makeHref('item/' + entryId + '/enrollment/'),
 		},
 		{
-			label: 'Redeem'
-		}
+			label: 'Redeem',
+		},
 	];
 }

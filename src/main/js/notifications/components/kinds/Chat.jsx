@@ -8,26 +8,23 @@ import createReactClass from 'create-react-class';
 
 import NoteableMixin from '../mixins/Noteable';
 
-
 export default createReactClass({
 	displayName: 'Chat',
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteableType: 'messageinfo'
+		noteableType: 'messageinfo',
 	},
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		// console.debug('One on One Chat:', this.props.item);
 	},
 
-	render () {
-		return (
-			<li className="notification-item"/>
-		);
-	}
+	render() {
+		return <li className="notification-item" />;
+	},
 });

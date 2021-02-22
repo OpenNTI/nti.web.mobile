@@ -9,13 +9,11 @@ export default createReactClass({
 	mixins: [ObjectLink],
 
 	propTypes: {
-		item: PropTypes.object.isRequired
+		item: PropTypes.object.isRequired,
 	},
 
-	render () {
-		const {item} = this.props;
-		return (
-			<a href={this.objectLink(item)} {...this.props} />
-		);
-	}
+	render() {
+		const { item } = this.props;
+		return <a href={this.objectLink(item)} {...this.props} />;
+	},
 });

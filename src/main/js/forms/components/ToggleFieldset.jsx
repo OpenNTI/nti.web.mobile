@@ -12,31 +12,31 @@ export default class extends React.Component {
 		field: PropTypes.object.isRequired,
 		renderField: PropTypes.func.isRequired,
 		translator: PropTypes.func.isRequired,
-		onChange: PropTypes.func
+		onChange: PropTypes.func,
 	};
 
 	state = {
 		fieldset: this.props.field.fieldsetOff,
-		fieldValues: {}
-	}
+		fieldValues: {},
+	};
 
-	onToggle = (event) => {
+	onToggle = event => {
 		let config = this.props.field;
 		let fs = event.target.checked ? config.fieldsetOn : config.fieldsetOff;
 		this.setState({
-			fieldset: fs
+			fieldset: fs,
 		});
-		if(isFunction(this.props.onChange)) {
+		if (isFunction(this.props.onChange)) {
 			this.props.onChange(event);
 		}
 	};
 
-	render () {
-
+	render() {
 		let fieldset = this.state.fieldset;
 		let fields = (fieldset || {}).fields || [];
 		let displayFields = fields.map(field =>
-			this.props.renderField(field, this.state.fieldValues));
+			this.props.renderField(field, this.state.fieldValues)
+		);
 
 		// this.state.fieldset ? this.props.renderFieldset(this.props.translator, this.state.fieldValues, this.state.fieldset) : null;
 		let config = this.props.field;
@@ -45,7 +45,12 @@ export default class extends React.Component {
 		return (
 			<div>
 				<label>
-					<input type="checkbox" name={ref} ref={ref} onChange={this[onToggle]} />
+					<input
+						type="checkbox"
+						name={ref}
+						ref={ref}
+						onChange={this[onToggle]}
+					/>
 					<span>{config.label}</span>
 				</label>
 				{displayFields}

@@ -10,7 +10,9 @@ a.blockLink {
 $indent: 0.9375rem;
 
 .page-controls {
-	@include block-grid(3); //TODO: restyle without foundation mixins & grid system.
+	@include block-grid(
+		3
+	); //TODO: restyle without foundation mixins & grid system.
 
 	position: relative;
 	font-size: 0.875rem;
@@ -81,9 +83,12 @@ $indent: 0.9375rem;
 		width: auto;
 		border-radius: 0;
 	}
-	.breadcrumbs { border-width: 1px 0; }
+	.breadcrumbs {
+		border-width: 1px 0;
+	}
 
-	.comment-form, .forum-form {
+	.comment-form,
+	.forum-form {
 		margin-top: 1rem;
 
 		input {
@@ -283,7 +288,8 @@ $indent: 0.9375rem;
 			}
 		}
 
-		.meta, .activity {
+		.meta,
+		.activity {
 			font-size: 0.75rem;
 			display: block;
 			color: var(--tertiary-grey);
@@ -338,7 +344,8 @@ $indent: 0.9375rem;
 							margin-right: 0.25em;
 						}
 
-						.replies-wrapper, .likes {
+						.replies-wrapper,
+						.likes {
 							display: inline;
 							margin-right: 0.5rem;
 						}
@@ -349,7 +356,9 @@ $indent: 0.9375rem;
 	}
 
 	.nav-up {
-		@include grid-row(); //TODO: restyle without foundation mixins & grid system.
+		@include grid-row(
+
+		); //TODO: restyle without foundation mixins & grid system.
 		a {
 			display: block;
 			padding: $panel-padding;
@@ -382,7 +391,9 @@ $indent: 0.9375rem;
 }
 
 .forum-board-group {
-	@include grid-row(); //TODO: restyle without foundation mixins & grid system.
+	@include grid-row(
+
+	); //TODO: restyle without foundation mixins & grid system.
 
 	margin-top: $panel-margin-bottom;
 }

@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {DisplayName} from '@nti/web-commons';
+import { DisplayName } from '@nti/web-commons';
 
 import ProfileLink from 'profile/mixins/ProfileLink';
 
-function deprecated (o, k) { if (o[k]) { return new Error('Deprecated, use "entity"'); } }
+function deprecated(o, k) {
+	if (o[k]) {
+		return new Error('Deprecated, use "entity"');
+	}
+}
 
 export default createReactClass({
 	displayName: 'Mobile:DisplayName',
@@ -13,17 +17,12 @@ export default createReactClass({
 
 	//Mirror the propTypes of the Common DisplayName
 	propTypes: {
-		localeKey: PropTypes.oneOfType([
-			PropTypes.string,
-			PropTypes.func
-		]),
+		localeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 
 		tag: PropTypes.any,
 
-		entity: PropTypes.oneOfType([
-			PropTypes.object,
-			PropTypes.string
-		]).isRequired,
+		entity: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+			.isRequired,
 
 		username: deprecated,
 		user: deprecated,
@@ -43,17 +42,22 @@ export default createReactClass({
 		 *
 		 * @type {boolean}
 		 */
-		useGeneralName: PropTypes.bool
+		useGeneralName: PropTypes.bool,
 	},
 
-	onClick (e) {
-		const {entity} = this.props;
+	onClick(e) {
+		const { entity } = this.props;
 		this.navigateToProfile(entity, e);
 	},
 
-	render () {
-		const {suppressProfileLink, ...props} = this.props;
+	render() {
+		const { suppressProfileLink, ...props } = this.props;
 
-		return <DisplayName {...props} onClick={suppressProfileLink ? null : this.onClick}/>;
-	}
+		return (
+			<DisplayName
+				{...props}
+				onClick={suppressProfileLink ? null : this.onClick}
+			/>
+		);
+	},
 });

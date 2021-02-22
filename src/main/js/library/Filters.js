@@ -26,49 +26,51 @@ const getLabel = scoped('library.category', {
 		10: 'November %(year)s',
 		11: 'December %(year)s',
 		'not-set': ' ',
-	}
+	},
 });
 
-function courseSortComparatorFunc (a, b) {
+function courseSortComparatorFunc(a, b) {
 	const strComp = naturalSort();
 
-	return strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID)
-		|| strComp((a || {}).title, (b || {}).title);
+	return (
+		strComp((a || {}).ProviderUniqueID, (b || {}).ProviderUniqueID) ||
+		strComp((a || {}).title, (b || {}).title)
+	);
 }
 
-
-function splitBySemester (list) {
+function splitBySemester(list) {
 	let bins = {};
 
 	let add = (sort, label, i) => {
-		let o = bins[label] || {sort, label, items: []};
+		let o = bins[label] || { sort, label, items: [] };
 		bins[label] = o;
 		o.items.push(i);
 	};
 
-	list.forEach(item=> {
+	list.forEach(item => {
 		try {
 			let start = item.getStartDate();
 			let key = `archivedGroup.${start ? start.getMonth() : 'not-set'}`;
-			let bin = getLabel(key, {year: start ? start.getFullYear() : ' '});
+			let bin = getLabel(key, {
+				year: start ? start.getFullYear() : ' ',
+			});
 
 			add(start, bin, item);
-
 		} catch (e) {
 			logger.error(e);
 		}
 	});
 
-
 	bins = Object.values(bins);
-	bins.sort((a, b)=>b.sort - a.sort);
+	bins.sort((a, b) => b.sort - a.sort);
 
 	return bins;
 }
 
-
 const isUpcoming = item => item.getStartDate() > Date.now();
-const isArchived = item => (item = item.getEndDate(), item && item < Date.now());
+const isArchived = item => (
+	(item = item.getEndDate()), item && item < Date.now()
+);
 const isCurrent = item => !isArchived(item) && !isUpcoming(item);
 
 export default [
@@ -79,14 +81,17 @@ export default [
 		test: item => {
 			try {
 				return isUpcoming(item);
-			}
-			catch(e) {
-				logger.error('Filtering out bad Item: %o, because: %s', item,  e.message || e);
+			} catch (e) {
+				logger.error(
+					'Filtering out bad Item: %o, because: %s',
+					item,
+					e.message || e
+				);
 				return false;
 			}
 		},
 		sort: courseSortComparatorFunc,
-		split: splitBySemester
+		split: splitBySemester,
 	},
 	{
 		name: getLabel(CURRENT),
@@ -94,13 +99,16 @@ export default [
 		test: item => {
 			try {
 				return isCurrent(item);
-			}
-			catch(e) {
-				logger.error('Filtering out bad Item: %o, because: %s', item,  e.message || e);
+			} catch (e) {
+				logger.error(
+					'Filtering out bad Item: %o, because: %s',
+					item,
+					e.message || e
+				);
 				return false;
 			}
 		},
-		sort: courseSortComparatorFunc
+		sort: courseSortComparatorFunc,
 	},
 	{
 		name: getLabel(ARCHIVED),
@@ -108,13 +116,16 @@ export default [
 		test: item => {
 			try {
 				return isArchived(item);
-			}
-			catch(e) {
-				logger.error('Filtering out bad Item: %o, because: %s', item,  e.message || e);
+			} catch (e) {
+				logger.error(
+					'Filtering out bad Item: %o, because: %s',
+					item,
+					e.message || e
+				);
 				return false;
 			}
 		},
 		sort: courseSortComparatorFunc,
-		split: splitBySemester
-	}
+		split: splitBySemester,
+	},
 ];

@@ -1,24 +1,24 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {activateNavigationGuard, deactivateNavigationGuard} from '../Actions';
+import { activateNavigationGuard, deactivateNavigationGuard } from '../Actions';
 
 export default class extends React.Component {
 	static displayName = 'NavigationGuard';
 
 	static propTypes = {
-		message: PropTypes.string
+		message: PropTypes.string,
 	};
 
-	componentDidMount () {
-		activateNavigationGuard(()=> this.props.message);
+	componentDidMount() {
+		activateNavigationGuard(() => this.props.message);
 	}
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		deactivateNavigationGuard();
 	}
 
-	render () {
+	render() {
 		return null;
 	}
 }

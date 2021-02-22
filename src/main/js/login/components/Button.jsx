@@ -1,8 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-component';
+import { Link } from 'react-router-component';
 
-export default function LoginButton (props) {
-	return (
-		<Link {...props} className="tiny button"/>
-	);
+export default function LoginButton(props) {
+	return <Link {...props} className="tiny button" />;
 }

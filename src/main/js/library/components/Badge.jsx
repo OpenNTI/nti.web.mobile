@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {DateTime} from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
 
-import Filters, {ARCHIVED, UPCOMING} from '../Filters';
+import Filters, { ARCHIVED, UPCOMING } from '../Filters';
 
 Badge.propTypes = {
-	item: PropTypes.object.isRequired
+	item: PropTypes.object.isRequired,
 };
 
-export default function Badge ({item}) {
-
+export default function Badge({ item }) {
 	let type, label;
 	let flags = {};
 
 	for (let filter of Filters) {
-		if(filter.test(item)) {
+		if (filter.test(item)) {
 			type = filter;
 			flags[type.kind] = true;
 			break;
@@ -26,20 +25,22 @@ export default function Badge ({item}) {
 		if (type.kind === UPCOMING) {
 			label = (
 				<span>
-					<DateTime date={item.getStartDate()} className="long"/>
-					<DateTime date={item.getStartDate()} className="short" format={DateTime.MONTH_ABBR_DAY_YEAR}/>
+					<DateTime date={item.getStartDate()} className="long" />
+					<DateTime
+						date={item.getStartDate()}
+						className="short"
+						format={DateTime.MONTH_ABBR_DAY_YEAR}
+					/>
 				</span>
 			);
-		}
-		else if (type.kind === ARCHIVED) {
-			[{label}] = type.split([item]);
+		} else if (type.kind === ARCHIVED) {
+			[{ label }] = type.split([item]);
 		}
 	}
 
-	return !label ? <div/> : (
-		<div className={cx('nti-library-item-badge', flags)}>
-			{label}
-		</div>
+	return !label ? (
+		<div />
+	) : (
+		<div className={cx('nti-library-item-badge', flags)}>{label}</div>
 	);
-
 }

@@ -8,22 +8,22 @@ import Books from './containers/Books';
 import Features from './containers/Features';
 import Branding from './Branding';
 
-export default function Root () {
+export default function Root() {
 	return (
 		<div>
 			<NavigationBar>
-				<Branding position="left"/>
+				<Branding position="left" />
 			</NavigationBar>
 
-			<Features/>
+			<Features />
 
-			<Communities/>
+			<Communities />
 
-			<Courses/>
+			<Courses />
 
-			<Courses admin/>
+			<Courses admin />
 
-			<Books/>
+			<Books />
 		</div>
 	);
 }

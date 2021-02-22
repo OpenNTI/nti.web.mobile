@@ -5,13 +5,13 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
-import {scoped} from '@nti/lib-locale';
-import {getReturnURL} from '@nti/web-client';
-import {Mixins} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { getReturnURL } from '@nti/web-client';
+import { Mixins } from '@nti/web-commons';
 
 const t = scoped('app.login.oauth');
 
-function getServiceName (k) {
+function getServiceName(k) {
 	return k.split('.')[1].toLowerCase();
 }
 
@@ -21,42 +21,40 @@ export default createReactClass({
 
 	propTypes: {
 		rel: PropTypes.string,
-		link: PropTypes.object
+		link: PropTypes.object,
 	},
 
-	render () {
-		let {rel, link: {href, title} = {}, ...props} = this.props;
+	render() {
+		let { rel, link: { href, title } = {}, ...props } = this.props;
 		let base = this.getBasePath();
 		let service = getServiceName(rel);
 
 		href = Url.parse(href);
 		href.search = QueryString.stringify(
-			Object.assign(
-				QueryString.parse(href.search), {
-					success: getReturnURL() || base,
-					failure: Path.join(base, 'login/')
-				}));
+			Object.assign(QueryString.parse(href.search), {
+				success: getReturnURL() || base,
+				failure: Path.join(base, 'login/'),
+			})
+		);
 
 		href = href.format();
 
-
 		Object.assign(props, {
 			href,
-			className: 'oauth-button ' + service.toLowerCase()
+			className: 'oauth-button ' + service.toLowerCase(),
 		});
 
 		return (
 			<button {...props} onClick={this.handleClick}>
-				{t(service, {fallback: title})}
+				{t(service, { fallback: title })}
 			</button>
 		);
 	},
 
-
-	handleClick (e) {
+	handleClick(e) {
 		e.preventDefault();
 		e.stopPropagation();
 
 		global.location.replace(e.target.getAttribute('href'));
-	}
+	},
 });

@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Locations, Location, NotFound as Default} from 'react-router-component';
-import {decodeFromURI} from '@nti/lib-ntiids';
-import {Mixins} from '@nti/web-commons';
+import {
+	Locations,
+	Location,
+	NotFound as Default,
+} from 'react-router-component';
+import { decodeFromURI } from '@nti/lib-ntiids';
+import { Mixins } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import NotFound from 'notfound/components/View';
@@ -14,10 +18,7 @@ import Detail from './Detail';
 
 export default createReactClass({
 	displayName: 'content:discussions:View',
-	mixins: [
-		ContextSender,
-		Mixins.NavigatableMixin
-	],
+	mixins: [ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		pageSource: PropTypes.object,
@@ -27,59 +28,78 @@ export default createReactClass({
 		edit: PropTypes.bool,
 
 		contextOverride: PropTypes.object,
-		extraRouterProps: PropTypes.object
+		extraRouterProps: PropTypes.object,
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {};
 	},
 
+	componentDidMount() {
+		this.updateFromStore();
+	},
 
-	componentDidMount () { this.updateFromStore(); },
-
-	componentDidUpdate (prevProps) {
-		const {itemId} = this.props;
+	componentDidUpdate(prevProps) {
+		const { itemId } = this.props;
 		if (prevProps.itemId !== itemId) {
 			this.updateFromStore();
 		}
 	},
 
-	updateFromStore (props = this.props) {
-		const {store, pageSource, itemId: encodedId} = props;
+	updateFromStore(props = this.props) {
+		const { store, pageSource, itemId: encodedId } = props;
 		const itemId = decodeFromURI(encodedId);
 		const item = store.get(itemId);
 
-		this.setState({item, itemId}, () =>this.setPageSource(pageSource, itemId));
+		this.setState({ item, itemId }, () =>
+			this.setPageSource(pageSource, itemId)
+		);
 	},
 
+	getContext() {
+		const {
+			state: { item, itemId: ntiid },
+			props: { itemId: encodedId, contextOverride },
+		} = this;
 
-	getContext () {
-		const {state: {item, itemId: ntiid}, props: {itemId: encodedId, contextOverride}} = this;
-
-		if (contextOverride) { return contextOverride; }
+		if (contextOverride) {
+			return contextOverride;
+		}
 
 		return {
 			label: (item && item.title) || 'Note',
 			href: this.makeHref(encodedId),
-			ntiid
+			ntiid,
 		};
 	},
 
-
-	render () {
-		const {props: {edit, extraRouterProps}, state: {item}} = this;
+	render() {
+		const {
+			props: { edit, extraRouterProps },
+			state: { item },
+		} = this;
 
 		return !item ? (
-			<NotFound/>
+			<NotFound />
 		) : edit ? (
-			<Edit item={item} {...this.props} {...(extraRouterProps || {})}/>
+			<Edit item={item} {...this.props} {...(extraRouterProps || {})} />
 		) : (
 			<Locations contextual>
-				<Location path="/:commentId/edit(/*)" handler={ViewComment} root={item} {...this.props} edit/>
-				<Location path="/:commentId(/*)" handler={ViewComment} root={item} {...this.props}/>
-				<Default handler={Detail} item={item} {...this.props}/>
+				<Location
+					path="/:commentId/edit(/*)"
+					handler={ViewComment}
+					root={item}
+					{...this.props}
+					edit
+				/>
+				<Location
+					path="/:commentId(/*)"
+					handler={ViewComment}
+					root={item}
+					{...this.props}
+				/>
+				<Default handler={Detail} item={item} {...this.props} />
 			</Locations>
 		);
-	}
+	},
 });

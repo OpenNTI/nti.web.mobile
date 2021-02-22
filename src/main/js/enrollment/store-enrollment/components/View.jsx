@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Error as ErrorComponent, Loading, Mixins} from '@nti/web-commons';
+import { Error as ErrorComponent, Loading, Mixins } from '@nti/web-commons';
 
-import {priceItem} from '../Actions';
+import { priceItem } from '../Actions';
 import Store from '../Store';
 
 import StoreEnrollmentRoutes from './StoreEnrollmentRoutes';
 import Form from './PaymentForm';
-
 
 export default createReactClass({
 	displayName: 'StoreEnrollmentView',
@@ -22,25 +21,24 @@ export default createReactClass({
 			Purchasable: PropTypes.object,
 			getPurchasable: PropTypes.func,
 			getPurchasableForGifting: PropTypes.func,
-		}).isRequired
+		}).isRequired,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
-			loading: true
+			loading: true,
 		};
 	},
 
+	getPurchasable(forGifting = false) {
+		let { enrollment } = this.props;
 
-	getPurchasable (forGifting = false) {
-		let {enrollment} = this.props;
-
-		return forGifting ?
-			enrollment.getPurchasableForGifting() :
-			enrollment.getPurchasable();
+		return forGifting
+			? enrollment.getPurchasableForGifting()
+			: enrollment.getPurchasable();
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		let purchasable = this.getPurchasable();
 		priceItem(purchasable).then(
 			pricedItem => this.setState({ loading: false, pricedItem }),
@@ -48,19 +46,22 @@ export default createReactClass({
 		);
 	},
 
-	render () {
-
-		if(this.state.error) {
-			return <div className="column"><ErrorComponent error={this.state.error} /></div>;
+	render() {
+		if (this.state.error) {
+			return (
+				<div className="column">
+					<ErrorComponent error={this.state.error} />
+				</div>
+			);
 		}
 
-		if(this.state.loading) {
+		if (this.state.loading) {
 			return <Loading.Mask />;
 		}
 
 		let isGift = !!Store.getGiftInfo();
 		let purchasable = this.getPurchasable(isGift);
-		let {courseId, entryId} = this.props;
+		let { courseId, entryId } = this.props;
 
 		return (
 			<StoreEnrollmentRoutes
@@ -71,6 +72,5 @@ export default createReactClass({
 				defaultHandler={Form}
 			/>
 		);
-	}
-
+	},
 });

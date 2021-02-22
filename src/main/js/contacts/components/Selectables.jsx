@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Selection} from '@nti/lib-commons';
+import { Selection } from '@nti/lib-commons';
 
 import SwipeEntity from './SwipeEntity';
 
@@ -9,17 +9,17 @@ export default class extends React.Component {
 
 	static propTypes = {
 		entities: PropTypes.array.isRequired,
-		linkToProfile: PropTypes.any
+		linkToProfile: PropTypes.any,
 	};
 
-	state = {}
+	state = {};
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setUpSelectionModel();
 		this.rememberOriginalList();
 	}
 
-	componentDidUpdate (props) {
+	componentDidUpdate(props) {
 		if (props.entities !== this.props.entities) {
 			this.setUpSelectionModel();
 		}
@@ -27,30 +27,35 @@ export default class extends React.Component {
 
 	rememberOriginalList = (props = this.props) => {
 		this.setState({
-			original: (props.entities || []).slice()
+			original: (props.entities || []).slice(),
 		});
 	};
 
 	setUpSelectionModel = (props = this.props) => {
 		let selection = new Selection.EntitySelectionModel(props.entities);
 		this.setState({
-			selection
+			selection,
 		});
 	};
 
-	render () {
-		if(!this.state.original) {
+	render() {
+		if (!this.state.original) {
 			return null;
 		}
 
 		return (
 			<div>
 				<div className="swipers selectable-entities">
-					{
-						this.state.original.map(entity => {
-							return <SwipeEntity key={entity.getID()} {...this.props} selection={this.state.selection} entity={entity} />;
-						})
-					}
+					{this.state.original.map(entity => {
+						return (
+							<SwipeEntity
+								key={entity.getID()}
+								{...this.props}
+								selection={this.state.selection}
+								entity={entity}
+							/>
+						);
+					})}
 				</div>
 				{/* <SelectableEntities {...this.props} selection={this.state.selection} entities={this.state.original} /> */}
 			</div>

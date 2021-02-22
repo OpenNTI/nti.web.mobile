@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {decodeFromURI} from '@nti/lib-ntiids';
+import { decodeFromURI } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
-import {Loading, Mixins} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Loading, Mixins } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
 
-import {getCatalogEntry} from '../Api';
+import { getCatalogEntry } from '../Api';
 import * as Actions from '../Actions';
-import {DROP_COURSE} from '../Constants';
+import { DROP_COURSE } from '../Constants';
 import Store from '../Store';
 
 import DropOpen from './drop-widgets/DropOpen';
@@ -20,7 +20,7 @@ import DropFive from './drop-widgets/DropFive';
 const logger = Logger.get('enrollment:components:DropCourse');
 const t = scoped('enrollment.buttons', {
 	viewCatalog: 'View Catalog',
-	dropError: 'Unable to drop this course. Please contact support.'
+	dropError: 'Unable to drop this course. Please contact support.',
 });
 
 export default createReactClass({
@@ -29,42 +29,37 @@ export default createReactClass({
 
 	propTypes: {
 		courseId: PropTypes.string.isRequired,
-		entryId: PropTypes.string
+		entryId: PropTypes.string,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			loading: true,
 			dropped: false,
 		};
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		Store.addChangeListener(this.onEnrollmentChanged);
 	},
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		Store.removeChangeListener(this.onEnrollmentChanged);
 	},
 
-
-	getContext () {
+	getContext() {
 		return Promise.resolve([
 			{
-				label: 'Drop'
-			}
+				label: 'Drop',
+			},
 		]);
 	},
 
-
-	getCourseTitle () {
+	getCourseTitle() {
 		return (this.getEntry() || {}).Title;
 	},
 
-
-	getEntry ({entryId} = this.props) {
+	getEntry({ entryId } = this.props) {
 		const id = decodeFromURI(entryId);
 		const entry = this.state[id];
 
@@ -75,59 +70,57 @@ export default createReactClass({
 		return entry;
 	},
 
-
-	async resolveEntry (id) {
+	async resolveEntry(id) {
 		if (this.resolving === id) {
 			return;
 		}
 
 		this.resolving = id;
 
-		this.setState({loading: true});
+		this.setState({ loading: true });
 
 		const entry = await getCatalogEntry(id);
-		this.setState({[id]: entry});
+		this.setState({ [id]: entry });
 
 		if (this.resolving === id) {
-			this.setState({loading: false});
+			this.setState({ loading: false });
 			delete this.resolving;
 		}
 	},
 
-
-	onCancelClicked () {
+	onCancelClicked() {
 		global.history.back();
 	},
 
-
-	onConfirmClicked () {
+	onConfirmClicked() {
 		this.setState({
-			loading: true
+			loading: true,
 		});
 		Actions.dropCourse(this.props.courseId);
 	},
 
-
-	onEnrollmentChanged (event) {
-		let {courseId} = this.props;
-		let {action, result} = event;
+	onEnrollmentChanged(event) {
+		let { courseId } = this.props;
+		let { action, result } = event;
 
 		let isError = result && result instanceof Error;
 
-		if (action && action.type === DROP_COURSE && action.courseId === courseId) {
-
+		if (
+			action &&
+			action.type === DROP_COURSE &&
+			action.courseId === courseId
+		) {
 			this.setState({
 				loading: false,
 				dropped: !isError,
-				error: isError && result
+				error: isError && result,
 			});
 			// this.navigate('../', {replace: true});
 		}
 	},
 
-
-	render () {
-		let {dropped, loading, error} = this.state;
+	render() {
+		let { dropped, loading, error } = this.state;
 
 		let title = this.getCourseTitle();
 
@@ -139,19 +132,14 @@ export default createReactClass({
 			return this.renderPanel(title + ' dropped.');
 		}
 
-		if(error && error.statusCode === 403) {
+		if (error && error.statusCode === 403) {
 			return this.renderPanel(error.Message || t('dropError'));
 		} else if (error) {
 			return this.renderPanel(t('dropError'));
 		}
 
-		return (
-			<div>
-				{this.renderWidgets()}
-			</div>
-		);
+		return <div>{this.renderWidgets()}</div>;
 	},
-
 
 	/**
 	 * @returns {Element} the appropriate widget for each enrollment option.
@@ -159,7 +147,7 @@ export default createReactClass({
 	 * it's unlikely that the user is enrolled in more than
 	 * one option for a given course.
 	 */
-	renderWidgets () {
+	renderWidgets() {
 		const entry = this.getEntry();
 
 		const result = [];
@@ -167,7 +155,7 @@ export default createReactClass({
 		const widgetMap = {
 			'application/vnd.nextthought.courseware.openenrollmentoption': DropOpen,
 			'application/vnd.nextthought.courseware.storeenrollmentoption': DropStore,
-			'application/vnd.nextthought.courseware.fiveminuteenrollmentoption': DropFive
+			'application/vnd.nextthought.courseware.fiveminuteenrollmentoption': DropFive,
 		};
 
 		if (!entry) {
@@ -175,27 +163,37 @@ export default createReactClass({
 		}
 
 		for (let option of entry.getEnrollmentOptions()) {
-			const {MimeType} = option;
+			const { MimeType } = option;
 			const Widget = widgetMap[MimeType];
 
 			if (option.enrolled) {
 				if (Widget) {
-					result.push(<Widget {...this.props} courseTitle={this.getCourseTitle()} key={MimeType} />);
+					result.push(
+						<Widget
+							{...this.props}
+							courseTitle={this.getCourseTitle()}
+							key={MimeType}
+						/>
+					);
 				} else {
-					logger.warn('Enrolled in an unrecognized/supported enrollment option? %O', option);
+					logger.warn(
+						'Enrolled in an unrecognized/supported enrollment option? %O',
+						option
+					);
 				}
 			}
 		}
 
 		if (result.length === 0) {
-			return this.renderPanel('Unable to drop this course. (Perhaps you\'ve already dropped it?)');
+			return this.renderPanel(
+				"Unable to drop this course. (Perhaps you've already dropped it?)"
+			);
 		}
 
 		return result;
 	},
 
-
-	renderPanel (body) {
+	renderPanel(body) {
 		const catalogHref = this.getBasePath() + 'catalog/';
 		return (
 			<div className="enrollment-dropped">
@@ -203,8 +201,9 @@ export default createReactClass({
 					<div>{body}</div>
 				</figure>
 
-
-				<a className="button tiny" href={catalogHref}>{t('viewCatalog')}</a>
+				<a className="button tiny" href={catalogHref}>
+					{t('viewCatalog')}
+				</a>
 			</div>
 		);
 	},

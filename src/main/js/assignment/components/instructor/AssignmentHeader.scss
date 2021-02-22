@@ -1,6 +1,6 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
-@import "utils/mixins";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
+@import 'utils/mixins';
 
 .gradebook-assignment-header {
 	margin: 0;
@@ -9,7 +9,8 @@
 	border-bottom: 1px solid #ddd;
 	position: relative;
 	z-index: 99; // so the shadow isn't clipped by the table that follows
-	&::after { // shadow
+	&::after {
+		// shadow
 		content: '';
 		box-shadow: 0 -5px 15px 5px rgba(0, 0, 0, 0.2);
 		position: absolute;
@@ -35,7 +36,8 @@
 
 	$metafontsize: 0.625rem;
 
-	.meta, .extras {
+	.meta,
+	.extras {
 		font-size: $metafontsize;
 		color: var(--primary-blue);
 		text-transform: uppercase;

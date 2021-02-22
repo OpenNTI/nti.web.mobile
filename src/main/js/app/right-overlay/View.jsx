@@ -5,7 +5,7 @@ import Impersonate from './Impersonate';
 import UserCard from './UserCard';
 import Tabs from './tabs';
 
-export default function View () {
+export default function View() {
 	return (
 		<div className="nti-mobile-right-overlay">
 			<Impersonate />

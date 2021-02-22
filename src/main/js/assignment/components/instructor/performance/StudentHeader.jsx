@@ -4,7 +4,7 @@ import React from 'react';
 
 import AvatarProfileLink from 'profile/components/AvatarProfileLink';
 
-export default function StudentHeader ({userId}) {
+export default function StudentHeader({ userId }) {
 	return (
 		<div className="student assignment-header">
 			<AvatarProfileLink entity={userId} />
@@ -13,5 +13,5 @@ export default function StudentHeader ({userId}) {
 }
 
 StudentHeader.propTypes = {
-	userId: PropTypes.any.isRequired
+	userId: PropTypes.any.isRequired,
 };

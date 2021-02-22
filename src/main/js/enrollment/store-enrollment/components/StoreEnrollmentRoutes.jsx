@@ -3,9 +3,9 @@ import path from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Locations, Location, NotFound} from 'react-router-component';
-import {Mixins} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Locations, Location, NotFound } from 'react-router-component';
+import { Mixins } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -15,7 +15,6 @@ import Store from '../Store';
 import PaymentSuccess from './PaymentSuccess';
 import PaymentError from './PaymentError';
 import PaymentConfirm from './PaymentConfirm';
-
 
 const t = scoped('enrollment.store', {
 	title: 'Enroll with a One-Time Purchase',
@@ -33,113 +32,115 @@ export default createReactClass({
 		entryId: PropTypes.string.isRequired,
 		purchasable: PropTypes.object.isRequired,
 		defaultHandler: PropTypes.func.isRequired,
-		isGift: PropTypes.bool
+		isGift: PropTypes.bool,
 	},
 
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
-			isGift: false
+			isGift: false,
 		};
 	},
 
-	attachRouterRef (x) { this.router = x; },
+	attachRouterRef(x) {
+		this.router = x;
+	},
 
-	getContext () {
+	getContext() {
 		return Promise.resolve([
 			{
 				label: 'Enrollment Options',
-				href: this.makeHref(path.join('item', this.props.entryId, 'enrollment'))
+				href: this.makeHref(
+					path.join('item', this.props.entryId, 'enrollment')
+				),
 			},
 			{
-				label: t('title')
-			}
+				label: t('title'),
+			},
 		]);
 	},
 
-	nav () {
+	nav() {
 		this.router.navigate(...arguments);
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		Store.addChangeListener(this.storeChange);
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		Store.removeChangeListener(this.storeChange);
 	},
 
-	storeChange (event) {
-		const {router} = this;
+	storeChange(event) {
+		const { router } = this;
 
 		if (!router) {
-			return setTimeout(()=> this.storeChange(event), 100);
+			return setTimeout(() => this.storeChange(event), 100);
 		}
 
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
-		case Constants.PRICED_ITEM_RECEIVED:
-			this.setState({
-				loading: false,
-				pricedItem: event.pricedItem
-			});
-			break;
+		switch (event.type) {
+			//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
+			case Constants.PRICED_ITEM_RECEIVED:
+				this.setState({
+					loading: false,
+					pricedItem: event.pricedItem,
+				});
+				break;
 
-		case Constants.EDIT:
-			router.navigate('/' + (event.mode || ''), {replace: true});
-			break;
+			case Constants.EDIT:
+				router.navigate('/' + (event.mode || ''), { replace: true });
+				break;
 
-		case Constants.RESET:
-			router.navigate('/', {replace: true});
-			break;
+			case Constants.RESET:
+				router.navigate('/', { replace: true });
+				break;
 
-		case Constants.BILLING_INFO_VERIFIED:
-			router.navigate('confirm/');
-			break;
+			case Constants.BILLING_INFO_VERIFIED:
+				router.navigate('confirm/');
+				break;
 
-		case Constants.STRIPE_PAYMENT_SUCCESS:
+			case Constants.STRIPE_PAYMENT_SUCCESS:
+				if ((Store.getPaymentResult() || {}).redemptionCode) {
+					router.navigate('success/', { replace: true });
+				} else {
+					// the catalog entry we're rooted under may not exist when the catalog reloads
+					// so the success message lives under the root catalog router.
+					this.nav('./success/', { replace: true });
+				}
+				break;
 
-			if ((Store.getPaymentResult() || {}).redemptionCode) {
-				router.navigate('success/', {replace: true});
-			} else {
-				// the catalog entry we're rooted under may not exist when the catalog reloads
-				// so the success message lives under the root catalog router.
-				this.nav('./success/', {replace: true});
-			}
-			break;
-
-		case Constants.STRIPE_PAYMENT_FAILURE:
-		case Constants.POLLING_ERROR:
-			router.navigate('error/', {replace: true});
-			break;
-
+			case Constants.STRIPE_PAYMENT_FAILURE:
+			case Constants.POLLING_ERROR:
+				router.navigate('error/', { replace: true });
+				break;
 		}
 	},
 
-
-	render () {
+	render() {
 		const giftDoneLink = this.getBasePath() + 'catalog/';
 		const courseTitle = (this.props.purchasable || {}).title || '';
 
 		return (
 			<Locations contextual ref={this.attachRouterRef}>
-				<Location path="/confirm/"
+				<Location
+					path="/confirm/"
 					handler={PaymentConfirm}
 					{...this.props}
 				/>
-				<Location path="/success/"
+				<Location
+					path="/success/"
 					handler={PaymentSuccess}
 					{...this.props}
 					giftDoneLink={giftDoneLink}
 				/>
-				<Location path="/error/"
+				<Location
+					path="/error/"
 					handler={PaymentError}
 					courseTitle={courseTitle}
 					{...this.props}
 				/>
-				<NotFound handler={this.props.defaultHandler}
-					{...this.props}
-				/>
+				<NotFound handler={this.props.defaultHandler} {...this.props} />
 			</Locations>
 		);
-	}
+	},
 });

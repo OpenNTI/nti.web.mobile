@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Event} from '@nti/web-calendar';
+import { Event } from '@nti/web-calendar';
 import classnames from 'classnames/bind';
 
 import Page from '../Page';
@@ -11,12 +11,12 @@ import Styles from './View.css';
 const cx = classnames.bind(Styles);
 
 const MIME_TYPES = {
-	'application/vnd.nextthought.nticalendareventref': true
+	'application/vnd.nextthought.nticalendareventref': true,
 };
 
-const handles = (obj) => {
-	const {location} = obj || {};
-	const {item} = location || {};
+const handles = obj => {
+	const { location } = obj || {};
+	const { item } = location || {};
 
 	return item && MIME_TYPES[item.MimeType];
 };
@@ -24,17 +24,22 @@ const handles = (obj) => {
 export default class CourseItemCalendarEvent extends React.Component {
 	static propTypes = {
 		location: PropTypes.shape({
-			item: PropTypes.object
-		})
-	}
+			item: PropTypes.object,
+		}),
+	};
 
-	render () {
-		const {location} = this.props;
-		const {item: {CalendarEvent: event} = {}} = location || {};
+	render() {
+		const { location } = this.props;
+		const { item: { CalendarEvent: event } = {} } = location || {};
 
 		return (
 			<Page {...this.props}>
-				<Event.View event={event} className={cx('course-item-event')} nonDialog noControls />
+				<Event.View
+					event={event}
+					className={cx('course-item-event')}
+					nonDialog
+					noControls
+				/>
 			</Page>
 		);
 	}

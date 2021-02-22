@@ -1,23 +1,20 @@
 // import {Service} from '@nti/lib-interfaces';
 
-import {encodeForURI} from '@nti/lib-ntiids';
+import { encodeForURI } from '@nti/lib-ntiids';
 
 const isCourse = RegExp.prototype.test.bind(/\.courseinstance/i);
 
 export default class CourseObjectPathResolver {
-
-	static handles (o) {
-		let {MimeType} = o || {};
+	static handles(o) {
+		let { MimeType } = o || {};
 		return isCourse(MimeType);
 	}
 
-
-	static resolve (o) {
+	static resolve(o) {
 		return new CourseObjectPathResolver(o).getPath();
 	}
 
-
-	constructor (o) {
+	constructor(o) {
 		this.focusObject = o;
 		// this[Service] = o[Service];
 
@@ -26,7 +23,7 @@ export default class CourseObjectPathResolver {
 		// this.get = url => this[Service].get(url);
 	}
 
-	getPath () {
+	getPath() {
 		/*
 			/course/system-OID-0x09a0a6%3A5573657273%3ASxckbJ5KZAZ/   <-- course instance id
 		*/

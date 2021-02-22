@@ -2,11 +2,11 @@ import './ActionsMenu.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {decorate} from '@nti/lib-commons';
-import {PropType as NTIID} from '@nti/lib-ntiids';
-import {HOC, Prompt} from '@nti/web-commons';
+import { decorate } from '@nti/lib-commons';
+import { PropType as NTIID } from '@nti/lib-ntiids';
+import { HOC, Prompt } from '@nti/web-commons';
 import Logger from '@nti/util-logger';
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 
 import Assignments from '../bindings/Assignments';
 
@@ -14,18 +14,22 @@ import MenuTransitionGroup from './MenuTransitionGroup';
 
 const logger = Logger.get('assignment:components:instructor:ActionsMenu');
 
-const t = scoped('nti-web-mobile.assignment.components.instructor.ActionsMenu', {
-	reset: 'Reset Assignment',
-	excuse: 'Excuse Grade',
-	unexcuse: 'Unexcuse Grade',
-	resetWarning: {
-		self: 'This will reset the assignment. All work will be deleted and is not recoverable.',
-		other: 'This will reset this assignment for this student. It is not recoverable.\nFeedback and work will be deleted.'
+const t = scoped(
+	'nti-web-mobile.assignment.components.instructor.ActionsMenu',
+	{
+		reset: 'Reset Assignment',
+		excuse: 'Excuse Grade',
+		unexcuse: 'Unexcuse Grade',
+		resetWarning: {
+			self:
+				'This will reset the assignment. All work will be deleted and is not recoverable.',
+			other:
+				'This will reset this assignment for this student. It is not recoverable.\nFeedback and work will be deleted.',
+		},
 	}
-});
+);
 
 class ActionsMenu extends React.Component {
-
 	static propTypes = {
 		userId: PropTypes.string.isRequired,
 
@@ -40,33 +44,28 @@ class ActionsMenu extends React.Component {
 		 * 		.username
 		 * 		.grade
 		 */
-		item: PropTypes.object.isRequired
-	}
-
+		item: PropTypes.object.isRequired,
+	};
 
 	//This refocuses ItemChanges to the grade, instead of the summary item (since the grade is what changes)
-	static getItem (props = {}) {
-		const {grade} = props.item || {};
+	static getItem(props = {}) {
+		const { grade } = props.item || {};
 		return grade;
 	}
 
-
 	state = {
-		open: false
-	}
+		open: false,
+	};
 
-
-	getAssignmentId () {
-		const {item, assignmentId} = this.props;
+	getAssignmentId() {
+		const { item, assignmentId } = this.props;
 		return item.assignmentId || assignmentId;
 	}
 
-
-	getGrade () {
-		const {item} = this.props;
+	getGrade() {
+		const { item } = this.props;
 		return (item || {}).grade;
 	}
-
 
 	excuse = () => {
 		this.closeMenu();
@@ -75,12 +74,11 @@ class ActionsMenu extends React.Component {
 		if (grade) {
 			grade.excuseGrade();
 		}
-	}
-
+	};
 
 	resetAssignment = () => {
 		this.closeMenu();
-		const {assignments, item, userId} = this.props;
+		const { assignments, item, userId } = this.props;
 
 		const reset = () => {
 			return assignments.resetAssignment(this.getAssignmentId(), userId);
@@ -93,27 +91,26 @@ class ActionsMenu extends React.Component {
 		Prompt.areYouSure(msg)
 			.then(reset)
 			.then(
-				()=> logger.log('Assignment Reset'),
-				e => logger.error('Could not reset', e.stack || e.message || e));
-	}
-
+				() => logger.log('Assignment Reset'),
+				e => logger.error('Could not reset', e.stack || e.message || e)
+			);
+	};
 
 	toggleMenu = () => {
-		this.setState({open: !this.state.open});
+		this.setState({ open: !this.state.open });
+	};
+
+	closeMenu() {
+		this.setState({ open: false });
 	}
 
-
-	closeMenu () {
-		this.setState({open: false});
-	}
-
-
-	render () {
+	render() {
 		const grade = this.getGrade();
-		const {open} = this.state;
+		const { open } = this.state;
 		const classes = cx('gradebook-actions-menu', { open });
 
-		const excuseAction = grade && grade.isExcused() ? t('unexcuse') : t('excuse');
+		const excuseAction =
+			grade && grade.isExcused() ? t('unexcuse') : t('excuse');
 
 		return !grade ? null : (
 			<div onClick={this.toggleMenu} className={classes}>
@@ -130,7 +127,6 @@ class ActionsMenu extends React.Component {
 		);
 	}
 }
-
 
 export default decorate(ActionsMenu, [
 	Assignments.connect,

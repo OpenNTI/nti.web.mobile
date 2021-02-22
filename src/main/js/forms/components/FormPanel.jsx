@@ -15,25 +15,35 @@ export default class extends React.Component {
 		title: PropTypes.string,
 
 		children: PropTypes.any,
-		className: PropTypes.string
+		className: PropTypes.string,
 	};
 
 	static defaultProps = {
 		noValidate: true,
 		subhead: null,
-		title: null
+		title: null,
 	};
 
-	render () {
-		const {props: {children, className, busy, onSubmit, noValidate, title, subhead}} = this;
+	render() {
+		const {
+			props: {
+				children,
+				className,
+				busy,
+				onSubmit,
+				noValidate,
+				title,
+				subhead,
+			},
+		} = this;
 		const cssClasses = cx('form-panel', className, { busy });
 
 		return (
 			<div className={cssClasses}>
 				<form onSubmit={onSubmit} noValidate={noValidate}>
 					<div className="form-heading">
-						{title && (<h2>{title}</h2>)}
-						{subhead && (<p>{subhead}</p>)}
+						{title && <h2>{title}</h2>}
+						{subhead && <p>{subhead}</p>}
 					</div>
 					{children}
 				</form>

@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .forum-view {
 	background: #fff;
@@ -6,6 +6,7 @@
 	margin: 0 auto;
 }
 
-.forum-view, .forums-wrapper {
+.forum-view,
+.forums-wrapper {
 	@include clearfix;
 }

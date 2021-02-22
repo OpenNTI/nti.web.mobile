@@ -1,16 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {User, getAppUser} from '@nti/web-client';
-import {getModel} from '@nti/lib-interfaces';
+import { User, getAppUser } from '@nti/web-client';
+import { getModel } from '@nti/lib-interfaces';
 import Logger from '@nti/util-logger';
-import {Loading} from '@nti/web-commons';
+import { Loading } from '@nti/web-commons';
 
 import NotFound from 'notfound/components/View';
 
 import CommunityView from './community/View';
 import GroupView from './group/View';
 import UserView from './user/View';
-
 
 const Community = getModel('community');
 const UserModel = getModel('user');
@@ -21,57 +20,56 @@ export default class extends React.Component {
 	static displayName = 'profile:View';
 
 	static propTypes = {
-		entityId: PropTypes.string.isRequired
+		entityId: PropTypes.string.isRequired,
 	};
 
 	state = {};
 
 	updateEntity = async (props = this.props) => {
-		const {entityId} = props;
+		const { entityId } = props;
 
-		await new Promise(x => (this.setState({entity: null}, x)));
+		await new Promise(x => this.setState({ entity: null }, x));
 
 		try {
-			const entity = await (entityId === 'me' ? getAppUser() : User.resolve(props, true));
+			const entity = await (entityId === 'me'
+				? getAppUser()
+				: User.resolve(props, true));
 			logger.debug('Resolved entity: %o', entity);
-			this.setState({entity});
+			this.setState({ entity });
 		} catch (error) {
 			logger.debug('Failed to resolved entity: %s', error.stack || error);
-			this.setState({error, entity: false});
+			this.setState({ error, entity: false });
 		}
+	};
 
-	}
-
-
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (prevProps.entityId !== this.props.entityId) {
 			this.updateEntity(this.props);
 		}
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		this.updateEntity();
 	}
 
-	render () {
-		const {entityId} = this.props;
-		let {entity} = this.state;
-
+	render() {
+		const { entityId } = this.props;
+		let { entity } = this.state;
 
 		if (entity == null) {
-			return ( <Loading.Mask /> );
+			return <Loading.Mask />;
 		}
 
 		if (entity === false) {
-			return ( <NotFound/> );
+			return <NotFound />;
 		}
 
 		return entity instanceof Community ? (
-			<CommunityView entity={entity}/>
+			<CommunityView entity={entity} />
 		) : entity instanceof UserModel ? (
-			<UserView entity={entity} isMe={entityId === 'me'}/>
+			<UserView entity={entity} isMe={entityId === 'me'} />
 		) : (
-			<GroupView entity={entity}/>
+			<GroupView entity={entity} />
 		);
 	}
 }

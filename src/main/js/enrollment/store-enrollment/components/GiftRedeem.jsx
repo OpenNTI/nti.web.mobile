@@ -14,7 +14,7 @@ import { getCatalogEntry } from '../../Api';
 
 const DEFAULT_TEXT = {
 	formTitle: 'Redeem this course with an Access Key.',
-	redeemButton: 'Redeem'
+	redeemButton: 'Redeem',
 };
 
 const t = scoped('ENROLLMENT.GIFT.REDEEM', DEFAULT_TEXT);
@@ -22,14 +22,14 @@ const t = scoped('ENROLLMENT.GIFT.REDEEM', DEFAULT_TEXT);
 export default class GiftRedeem extends React.Component {
 	static propTypes = {
 		entryId: PropTypes.string.isRequired,
-		accessKey: PropTypes.string
+		accessKey: PropTypes.string,
 	};
 
 	state = {
 		accessKey: '',
 		errors: {},
 		busy: false,
-		success: false
+		success: false,
 	};
 
 	getPurchasable = async () => {
@@ -65,11 +65,11 @@ export default class GiftRedeem extends React.Component {
 		);
 	};
 
-	onChange = ({ target: { value }}) => {
+	onChange = ({ target: { value } }) => {
 		this.setState({ accessKey: value });
 	};
 
-	render () {
+	render() {
 		const { success, busy, accessKey, errors } = this.state;
 
 		if (busy) {
@@ -85,7 +85,11 @@ export default class GiftRedeem extends React.Component {
 		const disabled = (accessKey || '').trim().length === 0;
 
 		return (
-			<FormPanel className="gift-redeem-form" title={title} onSubmit={this.handleSubmit}>
+			<FormPanel
+				className="gift-redeem-form"
+				title={title}
+				onSubmit={this.handleSubmit}
+			>
 				<div className="gift-input-redeem">
 					<input
 						type="text"
@@ -95,7 +99,9 @@ export default class GiftRedeem extends React.Component {
 						value={accessKey}
 						onChange={this.handleChange}
 					/>
-					<button type="submit" disabled={disabled}>{t('redeemButton')}</button>
+					<button type="submit" disabled={disabled}>
+						{t('redeemButton')}
+					</button>
 				</div>
 				<FormErrors errors={errors} />
 			</FormPanel>

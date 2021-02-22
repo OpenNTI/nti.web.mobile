@@ -6,19 +6,19 @@ import Topic from 'forums/components/TopicView';
 import Page from '../Page';
 import Registry from '../Registry';
 
-function getTopicId (location) {
-	const {item} = location || {};
+function getTopicId(location) {
+	const { item } = location || {};
 
 	return item && item.target;
 }
 
 const MIME_TYPES = {
 	'application/vnd.nextthought.discussionref': true,
-	'application/vnd.nextthought.discussion': true
+	'application/vnd.nextthought.discussion': true,
 };
-const handles = (obj) => {
-	const {location} = obj || {};
-	const {item} = location || {};
+const handles = obj => {
+	const { location } = obj || {};
+	const { item } = location || {};
 
 	return item && MIME_TYPES[item.MimeType];
 };
@@ -27,39 +27,40 @@ export default class CourseItemDiscussion extends React.Component {
 	static propTypes = {
 		location: PropTypes.object,
 		course: PropTypes.object,
-		lessonInfo: PropTypes.object
-	}
+		lessonInfo: PropTypes.object,
+	};
 
 	static contextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
-	getContextOverride () {
-		const {location} = this.props;
-		const {router} = this.context;
+	getContextOverride() {
+		const { location } = this.props;
+		const { router } = this.context;
 
 		return {
-			href: router.makeHref(router.getPath().replace(/\/discussions.*$/g, '/')),
-			label: location && location.item && location.item.title
+			href: router.makeHref(
+				router.getPath().replace(/\/discussions.*$/g, '/')
+			),
+			label: location && location.item && location.item.title,
 		};
 	}
 
-
 	getAnalyticsData = () => {
-		const {course, lessonInfo} = this.props;
+		const { course, lessonInfo } = this.props;
 		const context = [
 			course && course.getID(),
-			lessonInfo && lessonInfo.outlineNodeId
+			lessonInfo && lessonInfo.outlineNodeId,
 		];
 
 		return {
 			context: context.filter(Boolean),
-			rootContextId: course && course.getID()
+			rootContextId: course && course.getID(),
 		};
-	}
+	};
 
-	render () {
-		const {location} = this.props;
+	render() {
+		const { location } = this.props;
 		const topicId = getTopicId(location);
 
 		return (

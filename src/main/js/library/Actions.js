@@ -1,23 +1,22 @@
-import {dispatch} from '@nti/lib-dispatcher';
+import { dispatch } from '@nti/lib-dispatcher';
 
-import {getLibrary} from './Api';
-import {LOADED_LIBRARY} from './Constants';
+import { getLibrary } from './Api';
+import { LOADED_LIBRARY } from './Constants';
 
 let willLoad;
 
-
-export function load (forceLoad) {
+export function load(forceLoad) {
 	let result = willLoad;
 	if (!result || forceLoad) {
 		//This should only fire for actual loads and not cached (previously-resolved) promises.
-		willLoad = result = getLibrary(forceLoad)
-			.then(library => dispatch(LOADED_LIBRARY, library));
+		willLoad = result = getLibrary(forceLoad).then(library =>
+			dispatch(LOADED_LIBRARY, library)
+		);
 	}
 
 	return result;
 }
 
-
-export function reload () {
+export function reload() {
 	return load(true);
 }

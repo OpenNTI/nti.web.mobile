@@ -1,5 +1,9 @@
 .create-button {
-	&, &:active, &:focus, &:hover, &:visited {
+	&,
+	&:active,
+	&:focus,
+	&:hover,
+	&:visited {
 		background-color: var(--secondary-green);
 	}
 

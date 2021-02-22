@@ -4,7 +4,7 @@ import React from 'react';
 export default class extends React.Component {
 	static displayName = 'performance:ColumnFeedback';
 
-	static label () {
+	static label() {
 		return 'Feedback';
 	}
 
@@ -12,15 +12,12 @@ export default class extends React.Component {
 	static sort = 'feedbackCount';
 
 	static propTypes = {
-		item: PropTypes.object.isRequired
+		item: PropTypes.object.isRequired,
 	};
 
-	render () {
+	render() {
+		const { item } = this.props;
 
-		const {item} = this.props;
-
-		return (
-			<div>{item.feedbackCount > 0 && item.feedbackCount}</div>
-		);
+		return <div>{item.feedbackCount > 0 && item.feedbackCount}</div>;
 	}
 }

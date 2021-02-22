@@ -1,12 +1,14 @@
-import {User} from '@nti/web-profiles';
-import {User as UserUtil} from '@nti/web-client';
-import {Router, Route} from '@nti/web-routing';
+import { User } from '@nti/web-profiles';
+import { User as UserUtil } from '@nti/web-client';
+import { Router, Route } from '@nti/web-routing';
 
 export default Router.for([
 	Route({
 		path: '/',
 		getRouteFor: (obj, context) => {
-			if (!(obj.isUser || obj.isGroup || obj.isCommunity)) { return; }
+			if (!(obj.isUser || obj.isGroup || obj.isCommunity)) {
+				return;
+			}
 
 			const base = `mobile/profile/${UserUtil.encode(obj.Username)}/`;
 
@@ -16,5 +18,6 @@ export default Router.for([
 
 			return base;
 		},
-		component: User.Edit})
+		component: User.Edit,
+	}),
 ]);

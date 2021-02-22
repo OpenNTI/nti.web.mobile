@@ -7,7 +7,7 @@ import {Locations, Location} from 'react-router-component';
 import Viewer from '../Viewer';
 */
 
-describe('Content Viewer', ()=> {
+describe('Content Viewer', () => {
 	test('TODO: write tests', () => {
 		expect(true).toBeTruthy();
 	});

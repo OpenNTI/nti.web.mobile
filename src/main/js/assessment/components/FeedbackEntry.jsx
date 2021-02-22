@@ -1,27 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 
 import Editor from './FeedbackEditor';
 
 const t = scoped('assessment.assignment.feedback', {
-	entryPlaceholder: 'Add a comment'
+	entryPlaceholder: 'Add a comment',
 });
 
-
-
 export default class FeedbackEntry extends React.Component {
-
 	static propTypes = {
 		feedback: PropTypes.object.isRequired,
-		onSubmit: PropTypes.func.isRequired
+		onSubmit: PropTypes.func.isRequired,
 	};
 
 	state = {
-		active: false
+		active: false,
 	};
 
-	toggleEditor = (e) => {
+	toggleEditor = e => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -30,8 +27,8 @@ export default class FeedbackEntry extends React.Component {
 		this.setState({ active: !this.state.active });
 	};
 
-	render () {
-		let {feedback} = this.props;
+	render() {
+		let { feedback } = this.props;
 		if (!feedback || !feedback.getLink('edit')) {
 			return null;
 		}
@@ -39,25 +36,34 @@ export default class FeedbackEntry extends React.Component {
 		return (
 			<div className="feedback entry">
 				<div className="input-area">
-					{this.state.active ?
-						<Editor onSubmit={this.onSubmit} onCancel={this.toggleEditor}/>
-						:
-						<a href="#" className="placeholder" onClick={this.toggleEditor}>{t('entryPlaceholder')}</a>
-					}
+					{this.state.active ? (
+						<Editor
+							onSubmit={this.onSubmit}
+							onCancel={this.toggleEditor}
+						/>
+					) : (
+						<a
+							href="#"
+							className="placeholder"
+							onClick={this.toggleEditor}
+						>
+							{t('entryPlaceholder')}
+						</a>
+					)}
 				</div>
 			</div>
 		);
 	}
 
-	onSubmit = (value) => {
+	onSubmit = value => {
 		let thenable = this.props.onSubmit(value);
 		if (!thenable) {
 			return;
 		}
 
-		return thenable.then(
-			()=> {//success, close editor
-				this.setState({active: false});
-			});
+		return thenable.then(() => {
+			//success, close editor
+			this.setState({ active: false });
+		});
 	};
 }

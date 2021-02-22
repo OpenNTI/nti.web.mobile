@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {User} from '@nti/web-client';
+import { User } from '@nti/web-client';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
@@ -18,16 +18,15 @@ import Achievements from './Achievements';
 import Thoughts from './Thoughts';
 import Transcripts from './Transcripts';
 
-
 const ROUTES = [
-	{path: '/thoughts(/*)',			handler: Thoughts},
-	{path: '/activity(/)',			handler: Activity },
-	{path: '/achievements(/*)',		handler: Achievements },
-	{path: '/edit(/)',              handler: Edit },
-	{path: '/about(/*)',			handler: About },
-	{path: '/transcripts(/*)',      handler: Transcripts},
-	{path: '/memberships(/*)',		handler: Memberships },
-	{}//default
+	{ path: '/thoughts(/*)', handler: Thoughts },
+	{ path: '/activity(/)', handler: Activity },
+	{ path: '/achievements(/*)', handler: Achievements },
+	{ path: '/edit(/)', handler: Edit },
+	{ path: '/about(/*)', handler: About },
+	{ path: '/transcripts(/*)', handler: Transcripts },
+	{ path: '/memberships(/*)', handler: Memberships },
+	{}, //default
 ];
 
 export default createReactClass({
@@ -36,29 +35,30 @@ export default createReactClass({
 
 	propTypes: {
 		entity: PropTypes.object.isRequired,
-		isMe: PropTypes.bool
+		isMe: PropTypes.bool,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {};
 	},
 
-	getContext () {
+	getContext() {
 		const path = this.getBasePath();
 		const href = this.profileHref();
 		return Promise.resolve([
 			{
-				href: path, label: 'Home'
-			}, {
+				href: path,
+				label: 'Home',
+			},
+			{
 				href,
-				label: 'Profile'
-			}
+				label: 'Profile',
+			},
 		]);
 	},
 
-
-	getIsMeRedirect () {
-		const {entity} = this.props;
+	getIsMeRedirect() {
+		const { entity } = this.props;
 		const pathname = global.location && global.location.pathname;
 		const base = this.getBasePath();
 
@@ -66,12 +66,13 @@ export default createReactClass({
 			return false;
 		}
 
-		return `${base}profile/${User.encode(entity.Username)}/${pathname.replace(`${base}profile/me/`, '')}`;
+		return `${base}profile/${User.encode(
+			entity.Username
+		)}/${pathname.replace(`${base}profile/me/`, '')}`;
 	},
 
-
-	render () {
-		let {entity, isMe} = this.props;
+	render() {
+		let { entity, isMe } = this.props;
 		let redirect = this.getIsMeRedirect();
 
 		if (!entity) {
@@ -79,21 +80,24 @@ export default createReactClass({
 		}
 
 		if (isMe && redirect) {
-			return (
-				<Redirect location={redirect} force />
-			);
+			return <Redirect location={redirect} force />;
 		}
 
-		return React.createElement(Router.Locations, {ref: 'router', contextual: true},
-			...ROUTES.map(route=>
+		return React.createElement(
+			Router.Locations,
+			{ ref: 'router', contextual: true },
+			...ROUTES.map(route =>
 				route.path ? (
-					<Router.Location {...route}
-						handler={Page} pageContent={route.handler}
+					<Router.Location
+						{...route}
+						handler={Page}
+						pageContent={route.handler}
 						entity={entity}
 					/>
 				) : (
-					<Router.NotFound handler={Redirect} location="/about/"/>
+					<Router.NotFound handler={Redirect} location="/about/" />
 				)
-			));
-	}
+			)
+		);
+	},
 });

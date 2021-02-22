@@ -7,18 +7,20 @@ import GradeBox from '../GradeBox';
 export default class GradebookColumnScore extends React.Component {
 	static propTypes = {
 		item: PropTypes.object.isRequired, // UserGradeBookSummary object
-		assignmentId: PropTypes.string.isRequired
-	}
+		assignmentId: PropTypes.string.isRequired,
+	};
 
-	static label = () => 'Score'
-	static className = 'col-score'
-	static sort = 'Grade'
+	static label = () => 'Score';
+	static className = 'col-score';
+	static sort = 'Grade';
 
-
-	render () {
-
-		const {props: {item: {HistoryItemSummary}}} = this;
-		const {grade} = HistoryItemSummary || {};
+	render() {
+		const {
+			props: {
+				item: { HistoryItemSummary },
+			},
+		} = this;
+		const { grade } = HistoryItemSummary || {};
 
 		return (
 			<div>

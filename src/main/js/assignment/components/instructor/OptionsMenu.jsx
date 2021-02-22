@@ -2,57 +2,48 @@ import './OptionsMenu.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {decorate} from '@nti/lib-commons';
+import { decorate } from '@nti/lib-commons';
 
 import AssignmentSummary from '../bindings/AssignmentSummary';
-import {Receiver as ShowAvatars} from '../bindings/ShowAvatars';
+import { Receiver as ShowAvatars } from '../bindings/ShowAvatars';
 
 import MenuTransitionGroup from './MenuTransitionGroup';
 import PageSizeMenuOption from './PageSizeMenuOption';
 
 class OptionsMenu extends React.Component {
-
 	static propTypes = {
 		showAvatars: PropTypes.bool,
 		setShowAvatars: PropTypes.func,
 		store: PropTypes.object,
-	}
+	};
 
 	state = {
-		open: false
-	}
-
+		open: false,
+	};
 
 	toggleMenu = () => {
-		this.setState(({open}) => ({ open: !open }));
-	}
+		this.setState(({ open }) => ({ open: !open }));
+	};
 
-
-	setPageSize = (num) => {
+	setPageSize = num => {
 		this.props.store.setPageSize(num);
-	}
+	};
 
-
-	toggleAvatars = (event) => {
-		const {showAvatars, setShowAvatars} = this.props;
+	toggleAvatars = event => {
+		const { showAvatars, setShowAvatars } = this.props;
 
 		event.stopPropagation(); // leave the menu open
 
 		setShowAvatars(!showAvatars);
-	}
+	};
 
-	render () {
+	render() {
 		const {
-			props: {
-				showAvatars,
-				store
-			},
-			state: {
-				open
-			}
+			props: { showAvatars, store },
+			state: { open },
 		} = this;
 
-		const classes = cx('options-menu-wrapper', {open});
+		const classes = cx('options-menu-wrapper', { open });
 
 		const values = [50, 75, 100];
 
@@ -62,17 +53,25 @@ class OptionsMenu extends React.Component {
 				<MenuTransitionGroup>
 					{open && (
 						<ul className="options-menu">
-							<li key="title" className="title">Display</li>
+							<li key="title" className="title">
+								Display
+							</li>
 							{values.map(value => (
 								<PageSizeMenuOption
 									key={value}
 									value={value}
 									onClick={this.setPageSize}
-									className={cx({'selected': store.getPageSize() === value})}
+									className={cx({
+										selected: store.getPageSize() === value,
+									})}
 								/>
 							))}
 							<li onClick={this.toggleAvatars}>
-								<input type="checkbox" onChange={this.toggleAvatars} checked={showAvatars} />
+								<input
+									type="checkbox"
+									onChange={this.toggleAvatars}
+									checked={showAvatars}
+								/>
 								<span> Show Avatars</span>
 							</li>
 						</ul>
@@ -83,8 +82,7 @@ class OptionsMenu extends React.Component {
 	}
 }
 
-
 export default decorate(OptionsMenu, [
 	AssignmentSummary.connect,
-	ShowAvatars.connect
+	ShowAvatars.connect,
 ]);

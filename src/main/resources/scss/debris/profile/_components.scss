@@ -1,19 +1,19 @@
-@import "components/avatar-grid";
-@import "components/community-head";
-@import "components/community-info";
-@import "components/edit";
-@import "components/forum-view";
-@import "components/head";
-@import "components/invitation-code";
-@import "components/memberships";
-@import "components/membership-buttons";
-@import "components/profile-cards";
-@import "components/members";
-@import "components/profile-body-container";
-@import "components/profile-card-interests";
-@import "components/social-links";
-@import "components/topic";
-@import "components/write-something";
+@import 'components/avatar-grid';
+@import 'components/community-head';
+@import 'components/community-info';
+@import 'components/edit';
+@import 'components/forum-view';
+@import 'components/head';
+@import 'components/invitation-code';
+@import 'components/memberships';
+@import 'components/membership-buttons';
+@import 'components/profile-cards';
+@import 'components/members';
+@import 'components/profile-body-container';
+@import 'components/profile-card-interests';
+@import 'components/social-links';
+@import 'components/topic';
+@import 'components/write-something';
 
 .profile-wrapper {
 	padding: 0.625rem;
@@ -110,7 +110,8 @@
 		margin: 0;
 	}
 
-	button, .button {
+	button,
+	.button {
 		margin: 0.75rem;
 		margin-right: 0;
 		padding: 0.5rem 1.5rem;

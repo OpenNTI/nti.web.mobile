@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .author-info {
 	position: relative;
@@ -64,9 +64,11 @@
 		}
 	}
 
-	address { display: inline; }
+	address {
+		display: inline;
+	}
 
-	a[rel=author] {
+	a[rel='author'] {
 		margin-right: 0.3125rem;
 		display: inline-block;
 		max-width: 12.5rem;

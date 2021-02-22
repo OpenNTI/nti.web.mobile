@@ -3,16 +3,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import Logger from '@nti/util-logger';
-import {declareCustomElement, getEventTarget} from '@nti/lib-dom';
+import { declareCustomElement, getEventTarget } from '@nti/lib-dom';
 import isTouchDevice from '@nti/util-detection-touch';
-import {rawContent, buffer} from '@nti/lib-commons';
-import {Mixins, NTIContent} from '@nti/web-commons';
+import { rawContent, buffer } from '@nti/lib-commons';
+import { Mixins, NTIContent } from '@nti/web-commons';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
-import {getWidget} from './widgets';
+import { getWidget } from './widgets';
 
-function getComparable (o) {
+function getComparable(o) {
 	return o && o.page;
 }
 
@@ -21,63 +21,61 @@ declareCustomElement('widget');
 
 const logger = Logger.get('content:viewer:body');
 
-function getContextWrapper (context) {
+function getContextWrapper(context) {
 	return class ContextWrapper extends React.Component {
-		static propTypes = { children: PropTypes.any }
+		static propTypes = { children: PropTypes.any };
 
-		static childContextTypes = Object.keys(context).reduce((_,p) => (_[p] = PropTypes.any, _), {})
+		static childContextTypes = Object.keys(context).reduce(
+			(_, p) => ((_[p] = PropTypes.any), _),
+			{}
+		);
 
-		getChildContext () {
+		getChildContext() {
 			return context;
 		}
 
-		render () {
+		render() {
 			return this.props.children;
 		}
 	};
 }
 
-
 export default class Content extends React.Component {
-
 	static propTypes = {
 		contentPackage: PropTypes.object,
 		page: PropTypes.object.isRequired,
 		pageId: PropTypes.string.isRequired,
 		onContentReady: PropTypes.func,
-		onUserSelectionChange: PropTypes.func
-	}
+		onUserSelectionChange: PropTypes.func,
+	};
 
 	static contextTypes = {
 		...ContextAccessor.contextTypes,
 		...Mixins.NavigationAware.contextTypes,
 		analyticsManager: PropTypes.object.isRequired,
-	}
-
+	};
 
 	static defaultProps = {
 		onContentReady: () => {},
-		onUserSelectionChange: hasSelection => logger.debug('Touch ended, has selection?', hasSelection)
-	}
+		onUserSelectionChange: hasSelection =>
+			logger.debug('Touch ended, has selection?', hasSelection),
+	};
 
+	state = { pageWidgets: {} };
 
-	state = { pageWidgets: {} }
-
-
-	componentDidMount () {
+	componentDidMount() {
 		this.onContentMaybeReady();
 	}
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		this.scheduleUpdate.cancel();
 		this.cleanupWidgets();
 		this.unmounted = true;
 	}
 
-
-	shouldComponentUpdate (prevProps) {
-		const shouldUpdate = getComparable(prevProps) !== getComparable(this.props);
+	shouldComponentUpdate(prevProps) {
+		const shouldUpdate =
+			getComparable(prevProps) !== getComparable(this.props);
 
 		if (shouldUpdate) {
 			this.cleanupWidgets();
@@ -86,26 +84,27 @@ export default class Content extends React.Component {
 		return shouldUpdate;
 	}
 
-	componentDidUpdate (prevProps) {
-		const shouldUpdate = getComparable(prevProps) !== getComparable(this.props);
+	componentDidUpdate(prevProps) {
+		const shouldUpdate =
+			getComparable(prevProps) !== getComparable(this.props);
 
 		this.onContentMaybeReady(shouldUpdate);
 	}
 
-
-	onContentMaybeReady (shouldUpdate) {
+	onContentMaybeReady(shouldUpdate) {
 		if (this.updatingPrestine) {
 			return;
 		}
 		//See if we need to re-mount/render our components...
 		let widgets = this.getPageWidgets();
 		let widgetCount = Object.keys(widgets).length;
-		shouldUpdate = shouldUpdate || (widgetCount === 0 && !this.state.prestine);
+		shouldUpdate =
+			shouldUpdate || (widgetCount === 0 && !this.state.prestine);
 
 		if (widgets && this.content) {
 			logger.debug('mounting widgets: %o', widgets);
 
-			for(let id of Object.keys(widgets)) {
+			for (let id of Object.keys(widgets)) {
 				let el = document.getElementById(id);
 				let w = widgets[id];
 				if (el && !el.hasAttribute('mounted')) {
@@ -116,10 +115,16 @@ export default class Content extends React.Component {
 						ReactDOM.render(w, el);
 						el.setAttribute('mounted', 'true');
 					} catch (e) {
-						logger.error('A content widget blew up while rendering: %s', e.stack || e.message || e);
+						logger.error(
+							'A content widget blew up while rendering: %s',
+							e.stack || e.message || e
+						);
 					}
 				} else {
-					logger.debug('Skipping widget... because we did not have an element, or it had a mounted attribute: %o', el);
+					logger.debug(
+						'Skipping widget... because we did not have an element, or it had a mounted attribute: %o',
+						el
+					);
 				}
 			}
 		}
@@ -129,12 +134,11 @@ export default class Content extends React.Component {
 		}
 	}
 
-
-	cleanupWidgets () {
+	cleanupWidgets() {
 		//Cleanup our components...
 		let widgets = this.getPageWidgets();
 
-		for(let id of Object.keys(widgets)) {
+		for (let id of Object.keys(widgets)) {
 			let el = document.getElementById(id);
 			if (el) {
 				if (!ReactDOM.unmountComponentAtNode(el)) {
@@ -144,35 +148,31 @@ export default class Content extends React.Component {
 				}
 				el.removeAttribute('mounted');
 				delete widgets[id];
-			}
-			else {
+			} else {
 				logger.warn('Widget not found: %s', id);
 			}
 		}
 	}
 
-
-	createWidget (widgetData) {
+	createWidget(widgetData) {
 		let widgets = this.getPageWidgets();
 		if (!widgets[widgetData.guid]) {
 			// logger.debug('Content View: Creating widget for %s', widgetData.guid);
 			const Wrapper = getContextWrapper(this.context);
 			widgets[widgetData.guid] = (
 				<Wrapper ref={x => this.scheduleUpdate()}>
-					{getWidget(
-						widgetData,
-						this.props.page,
-						{...this.props, id: void 0}
-					)}
+					{getWidget(widgetData, this.props.page, {
+						...this.props,
+						id: void 0,
+					})}
 				</Wrapper>
 			);
 		}
 	}
 
-
-	getPageWidgets () {
-		let {pageWidgets} = this.state;
-		let {pageId} = this.props;
+	getPageWidgets() {
+		let { pageWidgets } = this.state;
+		let { pageId } = this.props;
 
 		if (pageWidgets && !pageWidgets[pageId]) {
 			logger.debug('Creating bin for PageWidgets for %s', pageId);
@@ -182,14 +182,11 @@ export default class Content extends React.Component {
 		return pageWidgets[pageId];
 	}
 
+	getCurrent = () => this.content;
 
-	getCurrent = () => this.content
+	getPristine = () => this.state.prestine;
 
-
-	getPristine = () => this.state.prestine
-
-
-	updatePrestine () {
+	updatePrestine() {
 		if (this.unmounted) {
 			return;
 		}
@@ -197,19 +194,16 @@ export default class Content extends React.Component {
 		let current = this.getCurrent();
 		let prestine = current && current.cloneNode(true);
 		this.updatingPrestine = true;
-		this.setState({prestine}, () => delete this.updatingPrestine);
+		this.setState({ prestine }, () => delete this.updatingPrestine);
 		// logger.debug('Updated Prestine', prestine);
 	}
-
 
 	scheduleUpdate = buffer(100, () => {
 		this.updatePrestine();
 		this.props.onContentReady();
-	})
+	});
 
-
-	buildBody = (part) => {
-
+	buildBody = part => {
 		if (typeof part === 'string') {
 			return part;
 		}
@@ -218,26 +212,25 @@ export default class Content extends React.Component {
 
 		return `<widget id="${part.guid}"><error><span>Missing Component</span></error></widget>`;
 		// return `<widget id="${part.guid}"><error>If this is still visible, something went wrong.</error></widget>`;
-	}
+	};
 
+	attachContentRef = ref => (this.content = ref);
 
-	attachContentRef = (ref) => this.content = ref
-
-
-	render () {
-		const {pageId, page, ...otherProps} = this.props;
+	render() {
+		const { pageId, page, ...otherProps } = this.props;
 		const body = page.getBodyParts();
 		const styles = (page && page.getPageStyles()) || [];
 
 		const wrapperProps = {
-			[isTouchDevice ? 'onTouchEnd' : 'onMouseUp']: this.detectSelection
+			[isTouchDevice ? 'onTouchEnd' : 'onMouseUp']: this.detectSelection,
 		};
 
-		const props = {...otherProps,
+		const props = {
+			...otherProps,
 			ref: this.attachContentRef,
 			className: 'nti-content-panel', //react does not remap className=>class for custom elements
 			'data-ntiid': pageId,
-			'data-page-ntiid': pageId
+			'data-page-ntiid': pageId,
 		};
 
 		for (let key of Object.keys(Content.propTypes)) {
@@ -248,32 +241,40 @@ export default class Content extends React.Component {
 
 		return (
 			<div {...wrapperProps}>
-				{styles.map((css, i) =>
-					<style scoped type="text/css" key={i} {...rawContent(css)}/>
-				)}
+				{styles.map((css, i) => (
+					<style
+						scoped
+						type="text/css"
+						key={i}
+						{...rawContent(css)}
+					/>
+				))}
 				<NTIContent {...props}>
-					<div id="NTIContent" {...rawContent(content)}/>
+					<div id="NTIContent" {...rawContent(content)} />
 				</NTIContent>
 			</div>
 		);
 	}
 
-	detectSelection = (e) => {
+	detectSelection = e => {
 		let capture = {
 			srcElement: e.srcElement,
-			target: e.target
+			target: e.target,
 		};
 
-		if( getEventTarget(e, 'input') || getEventTarget(e, '[contenteditable]') ) {
+		if (
+			getEventTarget(e, 'input') ||
+			getEventTarget(e, '[contenteditable]')
+		) {
 			return;
 		}
 
 		let s = window.getSelection();
-		let range = s && !s.isCollapsed && s.type === 'Range' && s.getRangeAt(0);
+		let range =
+			s && !s.isCollapsed && s.type === 'Range' && s.getRangeAt(0);
 
 		logger.debug('Selection Detection Running...', s, range);
 
 		this.props.onUserSelectionChange(capture, range);
-
-	}
+	};
 }

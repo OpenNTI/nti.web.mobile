@@ -9,11 +9,10 @@ const Types = [
 	Unknown, //Unknown for future items.
 	TopicItem,
 	PostItem,
-	DeletedGroupItem
+	DeletedGroupItem,
 ];
 
-export default function select (part, index, props) {
-
+export default function select(part, index, props) {
 	let Item = Unknown;
 
 	for (let Type of Types) {
@@ -23,10 +22,10 @@ export default function select (part, index, props) {
 		}
 	}
 
-	return React.createElement(
-		Item,
-		{key: 'list-item-' + index,
-			index: index,
-			item: part, ...props}
-	);
+	return React.createElement(Item, {
+		key: 'list-item-' + index,
+		index: index,
+		item: part,
+		...props,
+	});
 }

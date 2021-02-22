@@ -14,7 +14,6 @@ export const ASSIGNMENT_RESET = 'assessment:assignment-reset';
 export const HELP_VIEW_HINT = 'assessment:Help:View Hint';
 export const HELP_VIEW_SOLUTION = 'assessment:Help:View Solution';
 
-
 export const BUSY_LOADING = 'assessment:Busy: Loading';
 export const BUSY_SUBMITTING = 'assessment:Busy: Submitting';
 export const BUSY_SAVEPOINT = 'assessment:Busy: Savepoint';

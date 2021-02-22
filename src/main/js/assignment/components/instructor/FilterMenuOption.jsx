@@ -7,24 +7,21 @@ export default class extends React.Component {
 	static propTypes = {
 		onClick: PropTypes.func,
 		option: PropTypes.any,
-		className: PropTypes.any
+		className: PropTypes.any,
 	};
 
-	onClick = (e) => {
+	onClick = e => {
 		e.stopPropagation();
 		e.preventDefault();
-		const {onClick, option} = this.props;
+		const { onClick, option } = this.props;
 		onClick && onClick(option);
 	};
 
-	render () {
-
-		const {option, className} = this.props;
+	render() {
+		const { option, className } = this.props;
 
 		return (
-			<li key={option.value}
-				className={className}
-				onClick={this.onClick}>
+			<li key={option.value} className={className} onClick={this.onClick}>
 				{option.label}
 			</li>
 		);

@@ -9,7 +9,6 @@ import ForumItem from './ForumItem';
 import Lesson from './Lesson';
 import Note from './Note';
 
-
 const WIDGETS = [
 	AddComment,
 	Assignment,
@@ -21,8 +20,7 @@ const WIDGETS = [
 	Note,
 ];
 
-
-export default function select (item, index, props = {}) {
+export default function select(item, index, props = {}) {
 	let clazz;
 	for (let Type of WIDGETS) {
 		if (Type.handles && Type.handles(item)) {
@@ -32,9 +30,13 @@ export default function select (item, index, props = {}) {
 	}
 
 	if (clazz) {
-		props = { ...props, ref: 'input',
+		props = {
+			...props,
+			ref: 'input',
 			key: 'course-activity-' + (index || item.OID),
-			index, item};
+			index,
+			item,
+		};
 	}
 
 	return clazz && React.createElement(clazz, props);

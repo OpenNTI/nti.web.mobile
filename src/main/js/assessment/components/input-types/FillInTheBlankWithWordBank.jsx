@@ -3,23 +3,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
-import {Mixin, DropTarget} from 'common/dnd';
+import { Mixin, DropTarget } from 'common/dnd';
 
 import Store from '../../Store';
 import Content from '../Content';
 
-import InputType, {stopEvent} from './Mixin';
+import InputType, { stopEvent } from './Mixin';
 import FillInTheBlankWithWordBankEntry from './FillInTheBlankWithWordBankEntry';
-
 
 const strategies = {
 	'input[type=blankfield]': x => ({
-		name: x.getAttribute('name')
-	})
+		name: x.getAttribute('name'),
+	}),
 };
 
-const ensureArray = x => Array.isArray(x) ? x : [x];
-
+const ensureArray = x => (Array.isArray(x) ? x : [x]);
 
 /**
  * This input type represents Fill In The Blank: With Word Bank
@@ -29,40 +27,35 @@ export default createReactClass({
 	mixins: [InputType],
 
 	statics: {
-		inputType: [
-			'FillInTheBlankWithWordBank'
-		]
+		inputType: ['FillInTheBlankWithWordBank'],
 	},
 
 	contextTypes: {
-		QuestionUniqueDNDToken: PropTypes.object
+		QuestionUniqueDNDToken: PropTypes.object,
 	},
 
 	propTypes: {
 		item: PropTypes.object,
-		onDrop: PropTypes.func
+		onDrop: PropTypes.func,
 	},
 
-
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
-			onDrop: () => {}
+			onDrop: () => {},
 		};
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
-			value: null
+			value: null,
 		};
 	},
 
-
-	onDrop (drop) {
-		const value = { ...this.state.value || {}};
+	onDrop(drop) {
+		const value = { ...(this.state.value || {}) };
 		const data = drop || {};
 
-		let {source, target} = data;
+		let { source, target } = data;
 		let movedFrom;
 
 		if (source) {
@@ -77,7 +70,9 @@ export default createReactClass({
 		// The ONLY time that the '==' (double equals) operator is acceptable... testing for null
 		// (which will evaluate to true for `null` and `undefined` but false for everything else)
 		if (target == null || source == null) {
-			throw new Error('Illegal State, there must be BOTH a source and a target');
+			throw new Error(
+				'Illegal State, there must be BOTH a source and a target'
+			);
 		}
 
 		value[target] = source;
@@ -85,33 +80,30 @@ export default createReactClass({
 			delete value[movedFrom];
 		}
 
-		this.setState({value: value}, this.handleInteraction);
+		this.setState({ value: value }, this.handleInteraction);
 	},
 
-
-	onReset (dropId) {
-		let v = { ...this.state.value || {}};
+	onReset(dropId) {
+		let v = { ...(this.state.value || {}) };
 		delete v[dropId];
 
 		if (Object.keys(v).length === 0) {
 			v = null;
 		}
 
-		this.setState({value: v}, this.handleInteraction);
+		this.setState({ value: v }, this.handleInteraction);
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.setState({
 			PartLocalDNDToken: Mixin.getNewCombinationToken(
 				Mixin.getNewUniqueToken(),
 				this.context.QuestionUniqueDNDToken
-			)
+			),
 		});
 	},
 
-
-	render () {
+	render() {
 		return (
 			<form className="fill-in-the-blank" onSubmit={stopEvent}>
 				<Content
@@ -123,13 +115,17 @@ export default createReactClass({
 		);
 	},
 
-
-	renderInput (tag, props) {
-		const {name} = props; //eslint-disable-line react/prop-types
+	renderInput(tag, props) {
+		const { name } = props; //eslint-disable-line react/prop-types
 		return (
-			<DropTarget accepts={this.state.PartLocalDNDToken}
-				tag="span" onDrop={this.onDrop}
-				className="drop target" key={name} data-target={name}>
+			<DropTarget
+				accepts={this.state.PartLocalDNDToken}
+				tag="span"
+				onDrop={this.onDrop}
+				className="drop target"
+				key={name}
+				data-target={name}
+			>
 				<span className="match blank dropzone" data-dnd>
 					{this.renderWordBankEntry(name)}
 				</span>
@@ -137,10 +133,9 @@ export default createReactClass({
 		);
 	},
 
-
-	renderWordBankEntry (input) {
+	renderWordBankEntry(input) {
 		const wid = (this.state.value || {})[input];
-		const {item} = this.props;
+		const { item } = this.props;
 		const entryItem = item.getWordBankEntry(wid);
 
 		let correct = '';
@@ -152,7 +147,7 @@ export default createReactClass({
 		const locked = Store.isSubmitted(item);
 		const solution = this.getSolution();
 		if (locked && solution && solution.value) {
-			const {value: solutionValue} = solution;
+			const { value: solutionValue } = solution;
 			const solutionForInput = ensureArray(solutionValue[input]);
 			correct = solutionForInput.includes(wid) ? 'correct' : 'incorrect';
 			//console.log(solutionValue[input], input, wid);
@@ -170,8 +165,7 @@ export default createReactClass({
 		);
 	},
 
-
-	getValue () {
+	getValue() {
 		return this.state.value;
-	}
+	},
 });

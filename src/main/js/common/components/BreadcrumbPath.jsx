@@ -11,12 +11,11 @@ import ObjectLink from '../mixins/ObjectLink';
 
 const logger = Logger.get('common:components:BreadcrumbPath');
 
-function getBreadcrumb (item) {
+function getBreadcrumb(item) {
 	return (item || {}).getContextPath
 		? item.getContextPath()
-		: Promise.reject('item doesn\'t have a getContextPath method.');
+		: Promise.reject("item doesn't have a getContextPath method.");
 }
-
 
 export default createReactClass({
 	displayName: 'Breadcrumb',
@@ -36,7 +35,6 @@ export default createReactClass({
 		 */
 		breadcrumb: PropTypes.array,
 
-
 		/**
 		 * Alter the breadcrumb prop to prefix and potentilly
 		 * replace N parts of the LibraryPath call.
@@ -50,52 +48,47 @@ export default createReactClass({
 		 */
 		splicePaths: PropTypes.number,
 
-
 		/**
 		 * If specified, show the content-aquire-prompt on 403 instead of showing just the course name.
 		 *
 		 * @type {boolean}
 		 */
-		showPrompt: PropTypes.bool
+		showPrompt: PropTypes.bool,
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
-			breadcrumb: null
+			breadcrumb: null,
 		};
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.loadBreadcrumb();
 	},
 
-
-	componentDidUpdate (props) {
+	componentDidUpdate(props) {
 		if (this.props.item !== props.item) {
 			this.loadBreadcrumb();
 		}
 	},
 
+	loadBreadcrumb(props = this.props) {
+		const { item, breadcrumb, splicePaths, showPrompt } = props;
 
-	loadBreadcrumb (props = this.props) {
-		const {item, breadcrumb, splicePaths, showPrompt} = props;
-
-		const hasSplice = splicePaths != null && breadcrumb != null
-				&& isFinite(splicePaths)
-				&& splicePaths >= 0;
+		const hasSplice =
+			splicePaths != null &&
+			breadcrumb != null &&
+			isFinite(splicePaths) &&
+			splicePaths >= 0;
 
 		const splice = n => breadcrumb.concat(n.slice(splicePaths));
 
 		if (breadcrumb && !hasSplice) {
-			return this.setState({breadcrumb});
+			return this.setState({ breadcrumb });
 		}
 
 		getBreadcrumb(item)
-
 			.catch(error => {
-
 				if (error && error.statusCode === 403) {
 					if (!showPrompt && error.Items) {
 						return [error.Items];
@@ -107,45 +100,50 @@ export default createReactClass({
 
 			.then(data =>
 				this.setState({
-					breadcrumb: data.length > 0
-						? (hasSplice ? splice(data[0]) : data[0])
-						: { isError: true, reason: 'breadcrumb has zero length'}}))
+					breadcrumb:
+						data.length > 0
+							? hasSplice
+								? splice(data[0])
+								: data[0]
+							: {
+									isError: true,
+									reason: 'breadcrumb has zero length',
+							  },
+				})
+			)
 
 			.catch(reason =>
 				this.setState({
-					breadcrumb: { reason, isError: true } }));
+					breadcrumb: { reason, isError: true },
+				})
+			);
 	},
 
-
-	fallbackText (item, error) {
+	fallbackText(item, error) {
 		logger.error('%o Error: %o', item, error);
 		return '';
 	},
 
-
-	crumbText (breadcrumb) {
+	crumbText(breadcrumb) {
 		const prop = 'getPresentationProperties';
 		const last = breadcrumb.length - 1;
 		const nextToLast = breadcrumb.length - 2;
-		function getTitle (x) {
+		function getTitle(x) {
 			const t = typeof x === 'string';
-			const fallback = {title: t ? x : void x};
+			const fallback = { title: t ? x : void x };
 
-			x = (
-				(x || {})[prop]
-					? x[prop]()
-					: t
-						? fallback
-						: x
-			) || fallback;
+			x = ((x || {})[prop] ? x[prop]() : t ? fallback : x) || fallback;
 
 			return x.title || x.Title || x.displayName;
 		}
 
 		return breadcrumb
-			.map( (current, index) => {
+			.map((current, index) => {
 				const title = getTitle(current);
-				const css = cx('crumb', {'next-to-last': index === nextToLast, 'last': index === last});
+				const css = cx('crumb', {
+					'next-to-last': index === nextToLast,
+					last: index === last,
+				});
 				return !title ? null : (
 					<li key={index} className={css}>
 						<span>{title}</span>
@@ -156,21 +154,22 @@ export default createReactClass({
 			.filter(x => x); // filter out nulls
 	},
 
-
-	render () {
-		const {state: {breadcrumb}, props: {item, showPrompt}} = this;
-		const href = breadcrumb && !breadcrumb.isError ? this.objectLink(item) : null;
+	render() {
+		const {
+			state: { breadcrumb },
+			props: { item, showPrompt },
+		} = this;
+		const href =
+			breadcrumb && !breadcrumb.isError ? this.objectLink(item) : null;
 
 		if (!breadcrumb) {
 			return this.renderPlaceholder();
 		}
 
-		const {reason = {}, isError} = breadcrumb;
+		const { reason = {}, isError } = breadcrumb;
 
 		if (showPrompt && isError && reason.statusCode === 403) {
-			return (
-				<ContentAcquirePrompt relatedItem={item} data={reason}/>
-			);
+			return <ContentAcquirePrompt relatedItem={item} data={reason} />;
 		}
 
 		return (
@@ -178,13 +177,9 @@ export default createReactClass({
 				<a href={href} className="breadcrumb">
 					<ul className="breadcrumb-list">
 						{breadcrumb.isError ? (
-
 							<li>{this.fallbackText(item, breadcrumb)}</li>
-
 						) : (
-
 							this.crumbText(breadcrumb)
-
 						)}
 					</ul>
 				</a>
@@ -192,17 +187,24 @@ export default createReactClass({
 		);
 	},
 
-
-	renderPlaceholder () {
-		const {props: {item}} = this;
+	renderPlaceholder() {
+		const {
+			props: { item },
+		} = this;
 		const href = this.objectLink(item);
 		const num = () => Math.round(Math.random() * 100);
-		const width = (x) => ({width: (Math.max(num() % x, 15)) + '%'});
-		const peices = Array.from({length: Math.max(num() % 5, 1)});
+		const width = x => ({ width: Math.max(num() % x, 15) + '%' });
+		const peices = Array.from({ length: Math.max(num() % 5, 1) });
 
 		const segment = (_, index, a) => (
-			<li key={index} style={width(35)} className={cx('crumb', { 'next-to-last': index === (a.length - 1) })}>
-				<span/>
+			<li
+				key={index}
+				style={width(35)}
+				className={cx('crumb', {
+					'next-to-last': index === a.length - 1,
+				})}
+			>
+				<span />
 			</li>
 		);
 
@@ -211,10 +213,12 @@ export default createReactClass({
 				<a href={href} className="breadcrumb placeholder">
 					<ul className="breadcrumb-list">
 						{peices.map(segment)}
-						<li className="crumb last"><span style={width(55)}/></li>
+						<li className="crumb last">
+							<span style={width(55)} />
+						</li>
 					</ul>
 				</a>
 			</div>
 		);
-	}
+	},
 });

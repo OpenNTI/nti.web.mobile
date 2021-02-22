@@ -17,19 +17,19 @@ const Bundle = getModel('contentpackagebundle');
 
 export default class Notebook extends React.Component {
 	static propTypes = {
-		contentPackage: PropTypes.object
-	}
+		contentPackage: PropTypes.object,
+	};
 
 	static contextTypes = {
 		router: PropTypes.object,
 		basePath: PropTypes.string,
-	}
+	};
 
 	static childContextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
-	getChildContext () {
+	getChildContext() {
 		const { router: nav } = this.context;
 		const router = {
 			...(nav || {}),
@@ -37,49 +37,60 @@ export default class Notebook extends React.Component {
 			getRouteFor: this.getRouteFor,
 			history: getHistory(),
 			routeTo: {
-				object: (...args) => LinkTo.Object.routeTo(router, ...args)
-			}
+				object: (...args) => LinkTo.Object.routeTo(router, ...args),
+			},
 		};
 
 		return {
-			router
+			router,
 		};
 	}
 
 	getRouteFor = (object, context) => {
 		if (object instanceof HighLight) {
-			return `${this.context.basePath}object/${encodeForURI(object.getID())}/`;
+			return `${this.context.basePath}object/${encodeForURI(
+				object.getID()
+			)}/`;
 		} else if (object instanceof Bookmark) {
-			return `${this.context.basePath}object/${encodeForURI(object.getID())}/`;
+			return `${this.context.basePath}object/${encodeForURI(
+				object.getID()
+			)}/`;
 		} else if (object instanceof Note) {
-			return `${this.context.basePath}object/${encodeForURI(object.getID())}/`;
+			return `${this.context.basePath}object/${encodeForURI(
+				object.getID()
+			)}/`;
 		} else if (object.isUser) {
-			return `${this.context.basePath}profile/${User.encode(object.Username)}/`;
+			return `${this.context.basePath}profile/${User.encode(
+				object.Username
+			)}/`;
 		} else if (object instanceof Bundle) {
-			return `${this.context.basePath}content/${encodeForURI(object.getID())}/`;
+			return `${this.context.basePath}content/${encodeForURI(
+				object.getID()
+			)}/`;
 		}
+	};
+
+	makeHref(...args) {
+		return this.contextProvider
+			? this.contextProvider.makeHref(...args)
+			: null;
 	}
 
-	makeHref (...args) {
-		return this.contextProvider ? this.contextProvider.makeHref(...args) : null;
-	}
-
-	render () {
+	render() {
 		return (
 			<ContextContributor getContext={getContext}>
-				<ContextSender/>
+				<ContextSender />
 				<Stream context={this.props.contentPackage} isMobile />
 			</ContextContributor>
 		);
 	}
 }
 
-
-async function getContext () {
+async function getContext() {
 	const context = this; //this will be called with the ContextContributor's context ("this")
 
 	return {
 		href: context.makeHref('/n'),
-		label: 'Notebook'
+		label: 'Notebook',
 	};
 }

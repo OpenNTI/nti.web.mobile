@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {Mixins} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Mixins } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 const t = scoped('enrollment.buttons', {
 	redeemGift: 'Redeem a gift',
@@ -16,19 +16,22 @@ export default createReactClass({
 	propTypes: {
 		className: PropTypes.string,
 		catalogId: PropTypes.string,
-		href: PropTypes.string
+		href: PropTypes.string,
 	},
 
-	urlForEntry () {
+	urlForEntry() {
 		return this.getBasePath() + 'catalog/redeem/';
 	},
 
-	render () {
-		const {props: {className, href = this.urlForEntry()}} = this;
+	render() {
+		const {
+			props: { className, href = this.urlForEntry() },
+		} = this;
 
 		return (
-			<a className={cx('redeem-button', className)} href={href}>{t('redeemGift')}</a>
+			<a className={cx('redeem-button', className)} href={href}>
+				{t('redeemGift')}
+			</a>
 		);
-	}
-
+	},
 });

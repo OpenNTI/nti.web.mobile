@@ -3,26 +3,23 @@ import React from 'react';
 import GlossaryEntry from '../GlossaryEntry';
 
 export default {
-
-	getGlossaryId () {
+	getGlossaryId() {
 		return this.state.glossaryId;
 	},
 
-
-	onDismissGlossary () {
+	onDismissGlossary() {
 		this.setState({
-			glossaryId: null
+			glossaryId: null,
 		});
 	},
 
-
-	renderGlossaryEntry () {
+	renderGlossaryEntry() {
 		let id = this.getGlossaryId();
 		if (id) {
 			return React.createElement(GlossaryEntry, {
 				entryid: id,
-				onClick: this.onDismissGlossary
+				onClick: this.onDismissGlossary,
 			});
 		}
-	}
+	},
 };

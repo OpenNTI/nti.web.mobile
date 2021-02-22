@@ -1,44 +1,46 @@
-import {join} from 'path';
+import { join } from 'path';
 
 // import {Models, Service} from '@nti/lib-interfaces';
 import Logger from '@nti/util-logger';
-import {encodeForURI as encode} from '@nti/lib-ntiids';
+import { encodeForURI as encode } from '@nti/lib-ntiids';
 
-import {profileHref} from 'profile/mixins/ProfileLink';
+import { profileHref } from 'profile/mixins/ProfileLink';
 
 const logger = Logger.get('object:resolvers:LibraryPath');
 
 const IGNORE = Symbol();
 
-export const isPageInfo = o => typeof o !== 'string'
-	? o && isPageInfo(o.MimeType || o.mimeType || o.Class)
-	: /pageinfo$/i.test(o);
+export const isPageInfo = o =>
+	typeof o !== 'string'
+		? o && isPageInfo(o.MimeType || o.mimeType || o.Class)
+		: /pageinfo$/i.test(o);
 
-
-
-const getTarget = x => x.target || x[Object.keys(x).filter(k => /target-ntiid/i.test(k))[0]];
+const getTarget = x =>
+	x.target || x[Object.keys(x).filter(k => /target-ntiid/i.test(k))[0]];
 
 const MIME_TYPES = {
-	'contentpackage' (o, prev, next)  {
+	contentpackage(o, prev, next) {
 		if (next.isBoard) {
 			return `/content/${encode(o.getID())}`;
 		}
 
 		return `/content/${encode(o.getID())}/o/`;
 	},
-	'contentpackagebundle': 'contentpackage',
-	'publishablecontentpackagebundle': 'contentpackage',
+	contentpackagebundle: 'contentpackage',
+	publishablecontentpackagebundle: 'contentpackage',
 
 	'courses.legacycommunitybasedcourseinstance': 'courses.courseinstance',
-	'courses.courseinstance': (o) => `/course/${encode(o.getID())}/`,
-	'courses.courseoutlinecontentnode': (o) => `/lessons/${encode(o.getContentId())}/`,
-	'courses.scormcourseinstance': (o) => `/course/${encode(o.getID())}`,
-	'community': (o) => `/community/${encodeURIComponent(o.getID())}/`,
-	'dynamicfriendslist': (o) => `/profile/${encodeURIComponent(o.getID())}/activity/`,
+	'courses.courseinstance': o => `/course/${encode(o.getID())}/`,
+	'courses.courseoutlinecontentnode': o =>
+		`/lessons/${encode(o.getContentId())}/`,
+	'courses.scormcourseinstance': o => `/course/${encode(o.getID())}`,
+	community: o => `/community/${encodeURIComponent(o.getID())}/`,
+	dynamicfriendslist: o =>
+		`/profile/${encodeURIComponent(o.getID())}/activity/`,
 	'forums.dflboard': 'forums.communityboard',
 	'forums.contentboard': 'forums.communityboard',
-	'forums.dflforum': (o) => `/${encode(o.getID())}/`,
-	'forums.communityboard' (o, prev) {
+	'forums.dflforum': o => `/${encode(o.getID())}/`,
+	'forums.communityboard'(o, prev) {
 		if (prev.isCommunity) {
 			return '';
 		}
@@ -50,28 +52,27 @@ const MIME_TYPES = {
 		return '/discussions/';
 	},
 
-	'forums.communityforum' (o, prev) {
+	'forums.communityforum'(o, prev) {
 		if (prev && /community$/i.test(prev.MimeType)) {
 			return `/${o.ID}/`;
 		}
 		return `/${encode(o.getID())}/`;
 	},
 	'forums.personalblog': () => '/thoughts/',
-	'forums.personalblogentry': (o) => `/${encode(o.getID())}/`,
+	'forums.personalblogentry': o => `/${encode(o.getID())}/`,
 	'forums.dflheadlinetopic': 'forums.communityheadlinetopic',
-	'forums.communityheadlinetopic' (o, prev, next, obj) {
+	'forums.communityheadlinetopic'(o, prev, next, obj) {
 		if (!next && obj && obj.isComment) {
 			return `/${encode(o.getID())}/discussions/`;
 		}
 		return `/${encode(o.getID())}/`;
 	},
 
-
-	'assignmentref': '--lessonItemRef',
-	'questionsetref': '--lessonItemRef',
-	'pollref': '--lessonItemRef',
-	'surveyref': '--lessonItemRef',
-	'--lessonItemRef' (o, prev, next, target) {
+	assignmentref: '--lessonItemRef',
+	questionsetref: '--lessonItemRef',
+	pollref: '--lessonItemRef',
+	surveyref: '--lessonItemRef',
+	'--lessonItemRef'(o, prev, next, target) {
 		if (prev.isOutlineNode) {
 			this.lessonItems.add(target);
 			let c = `/items/${encode(o.getID())}`;
@@ -84,7 +85,7 @@ const MIME_TYPES = {
 		}
 		return MIME_TYPES.relatedworkref.apply(this, arguments);
 	},
-	'relatedworkref' (o, prev, next) {
+	relatedworkref(o, prev, next) {
 		let c = '/content/';
 
 		if (o.isExternal) {
@@ -92,11 +93,11 @@ const MIME_TYPES = {
 			if (next) {
 				next[IGNORE] = true;
 			}
-		}
-		else if (!next || !isPageInfo(next.MimeType)) {
-			logger.error('Unexpected Path sequence. Internal RelatedWorkReferences should be followed by a pageInfo');
-		}
-		else if (next && next.getID() !== o.target) {
+		} else if (!next || !isPageInfo(next.MimeType)) {
+			logger.error(
+				'Unexpected Path sequence. Internal RelatedWorkReferences should be followed by a pageInfo'
+			);
+		} else if (next && next.getID() !== o.target) {
 			let id = getTarget(o);
 
 			c += `${encode(id)}/`;
@@ -105,12 +106,13 @@ const MIME_TYPES = {
 		return c;
 	},
 
-
-	'pageinfo' (o, prev, next, target) {
+	pageinfo(o, prev, next, target) {
 		let c = `${encode(o.getID())}/`;
 
-
-		if (next && isPageInfo(next.MimeType) || this.lessonItems.has(target)) {
+		if (
+			(next && isPageInfo(next.MimeType)) ||
+			this.lessonItems.has(target)
+		) {
 			c = '';
 		}
 
@@ -121,14 +123,14 @@ const MIME_TYPES = {
 		return c;
 	},
 
-	'user': profileHref,
+	user: profileHref,
 
-	'ntislidedeck': () => '',
+	ntislidedeck: () => '',
 
-	'ntivideo': 'ntivideoref',
-	'ntivideoref' (o, prev, next, target) {
+	ntivideo: 'ntivideoref',
+	ntivideoref(o, prev, next, target) {
 		let c = `/videos/${encode(o.getID())}/`;
-		if(next && /pageinfo$/i.test(next.MimeType)) {
+		if (next && /pageinfo$/i.test(next.MimeType)) {
 			next[IGNORE] = true;
 		}
 
@@ -137,30 +139,26 @@ const MIME_TYPES = {
 		}
 
 		return c;
-	}
+	},
 };
-
 
 export default class LibraryPathResolver {
 	lessonItems = new Set();
 
-	static handles (o) {
+	static handles(o) {
 		return o.hasLink && o.hasLink('LibraryPath');
 	}
 
-
-	static resolve (o) {
+	static resolve(o) {
 		return new LibraryPathResolver(o).getPath();
 	}
 
-
-	constructor (o) {
+	constructor(o) {
 		this.object = o;
 	}
 
-
 	getPathPart = (o, i, a) => {
-		const {object} = this;
+		const { object } = this;
 		if (o[IGNORE]) {
 			o = a[i + 1]; //once we ignore, we continue to ignore.
 			if (o) {
@@ -169,10 +167,12 @@ export default class LibraryPathResolver {
 			return '';
 		}
 
-		const key = (o.MimeType || o.mimeType || o.Class).replace(/application\/vnd\.nextthought\./, '').toLowerCase();
+		const key = (o.MimeType || o.mimeType || o.Class)
+			.replace(/application\/vnd\.nextthought\./, '')
+			.toLowerCase();
 
 		let p = MIME_TYPES[key];
-		while(typeof p === 'string') {
+		while (typeof p === 'string') {
 			p = MIME_TYPES[p];
 		}
 
@@ -186,11 +186,10 @@ export default class LibraryPathResolver {
 		}
 
 		return p.call(this, o, a[i - 1], a[i + 1], object);
-	}
+	};
 
-
-	async getPath () {
-		const {object} = this;
+	async getPath() {
+		const { object } = this;
 		const [result] = await object.getContextPath();
 
 		if (!result) {

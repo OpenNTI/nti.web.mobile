@@ -7,7 +7,7 @@ export default createReactClass({
 	displayName: 'UnknownNotificationType',
 	mixins: [NoteableMixin],
 
-	render () {
+	render() {
 		return null;
-	}
+	},
 });

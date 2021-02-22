@@ -1,24 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {decodeFromURI, encodeForURI} from '@nti/lib-ntiids';
-import {Error as Err, Loading, Mixins, Notice} from '@nti/web-commons';
-import {StoreEventsMixin} from '@nti/lib-store';
+import { decodeFromURI, encodeForURI } from '@nti/lib-ntiids';
+import { Error as Err, Loading, Mixins, Notice } from '@nti/web-commons';
+import { StoreEventsMixin } from '@nti/lib-store';
 
 import ContextSender from 'common/mixins/ContextSender';
 
 import KeepItemInState from '../mixins/KeepItemInState';
-import {ITEM_DELETED, POST, COMMENT_FORM_ID} from '../Constants';
+import { ITEM_DELETED, POST, COMMENT_FORM_ID } from '../Constants';
 import Store from '../Store';
-import {getForumItems} from '../Api';
+import { getForumItems } from '../Api';
 
 import PostHeadline from './PostHeadline';
 import ViewHeader from './widgets/ViewHeader';
 import Replies from './Replies';
 import CommentForm from './CommentForm';
 import List from './List';
-
-
 
 export default createReactClass({
 	displayName: 'forums:Post',
@@ -27,52 +25,52 @@ export default createReactClass({
 		Mixins.NavigatableMixin,
 		StoreEventsMixin,
 		KeepItemInState,
-		ContextSender
+		ContextSender,
 	],
 
 	propTypes: {
 		postId: PropTypes.string,
-		topicId: PropTypes.string
+		topicId: PropTypes.string,
 	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[ITEM_DELETED]: 'onDeleted'
+		[ITEM_DELETED]: 'onDeleted',
 	},
 
-	onDeleted (event) {
+	onDeleted(event) {
 		if (event.itemId === this.getItemId()) {
 			this.setState({
 				deleted: true,
-				busy: false
+				busy: false,
 			});
 		}
 	},
 
-	getPropId () {
+	getPropId() {
 		return this.props.postId;
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			busy: true,
 			item: null,
-			deleted: false
+			deleted: false,
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.doLoad();
 	},
 
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (this.props.postId !== prevProps.postId) {
 			this.setState(this.getInitialState());
 			this.doLoad(this.props.postId);
 		}
 	},
 
-	doLoad (thePostId) {
+	doLoad(thePostId) {
 		let postId = decodeFromURI(thePostId || this.getItemId());
 		let topicId = decodeFromURI(this.props.topicId);
 		getForumItems([postId, topicId]).then(
@@ -82,20 +80,20 @@ export default createReactClass({
 				});
 				this.setState({
 					item: result[0],
-					busy: false
+					busy: false,
 				});
 			},
 			reason => {
 				this.setState({
 					busy: false,
-					error: reason
+					error: reason,
 				});
 			}
 		);
 	},
 
 	// title bar back arrow
-	getContext () {
+	getContext() {
 		let result = [];
 		let label = ViewHeader.headerTextForType(POST);
 		// if this is a reply to a comment (as opposed to a reply to a topic)
@@ -104,31 +102,30 @@ export default createReactClass({
 		if (inReplyTo) {
 			result.push({
 				label,
-				href: this.getNavigable().makeHref('discussions/' + encodeForURI(inReplyTo) + '/')
+				href: this.getNavigable().makeHref(
+					'discussions/' + encodeForURI(inReplyTo) + '/'
+				),
 			});
 		}
 
 		// entry for this post
 		result.push({
 			label,
-			href: this.getNavigable().makeHref(this.getPath())
+			href: this.getNavigable().makeHref(this.getPath()),
 		});
 
 		return Promise.resolve(result);
-
 	},
 
-	render () {
-
-		let {busy, deleted, error} = this.state;
+	render() {
+		let { busy, deleted, error } = this.state;
 
 		let item = this.getItem();
 
 		if (error) {
 			if (error.statusCode === 404) {
 				return <Notice>Not found.</Notice>;
-			}
-			else {
+			} else {
 				return <Err error={error} />;
 			}
 		}
@@ -142,13 +139,15 @@ export default createReactClass({
 		return (
 			<div>
 				<ViewHeader type={POST} />
-				{(deleted || (this.getItem() || {}).Deleted) ? (
+				{deleted || (this.getItem() || {}).Deleted ? (
 					<Notice>This item has been deleted.</Notice>
 				) : (
 					<PostHeadline item={item} topic={topic} asHeadline />
 				)}
 				{topic && (
-					<Replies key="replies" item={item}
+					<Replies
+						key="replies"
+						item={item}
 						listComponent={List}
 						topic={topic}
 						display
@@ -156,7 +155,8 @@ export default createReactClass({
 					/>
 				)}
 				{topic && (
-					<CommentForm key="commentForm"
+					<CommentForm
+						key="commentForm"
 						id={COMMENT_FORM_ID}
 						onCancel={this.hideForm}
 						onCompletion={this.commentCompletion}
@@ -166,5 +166,5 @@ export default createReactClass({
 				)}
 			</div>
 		);
-	}
+	},
 });

@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 %transition-image {
 	transition: transform 0.25s ease-out;
@@ -12,9 +12,9 @@
 	border-width: 1px 0;
 
 	.page-contents & {
-		margin-left: -0.75rem;//-1.1875rem;
+		margin-left: -0.75rem; //-1.1875rem;
 		margin-right: -0.75rem;
-		padding: 0.75rem;//1.1875rem;
+		padding: 0.75rem; //1.1875rem;
 	}
 
 	a.zoom {
@@ -51,9 +51,9 @@
 			left: -50%;
 			border-radius: 5em;
 			background-color: rgba(0, 0, 0, 0.8);
-			box-shadow:
-				inset 0 0 0 1px rgba(255, 255, 255, 0.15),	//stroke
-						0 0 3px 0 black;					//shadow
+			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+				//stroke
+				0 0 3px 0 black; //shadow
 		}
 
 		.label {
@@ -69,7 +69,8 @@
 			background: none;
 		}
 
-		.play, .player {
+		.play,
+		.player {
 			float: left;
 			// display: inline-block;
 			border-radius: 50px;
@@ -144,7 +145,10 @@
 		}
 	}
 
-	.nti-video { margin: 0; padding-top: 0; }
+	.nti-video {
+		margin: 0;
+		padding-top: 0;
+	}
 
 	&.video-roll .stage {
 		padding-bottom: 56.34%;
@@ -158,12 +162,14 @@
 		box-shadow: inset 0 0 3px black;
 		background: #f0f0f0;
 
-		a.zoom, button {
+		a.zoom,
+		button {
 			transition: opacity 0.5s;
 		}
 
 		&.touching {
-			a.zoom, button {
+			a.zoom,
+			button {
 				opacity: 0;
 			}
 		}
@@ -196,7 +202,7 @@
 
 		& > img {
 			position: absolute;
-			opacity: 0;//for aria
+			opacity: 0; //for aria
 		}
 
 		&:empty {

@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .nti-library-item-badge {
 	position: relative;
@@ -66,7 +66,8 @@
 			height: 0;
 			border-style: solid;
 			border-width: 0 0 1.6875rem 0.3125rem;
-			border-color: transparent transparent transparent rgba(var(--primary-blue-rgb), 0.95);
+			border-color: transparent transparent transparent
+				rgba(var(--primary-blue-rgb), 0.95);
 		}
 	}
 }

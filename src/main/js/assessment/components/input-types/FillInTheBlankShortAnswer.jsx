@@ -5,15 +5,15 @@ import { isEmpty } from '@nti/lib-commons';
 
 import Content from '../Content';
 
-import InputType, {stopEvent} from './Mixin';
+import InputType, { stopEvent } from './Mixin';
 
 const hasValue = x => x && !isEmpty(x.value);
 
 const strategies = {
 	'input[type=blankfield]': x => ({
 		name: x.getAttribute('name'),
-		maxLength: x.getAttribute('maxlength')
-	})
+		maxLength: x.getAttribute('maxlength'),
+	}),
 };
 
 /**
@@ -24,30 +24,28 @@ export default createReactClass({
 	mixins: [InputType],
 
 	statics: {
-		inputType: [
-			'FillInTheBlankShortAnswer'
-		]
+		inputType: ['FillInTheBlankShortAnswer'],
 	},
-
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-
-	attachRef (x) {
+	attachRef(x) {
 		this.form = x;
 	},
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		delete this.form;
 	},
 
-
-	render () {
+	render() {
 		return (
-			<form ref={this.attachRef} className="fill-in-the-blank" onSubmit={stopEvent}>
+			<form
+				ref={this.attachRef}
+				className="fill-in-the-blank"
+				onSubmit={stopEvent}
+			>
 				<Content
 					content={this.props.item.input}
 					strategies={strategies}
@@ -57,23 +55,29 @@ export default createReactClass({
 		);
 	},
 
-
-	renderInput (tag, props) {
-		let {name, maxLength} = props; //eslint-disable-line react/prop-types
+	renderInput(tag, props) {
+		let { name, maxLength } = props; //eslint-disable-line react/prop-types
 		let value = (this.state.value || {})[name] || '';
 		let submitted = this.isSubmitted();
 
 		return (
 			<span className="blank">
-				<input name={name} value={value} size={maxLength} onChange={this.handleInteraction} readOnly={submitted}/>
+				<input
+					name={name}
+					value={value}
+					size={maxLength}
+					onChange={this.handleInteraction}
+					readOnly={submitted}
+				/>
 			</span>
 		);
 	},
 
-
-	getValue () {
-		let {form} = this;
-		if (!form) { return; }
+	getValue() {
+		let { form } = this;
+		if (!form) {
+			return;
+		}
 
 		let values = null;
 
@@ -85,5 +89,5 @@ export default createReactClass({
 		});
 
 		return values;
-	}
+	},
 });

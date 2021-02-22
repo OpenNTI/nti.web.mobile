@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .calendar-main.nti-mobile-calendar {
 	max-width: 100%;
@@ -30,7 +30,8 @@
 		border-radius: 0;
 		margin: 0;
 
-		input { // suppress our default input styles
+		input {
+			// suppress our default input styles
 			border: 0;
 			margin: 0;
 		}
@@ -41,10 +42,13 @@
 
 		.calendar-day {
 			.day-events {
-				.event-generic-meta, .assignment-main-container, .webinar-content {
+				.event-generic-meta,
+				.assignment-main-container,
+				.webinar-content {
 					width: calc(100% - 50px);
 
-					.assignment-meta, .webinar-meta {
+					.assignment-meta,
+					.webinar-meta {
 						width: 100%;
 					}
 				}
@@ -65,7 +69,8 @@
 		.save-cancel-dialog {
 			height: 100%;
 
-			.event-view-dialog, .goto-webinar-registration {
+			.event-view-dialog,
+			.goto-webinar-registration {
 				height: 100%;
 
 				.save-cancel-content {

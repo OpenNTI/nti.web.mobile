@@ -1,118 +1,132 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {scoped} from '@nti/lib-locale';
-import {User, getAppUser} from '@nti/web-client';
-import {Community} from '@nti/web-profiles';
-import {Loading} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { User, getAppUser } from '@nti/web-client';
+import { Community } from '@nti/web-profiles';
+import { Loading } from '@nti/web-commons';
 
-import {Component as ContextSender} from 'common/mixins/ContextSender';
+import { Component as ContextSender } from 'common/mixins/ContextSender';
 import Page from 'common/components/Page';
 import NotFound from 'notfound/components/View';
 
 import Styles from './View.css';
-import {overrides} from './overrides';
+import { overrides } from './overrides';
 
 const cx = classnames.bind(Styles);
 const t = scoped('nti-web-mobile.community.View', {
 	label: 'Community',
 	home: 'Home',
-	notFound: 'Community not found.'
+	notFound: 'Community not found.',
 });
 
 export default class CommunityView extends React.Component {
 	static propTypes = {
-		entityId: PropTypes.string.isRequired
-	}
+		entityId: PropTypes.string.isRequired,
+	};
 
 	static contextTypes = {
 		basePath: PropTypes.string,
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
 	static childContextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
-	state = {}
+	state = {};
 
-	getChildContext () {
-		const {router: nav} = this.context;
+	getChildContext() {
+		const { router: nav } = this.context;
 
 		return {
 			router: {
 				...(nav || {}),
-				baseroute: nav &&  nav.makeHref('')
-			}
+				baseroute: nav && nav.makeHref(''),
+			},
 		};
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setup();
 	}
 
-	componentDidUpdate (prevProps) {
-		const {entityId} = this.props;
-		const {entityId:prevId} = prevProps;
+	componentDidUpdate(prevProps) {
+		const { entityId } = this.props;
+		const { entityId: prevId } = prevProps;
 
 		if (entityId !== prevId) {
-			this.setState({
-				community: null,
-				error: null
-			}, () => this.setup());
+			this.setState(
+				{
+					community: null,
+					error: null,
+				},
+				() => this.setup()
+			);
 		}
 	}
 
-	async setup () {
-		const {entityId} = this.props;
+	async setup() {
+		const { entityId } = this.props;
 
 		try {
-			const community = await (entityId === 'me' ? getAppUser() : User.resolve({entityId: decodeURIComponent(entityId)}, true));
-			this.setState({community});
+			const community = await (entityId === 'me'
+				? getAppUser()
+				: User.resolve(
+						{ entityId: decodeURIComponent(entityId) },
+						true
+				  ));
+			this.setState({ community });
 		} catch (e) {
-			this.setState({error: e, community: null});
+			this.setState({ error: e, community: null });
 		}
 	}
 
-	render () {
-		const {community, error} = this.state;
+	render() {
+		const { community, error } = this.state;
 
 		return (
 			<Page border>
-				<ContextSender community={community} getContext={getContext} {...this.props}>
+				<ContextSender
+					community={community}
+					getContext={getContext}
+					{...this.props}
+				>
 					<div className={cx('mobile-community')}>
-						{!community && !error && (<Loading.Spinner.Large />)}
+						{!community && !error && <Loading.Spinner.Large />}
 						{!community && error && this.renderError(error)}
-						{community && (<Community.View community={community} overrides={overrides} />)}
+						{community && (
+							<Community.View
+								community={community}
+								overrides={overrides}
+							/>
+						)}
 					</div>
 				</ContextSender>
 			</Page>
 		);
 	}
 
-
-	renderError (error) {
-		return (
-			<NotFound message={t('notFound')} />
-		);
+	renderError(error) {
+		return <NotFound message={t('notFound')} />;
 	}
 }
 
-async function getContext () {
-	const context = this;//this will be called with the ContextContributor's context ("this")
-	const {community} = context.props;
+async function getContext() {
+	const context = this; //this will be called with the ContextContributor's context ("this")
+	const { community } = context.props;
 	const ntiid = community && community.getID ? community.getID() : undefined;
 
 	return [
 		{
 			href: '/mobile/',
-			label: t('home')
+			label: t('home'),
 		},
 		{
 			href: context.makeHref(''),
 			label: t('label'),
 			supportsSearch: true,
-			ntiid
-		}
+			ntiid,
+		},
 	];
 }

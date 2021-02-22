@@ -31,6 +31,8 @@ a.with-arrow[href] {
 		font-size: inherit;
 		right: 0.5em;
 		top: 50%;
-		transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
+		transform: translateY(
+			-44%
+		); // 50% pulls it up a bit too high relative to the text.
 	}
 }

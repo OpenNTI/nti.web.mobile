@@ -7,8 +7,8 @@ import { getHistory } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
 import { Mixins, Loading, Prompt } from '@nti/web-commons';
 import Logger from '@nti/util-logger';
-import {getAppUsername, User} from '@nti/web-client';
-import {Contact} from '@nti/web-help';
+import { getAppUsername, User } from '@nti/web-client';
+import { Contact } from '@nti/web-help';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -22,61 +22,57 @@ export default createReactClass({
 	mixins: [Mixins.BasePath, EnrollmentOptions, ContextSender],
 
 	propTypes: {
-		entryId: PropTypes.string
+		entryId: PropTypes.string,
 	},
 
 	contextTypes: {
-		router: PropTypes.object
+		router: PropTypes.object,
 	},
 
 	childContextTypes: {
-		router: PropTypes.object
+		router: PropTypes.object,
 	},
 
-	getContext () {
+	getContext() {
 		let path = this.getBasePath();
 
 		return Promise.resolve([
 			{
 				label: 'Catalog',
-				href: path + 'catalog'
+				href: path + 'catalog',
 			},
 			{
 				label: 'Enroll',
-				href: path + `/catalog/item/${
-					this.props.entryId
-				}/enrollment`
-			}
+				href: path + `/catalog/item/${this.props.entryId}/enrollment`,
+			},
 		]);
 	},
 
-	getChildContext () {
+	getChildContext() {
 		return {
 			router: {
 				...(this.context.router || {}),
-				baseroute: `/mobile/catalog/item/${
-					this.props.entryId
-				}/enrollment`,
+				baseroute: `/mobile/catalog/item/${this.props.entryId}/enrollment`,
 				getRouteFor: this.getRouteFor,
-				history: getHistory()
-			}
+				history: getHistory(),
+			},
 		};
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			error: null,
 			pending: false,
-			showContact: false
+			showContact: false,
 		};
 	},
 
-	componentDidCatch (error) {
+	componentDidCatch(error) {
 		logger.error(error.message || error);
 		this.setState({ error: 'Unable to Enroll.' });
 	},
 
-	async handleOpenEnroll () {
+	async handleOpenEnroll() {
 		const catalogEntry = this.getEntry();
 		this.setState({ pending: true });
 
@@ -97,7 +93,7 @@ export default createReactClass({
 		}
 	},
 
-	handleEnroll (option) {
+	handleEnroll(option) {
 		const catalogEntry = this.getEntry();
 		const availableOptions = this.enrollmentOptions(catalogEntry, false);
 		const basePath = this.getBasePath();
@@ -115,49 +111,60 @@ export default createReactClass({
 		}
 	},
 
-	handleDrop () {
+	handleDrop() {
 		const basePath = this.getBasePath();
 		const catalogEntry = this.getEntry();
-		return `${basePath}catalog/enroll/drop/${encodeForURI(catalogEntry.getID())}/`;
+		return `${basePath}catalog/enroll/drop/${encodeForURI(
+			catalogEntry.getID()
+		)}/`;
 	},
 
-	handleGift () {
+	handleGift() {
 		const basePath = this.getBasePath();
 		const catalogEntry = this.getEntry();
-		return `${basePath}catalog/gift/purchase/${encodeForURI(catalogEntry.getID())}/`;
+		return `${basePath}catalog/gift/purchase/${encodeForURI(
+			catalogEntry.getID()
+		)}/`;
 	},
 
-	handleRedeem () {
+	handleRedeem() {
 		const basePath = this.getBasePath();
 		const catalogEntry = this.getEntry();
-		return `${basePath}catalog/item/${encodeForURI(catalogEntry.getID())}/redeem`;
+		return `${basePath}catalog/item/${encodeForURI(
+			catalogEntry.getID()
+		)}/redeem`;
 	},
 
-	handleProfile () {
+	handleProfile() {
 		const basePath = this.getBasePath();
 		const entity = getAppUsername();
 		return `${basePath}profile/${User.encode(entity)}/about/`;
 	},
 
-	handleCourse (option) {
+	handleCourse(option) {
 		const basePath = this.getBasePath();
 
 		return `${basePath}course/${encodeForURI(option.getCourseID())}/`;
 	},
 
-	getRouteFor (option, context) {
+	getRouteFor(option, context) {
 		if (option && option.type === 'contact-support') {
 			return () => {
 				this.setState({
-					showContact: true
+					showContact: true,
 				});
 			};
 		}
 
-		const isIMIS = option.MimeType === 'application/vnd.nextthought.courseware.ensyncimisexternalenrollmentoption';
-		const isEnrolled = option.MimeType === 'application/vnd.nextthought.courseware.courseinstanceenrollment';
-		const isAdmin = option.MimeType === 'application/vnd.nextthought.courseware.courseinstanceadministrativerole';
-
+		const isIMIS =
+			option.MimeType ===
+			'application/vnd.nextthought.courseware.ensyncimisexternalenrollmentoption';
+		const isEnrolled =
+			option.MimeType ===
+			'application/vnd.nextthought.courseware.courseinstanceenrollment';
+		const isAdmin =
+			option.MimeType ===
+			'application/vnd.nextthought.courseware.courseinstanceadministrativerole';
 
 		if (context === 'open' && (isEnrolled || isAdmin)) {
 			return this.handleCourse(option);
@@ -178,15 +185,13 @@ export default createReactClass({
 		}
 	},
 
-
-	onHelpDismissed () {
+	onHelpDismissed() {
 		this.setState({
-			showContact: false
+			showContact: false,
 		});
 	},
 
-
-	render () {
+	render() {
 		const entry = this.getEntry();
 		const { error, pending, showContact } = this.state;
 
@@ -195,13 +200,11 @@ export default createReactClass({
 		}
 
 		if (error) {
-			return (
-				<p className="enroll-options-error">{error}</p>
-			);
+			return <p className="enroll-options-error">{error}</p>;
 		}
 
 		if (pending) {
-			return (<Loading.Mask message="Loading..." />);
+			return <Loading.Mask message="Loading..." />;
 		}
 
 		return (
@@ -214,5 +217,5 @@ export default createReactClass({
 				)}
 			</>
 		);
-	}
+	},
 });

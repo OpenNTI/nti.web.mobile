@@ -1,4 +1,4 @@
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 
 export default scoped('course.sections', {
 	activity: 'Activity',

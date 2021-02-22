@@ -13,11 +13,13 @@ export default createReactClass({
 	mixins: [SectionMixin],
 
 	propTypes: {
-		admin: PropTypes.bool
+		admin: PropTypes.bool,
 	},
 
-	render () {
-		const {props: {admin}} = this;
+	render() {
+		const {
+			props: { admin },
+		} = this;
 		const section = admin ? 'admin' : 'courses';
 		const allcourses = this.getBinnedData(section);
 
@@ -42,13 +44,16 @@ export default createReactClass({
 
 		for (let bin of courses) {
 			//Current courses were asked to be grouped into "ForCredit" and "Open"
-			if (bin.isCurrent && !bin.homeItems) {//skip if we already processed
+			if (bin.isCurrent && !bin.homeItems) {
+				//skip if we already processed
 
 				const forCredit = [];
 				const open = [];
 
 				//sort items into reverse chronological order (put newest on the front)...
-				const sorted = bin.items.slice().sort((a,b) => b.getCreatedTime() - a.getCreatedTime());
+				const sorted = bin.items
+					.slice()
+					.sort((a, b) => b.getCreatedTime() - a.getCreatedTime());
 				for (let course of sorted) {
 					const list = isOpen(course.getStatus()) ? open : forCredit;
 					list.push(course);
@@ -59,11 +64,11 @@ export default createReactClass({
 			}
 		}
 
+		const items = courses.reduce(
+			(a, o) => a.concat(o.homeItems || o.items),
+			[]
+		); //join into one list
 
-		const items = courses.reduce((a, o) => a.concat(o.homeItems || o.items), []); //join into one list
-
-		return (
-			<Container section={section} items={items}/>
-		);
-	}
+		return <Container section={section} items={items} />;
+	},
 });

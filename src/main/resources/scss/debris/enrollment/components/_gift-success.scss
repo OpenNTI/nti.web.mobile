@@ -51,13 +51,17 @@
 			left: 0;
 			width: 28px;
 			height: 28px;
-			background: { color: transparent; position: center center; }
+			background: {
+				color: transparent;
+				position: center center;
+			}
 
 			background-size: contain;
 		}
 	}
 
-	.prompt,.gift {
+	.prompt,
+	.gift {
 		line-height: 1.3em;
 		font-weight: 300;
 

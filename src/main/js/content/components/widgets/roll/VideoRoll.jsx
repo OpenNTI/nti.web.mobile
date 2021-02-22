@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {equals} from '@nti/lib-commons';
-import {Error, Loading} from '@nti/web-commons';
-import {Component as Video} from '@nti/web-video';
+import { equals } from '@nti/lib-commons';
+import { Error, Loading } from '@nti/web-commons';
+import { Component as Video } from '@nti/web-video';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
@@ -12,12 +12,10 @@ import Mixin from '../Mixin';
 
 import RollCommon from './Mixin';
 
-
 const getVideoID = item => item.NTIID || (item.dataset || {}).ntiid;
 
-
-function getVideo (object, index) {
-	let {NTIID = object.ntiid} = object;
+function getVideo(object, index) {
+	let { NTIID = object.ntiid } = object;
 
 	if (object.getID) {
 		return object;
@@ -26,183 +24,177 @@ function getVideo (object, index) {
 	return NTIID ? index.get(NTIID) : index.mediaFrom(object);
 }
 
-
 export default createReactClass({
 	displayName: 'VideoRoll',
 	mixins: [Mixin, RollCommon, ContextAccessor],
 
 	statics: {
-		itemType: 'videoroll'
+		itemType: 'videoroll',
 	},
 
 	propTypes: {
 		contentPackage: PropTypes.object.isRequired,
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-	attachCurrentRef (x) { this.current = x; },
-	attachStageRef (x) { this.stage = x; },
-	attachVideoRef (x) { this.video = x; },
+	attachCurrentRef(x) {
+		this.current = x;
+	},
+	attachStageRef(x) {
+		this.stage = x;
+	},
+	attachVideoRef(x) {
+		this.video = x;
+	},
 
+	getItemCount() {
+		return this.getVideos().length;
+	},
 
-	getItemCount () { return this.getVideos().length; },
-
-
-	getVideos () {
-		let {videos} = this.state || {};
+	getVideos() {
+		let { videos } = this.state || {};
 		return videos || [];
 	},
 
-
-	getPosters () {
-		let {posters} = this.state || {};
+	getPosters() {
+		let { posters } = this.state || {};
 		return posters || [];
 	},
 
-
-	getVideo (index) {
+	getVideo(index) {
 		return this.getVideos()[index];
 	},
 
-
-	getPoster (index) {
+	getPoster(index) {
 		return this.getPosters()[index];
 	},
 
-
-	getCurrentVideo () {
+	getCurrentVideo() {
 		return this.getVideo(this.getActiveIndex());
 	},
 
-
-	getCurrentPoster () {
+	getCurrentPoster() {
 		return this.getPoster(this.getActiveIndex());
 	},
 
-
-	getNextPoster () {
+	getNextPoster() {
 		return this.getPoster(this.getActiveIndex() + 1);
 	},
 
-
-	getPrevPoster () {
+	getPrevPoster() {
 		return this.getPoster(this.getActiveIndex() - 1);
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.fillInValues(this.props);
 	},
 
-
-	componentDidUpdate (prevProps, prevState) {
+	componentDidUpdate(prevProps, prevState) {
 		if (!equals(this.props, prevProps)) {
 			this.fillInVideo(this.props);
 		}
 
 		if (this.state.current !== prevState.current) {
-			this.setState({playing: false});
+			this.setState({ playing: false });
 		}
 	},
 
+	fillInValues(props) {
+		let { contentPackage, item } = props;
 
-	fillInValues (props) {
-		let {contentPackage, item} = props;
-
-		this.setState({loading: true});
-
+		this.setState({ loading: true });
 
 		this.resolveContext()
-			.then(context => this.setState({context}))
+			.then(context => this.setState({ context }))
 
-			.then(() => item.videos.map(v=> getVideo(v)))
-			.catch(() => contentPackage && contentPackage.getVideoIndex()
-				.catch(() => null)
-				.then(index => item.videos.map(v=> getVideo(v, index))))
+			.then(() => item.videos.map(v => getVideo(v)))
+			.catch(
+				() =>
+					contentPackage &&
+					contentPackage
+						.getVideoIndex()
+						.catch(() => null)
+						.then(index => item.videos.map(v => getVideo(v, index)))
+			)
 
-			.then(videos => Promise.all(videos.map(v => v.getPoster()))
-				.then(posters=> ({videos, posters})))
+			.then(videos =>
+				Promise.all(videos.map(v => v.getPoster())).then(posters => ({
+					videos,
+					posters,
+				}))
+			)
 
-			.then(data => this.setState({
-				loading: false,
-				videos: data.videos,
-				posters: data.posters
-			}))
+			.then(data =>
+				this.setState({
+					loading: false,
+					videos: data.videos,
+					posters: data.posters,
+				})
+			)
 
 			.catch(this.onError);
 	},
 
-
-	onError (e) {
+	onError(e) {
 		this.setState({
 			loading: false,
-			error: e
+			error: e,
 		});
 	},
 
-
-	onStop () {
-		this.setState({playing: false});
+	onStop() {
+		this.setState({ playing: false });
 	},
 
-
-	onPlay () {
-		this.setState({playing: true});
+	onPlay() {
+		this.setState({ playing: true });
 	},
 
-
-	onPosterClicked (e) {
+	onPosterClicked(e) {
 		e.stopPropagation();
 		this.onPlayClicked(e);
 	},
 
-
-	onPlayClicked (e) {
+	onPlayClicked(e) {
 		e.preventDefault();
 		e.stopPropagation();
 
-		let {video} = this;
+		let { video } = this;
 		if (video) {
 			video.play();
-			this.setState({playing: true});
+			this.setState({ playing: true });
 		}
 	},
 
-
-	stop () {
-		let {video} = this;
+	stop() {
+		let { video } = this;
 		if (video) {
 			video.stop();
 		}
 	},
 
-
-	getVideoStyle (poster) {
+	getVideoStyle(poster) {
 		return poster && { backgroundImage: `url(${poster})` };
 	},
 
-
-	getCurrentItemStyle () {
+	getCurrentItemStyle() {
 		return this.getVideoStyle(this.getCurrentPoster());
 	},
 
-
-	getNextItemStyle () {
+	getNextItemStyle() {
 		return this.getVideoStyle(this.getNextPoster());
 	},
 
-
-	getPreviousItemStyle () {
+	getPreviousItemStyle() {
 		return this.getVideoStyle(this.getPrevPoster());
 	},
 
-
-	render () {
+	render() {
 		let count = this.getItemCount();
-		let {item} = this.props;
-		let {loading, error, playing} = this.state;
+		let { item } = this.props;
+		let { loading, error, playing } = this.state;
 
-		let {title} = item;
+		let { title } = item;
 
 		let empty = loading || error || count === 0;
 
@@ -218,71 +210,92 @@ export default createReactClass({
 			<div className="media-roll video-roll">
 				<label>{title}</label>
 				<div ref={this.attachStageRef} className={stageClasses}>
-
-					{ loading ? (
-
-						<Loading.Mask/>
-
+					{loading ? (
+						<Loading.Mask />
 					) : error ? (
-
-						<Error error={error}/>
-
+						<Error error={error} />
 					) : empty ? (
-
-						<div className="item video" style={style} data-empty-message="No Videos"/>
-
+						<div
+							className="item video"
+							style={style}
+							data-empty-message="No Videos"
+						/>
 					) : (
-
-						<div ref={this.attachCurrentRef} className="item video current content-video" style={style}>
-
+						<div
+							ref={this.attachCurrentRef}
+							className="item video current content-video"
+							style={style}
+						>
 							{!video ? null : (
-								<Video ref={this.attachVideoRef} src={video}
+								<Video
+									ref={this.attachVideoRef}
+									src={video}
 									onEnded={this.onStop}
 									onPlaying={this.onPlay}
 									analyticsData={{
 										resourceId: getVideoID(video),
-										context: this.state.context
+										context: this.state.context,
 									}}
 								/>
 							)}
 
 							{playing ? null : (
-								<a style={style} onClick={this.onPosterClicked} className="content-video-tap-area" href="#">
+								<a
+									style={style}
+									onClick={this.onPosterClicked}
+									className="content-video-tap-area"
+									href="#"
+								>
 									<div className="wrapper">
 										<div className="buttons">
-											<span className="play" title="Play" onClick={this.onPlayClicked}/>
+											<span
+												className="play"
+												title="Play"
+												onClick={this.onPlayClicked}
+											/>
 										</div>
 									</div>
 								</a>
 							)}
 
-							{prev && ( <button className="prev" onClick={this.onPrev} alt="previous"/> )}
-							{next && ( <button className="next" onClick={this.onNext} alt="next"/> )}
+							{prev && (
+								<button
+									className="prev"
+									onClick={this.onPrev}
+									alt="previous"
+								/>
+							)}
+							{next && (
+								<button
+									className="next"
+									onClick={this.onNext}
+									alt="next"
+								/>
+							)}
 						</div>
-
 					)}
 
-					{prev && ( <div className="item video prev" style={prev} /> )}
-					{next && ( <div className="item video next" style={next} /> )}
-
+					{prev && <div className="item video prev" style={prev} />}
+					{next && <div className="item video next" style={next} />}
 				</div>
 				{this.renderList()}
 			</div>
 		);
 	},
 
-
-	renderList () {
+	renderList() {
 		let videos = this.getVideos();
-		return videos.length > 1 ?
-			React.createElement('ul', {ref: 'list'},
-				...videos.map((i, x)=>this.renderThumbnail(i, x))) :
-			null;
+		return videos.length > 1
+			? React.createElement(
+					'ul',
+					{ ref: 'list' },
+					...videos.map((i, x) => this.renderThumbnail(i, x))
+			  )
+			: null;
 	},
 
-
-	renderThumbnail (video, index) {
-		let {posters = []} = this.state;
+	renderThumbnail(video, index) {
+		let { posters = [] } = this.state;
 		let thumb = posters[index];
 
 		let active = index === this.getActiveIndex();
@@ -290,23 +303,26 @@ export default createReactClass({
 		thumb = thumb && { backgroundImage: `url(${thumb})` };
 
 		return (
-			<li className={cx('thumbnail video', {active})}
+			<li
+				className={cx('thumbnail video', { active })}
 				ref={this.getThumbnailRef(index)}
 				data-index={index}
-				style={thumb}>
-				<a href="#" onClick={this.onThumbnailClick} title="thumbnail"><div className="icon fi-play-circle"/></a>
+				style={thumb}
+			>
+				<a href="#" onClick={this.onThumbnailClick} title="thumbnail">
+					<div className="icon fi-play-circle" />
+				</a>
 			</li>
 		);
 	},
 
-
-	getThumbnailRef (index) {
+	getThumbnailRef(index) {
 		const fnName = `attachThumbnail:${index}`;
 		let fn = this[fnName];
 		if (!fn) {
-			fn = this[fnName] = (x => this['thumbnail' + index] = x);
+			fn = this[fnName] = x => (this['thumbnail' + index] = x);
 		}
 
 		return fn;
-	}
+	},
 });

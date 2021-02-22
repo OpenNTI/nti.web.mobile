@@ -1,26 +1,25 @@
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import {Mixins} from '@nti/web-commons';
+import { Mixins } from '@nti/web-commons';
 
-import Accessor, {ContextParent, ContextResolver} from './ContextAccessor';
+import Accessor, { ContextParent, ContextResolver } from './ContextAccessor';
 
-export {ContextParent, ContextResolver};
+export { ContextParent, ContextResolver };
 
 const Mixin = {
 	mixins: [Accessor],
 
 	childContextTypes: {
 		[ContextResolver]: PropTypes.func,
-		[ContextParent]: PropTypes.any
+		[ContextParent]: PropTypes.any,
 	},
 
-
-	getChildContext () {
+	getChildContext() {
 		return {
 			[ContextResolver]: this.resolveContext,
-			[ContextParent]: this
+			[ContextParent]: this,
 		};
-	}
+	},
 };
 
 export default Mixin;
@@ -29,16 +28,14 @@ export const Component = createReactClass({
 	displayName: 'ContextContributor',
 	propTypes: {
 		children: PropTypes.node,
-		getContext: PropTypes.func
+		getContext: PropTypes.func,
 	},
 	mixins: [Mixin, Mixins.BasePath, Mixins.NavigatableMixin],
-	async getContext () {
-		const {getContext} = this.props;
-		return getContext
-			? getContext.call(this)
-			: [];
+	async getContext() {
+		const { getContext } = this.props;
+		return getContext ? getContext.call(this) : [];
 	},
-	render () {
+	render() {
 		return this.props.children || null;
-	}
+	},
 });

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
 import { equals } from '@nti/lib-commons';
-import {StoreEventsMixin} from '@nti/lib-store';
+import { StoreEventsMixin } from '@nti/lib-store';
 
 import QuestionWidget from 'assessment/components/Question';
 import PollWidget from 'assessment/components/Poll';
 import Store from 'assessment/Store';
-import {SYNC, ASSIGNMENT_RESET} from 'assessment/Constants';
+import { SYNC, ASSIGNMENT_RESET } from 'assessment/Constants';
 
 import Mixin from './Mixin';
 
@@ -21,13 +21,12 @@ export default createReactClass({
 	backingStore: Store,
 	backingStoreEventHandlers: {
 		[SYNC]: 'synchronizeFromStore',
-		[ASSIGNMENT_RESET]: 'synchronizeFromStore'
+		[ASSIGNMENT_RESET]: 'synchronizeFromStore',
 	},
 
 	statics: {
-		itemType: /na(question|poll)/i
+		itemType: /na(question|poll)/i,
 	},
-
 
 	propTypes: {
 		//Normal Path:
@@ -38,28 +37,27 @@ export default createReactClass({
 
 		//Static Rendering Path:
 		record: PropTypes.object,
-		inContext: PropTypes.bool
+		inContext: PropTypes.bool,
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
-			question: this.props.record
+			question: this.props.record,
 		};
 	},
 
+	componentDidMount() {
+		this.synchronizeFromStore();
+	},
 
-	componentDidMount () { this.synchronizeFromStore(); },
-
-	componentDidUpdate (prevProps, prevState) {
+	componentDidUpdate(prevProps, prevState) {
 		if (!equals(this.props, prevProps)) {
 			this.synchronizeFromStore();
 		}
 	},
 
-
-	synchronizeFromStore () {
-		const {item, page, record} = this.props;
+	synchronizeFromStore() {
+		const { item, page, record } = this.props;
 
 		let question = record;
 
@@ -68,7 +66,9 @@ export default createReactClass({
 			if (!question) {
 				question = page.getAssessmentQuestion(item.ntiid);
 				if (question && !question.individual) {
-					logger.error('A Question was found in PageInfo but not in Store and it declares that its not standalone!!!');
+					logger.error(
+						'A Question was found in PageInfo but not in Store and it declares that its not standalone!!!'
+					);
 					question = null;
 				}
 			}
@@ -77,20 +77,30 @@ export default createReactClass({
 		this.setState({ question });
 	},
 
-
-	render () {
-		const {props: {item, perspective, inContext}, state: {question}} = this;
+	render() {
+		const {
+			props: { item, perspective, inContext },
+			state: { question },
+		} = this;
 
 		if (!question) {
 			return (
-				<span className="question-not-found" data-question-id={item && item.ntiid}/>
+				<span
+					className="question-not-found"
+					data-question-id={item && item.ntiid}
+				/>
 			);
 		}
 
 		const Widget = question.isPoll ? PollWidget : QuestionWidget;
 
-		return  (
-			<Widget question={question} inContext={inContext} number={item.number} perspective={perspective} />
+		return (
+			<Widget
+				question={question}
+				inContext={inContext}
+				number={item.number}
+				perspective={perspective}
+			/>
 		);
-	}
+	},
 });

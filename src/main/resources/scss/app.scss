@@ -1,25 +1,14 @@
-@import "~@nti/style-common/all";
-@import
-	"utils/settings",
-	"utils/mixins",
-	"utils/placeholders";
+@import '~@nti/style-common/all';
+@import 'utils/settings', 'utils/mixins', 'utils/placeholders';
 //
-@import "~@nti/foundation-sites-fork/scss/foundation";
+@import '~@nti/foundation-sites-fork/scss/foundation';
 
 //
-@import
-	"base/reset",
-	"base/brand",
-	"base/dialogs",
-	"base/utility-classes";
+@import 'base/reset', 'base/brand', 'base/dialogs', 'base/utility-classes';
 
 //TODO: Move all the following rules (defined in these partials)
 // next to the components(jsx files) that they style
 
-@import
-	"debris/common/transitions",
-	"debris/common/components",
-	"debris/contacts/components",
-	"debris/enrollment/components",
-	"debris/forums/components",
-	"debris/profile/components";
+@import 'debris/common/transitions', 'debris/common/components',
+	'debris/contacts/components', 'debris/enrollment/components',
+	'debris/forums/components', 'debris/profile/components';

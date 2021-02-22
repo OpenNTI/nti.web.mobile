@@ -3,8 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import {Banner, Mixins} from '@nti/web-commons';
-
+import { Banner, Mixins } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -17,35 +16,42 @@ export default createReactClass({
 	mixins: [Mixins.NavigatableMixin, ContextSender],
 
 	propTypes: {
-		contentPackage: PropTypes.object
+		contentPackage: PropTypes.object,
 	},
 
 	// title bar back arrow
-	getContext () {
+	getContext() {
 		const { contentPackage } = this.props;
-		const discussionPath = contentPackage && !contentPackage.isCourse && contentPackage.isBundle ? '/d/' : '/discussions/';
+		const discussionPath =
+			contentPackage &&
+			!contentPackage.isCourse &&
+			contentPackage.isBundle
+				? '/d/'
+				: '/discussions/';
 		let href = this.getNavigable().makeHref(discussionPath);
 
 		return Promise.resolve({
 			label: 'Discussions',
-			href
+			href,
 		});
 	},
 
-	render () {
-		let {contentPackage} = this.props;
+	render() {
+		let { contentPackage } = this.props;
 		return (
 			<div className="forum-view">
 				<Banner item={contentPackage} />
 				<div className="forums-wrapper">
 					<Router.Locations contextual>
-						<Router.Location path="/:forumId(/*)"
+						<Router.Location
+							path="/:forumId(/*)"
 							handler={ForumView}
 							contextID={contentPackage && contentPackage.getID()}
 							contentPackage={contentPackage}
 						/>
 
-						<Router.Location path="/"
+						<Router.Location
+							path="/"
 							handler={ForumListView}
 							bundle={contentPackage}
 						/>
@@ -53,5 +59,5 @@ export default createReactClass({
 				</div>
 			</div>
 		);
-	}
+	},
 });

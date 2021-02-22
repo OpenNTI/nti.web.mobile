@@ -1,14 +1,14 @@
-import {join} from 'path';
+import { join } from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Mixins} from '@nti/web-commons';
-import {getAppUsername, User} from '@nti/web-client';
+import { Mixins } from '@nti/web-commons';
+import { getAppUsername, User } from '@nti/web-client';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {logout} from 'login/Actions';
+import { logout } from 'login/Actions';
 
 import Impersonate from './right-overlay/Impersonate';
 
@@ -20,12 +20,11 @@ export default createReactClass({
 	mixins: [Mixins.BasePath],
 
 	propTypes: {
-		children: PropTypes.any
+		children: PropTypes.any,
 	},
 
-
-	render () {
-		let {children} = this.props;
+	render() {
+		let { children } = this.props;
 
 		let base = this.getBasePath();
 
@@ -36,20 +35,26 @@ export default createReactClass({
 
 		return (
 			<div className="user-session">
-				<Avatar entity={entity}/>
+				<Avatar entity={entity} />
 				<div className="meta">
-					<DisplayName entity={entity}/>
+					<DisplayName entity={entity} />
 				</div>
 				<div className="actions">
-					<Impersonate/>
+					<Impersonate />
 					{children}
 				</div>
 				<ul className="links">
-					<li><a href={profile}>View Profile</a></li>
-					<li><a href={contacts}>Contacts</a></li>
-					<li><a onClick={logout}>Log Out</a></li>
+					<li>
+						<a href={profile}>View Profile</a>
+					</li>
+					<li>
+						<a href={contacts}>Contacts</a>
+					</li>
+					<li>
+						<a onClick={logout}>Log Out</a>
+					</li>
 				</ul>
 			</div>
 		);
-	}
+	},
 });

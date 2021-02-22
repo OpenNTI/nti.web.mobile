@@ -1,13 +1,12 @@
-import {join} from 'path';
+import { join } from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Mixins} from '@nti/web-commons';
+import { Mixins } from '@nti/web-commons';
 
 import Button from 'forms/components/Button';
-import {profileHref} from 'profile/mixins/ProfileLink';
-
+import { profileHref } from 'profile/mixins/ProfileLink';
 
 export default createReactClass({
 	displayName: 'GroupLeaveButton',
@@ -15,35 +14,38 @@ export default createReactClass({
 	mixins: [Mixins.BasePath, Mixins.NavigatableMixin],
 
 	propTypes: {
-		entity: PropTypes.object.isRequired
+		entity: PropTypes.object.isRequired,
 	},
 
-	updateStatus (props = this.props) {
-		let {entity} = props;
+	updateStatus(props = this.props) {
+		let { entity } = props;
 		this.setState({
-			isMember: entity.isMember
+			isMember: entity.isMember,
 		});
 	},
 
-	handleClick () {
-		this.props.entity.leave()
+	handleClick() {
+		this.props.entity
+			.leave()
 			.then(() => this.redirectToProfile('memberships/'));
 	},
 
-	redirectToProfile () {
+	redirectToProfile() {
 		let link = profileHref();
 		let memberships = join(this.getBasePath(), link, 'memberships/');
 		this.navigateRoot(memberships);
 	},
 
-	render () {
-		let {isMember} = this.props.entity;
+	render() {
+		let { isMember } = this.props.entity;
 		if (!isMember) {
 			return null;
 		}
 		//Leave is grey, Join is blue...
 		return (
-			<Button className="group-leave-button" onClick={this.handleClick}>Leave Group</Button>
+			<Button className="group-leave-button" onClick={this.handleClick}>
+				Leave Group
+			</Button>
 		);
-	}
+	},
 });

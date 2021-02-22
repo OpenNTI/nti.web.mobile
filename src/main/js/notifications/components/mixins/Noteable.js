@@ -1,6 +1,6 @@
 import Logger from '@nti/util-logger';
-import {isNTIID, encodeForURI} from '@nti/lib-ntiids';
-import {Mixins} from '@nti/web-commons';
+import { isNTIID, encodeForURI } from '@nti/lib-ntiids';
+import { Mixins } from '@nti/web-commons';
 
 const logger = Logger.get('notifications:mixin');
 
@@ -8,7 +8,7 @@ export default {
 	mixins: [Mixins.BasePath],
 
 	statics: {
-		handles (item) {
+		handles(item) {
 			let change = item;
 			item = change.Item || change;
 			item = item.MimeType.replace('application/vnd.nextthought.', '');
@@ -17,14 +17,15 @@ export default {
 				this.noteableType = [this.noteableType];
 			}
 
-			return (this.noteableType.indexOf(item) !== -1);
-		}
+			return this.noteableType.indexOf(item) !== -1;
+		},
 	},
 
-	getInitialState () { return {}; },
+	getInitialState() {
+		return {};
+	},
 
-	// eslint-disable-next-line camelcase
-	UNSAFE_componentWillMount () {
+	UNSAFE_componentWillMount() {
 		let change = this.props.item;
 		let item = change.Item || change;
 		let username = item.creator || item.Creator;
@@ -36,27 +37,26 @@ export default {
 			id = isNTIID(id) ? encodeForURI(id) : encodeURIComponent(id);
 
 			url = `${this.getBasePath()}object/${id}/`;
-		} catch(e) {
+		} catch (e) {
 			logger.warn('Notable has no url: ', item);
 		}
 
 		this.setState({ username, change, item, url });
 	},
 
-	getEventTime (other) {
-		let {item, change} = this.state;
+	getEventTime(other) {
+		let { item, change } = this.state;
 		//Get the time from the item, if not found, use the change.
 		return getTime(other) || getTime(item) || getTime(change);
-	}
+	},
 };
 
-
-function getTime (o) {
+function getTime(o) {
 	try {
 		let lm = o && o.getLastModified();
 		//Return the Last Modified, unless its not set
 		return o && !lm ? o.getCreatedTime() : lm;
-	} catch	(e) {
+	} catch (e) {
 		logger.warn('No Date for object:', o);
 		return new Date(0);
 	}

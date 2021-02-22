@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .table-chart {
 	margin: 1rem 0.625rem;
@@ -11,11 +11,13 @@
 		border-bottom: 1px solid var(--border-grey);
 	}
 
-	thead, tbody {
+	thead,
+	tbody {
 		background: none;
 
 		tr {
-			th, td {
+			th,
+			td {
 				font-weight: normal;
 				font-size: 0.875rem;
 
@@ -36,7 +38,14 @@
 		font-size: 1rem;
 	}
 
-	.rank-first { color: var(--primary-green); }
-	.rank-second { color: var(--primary-grey); }
-	.rank-none { color: var(--tertiary-grey); opacity: 0.9; }
+	.rank-first {
+		color: var(--primary-green);
+	}
+	.rank-second {
+		color: var(--primary-grey);
+	}
+	.rank-none {
+		color: var(--tertiary-grey);
+		opacity: 0.9;
+	}
 }

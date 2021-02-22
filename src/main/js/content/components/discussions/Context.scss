@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .discussion-context {
 	overflow: hidden;
@@ -18,7 +18,8 @@
 	&.fragment {
 		background: #fffcf2;
 
-		&::before, &::after {
+		&::before,
+		&::after {
 			position: absolute;
 			content: '';
 			left: 0;
@@ -26,13 +27,25 @@
 			top: 0;
 			height: 1.5rem;
 			z-index: 10;
-			background: linear-gradient(to top, rgba(255, 252, 242, 0) 0%, rgba(255, 252, 242, 0.88) 60%, rgb(255, 252, 242) 72%, rgb(255, 252, 242) 100%);
+			background: linear-gradient(
+				to top,
+				rgba(255, 252, 242, 0) 0%,
+				rgba(255, 252, 242, 0.88) 60%,
+				rgb(255, 252, 242) 72%,
+				rgb(255, 252, 242) 100%
+			);
 		}
 
 		&::after {
 			top: initial;
 			bottom: 0;
-			background: linear-gradient(to bottom, rgba(255, 252, 242, 0) 0%, rgba(255, 252, 242, 0.88) 60%, rgb(255, 252, 242) 72%, rgb(255, 252, 242) 100%);
+			background: linear-gradient(
+				to bottom,
+				rgba(255, 252, 242, 0) 0%,
+				rgba(255, 252, 242, 0.88) 60%,
+				rgb(255, 252, 242) 72%,
+				rgb(255, 252, 242) 100%
+			);
 		}
 
 		a {
@@ -42,7 +55,9 @@
 
 	widget {
 		pointer-events: none;
-		.zoom { display: none; }
+		.zoom {
+			display: none;
+		}
 	}
 
 	figure.error {
@@ -77,6 +92,8 @@
 
 	.question {
 		pointer-events: none;
-		.question-submission { display: none; }
+		.question-submission {
+			display: none;
+		}
 	}
 }

@@ -23,7 +23,7 @@ export default class CalendarView extends React.Component {
 	// 	};
 	// }
 
-	render () {
-		return <CalendarRouter/>;
+	render() {
+		return <CalendarRouter />;
 	}
 }

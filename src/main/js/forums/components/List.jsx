@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import hash from 'object-hash';
-import {Notice} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Notice } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import groupDeletedItems from '../utils/group-deleted-items';
 
 import ListItem from './list-items';
 
 const DEFAULT_TEXT = {
-	empty: 'There is nothing here.'
+	empty: 'There is nothing here.',
 };
 
 const t = scoped('forums.list', DEFAULT_TEXT);
@@ -18,12 +18,12 @@ export default class extends React.Component {
 	static displayName = 'forums:List';
 
 	static defaultProps = {
-		groupDeleted: true
+		groupDeleted: true,
 	};
 
 	static propTypes = {
 		container: PropTypes.shape({
-			Items: PropTypes.array
+			Items: PropTypes.array,
 		}).isRequired,
 
 		emptyText: PropTypes.string,
@@ -34,14 +34,14 @@ export default class extends React.Component {
 
 		topic: PropTypes.object,
 
-		keyFn: PropTypes.func
+		keyFn: PropTypes.func,
 	};
 
-	keyFor = (item) => {
-		return item.getID ? item.getID() : hash(item, {ignoreUnknown: true});
+	keyFor = item => {
+		return item.getID ? item.getID() : hash(item, { ignoreUnknown: true });
 	};
 
-	render () {
+	render() {
 		const {
 			container,
 			emptyText = t('empty'),
@@ -57,8 +57,7 @@ export default class extends React.Component {
 			return null;
 		}
 
-
-		let {Items} = container;
+		let { Items } = container;
 
 		let empty = Items.length === 0;
 
@@ -66,14 +65,16 @@ export default class extends React.Component {
 			Items = groupDeletedItems(Items);
 		}
 
-		return (empty ? (
+		return empty ? (
 			<Notice className="empty-list">{emptyText}</Notice>
 		) : (
 			<ul {...otherProps}>
-				{Items.map((item, index)=>
-					<li key={keyFn(item)}>{ListItem(item, index, {topic, ...itemProps})}</li>
-				)}
+				{Items.map((item, index) => (
+					<li key={keyFn(item)}>
+						{ListItem(item, index, { topic, ...itemProps })}
+					</li>
+				))}
 			</ul>
-		));
+		);
 	}
 }

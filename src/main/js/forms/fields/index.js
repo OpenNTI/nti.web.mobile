@@ -5,12 +5,12 @@ export const StateSelect = {
 		type: 'select',
 		optionsLink: {
 			type: 'rel',
-			rel: 'fmaep.state.names'
-		}
+			rel: 'fmaep.state.names',
+		},
 	},
-	withProps (props) {
-		return { ...this.baseConfig, ...props};
-	}
+	withProps(props) {
+		return { ...this.baseConfig, ...props };
+	},
 };
 
 export const CountrySelect = {
@@ -20,10 +20,10 @@ export const CountrySelect = {
 		type: 'select',
 		optionsLink: {
 			type: 'rel',
-			rel: 'fmaep.country.names'
-		}
+			rel: 'fmaep.country.names',
+		},
 	},
-	withProps (props) {
-		return { ...this.baseConfig, ...props};
-	}
+	withProps(props) {
+		return { ...this.baseConfig, ...props };
+	},
 };

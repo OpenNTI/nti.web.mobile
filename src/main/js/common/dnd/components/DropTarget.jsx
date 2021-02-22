@@ -6,7 +6,7 @@ export default createReactClass({
 	displayName: 'DropTarget',
 	mixins: [DropBehavior],
 
-	render () {
+	render() {
 		return this.renderDropTargetWrapper();
-	}
+	},
 });

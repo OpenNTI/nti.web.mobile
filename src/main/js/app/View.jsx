@@ -2,15 +2,15 @@ import URL from 'url';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import {environment, CaptureClicks, Link} from 'react-router-component';
-import {Session} from '@nti/web-session';
-import {reportError, getConfig} from '@nti/web-client';
-import {Error, Loading, Layouts, Theme} from '@nti/web-commons';
+import { environment, CaptureClicks, Link } from 'react-router-component';
+import { Session } from '@nti/web-session';
+import { reportError, getConfig } from '@nti/web-client';
+import { Error, Loading, Layouts, Theme } from '@nti/web-commons';
 import Logger from '@nti/util-logger';
-import {parent} from '@nti/lib-dom';
+import { parent } from '@nti/lib-dom';
 import {
 	addChangeListener as addLocaleChangeListener,
-	removeChangeListener as removeLocaleChangeListener
+	removeChangeListener as removeLocaleChangeListener,
 } from '@nti/lib-locale';
 import 'locale';
 
@@ -27,12 +27,11 @@ const logger = Logger.get('root:app:View');
 Layouts.Responsive.setMobileContext();
 
 export default class App extends React.Component {
-
 	static propTypes = {
 		path: PropTypes.string,
 		basePath: PropTypes.string.isRequired,
-		markNotFound: PropTypes.func
-	}
+		markNotFound: PropTypes.func,
+	};
 
 	static childContextTypes = {
 		isMobile: PropTypes.bool,
@@ -42,10 +41,10 @@ export default class App extends React.Component {
 		setRouteViewTitle: PropTypes.func,
 		markNotFound: PropTypes.func,
 		[SET_PAGESOURCE]: PropTypes.func,
-		[SET_CONTEXT]: PropTypes.func
-	}
+		[SET_CONTEXT]: PropTypes.func,
+	};
 
-	getChildContext () {
+	getChildContext() {
 		return {
 			isMobile: true,
 			basePath: this.props.basePath,
@@ -54,110 +53,124 @@ export default class App extends React.Component {
 			setRouteViewTitle: () => {},
 			markNotFound: this.props.markNotFound,
 			[SET_PAGESOURCE]: NavigationActions.setPageSource,
-			[SET_CONTEXT]: NavigationActions.setContext
+			[SET_CONTEXT]: NavigationActions.setContext,
 		};
 	}
 
+	state = {};
 
-	state = {}
-
-
-	componentDidMount () {
+	componentDidMount() {
 		addLocaleChangeListener(this.onStringsChange);
 		this.applyTheme();
 
 		this.addGlobalLinkFixer();
 	}
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		removeLocaleChangeListener(this.onStringsChange);
 	}
 
-
-	componentDidCatch (error, info) {
+	componentDidCatch(error, info) {
 		this.setState({ error, info, hasError: true });
 		reportError(error);
 	}
 
+	attachRef = x => (this.frame = x);
 
-	attachRef = x => this.frame = x
+	addGlobalLinkFixer() {
+		if (typeof document === 'undefined') {
+			return;
+		}
 
-	addGlobalLinkFixer () {
-		if (typeof document === 'undefined') { return; }
-
-		const {basePath} = this.props;
+		const { basePath } = this.props;
 		const app = URL.resolve((global.location || {}).href || '', basePath);
 
-		document.addEventListener('click', (e) => {
-			const anchor = parent(e.target, 'a');
-			const {href} = anchor || {};
+		document.addEventListener(
+			'click',
+			e => {
+				const anchor = parent(e.target, 'a');
+				const { href } = anchor || {};
 
-			if (!anchor || (href || '').startsWith(app)) { return; }
+				if (!anchor || (href || '').startsWith(app)) {
+					return;
+				}
 
-			anchor.rel = (`${anchor.rel || ''} external`).trim();
-		}, true);
+				anchor.rel = `${anchor.rel || ''} external`.trim();
+			},
+			true
+		);
 	}
 
-
-	applyTheme () {
+	applyTheme() {
 		const branding = getConfig('branding');
 		const themeProperties = Theme.buildTheme.DefaultProperties;
 
-		themeProperties.assets.fullLogo.href = Theme.buildTheme.makeAssetHREFFallbacks('/site-assets/shared/brand_mobile.png');
+		themeProperties.assets.fullLogo.href = Theme.buildTheme.makeAssetHREFFallbacks(
+			'/site-assets/shared/brand_mobile.png'
+		);
 
 		const theme = Theme.buildTheme(themeProperties);
 
 		theme.setOverrides(Theme.siteBrandToTheme(branding));
 
 		this.setState({
-			theme
+			theme,
 		});
 	}
 
-
-	gotoURL = (url) => {
-		const {basePath} = this.props;
+	gotoURL = url => {
+		const { basePath } = this.props;
 		const app = URL.resolve((global.location || {}).href || '', basePath);
 
 		if (!(url || '').startsWith(app)) {
-			logger.warn('blocked: Router wants to set location to url: %s', url);
+			logger.warn(
+				'blocked: Router wants to set location to url: %s',
+				url
+			);
 		}
-	}
-
+	};
 
 	onBeforeNavigation = () => {
-		let {frame} = this;
+		let { frame } = this;
 		if (frame && frame.onCloseMenus) {
 			frame.onCloseMenus();
 		}
-	}
+	};
 
+	onStringsChange = () => this.forceUpdate();
 
-	onStringsChange = () => this.forceUpdate()
-
-
-	render () {
-		const {state: {hasError, mask, theme}, props: {path}} = this;
-		const isGated = /\/(login|onboarding)/i.test(path || global.location.href);
+	render() {
+		const {
+			state: { hasError, mask, theme },
+			props: { path },
+		} = this;
+		const isGated = /\/(login|onboarding)/i.test(
+			path || global.location.href
+		);
 
 		const Wrapper = isGated ? 'div' : AppContainer;
 
 		if (hasError) {
-			return ( <Error {...this.state}/> );
+			return <Error {...this.state} />;
 		}
 
 		if (mask) {
-			return <Loading.Mask message={typeof mask === 'string' ? mask : void 0}/>;
+			return (
+				<Loading.Mask
+					message={typeof mask === 'string' ? mask : void 0}
+				/>
+			);
 		}
-
 
 		return (
 			<Theme.Apply theme={theme}>
 				<Session>
 					<CaptureClicks gotoURL={this.gotoURL}>
 						<Wrapper ref={this.attachRef}>
-							<Router path={path} onBeforeNavigation={this.onBeforeNavigation}/>
+							<Router
+								path={path}
+								onBeforeNavigation={this.onBeforeNavigation}
+							/>
 						</Wrapper>
 					</CaptureClicks>
 				</Session>

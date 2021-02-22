@@ -10,7 +10,6 @@ import Ordering from './Ordering';
 import FillInTheBlankShortAnswer from './FillInTheBlankShortAnswer';
 import FillInTheBlankWithWordBank from './FillInTheBlankWithWordBank';
 
-
 const KINDS = [
 	Unknown,
 	Solution,
@@ -24,11 +23,10 @@ const KINDS = [
 	Ordering,
 
 	FillInTheBlankShortAnswer,
-	FillInTheBlankWithWordBank
+	FillInTheBlankWithWordBank,
 ];
 
-
-export function getSolutionWidget (item, index) {
+export function getSolutionWidget(item, index) {
 	let Item = Unknown;
 
 	for (let Type of KINDS) {
@@ -41,6 +39,7 @@ export function getSolutionWidget (item, index) {
 	return React.createElement(Item, {
 		ref: 'solution',
 		key: 'question-solution-' + index,
-		index, item
+		index,
+		item,
 	});
 }

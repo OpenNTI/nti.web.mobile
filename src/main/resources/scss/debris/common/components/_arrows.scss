@@ -1,6 +1,6 @@
 $arrow-color: var(--tertiary-grey);
 
-@mixin arrow($direction:right, $size:0.5rem) {
+@mixin arrow($direction: right, $size: 0.5rem) {
 	content: '';
 	position: absolute;
 	top: 50%;
@@ -22,19 +22,13 @@ $arrow-color: var(--tertiary-grey);
 	@if $direction == right {
 		transform: rotate3d(0, 0, 1, 45deg);
 		right: $size * 1.5;
-	}
-
-	@else if $direction == left {
+	} @else if $direction == left {
 		transform: rotate3d(0, 0, 1, -135deg);
 		left: $size * 1.5;
-	}
-
-	@else if $direction == up {
+	} @else if $direction == up {
 		transform: rotate3d(0, 0, 1, -45deg);
 		right: $size * 1.5;
-	}
-
-	@else if $direction == down {
+	} @else if $direction == down {
 		transform: rotate3d(0, 0, 1, 135deg);
 		right: $size * 1.5;
 	}

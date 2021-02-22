@@ -4,35 +4,36 @@ import PropTypes from 'prop-types';
 import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
 import Logger from '@nti/util-logger';
-import {getModel} from '@nti/lib-interfaces';
-import {Loading} from '@nti/web-commons';
-import {rawContent} from '@nti/lib-commons';
-import {scoped as locale} from '@nti/lib-locale';
-import {getPageContent, getGeneratedPageInfo, PageDescriptor} from '@nti/lib-content-processing';
-import {Viewer} from '@nti/web-discussions';
+import { getModel } from '@nti/lib-interfaces';
+import { Loading } from '@nti/web-commons';
+import { rawContent } from '@nti/lib-commons';
+import { scoped as locale } from '@nti/lib-locale';
+import {
+	getPageContent,
+	getGeneratedPageInfo,
+	PageDescriptor,
+} from '@nti/lib-content-processing';
+import { Viewer } from '@nti/web-discussions';
 
 import GotoItem from 'common/components/GotoItem';
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
-import {select as getAnnotation} from '../viewer-parts/annotations';
+import { select as getAnnotation } from '../viewer-parts/annotations';
 import Content from '../Content';
-import {getWidget} from '../widgets';
-
+import { getWidget } from '../widgets';
 
 const logger = Logger.get('content:components:discussions:Context');
 
 const t = locale('activity.item', {
-	goto: 'Read More'
+	goto: 'Read More',
 });
 
 const PageInfo = getModel('pageinfo');
 const Survey = getModel('nasurvey');
 
-
-function is403 (e) {
+function is403(e) {
 	return e && e.statusCode === 403;
 }
-
 
 class DiscussionContext extends React.Component {
 	static displayName = 'Context';
@@ -40,23 +41,23 @@ class DiscussionContext extends React.Component {
 	static propTypes = {
 		contentPackage: PropTypes.object,
 		item: PropTypes.object,
-		className: PropTypes.string
+		className: PropTypes.string,
 	};
 
 	state = {
-		loading: true
+		loading: true,
 	};
 
-	componentDidMount () {
+	componentDidMount() {
 		this.updateContext();
 	}
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		this.setState = () => {};
 	}
 
-	componentDidUpdate ({item}, state) {
-		let {error} = this.state;
+	componentDidUpdate({ item }, state) {
+		let { error } = this.state;
 
 		if (this.props.item !== item) {
 			this.updateContext();
@@ -69,8 +70,14 @@ class DiscussionContext extends React.Component {
 		this.focusApplicableRange();
 	}
 
-	updateContext = async ({item} = this.props) => {
-		this.setState({error: null, found: false, loading: true, scoped: false, fragment: false});
+	updateContext = async ({ item } = this.props) => {
+		this.setState({
+			error: null,
+			found: false,
+			loading: true,
+			scoped: false,
+			fragment: false,
+		});
 
 		try {
 			let data = await item.getContextData();
@@ -79,50 +86,52 @@ class DiscussionContext extends React.Component {
 				data = await getGeneratedPageInfo(data);
 			}
 
-			if(data instanceof PageInfo) {
+			if (data instanceof PageInfo) {
 				this.setPageContext(data);
-			}
-			else {
+			} else {
 				this.setWidgetContainerContext(data);
 			}
-		}
-		catch(error) {
-			this.setState({error, loading: false});
+		} catch (error) {
+			this.setState({ error, loading: false });
 		}
 	};
 
-	setPageContext = async (pageInfo) => {
+	setPageContext = async pageInfo => {
 		const pageContent = await getPageContent(pageInfo);
-		const descriptor = new PageDescriptor(pageContent.pageInfo.getID(), pageContent);
+		const descriptor = new PageDescriptor(
+			pageContent.pageInfo.getID(),
+			pageContent
+		);
 
 		const pageId = descriptor.getID();
 		const context = React.createElement(Content, {
 			page: descriptor,
 			pageId,
-			onContentReady: () => this.setState({contextReady: true})
+			onContentReady: () => this.setState({ contextReady: true }),
 		});
 
-		this.setState({loading: false, fragment: true, context, pageId});
-
+		this.setState({ loading: false, fragment: true, context, pageId });
 	};
 
-	setWidgetContainerContext = (object) => {
-		let {item, contentPackage} = this.props;
+	setWidgetContainerContext = object => {
+		let { item, contentPackage } = this.props;
 		let props = {
 			record: object,
 			applicableRange: item.applicableRange,
 			contentPackage,
-			inContext: true
+			inContext: true,
 		};
 
 		try {
 			let widget = getWidget(object, undefined, props);
-			let {type = {}} = widget || {};
+			let { type = {} } = widget || {};
 
 			let context;
 			try {
-				context = type.interactiveInContext ? widget : ReactDOMServer.renderToStaticMarkup(widget);
-			} catch(e) {
+				context = type.interactiveInContext
+					? widget
+					: ReactDOMServer.renderToStaticMarkup(widget);
+			} catch (e) {
 				logger.warn('Oops', e.stack || e.message || e);
 			}
 
@@ -130,23 +139,23 @@ class DiscussionContext extends React.Component {
 				loading: false,
 				fragment: false,
 				scoped: true,
-				context
+				context,
 			});
 		} catch (error) {
 			this.setState({
 				loading: false,
 				fragment: false,
 				scoped: true,
-				error
+				error,
 			});
 		}
 	};
 
 	findApplicableRange = () => {
-		let {item} = this.props;
-		let {found, fragment, pageId, contextReady} = this.state;
+		let { item } = this.props;
+		let { found, fragment, pageId, contextReady } = this.state;
 
-		const {root} = this;
+		const { root } = this;
 		if (!root || found || !fragment || !contextReady) {
 			return !!found;
 		}
@@ -156,9 +165,8 @@ class DiscussionContext extends React.Component {
 			getContentNode: () => root,
 			getContentNodeClean: () => root,
 			getPageID: () => pageId,
-			getPageInfoID: () => pageId
+			getPageInfoID: () => pageId,
 		});
-
 
 		renderable.render();
 
@@ -180,20 +188,18 @@ class DiscussionContext extends React.Component {
 		}
 
 		if (range) {
-			this.setState({found});
+			this.setState({ found });
 		}
 
 		return !!found;
 	};
 
 	focusApplicableRange = () => {
-		let {root: node} = this;
+		let { root: node } = this;
 		if (node && this.findApplicableRange()) {
-
-
 			let focus = node.querySelector('.focus-context-here');
 
-			node = node.firstChild;//this is what scrolls.
+			node = node.firstChild; //this is what scrolls.
 
 			if (focus && node.scrollHeight > node.offsetHeight) {
 				// logger.log('TODO: ensure focus node', focus, 'is positioned into view.');
@@ -203,62 +209,75 @@ class DiscussionContext extends React.Component {
 
 				//if the focus node is completely below the bottom of the view, OR
 				//if the top is in the lower 70% of the view...
-				if (r.top > r2.bottom || ((r2.bottom - r.top) / r2.height) < 0.7 ) {
-					node.scrollTop = (r.top - r2.top - approxOneLineHeight);
+				if (
+					r.top > r2.bottom ||
+					(r2.bottom - r.top) / r2.height < 0.7
+				) {
+					node.scrollTop = r.top - r2.top - approxOneLineHeight;
 				}
 			}
 		}
 	};
 
-	attachRef = (ref) => { this.root = ref; };
-	attachWRef = (ref) => { this.widget = ref; };
+	attachRef = ref => {
+		this.root = ref;
+	};
+	attachWRef = ref => {
+		this.widget = ref;
+	};
 
-	render () {
-		let {error, loading, scoped, fragment, context} = this.state;
-		let {item, className: cls} = this.props;
-		let className = cx('discussion-context', cls, {scoped, fragment});
-		let props = {className};
+	render() {
+		let { error, loading, scoped, fragment, context } = this.state;
+		let { item, className: cls } = this.props;
+		let className = cx('discussion-context', cls, { scoped, fragment });
+		let props = { className };
 
-		return loading
-			? ( <div {...props}><Loading.Ellipse/></div> )
-			: error
-				? (is403(error)
-					? ( <ContentAcquirePrompt {...props} relatedItem={item} data={error}/> )
-					: ( null )
-				)
-				: (
-					<div>
-						{
-							(typeof context === 'string')
-								? ( <div ref={this.attachRef} {...props} {...rawContent(context)}/> )
-								: (
-									<div ref={this.attachRef} {...props}>
-										{
-											React.createElement(context.type,
-												{...context.props, ref: this.attachWRef})
-										}
-									</div>
-								)
-						}
-						<GotoItem item={item}>{t('goto')}</GotoItem>
+		return loading ? (
+			<div {...props}>
+				<Loading.Ellipse />
+			</div>
+		) : error ? (
+			is403(error) ? (
+				<ContentAcquirePrompt
+					{...props}
+					relatedItem={item}
+					data={error}
+				/>
+			) : null
+		) : (
+			<div>
+				{typeof context === 'string' ? (
+					<div
+						ref={this.attachRef}
+						{...props}
+						{...rawContent(context)}
+					/>
+				) : (
+					<div ref={this.attachRef} {...props}>
+						{React.createElement(context.type, {
+							...context.props,
+							ref: this.attachWRef,
+						})}
 					</div>
-				);
+				)}
+				<GotoItem item={item}>{t('goto')}</GotoItem>
+			</div>
+		);
 	}
 }
 
 DiscussionContextOverride.propTypes = {
 	item: PropTypes.any,
-	container: PropTypes.any
+	container: PropTypes.any,
 };
-function DiscussionContextOverride ({item, container}) {
-	if (!item.isNote) { return null; }
+function DiscussionContextOverride({ item, container }) {
+	if (!item.isNote) {
+		return null;
+	}
 
-	return (
-		<DiscussionContext item={item} contextPackage={container} />
-	);
+	return <DiscussionContext item={item} contextPackage={container} />;
 }
 
 Viewer.setContextOverride(DiscussionContextOverride);
-
 
 export default DiscussionContext;

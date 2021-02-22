@@ -1,53 +1,49 @@
 import Logger from '@nti/util-logger';
-import {safeBoundingBoxForRange, isZeroRect} from '@nti/lib-dom';
+import { safeBoundingBoxForRange, isZeroRect } from '@nti/lib-dom';
 import iOSversion from '@nti/util-ios-version';
 
-import {NOT_FOUND, HIDDEN, RETRY_AFTER_DOM_SETTLES} from './Annotation';
+import { NOT_FOUND, HIDDEN, RETRY_AFTER_DOM_SETTLES } from './Annotation';
 import Highlight from './Highlight';
 
 const logger = Logger.get('content:components:annotations:Note');
 
-function isBoundingClientRectBroken () {
+function isBoundingClientRectBroken() {
 	let ios = iOSversion();
 	return ios && ios[0] < 8;
 }
 
 export default class Note extends Highlight {
-
-	static handles (item) {
+	static handles(item) {
 		return /note$/i.test(item.MimeType);
 	}
 
-	static createFrom (data) {
-
+	static createFrom(data) {
 		const base = {
 			MimeType: 'application/vnd.nextthought.note',
 			style: 'suppressed',
 			title: null,
 			body: null,
-			sharedWith: []
+			sharedWith: [],
 		};
 
 		return {
 			...base,
-			...data
+			...data,
 		};
 	}
 
-	constructor (...args) {
+	constructor(...args) {
 		super(...args);
 		this.isNote = true;
 	}
 
-
-	shouldRender () {
+	shouldRender() {
 		if (this.getRecordField('style') !== 'suppressed') {
 			return super.shouldRender();
 		}
 	}
 
-
-	resolveVerticalLocation () {
+	resolveVerticalLocation() {
 		let range = this.getRange();
 		let rect = safeBoundingBoxForRange(range);
 		if (!rect) {
@@ -79,8 +75,7 @@ export default class Note extends Highlight {
 		if (has) {
 			let node = this.reader.getContentNode();
 			top -= node ? node.getBoundingClientRect().top : 0;
-		}
-		else {
+		} else {
 			logger.debug('Hidden:', range, rect);
 		}
 

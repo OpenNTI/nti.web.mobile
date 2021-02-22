@@ -1,4 +1,3 @@
-
 .activity-note {
 	margin-bottom: -0.625rem;
 
@@ -75,11 +74,12 @@
 			}
 		}
 
-		&::after, &::before {
+		&::after,
+		&::before {
 			bottom: -1px;
 			left: 30px;
 			border: solid transparent;
-			content: " ";
+			content: ' ';
 			height: 0;
 			width: 0;
 			position: absolute;

@@ -1,33 +1,30 @@
 import StorePrototype from '@nti/lib-store';
 
-import {LOADED_NOTIFICATIONS} from './Constants';
-
+import { LOADED_NOTIFICATIONS } from './Constants';
 
 const data = Symbol('data');
 const SetData = Symbol('set:data');
 
 class Store extends StorePrototype {
-
-	constructor () {
+	constructor() {
 		super();
 		this.registerHandlers({
-			[LOADED_NOTIFICATIONS]: SetData
+			[LOADED_NOTIFICATIONS]: SetData,
 		});
 	}
 
-
-	get isLoaded () {
+	get isLoaded() {
 		return !!this[data];
 	}
 
-
-	[SetData] (payload) {
+	[SetData](payload) {
 		this[data] = payload.action.response;
-		this.emitChange({type: LOADED_NOTIFICATIONS});
+		this.emitChange({ type: LOADED_NOTIFICATIONS });
 	}
 
-
-	getData () { return this[data]; }
+	getData() {
+		return this[data];
+	}
 }
 
 export default new Store();

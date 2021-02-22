@@ -2,11 +2,10 @@ import './MultipleChoiceMultipleAnswer.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {getEventTarget} from '@nti/lib-dom';
-import {rawContent} from '@nti/lib-commons';
+import { getEventTarget } from '@nti/lib-dom';
+import { rawContent } from '@nti/lib-commons';
 
-import Mixin, {stopEvent} from './Mixin';
-
+import Mixin, { stopEvent } from './Mixin';
 
 const isTruthy = x => x;
 
@@ -22,30 +21,35 @@ export default createReactClass({
 	statics: {
 		inputType: [
 			'MultipleChoiceMultipleAnswer',
-			'RandomizedMultipleChoiceMultipleAnswer'
-		]
+			'RandomizedMultipleChoiceMultipleAnswer',
+		],
 	},
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-	attachRef (x) { this.form = x; },
+	attachRef(x) {
+		this.form = x;
+	},
 
-	render () {
+	render() {
 		let choices = this.props.item.choices || [];
 		let submitted = this.isSubmitted();
 		let solution = submitted && this.getSolution();
 
 		return (
-			<form className="multiple-choice multiple-answer" ref={this.attachRef} onSubmit={stopEvent}>
-				{choices.map((x, i)=> this.renderChoice(x, i, solution))}
+			<form
+				className="multiple-choice multiple-answer"
+				ref={this.attachRef}
+				onSubmit={stopEvent}
+			>
+				{choices.map((x, i) => this.renderChoice(x, i, solution))}
 			</form>
 		);
 	},
 
-
-	onClick (e) {
+	onClick(e) {
 		if (e) {
 			const anchor = getEventTarget(e, 'a[href]');
 			if (anchor) {
@@ -64,8 +68,7 @@ export default createReactClass({
 		this.handleInteraction();
 	},
 
-
-	renderChoice (choice, index, solution) {
+	renderChoice(choice, index, solution) {
 		let numeral = String.fromCharCode(65 + index);
 		let ref = 'choice-' + index;
 		let checked = (this.state.value || []).indexOf(index) !== -1;
@@ -80,27 +83,35 @@ export default createReactClass({
 		}
 
 		return (
-			<label className={'choice ' + correct} key={ref} onClick={this.onClick}>
-				<input type="checkbox" checked={checked} value={index} onChange={this.handleInteraction}/>
+			<label
+				className={'choice ' + correct}
+				key={ref}
+				onClick={this.onClick}
+			>
+				<input
+					type="checkbox"
+					checked={checked}
+					value={index}
+					onChange={this.handleInteraction}
+				/>
 				<div>
 					<span className="numeral">{numeral}.</span>
-					<div className="choice-content" {...rawContent(choice)}/>
+					<div className="choice-content" {...rawContent(choice)} />
 				</div>
 			</label>
 		);
 	},
 
-
-	getValue () {
-		const {form} = this;
+	getValue() {
+		const { form } = this;
 		let inputs = form && Array.from(form.elements);
-		let values = form && inputs
-			.map(valueIfChecked)
-			.filter(isTruthy)
-			.map(i => parseInt(i, 10));
+		let values =
+			form &&
+			inputs
+				.map(valueIfChecked)
+				.filter(isTruthy)
+				.map(i => parseInt(i, 10));
 
-		return !form ? undefined :
-			values.length ?
-				values : null;
-	}
+		return !form ? undefined : values.length ? values : null;
+	},
 });

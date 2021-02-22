@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .discussions {
 	@extend %hardware-render;
@@ -9,7 +9,7 @@
 	border: {
 		style: solid;
 		color: var(--border-grey-alt);
-		width: 0;//1px 0 0 1px;
+		width: 0; //1px 0 0 1px;
 	}
 
 	.content-view & {
@@ -21,7 +21,7 @@
 		border: {
 			style: solid;
 			color: var(--border-grey-alt);
-			width: 0;//1px 0 0 0;
+			width: 0; //1px 0 0 0;
 		}
 
 		// max-height: calc(100% - 3.75rem);

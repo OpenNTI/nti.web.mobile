@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 CompletionRatio.propTypes = {
-	assignments: PropTypes.object.isRequired
+	assignments: PropTypes.object.isRequired,
 };
 
-export default function CompletionRatio ({assignments}) {
+export default function CompletionRatio({ assignments }) {
 	if (!assignments) {
 		return null;
 	}
@@ -14,6 +14,8 @@ export default function CompletionRatio ({assignments}) {
 	const numerator = a.filter(as => as.hasSubmission).length;
 
 	return (
-		<span>{numerator} of {denominator}</span>
+		<span>
+			{numerator} of {denominator}
+		</span>
 	);
 }

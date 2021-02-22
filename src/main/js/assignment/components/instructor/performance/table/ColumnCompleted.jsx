@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {DateTime} from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
 
 export default class extends React.Component {
 	static displayName = 'performance:ColumnCompleted';
 
-	static label () {
+	static label() {
 		return 'Completed';
 	}
 
@@ -14,19 +14,24 @@ export default class extends React.Component {
 	static sort = 'completed';
 
 	static propTypes = {
-		item: PropTypes.object.isRequired
+		item: PropTypes.object.isRequired,
 	};
 
-	render () {
-		const {item} = this.props;
+	render() {
+		const { item } = this.props;
 		const completedTime = item && item.completed;
 		const classes = cx({
-			'complete': !!completedTime,
-			'late': item.dueDate && completedTime && completedTime > item.dueDate
+			complete: !!completedTime,
+			late: item.dueDate && completedTime && completedTime > item.dueDate,
 		});
 		return (
 			<div className={classes}>
-				{completedTime && <DateTime date={completedTime} format={DateTime.MONTH_DAY_PADDED} />}
+				{completedTime && (
+					<DateTime
+						date={completedTime}
+						format={DateTime.MONTH_DAY_PADDED}
+					/>
+				)}
 			</div>
 		);
 	}

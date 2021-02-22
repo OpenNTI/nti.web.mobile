@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {HOC} from '@nti/lib-commons';
+import { HOC } from '@nti/lib-commons';
 
 export default class AssignmentsProvider extends React.Component {
-
-	static connect (component) {
+	static connect(component) {
 		class cmp extends React.Component {
-			render () {
+			render() {
 				return (
-					<AssignmentsProvider _component={component} {...this.props}/>
+					<AssignmentsProvider
+						_component={component}
+						{...this.props}
+					/>
 				);
 			}
 		}
@@ -16,33 +18,30 @@ export default class AssignmentsProvider extends React.Component {
 		return HOC.hoistStatics(cmp, component, 'AssignmentsProvider');
 	}
 
-
 	static propTypes = {
 		_component: PropTypes.any,
 		children: PropTypes.node,
-		course: PropTypes.object.isRequired
-	}
-
+		course: PropTypes.object.isRequired,
+	};
 
 	static childContextTypes = {
 		course: PropTypes.object,
-		assignments: PropTypes.object
-	}
-
+		assignments: PropTypes.object,
+	};
 
 	state = {
-		loading: true
-	}
+		loading: true,
+	};
 
-
-	getChildContext () {
-		const {state: {assignments}, props: {course}} = this;
+	getChildContext() {
+		const {
+			state: { assignments },
+			props: { course },
+		} = this;
 		return { assignments, course };
 	}
 
-
-	async loadAssignments ({course} = this.props) {
-
+	async loadAssignments({ course } = this.props) {
 		this.setState({ loading: true });
 
 		const assignments = await course.getAssignments();
@@ -50,21 +49,18 @@ export default class AssignmentsProvider extends React.Component {
 		this.setState({ assignments, loading: false });
 	}
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.loadAssignments();
 	}
 
-
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (this.props.course !== prevProps.course) {
 			this.loadAssignments();
 		}
 	}
 
-
-	render () {
-		const {children, _component, ...props} = this.props;
+	render() {
+		const { children, _component, ...props } = this.props;
 
 		Object.assign(props, this.state);
 

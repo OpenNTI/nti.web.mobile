@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Toggle} from '@nti/web-commons';
+import { Toggle } from '@nti/web-commons';
 
 import BarChart from './charts/BarChart';
 import TableChart from './charts/TableChart';
@@ -11,29 +11,30 @@ export default createReactClass({
 	mixins: [CommonParts],
 
 	statics: {
-		partType: [
-			'Ordering',
-			'Matching'
-		]
+		partType: ['Ordering', 'Matching'],
 	},
 
-
-	onToggle (newActive) {
-		this.setState({show: newActive});
+	onToggle(newActive) {
+		this.setState({ show: newActive });
 	},
 
-
-	render () {
-		const {state: {results, show}} = this;
+	render() {
+		const {
+			state: { results, show },
+		} = this;
 
 		const Chart = show === 'Table' ? TableChart : BarChart;
 
 		return (
 			<div>
-				<Toggle options={['Table', 'Bar Chart']} active={show || 'Bar Chart'} onToggle={this.onToggle}/>
+				<Toggle
+					options={['Table', 'Bar Chart']}
+					active={show || 'Bar Chart'}
+					onToggle={this.onToggle}
+				/>
 
-				<Chart data={results}/>
+				<Chart data={results} />
 			</div>
 		);
-	}
+	},
 });

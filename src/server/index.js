@@ -18,9 +18,8 @@ try {
 }
 
 exports = module.exports = {
-
-	async register (expressApp, config) {
-		const devmode = (dev) ? await dev.setupDeveloperMode(config) : false;
+	async register(expressApp, config) {
+		const devmode = dev ? await dev.setupDeveloperMode(config) : false;
 
 		redirects.register(expressApp, config);
 
@@ -33,8 +32,7 @@ exports = module.exports = {
 
 			assets,
 
-			sessionSetup
+			sessionSetup,
 		};
-	}
-
+	},
 };

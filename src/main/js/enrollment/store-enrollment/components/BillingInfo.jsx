@@ -3,9 +3,9 @@
 // in this file.
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 
-import {edit} from '../Actions';
+import { edit } from '../Actions';
 
 const t = scoped('enrollment.confirmation', {
 	paymentInfo: 'Payment Information',
@@ -14,53 +14,63 @@ const t = scoped('enrollment.confirmation', {
 });
 
 export default class BillingInfo extends React.Component {
-
 	static propTypes = {
 		edit: PropTypes.any,
-		card: PropTypes.object
+		card: PropTypes.object,
 	};
 
-	rowIfNotEmpty = (value) => {
+	rowIfNotEmpty = value => {
 		return (value || '').trim().length > 0 ? <div>{value}</div> : null;
 	};
 
-	onEdit = (e) => {
+	onEdit = e => {
 		e.preventDefault();
 		e.stopPropagation();
 		edit(this.props.edit);
 	};
 
-	render () {
+	render() {
 		let card = this.props.card,
 			city = card.address_city ? card.address_city + ',' : '';
 
 		// join city, state, and zip with spaces, filtering missing items to omit leading spaces
-		const cityStateZip = [city, card.address_state, card.address_zip].filter(x=>!!x).join(' ');
+		const cityStateZip = [city, card.address_state, card.address_zip]
+			.filter(x => !!x)
+			.join(' ');
 
 		return (
 			<div>
 				<fieldset>
 					<div className="title">
 						<span>{t('paymentInfo')}</span>
-						<span>{' '}</span>
-						<a href="#" onClick={this.onEdit}>edit</a>
+						<span> </span>
+						<a href="#" onClick={this.onEdit}>
+							edit
+						</a>
 					</div>
 
 					<div className="field">{card.name}</div>
 					<div className="field">
 						<span className="label">{card.brand}:</span>
-						<span>{' '}</span>
-						<span className="value">**** **** **** {card.last4}</span>
+						<span> </span>
+						<span className="value">
+							**** **** **** {card.last4}
+						</span>
 					</div>
 					<div className="field">
 						<span className="label">{t('expires')}</span>
-						<span>{' '}</span>
-						<span className="value">{card.exp_month}/{card.exp_year}</span>
+						<span> </span>
+						<span className="value">
+							{card.exp_month}/{card.exp_year}
+						</span>
 					</div>
 				</fieldset>
 				<fieldset>
 					<div className="title">
-						<span>{t('billingInfo')}</span> <a href="#" onClick={this.onEdit}>edit</a>
+						<span>{t('billingInfo')}</span>{' '}
+						<a href="#" onClick={this.onEdit}>
+							edit
+						</a>
 					</div>
 
 					<div className="field">{card.address_line1}</div>

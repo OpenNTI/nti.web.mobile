@@ -16,10 +16,10 @@ export default createReactClass({
 	propTypes: {
 		items: PropTypes.array,
 
-		field: PropTypes.string
+		field: PropTypes.string,
 	},
 
-	handleKeyDown (e) {
+	handleKeyDown(e) {
 		if (e.keyCode === COMMA || e.keyCode === RETURN) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -27,31 +27,29 @@ export default createReactClass({
 		}
 	},
 
-	maybeAddItem (e) {
-		let {target} = e;
-		let {value} = target;
-		let {items} = this.state;
+	maybeAddItem(e) {
+		let { target } = e;
+		let { value } = target;
+		let { items } = this.state;
 		items = items ? items.slice() : [];
 
 		value = value.trim();
 		if (value.length > 0 && items.indexOf(value) === -1) {
-
 			items.push(value);
 
-			this.setState({items});
+			this.setState({ items });
 
 			target.value = '';
 			target.focus();
 		}
 	},
 
-	onRemove (index) {
+	onRemove(index) {
 		this.removeEntry(index);
 	},
 
-	render () {
-
-		let {items = []} = this.state || {};
+	render() {
+		let { items = [] } = this.state || {};
 
 		return (
 			<div className="interests-edit">
@@ -63,9 +61,12 @@ export default createReactClass({
 				))}
 
 				<div className="string-item input">
-					<input onBlur={this.maybeAddItem} onKeyDown={this.handleKeyDown}/>
+					<input
+						onBlur={this.maybeAddItem}
+						onKeyDown={this.handleKeyDown}
+					/>
 				</div>
 			</div>
 		);
-	}
+	},
 });

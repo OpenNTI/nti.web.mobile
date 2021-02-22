@@ -2,14 +2,16 @@ import React from 'react';
 
 import MembershipButton from './MembershipButton';
 
-export default function GroupControls (props) {
+export default function GroupControls(props) {
 	return (
 		<ul>
 			<li>
-				<a className="gear-button"/>
-				<ul className="menu"/>
+				<a className="gear-button" />
+				<ul className="menu" />
 			</li>
-			<li><MembershipButton {...props} /></li>
+			<li>
+				<MembershipButton {...props} />
+			</li>
 		</ul>
 	);
 }

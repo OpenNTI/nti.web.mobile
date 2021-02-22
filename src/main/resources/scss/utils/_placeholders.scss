@@ -3,25 +3,61 @@
  * Its more important to make each component's styles self-sufficient. (save for common variables like colors.)
  */
 
-%profile-social-twitter { background-image: url(../../images/icons/social/twitter.png); }
-%profile-social-facebook { background-image: url(../../images/icons/social/facebook.png); }
-%profile-social-googleplus { background-image: url(../../images/icons/social/google.png); }
-%profile-social-linkedin { background-image: url(../../images/icons/social/linkedin.png); }
+%profile-social-twitter {
+	background-image: url(../../images/icons/social/twitter.png);
+}
+%profile-social-facebook {
+	background-image: url(../../images/icons/social/facebook.png);
+}
+%profile-social-googleplus {
+	background-image: url(../../images/icons/social/google.png);
+}
+%profile-social-linkedin {
+	background-image: url(../../images/icons/social/linkedin.png);
+}
 
-%avatar-admin-badge { background-image: url(../../images/icons/admin_badge.png); }
+%avatar-admin-badge {
+	background-image: url(../../images/icons/admin_badge.png);
+}
 
-%x-close { background-image: url(../../images/icons/close.png); }
-%x-light { background-image: url(../../images/icons/light-x.png); }
+%x-close {
+	background-image: url(../../images/icons/close.png);
+}
+%x-light {
+	background-image: url(../../images/icons/light-x.png);
+}
 
-%icon-assignment-due { background-image: url(../../images/icons/assignment_due.png); }
-%icon-assignment-due-small { background-image: url(../../images/icons/assignment_due_small.png); }
-%icon-assignment-late { background-image: url(../../images/icons/assignment_late.png); }
-%icon-assignment-late-small { background-image: url(../../images/icons/assignment_late_small.png); }
-%icon-assignment-ontime { background-image: url(../../images/icons/assignment_ontime.png); }
-%icon-assignment-ontime-small { background-image: url(../../images/icons/assignment_ontime_small.png); }
-%icon-assignment-timed { background-image: url(../../images/icons/assignment-timed.png); }
+%icon-assignment-due {
+	background-image: url(../../images/icons/assignment_due.png);
+}
+%icon-assignment-due-small {
+	background-image: url(../../images/icons/assignment_due_small.png);
+}
+%icon-assignment-late {
+	background-image: url(../../images/icons/assignment_late.png);
+}
+%icon-assignment-late-small {
+	background-image: url(../../images/icons/assignment_late_small.png);
+}
+%icon-assignment-ontime {
+	background-image: url(../../images/icons/assignment_ontime.png);
+}
+%icon-assignment-ontime-small {
+	background-image: url(../../images/icons/assignment_ontime_small.png);
+}
+%icon-assignment-timed {
+	background-image: url(../../images/icons/assignment-timed.png);
+}
 
-%icon-gift { background-image: url(../../images/icons/gift.png); }
-%icon-modal-red-sign { background-image: url(../../images/icons/modal-red-sign.png); }
-%icon-play { background-image: url(../../images/icons/play.png); }
-%icon-transcript { background-image: url(../../images/icons/play-transcript.png); }
+%icon-gift {
+	background-image: url(../../images/icons/gift.png);
+}
+%icon-modal-red-sign {
+	background-image: url(../../images/icons/modal-red-sign.png);
+}
+%icon-play {
+	background-image: url(../../images/icons/play.png);
+}
+%icon-transcript {
+	background-image: url(../../images/icons/play-transcript.png);
+}

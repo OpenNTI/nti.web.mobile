@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {EmptyList} from '@nti/web-commons';
-import {ViewEvent} from '@nti/web-session';
+import { EmptyList } from '@nti/web-commons';
+import { ViewEvent } from '@nti/web-session';
 
 import ProfileAnalytics from '../../mixins/AnalyticsMixin';
 
 import MembershipList from './MembershipList';
-
 
 export default createReactClass({
 	displayName: 'Memberships',
@@ -16,41 +15,39 @@ export default createReactClass({
 
 	propTypes: {
 		entity: PropTypes.shape({
-			getMemberships: PropTypes.func.isRequired
+			getMemberships: PropTypes.func.isRequired,
 		}).isRequired,
 
-		preview: PropTypes.bool
+		preview: PropTypes.bool,
 	},
 
-	getAnalyticsType () {
+	getAnalyticsType() {
 		return 'ProfileMembershipView';
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
-			store: null
+			store: null,
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setStore();
 	},
 
-
-	componentWillUnmount () {
-		let {store} = this.state;
+	componentWillUnmount() {
+		let { store } = this.state;
 		if (store) {
 			store.removeListener('change', this.onStoreChange);
 		}
 	},
 
-
-	componentDidUpdate (prevProps, prevState) {
+	componentDidUpdate(prevProps, prevState) {
 		const { entity } = this.props;
 		const { store } = this.state;
 		const prevStore = prevState.store;
 
-		if(entity !== prevProps.entity) {
+		if (entity !== prevProps.entity) {
 			this.setStore();
 		}
 
@@ -67,18 +64,16 @@ export default createReactClass({
 		}
 	},
 
-
-	setStore (entity = this.props.entity) {
+	setStore(entity = this.props.entity) {
 		let store = null;
 		if (entity) {
 			store = entity.getMemberships();
 		}
 
-		this.setState({store});
+		this.setState({ store });
 	},
 
-
-	onStoreChange (store) {
+	onStoreChange(store) {
 		let groups = [];
 		let communities = [];
 
@@ -87,24 +82,31 @@ export default createReactClass({
 			list.push(membership);
 		}
 
-		this.setState({groups, communities});
+		this.setState({ groups, communities });
 	},
 
+	render() {
+		let { groups = [], communities = [] } = this.state;
+		let { preview } = this.props;
 
-	render () {
-		let {groups = [], communities = []} = this.state;
-		let {preview} = this.props;
-
-		if(communities.length + groups.length === 0) {
+		if (communities.length + groups.length === 0) {
 			return <EmptyList type="memberships" />;
 		}
 
 		return (
 			<div className="profile-memberships">
-				{!preview && ( <ViewEvent {...this.getAnalyticsData()}/> )}
-				<MembershipList list={communities} title="Communities" preview={preview}/>
-				<MembershipList list={groups} title="Groups" preview={preview}/>
+				{!preview && <ViewEvent {...this.getAnalyticsData()} />}
+				<MembershipList
+					list={communities}
+					title="Communities"
+					preview={preview}
+				/>
+				<MembershipList
+					list={groups}
+					title="Groups"
+					preview={preview}
+				/>
 			</div>
 		);
-	}
+	},
 });

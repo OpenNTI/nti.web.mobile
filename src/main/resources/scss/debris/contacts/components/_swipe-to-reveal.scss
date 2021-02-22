@@ -44,13 +44,17 @@
 	width: 100%;
 
 	&.caution {
-		&, &:hover, &:focus {
+		&,
+		&:hover,
+		&:focus {
 			background: var(--primary-red);
 		}
 	}
 
 	&.disabled {
-		&, &:hover, &:focus {
+		&,
+		&:hover,
+		&:focus {
 			background: var(--secondary-grey);
 		}
 	}

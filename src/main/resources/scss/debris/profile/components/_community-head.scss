@@ -14,15 +14,14 @@
 		right: 0;
 		bottom: 0;
 		position: absolute;
-		background-image:
-			linear-gradient(
-				-180deg,
-				rgba(0, 0, 0, 0.04) 46%,
-				rgba(0, 0, 0, 0.14) 58%,
-				rgba(0, 0, 0, 0.4) 72%,
-				rgba(0, 0, 0, 0.74) 90%,
-				rgba(0, 0, 0, 0.85) 97%
-			);
+		background-image: linear-gradient(
+			-180deg,
+			rgba(0, 0, 0, 0.04) 46%,
+			rgba(0, 0, 0, 0.14) 58%,
+			rgba(0, 0, 0, 0.4) 72%,
+			rgba(0, 0, 0, 0.74) 90%,
+			rgba(0, 0, 0, 0.85) 97%
+		);
 	}
 
 	.avatar {
@@ -76,7 +75,8 @@
 				weight: 700;
 			}
 
-			&, .selector {
+			&,
+			.selector {
 				color: #fff;
 			}
 
@@ -136,8 +136,12 @@
 }
 
 @keyframes NavItemEnter {
-	0% { transform: translate3d(0, 200px, 0); }
-	100% { transform: translate3d(0, 0, 0); }
+	0% {
+		transform: translate3d(0, 200px, 0);
+	}
+	100% {
+		transform: translate3d(0, 0, 0);
+	}
 }
 
 @keyframes ActivityExit {
@@ -165,11 +169,13 @@
 
 section {
 	&.community-menu-enter {
-		animation: ActivityEnter 0.4s cubic-bezier(0.51, 0.03, 0.17, 1.08) 0s 1 both;
+		animation: ActivityEnter 0.4s cubic-bezier(0.51, 0.03, 0.17, 1.08) 0s 1
+			both;
 	}
 
 	&.community-menu-exit {
-		animation: ActivityExit 0.3s cubic-bezier(0.51, 0.03, 0.17, 1.28) 0s 1 both;
+		animation: ActivityExit 0.3s cubic-bezier(0.51, 0.03, 0.17, 1.28) 0s 1
+			both;
 	}
 	// &.community-menu-enter {
 	//	animation-direction: reverse;

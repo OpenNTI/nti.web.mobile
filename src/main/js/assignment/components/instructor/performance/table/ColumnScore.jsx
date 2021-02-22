@@ -6,7 +6,7 @@ import GradeBox from '../../GradeBox';
 export default class extends React.Component {
 	static displayName = 'performance:ColumnScore';
 
-	static label () {
+	static label() {
 		return 'Score';
 	}
 
@@ -15,17 +15,20 @@ export default class extends React.Component {
 
 	static propTypes = {
 		item: PropTypes.object.isRequired,
-		userId: PropTypes.string.isRequired
+		userId: PropTypes.string.isRequired,
 	};
 
-	render () {
-
-		const {item, userId} = this.props;
-		const {grade, assignmentId} = item;
+	render() {
+		const { item, userId } = this.props;
+		const { grade, assignmentId } = item;
 
 		return (
 			<div>
-				<GradeBox assignmentId={assignmentId} userId={userId} grade={grade} />
+				<GradeBox
+					assignmentId={assignmentId}
+					userId={userId}
+					grade={grade}
+				/>
 			</div>
 		);
 	}

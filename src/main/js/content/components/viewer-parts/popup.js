@@ -3,27 +3,24 @@ import React from 'react';
 import PopUp from '../PopUp';
 
 export default {
-
-	getPopUp () {
+	getPopUp() {
 		return this.state.popup;
 	},
 
-
-	onDismissPopUp () {
+	onDismissPopUp() {
 		this.setState({
-			popup: null
+			popup: null,
 		});
 	},
 
-
-	renderPopUp () {
+	renderPopUp() {
 		let popup = this.getPopUp();
 		if (popup) {
 			return React.createElement(PopUp, {
 				download: popup.download,
 				source: popup.source,
-				onClose: this.onDismissPopUp
+				onClose: this.onDismissPopUp,
 			});
 		}
-	}
+	},
 };

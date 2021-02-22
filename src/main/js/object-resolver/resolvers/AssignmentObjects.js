@@ -1,39 +1,42 @@
-import {join} from 'path';
+import { join } from 'path';
 
-import {getService} from '@nti/web-client';
-import {encodeForURI} from '@nti/lib-ntiids';
+import { getService } from '@nti/web-client';
+import { encodeForURI } from '@nti/lib-ntiids';
 
-const isAssignmentRelated = RegExp.prototype.test.bind(/\.(grade|userscourseassignmenthistoryitemfeedback)/i);
+const isAssignmentRelated = RegExp.prototype.test.bind(
+	/\.(grade|userscourseassignmenthistoryitemfeedback)/i
+);
 const isAssignment = RegExp.prototype.test.bind(/\.assignment/i);
 
 export default class AssignmentsResolver {
-
-	static handles (o) {
-		let {MimeType, AssignmentId} = o || {};
-		return isAssignment(o) || (isAssignmentRelated(MimeType) && AssignmentId);
+	static handles(o) {
+		let { MimeType, AssignmentId } = o || {};
+		return (
+			isAssignment(o) || (isAssignmentRelated(MimeType) && AssignmentId)
+		);
 	}
 
-	static resolve (o) {
+	static resolve(o) {
 		return new AssignmentsResolver(o).getPath();
 	}
 
-	constructor (o) {
+	constructor(o) {
 		this.object = o;
 	}
 
-	getCourse () {
+	getCourse() {
 		const assignmentId = this.getAssignmentId();
 		return getService()
 			.then(s => s.getContextPathFor(assignmentId))
 			.then(path => path[0][0]);
 	}
 
-	getAssignmentId () {
-		const {object} = this;
+	getAssignmentId() {
+		const { object } = this;
 		return object.AssignmentId || object.getID();
 	}
 
-	getPath () {
+	getPath() {
 		// mobile/course/
 		// system-OID-0x013381%3A5573657273%3AhkG6cg409U6/ <-- course id
 		// assignments/
@@ -53,5 +56,4 @@ export default class AssignmentsResolver {
 			)
 		);
 	}
-
 }

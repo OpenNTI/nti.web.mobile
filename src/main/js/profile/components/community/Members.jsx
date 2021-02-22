@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Loading, Mixins, PromiseButton} from '@nti/web-commons';
+import { Loading, Mixins, PromiseButton } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
 import AvatarGrid from '../AvatarGrid';
-import {profileHref} from '../../mixins/ProfileLink';
+import { profileHref } from '../../mixins/ProfileLink';
 import ProfileBodyContainer from '../ProfileBodyContainer';
 
 export default createReactClass({
@@ -16,53 +16,51 @@ export default createReactClass({
 	propTypes: {
 		entity: PropTypes.object,
 
-		nested: PropTypes.bool
+		nested: PropTypes.bool,
 	},
 
-	getInitialState () {
-		return {
-		};
+	getInitialState() {
+		return {};
 	},
 
-	getContext () {
-		let {entity, nested} = this.props;
+	getContext() {
+		let { entity, nested } = this.props;
 		let base = this.getBasePath() + profileHref(entity);
 
 		return Promise.resolve([
 			{
 				label: 'Members',
-				href: base + (nested ? 'info/' : '') + 'members/'
-			}
+				href: base + (nested ? 'info/' : '') + 'members/',
+			},
 		]);
 	},
 
-	setupStore (props = this.props) {
-		let {entity} = props;
+	setupStore(props = this.props) {
+		let { entity } = props;
 		let store = null;
 		if (entity) {
 			store = entity.getMembers();
 		}
-		this.setState({store});
+		this.setState({ store });
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setupStore();
 	},
 
-
-	componentWillUnmount () {
-		const {store} = this.state;
+	componentWillUnmount() {
+		const { store } = this.state;
 		if (store) {
 			store.removeListener('change', this.onStoreChange);
 		}
 	},
 
-	componentDidUpdate (prevProps, prevState) {
-		const {entity} = this.props;
-		const {store} = this.state;
+	componentDidUpdate(prevProps, prevState) {
+		const { entity } = this.props;
+		const { store } = this.state;
 		const prevStore = prevState.store;
 
-		if(entity !== prevProps.entity) {
+		if (entity !== prevProps.entity) {
 			this.setupStore();
 		}
 
@@ -79,19 +77,19 @@ export default createReactClass({
 		}
 	},
 
-	onStoreChange () {
+	onStoreChange() {
 		this.forceUpdate();
 	},
 
-	more () {
-		const {store} = this.state;
+	more() {
+		const { store } = this.state;
 		return store.nextBatch();
 	},
 
-	render () {
-		let {store} = this.state;
+	render() {
+		let { store } = this.state;
 		if (!store || (store.loading && !store.length)) {
-			return ( <Loading.Mask /> );
+			return <Loading.Mask />;
 		}
 
 		return (
@@ -99,9 +97,13 @@ export default createReactClass({
 				<div>
 					<h2>Community Members</h2>
 					<AvatarGrid entities={store} />
-					{ store.more && <PromiseButton className="more" onClick={this.more}>More</PromiseButton> }
+					{store.more && (
+						<PromiseButton className="more" onClick={this.more}>
+							More
+						</PromiseButton>
+					)}
 				</div>
 			</ProfileBodyContainer>
 		);
-	}
+	},
 });

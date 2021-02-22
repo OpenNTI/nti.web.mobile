@@ -13,10 +13,10 @@ const WIDGETS = [
 	EducationalExperience,
 	ProfessionalPosition,
 	MembershipListItemCommunity,
-	MembershipListItemGroup
+	MembershipListItemGroup,
 ];
 
-export default function select (item, index, props) {
+export default function select(item, index, props) {
 	if (!item) {
 		return null;
 	}
@@ -30,8 +30,11 @@ export default function select (item, index, props) {
 		}
 	}
 
-	return React.createElement(Item, { ...props || {}, key: item.NTIID || ('profile-' + item.MimeType + '-' + index),
+	return React.createElement(Item, {
+		...(props || {}),
+		key: item.NTIID || 'profile-' + item.MimeType + '-' + index,
 		item: item,
 		index: index,
-		ref: Item.displayName + '-' + index});
+		ref: Item.displayName + '-' + index,
+	});
 }

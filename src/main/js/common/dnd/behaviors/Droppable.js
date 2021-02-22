@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 //
-import {Array as ArrayUtils} from '@nti/lib-commons';
-import {isPointWithin} from '@nti/lib-dom';
+import { Array as ArrayUtils } from '@nti/lib-commons';
+import { isPointWithin } from '@nti/lib-dom';
 
-import Base, {TYPE_SHAPE} from './Base';
+import Base, { TYPE_SHAPE } from './Base';
 
 const getWrapperElementClassName = 'droppable:getWrapperElementClassName';
 const onDragDrop = 'droppable:onDragDrop';
@@ -21,61 +21,53 @@ export default {
 			PropTypes.string,
 			PropTypes.shape(TYPE_SHAPE),
 			PropTypes.arrayOf(PropTypes.string),
-			PropTypes.arrayOf(PropTypes.shape(TYPE_SHAPE))
-		]).isRequired
+			PropTypes.arrayOf(PropTypes.shape(TYPE_SHAPE)),
+		]).isRequired,
 	},
-
 
 	contextTypes: {
 		dndEvents: PropTypes.object,
 		currentDragItem: PropTypes.object,
 		onDragOver: PropTypes.func.isRequired,
-		onDrop: PropTypes.func.isRequired
+		onDrop: PropTypes.func.isRequired,
 	},
 
-
-	isActive () {
+	isActive() {
 		let drag = this.context.currentDragItem;
 		let type = drag && drag.props.type;
 		return drag && this.accepts(type);
 	},
 
-
-	isDisabled () {
+	isDisabled() {
 		let drag = this.context.currentDragItem;
 		let type = drag && drag.props.type;
 		return drag && !this.accepts(type);
 	},
 
-
-	accepts (type) {
+	accepts(type) {
 		let criteria = ArrayUtils.ensure(this.props.accepts);
 
 		return criteria.reduce((yes, x) => {
-			return yes || (x === type) || (x.accepts && x.accepts(type));
+			return yes || x === type || (x.accepts && x.accepts(type));
 		}, false);
 	},
 
-
-	getInitialState () {
-		return {hover: false};
+	getInitialState() {
+		return { hover: false };
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		let mon = this.context.dndEvents;
 		if (mon) {
 			mon.on('drag', this[onDraggableNotification]);
 			mon.on('dragEnd', this[onDragLeftDropTarget]);
 			mon.on('drop', this[onDragDrop]);
-
 		} else {
 			console.error('DND: Missing cordination context'); //eslint-disable-line
 		}
 	},
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		let mon = this.context.dndEvents;
 		if (mon) {
 			mon.removeListener('drag', this[onDraggableNotification]);
@@ -84,34 +76,33 @@ export default {
 		}
 	},
 
-
-	renderDropTargetWrapper () {
-		const {tag, children, className, ...otherProps} = this.props;
+	renderDropTargetWrapper() {
+		const { tag, children, className, ...otherProps } = this.props;
 		delete otherProps.accepts;
 		return React.createElement(
 			tag || 'div',
 			{
 				...otherProps,
-				ref: x => this.node = x,
-				className: cx(className, this[getWrapperElementClassName]())
+				ref: x => (this.node = x),
+				className: cx(className, this[getWrapperElementClassName]()),
 			},
 			children
 		);
 	},
 
-
-	[getWrapperElementClassName] () {
+	[getWrapperElementClassName]() {
 		return cx('dnd-drop-target', {
 			active: this.isActive(),
 			disabled: this.isDisabled(),
-			over: this.state.over
+			over: this.state.over,
 		});
 	},
 
-
-	[onDraggableNotification] (dragData) {
-		let {x, y} = dragData;
-		if (!this.context.currentDragItem) { return; }
+	[onDraggableNotification](dragData) {
+		let { x, y } = dragData;
+		if (!this.context.currentDragItem) {
+			return;
+		}
 
 		if (isPointWithin(this.node, x, y)) {
 			if (!this.state.over) {
@@ -124,30 +115,26 @@ export default {
 		}
 	},
 
-
-	[onDragEnteredDropTarget] () {
+	[onDragEnteredDropTarget]() {
 		if (this.context.currentDragItem) {
-			this.setState({over: true});
+			this.setState({ over: true });
 			this.context.onDragOver(this);
 		}
 	},
 
-
-	[onDragLeftDropTarget] () {
-		this.setState({over: false});
+	[onDragLeftDropTarget]() {
+		this.setState({ over: false });
 		this.context.onDragOver(null, this);
 	},
 
-
-	[onDragDrop] (drop) {
-		let {target} = drop;
-		if(target === this && this.props.onDrop) {
+	[onDragDrop](drop) {
+		let { target } = drop;
+		if (target === this && this.props.onDrop) {
 			this.props.onDrop(drop);
 		}
 	},
 
-
-	handleDrop () {
+	handleDrop() {
 		if (!this.isActive()) {
 			return;
 		}
@@ -157,7 +144,7 @@ export default {
 		if (this.onDrop) {
 			dropped = this.onDrop();
 			//Prevent undefined/null values (no return statement) from interrupting the context callback
-			dropped = dropped || (typeof dropped !== 'boolean' || dropped);
+			dropped = dropped || typeof dropped !== 'boolean' || dropped;
 		}
 
 		if (dropped && this.context.onDrop) {
@@ -165,6 +152,5 @@ export default {
 		}
 
 		return dropped;
-	}
-
+	},
 };

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {decodeFromURI} from '@nti/lib-ntiids';
-import {Mixins} from '@nti/web-commons';
+import { decodeFromURI } from '@nti/lib-ntiids';
+import { Mixins } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Redirect from 'navigation/components/Redirect';
 import NotFound from 'notfound/components/View';
 
-import {getCatalogEntry} from '../Api';
+import { getCatalogEntry } from '../Api';
 import StoreEnrollmentView from '../store-enrollment/components/View';
 import CreditEnrollmentView from '../five-minute/components/View';
 
@@ -19,12 +19,12 @@ const HANDLERS = {
 	open: Enroll,
 	purchase: StoreEnrollmentView,
 	apply: CreditEnrollmentView,
-	drop: DropCourse
+	drop: DropCourse,
 };
 
 const ENROLLMENT_SUFFIXES = {
 	purchase: 'Purchase',
-	apply: 'FiveMinute'
+	apply: 'FiveMinute',
 };
 
 export default createReactClass({
@@ -33,28 +33,26 @@ export default createReactClass({
 
 	propTypes: {
 		entryId: PropTypes.string.isRequired,
-		enrollmentType: PropTypes.string.isRequired
+		enrollmentType: PropTypes.string.isRequired,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
-			loading: true
+			loading: true,
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.resolveCatalogEntry();
 	},
 
-
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (this.getEntryId() !== this.getEntryId(prevProps)) {
 			this.resolveCatalogEntry();
 		}
 	},
 
-
-	async resolveCatalogEntry (props = this.props) {
+	async resolveCatalogEntry(props = this.props) {
 		const id = this.getEntryId(props);
 
 		if (!this.state[id]) {
@@ -64,28 +62,24 @@ export default createReactClass({
 		}
 	},
 
-
-	getEntryId ({entryId} = this.props) {
+	getEntryId({ entryId } = this.props) {
 		return decodeFromURI(entryId);
 	},
 
-
-	getEntry (props = this.props) {
+	getEntry(props = this.props) {
 		return this.state[this.getEntryId(props)];
 	},
 
-	getCourseId () {
+	getCourseId() {
 		return (this.getEntry() || {}).CourseNTIID;
 	},
 
-
-	getCourseTitle () {
+	getCourseTitle() {
 		let e = this.getEntry();
 		return e ? e.Title : 'Enrollment';
 	},
 
-
-	getEnrollmentOptionFor (suffix) {
+	getEnrollmentOptionFor(suffix) {
 		const getter = 'getEnrollmentOptions';
 		const method = `getEnrollmentOptionFor${suffix}`;
 		const e = (x => x && x[getter] && x[getter]())(
@@ -93,11 +87,10 @@ export default createReactClass({
 			this.getEntry()
 		);
 
-		return (e && e[method]) ? e[method]() : null;
+		return e && e[method] ? e[method]() : null;
 	},
 
-
-	shouldComponentUpdate (nextProps, nextState) {
+	shouldComponentUpdate(nextProps, nextState) {
 		const currEntry = this.getEntry();
 		const nextEntry = this.getEntry(nextProps, false);
 		const hasEntry = Boolean(currEntry || nextEntry);
@@ -105,9 +98,11 @@ export default createReactClass({
 		return !hasEntry || nextProps.entryId !== this.props.entryId;
 	},
 
-
-	render () {
-		const {props: {enrollmentType, entryId}, state: {loading}} = this;
+	render() {
+		const {
+			props: { enrollmentType, entryId },
+			state: { loading },
+		} = this;
 		let courseId = this.getCourseId();
 
 		if (loading) {
@@ -115,16 +110,12 @@ export default createReactClass({
 		}
 
 		if (!loading && !courseId) {
-			return (
-				<NotFound/>
-			);
+			return <NotFound />;
 		}
 
 		let Comp = HANDLERS[enrollmentType] || NotFound;
 		let type = ENROLLMENT_SUFFIXES[enrollmentType];
-		let enrollment = type
-			? this.getEnrollmentOptionFor(type)
-			: null;
+		let enrollment = type ? this.getEnrollmentOptionFor(type) : null;
 
 		if (enrollmentType !== 'drop' && (!enrollment || enrollment.enrolled)) {
 			const href = `/item/${entryId}/enrollment/`;
@@ -132,10 +123,7 @@ export default createReactClass({
 		}
 
 		return (
-			<Comp {...this.props}
-				courseId={courseId}
-				enrollment={enrollment}
-			/>
+			<Comp {...this.props} courseId={courseId} enrollment={enrollment} />
 		);
-	}
+	},
 });

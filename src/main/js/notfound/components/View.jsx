@@ -2,7 +2,7 @@ import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Mixins} from '@nti/web-commons';
+import { Mixins } from '@nti/web-commons';
 
 // import Page from 'common/components/Page';
 
@@ -10,50 +10,46 @@ export default createReactClass({
 	displayName: 'NotFound',
 	mixins: [Mixins.BasePath],
 
-
 	propTypes: {
 		code: PropTypes.number,
-		message: PropTypes.string
+		message: PropTypes.string,
 	},
 
 	contextTypes: {
-		markNotFound: PropTypes.func
+		markNotFound: PropTypes.func,
 	},
 
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
 			code: 404,
-			message: 'That page was not found.'
+			message: 'That page was not found.',
 		};
 	},
 
-
-	componentDidMount () {
-		const {markNotFound} = this.context;
+	componentDidMount() {
+		const { markNotFound } = this.context;
 		if (markNotFound) {
 			markNotFound();
 		}
 	},
 
-
-	onBack (e) {
+	onBack(e) {
 		e.preventDefault();
 		e.stopPropagation();
 
 		global.history.go(-1);
 	},
 
-
-	render () {
+	render() {
 		let home = this.getBasePath();
-		let {length = 1} = global.history || {};
+		let { length = 1 } = global.history || {};
 
-		const {code, message} = this.props;
+		const { code, message } = this.props;
 
 		return (
 			<div className="not-found" title="Not Found">
 				<div className="grid-container">
-					<hr/>
+					<hr />
 					<div className="row">
 						<div className="small-10 small-centered columns">
 							<h2>Error ({code})</h2>
@@ -61,16 +57,24 @@ export default createReactClass({
 
 							{length > 1 && (
 								<span>
-									<a className="button tiny" href="#" onClick={this.onBack}>Back</a>
+									<a
+										className="button tiny"
+										href="#"
+										onClick={this.onBack}
+									>
+										Back
+									</a>
 									&nbsp;
 								</span>
 							)}
 
-							<a className="button tiny" href={home}>Home</a>
+							<a className="button tiny" href={home}>
+								Home
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		);
-	}
+	},
 });

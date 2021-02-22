@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 Subhead.propTypes = {
-	entity: PropTypes.object.isRequired
+	entity: PropTypes.object.isRequired,
 };
 
-export default function Subhead ({entity}) {
+export default function Subhead({ entity }) {
 	if (!entity || !entity.subhead) {
 		return null;
 	}

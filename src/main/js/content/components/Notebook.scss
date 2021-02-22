@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .compact {
 	margin: 0 auto;
@@ -8,7 +8,8 @@
 		padding: 0 rem-calc(10px);
 	}
 
-	.stream-bookmark .heading, .stream-highlight .heading {
+	.stream-bookmark .heading,
+	.stream-highlight .heading {
 		line-height: rem-calc(24px);
 		padding: 5px 20px;
 	}

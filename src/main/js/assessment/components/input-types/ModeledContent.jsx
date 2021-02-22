@@ -2,10 +2,9 @@ import './ModeledContent.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
 
-import {Panel, Editor} from 'modeled-content';
+import { Panel, Editor } from 'modeled-content';
 
-import Mixin, {stopEvent} from './Mixin';
-
+import Mixin, { stopEvent } from './Mixin';
 
 /**
  * This input type represents Modeled Body Content
@@ -16,19 +15,19 @@ export default createReactClass({
 	saveBuffer: 30000,
 
 	statics: {
-		inputType: [
-			'ModeledContent'
-		]
+		inputType: ['ModeledContent'],
 	},
 
-	attachRef (x) { this.input = x; },
+	attachRef(x) {
+		this.input = x;
+	},
 
-	shouldComponentUpdate () {
+	shouldComponentUpdate() {
 		return this.shouldUpdate;
 	},
 
-	render () {
-		let {value} = this.state;
+	render() {
+		let { value } = this.state;
 		let submitted = this.isSubmitted();
 
 		//Because we return a model in getValue()
@@ -36,7 +35,7 @@ export default createReactClass({
 
 		return (
 			<form className="modeled content" onSubmit={stopEvent}>
-				{submitted && (<Panel body={value}/>)}
+				{submitted && <Panel body={value} />}
 				{!submitted && (
 					<Editor
 						ref={this.attachRef}
@@ -50,9 +49,8 @@ export default createReactClass({
 		);
 	},
 
-
-	unwrapValue (value) {
-		if(value && typeof value === 'object') {
+	unwrapValue(value) {
+		if (value && typeof value === 'object') {
 			value = value.value;
 		}
 
@@ -63,13 +61,11 @@ export default createReactClass({
 		return value;
 	},
 
-
-	onBlur () {
+	onBlur() {
 		this.saveProgress();
 	},
 
-
-	getValue () {
+	getValue() {
 		let ref = this.input;
 		let value = ref && ref.getValue();
 
@@ -77,9 +73,12 @@ export default createReactClass({
 			return null;
 		}
 
-		return Editor.isEmpty(value) ? null : {
-			MimeType: 'application/vnd.nextthought.assessment.modeledcontentresponse',
-			value: value
-		};
-	}
+		return Editor.isEmpty(value)
+			? null
+			: {
+					MimeType:
+						'application/vnd.nextthought.assessment.modeledcontentresponse',
+					value: value,
+			  };
+	},
 });

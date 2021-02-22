@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {DateTime, Loading, LuckyCharms} from '@nti/web-commons';
+import { DateTime, Loading, LuckyCharms } from '@nti/web-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {Panel as ModeledContentPanel} from 'modeled-content';
+import { Panel as ModeledContentPanel } from 'modeled-content';
 
-export default function TopicHeadline ({className, item}) {
+export default function TopicHeadline({ className, item }) {
 	if (!item) {
 		return <Loading.Whacky />;
 	}
@@ -17,11 +17,13 @@ export default function TopicHeadline ({className, item}) {
 	return (
 		<div className={cx('headline post', className)}>
 			<LuckyCharms item={item} />
-			<Avatar entity={post.creator}/>
+			<Avatar entity={post.creator} />
 			<div className="wrap">
 				<h1>{post.title}</h1>
 				<div className="meta">
-					<DisplayName entity={post.creator}/>{' · '}<DateTime date={post.getCreatedTime()} relative/>
+					<DisplayName entity={post.creator} />
+					{' · '}
+					<DateTime date={post.getCreatedTime()} relative />
 				</div>
 			</div>
 			<ModeledContentPanel body={post.body} />
@@ -37,8 +39,8 @@ TopicHeadline.propTypes = {
 		body: PropTypes.array,
 		headline: PropTypes.object,
 		title: PropTypes.string,
-		getCreatedTime: PropTypes.func
+		getCreatedTime: PropTypes.func,
 	}),
 
-	topic: PropTypes.object
+	topic: PropTypes.object,
 };

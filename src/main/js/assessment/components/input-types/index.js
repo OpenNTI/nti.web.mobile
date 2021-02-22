@@ -19,7 +19,6 @@ import Ordering from './Ordering';
 import FillInTheBlankShortAnswer from './FillInTheBlankShortAnswer';
 import FillInTheBlankWithWordBank from './FillInTheBlankWithWordBank';
 
-
 const KINDS = [
 	Unknown,
 	File,
@@ -32,11 +31,10 @@ const KINDS = [
 	Ordering,
 	SymbolicMath,
 	FillInTheBlankShortAnswer,
-	FillInTheBlankWithWordBank
+	FillInTheBlankWithWordBank,
 ];
 
-function inputComponent (item) {
-
+function inputComponent(item) {
 	for (let Type of KINDS) {
 		if (Type !== Unknown && Type.handles && Type.handles(item)) {
 			return Type;
@@ -46,16 +44,17 @@ function inputComponent (item) {
 	return Unknown;
 }
 
-export function containerClass (item) {
+export function containerClass(item) {
 	return inputComponent(item).containerClass;
 }
 
-export function getInputWidget (item, index) {
+export function getInputWidget(item, index) {
 	const Component = inputComponent(item);
 
 	return React.createElement(Component, {
 		ref: 'input',
 		key: 'question-input-' + index,
-		index, item
+		index,
+		item,
 	});
 }

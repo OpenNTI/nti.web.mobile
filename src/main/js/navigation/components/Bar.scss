@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 $duration: 0.35s;
 $enter-timing: cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -42,7 +42,8 @@ a.right-off-canvas-toggle {
 	vertical-align: top;
 	display: inline-block;
 
-	img, svg {
+	img,
+	svg {
 		width: 2rem;
 		height: 2rem;
 		border-radius: 5px;
@@ -193,12 +194,11 @@ nav.nav-bar {
 			& > .menu {
 				overflow: visible;
 				display: inline-block;
-				max-width: calc(100% - 1rem);//% total screen width
+				max-width: calc(100% - 1rem); //% total screen width
 				position: relative;
 				margin-right: 1rem; // leave room for the chevron
 
 				&::after {
-
 					$size: 0.75rem;
 
 					backface-visibility: hidden;
@@ -261,7 +261,7 @@ nav.nav-bar {
 		top: 0;
 		left: 0;
 		right: 0;
-		border-radius: 0 0 1px 1px;//iOS hack to show box-shadow
+		border-radius: 0 0 1px 1px; //iOS hack to show box-shadow
 		box-shadow: 0 0 0 1px var(--border-grey-light);
 
 		.darkmode & {
@@ -293,8 +293,7 @@ nav.nav-bar {
 		align-items: center;
 		padding: 0.625rem 0 0;
 		pointer-events: none;
-		animation:
-			fadeIn 0.3s ease 0s 1 normal forwards,
+		animation: fadeIn 0.3s ease 0s 1 normal forwards,
 			fadeIn 0.3s ease 1.3s 1 reverse forwards;
 
 		.flash-page {
@@ -331,7 +330,8 @@ nav.nav-bar {
 	border-radius: 0 0 3px 3px;
 	padding-bottom: 0.5rem;
 
-	&, ul {
+	&,
+	ul {
 		list-style: none;
 		margin-left: 0;
 	}

@@ -1,13 +1,16 @@
-@import "components/notice";
-@import "components/pricing-info";
-@import "components/gift-info";
-@import "components/gift-success";
-@import "components/gift-form";
-@import "components/payment-confirm";
-@import "components/store-enrollment";
+@import 'components/notice';
+@import 'components/pricing-info';
+@import 'components/gift-info';
+@import 'components/gift-success';
+@import 'components/gift-form';
+@import 'components/payment-confirm';
+@import 'components/store-enrollment';
 
 .enrollment-panels {
-	padding: { left: 0.9375rem; right: 0.9375rem; }
+	padding: {
+		left: 0.9375rem;
+		right: 0.9375rem;
+	}
 
 	& > * {
 		padding: 2rem 0;

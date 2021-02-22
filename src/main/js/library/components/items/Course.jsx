@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Ellipsed, Presentation} from '@nti/web-commons';
+import { Ellipsed, Presentation } from '@nti/web-commons';
 
 import * as COURSE_SECTIONS from 'course/Sections';
 import getLabel from 'course/get-section-label';
@@ -17,33 +17,31 @@ export default createReactClass({
 	mixins: [CourseLinker],
 
 	statics: {
-		handles (item) {
+		handles(item) {
 			return item.isCourse;
-		}
+		},
 	},
 
 	propTypes: {
-		item: PropTypes.object.isRequired
+		item: PropTypes.object.isRequired,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.fillIn(this.props);
 	},
 
-
-	componentWillUnmount () {
-		let {item} = this.props;
+	componentWillUnmount() {
+		let { item } = this.props;
 		if (item) {
 			item.removeListener('change', this.itemChanged);
 		}
 	},
 
-
-	componentDidUpdate ({item}) {
+	componentDidUpdate({ item }) {
 		if (this.props.item !== item) {
 			if (item) {
 				item.removeListener('change', this.itemChanged);
@@ -52,22 +50,19 @@ export default createReactClass({
 		}
 	},
 
-
-	itemChanged () {
-		let {item} = this.props;
+	itemChanged() {
+		let { item } = this.props;
 		let presentation = item ? item.getPresentationProperties() : {};
-		let {title, label, author} = presentation;
+		let { title, label, author } = presentation;
 
 		this.setState({ title, label, author });
 	},
 
-
-	resolveSections (item) {
+	resolveSections(item) {
 		let items = [];
 		let courseId = item.getCourseID();
 
 		if (!this.isPreview(item)) {
-
 			//Activity
 			// items.push({
 			// 	title: 'Activity',
@@ -77,17 +72,19 @@ export default createReactClass({
 			if (isScorm(item)) {
 				items.push({
 					title: getLabel('scormcontent'),
-					href: this.courseHref(courseId, COURSE_SECTIONS.SCORMCONTENT)
+					href: this.courseHref(
+						courseId,
+						COURSE_SECTIONS.SCORMCONTENT
+					),
 				});
 			} else {
 				//Lessons
 				items.push({
 					title: getLabel('lessons'),
-					href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS)
+					href: this.courseHref(courseId, COURSE_SECTIONS.LESSONS),
 					// hasChildren: true
 				});
 			}
-
 
 			// Assignments
 			// items.push({
@@ -99,7 +96,7 @@ export default createReactClass({
 			//Discussions
 			items.push({
 				title: getLabel('discussions'),
-				href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS)
+				href: this.courseHref(courseId, COURSE_SECTIONS.DISCUSSIONS),
 				// hasChildren: true
 			});
 
@@ -108,23 +105,21 @@ export default createReactClass({
 			// 	href: this.courseHref(courseId, COURSE_SECTIONS.VIDEOS),
 			// 	hasChildren: true
 			// });
-
 		}
 
 		//Course Info
 		items.push({
 			title: getLabel('info'),
-			href: this.courseHref(courseId, COURSE_SECTIONS.INFO)
+			href: this.courseHref(courseId, COURSE_SECTIONS.INFO),
 		});
 
 		return items;
 	},
 
-
-	fillIn (props) {
+	fillIn(props) {
 		this.itemChanged();
 
-		let {item} = props;
+		let { item } = props;
 		if (item) {
 			item.addListener('change', this.itemChanged);
 		}
@@ -132,17 +127,16 @@ export default createReactClass({
 		let sections = item ? this.resolveSections(item) : [];
 
 		this.setState({
-			sections
+			sections,
 		});
 	},
 
-
-	isPreview (item) {
-		const {CatalogEntry} = item || {};
+	isPreview(item) {
+		const { CatalogEntry } = item || {};
 		return CatalogEntry && CatalogEntry.Preview;
 	},
 
-	getDefaultSection (preview, item) {
+	getDefaultSection(preview, item) {
 		if (preview) {
 			return COURSE_SECTIONS.INFO;
 		} else if (isScorm(item)) {
@@ -152,9 +146,9 @@ export default createReactClass({
 		}
 	},
 
-	render () {
-		let {item} = this.props;
-		let {title, label, author} = this.state;
+	render() {
+		let { item } = this.props;
+		let { title, label, author } = this.state;
 		let courseId = item.getCourseID();
 		const preview = this.isPreview(item);
 		let defaultSection = this.getDefaultSection(preview, item);
@@ -162,17 +156,27 @@ export default createReactClass({
 		return (
 			<div className="library-item-old course">
 				<CourseContentLink courseId={courseId} section={defaultSection}>
-					<Presentation.Asset contentPackage={item.CatalogEntry} propName="src" type="landing">
-						<img/>
+					<Presentation.Asset
+						contentPackage={item.CatalogEntry}
+						propName="src"
+						type="landing"
+					>
+						<img />
 					</Presentation.Asset>
 					<div className="badges">
 						{preview && <div className="preview">Preview</div>}
-						<Badge item={item}/>
+						<Badge item={item} />
 					</div>
 					<label>
 						<h5>{label}</h5>
 						<Ellipsed tag="h3">{title}</Ellipsed>
-						{author && ( <Ellipsed tag="address" className="author" measureOverflow="parent">{`By ${author}`}</Ellipsed> )}
+						{author && (
+							<Ellipsed
+								tag="address"
+								className="author"
+								measureOverflow="parent"
+							>{`By ${author}`}</Ellipsed>
+						)}
 					</label>
 				</CourseContentLink>
 
@@ -181,19 +185,24 @@ export default createReactClass({
 		);
 	},
 
-
-	renderSectionItems () {
-		let {sections} = this.state;
-		if (!sections) { return; }
+	renderSectionItems() {
+		let { sections } = this.state;
+		if (!sections) {
+			return;
+		}
 
 		return (
 			<ul className="sections">
-				{sections.map(x=> (
+				{sections.map(x => (
 					<li key={x.title}>
-						<div {...x}><a {...x} className="with-arrow">{x.title}</a></div>
+						<div {...x}>
+							<a {...x} className="with-arrow">
+								{x.title}
+							</a>
+						</div>
 					</li>
 				))}
 			</ul>
 		);
-	}
+	},
 });

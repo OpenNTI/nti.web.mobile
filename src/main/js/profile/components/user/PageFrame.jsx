@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Background} from '@nti/web-commons';
+import { Background } from '@nti/web-commons';
 
 import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';
@@ -15,23 +15,26 @@ export default createReactClass({
 	propTypes: {
 		pageContent: PropTypes.any,
 
-		entity: PropTypes.any
+		entity: PropTypes.any,
 	},
 
-	render () {
-		let {entity, pageContent = 'div'} = this.props;
+	render() {
+		let { entity, pageContent = 'div' } = this.props;
 
 		let Content = pageContent;
 
 		return (
 			<Page title="Profile">
-				<Background className="profile-wrapper" imgUrl={entity.backgroundURL}>
+				<Background
+					className="profile-wrapper"
+					imgUrl={entity.backgroundURL}
+				>
 					<div className="profile">
-						<Header entity={entity}/>
-						<Content {...this.props}/>
+						<Header entity={entity} />
+						<Content {...this.props} />
 					</div>
 				</Background>
 			</Page>
 		);
-	}
+	},
 });

@@ -4,48 +4,44 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 /* See: https://github.com/mozilla/vtt.js#usage */
-import {
-	WebVTT,
-	VTTCue/*, VTTRegion*/
-} from 'vtt.js';
-import {decodeFromURI} from '@nti/lib-ntiids';
+import { WebVTT, VTTCue /*, VTTRegion*/ } from 'vtt.js';
+import { decodeFromURI } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
-import {
-	DarkMode,
-	Error,
-	Loading,
-	Mixins
-} from '@nti/web-commons';
-import {Component as Video} from '@nti/web-video';
+import { DarkMode, Error, Loading, Mixins } from '@nti/web-commons';
+import { Component as Video } from '@nti/web-video';
 
 import Discussions from 'content/components/discussions';
 import Gutter from 'content/components/Gutter';
 import ContextSender from 'common/mixins/ContextSender';
-import {NOT_FOUND, RETRY_AFTER_DOM_SETTLES} from 'content/components/annotations/Annotation';
+import {
+	NOT_FOUND,
+	RETRY_AFTER_DOM_SETTLES,
+} from 'content/components/annotations/Annotation';
 
 import Transcript from './Transcript';
-
 
 const logger = Logger.get('course:transcripted-video');
 
 const None = void 0;
 
-
 class Annotation {
-	constructor (item, ownerCmp) {
-		Object.assign(this, {item, ownerCmp});
+	constructor(item, ownerCmp) {
+		Object.assign(this, { item, ownerCmp });
 	}
 
-	get id () { return this.item.getID(); }
+	get id() {
+		return this.item.getID();
+	}
 
-	resolveVerticalLocation () {
-		const getStart = x => x && x.getStart && x.getStart().getSeconds().toFixed(3);
+	resolveVerticalLocation() {
+		const getStart = x =>
+			x && x.getStart && x.getStart().getSeconds().toFixed(3);
 
-		const {ownerCmp, item} = this;
-		const {applicableRange} = item;
+		const { ownerCmp, item } = this;
+		const { applicableRange } = item;
 		const start = getStart(applicableRange);
 
-		const {transcript} = ownerCmp;
+		const { transcript } = ownerCmp;
 
 		if (!transcript || !transcript.node) {
 			return RETRY_AFTER_DOM_SETTLES;
@@ -53,16 +49,19 @@ class Annotation {
 			return NOT_FOUND;
 		}
 
+		const { scrollTop } = document.body;
 
-		const {scrollTop} = document.body;
-
-		const cue = start && transcript.node.querySelector(`[data-start-time="${start}"]`);
+		const cue =
+			start &&
+			transcript.node.querySelector(`[data-start-time="${start}"]`);
 
 		//getBoundingClientRect is effected by scroll position... so add it back in.
-		return (cue ? cue : transcript.node).getBoundingClientRect().top + scrollTop;
+		return (
+			(cue ? cue : transcript.node).getBoundingClientRect().top +
+			scrollTop
+		);
 	}
 }
-
 
 export default createReactClass({
 	displayName: 'TranscriptedVideo',
@@ -77,49 +76,53 @@ export default createReactClass({
 		showDiscussions: PropTypes.bool,
 		lightMode: PropTypes.bool,
 		gutterPrefix: PropTypes.string,
-		noNavigation: PropTypes.bool
+		noNavigation: PropTypes.bool,
 	},
 
-	attachVideoRef (x) { this.video = x; },
-	attachTranscriptRef (x) { this.transcript = x; },
-	attachGutterRef (x) { this.gutter = x; },
+	attachVideoRef(x) {
+		this.video = x;
+	},
+	attachTranscriptRef(x) {
+		this.transcript = x;
+	},
+	attachGutterRef(x) {
+		this.gutter = x;
+	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			loading: true,
 			error: false,
 			cues: None,
 			regions: None,
-			currentTime: 0
+			currentTime: 0,
 		};
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.getDataIfNeeded(this.props);
 	},
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		this.loadDiscussions(None);
 	},
 
-
-	componentDidUpdate (prevProps, prevState) {
-		let {outlineId, MediaIndex, videoId, showDiscussions} = this.props;
-		let {currentTime, video} = this.state;
+	componentDidUpdate(prevProps, prevState) {
+		let { outlineId, MediaIndex, videoId, showDiscussions } = this.props;
+		let { currentTime, video } = this.state;
 
 		if (prevProps.videoId !== videoId) {
 			return this.getDataIfNeeded(this.props);
 		}
 
 		if (!prevProps.showDiscussions && showDiscussions && currentTime) {
-			this.setState({returnTime: currentTime});
+			this.setState({ returnTime: currentTime });
 		}
 
 		if (video !== prevState.video) {
 			logger.debug('Updating Pager...');
-			let pageSource = video && MediaIndex.filter(x => x.isVideo).getPageSource(video);
+			let pageSource =
+				video && MediaIndex.filter(x => x.isVideo).getPageSource(video);
 
 			if (outlineId && pageSource) {
 				pageSource = pageSource.scoped(decodeFromURI(outlineId));
@@ -131,88 +134,96 @@ export default createReactClass({
 		}
 	},
 
-
-	onError (error) {
+	onError(error) {
 		this.setState({
 			loading: false,
 			error: error,
-			data: None
+			data: None,
 		});
 	},
 
-
-	getContext () {
-		let {videoId, gutterPrefix} = this.props;
+	getContext() {
+		let { videoId, gutterPrefix } = this.props;
 		const id = gutterPrefix != null ? gutterPrefix : videoId;
 
 		return Promise.resolve({
 			label: 'Video',
-			href: this.makeHref(id + '/')
+			href: this.makeHref(id + '/'),
 		});
 	},
 
-
-	getDataIfNeeded (props) {
+	getDataIfNeeded(props) {
 		this.replaceState(this.getInitialState());
 
 		try {
-
-			const {MediaIndex, videoId} = props;
+			const { MediaIndex, videoId } = props;
 			const decodedId = decodeFromURI(videoId);
 			let video = MediaIndex.get(decodedId);
 
-			this.resolveContext()
-				.then(context => this.setState({ context }));
+			this.resolveContext().then(context => this.setState({ context }));
 
 			if (!video) {
-				logger.error('How do we get a video id ("%s") and not find it in the index?: ', decodedId, MediaIndex);
-				return this.setState({error: 'No Video'});
+				logger.error(
+					'How do we get a video id ("%s") and not find it in the index?: ',
+					decodedId,
+					MediaIndex
+				);
+				return this.setState({ error: 'No Video' });
 			}
 
 			let transcript = this.loadTranscript(video);
 			let notes = this.loadDiscussions(video);
 			let slides = this.loadSlides(video, props);
 
-			Promise.all([ notes, transcript, slides ])
-				.then(() => this.setState({loading: false}))
+			Promise.all([notes, transcript, slides])
+				.then(() => this.setState({ loading: false }))
 				.catch(this.onError);
-
 		} catch (e) {
 			this.onError(e);
 		}
 	},
 
-
-	loadDiscussions (video) {
-		let {store} = this.state;
+	loadDiscussions(video) {
+		let { store } = this.state;
 
 		if (store) {
 			store.removeListener('change', this.onStoreChanged);
 		}
 
-		return video && video.getUserData()
-			.then(x => x.waitForPending().then(()=>x))
-			.then(x => {
-				x.addListener('change', this.onStoreChanged);
-				this.setState({
-					store: x,
-					storeProvider: {getUserDataStore: ()=>x}
-				},
-				()=> this.onStoreChanged(x));
-			});
+		return (
+			video &&
+			video
+				.getUserData()
+				.then(x => x.waitForPending().then(() => x))
+				.then(x => {
+					x.addListener('change', this.onStoreChanged);
+					this.setState(
+						{
+							store: x,
+							storeProvider: { getUserDataStore: () => x },
+						},
+						() => this.onStoreChanged(x)
+					);
+				})
+		);
 	},
 
-
-	loadTranscript (video) {
-		return video.getTranscript('en')
+	loadTranscript(video) {
+		return video
+			.getTranscript('en')
 			.then(vtt => {
-				const parser = new WebVTT.Parser(global, WebVTT.StringDecoder());
+				const parser = new WebVTT.Parser(
+					global,
+					WebVTT.StringDecoder()
+				);
 				const cues = [];
 				const regions = [];
 
 				parser.oncue = cue => cues.push(cue);
 				parser.onregion = region => regions.push(region);
-				parser.onparsingerror = e => { throw e; };
+				parser.onparsingerror = e => {
+					throw e;
+				};
 
 				//Safari has a native VTTCue but it doesn't honor auto (which is in the spec)
 				//so for now just force it to use the poly-fill
@@ -227,11 +238,11 @@ export default createReactClass({
 					global.VTTCue = oldVTTCue;
 				}
 
-
 				this.setState({ cues, regions, video });
 			})
-			.catch(reason=> {
-				if (reason === video.NO_TRANSCRIPT ||
+			.catch(reason => {
+				if (
+					reason === video.NO_TRANSCRIPT ||
 					reason === video.NO_TRANSCRIPT_LANG ||
 					reason.statusCode === 404
 				) {
@@ -242,10 +253,9 @@ export default createReactClass({
 			});
 	},
 
-
-	loadSlides (video, props) {
-		const {outlineId : encodedId, MediaIndex} = props;
-		const {slidedecks} = video;
+	loadSlides(video, props) {
+		const { outlineId: encodedId, MediaIndex } = props;
+		const { slidedecks } = video;
 		const outlineId = encodedId && decodeFromURI(encodedId);
 
 		if (!slidedecks || !slidedecks.length) {
@@ -259,11 +269,19 @@ export default createReactClass({
 
 		const decks = slidedecks.filter(x => index.get(x));
 		if (!decks.length) {
-			logger.warn('Referenced slidedecks do not exist in scope. %o %o', video, index);
+			logger.warn(
+				'Referenced slidedecks do not exist in scope. %o %o',
+				video,
+				index
+			);
 			return;
 		}
 		if (decks.length > 1) {
-			logger.warn('Multiple slidedecks for video: %o %o', video.getID(), decks.join(', '));
+			logger.warn(
+				'Multiple slidedecks for video: %o %o',
+				video.getID(),
+				decks.join(', ')
+			);
 		}
 
 		//The webapp is currently letting the "last" slidedeck win... so lets pick from the end of the list.
@@ -272,10 +290,9 @@ export default createReactClass({
 		this.setState({ slides: deck.Slides });
 	},
 
-
-	getAnalyticsData () {
-		let {context, cues, regions, video} = this.state;
-		let {course} = this.props;
+	getAnalyticsData() {
+		let { context, cues, regions, video } = this.state;
+		let { course } = this.props;
 
 		let courseId = course.getID();
 
@@ -283,12 +300,11 @@ export default createReactClass({
 			resourceId: video.ntiid,
 			rootContextId: courseId,
 			context: context || [],
-			withTranscript: Boolean(cues || regions)
+			withTranscript: Boolean(cues || regions),
 		};
 	},
 
-
-	onStoreChanged (store) {
+	onStoreChanged(store) {
 		if (this.state.store !== store) {
 			return;
 		}
@@ -299,30 +315,27 @@ export default createReactClass({
 			annotations[item.getID()] = new Annotation(item, this);
 		}
 
-		this.setState({annotations});
+		this.setState({ annotations });
 	},
 
-
-	onVideoTimeTick (event) {
+	onVideoTimeTick(event) {
 		let time = (event.target || {}).currentTime;
-		let {returnTime} = this.state;
+		let { returnTime } = this.state;
 
 		if (returnTime != null) {
 			this.onJumpTo(returnTime);
 			returnTime = null;
 		}
 		if (!this.bookkeeping || this.bookkeeping.time < time) {
-			this.setState({currentTime: time, returnTime});
+			this.setState({ currentTime: time, returnTime });
 		}
 		if (this.bookkeeping && this.bookkeeping.expires < Date.now()) {
 			delete this.bookkeeping;
 		}
-
 	},
 
-
-	onJumpTo  (time) {
-		const {video} = this;
+	onJumpTo(time) {
+		const { video } = this;
 		if (video) {
 			video.setCurrentTime(parseFloat(time));
 			// the video may not jump to exactly the time we specify.
@@ -330,48 +343,68 @@ export default createReactClass({
 			// from jumping around.
 			this.bookkeeping = {
 				time,
-				expires: Date.now() + 5000
+				expires: Date.now() + 5000,
 			};
 		}
 	},
 
-
-	setDiscussionFilter (selectedDiscussions) {
-		this.setState({selectedDiscussions});
+	setDiscussionFilter(selectedDiscussions) {
+		this.setState({ selectedDiscussions });
 	},
 
-
-	redrawGutter () {
-		const {gutter} = this;
+	redrawGutter() {
+		const { gutter } = this;
 		if (gutter) {
 			gutter.handleContentUpdate?.();
 		}
 	},
 
-
-	render () {
-		let {showDiscussions, videoId, lightMode, gutterPrefix} = this.props;
-		let {annotations, storeProvider, selectedDiscussions, error, video, cues, regions, slides, currentTime, loading} = this.state;
+	render() {
+		let { showDiscussions, videoId, lightMode, gutterPrefix } = this.props;
+		let {
+			annotations,
+			storeProvider,
+			selectedDiscussions,
+			error,
+			video,
+			cues,
+			regions,
+			slides,
+			currentTime,
+			loading,
+		} = this.state;
 
 		loading = loading || !video;
 
 		if (error && !video) {
-			return ( <Error error={error}/> );
+			return <Error error={error} />;
 		}
 
 		if (loading) {
-			return ( <Loading.Mask /> );
+			return <Loading.Mask />;
 		}
 
 		if (showDiscussions) {
-			return ( <Discussions UserDataStoreProvider={storeProvider} filter={selectedDiscussions}/> );
+			return (
+				<Discussions
+					UserDataStoreProvider={storeProvider}
+					filter={selectedDiscussions}
+				/>
+			);
 		}
 
 		return (
-			<div className={cx('transcripted-video', {'light-mode': lightMode})}>
-				{!lightMode && (<DarkMode/>) }
-				{!video ? None : (
-					<Video ref={this.attachVideoRef}
+			<div
+				className={cx('transcripted-video', {
+					'light-mode': lightMode,
+				})}
+			>
+				{!lightMode && <DarkMode />}
+				{!video ? (
+					None
+				) : (
+					<Video
+						ref={this.attachVideoRef}
 						src={video}
 						onTimeUpdate={this.onVideoTimeTick}
 						analyticsData={this.getAnalyticsData()}
@@ -379,11 +412,10 @@ export default createReactClass({
 				)}
 				<div className="transcript">
 					{error ? (
-						<div>
-							Transcript not available
-						</div>
+						<div>Transcript not available</div>
 					) : (
-						<Transcript ref={this.attachTranscriptRef}
+						<Transcript
+							ref={this.attachTranscriptRef}
 							onSlideLoaded={this.redrawGutter}
 							onJumpTo={this.onJumpTo}
 							currentTime={currentTime}
@@ -399,8 +431,7 @@ export default createReactClass({
 						prefix={gutterPrefix != null ? gutterPrefix : videoId}
 					/>
 				</div>
-
 			</div>
 		);
-	}
+	},
 });

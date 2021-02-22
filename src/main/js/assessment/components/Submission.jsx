@@ -2,35 +2,36 @@ import './Submission.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {scoped} from '@nti/lib-locale';
-import {Prompt, Loading} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { Prompt, Loading } from '@nti/web-commons';
 
 import Store from '../Store';
-import {areAssessmentsSupported, getMainSubmittable} from '../utils';
-import {resetAssessment, submit} from '../Actions';
+import { areAssessmentsSupported, getMainSubmittable } from '../utils';
+import { resetAssessment, submit } from '../Actions';
 import {
 	BUSY_SAVEPOINT,
 	BUSY_SUBMITTING,
 	BUSY_LOADING,
-	ERROR
+	ERROR,
 } from '../Constants';
 
 import Saving from './Saving';
 import SubmissionError from './SubmissionError';
 
 const t = scoped('assessment.submission', {
-	submit: 'I\'m Finished!',
+	submit: "I'm Finished!",
 	reset: 'Cancel',
 	unanswered: {
 		zero: 'All questions answered',
 		one: '%(count)s question unanswered',
-		other: '%(count)s questions unanswered'
+		other: '%(count)s questions unanswered',
 	},
 });
 
-const isNoSubmit = submittable => submittable.isNonSubmit && submittable.isNonSubmit();
+const isNoSubmit = submittable =>
+	submittable.isNonSubmit && submittable.isNonSubmit();
 
-const forceNumber = x => typeof x === 'number' ? x : NaN;
+const forceNumber = x => (typeof x === 'number' ? x : NaN);
 
 export default class extends React.Component {
 	static displayName = 'Submission';
@@ -41,45 +42,45 @@ export default class extends React.Component {
 		 *
 		 * @type {QuestionSet/Assignment}
 		 */
-		assessment: PropTypes.object.isRequired
+		assessment: PropTypes.object.isRequired,
 	};
 
-	componentDidMount () {
+	componentDidMount() {
 		Store.addChangeListener(this.onChange);
 	}
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		Store.removeChangeListener(this.onChange);
 	}
 
-	onChange = (e) => {
+	onChange = e => {
 		if (e.type === ERROR) {
 			e = Store.getError(this.props.assessment);
 			if (e && e.statusCode === 409) {
 				Store.clearError(this.props.assessment);
-				Prompt.alert('This assignment has changed, and needs to reload.')
-					.then(() => global.location.reload());
+				Prompt.alert(
+					'This assignment has changed, and needs to reload.'
+				).then(() => global.location.reload());
 				return;
 			}
 		}
 		this.forceUpdate();
 	};
 
-	onReset = (e) => {
+	onReset = e => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 
-		Prompt.areYouSure('This will reset this assignment.')
-			.then(
-				()=> resetAssessment(this.props.assessment),
-				()=> {}
-			);
+		Prompt.areYouSure('This will reset this assignment.').then(
+			() => resetAssessment(this.props.assessment),
+			() => {}
+		);
 	};
 
-	onSubmit = (e) => {
-		let {assessment} = this.props;
+	onSubmit = e => {
+		let { assessment } = this.props;
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -89,7 +90,7 @@ export default class extends React.Component {
 		}
 	};
 
-	dismissAssessmentError = (e) => {
+	dismissAssessmentError = e => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -97,15 +98,20 @@ export default class extends React.Component {
 		Store.clearError(this.props.assessment);
 	};
 
-	render () {
-		const {assessment} = this.props;
+	render() {
+		const { assessment } = this.props;
 
 		const admin = Store.isAdministrative(assessment);
 		const disabled = !Store.canSubmit(assessment);
 
-		const cannotReset = Store.isSubmitted(assessment) || disabled || assessment.isAssignment;
+		const cannotReset =
+			Store.isSubmitted(assessment) ||
+			disabled ||
+			assessment.isAssignment;
 
-		const unanswered = forceNumber(Store.countUnansweredQuestions(assessment));
+		const unanswered = forceNumber(
+			Store.countUnansweredQuestions(assessment)
+		);
 		const status = unanswered ? 'incomplete' : 'complete';
 
 		let busy = Store.getBusyState(assessment);
@@ -113,7 +119,8 @@ export default class extends React.Component {
 		const savePoint = busy === BUSY_SAVEPOINT;
 		const mainSubmittable = getMainSubmittable(assessment);
 
-		if (admin ||
+		if (
+			admin ||
 			// !Store.isAvailable(assessment) ||
 			Store.isSubmitted(assessment) ||
 			!areAssessmentsSupported() ||
@@ -123,29 +130,53 @@ export default class extends React.Component {
 			return null;
 		}
 
-		busy = (busy === BUSY_SUBMITTING || busy === BUSY_LOADING);
+		busy = busy === BUSY_SUBMITTING || busy === BUSY_LOADING;
 
 		return (
 			<div>
 				<TransitionGroup>
 					{savePoint && (
-						<CSSTransition key="savepoint" classNames="savepoint" timeout={{enter: 700, exit:1000}}>
+						<CSSTransition
+							key="savepoint"
+							classNames="savepoint"
+							timeout={{ enter: 700, exit: 1000 }}
+						>
 							<Saving />
 						</CSSTransition>
 					)}
 				</TransitionGroup>
 				<div className={'set-submission ' + status}>
 					{!error ? null : (
-						<SubmissionError onClick={this.dismissAssessmentError} error={error}/>
+						<SubmissionError
+							onClick={this.dismissAssessmentError}
+							error={error}
+						/>
 					)}
-					<a href={disabled ? '#' : null} className={'button ' + (disabled ? 'disabled' : '')} onClick={this.onSubmit}>{t('submit')}</a>
-					{cannotReset ? null : (<a href="#" className="reset button link" onClick={this.onReset}>{t('reset')}</a>)}
+					<a
+						href={disabled ? '#' : null}
+						className={'button ' + (disabled ? 'disabled' : '')}
+						onClick={this.onSubmit}
+					>
+						{t('submit')}
+					</a>
+					{cannotReset ? null : (
+						<a
+							href="#"
+							className="reset button link"
+							onClick={this.onReset}
+						>
+							{t('reset')}
+						</a>
+					)}
 					<span className="status-line">
-						{!isNaN(unanswered) && t('unanswered', { count: unanswered })}
+						{!isNaN(unanswered) &&
+							t('unanswered', { count: unanswered })}
 					</span>
 				</div>
 
-				{!busy ? null : <Loading.Mask message="Please Wait" maskScreen/>}
+				{!busy ? null : (
+					<Loading.Mask message="Please Wait" maskScreen />
+				)}
 			</div>
 		);
 	}

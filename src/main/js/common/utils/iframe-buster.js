@@ -1,6 +1,6 @@
 const optOuts = [];
 
-export function ensureTopFrame () {
+export function ensureTopFrame() {
 	if (typeof window !== 'undefined' && window.top !== window) {
 		if (optOuts.every(f => f())) {
 			window.top.location.href = window.location.href;
@@ -10,15 +10,15 @@ export function ensureTopFrame () {
 	}
 }
 
-export function registerOptOutTestHandler (fn) {
+export function registerOptOutTestHandler(fn) {
 	if (typeof fn !== 'function') {
 		throw new Error('Argument must be a function');
 	}
 	optOuts.push(fn);
 }
 
-export function unregisterOptOutTestHandler (fn) {
-	if(optOuts.indexOf(fn) > -1) {
+export function unregisterOptOutTestHandler(fn) {
+	if (optOuts.indexOf(fn) > -1) {
 		optOuts.splice(optOuts.indexOf(fn), 1);
 	}
 }

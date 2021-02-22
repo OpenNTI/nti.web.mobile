@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {encodeForURI} from '@nti/lib-ntiids';
-import {Mixins} from '@nti/web-commons';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { Mixins } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -10,46 +10,47 @@ import ReplyEditor from './ReplyEditor';
 
 export default createReactClass({
 	displayName: 'NoteCommentEditView',
-	mixins: [
-		ContextSender,
-		Mixins.NavigatableMixin
-	],
+	mixins: [ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
 		item: PropTypes.object,
-		contentPackage: PropTypes.object
+		contentPackage: PropTypes.object,
 	},
 
-
-	getContext () {
+	getContext() {
 		return {
-			title: 'Edit'
+			title: 'Edit',
 		};
 	},
 
-
-	returnToView () {
-		const {props: {item}} = this;
+	returnToView() {
+		const {
+			props: { item },
+		} = this;
 		const href = encodeForURI(item.getID());
 
-		this.navigate(href, {replace: true});
+		this.navigate(href, { replace: true });
 	},
 
-
-	onCancel () {
+	onCancel() {
 		this.returnToView();
 	},
 
-
-	onSubmitted () {
+	onSubmitted() {
 		this.returnToView();
 	},
 
-
-	render () {
-		const {props: {item}} = this;
+	render() {
+		const {
+			props: { item },
+		} = this;
 		return (
-			<ReplyEditor item={item} value={item.body} onCancel={this.onCancel} onSubmitted={this.onSubmitted}/>
+			<ReplyEditor
+				item={item}
+				value={item.body}
+				onCancel={this.onCancel}
+				onSubmitted={this.onSubmitted}
+			/>
 		);
-	}
+	},
 });

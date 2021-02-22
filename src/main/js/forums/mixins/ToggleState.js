@@ -1,12 +1,12 @@
 export default {
-	toggleState (propname, event) {
+	toggleState(propname, event) {
 		if (event) {
 			event.preventDefault();
 			event.stopPropagation();
 		}
 
 		this.setState({
-			[propname]: !this.state[propname]
+			[propname]: !this.state[propname],
 		});
-	}
+	},
 };

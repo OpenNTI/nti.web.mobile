@@ -7,7 +7,7 @@ import Subhead from './Subhead';
 import Description from './Description';
 import InvitationCode from './InvitationCode';
 
-export default function GroupHead ({children, entity}) {
+export default function GroupHead({ children, entity }) {
 	return (
 		<div className="profile-head">
 			<div className="group">
@@ -25,5 +25,5 @@ export default function GroupHead ({children, entity}) {
 
 GroupHead.propTypes = {
 	children: PropTypes.any,
-	entity: PropTypes.object
+	entity: PropTypes.object,
 };

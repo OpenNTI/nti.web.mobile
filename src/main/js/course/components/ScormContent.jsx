@@ -7,10 +7,10 @@ import { Component as ContextSender } from '../../common/mixins/ContextSender';
 
 export default class ScormContent extends Component {
 	static propTypes = {
-		course: PropTypes.object
-	}
+		course: PropTypes.object,
+	};
 
-	render () {
+	render() {
 		const { course } = this.props;
 		return (
 			<div className="scorm-content">
@@ -21,12 +21,12 @@ export default class ScormContent extends Component {
 	}
 }
 
-async function getContext () {
+async function getContext() {
 	const context = this;
 	const { rootId } = context.props;
 
 	return {
 		label: 'Content',
-		href: context.makeHref(rootId + '/scorm-content/')
+		href: context.makeHref(rootId + '/scorm-content/'),
 	};
 }

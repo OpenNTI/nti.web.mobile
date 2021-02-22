@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .chat-message-info {
 	position: relative;
@@ -8,8 +8,12 @@
 	&.me {
 		.message-body {
 			order: 0;
-			.modeled-content { order: 1; }
-			.spacer { order: 0; }
+			.modeled-content {
+				order: 1;
+			}
+			.spacer {
+				order: 0;
+			}
 		}
 
 		.avatar {
@@ -44,7 +48,10 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		text-transform: uppercase;
-		font: { size: 0.625rem; weight: 600; }
+		font: {
+			size: 0.625rem;
+			weight: 600;
+		}
 	}
 
 	.message-body {
@@ -63,7 +70,10 @@
 
 	time {
 		text-transform: uppercase;
-		font: { size: 0.625rem; weight: 100; }
+		font: {
+			size: 0.625rem;
+			weight: 100;
+		}
 
 		color: var(--tertiary-grey);
 		position: absolute;

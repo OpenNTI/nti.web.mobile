@@ -1,25 +1,20 @@
-import {join} from 'path';
+import { join } from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
-import {
-	Error as Err,
-	Loading,
-	Mixins
-} from '@nti/web-commons';
+import { Error as Err, Loading, Mixins } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Page from 'common/components/Page';
 
-import {getDistributionList} from '../Api';
+import { getDistributionList } from '../Api';
 
 import AddPeopleButton from './AddPeopleButton';
 import ItemDetailHeader from './ItemDetailHeader';
 import Selectables from './Selectables';
 import UserSearchField from './UserSearchField';
-
 
 const logger = Logger.get('contacts:components:ListDetail');
 
@@ -27,116 +22,126 @@ export default createReactClass({
 	displayName: 'ListDetail',
 	mixins: [ContextSender, Mixins.BasePath],
 	propTypes: {
-		id: PropTypes.string.isRequired
+		id: PropTypes.string.isRequired,
 	},
 
-	attachRef (x) { this.searchField = x; },
+	attachRef(x) {
+		this.searchField = x;
+	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			list: null,
 			loading: true,
 			adding: false,
-			originalMembers: null
+			originalMembers: null,
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.getList();
 	},
 
-	componentDidUpdate (_, prevState) {
-		let {list: nextList} = this.state;
-		let {list} = prevState;
+	componentDidUpdate(_, prevState) {
+		let { list: nextList } = this.state;
+		let { list } = prevState;
 
 		if (list && list !== nextList) {
 			list.removeListener('change', this.onStoreChange);
-		}
-		else if (nextList && nextList !== list) {
+		} else if (nextList && nextList !== list) {
 			nextList.addListener('change', this.onStoreChange);
 		}
 	},
 
-	componentWillUnmount () {
-		let {list} = this.state;
+	componentWillUnmount() {
+		let { list } = this.state;
 		if (list) {
 			list.removeListener('change', this.onStoreChange);
 		}
 	},
 
-	getContext () {
+	getContext() {
 		return Promise.resolve([
 			{
 				href: join(this.getBasePath(), 'contacts', 'lists', '/'),
-				label: 'Distribution Lists'
+				label: 'Distribution Lists',
 			},
 			{
-				label: 'List Details'
-			}
+				label: 'List Details',
+			},
 		]);
 	},
 
-	onStoreChange () {
+	onStoreChange() {
 		this.forceUpdate();
 	},
 
-	getList (updateOriginal = false) {
-		getDistributionList(this.props.id).then((result) => {
+	getList(updateOriginal = false) {
+		getDistributionList(this.props.id).then(result => {
 			if (!result) {
 				return this.setState({
 					error: new Error('Unable to load list'),
 					list: null,
-					loading: false
+					loading: false,
 				});
 			}
-			let {originalMembers} = this.state;
-			let members = (!updateOriginal && originalMembers) || (result.friends || []).slice();
+			let { originalMembers } = this.state;
+			let members =
+				(!updateOriginal && originalMembers) ||
+				(result.friends || []).slice();
 			this.setState({
 				list: result,
 				originalMembers: members,
-				loading: false
+				loading: false,
 			});
 		});
 	},
 
-	toggleMembership (entity) {
-		let {list} = this.state;
+	toggleMembership(entity) {
+		let { list } = this.state;
 		let p = !list.contains(entity) ? list.add(entity) : list.remove(entity);
 
-		p.catch(reason => logger.error('There was a problem toggling membership on entity: reason: %o entity: %o', reason, entity));
+		p.catch(reason =>
+			logger.error(
+				'There was a problem toggling membership on entity: reason: %o entity: %o',
+				reason,
+				entity
+			)
+		);
 
 		return p;
 	},
 
-	addPeople () {
+	addPeople() {
+		this.setState(
+			{
+				adding: true,
+			},
+			() => {
+				this.searchField.focus();
+			}
+		);
+	},
+
+	cancelSearch() {
 		this.setState({
-			adding: true
-		}, () => {
-			this.searchField.focus();
+			adding: false,
 		});
 	},
 
-	cancelSearch () {
-		this.setState({
-			adding: false
-		});
-	},
-
-	saveSearch () {
+	saveSearch() {
 		let selections = this.searchField.getSelections();
-		let {list} = this.state;
-		list.add(...selections)
-			.then(() => {
-				this.setState({
-					adding: false
-				});
-				this.getList(true);
+		let { list } = this.state;
+		list.add(...selections).then(() => {
+			this.setState({
+				adding: false,
 			});
+			this.getList(true);
+		});
 	},
 
-	render () {
-
-		let {loading, error, list} = this.state;
+	render() {
+		let { loading, error, list } = this.state;
 
 		if (error) {
 			return <Err error={error} />;
@@ -156,7 +161,8 @@ export default createReactClass({
 					<ItemDetailHeader list={list} />
 					<div className="contacts-page-content">
 						{this.state.adding ? (
-							<UserSearchField ref={this.attachRef}
+							<UserSearchField
+								ref={this.attachRef}
 								selected={list.friends}
 								onCancel={this.cancelSearch}
 								onSave={this.saveSearch}
@@ -167,7 +173,10 @@ export default createReactClass({
 								<Selectables
 									entities={(list.friends || []).slice()}
 									onChange={this.toggleMembership}
-									labels={{selected: 'Remove', unselected: 'Undo'}}
+									labels={{
+										selected: 'Remove',
+										unselected: 'Undo',
+									}}
 								/>
 							</div>
 						)}
@@ -175,5 +184,5 @@ export default createReactClass({
 				</div>
 			</Page>
 		);
-	}
+	},
 });

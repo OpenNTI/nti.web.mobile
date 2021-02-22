@@ -1,19 +1,21 @@
 import Logger from '@nti/util-logger';
-import {buffer} from '@nti/lib-commons';
-import {createRangeDescriptionFromRange, preresolveLocatorInfo} from '@nti/lib-anchors';
-import {getEventTarget, parent} from '@nti/lib-dom';
+import { buffer } from '@nti/lib-commons';
+import {
+	createRangeDescriptionFromRange,
+	preresolveLocatorInfo,
+} from '@nti/lib-anchors';
+import { getEventTarget, parent } from '@nti/lib-dom';
 
 import { Highlight, Note } from '../annotations';
 
 const logger = Logger.get('content:components:viewer-parts:annotations');
 const ANNOTATION_TYPES = [Highlight, Note];
 
-export function select (item) {
+export function select(item) {
 	for (let type of ANNOTATION_TYPES) {
 		if (!type.handles) {
 			logger.warn('Annotation missing "handles" static method: ', type);
-		}
-		else if (type.handles(item)) {
+		} else if (type.handles(item)) {
 			return type;
 		}
 	}
@@ -21,37 +23,33 @@ export function select (item) {
 	logger.warn('Unhandled Item:', item);
 }
 
-
 const rotate = (a, ix) => a.slice(ix).concat(a.slice(0, ix));
 
-
-function getStore (o) {
-	let {page} = o;
+function getStore(o) {
+	let { page } = o;
 	return page && page.getUserDataStore();
 }
 
-
 export default {
-
-	getContentNode () {
-		let {content} = this;
+	getContentNode() {
+		let { content } = this;
 		return content && content.getCurrent();
 	},
 
-	getContentNodeClean () {
-		let {content} = this;
+	getContentNodeClean() {
+		let { content } = this;
 		return content && content.getPristine();
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		let store = getStore(this.state);
 		if (store) {
 			store.removeListener('change', this.onUserDataChange);
 		}
 	},
 
-	componentDidUpdate (_, prevState) {
-		const {annotations} = prevState;
+	componentDidUpdate(_, prevState) {
+		const { annotations } = prevState;
 		const prevStore = getStore(prevState);
 		const store = getStore(this.state);
 
@@ -70,23 +68,22 @@ export default {
 
 		this.renderAnnotations(store);
 
-		const {stagedNote} = this.state;
+		const { stagedNote } = this.state;
 
 		if (!stagedNote && prevState.scrollPosition && prevState.stagedNote) {
 			this.scrollToPosition(prevState.scrollPosition);
 		}
 	},
 
-
-	onUserDataChange (store) {
+	onUserDataChange(store) {
 		this.renderAnnotations(store);
 	},
 
-
-	preresolveLocators (store) {
-		let descriptions = [], containers = [];
+	preresolveLocators(store) {
+		let descriptions = [],
+			containers = [];
 		for (let i of store) {
-			let {applicableRange} = i;
+			let { applicableRange } = i;
 			if (applicableRange) {
 				descriptions.push(applicableRange);
 				containers.push(i.ContainerId);
@@ -99,29 +96,36 @@ export default {
 				this.getContentNode(),
 				this.getContentNodeClean(),
 				containers,
-				this.getPageID());
+				this.getPageID()
+			);
 		}
 	},
 
-
 	renderAnnotations: buffer(50, function (store) {
-		if (!store || !this.getContentNode()) { return; }
+		if (!store || !this.getContentNode()) {
+			return;
+		}
 		logger.debug('Render Pass');
 
-		const {annotations : previousAnnotations = {}} = this.state;
+		const { annotations: previousAnnotations = {} } = this.state;
 		const annotations = {};
 		const deadIDs = new Set(Object.keys(previousAnnotations));
 
-		let newObjects = 0, skipped = 0, dead = 0, rendered = 0;
+		let newObjects = 0,
+			skipped = 0,
+			dead = 0,
+			rendered = 0;
 
 		this.preresolveLocators(store);
 
 		for (let i of store) {
-			let {applicableRange} = i;
+			let { applicableRange } = i;
 			let id = i.getID();
 			let annotation = previousAnnotations[id];
 
-			if (!applicableRange) { continue; }
+			if (!applicableRange) {
+				continue;
+			}
 
 			deadIDs.delete(id);
 			annotations[id] = annotation;
@@ -131,8 +135,7 @@ export default {
 			if ((annotation && !annotation.shouldRender()) || !Annotation) {
 				skipped++;
 				continue;
-			}
-			else if (!annotation) {
+			} else if (!annotation) {
 				newObjects++;
 				annotation = new Annotation(i, this);
 				annotations[id] = annotation;
@@ -145,15 +148,20 @@ export default {
 
 		dead = deadIDs.size;
 
-		logger.debug('Render Complete: rendered: %s, new: %s, skipped: %s, removed: %s', rendered, newObjects, skipped, dead);
+		logger.debug(
+			'Render Complete: rendered: %s, new: %s, skipped: %s, removed: %s',
+			rendered,
+			newObjects,
+			skipped,
+			dead
+		);
 
 		if (rendered > 0 || dead > 0 || newObjects > 0) {
-			this.setState({annotations});
+			this.setState({ annotations });
 		}
 	}),
 
-
-	maybeOfferAnnotations (eventMeta, selected) {
+	maybeOfferAnnotations(eventMeta, selected) {
 		if (!selected) {
 			let e = getEventTarget(eventMeta);
 			let highlights = [];
@@ -179,20 +187,18 @@ export default {
 		}
 
 		if (this.state.selected !== selected) {
-			this.setState({selected});
+			this.setState({ selected });
 		}
 	},
 
-
-	getAnnotationFromNode (node) {
-		const {annotations = {}} = this.state;
+	getAnnotationFromNode(node) {
+		const { annotations = {} } = this.state;
 		for (let a of Object.values(annotations)) {
 			if (a && a.ownsNode(node)) {
 				return a;
 			}
 		}
 	},
-
 
 	/**
 	 * All Notes and highlights have these fields in common.
@@ -201,95 +207,115 @@ export default {
 	 *
 	 * @returns {Object} The common applicable fields.
 	 */
-	selectionToCommonUGD (range) {
+	selectionToCommonUGD(range) {
 		if (!range || range.collapsed) {
-			throw new Error('Cannot create an annotation from null or collapsed ranges');
+			throw new Error(
+				'Cannot create an annotation from null or collapsed ranges'
+			);
 		}
 
 		//generate the range description
-		const data = createRangeDescriptionFromRange(range, this.getContentNode());
+		const data = createRangeDescriptionFromRange(
+			range,
+			this.getContentNode()
+		);
 		logger.debug('Range Description: %o', data);
 
 		return {
 			ContainerId: data.container,
 			applicableRange: data.description,
-			selectedText: range.toString()
+			selectedText: range.toString(),
 		};
 	},
 
-
-	saveNote (item, data) {
+	saveNote(item, data) {
 		const itemData = item && item.getData ? item.getData() : item;
-		const result = getStore(this.state).create({...itemData, ...data});
-
+		const result = getStore(this.state).create({ ...itemData, ...data });
 
 		//Do not clear the stagedNode from state until
 		//after the UI has had an opportunity to draw a frame. (allow us to queue an animation)
-		result.then(()=> setTimeout(() => this.setState({scrollPosition: void 0, stagedNote: void 0}), 1), () => {});
+		result.then(
+			() =>
+				setTimeout(
+					() =>
+						this.setState({
+							scrollPosition: void 0,
+							stagedNote: void 0,
+						}),
+					1
+				),
+			() => {}
+		);
 
 		return result;
 	},
 
-
-	createNote (range) {
-		const {contentPackage} = this.props;
-		const {selected, page} = this.state;
+	createNote(range) {
+		const { contentPackage } = this.props;
+		const { selected, page } = this.state;
 		const hasRange = range && !range.collapsed;
 
 		let properties = hasRange && this.selectionToCommonUGD(range);
 		if (!properties && selected) {
-			logger.debug('Using (editing) previously existing record: %o', selected);
-			const {applicableRange, selectedText, ContainerId} = selected.getRecord();
+			logger.debug(
+				'Using (editing) previously existing record: %o',
+				selected
+			);
+			const {
+				applicableRange,
+				selectedText,
+				ContainerId,
+			} = selected.getRecord();
 			properties = {
 				applicableRange,
 				selectedText,
-				ContainerId
+				ContainerId,
 			};
 		}
 
-		this.setState({selected: void 0, scrollPosition: this.getScrollPosition()});
+		this.setState({
+			selected: void 0,
+			scrollPosition: this.getScrollPosition(),
+		});
 
-		window.scrollTo(0,0);
+		window.scrollTo(0, 0);
 
 		page.getSharingPreferences()
-			.then(preferences => contentPackage.getDefaultShareWithValue(preferences))
-			.then(sharedWith =>
-				Note.createFrom({...properties, sharedWith})
+			.then(preferences =>
+				contentPackage.getDefaultShareWithValue(preferences)
 			)
-			.then(note => this.setState({stagedNote: note}));
+			.then(sharedWith => Note.createFrom({ ...properties, sharedWith }))
+			.then(note => this.setState({ stagedNote: note }));
 	},
 
-
-	createHighlight (range, color) {
+	createHighlight(range, color) {
 		new Promise((resolve, reject) => {
-			let highlight = Highlight.createFrom(this.selectionToCommonUGD(range), color);
+			let highlight = Highlight.createFrom(
+				this.selectionToCommonUGD(range),
+				color
+			);
 
 			getStore(this.state).create(highlight).then(resolve, reject);
 		})
 			.catch(e => logger.warn(e.stack || e.message || e))
-			.then(() => this.setState({selected: void 0}));
+			.then(() => this.setState({ selected: void 0 }));
 	},
 
-
-	updateHighlight (_, color) {
-		let {selected} = this.state;
+	updateHighlight(_, color) {
+		let { selected } = this.state;
 		try {
-			selected.updateColor(color)
-				.then(()=> this.forceUpdate());
+			selected.updateColor(color).then(() => this.forceUpdate());
 		} catch (e) {
 			logger.warn(e.stack || e.message || e);
 		}
 	},
 
-
-	removeHighlight () {
-		let {selected} = this.state;
+	removeHighlight() {
+		let { selected } = this.state;
 		try {
-			selected.remove()
-				.then(this.setState({selected: void 0}));
-		}
-		catch (e) {
+			selected.remove().then(this.setState({ selected: void 0 }));
+		} catch (e) {
 			logger.warn(e.stack || e.message || e);
 		}
-	}
+	},
 };

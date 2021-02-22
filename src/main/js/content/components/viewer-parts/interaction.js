@@ -1,24 +1,30 @@
 import Logger from '@nti/util-logger';
-import {isNTIID, encodeForURI} from '@nti/lib-ntiids';
-import {hasClass, getEventTarget, getScrollPosition, getScrollParent} from '@nti/lib-dom';
+import { isNTIID, encodeForURI } from '@nti/lib-ntiids';
+import {
+	hasClass,
+	getEventTarget,
+	getScrollPosition,
+	getScrollParent,
+} from '@nti/lib-dom';
 
 const logger = Logger.get('content:components:viewer-parts:interaction');
 const SCROLL = Symbol('Scroll-To-Target-Delay');
 
 export default {
-
-	componentDidMount () {
+	componentDidMount() {
 		this.maybeScrollToFragment();
 	},
 
-	componentDidUpdate (_, prevState) {
-		if (this.state.loading !== prevState.loading || !this.loadDataNeeded()) {
+	componentDidUpdate(_, prevState) {
+		if (
+			this.state.loading !== prevState.loading ||
+			!this.loadDataNeeded()
+		) {
 			this.maybeScrollToFragment();
 		}
 	},
 
-
-	onContentClick (e) {
+	onContentClick(e) {
 		let anchor = getEventTarget(e, 'a[href]');
 		if (anchor) {
 			if (getEventTarget(e, 'widget')) {
@@ -38,22 +44,26 @@ export default {
 			if (hasClass(anchor, 'ntiglossaryentry')) {
 				e.preventDefault();
 				this.setState({
-					glossaryId: href.substr(1)
+					glossaryId: href.substr(1),
 				});
 				return;
-			}
-			else if(anchor.dataset && anchor.dataset.presentation === 'popup') {
+			} else if (
+				anchor.dataset &&
+				anchor.dataset.presentation === 'popup'
+			) {
 				e.preventDefault();
 				this.setState({
 					popup: {
 						download: anchor.href,
-						source: anchor.dataset.sourceWrapped
-					}
+						source: anchor.dataset.sourceWrapped,
+					},
 				});
 			}
 
-			const samePage = id === this.getPageID() || id === this.getPageInfoID();
-			let isFragmentRef = href.charAt(0) === '#' || (frag.length && samePage);
+			const samePage =
+				id === this.getPageID() || id === this.getPageInfoID();
+			let isFragmentRef =
+				href.charAt(0) === '#' || (frag.length && samePage);
 
 			if (!isFragmentRef && !isNTIID(id)) {
 				//This seems to work...if this doesn't open the link into a new
@@ -67,25 +77,27 @@ export default {
 				e.preventDefault();
 				id = decodeURIComponent(frag);
 				if (!this.scrollToTarget(id)) {
-					logger.warn('Link (%s) refers to an element not found by normal means on the page.', href);
+					logger.warn(
+						'Link (%s) refers to an element not found by normal means on the page.',
+						href
+					);
 				}
 				return;
 			}
 
-
 			//let the capture clicks widget take us to a new place...
 			if (isNTIID(id)) {
-				let {pageSource, page} = this.state;
+				let { pageSource, page } = this.state;
 				let ref = encodeForURI(id);
 				const toc = page.getTableOfContents();
 
 				href = pageSource.contains(id)
 					? this.makeHref(ref) //the ID is in the pageSource... just page
-					//ID is not in the pageSource, reroot:
-					: (toc && toc.getNode(id) != null)
-						? this.makeHrefNewRoot(ref)
-						//ID is not in the current toc, resolve:
-						: this.makeObjectHref(ref);
+					: //ID is not in the pageSource, reroot:
+					toc && toc.getNode(id) != null
+					? this.makeHrefNewRoot(ref)
+					: //ID is not in the current toc, resolve:
+					  this.makeObjectHref(ref);
 
 				anchor.setAttribute('href', href);
 			}
@@ -96,29 +108,27 @@ export default {
 		}
 	},
 
-
-	getScrollTargetIdFromHash () {
-		let {hash} = global.location;
+	getScrollTargetIdFromHash() {
+		let { hash } = global.location;
 		return hash && decodeURIComponent(hash.substr(1));
 	},
 
-
-	getScrollPosition () {
+	getScrollPosition() {
 		return getScrollPosition(this.node);
 	},
 
-
-	scrollToPosition (pos) {
+	scrollToPosition(pos) {
 		const scroller = getScrollParent(this.node);
-		const {left: scrollLeft = 0, top: scrollTop = 0} = pos;
+		const { left: scrollLeft = 0, top: scrollTop = 0 } = pos;
 		Object.assign(scroller, { scrollTop, scrollLeft });
 	},
 
-
-	scrollToTarget (id) {
-		let scrollToEl = document.getElementById(id) || document.getElementsByName(id)[0];
+	scrollToTarget(id) {
+		let scrollToEl =
+			document.getElementById(id) || document.getElementsByName(id)[0];
 		if (scrollToEl) {
-			let fn = /* scrollToEl.scrollIntoViewIfNeeded || */ scrollToEl.scrollIntoView;
+			let fn =
+				/* scrollToEl.scrollIntoViewIfNeeded || */ scrollToEl.scrollIntoView;
 			if (fn) {
 				fn.call(scrollToEl, true);
 			} else {
@@ -130,30 +140,29 @@ export default {
 		return false;
 	},
 
-
-	maybeScrollToFragment () {
-		let {content} = this;
+	maybeScrollToFragment() {
+		let { content } = this;
 
 		if (!content || !content.content) {
 			return;
 		}
 
 		clearTimeout(this[SCROLL]);
-		this[SCROLL] = setTimeout(()=> {
+		this[SCROLL] = setTimeout(() => {
 			let id = this.getScrollTargetIdFromHash();
 			if (id) {
 				logger.debug('Scrolling to %s...', id);
 				this.scrollToTarget(id);
 				try {
-					const {history, location} = global;
+					const { history, location } = global;
 					//SOOoooo dirty! This is removing the fragment from the address bar:
 					history.replaceState(
 						history.state,
 						document.title,
-						location.pathname);
-				}
-				catch (e) {} //eslint-disable-line
+						location.pathname
+					);
+				} catch (e) {} //eslint-disable-line
 			}
 		}, 500);
-	}
+	},
 };

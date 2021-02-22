@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
 
-import {Mixin, Draggable, DropTarget} from 'common/dnd';
+import { Mixin, Draggable, DropTarget } from 'common/dnd';
 
 import Content from '../Content';
 
-import InputType, {stopEvent} from './Mixin';
+import InputType, { stopEvent } from './Mixin';
 
 const logger = Logger.get('assessment:components:input-types:Ordering');
 
@@ -22,51 +22,42 @@ export default createReactClass({
 	mixins: [InputType, Mixin],
 
 	statics: {
-		inputType: [
-			'Ordering'
-		]
+		inputType: ['Ordering'],
 	},
-
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
-			PartLocalDNDToken: 'default'
+			PartLocalDNDToken: 'default',
 		};
 	},
 
-
-	getDefaultValue () {
+	getDefaultValue() {
 		let values = (this.props.item || {}).labels || [];
-		return { ...values.map((_, i)=>i)};
+		return { ...values.map((_, i) => i) };
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.setState({
-			PartLocalDNDToken: this.getNewUniqueToken()
+			PartLocalDNDToken: this.getNewUniqueToken(),
 		});
 	},
 
-
-	getItemLabel (index) {
+	getItemLabel(index) {
 		return this.props.item.labels[index];
 	},
 
-
-	getItemValue (index) {
+	getItemValue(index) {
 		return this.props.item.values[index];
 	},
 
-
-	onDrop (drop) {
+	onDrop(drop) {
 		let value = this.getValueAsArray();
 		let data = drop || {};
-		let {source, target} = data;
+		let { source, target } = data;
 
 		if (source) {
 			source = source.props['data-source'];
@@ -78,7 +69,9 @@ export default createReactClass({
 
 		if (target == null || source == null) {
 			logger.error('Missing target and/or source');
-			throw new Error('Illegal State, there must be BOTH a source and a target');
+			throw new Error(
+				'Illegal State, there must be BOTH a source and a target'
+			);
 		}
 
 		let oldPosition = value.indexOf(source);
@@ -87,49 +80,46 @@ export default createReactClass({
 		}
 
 		value[oldPosition] = null;
-		if (target > oldPosition) {  target++; }
+		if (target > oldPosition) {
+			target++;
+		}
 		value.splice(target, 0, source);
 
-
 		const raw = {};
-		value.filter(x => x !== null).map((v,k) => raw[k] = v);
+		value.filter(x => x !== null).map((v, k) => (raw[k] = v));
 		this[SetValueRaw](raw);
 	},
 
-
-	render () {
+	render() {
 		let dropTargets = this.props.item.labels || [];
 		let solution = this.isAssessed() && this.getSolution();
 
 		return (
 			<form className="ordering" onSubmit={stopEvent}>
-				{dropTargets.map((x, i)=>
+				{dropTargets.map((x, i) =>
 					this.renderDropTarget(x, i, solution)
 				)}
 			</form>
 		);
 	},
 
-
-	renderDropTarget (target, targetIndex, solution) {
-
+	renderDropTarget(target, targetIndex, solution) {
 		return (
-			<DropTarget accepts={this.state.PartLocalDNDToken}
+			<DropTarget
+				accepts={this.state.PartLocalDNDToken}
 				className="match-row"
 				key={targetIndex}
-				data-target={targetIndex}>
-
-				<Content className="cell ordinal" content={target}/>
+				data-target={targetIndex}
+			>
+				<Content className="cell ordinal" content={target} />
 				<div className="cell value">
 					{this.renderDraggable(targetIndex, solution)}
 				</div>
-
 			</DropTarget>
 		);
 	},
 
-
-	renderDraggable (targetIndex, solution) {
+	renderDraggable(targetIndex, solution) {
 		let correct = '';
 		let sources = this.props.item.values || [];
 		let value = this.getValue();
@@ -142,14 +132,19 @@ export default createReactClass({
 
 		if (solution && solution.value) {
 			solution = solution.value;
-			correct = solution[targetIndex] === sourceIndex ? 'correct' : 'incorrect';
+			correct =
+				solution[targetIndex] === sourceIndex ? 'correct' : 'incorrect';
 		}
 
-		return this.renderDragSource(sources[sourceIndex], sourceIndex, targetIndex, `dropped ${correct}`);
+		return this.renderDragSource(
+			sources[sourceIndex],
+			sourceIndex,
+			targetIndex,
+			`dropped ${correct}`
+		);
 	},
 
-
-	renderDragSource (source, sourceIndex, targetIndex, extraClass, lock) {
+	renderDragSource(source, sourceIndex, targetIndex, extraClass, lock) {
 		let locked = this.isSubmitted() || Boolean(lock) || this.state.busy;
 		let classes = ['order', 'source'];
 
@@ -171,8 +166,10 @@ export default createReactClass({
 				type={this.state.PartLocalDNDToken}
 			>
 				<div className={classes.join(' ')} key={sourceIndex}>
-					<Content content={source}/>
-					<span className="hamburger small"><span/></span>
+					<Content content={source} />
+					<span className="hamburger small">
+						<span />
+					</span>
 				</div>
 			</Draggable>
 		);
@@ -181,9 +178,9 @@ export default createReactClass({
 	//The mixin implements @setValue(), but it just for external usage...when
 	// we interact with this widget, and update the value state internally,
 	// this will apply the state, and notify the store of the change.
-	[SetValueRaw] (value) {
-		let {length} = this.props.item.values;
-		let array = Array.from({length: length, ...value});
+	[SetValueRaw](value) {
+		let { length } = this.props.item.values;
+		let array = Array.from({ length: length, ...value });
 
 		if (value && Object.keys(value).length !== length) {
 			value = null;
@@ -191,27 +188,29 @@ export default createReactClass({
 
 		let seen = {};
 
-		function notSeen (x) {
-			let s = seen[x]; seen[x] = 1;
+		function notSeen(x) {
+			let s = seen[x];
+			seen[x] = 1;
 			return !s;
 		}
 
-		if (array.filter(x=> x != null && notSeen(x)).length !== length) {
-			logger.warn('Something went wrong. Preventing bad value from persisting. Here is the bad value:', value);
+		if (array.filter(x => x != null && notSeen(x)).length !== length) {
+			logger.warn(
+				'Something went wrong. Preventing bad value from persisting. Here is the bad value:',
+				value
+			);
 			return;
 		}
 		logger.debug('Setting state: %o', value);
-		this.setState({value: value}, this.handleInteraction);
+		this.setState({ value: value }, this.handleInteraction);
 	},
 
-
-	getValue () {
+	getValue() {
 		return this.state.value || this.getDefaultValue();
 	},
 
-
-	getValueAsArray () {
-		let {length} = this.props.item.values;
-		return Array.from({length: length, ...this.getValue()});
-	}
+	getValueAsArray() {
+		let { length } = this.props.item.values;
+		return Array.from({ length: length, ...this.getValue() });
+	},
 });

@@ -1,38 +1,39 @@
 import Path from 'path';
 
 import Logger from '@nti/util-logger';
-import {Mixins} from '@nti/web-commons';
+import { Mixins } from '@nti/web-commons';
 
 const ROUTES = Symbol('Routes');
 
-const makeRoute = (path, extra) => ({props: {handler: 'div', path, ...(extra || {})}});
+const makeRoute = (path, extra) => ({
+	props: { handler: 'div', path, ...(extra || {}) },
+});
 
 const logger = Logger.get('content:viewer-parts:router');
 
 export default {
 	mixins: [Mixins.BasePath],
 
-	getInitialState  () {
+	getInitialState() {
 		this.getRoutes().push(makeRoute('/:pageId(/)'));
 
-		this.registerContentViewerSubRoute('/discussions(/*)', {discussions: true});
+		this.registerContentViewerSubRoute('/discussions(/*)', {
+			discussions: true,
+		});
 
 		this.getRoutes().push(makeRoute('/:rootId/:pageId(/)'));
 	},
 
-
-	// eslint-disable-next-line camelcase
-	UNSAFE_componentWillMount () {
-
-		let {makeHref} = this;
+	UNSAFE_componentWillMount() {
+		let { makeHref } = this;
 
 		this.makeHref = link => {
 			if (link === '' || link === '/') {
 				link = '';
 			}
 
-			let {rootId} = this.props;
-			let {pageId} = this.getPropsFromRoute();
+			let { rootId } = this.props;
+			let { pageId } = this.getPropsFromRoute();
 			let isLinkForSubView = /^\//.test(link);
 
 			if (pageId && (isLinkForSubView || link === '')) {
@@ -41,7 +42,8 @@ export default {
 				}
 			}
 
-			return makeHref.call(this, link)
+			return makeHref
+				.call(this, link)
 				.replace(`/${rootId}/${rootId}/`, `/${rootId}/`)
 				.replace(/\/\/$/, '');
 		};
@@ -52,26 +54,27 @@ export default {
 			return this.getEnvironment().setPath(target, ...args);
 		};
 
-		this.makeHrefNewRoot = root => Path.resolve(makeHref.call(this, '/'), `../${root}/`) + '/';
+		this.makeHrefNewRoot = root =>
+			Path.resolve(makeHref.call(this, '/'), `../${root}/`) + '/';
 		this.makeObjectHref = root => `${this.getBasePath()}object/${root}/`;
 	},
 
-
-	getDefaultProps  () {
+	getDefaultProps() {
 		return { contextual: true };
 	},
 
-
-	getChildProps () {
+	getChildProps() {
 		return {};
 	},
 
+	getPropsFromRoute(props) {
+		props = { contextual: true, ...(props || this.props) };
 
-	getPropsFromRoute  (props) {
-		props = {contextual: true, ...(props || this.props)};
-
-		let {match} = this.getRouterState(props);
-		let p = match && {...((match.route || {}).props || {}), ...match.match};
+		let { match } = this.getRouterState(props);
+		let p = match && {
+			...((match.route || {}).props || {}),
+			...match.match,
+		};
 		if (p && p.props) {
 			p = p.props;
 		}
@@ -79,22 +82,23 @@ export default {
 		return p || props;
 	},
 
-
-	setRoutingState (...args) { this.setState(...args); },
-
+	setRoutingState(...args) {
+		this.setState(...args);
+	},
 
 	/**
 	 * For the RouterMixin
 	 * @private
 	 * @returns {Array} Route Objects
 	 */
-	getRoutes () {
-		if (!this[ROUTES]) { this[ROUTES] = [makeRoute('/')]; }
+	getRoutes() {
+		if (!this[ROUTES]) {
+			this[ROUTES] = [makeRoute('/')];
+		}
 		return this[ROUTES];
 	},
 
-
-	registerContentViewerSubRoute (route, extra = {}) {
+	registerContentViewerSubRoute(route, extra = {}) {
 		if (typeof route !== 'string') {
 			throw new Error('Invalid Argument');
 		}
@@ -102,7 +106,7 @@ export default {
 
 		let routes = [
 			makeRoute('/:pageId' + route, extra),
-			makeRoute(route, extra)
+			makeRoute(route, extra),
 		];
 
 		let s = o => o.props.path;
@@ -112,7 +116,7 @@ export default {
 		set.push(...routes);
 
 		//We have to ensure the '/:pageId' routes are last. And that the /:pageId(/) route is the last.
-		set.sort((a, b)=> {
+		set.sort((a, b) => {
 			a = s(a);
 			b = s(b);
 
@@ -125,5 +129,5 @@ export default {
 
 			return x ? 1 : -1;
 		});
-	}
+	},
 };

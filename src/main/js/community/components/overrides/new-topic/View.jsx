@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import {LinkTo} from '@nti/web-routing';
+import { LinkTo } from '@nti/web-routing';
 
 import Registry from '../Registry';
 import Page from '../Page';
@@ -15,25 +15,28 @@ const handles = obj => obj && obj.isNewTopic;
 export default class NTIMobileCommunityNewTopic extends React.Component {
 	static propTypes = {
 		channel: PropTypes.shape({
-			backer: PropTypes.object
-		})
-	}
+			backer: PropTypes.object,
+		}),
+	};
 
 	static contextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
-	onTopicCreated = (topic) => {
+	onTopicCreated = topic => {
 		return LinkTo.Object.routeTo(this.context.router, topic);
-	}
+	};
 
-	render () {
-		const {channel} = this.props;
+	render() {
+		const { channel } = this.props;
 
 		return (
 			<Page {...this.props}>
 				<div className={cx('community-new-topic-override')}>
-					<CreateTopic forum={channel.backer} onTopicCreated={this.onTopicCreated} />
+					<CreateTopic
+						forum={channel.backer}
+						onTopicCreated={this.onTopicCreated}
+					/>
 				</div>
 			</Page>
 		);

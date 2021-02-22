@@ -1,6 +1,6 @@
-import {Router, Route} from '@nti/web-routing';
+import { Router, Route } from '@nti/web-routing';
 
-import {getRouteFor} from '../RouteHandler';
+import { getRouteFor } from '../RouteHandler';
 
 import Calendar from './Calendar';
 // import Event from './Event';
@@ -18,6 +18,6 @@ export default Router.for([
 	Route({
 		path: '/',
 		getRouteFor,
-		component: Calendar
-	})
+		component: Calendar,
+	}),
 ]);

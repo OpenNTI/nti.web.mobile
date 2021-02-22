@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
-import {Error as Err, Loading, Mixins} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Error as Err, Loading, Mixins } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
-import {doExternalPayment} from '../Actions';
+import { doExternalPayment } from '../Actions';
 import Store from '../Store';
-import {PAY_AND_ENROLL_ERROR} from '../Constants';
+import { PAY_AND_ENROLL_ERROR } from '../Constants';
 
 const logger = Logger.get('enrollment:five-minute:components:Payment');
 const t = scoped('enrollment.fiveMinuteEnrollment', {
@@ -22,36 +22,36 @@ export default createReactClass({
 	propTypes: {
 		paymentLink: PropTypes.string.isRequired, // dataserver pay and enroll link ('fmaep.pay.and.enroll')
 		ntiCrn: PropTypes.string.isRequired, // passed to dataserver to get payment site url
-		ntiTerm: PropTypes.string.isRequired // passed to dataserver to get payment site url
+		ntiTerm: PropTypes.string.isRequired, // passed to dataserver to get payment site url
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
-			loading: false
+			loading: false,
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		Store.addChangeListener(this.onStoreChange);
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		Store.removeChangeListener(this.onStoreChange);
 	},
 
-	onStoreChange (event) {
-		if(event.type === PAY_AND_ENROLL_ERROR) {
+	onStoreChange(event) {
+		if (event.type === PAY_AND_ENROLL_ERROR) {
 			this.setState({
 				loading: false,
-				error: event
+				error: event,
 			});
 		}
 	},
 
-	buttonClick (event) {
+	buttonClick(event) {
 		event.preventDefault();
 		this.setState({
-			loading: true
+			loading: true,
 		});
 
 		let returnUrl = this.buildHref('../enroll/apply/paymentcomplete/');
@@ -61,12 +61,11 @@ export default createReactClass({
 			link: this.props.paymentLink,
 			ntiCrn: this.props.ntiCrn,
 			ntiTerm: this.props.ntiTerm,
-			returnUrl
+			returnUrl,
 		});
 	},
 
-	render () {
-
+	render() {
 		if (this.state.loading) {
 			return <Loading.Mask />;
 		}
@@ -76,15 +75,17 @@ export default createReactClass({
 		}
 
 		return (
-
 			<div className="enrollment-pending">
 				<figure className="notice">
-					<div>You will be taken to a secure external site for payment.</div>
+					<div>
+						You will be taken to a secure external site for payment.
+					</div>
 				</figure>
 
-				<a className="button tiny" href="#" onClick={this.buttonClick}>{t('proceedToPayment')}</a>
+				<a className="button tiny" href="#" onClick={this.buttonClick}>
+					{t('proceedToPayment')}
+				</a>
 			</div>
 		);
-	}
-
+	},
 });

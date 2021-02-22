@@ -2,37 +2,38 @@ import './AssignmentStatus.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {decorate} from '@nti/lib-commons';
-import {DateTime, HOC} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { decorate } from '@nti/lib-commons';
+import { DateTime, HOC } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
-const t = scoped('nti-web-mobile.assignment.components.instructor.AssignmentViewStudentHeader', {
-	graded: 'Graded',
-	submitted: 'Submitted'
-});
+const t = scoped(
+	'nti-web-mobile.assignment.components.instructor.AssignmentViewStudentHeader',
+	{
+		graded: 'Graded',
+		submitted: 'Submitted',
+	}
+);
 
 class AssignmentStatus extends React.Component {
-
 	static propTypes = {
 		assignment: PropTypes.object.isRequired,
-		history: PropTypes.object
-	}
+		history: PropTypes.object,
+	};
 
-	static getItem ({history}) {
+	static getItem({ history }) {
 		return (history || {}).grade;
 	}
 
-	render () {
+	render() {
+		const { assignment, history: container } = this.props;
 
-		const {assignment, history: container} = this.props;
-
-		if(!assignment) {
+		if (!assignment) {
 			return null;
 		}
 
 		let history = container;
 
-		if(container && container.getMostRecentHistoryItem) {
+		if (container && container.getMostRecentHistoryItem) {
 			history = container.getMostRecentHistoryItem();
 		}
 
@@ -44,19 +45,35 @@ class AssignmentStatus extends React.Component {
 
 		let status;
 
-		if(!history) {
-			status = <span>Due <DateTime date={due} /></span>;
-		}
-		else if(isLate && !synthetic) {
-			status = <span><DateTime date={due} relativeTo={submitted} suffix={false}/> late</span>;
-		}
-		else {
-			status = <span>{synthetic ? t('graded') : t('submitted')} <DateTime date={submitted} /></span>;
+		if (!history) {
+			status = (
+				<span>
+					Due <DateTime date={due} />
+				</span>
+			);
+		} else if (isLate && !synthetic) {
+			status = (
+				<span>
+					<DateTime
+						date={due}
+						relativeTo={submitted}
+						suffix={false}
+					/>{' '}
+					late
+				</span>
+			);
+		} else {
+			status = (
+				<span>
+					{synthetic ? t('graded') : t('submitted')}{' '}
+					<DateTime date={submitted} />
+				</span>
+			);
 		}
 
 		const classes = cx('assignment-status', {
-			'late': isLate,
-			'excused': isExcused
+			late: isLate,
+			excused: isExcused,
 		});
 
 		return (
@@ -68,7 +85,4 @@ class AssignmentStatus extends React.Component {
 	}
 }
 
-
-export default decorate(AssignmentStatus, [
-	HOC.ItemChanges.compose
-]);
+export default decorate(AssignmentStatus, [HOC.ItemChanges.compose]);

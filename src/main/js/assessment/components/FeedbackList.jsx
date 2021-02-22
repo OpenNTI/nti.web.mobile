@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 
 import ListItem from './FeedbackListItem';
 
-export default function FeedbackList ({feedback, onEditItem, onDeleteItem}) {
-
+export default function FeedbackList({ feedback, onEditItem, onDeleteItem }) {
 	let items = (feedback && feedback.Items) || [];
 
 	return (
 		<div className="feedback list">
-			{items.map(i=>(
-				<ListItem key={i.getID()} item={i}
-					onEdit={onEditItem} onDelete={onDeleteItem}/>
+			{items.map(i => (
+				<ListItem
+					key={i.getID()}
+					item={i}
+					onEdit={onEditItem}
+					onDelete={onDeleteItem}
+				/>
 			))}
 		</div>
 	);
@@ -19,8 +22,8 @@ export default function FeedbackList ({feedback, onEditItem, onDeleteItem}) {
 
 FeedbackList.propTypes = {
 	feedback: PropTypes.shape({
-		Items: PropTypes.array
+		Items: PropTypes.array,
 	}),
 	onDeleteItem: PropTypes.func,
-	onEditItem: PropTypes.func
+	onEditItem: PropTypes.func,
 };

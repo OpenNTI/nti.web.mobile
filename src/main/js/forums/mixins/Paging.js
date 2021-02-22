@@ -1,10 +1,10 @@
 import QueryString from 'query-string';
-import {getConfig} from '@nti/web-client';
+import { getConfig } from '@nti/web-client';
 
 let pageSize;
 
 const mixin = {
-	currentPage () {
+	currentPage() {
 		let loc = global.location || {};
 		let search = QueryString.parse(loc.search);
 
@@ -12,40 +12,42 @@ const mixin = {
 		return cp;
 	},
 
-	getPageSize () {
+	getPageSize() {
 		if (pageSize == null) {
 			pageSize = getConfig('discussions').pageSize || 20;
 		}
 		return pageSize;
 	},
 
-	batchStart () {
+	batchStart() {
 		return this.getPageSize() * (this.currentPage() - 1);
 	},
 
-	numPages () {
-		return Math.ceil((((this.state || {}).itemContents || {}).FilteredTotalItemCount || 0) / this.getPageSize());
+	numPages() {
+		return Math.ceil(
+			(((this.state || {}).itemContents || {}).FilteredTotalItemCount ||
+				0) / this.getPageSize()
+		);
 	},
 
-	hasNextPage () {
-		return this.numPages() > (this.currentPage());
+	hasNextPage() {
+		return this.numPages() > this.currentPage();
 	},
 
-	pagingInfo () {
+	pagingInfo() {
 		return {
 			currentPage: this.currentPage,
 			pageSize: this.getPageSize(),
 			numPages: this.numPages(),
 			hasNext: this.hasNextPage(),
-			hasPrevious: this.currentPage() > 1
+			hasPrevious: this.currentPage() > 1,
 		};
-	}
-
+	},
 };
 
 export default mixin;
 
-export function compose (Cmp) {
+export function compose(Cmp) {
 	Object.assign(Cmp.prototype, mixin);
 	return Cmp;
 }

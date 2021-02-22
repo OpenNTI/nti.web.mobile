@@ -1,4 +1,5 @@
-.headline.post, .headline.postitem {
+.headline.post,
+.headline.postitem {
 	margin-top: 1rem;
 	position: relative;
 
@@ -14,11 +15,11 @@
 		border-radius: 3px;
 		position: absolute;
 		top: 0.625rem;
-		left: 0;//.625rem;
+		left: 0; //.625rem;
 	}
 
 	.wrap {
-		margin: 0 0 2rem 4.375rem;//5rem;
+		margin: 0 0 2rem 4.375rem; //5rem;
 		font-size: 0.75rem;
 
 		.meta {

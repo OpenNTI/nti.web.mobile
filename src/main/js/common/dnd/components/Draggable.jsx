@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {getRefHandler} from '@nti/lib-commons';
+import { getRefHandler } from '@nti/lib-commons';
 
 import DragBehavior from '../behaviors/Draggable';
 
@@ -12,23 +12,20 @@ export default createReactClass({
 
 	propTypes: {
 		children: PropTypes.element.isRequired,
-		className: PropTypes.string
+		className: PropTypes.string,
 	},
 
-
-	attachRef (node) {
+	attachRef(node) {
 		this.node = node;
 	},
 
-
-	getDOMNode () {
+	getDOMNode() {
 		return this.node;
 	},
 
-
-	render () {
-		const {className, children} = this.props;
-		const {dragging, restoring} = this.state;
+	render() {
+		const { className, children } = this.props;
+		const { dragging, restoring } = this.state;
 		const child = React.Children.only(children); //only() will throw if there is not one and only one child.
 
 		const newProps = {
@@ -37,12 +34,12 @@ export default createReactClass({
 			// React.cloneElement does not merge classNames together, it replaces.. so we need to get the original className value.
 			className: cx('draggable', className, child.props.className, {
 				dragging,
-				restoring
+				restoring,
 			}),
 			...this.getHandlers(),
-			ref: getRefHandler(child.ref, this.attachRef)
+			ref: getRefHandler(child.ref, this.attachRef),
 		};
 
 		return React.cloneElement(child, newProps);
-	}
+	},
 });

@@ -7,7 +7,6 @@ import getItem from '../items';
 const isEmpty = s => s == null || s === '';
 
 export default class LibraryCollection extends React.Component {
-
 	static propTypes = {
 		className: PropTypes.string,
 		list: PropTypes.array,
@@ -15,13 +14,20 @@ export default class LibraryCollection extends React.Component {
 		title: PropTypes.string,
 		subtitle: PropTypes.string,
 
-		children: PropTypes.any
-	}
+		children: PropTypes.any,
+	};
 
-	render () {
-		const {props: {children, className, list, title, subtitle}} = this;
+	render() {
+		const {
+			props: { children, className, list, title, subtitle },
+		} = this;
 
-		let titleRow = isEmpty(title) ? null : ( <h5>{title}<label>{subtitle}</label></h5> );
+		let titleRow = isEmpty(title) ? null : (
+			<h5>
+				{title}
+				<label>{subtitle}</label>
+			</h5>
+		);
 
 		return (
 			<div className={cx('library-collection-old', className)}>
@@ -30,10 +36,12 @@ export default class LibraryCollection extends React.Component {
 				<ul>
 					{list.map(item => {
 						let Item = getItem(item);
-						return Item && (
-							<li key={item.NTIID || item.href}>
-								<Item item={item}/>
-							</li>
+						return (
+							Item && (
+								<li key={item.NTIID || item.href}>
+									<Item item={item} />
+								</li>
+							)
 						);
 					})}
 				</ul>

@@ -1,31 +1,30 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {DateTime} from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
 
 import NoteableMixin from '../mixins/Noteable';
 
-
 export default createReactClass({
 	displayName: 'ForumCommentType',
 	mixins: [NoteableMixin],
 	statics: {
-		noteableType: 'forums.personalblogcomment'
+		noteableType: 'forums.personalblogcomment',
 	},
 
-	render () {
+	render() {
 		let thestring = ' commented on a thought.';
 		return (
 			<li className="notification-item">
-				<Avatar entity={this.state.username} width="32" height="32"/>
+				<Avatar entity={this.state.username} width="32" height="32" />
 				<div className="wrap">
-					<DisplayName entity={this.state.username}/>
+					<DisplayName entity={this.state.username} />
 					{thestring}
-					<DateTime date={this.getEventTime()} relative/>
+					<DateTime date={this.getEventTime()} relative />
 				</div>
 			</li>
 		);
-	}
+	},
 });

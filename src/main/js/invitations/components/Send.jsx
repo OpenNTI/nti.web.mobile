@@ -2,8 +2,8 @@ import './Send.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Banner, Loading} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Banner, Loading } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import CourseContentLink from 'library/mixins/CourseContentLink';
 import ContextSender from 'common/mixins/ContextSender';
@@ -20,45 +20,46 @@ export default createReactClass({
 	mixins: [ContextSender, CourseContentLink],
 
 	propTypes: {
-		course: PropTypes.object.isRequired
+		course: PropTypes.object.isRequired,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
-			loading: true
+			loading: true,
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setCourse();
 	},
 
-	setCourse ({course} = this.props) {
+	setCourse({ course } = this.props) {
 		if (course) {
 			this.setState({
 				course,
-				loading: false
+				loading: false,
 			});
 		}
 	},
 
-	getContext () {
-		const {course} = this.props;
+	getContext() {
+		const { course } = this.props;
 		const path = this.courseHref(course.getID(), 'info');
 		return Promise.resolve([
 			{
-				href: path, label: 'Course Info'
-			}, {
-				label: t('title')
-			}
+				href: path,
+				label: 'Course Info',
+			},
+			{
+				label: t('title'),
+			},
 		]);
 	},
 
-	render () {
+	render() {
+		const { loading, course } = this.state;
 
-		const {loading, course} = this.state;
-
-		if(loading) {
+		if (loading) {
 			return <Loading.Mask />;
 		}
 
@@ -68,6 +69,5 @@ export default createReactClass({
 				<SendForm course={course} />
 			</div>
 		);
-
-	}
+	},
 });

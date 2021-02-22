@@ -10,20 +10,18 @@ export default createReactClass({
 		href: PropTypes.string,
 		className: PropTypes.string,
 		onClick: PropTypes.func,
-		enabled: PropTypes.bool
+		enabled: PropTypes.bool,
 	},
 
-
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
 			href: '#',
-			enabled: true
+			enabled: true,
 		};
 	},
 
-
-	onClick (e) {
-		let {onClick, enabled, href} = this.props;
+	onClick(e) {
+		let { onClick, enabled, href } = this.props;
 
 		if (enabled && onClick) {
 			onClick(...arguments);
@@ -34,13 +32,10 @@ export default createReactClass({
 		}
 	},
 
+	render() {
+		const { className, enabled, ...props } = this.props;
+		const css = cx('button tiny', className, { disabled: !enabled });
 
-	render () {
-		const {className, enabled, ...props} = this.props;
-		const css = cx('button tiny', className, {disabled: !enabled});
-
-		return (
-			<a {...props} onClick={this.onClick} className={css}/>
-		);
-	}
+		return <a {...props} onClick={this.onClick} className={css} />;
+	},
 });

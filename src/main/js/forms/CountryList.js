@@ -66,7 +66,7 @@ export default [
 	'Cyprus',
 	'Czech Republic',
 	'Czechoslovakia',
-	'Côte d\'Ivoire',
+	"Côte d'Ivoire",
 	'Democratic Repub. of Viet-Nam',
 	'Denmark',
 	'Djibouti',
@@ -291,5 +291,5 @@ export default [
 	'Yemen (Sanaa)',
 	'Yugoslavia',
 	'Zambia',
-	'Zimbabwe'
+	'Zimbabwe',
 ];

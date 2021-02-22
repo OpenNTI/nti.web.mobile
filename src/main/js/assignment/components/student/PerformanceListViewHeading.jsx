@@ -7,20 +7,19 @@ export default class extends React.Component {
 	static propTypes = {
 		column: PropTypes.shape({
 			label: PropTypes.string,
-			sortOn: PropTypes.string
+			sortOn: PropTypes.string,
 		}).isRequired,
 		onClick: PropTypes.func,
-		className: PropTypes.any
+		className: PropTypes.any,
 	};
 
 	onClick = () => {
-		const {onClick, column} = this.props;
+		const { onClick, column } = this.props;
 		onClick && onClick(column.sortOn);
 	};
 
-	render () {
-
-		const {className, column} = this.props;
+	render() {
+		const { className, column } = this.props;
 
 		return (
 			<div className={className} onClick={this.onClick}>

@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .notification-item {
 	&:empty {
@@ -25,7 +25,9 @@
 		color: var(--secondary-grey);
 	}
 
-	.avatar, .grade, .badge {
+	.avatar,
+	.grade,
+	.badge {
 		background: {
 			size: contain;
 			repeat: no-repeat;

@@ -13,63 +13,74 @@ export default class extends React.Component {
 		currentPage: PropTypes.number.isRequired,
 		pageSize: PropTypes.number.isRequired,
 		total: PropTypes.number.isRequired,
-		onChange: PropTypes.func
+		onChange: PropTypes.func,
 	};
 
 	static defaultProps = {
-		onChange () {}
+		onChange() {},
 	};
 
 	state = {
-		open: false
+		open: false,
 	};
 
 	toggleMenu = () => {
 		this.setState({
-			open: !this.state.open
+			open: !this.state.open,
 		});
 	};
 
-	setPage = (pageNum) => {
+	setPage = pageNum => {
 		if (pageNum !== this.props.currentPage) {
 			this.props.onChange(pageNum);
 		}
 	};
 
-	render () {
-
-		const {currentPage, pageSize, total} = this.props;
-		const {open} = this.state;
+	render() {
+		const { currentPage, pageSize, total } = this.props;
+		const { open } = this.state;
 
 		// compute the start item for the given page number
-		const start = (pageNum) => total === 0 ? 0 : (pageSize * (pageNum - 1)) + 1;
+		const start = pageNum =>
+			total === 0 ? 0 : pageSize * (pageNum - 1) + 1;
 
 		// compute the end item for the given page number
-		const end = (pageNum) => Math.min(pageSize * pageNum, total);
+		const end = pageNum => Math.min(pageSize * pageNum, total);
 
 		// render a menu item for the given page number
 		const itemContent = (pageNum, includeTotal = false) => (
-			<span>{start(pageNum)} - {end(pageNum)} {includeTotal && `of ${total}`}</span>
+			<span>
+				{start(pageNum)} - {end(pageNum)}{' '}
+				{includeTotal && `of ${total}`}
+			</span>
 		);
 
 		const item = page => (
-			<PageControlsMenuOption page={page} onClick={this.setPage} className={cx({'selected': page === currentPage})}>
+			<PageControlsMenuOption
+				page={page}
+				onClick={this.setPage}
+				className={cx({ selected: page === currentPage })}
+			>
 				{itemContent(page)}
 			</PageControlsMenuOption>
 		);
 
 		const numPages = Math.ceil(total / pageSize);
 
-		const wrapperclasses = cx('gradebook-page-controls', {open});
-		const classes = cx('page-menu', {open});
+		const wrapperclasses = cx('gradebook-page-controls', { open });
+		const classes = cx('page-menu', { open });
 
 		return (
 			<div className={wrapperclasses} onClick={this.toggleMenu}>
-				<div className="menu-label">{itemContent(currentPage, true)}</div>
+				<div className="menu-label">
+					{itemContent(currentPage, true)}
+				</div>
 				<MenuTransitionGroup>
 					{open && (
 						<ul className={classes} key="pager">
-							{Array.from({length: numPages}).map((_, i) => item(i + 1))}
+							{Array.from({ length: numPages }).map((_, i) =>
+								item(i + 1)
+							)}
 						</ul>
 					)}
 				</MenuTransitionGroup>

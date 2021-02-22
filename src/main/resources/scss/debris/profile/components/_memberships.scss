@@ -35,7 +35,8 @@
 
 .profile-body-aside {
 	.membership {
-		img, svg {
+		img,
+		svg {
 			margin-bottom: 0.25rem;
 		}
 	}
@@ -57,7 +58,8 @@
 		overflow: hidden;
 	}
 
-	img, svg {
+	img,
+	svg {
 		width: $avatar-size;
 		height: $avatar-size;
 		flex: 0 0 $avatar-size;

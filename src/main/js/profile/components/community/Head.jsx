@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-component';
+import { Link } from 'react-router-component';
 
 //import cx from 'classnames';
 
@@ -19,42 +19,49 @@ export default class extends React.Component {
 
 		narrow: PropTypes.bool,
 
-		onMenuToggle: PropTypes.func
+		onMenuToggle: PropTypes.func,
 	};
 
 	static defaultProps = {
-		onMenuToggle: () => {}
+		onMenuToggle: () => {},
 	};
 
-	onMenuToggleClicked = (e) => {
+	onMenuToggleClicked = e => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		this.props.onMenuToggle();
 	};
 
-	render () {
-		let {entity, narrow, sections = [], selected} = this.props;
+	render() {
+		let { entity, narrow, sections = [], selected } = this.props;
 
-		selected = (sections.find(x=> x.ID === selected) || {}).title || 'All Topics';
+		selected =
+			(sections.find(x => x.ID === selected) || {}).title || 'All Topics';
 
 		return (
 			<div className="community head">
 				<div className="coordinate-root">
 					<div className="avatar-wrapper">
-						<Avatar entity={entity}/>
+						<Avatar entity={entity} />
 					</div>
-					{ narrow && (
-
+					{narrow && (
 						<div className="meta">
 							<Link href="/info/" className="info-icon" />
-							<DisplayName entity={entity} tag="h1"/>
+							<DisplayName entity={entity} tag="h1" />
 							<ul>
-								<li><a href="#" className="selector" onClick={this.onMenuToggleClicked}>{selected}</a></li>
+								<li>
+									<a
+										href="#"
+										className="selector"
+										onClick={this.onMenuToggleClicked}
+									>
+										{selected}
+									</a>
+								</li>
 							</ul>
 						</div>
-
-					) }
+					)}
 				</div>
 			</div>
 		);

@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .question-part .matching {
 	.terms {
@@ -13,7 +13,7 @@
 			margin: 1rem 0.5rem 0;
 
 			&.used {
-				background: #fff !important;//block the hover background
+				background: #fff !important; //block the hover background
 				visibility: visible;
 				box-shadow: none;
 				border: 1px dashed var(--border-grey);
@@ -46,7 +46,8 @@
 		}
 
 		.drag.source {
-			&.correct, &.incorrect {
+			&.correct,
+			&.incorrect {
 				&::after {
 					position: absolute;
 					top: -10px;

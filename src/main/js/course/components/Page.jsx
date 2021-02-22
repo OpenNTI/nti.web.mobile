@@ -11,16 +11,15 @@ export default class extends React.Component {
 	static propTypes = {
 		children: PropTypes.any,
 
-		course: PropTypes.object.isRequired
+		course: PropTypes.object.isRequired,
 	};
 
-
-	render () {
-		const {children, course, ...otherProps} = this.props;
+	render() {
+		const { children, course, ...otherProps } = this.props;
 
 		return (
 			<>
-				<NavigationTabs course={course} exclude={['activity']}/>
+				<NavigationTabs course={course} exclude={['activity']} />
 				<Page {...otherProps} course={course} useCommonTabs>
 					{React.Children.map(children, x => React.cloneElement(x))}
 				</Page>

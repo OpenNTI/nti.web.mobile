@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {rawContent} from '@nti/lib-commons';
+import { rawContent } from '@nti/lib-commons';
 
 import Content from '../Content';
 
 import Mixin from './Mixin';
-
 
 /**
  * This solution type represents Matching
@@ -16,50 +15,46 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	statics: {
-		inputType: [
-			'Matching'
-		]
+		inputType: ['Matching'],
 	},
-
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-
-	render () {
+	render() {
 		let values = this.props.item.values || [];
 		let solution = (this.state.solution || {}).value;
 		let ex = this.state.explanation || '';
 
-		solution = solution && Array.from({length: values.length, ...solution});
+		solution =
+			solution && Array.from({ length: values.length, ...solution });
 
 		return (
 			<div className="matching solutions">
 				<div className="matching">
 					<form className="box">
-						{values.map((x, i)=>
-							this.renderDropTarget(x, i, solution) )}
+						{values.map((x, i) =>
+							this.renderDropTarget(x, i, solution)
+						)}
 					</form>
 				</div>
-				<div className="explanation" {...rawContent(ex)}/>
+				<div className="explanation" {...rawContent(ex)} />
 			</div>
 		);
 	},
 
-
-	renderDragSource (term, index) {
+	renderDragSource(term, index) {
 		return (
 			<div className="drag source" key={term + index}>
 				<div className="match" data-source={term}>
-					<Content content={term}/>
+					<Content content={term} />
 				</div>
 			</div>
 		);
 	},
 
-
-	renderDropTarget (value, idx, solution) {
+	renderDropTarget(value, idx, solution) {
 		let i = solution && solution.indexOf(idx);
 		let labels = this.props.item.labels || [];
 		let label = labels[i];
@@ -73,8 +68,8 @@ export default createReactClass({
 				<div className="match blank dropzone" data-dnd>
 					{this.renderDragSource(label, i)}
 				</div>
-				<Content className="content" content={value}/>
+				<Content className="content" content={value} />
 			</div>
 		);
-	}
+	},
 });

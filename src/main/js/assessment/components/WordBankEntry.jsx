@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import {Draggable} from 'common/dnd';
+import { Draggable } from 'common/dnd';
 
 import Content from './Content';
 
@@ -9,7 +9,7 @@ export default class extends React.Component {
 	static displayName = 'WordBankEntry';
 
 	static contextTypes = {
-		QuestionUniqueDNDToken: PropTypes.object.isRequired
+		QuestionUniqueDNDToken: PropTypes.object.isRequired,
 	};
 
 	static propTypes = {
@@ -17,15 +17,15 @@ export default class extends React.Component {
 		className: PropTypes.string,
 
 		locked: PropTypes.bool,
-		onReset: PropTypes.func
+		onReset: PropTypes.func,
 	};
 
 	static defaultProps = {
 		onReset: () => {},
-		className: ''
+		className: '',
 	};
 
-	onResetClicked = (e) => {
+	onResetClicked = e => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -36,22 +36,32 @@ export default class extends React.Component {
 		}
 	};
 
-	render () {
-		let {content, wid} = this.props.entry;
-		let props = { ...this.props, entry: undefined};
-		let {locked} = props;
+	render() {
+		let { content, wid } = this.props.entry;
+		let props = { ...this.props, entry: undefined };
+		let { locked } = props;
 		let classes = ['drag', 'source'];
 		if (locked) {
 			classes.push('locked');
 		}
 
 		return (
-			<Draggable {...props} type={this.context.QuestionUniqueDNDToken} cancel=".reset" data-source={wid}>
+			<Draggable
+				{...props}
+				type={this.context.QuestionUniqueDNDToken}
+				cancel=".reset"
+				data-source={wid}
+			>
 				<div className={classes.join(' ')}>
 					{!locked && (
-						<a href="#" className="reset" title="Reset" onClick={this.onResetClicked}/>
+						<a
+							href="#"
+							className="reset"
+							title="Reset"
+							onClick={this.onResetClicked}
+						/>
 					)}
-					<Content content={content}/>
+					<Content content={content} />
 				</div>
 			</Draggable>
 		);

@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .header.assessment.common {
 	color: var(--primary-grey);
@@ -47,7 +47,9 @@
 		@extend %icon-assignment-late;
 	}
 
-	h4,h5,h6 {
+	h4,
+	h5,
+	h6 {
 		font-family: var(--body-font-family);
 	}
 
@@ -71,8 +73,12 @@
 		padding: 0 0.625rem;
 	}
 
-	.meta { flex: 1 1 auto; }
-	.grade-container { flex: 0 0 auto; }
+	.meta {
+		flex: 1 1 auto;
+	}
+	.grade-container {
+		flex: 0 0 auto;
+	}
 
 	.grade {
 		font-size: 0.875rem;

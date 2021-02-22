@@ -2,24 +2,22 @@ import React from 'react';
 import Logger from '@nti/util-logger';
 import AppDispatcher from '@nti/lib-dispatcher';
 
-import {STRIPE_PAYMENT_SUCCESS} from 'enrollment/store-enrollment/Constants';
+import { STRIPE_PAYMENT_SUCCESS } from 'enrollment/store-enrollment/Constants';
 import EnrollmentStore from 'enrollment/Store';
 import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';
-import {reload as reloadNotifications} from 'notifications/Actions';
+import { reload as reloadNotifications } from 'notifications/Actions';
 
-import {reload as reloadLibrary} from '../Actions';
-import {RELOAD} from '../Constants';
+import { reload as reloadLibrary } from '../Actions';
+import { RELOAD } from '../Constants';
 
 const logger = Logger.get('InvalidationListener');
 
-
 const INVALIDATION_EVENTS = {
 	[STRIPE_PAYMENT_SUCCESS]: true,
-	[RELOAD]: true
+	[RELOAD]: true,
 };
 
-function flush (event) {
-
+function flush(event) {
 	let type = event && (event.type || (event.action || {}).type);
 	if (!type) {
 		return;
@@ -32,7 +30,11 @@ function flush (event) {
 		return;
 	}
 
-	logger.debug('reloading library and catalog in response to event: %s %o', type, event);
+	logger.debug(
+		'reloading library and catalog in response to event: %s %o',
+		type,
+		event
+	);
 	reloadLibrary();
 	reloadNotifications();
 }
@@ -40,19 +42,19 @@ function flush (event) {
 export default class extends React.Component {
 	static displayName = 'InvalidationListener';
 
-	componentDidMount () {
+	componentDidMount() {
 		this.reloadToken = AppDispatcher.register(flush);
 		EnrollmentStore.addChangeListener(flush);
 		StoreEnrollmentStore.addChangeListener(flush);
 	}
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		AppDispatcher.unregister(this.reloadToken);
 		EnrollmentStore.removeChangeListener(flush);
 		StoreEnrollmentStore.removeChangeListener(flush);
 	}
 
-	render () {
+	render() {
 		return null;
 	}
 }

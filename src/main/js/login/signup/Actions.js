@@ -8,33 +8,33 @@ const bufferTime = 500;
 // NO "executable/actionable" code...just data organizational code.
 
 //Unreferenced?
-export function preflight (data) {
+export function preflight(data) {
 	clearTimeout(preflight.buffer);
 	preflight.buffer = setTimeout(() => {
 		AppDispatcher.handleViewAction({
 			type: Constants.PREFLIGHT,
-			fields: (data && data.fields)
+			fields: data && data.fields,
 		});
 	}, bufferTime);
 }
 
-export function preflightAndCreateAccount (data) {
+export function preflightAndCreateAccount(data) {
 	AppDispatcher.handleViewAction({
 		type: Constants.PREFLIGHT_AND_CREATE_ACCOUNT,
-		fields: (data && data.fields)
+		fields: data && data.fields,
 	});
 }
 
 //Unreferenced?
-export function createAccount (data) {
+export function createAccount(data) {
 	AppDispatcher.handleViewAction({
 		type: Constants.CREATE_ACCOUNT,
-		fields: (data && data.fields)
+		fields: data && data.fields,
 	});
 }
 
-export function clearErrors () {
+export function clearErrors() {
 	AppDispatcher.handleViewAction({
-		type: Constants.CLEAR_ERRORS
+		type: Constants.CLEAR_ERRORS,
 	});
 }

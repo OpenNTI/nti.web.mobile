@@ -1,14 +1,14 @@
 import Logger from '@nti/util-logger';
-import {Events} from '@nti/web-session';
+import { Events } from '@nti/web-session';
 
 import ReadOnlyStore from './Store';
-import {getMainSubmittable, isAssignment, isSurvey} from './utils';
+import { getMainSubmittable, isAssignment, isSurvey } from './utils';
 
 const logger = Logger.get('assessment:api');
 
 const isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
 
-async function syncAssignmentWithResponse (assignment, resp) {
+async function syncAssignmentWithResponse(assignment, resp) {
 	try {
 		const raw = await resp.MetadataAttemptItem.fetchLink('Assignment');
 
@@ -18,7 +18,7 @@ async function syncAssignmentWithResponse (assignment, resp) {
 	}
 }
 
-export function loadPreviousState (assessment) {
+export function loadPreviousState(assessment) {
 	let main = getMainSubmittable(assessment);
 	let load;
 
@@ -29,8 +29,7 @@ export function loadPreviousState (assessment) {
 	return load || Promise.reject('Nothing to do');
 }
 
-
-export function saveProgress (assessment) {
+export function saveProgress(assessment) {
 	let main = getMainSubmittable(assessment);
 	let progress = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
 
@@ -41,44 +40,48 @@ export function saveProgress (assessment) {
 	return main.postSavePoint(progress, true);
 }
 
-
-export function submit (assessment) {
+export function submit(assessment) {
 	let data = ReadOnlyStore.getSubmissionPreparedForPost(assessment);
 	let main = getMainSubmittable(assessment);
 
-	return data.submit()
+	return data
+		.submit()
 		.then(response => {
 			const fallback = () =>
-				main.loadPreviousSubmission()
-					.catch(e=> e.statusCode === 404
-						? response
-						: Promise.reject(e));
+				main
+					.loadPreviousSubmission()
+					.catch(e =>
+						e.statusCode === 404 ? response : Promise.reject(e)
+					);
 
-			if (isAssignment(assessment) && !data.isPracticeSubmission && !isHistoryItem(response.Class)) {
+			if (
+				isAssignment(assessment) &&
+				!data.isPracticeSubmission &&
+				!isHistoryItem(response.Class)
+			) {
 				const loadHistoryFromSubmission = response.getHistory
 					? response.getHistory()
 					: Promise.reject('No Link');
 
-				return loadHistoryFromSubmission
-					.catch(reason => reason === 'No Link'
-						? fallback()
-						: Promise.reject(reason));
-			}
-			else if (isSurvey(assessment)) {
+				return loadHistoryFromSubmission.catch(reason =>
+					reason === 'No Link' ? fallback() : Promise.reject(reason)
+				);
+			} else if (isSurvey(assessment)) {
 				return main.refresh().then(() => response);
 			}
 
 			return response;
 		})
-		.then((resp) => {
+		.then(resp => {
 			if (isAssignment(assessment)) {
-				return syncAssignmentWithResponse(assessment, resp)
-					.then(() => resp);
+				return syncAssignmentWithResponse(assessment, resp).then(
+					() => resp
+				);
 			}
 
 			return resp;
 		})
-		.then((resp) => {
+		.then(resp => {
 			if (isAssignment(assessment)) {
 				Events.emit(Events.ASSIGNMENT_SUBMITTED, assessment);
 			} else {
@@ -89,48 +92,42 @@ export function submit (assessment) {
 		})
 		.catch(reason => {
 			//force this to always fulfill.
-			logger.error('There was an error submitting the assessment: %o', reason.message || reason);
+			logger.error(
+				'There was an error submitting the assessment: %o',
+				reason.message || reason
+			);
 			return reason;
 		});
 }
 
+export function submitFeedback(assessment, feedbackBody) {
+	return ReadOnlyStore.getAssignmentFeedback(assessment).then(feedback => {
+		if (!feedback) {
+			return Promise.reject('No Feedback object');
+		}
 
-export function submitFeedback (assessment, feedbackBody) {
-	return ReadOnlyStore.getAssignmentFeedback(assessment)
-		.then(feedback => {
-
-			if (!feedback) {
-				return Promise.reject('No Feedback object');
-			}
-
-			return feedback.addPost(feedbackBody)
-				.then(()=>feedback.refresh());
-		});
+		return feedback.addPost(feedbackBody).then(() => feedback.refresh());
+	});
 }
 
+export function deleteFeedbackItem(assessment, feedbackItem) {
+	return ReadOnlyStore.getAssignmentFeedback(assessment).then(feedback => {
+		if (!feedback) {
+			return Promise.reject('No Feedback object');
+		}
 
-export function deleteFeedbackItem (assessment, feedbackItem) {
-	return ReadOnlyStore.getAssignmentFeedback(assessment)
-		.then(feedback => {
-
-			if (!feedback) {
-				return Promise.reject('No Feedback object');
-			}
-
-			return feedbackItem.delete()
-				.then(()=>feedback.refresh());
-		});
+		return feedbackItem.delete().then(() => feedback.refresh());
+	});
 }
 
-export function updateFeedbackItem (assessment, feedbackItem, feedbackBody) {
-	return ReadOnlyStore.getAssignmentFeedback(assessment)
-		.then(feedback => {
+export function updateFeedbackItem(assessment, feedbackItem, feedbackBody) {
+	return ReadOnlyStore.getAssignmentFeedback(assessment).then(feedback => {
+		if (!feedback) {
+			return Promise.reject('No Feedback object');
+		}
 
-			if (!feedback) {
-				return Promise.reject('No Feedback object');
-			}
-
-			return feedbackItem.editBody(feedbackBody)
-				.then(()=>feedback.refresh());
-		});
+		return feedbackItem
+			.editBody(feedbackBody)
+			.then(() => feedback.refresh());
+	});
 }

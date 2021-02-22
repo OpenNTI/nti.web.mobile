@@ -1,9 +1,8 @@
 const CLEANED = Symbol('Type has been cleaned');
 
 export default {
-
 	statics: {
-		handles (item) {
+		handles(item) {
 			if (!this[CLEANED]) {
 				//ensure data type:
 				if (!Array.isArray(this.inputType)) {
@@ -11,7 +10,7 @@ export default {
 				}
 
 				//ensure shape:
-				this.inputType.forEach((s, i, a) => a[i] = s.toLowerCase());
+				this.inputType.forEach((s, i, a) => (a[i] = s.toLowerCase()));
 
 				//prevent re-entry:
 				this[CLEANED] = true;
@@ -19,14 +18,14 @@ export default {
 
 			//Perform actual test...
 			return isMimeType(item, this.inputType);
-		}
-
-	}
+		},
+	},
 };
 
-export function isMimeType (item, itemType)	 {
-	let type = item.MimeType
-		.replace('application/vnd.nextthought.', '')
-		.toLowerCase();
-	return (itemType.indexOf(type) !== -1);
+export function isMimeType(item, itemType) {
+	let type = item.MimeType.replace(
+		'application/vnd.nextthought.',
+		''
+	).toLowerCase();
+	return itemType.indexOf(type) !== -1;
 }

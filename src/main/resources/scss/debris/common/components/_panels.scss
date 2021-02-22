@@ -16,12 +16,15 @@ figure {
 
 		@include panel($bg: red); //TODO: restyle without foundation.
 
-		background: rgba(var(--primary-red-rgb), 0.9); //TODO: restyle without foundation.
+		background: rgba(
+			var(--primary-red-rgb),
+			0.9
+		); //TODO: restyle without foundation.
 	}
 }
 
 .empty-list {
-	&[class*="library-"] {
+	&[class*='library-'] {
 		background: none;
 		border: none;
 		font-size: 2rem;

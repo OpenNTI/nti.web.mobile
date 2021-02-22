@@ -9,12 +9,10 @@ export default createReactClass({
 	displayName: 'Books',
 	mixins: [SectionMixin],
 
-	render () {
+	render() {
 		let books = this.getBinnedData('books');
 		let items = books.reduce((a, o) => a.concat(o.items || []), []);
 
-		return (
-			<Container section="books" items={items}/>
-		);
-	}
+		return <Container section="books" items={items} />;
+	},
 });

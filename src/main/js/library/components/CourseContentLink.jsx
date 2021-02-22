@@ -11,16 +11,17 @@ export default createReactClass({
 	propTypes: {
 		courseId: PropTypes.string.isRequired,
 		section: PropTypes.string,
-		children: PropTypes.any
+		children: PropTypes.any,
 	},
 
-	render () {
-		let {courseId, section, ...otherProps} = this.props;
+	render() {
+		let { courseId, section, ...otherProps } = this.props;
 		let href = this.courseHref(courseId, section);
 
 		return (
-			<a {...otherProps} href={href}>{this.props.children}</a>
+			<a {...otherProps} href={href}>
+				{this.props.children}
+			</a>
 		);
-	}
-
+	},
 });

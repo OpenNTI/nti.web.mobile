@@ -12,25 +12,27 @@ export default class extends React.Component {
 
 	static propTypes = {
 		item: PropTypes.object.isRequired,
-		onRightClick: PropTypes.func
+		onRightClick: PropTypes.func,
 	};
 
 	onRightClick = () => {
-		const {item, onRightClick} = this.props;
+		const { item, onRightClick } = this.props;
 		onRightClick && onRightClick(item);
 	};
 
-	render () {
-
-		const {item} = this.props;
+	render() {
+		const { item } = this.props;
 
 		const rightOptions = [];
-		if(item.isModifiable) {
+		if (item.isModifiable) {
 			rightOptions.push({
 				label: 'Delete',
 				class: cx('tiny button caution', {
-					'disabled': !(item.delete && (!item.friends || item.friends.length === 0))
-				})
+					disabled: !(
+						item.delete &&
+						(!item.friends || item.friends.length === 0)
+					),
+				}),
 			});
 		}
 

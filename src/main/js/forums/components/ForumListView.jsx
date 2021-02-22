@@ -14,32 +14,32 @@ export default class ForumListView extends React.Component {
 		 */
 		bundle: PropTypes.shape({
 			getDiscussions: PropTypes.func,
-			getID: PropTypes.func
-		})
-	}
+			getID: PropTypes.func,
+		}),
+	};
 
 	static contextTypes = {
 		router: PropTypes.object,
-		basePath: PropTypes.string
+		basePath: PropTypes.string,
 	};
 
 	static childContextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
-	getChildContext () {
-		const {router: nav} = this.context;
+	getChildContext() {
+		const { router: nav } = this.context;
 		const router = {
 			...(nav || {}),
 			baseroute: nav && nav.makeHref(''),
 			getRouteFor: this.getRouteFor,
 			routeTo: {
-				object: (...args) => LinkTo.Object.routeTo(router, ...args)
-			}
+				object: (...args) => LinkTo.Object.routeTo(router, ...args),
+			},
 		};
 
 		return {
-			router
+			router,
 		};
 	}
 
@@ -47,12 +47,17 @@ export default class ForumListView extends React.Component {
 		if (obj.MimeType.includes('application/vnd.nextthought.forums.')) {
 			return `${encodeForURI(obj.getID())}/`;
 		}
-	}
+	};
 
-	render () {
+	render() {
 		return (
 			<TransitionGroup>
-				<CSSTransition appear classNames="fade-out-in" timeout={500} key="forum">
+				<CSSTransition
+					appear
+					classNames="fade-out-in"
+					timeout={500}
+					key="forum"
+				>
 					<Forums.ForumList bundle={this.props.bundle} />
 				</CSSTransition>
 			</TransitionGroup>

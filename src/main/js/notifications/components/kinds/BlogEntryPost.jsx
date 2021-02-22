@@ -1,7 +1,7 @@
 //TODO
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {DateTime} from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -13,20 +13,20 @@ export default createReactClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteableType: 'forums.personalblogentrypost'
+		noteableType: 'forums.personalblogentrypost',
 	},
 
-	render () {
+	render() {
 		let thestring = ' commented on a discussion.';
 		return (
 			<li className="notification-item">
-				<Avatar entity={this.state.username} width="32" height="32"/>
+				<Avatar entity={this.state.username} width="32" height="32" />
 				<div className="wrap">
-					<DisplayName entity={this.state.username}/>
+					<DisplayName entity={this.state.username} />
 					{thestring}
-					<DateTime date={this.getEventTime()} relative/>
+					<DateTime date={this.getEventTime()} relative />
 				</div>
 			</li>
 		);
-	}
+	},
 });

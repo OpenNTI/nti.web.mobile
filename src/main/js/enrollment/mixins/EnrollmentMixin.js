@@ -1,46 +1,41 @@
-import {decodeFromURI} from '@nti/lib-ntiids';
+import { decodeFromURI } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
-import {Mixins} from '@nti/web-commons';
+import { Mixins } from '@nti/web-commons';
 
-import {getCatalogEntry} from '../Api';
+import { getCatalogEntry } from '../Api';
 import EnrollmentStore from '../Store';
-import {LOAD_ENROLLMENT_STATUS, ENROLL_OPEN} from '../Constants';
+import { LOAD_ENROLLMENT_STATUS, ENROLL_OPEN } from '../Constants';
 
 import GiftableUtils from './GiftableUtils';
 
 const logger = Logger.get('enrollment:mixnis:EnrollmentMixin');
 
-
-
 export default {
 	mixins: [Mixins.NavigatableMixin, GiftableUtils],
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			loading: true,
 			enrollmentStatusLoaded: false,
-			entry: null
+			entry: null,
 		};
 	},
 
-	// eslint-disable-next-line camelcase
-	async UNSAFE_componentWillMount () {
+	async UNSAFE_componentWillMount() {
 		this.resolving = null;
 		const entry = await this.resolveEntry();
 		EnrollmentStore.loadEnrollmentStatus(entry.CourseNTIID);
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		EnrollmentStore.addChangeListener(this.storeChange);
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		EnrollmentStore.removeChangeListener(this.storeChange);
 	},
 
-
-	storeChange (event) {
-
+	storeChange(event) {
 		let action = (event || {}).action;
 
 		const handlers = {
@@ -49,44 +44,47 @@ export default {
 				if (action.courseId === entry.CourseNTIID) {
 					this.setState({
 						enrolled: action.result,
-						enrollmentStatusLoaded: true
+						enrollmentStatusLoaded: true,
 					});
 				}
 			},
 
 			[ENROLL_OPEN]: () => {
 				const entry = this.getEntry();
-				if(action.catalogId === entry.getID()) {
+				if (action.catalogId === entry.getID()) {
 					this.setState({
 						enrolled: event.result.success,
 						enrollmentStatusLoaded: true,
-						loading: false
+						loading: false,
 					});
 				}
-			}
+			},
 		};
 
-		if(action) {
+		if (action) {
 			let handler = handlers[action.type];
 			if (handler) {
 				handler();
-			}
-			else {
-				logger.debug('Unrecognized EnrollmentStore change event: %o', event);
+			} else {
+				logger.debug(
+					'Unrecognized EnrollmentStore change event: %o',
+					event
+				);
 			}
 		}
 	},
 
-	canDrop (catalogEntry) {
+	canDrop(catalogEntry) {
 		// we currently only support dropping open enrollment within the app.
 
-		let o = catalogEntry.getEnrollmentOptions().getEnrollmentOptionForOpen() || {};
+		let o =
+			catalogEntry.getEnrollmentOptions().getEnrollmentOptionForOpen() ||
+			{};
 
 		return o.enrolled;
 	},
 
-
-	getEntry () {
+	getEntry() {
 		if (this.state.entry) {
 			return this.state.entry;
 		}
@@ -99,8 +97,7 @@ export default {
 		return null;
 	},
 
-
-	async resolveEntry () {
+	async resolveEntry() {
 		if (this.state.entry) {
 			return this.state.entry;
 		}
@@ -118,12 +115,12 @@ export default {
 		let entry = null;
 		try {
 			entry = await getCatalogEntry(id);
-			this.setState({loading: false, entry});
+			this.setState({ loading: false, entry });
 		} catch (e) {
 			this.setState({
 				error: {
-					message: 'Catalog entry not found.'
-				}
+					message: 'Catalog entry not found.',
+				},
 			});
 		}
 
@@ -134,12 +131,12 @@ export default {
 		return entry;
 	},
 
-	getCourseId () {
+	getCourseId() {
 		let entry = this.getEntry() || {};
 		return entry.CourseNTIID;
 	},
 
-	getDataIfNeeded () {
+	getDataIfNeeded() {
 		this.setState({ entry: this.getEntry() });
-	}
+	},
 };

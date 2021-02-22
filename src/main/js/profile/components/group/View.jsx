@@ -1,11 +1,11 @@
-import {join} from 'path';
+import { join } from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import {Mixins} from '@nti/web-commons';
-import {encodeForURI} from '@nti/lib-ntiids';
+import { Mixins } from '@nti/web-commons';
+import { encodeForURI } from '@nti/lib-ntiids';
 
 import ContextSender from 'common/mixins/ContextSender';
 import Redirect from 'navigation/components/Redirect';
@@ -16,12 +16,11 @@ import ForumView from '../ForumView';
 import Page from './PageFrame';
 import Activity from './Activity';
 
-
 const ROUTES = [
-	{path: '/activity/discussions/:forumId(/*)', handler: ForumView },
-	{path: '/activity(/*)',	handler: Activity },
-	{path: '/members(/*)',	handler: Members },
-	{}//default
+	{ path: '/activity/discussions/:forumId(/*)', handler: ForumView },
+	{ path: '/activity(/*)', handler: Activity },
+	{ path: '/members(/*)', handler: Members },
+	{}, //default
 ];
 
 export default createReactClass({
@@ -29,39 +28,55 @@ export default createReactClass({
 	mixins: [Mixins.BasePath, ContextSender],
 
 	propTypes: {
-		entity: PropTypes.object.isRequired
+		entity: PropTypes.object.isRequired,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {};
 	},
 
-	getContext () {
+	getContext() {
 		let path = this.getBasePath();
-		let href = join(path, 'profile', encodeForURI(this.props.entity.getID()), '/');
+		let href = join(
+			path,
+			'profile',
+			encodeForURI(this.props.entity.getID()),
+			'/'
+		);
 		return Promise.resolve([
 			{
-				href: path, label: 'Home'
-			}, {
+				href: path,
+				label: 'Home',
+			},
+			{
 				href,
-				label: 'Profile'
-			}
+				label: 'Profile',
+			},
 		]);
 	},
 
-
-	render () {
-		let {entity} = this.props;
+	render() {
+		let { entity } = this.props;
 
 		if (!entity) {
 			return null;
 		}
 
-		return React.createElement(Router.Locations, {ref: 'router', contextual: true, childProps: {entity}},
-			...ROUTES.map(route=>
-				route.path ?
-					<Router.Location {...route} handler={Page} pageContent={route.handler} entity={entity} /> :
-					<Router.NotFound handler={Redirect} location="/activity/"/>
-			));
-	}
+		return React.createElement(
+			Router.Locations,
+			{ ref: 'router', contextual: true, childProps: { entity } },
+			...ROUTES.map(route =>
+				route.path ? (
+					<Router.Location
+						{...route}
+						handler={Page}
+						pageContent={route.handler}
+						entity={entity}
+					/>
+				) : (
+					<Router.NotFound handler={Redirect} location="/activity/" />
+				)
+			)
+		);
+	},
 });

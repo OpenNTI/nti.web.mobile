@@ -20,39 +20,42 @@ export default createReactClass({
 
 		mimeType: PropTypes.string.isRequired,
 
-		fieldNames: PropTypes.arrayOf(PropTypes.string).isRequired
+		fieldNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 	},
 
-	getRefCallback (index) {
+	getRefCallback(index) {
 		const key = `ref-cb-${index}`;
-		return this[key] || (this[key] = x => this.eventItems[`item-${index}`] = x);
+		return (
+			this[key] ||
+			(this[key] = x => (this.eventItems[`item-${index}`] = x))
+		);
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.eventItems = {};
 	},
 
-	validate () {
+	validate() {
 		const errors = [];
-		const {items = []} = this.state || {};
-		for(let i = 0; i < items.length; i++) {
+		const { items = [] } = this.state || {};
+		for (let i = 0; i < items.length; i++) {
 			const item = this.eventItems[`item-${i}`];
-			if (item && item.validate && !item.validate() ) {
+			if (item && item.validate && !item.validate()) {
 				errors.push(item);
 			}
 		}
 		return errors.length === 0;
 	},
 
-	remove (index) {
+	remove(index) {
 		this.removeEntry(index);
 	},
 
-	render () {
-		let {mimeType, fieldNames, field, schema} = this.props;
-		let {items} = this.state || {};
+	render() {
+		let { mimeType, fieldNames, field, schema } = this.props;
+		let { items } = this.state || {};
 
-		let {itemSchema} = schema[field] || {};
+		let { itemSchema } = schema[field] || {};
 
 		return (
 			<div>
@@ -60,7 +63,13 @@ export default createReactClass({
 					return (
 						<div className="entry" key={`item-${index}`}>
 							<RemoveIcon onClick={this.remove} index={index} />
-							<EventItem schema={itemSchema} item={item} ref={this.getRefCallback(index)} mimeType={mimeType} fieldNames={fieldNames}/>
+							<EventItem
+								schema={itemSchema}
+								item={item}
+								ref={this.getRefCallback(index)}
+								mimeType={mimeType}
+								fieldNames={fieldNames}
+							/>
 						</div>
 					);
 				})}
@@ -68,7 +77,6 @@ export default createReactClass({
 					<AddEntryButton onClick={this.addEntry} />
 				</div>
 			</div>
-
 		);
-	}
+	},
 });

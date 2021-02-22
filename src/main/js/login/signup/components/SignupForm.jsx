@@ -3,77 +3,73 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {Mixins} from '@nti/web-commons';
-import {StoreEventsMixin} from '@nti/lib-store';
-import {scoped} from '@nti/lib-locale';
-import {getServer, getReturnURL} from '@nti/web-client';
+import { Mixins } from '@nti/web-commons';
+import { StoreEventsMixin } from '@nti/lib-store';
+import { scoped } from '@nti/lib-locale';
+import { getServer, getReturnURL } from '@nti/web-client';
 
 import UserAgreement from 'login/prompts/terms/components/UserAgreement';
 
 import Store from '../Store';
-import {ERROR_EVENT} from '../Constants';
-import {clearErrors, preflightAndCreateAccount} from '../Actions';
+import { ERROR_EVENT } from '../Constants';
+import { clearErrors, preflightAndCreateAccount } from '../Actions';
 
 const t = scoped('app.login.CREATE_ACCOUNT');
 
-const indexArrayByKey = (array, key) => array.reduce((a, i) => (a[i[key]] = i, a), {});
+const indexArrayByKey = (array, key) =>
+	array.reduce((a, i) => ((a[i[key]] = i), a), {});
 
 const FIELDS = [
-	{name: 'fname', type: 'text', required: true},
-	{name: 'lname', type: 'text', required: true},
-	{name: 'email', type: 'email', required: true},
-	{name: 'Username', type: 'text', required: true},
-	{name: 'password', type: 'password', required: true},
-	{name: 'password2', type: 'password', required: true}
+	{ name: 'fname', type: 'text', required: true },
+	{ name: 'lname', type: 'text', required: true },
+	{ name: 'email', type: 'email', required: true },
+	{ name: 'Username', type: 'text', required: true },
+	{ name: 'password', type: 'password', required: true },
+	{ name: 'password2', type: 'password', required: true },
 ];
-
 
 export default createReactClass({
 	displayName: 'SignupForm',
 	mixins: [StoreEventsMixin, Mixins.NavigatableMixin, Mixins.BasePath],
 
 	propTypes: {
-		privacyUrl: PropTypes.string
+		privacyUrl: PropTypes.string,
 	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		default: 'storeChanged'
+		default: 'storeChanged',
 	},
 
+	attachRef(el) {
+		this.form = el;
+	},
 
-	attachRef (el) { this.form = el; },
-
-
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
-			privacyUrl: Store.getPrivacyUrl()
+			privacyUrl: Store.getPrivacyUrl(),
 		};
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
-			errors: {}
+			errors: {},
 		};
 	},
 
-
-	getFields () {
+	getFields() {
 		return (this.form || {}).elements;
 	},
 
-
-	getFullName () {
-		let {fname = {}, lname = {}} = this.getFields() || {};
+	getFullName() {
+		let { fname = {}, lname = {} } = this.getFields() || {};
 		return [fname.value, lname.value].join(' ');
 	},
 
-
-	handleSubmit (evt) {
+	handleSubmit(evt) {
 		evt.preventDefault();
 
-		if(Object.keys(this.state.errors).length > 0) {
+		if (Object.keys(this.state.errors).length > 0) {
 			return;
 		}
 
@@ -84,22 +80,26 @@ export default createReactClass({
 				o[x.name] = fields[x.name].value;
 				return o;
 			},
-			{realname: this.getFullName()});
+			{ realname: this.getFullName() }
+		);
 
 		this.setState({ busy: true });
 
 		clearErrors();
-		preflightAndCreateAccount({fields});
+		preflightAndCreateAccount({ fields });
 		return false;
 	},
 
-	storeChanged (event) {
+	storeChanged(event) {
 		let errors;
 		if (event.type === 'created') {
 			const returnPath = getReturnURL();
 			const path = returnPath || this.getBasePath();
-			getServer().deleteTOS()
-				.then(() => { window.location.replace(path); });
+			getServer()
+				.deleteTOS()
+				.then(() => {
+					window.location.replace(path);
+				});
 			return;
 		}
 
@@ -114,44 +114,47 @@ export default createReactClass({
 			// }
 		}
 
-		this.setState({enabled, busy: false, errors});
+		this.setState({ enabled, busy: false, errors });
 	},
 
+	onBlur(e) {
+		let { state = {} } = this;
+		let { errors = {} } = state;
 
-	onBlur (e) {
-		let {state = {}} = this;
-		let {errors = {}} = state;
-
-		let {name} = (e || {}).target || {};
+		let { name } = (e || {}).target || {};
 		if (name in errors) {
-			errors = { ...errors};
+			errors = { ...errors };
 			delete errors[name];
-			return this.setState({errors}, () => setTimeout(()=> this.onBlur(e), 100));
+			return this.setState({ errors }, () =>
+				setTimeout(() => this.onBlur(e), 100)
+			);
 		}
 		//map fname & lname to realname. (so we can clear errors)
-		else if (name in {fname: 1, lname: 1}) {
-			return this.onBlur({target: {name: 'realname'}});
+		else if (name in { fname: 1, lname: 1 }) {
+			return this.onBlur({ target: { name: 'realname' } });
 		}
 
 		let enabled = this.isSubmitEnabled();
 		if (enabled !== state.enabled) {
-			this.setState({enabled});
+			this.setState({ enabled });
 		}
 	},
 
-	onChange (e) {
+	onChange(e) {
 		this.onBlur(e);
 	},
 
-	isSubmitEnabled () {
-		let {busy, errors} = this.state;
+	isSubmitEnabled() {
+		let { busy, errors } = this.state;
 
-		return !busy && Object.keys(errors).length === 0
-			&& this.requiredFieldsFilled();
+		return (
+			!busy &&
+			Object.keys(errors).length === 0 &&
+			this.requiredFieldsFilled()
+		);
 	},
 
-
-	requiredFieldsFilled () {
+	requiredFieldsFilled() {
 		let fields = this.getFields();
 		if (!fields) {
 			return false;
@@ -160,51 +163,63 @@ export default createReactClass({
 		return FIELDS.every(x => !x.required || fields[x.name].value);
 	},
 
-
-	render () {
-		const {enabled, errors} = this.state;
+	render() {
+		const { enabled, errors } = this.state;
 
 		return (
 			<div className="row">
-				<form ref={this.attachRef}
+				<form
+					ref={this.attachRef}
 					className="create-account-form medium-6 medium-centered columns"
 					autoComplete="off"
 					onSubmit={this.handleSubmit}
 				>
-
 					<fieldset>
 						<legend>Create Account</legend>
 
-						{FIELDS.map( field => (
+						{FIELDS.map(field => (
 							<div key={field.name}>
-								<input name={field.name} placeholder={t(field.name)} type={field.type}
-									className={cx({required: field.required})} required={field.required}
-									onChange={this.onChange} onBlur={this.onBlur}/>
+								<input
+									name={field.name}
+									placeholder={t(field.name)}
+									type={field.type}
+									className={cx({ required: field.required })}
+									required={field.required}
+									onChange={this.onChange}
+									onBlur={this.onBlur}
+								/>
 							</div>
 						))}
-
 					</fieldset>
-
 
 					<UserAgreement />
 
 					<div className="errors">
 						<TransitionGroup>
 							{Object.keys(errors).map(ref => (
-								<CSSTransition key={ref} classNames="fade-out-in" timeout={500}>
-									<small className="error">{errors[ref].message}</small>
+								<CSSTransition
+									key={ref}
+									classNames="fade-out-in"
+									timeout={500}
+								>
+									<small className="error">
+										{errors[ref].message}
+									</small>
 								</CSSTransition>
 							))}
 						</TransitionGroup>
 					</div>
 
-					<input type="submit"
+					<input
+						type="submit"
 						id="signup:submit"
 						className="small-12 columns tiny button"
 						disabled={!enabled}
-						value="Create Account" />
+						value="Create Account"
+					/>
 
-					<a id="signup:privacy:policy"
+					<a
+						id="signup:privacy:policy"
 						href={this.props.privacyUrl}
 						target="_blank"
 						rel="noopener noreferrer"
@@ -215,6 +230,5 @@ export default createReactClass({
 				</form>
 			</div>
 		);
-	}
-
+	},
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Locations, Location, NotFound} from 'react-router-component';
+import { Locations, Location, NotFound } from 'react-router-component';
 
 import Calendar from 'calendar';
 
@@ -8,20 +8,24 @@ import DialogRouteHandler from './DialogRouteHandler';
 const NoOp = () => null;
 const onBeforeDismiss = () => null; //closeDialog();
 
-export default function DialogsRouter (props) {
+export default function DialogsRouter(props) {
 	const childProps = {
 		onBeforeDismiss,
-		...props
+		...props,
 	};
 
 	return (
 		<Locations
 			hash
 			component={null}
-			urlPatternOptions={{segmentValueCharset: 'a-zA-Z0-9-_ %.:(),'}}
+			urlPatternOptions={{ segmentValueCharset: 'a-zA-Z0-9-_ %.:(),' }}
 			childProps={childProps}
 		>
-			<Location path="/calendar(/*)" handler={DialogRouteHandler} component={Calendar} />
+			<Location
+				path="/calendar(/*)"
+				handler={DialogRouteHandler}
+				component={Calendar}
+			/>
 			<NotFound handler={NoOp} />
 		</Locations>
 	);

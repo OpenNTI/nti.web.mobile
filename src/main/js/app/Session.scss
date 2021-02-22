@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .user-session {
 	display: block;
@@ -31,7 +31,8 @@
 		display: inline-block;
 	}
 
-	.meta, .actions {
+	.meta,
+	.actions {
 		margin: 0.3125rem;
 		margin-left: 25%;
 	}

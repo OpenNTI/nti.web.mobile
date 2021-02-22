@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 fieldset.credit-card-form {
 	position: relative;
@@ -13,7 +13,9 @@ fieldset.credit-card-form {
 		}
 
 		.card-input {
-			.card-number, .card-expiry, .card-cvc {
+			.card-number,
+			.card-expiry,
+			.card-cvc {
 				background: white;
 				border-radius: 0;
 				border-color: #ccc;
@@ -21,7 +23,8 @@ fieldset.credit-card-form {
 			}
 		}
 
-		.ElementsApp, .ElementsApp .InputElement {
+		.ElementsApp,
+		.ElementsApp .InputElement {
 			color: rgba(0, 0, 0, 0.75);
 			font-style: normal;
 			font-weight: 100;

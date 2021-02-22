@@ -6,7 +6,6 @@
  */
 export const LOAD_NOTIFICATIONS = 'notifications:Load';
 
-
 /**
  *
  * @event LOADED_NOTIFICATIONS

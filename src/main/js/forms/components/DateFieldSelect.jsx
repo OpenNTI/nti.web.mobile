@@ -7,18 +7,18 @@ export default class extends React.Component {
 	static propTypes = {
 		children: PropTypes.any,
 		onChange: PropTypes.func,
-		name: PropTypes.string
+		name: PropTypes.string,
 	};
 
-	handleChange = (event) => {
-		const {onChange, name} = this.props;
-		const {value} = event.target;
+	handleChange = event => {
+		const { onChange, name } = this.props;
+		const { value } = event.target;
 		if (onChange) {
 			onChange({ name, value });
 		}
 	};
 
-	render () {
+	render() {
 		return (
 			<select {...this.props} onChange={this.handleChange}>
 				{this.props.children}

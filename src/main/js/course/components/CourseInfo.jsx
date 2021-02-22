@@ -14,25 +14,27 @@ export default createReactClass({
 	mixins: [ContextSender],
 
 	propTypes: {
-		course: PropTypes.object.isRequired
+		course: PropTypes.object.isRequired,
 	},
 
-	getContext () {
+	getContext() {
 		return Promise.resolve([{}]);
 	},
 
-	render () {
-		let {course} = this.props;
+	render() {
+		let { course } = this.props;
 		let entry = course && course.CatalogEntry;
 		let isAdmin = course && course.isAdministrative;
 
 		return (
 			<div className="course-info">
-				<Detail {...this.props} entry={entry}/>
-				{!isAdmin && <EnrollmentStatus catalogEntry={entry} hideIfNotEnrolled />}
+				<Detail {...this.props} entry={entry} />
+				{!isAdmin && (
+					<EnrollmentStatus catalogEntry={entry} hideIfNotEnrolled />
+				)}
 				{!isAdmin && <GiftOptions catalogEntry={entry} />}
 				<InviteButton course={course} />
 			</div>
 		);
-	}
+	},
 });

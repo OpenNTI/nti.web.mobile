@@ -4,7 +4,7 @@ export default {
 	UsernamePlaceholder: 'Username',
 	signup: {
 		submit: 'Create Account',
-		link: 'Create an Account'
+		link: 'Create an Account',
 	},
 	oauth: {
 		header: 'Sign in with your account to access your content.',
@@ -13,7 +13,7 @@ export default {
 		google: 'Log in with Google',
 		openid: 'Log in with OpenID',
 		linkedin: 'Log in with LinkedIn',
-		ou: 'Log in with OU 4+4'
+		ou: 'Log in with OU 4+4',
 	},
 	forgot: {
 		username: 'username',
@@ -21,11 +21,11 @@ export default {
 		recoverpassword: 'Reset Password',
 		recoverusername: 'Send Username',
 		EmailAddressInvalid: 'The email address you have entered is not valid.',
-		resetSuccessful: 'Your password has been reset.'
+		resetSuccessful: 'Your password has been reset.',
 	},
 
 	LOGIN_ERROR: {
-		401: 'The username or password you entered is incorrect. Please try again.'
+		401: 'The username or password you entered is incorrect. Please try again.',
 	},
 
 	CREATE_ACCOUNT: {
@@ -34,6 +34,6 @@ export default {
 		email: 'email',
 		Username: 'Username',
 		password: 'Password',
-		password2: 'Verify Password'
-	}
+		password2: 'Verify Password',
+	},
 };

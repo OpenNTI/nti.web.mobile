@@ -14,20 +14,18 @@ export default createReactClass({
 
 	statics: {
 		// 'meeting' should cover both cases, but it's be nice to have an explicit list of what we're looking for here
-		noteableType: ['_meeting', 'meeting']
+		noteableType: ['_meeting', 'meeting'],
 	},
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		// console.debug('Group Chat:', this.props.item);
 	},
 
-	render () {
-		return (
-			<li className="notification-item"/>
-		);
-	}
+	render() {
+		return <li className="notification-item" />;
+	},
 });

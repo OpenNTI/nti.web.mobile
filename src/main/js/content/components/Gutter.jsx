@@ -1,18 +1,17 @@
 import './Gutter.scss';
-import {join} from 'path';
+import { join } from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import hash from 'object-hash';
-import {getEventTarget} from '@nti/lib-dom';
-import {Mixins} from '@nti/web-commons';
+import { getEventTarget } from '@nti/lib-dom';
+import { Mixins } from '@nti/web-commons';
 
-import {RETRY_AFTER_DOM_SETTLES} from './annotations/Annotation';
+import { RETRY_AFTER_DOM_SETTLES } from './annotations/Annotation';
 
-
-const pluck = (a, k) => a && a.map(x=> x[k]);
+const pluck = (a, k) => a && a.map(x => x[k]);
 
 export default createReactClass({
 	displayName: 'content:AnnotationGutter',
@@ -23,53 +22,47 @@ export default createReactClass({
 
 		selectFilter: PropTypes.func,
 
-		prefix: PropTypes.string
+		prefix: PropTypes.string,
 	},
 
-
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
 			prefix: '/',
-			selectFilter: () => {}
+			selectFilter: () => {},
 		};
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {};
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		window.addEventListener('resize', this.handleContentUpdate);
 		this.resolveBins(this.props.items);
-		this.props.selectFilter(void 0);//reset
+		this.props.selectFilter(void 0); //reset
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		clearTimeout(this.state.resolveRetryDelay);
 		window.removeEventListener('resize', this.handleContentUpdate);
 	},
 
-
-	componentDidUpdate (prevProps) {
-		const {items} = this.props;
-		if(prevProps.items !== items) {
+	componentDidUpdate(prevProps) {
+		const { items } = this.props;
+		if (prevProps.items !== items) {
 			this.resolveBins(items);
 		}
 	},
 
-
-	handleContentUpdate () {
-		this.setState({lines: {}}, ()=> this.resolveBins(this.props.items));
+	handleContentUpdate() {
+		this.setState({ lines: {} }, () => this.resolveBins(this.props.items));
 	},
 
-
-	getLine (lines, line) {
+	getLine(lines, line) {
 		let lineTolerance = 40,
 			bin = lines[line],
-			lower = Math.round(line - (lineTolerance / 2)),
-			upper = Math.round(line + (lineTolerance / 2));
+			lower = Math.round(line - lineTolerance / 2),
+			upper = Math.round(line + lineTolerance / 2);
 
 		if (!bin) {
 			for (let lineKey of Object.keys(lines)) {
@@ -88,19 +81,19 @@ export default createReactClass({
 		return bin;
 	},
 
-
-	resolveBins (items) {
+	resolveBins(items) {
 		let lines = {};
 		let shouldRetry = false;
-		let {resolveRetryDelay} = this.state;
-
+		let { resolveRetryDelay } = this.state;
 
 		if (resolveRetryDelay != null) {
 			clearTimeout(resolveRetryDelay);
 			resolveRetryDelay = void 0;
 		}
 
-		if (!items) { return; }
+		if (!items) {
+			return;
+		}
 
 		// console.debug('Resolving Bins');
 		for (let item of Object.values(items)) {
@@ -123,30 +116,29 @@ export default createReactClass({
 		}
 
 		if (shouldRetry) {
-			resolveRetryDelay = setTimeout(()=> this.resolveBins(items), 200);
+			resolveRetryDelay = setTimeout(() => this.resolveBins(items), 200);
 			lines = {};
 		}
 
-		this.setState({lines, resolveRetryDelay});
+		this.setState({ lines, resolveRetryDelay });
 	},
 
-
-	getActiveBin (bin) {
-		let {active, lines = {}} = this.state;
+	getActiveBin(bin) {
+		let { active, lines = {} } = this.state;
 
 		if (bin) {
 			active = bin;
 		}
 
-		if (!active) { return; }
+		if (!active) {
+			return;
+		}
 
-		return Object.values(lines)
-			.find(x=> active === hash(pluck(x, 'id')));
+		return Object.values(lines).find(x => active === hash(pluck(x, 'id')));
 	},
 
-
-	render () {
-		let {lines = {}} = this.state;
+	render() {
+		let { lines = {} } = this.state;
 		let linePositions = Object.keys(lines);
 		return (
 			<div className="gutter">
@@ -155,13 +147,12 @@ export default createReactClass({
 		);
 	},
 
-
-	renderBin (y, bin) {
-		let top = {top: `${y}px`};
+	renderBin(y, bin) {
+		let top = { top: `${y}px` };
 		let count = (bin || []).length;
 		let h = hash(pluck(bin, 'id'));
 		let css = cx('bin', {
-			active: this.state.active === h
+			active: this.state.active === h,
 		});
 
 		count = count > 99 ? '99+' : count;
@@ -169,12 +160,20 @@ export default createReactClass({
 		let href = this.makeHref(join('/', this.props.prefix, '/discussions/'));
 
 		return (
-			<a key={y} data-line={h} href={href} style={top} className={css} onClick={this.onClick}>{count}</a>
+			<a
+				key={y}
+				data-line={h}
+				href={href}
+				style={top}
+				className={css}
+				onClick={this.onClick}
+			>
+				{count}
+			</a>
 		);
 	},
 
-
-	onClick (e) {
+	onClick(e) {
 		let active = getEventTarget(e, 'a[data-line]');
 		if (active) {
 			active = active.getAttribute('data-line');
@@ -184,7 +183,7 @@ export default createReactClass({
 		}
 
 		let bin = pluck(this.getActiveBin(active), 'id');
-		this.setState({active});
+		this.setState({ active });
 		this.props.selectFilter(bin);
-	}
+	},
 });

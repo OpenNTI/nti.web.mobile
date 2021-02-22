@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Loading} from '@nti/web-commons';
+import { Loading } from '@nti/web-commons';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 
@@ -9,8 +9,10 @@ export default createReactClass({
 	//The LibraryAccessor mixin gives us the 'getLibrary' method.
 	mixins: [LibraryAccessor],
 
-	render () {
-		const {state: {loading}} = this;
+	render() {
+		const {
+			state: { loading },
+		} = this;
 		const library = this.getLibrary();
 
 		//We DEPEND on the library being reloaded by the enrollment proccess.
@@ -18,18 +20,18 @@ export default createReactClass({
 		//component is mounted/rendered, then the getLastEnrolledCourse will
 		//return the WRONG value.
 
-		const {VendorThankYouPage: {thankYouURL} = {}} = library.getLastEnrolledCourse() || {};
-
+		const { VendorThankYouPage: { thankYouURL } = {} } =
+			library.getLastEnrolledCourse() || {};
 
 		//If the library is loading, or reloading this will be true.
 		if (loading) {
-			return ( <Loading.Mask /> );
+			return <Loading.Mask />;
 		}
 
 		return thankYouURL ? (
-			<iframe src={thankYouURL} className="thankyou" frameBorder="0"/>
+			<iframe src={thankYouURL} className="thankyou" frameBorder="0" />
 		) : (
-			<noscript/>
+			<noscript />
 		);
-	}
+	},
 });

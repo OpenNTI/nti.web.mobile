@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import {Loading, Mixins} from '@nti/web-commons';
-import {StoreEventsMixin} from '@nti/lib-store';
+import { Loading, Mixins } from '@nti/web-commons';
+import { StoreEventsMixin } from '@nti/lib-store';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -23,20 +23,20 @@ export default createReactClass({
 		Mixins.NavigatableMixin,
 		StoreEventsMixin,
 		LoadForum,
-		ContextSender
+		ContextSender,
 	],
 
 	propTypes: {
 		forumId: PropTypes.string.isRequired,
 		contentPackage: PropTypes.object,
-		contextID: PropTypes.string
+		contextID: PropTypes.string,
 	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {},
 
-	componentDidMount () {
-		const {contextID} = this.props;
+	componentDidMount() {
+		const { contextID } = this.props;
 		// if a user lands directly on a topic or post view without going through
 		// the parent views the store may not have the package id.
 		if (!Store.getContextID() && contextID) {
@@ -44,28 +44,27 @@ export default createReactClass({
 		}
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
-			loading: true
+			loading: true,
 		};
 	},
 
-	getContext () {
+	getContext() {
 		let href = this.makeHref([this.props.forumId, ''].join('/'));
 		let forum = Store.getForum(this.props.forumId);
 		return Promise.resolve({
 			label: (forum || {}).title || 'Forum',
-			href
+			href,
 		});
 	},
 
-	render () {
+	render() {
 		if (this.state.loading) {
 			return <Loading.Mask />;
 		}
 
-		let {forumId} = this.props;
+		let { forumId } = this.props;
 		let forum = Store.getForum(forumId);
 
 		return (
@@ -86,5 +85,5 @@ export default createReactClass({
 				</Router.Locations>
 			</nav>
 		);
-	}
+	},
 });

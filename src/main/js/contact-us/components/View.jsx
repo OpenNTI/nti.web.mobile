@@ -1,9 +1,9 @@
 import './View.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Contact} from '@nti/web-help';
-import {Mixins} from '@nti/web-commons';
-import {getHistory} from '@nti/web-routing';
+import { Contact } from '@nti/web-help';
+import { Mixins } from '@nti/web-commons';
+import { getHistory } from '@nti/web-routing';
 
 import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';
@@ -15,25 +15,26 @@ export default createReactClass({
 
 	mixins: [Mixins.BasePath, ContextSender],
 
-	getContext () {
+	getContext() {
 		let path = this.getBasePath();
 
-		return Promise.resolve([{
-			label: 'Catalog',
-			href: path + 'catalog'
-		},{
-			label: 'Contact Us',
-			href: path + 'contact-us/'
-		}]);
+		return Promise.resolve([
+			{
+				label: 'Catalog',
+				href: path + 'catalog',
+			},
+			{
+				label: 'Contact Us',
+				href: path + 'contact-us/',
+			},
+		]);
 	},
 
-
-	onCancel () {
+	onCancel() {
 		routerHistory.goBack(); //TODO: this needs to be smarter about where to go back to
 	},
 
-
-	render () {
+	render() {
 		return (
 			<Page title="Contact Us" border>
 				<div className="contact-us-container">
@@ -41,5 +42,5 @@ export default createReactClass({
 				</div>
 			</Page>
 		);
-	}
+	},
 });

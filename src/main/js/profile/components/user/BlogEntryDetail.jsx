@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import TopicView from 'forums/components/TopicView';
 
-export default function BlogEntryDetail ({id}) {
+export default function BlogEntryDetail({ id }) {
 	return (
 		<div className="profile-forums forums-wrapper">
 			<TopicView topicId={id} />
@@ -12,5 +12,5 @@ export default function BlogEntryDetail ({id}) {
 }
 
 BlogEntryDetail.propTypes = {
-	id: PropTypes.string.isRequired
+	id: PropTypes.string.isRequired,
 };

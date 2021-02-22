@@ -1,19 +1,23 @@
 /*eslint strict:0, import/no-commonjs:0, import/order:0*/
 'use strict';
 const path = require('path');
-const {HREF, isNTIID, encodeForURI, decodeFromURI} = require('@nti/lib-ntiids');
+const {
+	HREF,
+	isNTIID,
+	encodeForURI,
+	decodeFromURI,
+} = require('@nti/lib-ntiids');
 const logger = require('./logger');
 
 const SEGMENT_HANDLERS = {
-
 	redeem: (catalogId, segments) =>
 		path.join('catalog', 'redeem', catalogId, segments[1]),
 
-	forcredit: (catalogId) =>
+	forcredit: catalogId =>
 		// catalog/enroll/apply/NTI-CourseInfo-Summer2015_LSTD_1153_Block_C/
 		path.join('catalog', 'enroll', 'apply', catalogId, '/'),
 
-	[null]: (catalogId)=> path.join('catalog', 'item', catalogId)
+	[null]: catalogId => path.join('catalog', 'item', catalogId),
 };
 
 const HANDLERS = {
@@ -25,12 +29,11 @@ const HANDLERS = {
 	handleLibraryPathRedirects: /^\/[^/]+\/library/i,
 	handleCatalogPathRedirects: /^\/[^/]+\/catalog\/nti-course-catalog-entry/i,
 	handleBundlePathRedirect: /^\/[^/]+\/bundle/i,
-	handleCommunityPathRedirect: /^\/[^/]+\/community/i
+	handleCommunityPathRedirect: /^\/[^/]+\/community/i,
 };
 
 exports = module.exports = {
-
-	register (express, config) {
+	register(express, config) {
 		this.basepath = config.basepath;
 
 		express.use((req, res, next) => {
@@ -47,7 +50,12 @@ exports = module.exports = {
 			for (let handlerName of Object.keys(HANDLERS)) {
 				let test = HANDLERS[handlerName];
 				if (redirectParam.match(test)) {
-					return this[handlerName](redirectParam, res, next, redirectFragment);
+					return this[handlerName](
+						redirectParam,
+						res,
+						next,
+						redirectFragment
+					);
 				}
 			}
 
@@ -55,8 +63,7 @@ exports = module.exports = {
 		});
 	},
 
-
-	handleProfileRedirects (query, res, next) {
+	handleProfileRedirects(query, res, next) {
 		/*
 		 *	from:
 		 *	/app/user/me/...
@@ -77,8 +84,7 @@ exports = module.exports = {
 		res.redirect(url);
 	},
 
-
-	handleInvitationRedirects (query, res, next) {
+	handleInvitationRedirects(query, res, next) {
 		/*
 		 *	from:
 		 *	library/courses/available/invitations/accept/<token>
@@ -101,8 +107,7 @@ exports = module.exports = {
 		next();
 	},
 
-
-	handleCatalogPathRedirects (query, res, next) {
+	handleCatalogPathRedirects(query, res, next) {
 		/* From:
 		 *  /app/catalog/nti-course-catalog-entry/<id>
 		 *
@@ -129,8 +134,7 @@ exports = module.exports = {
 		res.redirect(url);
 	},
 
-
-	handleLibraryPathRedirects (query, res, next) {
+	handleLibraryPathRedirects(query, res, next) {
 		/* From:
 		 * /app/library/courses/available/NTI-CourseInfo-iLed_iLed_001/...
 		 *
@@ -150,8 +154,7 @@ exports = module.exports = {
 		next();
 	},
 
-
-	handleLibraryRedirects (query, res, next) {
+	handleLibraryRedirects(query, res, next) {
 		let url = query;
 		let catalog = /library\/availablecourses\/([^/]*)\/?(.*)/;
 
@@ -178,17 +181,17 @@ exports = module.exports = {
 		next();
 	},
 
-
-	handleBundlePathRedirect (query, res, next, fragment) {
+	handleBundlePathRedirect(query, res, next, fragment) {
 		const partMap = {
 			app: '',
 			bundle: 'content',
 			content: 'page',
-			notebook: 'n'
+			notebook: 'n',
 		};
 
-		const fixed = query.split('/')
-			.map(part => partMap[part] == null ? part : partMap[part])
+		const fixed = query
+			.split('/')
+			.map(part => (partMap[part] == null ? part : partMap[part]))
 			.filter(Boolean);
 
 		let url = path.join(this.basepath, ...fixed);
@@ -200,21 +203,20 @@ exports = module.exports = {
 		res.redirect(url);
 	},
 
-	handleCommunityPathRedirect (query, res, next) {
+	handleCommunityPathRedirect(query, res, next) {
 		const partMap = {
-			app: ''
+			app: '',
 		};
 
-		const fixed = query.split('/')
-			.map(part => partMap[part] == null ? part : partMap[part])
+		const fixed = query
+			.split('/')
+			.map(part => (partMap[part] == null ? part : partMap[part]))
 			.filter(Boolean);
 
 		res.redirect(path.join(this.basepath, ...fixed));
 	},
 
-
-	handleObjectRedirects (query, res, next) {
-
+	handleObjectRedirects(query, res, next) {
 		/* From:
 		 *	/app/id/unknown-OID-0x021cae18:5573657273:V0wWNR9EBJd
 		 *	object/ntiid/tag:nextthought.com,2011-10:unknown-OID-0x021cae18:5573657273:V0wWNR9EBJd
@@ -223,7 +225,6 @@ exports = module.exports = {
 		 * 	<basepath>/object/unknown-OID-0x021cae18:5573657273:V0wWNR9EBJd
 		 */
 
-
 		logger.debug('\n\n\nTesting %s\n\n\n', query);
 		let object = /(?:(?:id|object\/ntiid|object)\/)([^/\n\r]*)\/?(.*)/;
 		let match = decodeURIComponent(query).match(object);
@@ -231,7 +232,11 @@ exports = module.exports = {
 		if (match) {
 			let [, ntiid] = match;
 
-			let url = path.join(this.basepath, 'object', encodeForURI(decodeFromURI(ntiid)));
+			let url = path.join(
+				this.basepath,
+				'object',
+				encodeForURI(decodeFromURI(ntiid))
+			);
 
 			logger.info('redirecting to: %s', url);
 			res.redirect(url);
@@ -239,11 +244,10 @@ exports = module.exports = {
 		}
 
 		next();
-	}
+	},
 };
 
-
-function translatePath (catalogId, trailingPath) {
+function translatePath(catalogId, trailingPath) {
 	let segments = (trailingPath || '').split('/');
 
 	let handler = SEGMENT_HANDLERS[segments[0] || null];
@@ -251,14 +255,11 @@ function translatePath (catalogId, trailingPath) {
 	return handler.call(null, catalogId, segments);
 }
 
-
-function translateCatalogId (input) {
-	let catalogId = input
-		.replace(/-/g, '+')
-		.replace(/_/g, '/');
+function translateCatalogId(input) {
+	let catalogId = input.replace(/-/g, '+').replace(/_/g, '/');
 
 	catalogId = new Buffer(catalogId, 'base64').toString();
-	catalogId = catalogId.replace(/^!@/, '');//strip off the WebApp's 'salt'
+	catalogId = catalogId.replace(/^!@/, ''); //strip off the WebApp's 'salt'
 	catalogId = encodeForURI(catalogId);
 
 	return catalogId;

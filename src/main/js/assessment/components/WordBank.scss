@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .wordbank {
 	background: var(--panel-background);
@@ -18,7 +18,7 @@
 		margin: 1rem 0.5rem 0;
 
 		&.used {
-			background: #fff !important;//block the hover background
+			background: #fff !important; //block the hover background
 			visibility: visible;
 			box-shadow: none;
 			border: 1px dashed var(--border-grey);

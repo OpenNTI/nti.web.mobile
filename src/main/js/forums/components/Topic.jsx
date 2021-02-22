@@ -4,7 +4,13 @@ import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { addHistory, getHistory } from '@nti/lib-analytics';
 import { decodeFromURI } from '@nti/lib-ntiids';
-import { Error as Err, Loading, Mixins, Notice, Prompt } from '@nti/web-commons';
+import {
+	Error as Err,
+	Loading,
+	Mixins,
+	Notice,
+	Prompt,
+} from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import { StoreEventsMixin } from '@nti/lib-store';
 import { ViewEvent } from '@nti/web-session';
@@ -16,7 +22,14 @@ import ToggleState from '../mixins/ToggleState';
 //
 import * as Actions from '../Actions';
 import { getTopicContents } from '../Api';
-import { ITEM_CONTENTS_CHANGED, COMMENT_ADDED, ITEM_DELETED, COMMENT_SAVED, TOPIC, COMMENT_FORM_ID } from '../Constants';
+import {
+	ITEM_CONTENTS_CHANGED,
+	COMMENT_ADDED,
+	ITEM_DELETED,
+	COMMENT_SAVED,
+	TOPIC,
+	COMMENT_FORM_ID,
+} from '../Constants';
 import Store from '../Store';
 
 import ActionsComp from './Actions';
@@ -32,7 +45,9 @@ const DEFAULT_TEXT = {
 
 const t = scoped('forums.topic', DEFAULT_TEXT);
 
-const Transition = x => <CSSTransition appear classNames="fade-out-in" timeout={500} {...x}/>;
+const Transition = x => (
+	<CSSTransition appear classNames="fade-out-in" timeout={500} {...x} />
+);
 
 export default createReactClass({
 	displayName: 'Topic',
@@ -42,41 +57,39 @@ export default createReactClass({
 		Mixins.NavigatableMixin,
 		KeepItemInState,
 		ToggleState,
-		Paging
+		Paging,
 	],
-
 
 	propTypes: {
 		topicId: PropTypes.string,
 		showComments: PropTypes.bool,
-		analyticsData: PropTypes.object
+		analyticsData: PropTypes.object,
 	},
 
-
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
-			showComments: true
+			showComments: true,
 		};
 	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[ITEM_CONTENTS_CHANGED] (event) {
+		[ITEM_CONTENTS_CHANGED](event) {
 			if (event.itemId === this.props.topicId) {
 				this.setState({
-					loading: false
+					loading: false,
 				});
 			}
 		},
-		[COMMENT_ADDED] (event) {
-			let {topicId} = this.props;
-			let {result} = event.data || {};
+		[COMMENT_ADDED](event) {
+			let { topicId } = this.props;
+			let { result } = event.data || {};
 			if (result.ContainerId === decodeFromURI(topicId)) {
 				this.loadData(topicId);
 			}
 		},
-		[ITEM_DELETED] (event) {
-			let {topicId} = this.props;
+		[ITEM_DELETED](event) {
+			let { topicId } = this.props;
 			let fullTopicId = decodeFromURI(topicId);
 			let o = event.item;
 			if (!o.inReplyTo && event.item.ContainerId === fullTopicId) {
@@ -84,30 +97,28 @@ export default createReactClass({
 			}
 			if (o.getID && o.getID() === fullTopicId) {
 				this.setState({
-					deleted: true
+					deleted: true,
 				});
 			}
 		},
-		[COMMENT_SAVED] (event) {
+		[COMMENT_SAVED](event) {
 			if (event.data) {
 				this.setState({
-					editing: false
+					editing: false,
 				});
 			}
-		}
+		},
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
 			loading: true,
-			deleted: false
+			deleted: false,
 		};
 	},
 
-
-	getAnalyticsData () {
-		const {topicId, analyticsData} = this.props;
+	getAnalyticsData() {
+		const { topicId, analyticsData } = this.props;
 
 		const analyticsContext = () => {
 			let h = getHistory() || [];
@@ -119,114 +130,113 @@ export default createReactClass({
 
 		const extraData = analyticsData || {
 			rootContextId: Store.getContextID(),
-			context: analyticsContext()
+			context: analyticsContext(),
 		};
 
 		return {
 			type: 'TopicView',
 			resourceId: topicId,
-			...extraData
+			...extraData,
 		};
 	},
 
-
-	componentDidMount () {
-		const {topicId} = this.props;
+	componentDidMount() {
+		const { topicId } = this.props;
 		this.loadData(topicId);
 	},
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		addHistory(this.getTopicId(this.props));
 	},
 
-
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (prevProps.topicId !== this.props.topicId) {
 			this.setState({
-				loading: true
+				loading: true,
 			});
-			this.loadData(this.props.topicId)
-				.then(() => this.setState({ loading: false }));
+			this.loadData(this.props.topicId).then(() =>
+				this.setState({ loading: false })
+			);
 		}
 	},
 
-
-	getTopicId (props = this.props) {
+	getTopicId(props = this.props) {
 		return decodeFromURI(props.topicId);
 	},
 
-
-	loadData (topicId = this.props.topicId) {
-		return getTopicContents(topicId, this.batchStart(), this.getPageSize())
-			.then(
-				result => {
-					Store.setForumItem(topicId, result.item);
-					Store.setForumItemContents(topicId, result.contents);
-					this.setState({
-						item: result.item,
-						itemContents: result.contents
-					});
-				},
-				reason => {
-					this.setState({
-						error: reason
-					});
-				}
-			);
+	loadData(topicId = this.props.topicId) {
+		return getTopicContents(
+			topicId,
+			this.batchStart(),
+			this.getPageSize()
+		).then(
+			result => {
+				Store.setForumItem(topicId, result.item);
+				Store.setForumItemContents(topicId, result.contents);
+				this.setState({
+					item: result.item,
+					itemContents: result.contents,
+				});
+			},
+			reason => {
+				this.setState({
+					error: reason,
+				});
+			}
+		);
 	},
 
-
-	editTopic () {
+	editTopic() {
 		Store.startEdit();
 		this.setState({
-			editing: true
+			editing: true,
 		});
 	},
 
-
-	deleteTopic () {
-		Prompt.areYouSure(t('deletePrompt')).then(() => {
-			Actions.deleteTopic(this.getTopic());
-		},
-		()=> {});
+	deleteTopic() {
+		Prompt.areYouSure(t('deletePrompt')).then(
+			() => {
+				Actions.deleteTopic(this.getTopic());
+			},
+			() => {}
+		);
 	},
 
-
-	getTopic () {
+	getTopic() {
 		return this.getItem() || Store.getForumItem(this.props.topicId);
 	},
 
-
-	getPropId () {
+	getPropId() {
 		return this.props.topicId;
 	},
 
-
-	attachEditorRef (x) {
+	attachEditorRef(x) {
 		this.headline = x;
 	},
 
-	saveEdit () {
+	saveEdit() {
 		let val = this.headline.getValue();
 		Actions.saveComment(this.getTopic().headline, val);
 		Store.endEdit();
 	},
 
-
-	hideEditForm () {
+	hideEditForm() {
 		Store.endEdit();
 		this.setState({
-			editing: false
+			editing: false,
 		});
 	},
 
-
-	render () {
-
+	render() {
 		if (this.state.error) {
-			let {error} = this.state;
-			return (error || {}).statusCode === 404 ? <div><Notice>This topic could not be found.</Notice></div> : <Err error={error} />;
+			let { error } = this.state;
+			return (error || {}).statusCode === 404 ? (
+				<div>
+					<Notice>This topic could not be found.</Notice>
+				</div>
+			) : (
+				<Err error={error} />
+			);
 		}
 
 		if (this.state.loading) {
@@ -234,7 +244,11 @@ export default createReactClass({
 		}
 
 		if (this.state.deleted) {
-			return <div><Notice>This topic has been deleted.</Notice></div>;
+			return (
+				<div>
+					<Notice>This topic has been deleted.</Notice>
+				</div>
+			);
 		}
 
 		let topic = this.getTopic();
@@ -242,25 +256,34 @@ export default createReactClass({
 		//if we made it here and don't have a topic
 		//something is still setting up (or tearing down...)
 		//but there doesn't seem to be any harm in just rendering null
-		if (!topic) { return null; }
+		if (!topic) {
+			return null;
+		}
 
 		let props = {
 			item: topic.headline,
 			onSubmit: this.saveEdit,
 			onCompletion: this.hideEditForm,
-			onCancel: this.hideEditForm
+			onCancel: this.hideEditForm,
 		};
 
-		let {showComments} = this.props;
+		let { showComments } = this.props;
 
 		return (
 			<div>
-				<ViewEvent {...this.getAnalyticsData()}/>
+				<ViewEvent {...this.getAnalyticsData()} />
 				<TransitionGroup>
 					<Transition key="topic">
 						<div>
 							<ViewHeader type={TOPIC} />
-							{this.state.editing ? <TopicEditor ref={this.attachEditorRef} {...props} /> : <TopicHeadline topic={topic} {...props} />}
+							{this.state.editing ? (
+								<TopicEditor
+									ref={this.attachEditorRef}
+									{...props}
+								/>
+							) : (
+								<TopicHeadline topic={topic} {...props} />
+							)}
 							<ActionsComp
 								item={topic}
 								canReply={showComments && topic.hasLink('add')}
@@ -270,14 +293,19 @@ export default createReactClass({
 
 							{showComments && (
 								<div>
-									<TopicComments topicId={this.getTopicId()} currentPage={this.currentPage()} />
+									<TopicComments
+										topicId={this.getTopicId()}
+										currentPage={this.currentPage()}
+									/>
 
-									<CommentForm key="commentForm"
+									<CommentForm
+										key="commentForm"
 										ref={COMMENT_FORM_ID}
 										id={COMMENT_FORM_ID}
 										onCompletion={this.hideCommentForm}
 										topic={topic}
-										parent={topic.parent()} />
+										parent={topic.parent()}
+									/>
 								</div>
 							)}
 						</div>
@@ -285,5 +313,5 @@ export default createReactClass({
 				</TransitionGroup>
 			</div>
 		);
-	}
+	},
 });

@@ -9,7 +9,8 @@ import Topic from '../../../../forums/components/TopicView';
 import Styles from './View.css';
 
 const cx = classnames.bind(Styles);
-const handles = (obj) => obj && (obj.isTopic || obj.isBlogEntry) && !obj.isNewTopic;
+const handles = obj =>
+	obj && (obj.isTopic || obj.isBlogEntry) && !obj.isNewTopic;
 
 const CLEAN_PATH_REGEX = /^(.*)(discussions.*)$/g;
 
@@ -17,68 +18,65 @@ export default class NTIMobileCommunityTopic extends React.Component {
 	static propTypes = {
 		community: PropTypes.object,
 		topic: PropTypes.object.isRequired,
-		channel: PropTypes.object
-	}
+		channel: PropTypes.object,
+	};
 
 	static contextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
 	static childContextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
-
-	getChildContext () {
+	getChildContext() {
 		return {
-			router:  {
+			router: {
 				...(this.context.router || {}),
-				history: null
-			}
+				history: null,
+			},
 		};
 	}
 
-
-	getContextOverride () {
-		const {topic} = this.props;
-		const {router} = this.context;
+	getContextOverride() {
+		const { topic } = this.props;
+		const { router } = this.context;
 
 		return {
-			href: router.makeHref(router.getPath().replace(/\/discussions.*$/g, '/')),
-			label: topic && topic.title
+			href: router.makeHref(
+				router.getPath().replace(/\/discussions.*$/g, '/')
+			),
+			label: topic && topic.title,
 		};
 	}
-
 
 	getAnalyticsData = () => {
-		const {community} = this.props;
-		const context = [
-			community && community.getID()
-		];
+		const { community } = this.props;
+		const context = [community && community.getID()];
 
 		return {
 			context: context.filter(Boolean),
-			rootContextId: community && community.getID()
+			rootContextId: community && community.getID(),
 		};
-	}
-
+	};
 
 	getExtraRouterProps = () => {
-		const {router} = this.context;
-		const {route} = router || {};
-		const {location} = route || {};
-		const {pathname} = location || {};
+		const { router } = this.context;
+		const { route } = router || {};
+		const { location } = route || {};
+		const { pathname } = location || {};
 
-		if (!pathname) { return null; }
+		if (!pathname) {
+			return null;
+		}
 
 		return {
-			path: pathname.replace(CLEAN_PATH_REGEX, '$2')
+			path: pathname.replace(CLEAN_PATH_REGEX, '$2'),
 		};
-	}
+	};
 
-
-	render () {
-		const {topic, channel} = this.props;
+	render() {
+		const { topic, channel } = this.props;
 
 		return (
 			<Page {...this.props}>

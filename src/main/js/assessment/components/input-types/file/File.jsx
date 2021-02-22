@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { Errors, Input } from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 import classnames from 'classnames/bind';
 
-import InputType, {stopEvent} from '../Mixin';
+import InputType, { stopEvent } from '../Mixin';
 
 import Preview from './FilePreview';
 import Restrictions from './Restrictions';
@@ -14,15 +14,16 @@ import styles from './File.css';
 const cx = classnames.bind(styles);
 
 const t = scoped('nti-web-mobile.assessment.inputtypes.file', {
-	uploadButton: 'Upload a File'
+	uploadButton: 'Upload a File',
 });
 
-function getSubmissionPartValue (savepoint, item) {
+function getSubmissionPartValue(savepoint, item) {
 	try {
-		const questionSubmission = savepoint.Submission.getQuestion(item.getQuestionId());
+		const questionSubmission = savepoint.Submission.getQuestion(
+			item.getQuestionId()
+		);
 		return questionSubmission.getPartValue(item.getPartIndex());
-	}
-	catch (e) {
+	} catch (e) {
 		return undefined;
 	}
 }
@@ -35,19 +36,17 @@ export default createReactClass({
 	mixins: [InputType],
 
 	statics: {
-		inputType: [
-			'File'
-		],
-		containerClass: cx('file-upload-container')
+		inputType: ['File'],
+		containerClass: cx('file-upload-container'),
 	},
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-	getFileReader () {
+	getFileReader() {
 		if (!this.fileReader) {
-			const fr = this.fileReader = new FileReader();
+			const fr = (this.fileReader = new FileReader());
 			fr.onload = this.onFileLoaded;
 			fr.onloadend = this.onFileLoadEnd;
 			fr.onprogress = this.onFileProgress;
@@ -56,28 +55,31 @@ export default createReactClass({
 		return this.fileReader;
 	},
 
-	onFileLoaded (e) {
+	onFileLoaded(e) {
 		// console.log(this.getFileReader().result);
 		this.setState({
 			value: {
 				...(this.state.value || {}), // mimetype, filename
-				value: this.getFileReader().result
-			}
+				value: this.getFileReader().result,
+			},
 		});
 
 		this.handleInteraction();
 	},
 
-	onFileChange (file) {
-		const value = !file ? null : {
-			MimeType: 'application/vnd.nextthought.assessment.uploadedfile',
-			filename: file.filename || file.name,
-			...(file.type ? {FileMimeType: file.type} : {}),
-			size: file.size,
-			value: null
-		};
+	onFileChange(file) {
+		const value = !file
+			? null
+			: {
+					MimeType:
+						'application/vnd.nextthought.assessment.uploadedfile',
+					filename: file.filename || file.name,
+					...(file.type ? { FileMimeType: file.type } : {}),
+					size: file.size,
+					value: null,
+			  };
 
-		this.setState({value}, this.handleInteraction);
+		this.setState({ value }, this.handleInteraction);
 
 		if (file) {
 			const reader = this.getFileReader();
@@ -85,37 +87,39 @@ export default createReactClass({
 		}
 	},
 
-	onProgressSaved (savepoint, question) {
-		const {item} = this.props;
+	onProgressSaved(savepoint, question) {
+		const { item } = this.props;
 		const submissionPart = getSubmissionPartValue(savepoint, item);
 		this.setValue(submissionPart);
 		question.setPartValue(item.getPartIndex(), submissionPart);
 	},
 
-	checkFileValidity (file) {
-		const {item} = this.props;
+	checkFileValidity(file) {
+		const { item } = this.props;
 		// const errs = item?.validateFile?.(file);
 		const errs = item.validateFile(file);
 
-		this.setState({errs});
+		this.setState({ errs });
 		return !errs || errs.length === 0;
 	},
 
-	attachRef (x) { this.fileInput = x; },
+	attachRef(x) {
+		this.fileInput = x;
+	},
 
-	changeFile (e) {
+	changeFile(e) {
 		stopEvent(e);
 		this.fileInput?.input?.click();
 	},
 
-	clearFile (e) {
+	clearFile(e) {
 		stopEvent(e);
 		this.fileInput?.clearFile();
 	},
 
-	render () {
-		const {item} = this.props;
-		const {errs, value} = this.state;
+	render() {
+		const { item } = this.props;
+		const { errs, value } = this.state;
 		const readOnly = this.isSubmitted();
 		const hasValue = !!value;
 
@@ -124,7 +128,9 @@ export default createReactClass({
 				{!readOnly && (
 					<div>
 						<Input.File
-							className={cx('file-input', {'with-value': hasValue})}
+							className={cx('file-input', {
+								'with-value': hasValue,
+							})}
 							buttonClass={cx('upload-button')}
 							omitFilename
 							ref={this.attachRef}
@@ -132,14 +138,10 @@ export default createReactClass({
 							onFileChange={this.onFileChange}
 							checkValid={this.checkFileValidity}
 						/>
-						{!value && (
-							<Restrictions item={item} />
-						)}
+						{!value && <Restrictions item={item} />}
 					</div>
 				)}
-				{errs?.length > 0 && (
-					<Errors.Message error={errs[0]} />
-				)}
+				{errs?.length > 0 && <Errors.Message error={errs[0]} />}
 				{value && (
 					<Preview
 						value={value}
@@ -151,7 +153,7 @@ export default createReactClass({
 		);
 	},
 
-	getValue () {
+	getValue() {
 		return this.state.value;
-	}
+	},
 });

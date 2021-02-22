@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .assignments-activity {
 	.item {
@@ -27,7 +27,7 @@
 		address {
 			display: inline;
 
-			a[rel=author] {
+			a[rel='author'] {
 				color: inherit;
 			}
 		}

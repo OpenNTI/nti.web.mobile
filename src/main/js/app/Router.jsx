@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Prompt, Mixins} from '@nti/web-commons';
-import {encodeForURI} from '@nti/lib-ntiids';
-import {getHistory, createPath, Router} from '@nti/web-routing';
+import { Prompt, Mixins } from '@nti/web-commons';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { getHistory, createPath, Router } from '@nti/web-routing';
 import {
 	environment,
 	Locations,
 	Location,
-	NotFound
+	NotFound,
 } from 'react-router-component';
 import Logger from '@nti/util-logger';
 
@@ -30,7 +30,7 @@ import ObjectResolver from 'object-resolver/components/View';
 import Welcome from 'login/prompts/View';
 import NavStore from 'navigation/Store';
 
-import {profileHref} from '../profile/mixins/ProfileLink';
+import { profileHref } from '../profile/mixins/ProfileLink';
 
 import RouteMap from './routes';
 
@@ -52,7 +52,7 @@ const HANDLER_BY_NAME = {
 	Login,
 	Profile,
 	Object: ObjectResolver,
-	Welcome
+	Welcome,
 };
 
 const SendGAEvent = 'Router:SendGAEvent';
@@ -60,7 +60,7 @@ const SetPath = '_original:SetPath';
 
 const routerHistory = getHistory();
 
-Router.setGlobalGetRouteFor((obj) => {
+Router.setGlobalGetRouteFor(obj => {
 	if (obj.isCommunity && obj.isCourseCommunity) {
 		return `/mobile/course/${encodeForURI(obj.courseId)}/community/`;
 	}
@@ -77,10 +77,10 @@ export default createReactClass({
 	propTypes: {
 		onBeforeNavigation: PropTypes.func,
 		onNavigation: PropTypes.func,
-		path: PropTypes.string
+		path: PropTypes.string,
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		//reset back to normal.
 		delete ENVIRONMENT.setPath;
 		delete ENVIRONMENT[SetPath];
@@ -90,8 +90,8 @@ export default createReactClass({
 		}
 	},
 
-	componentDidMount () {
-		let {setPath} = ENVIRONMENT;
+	componentDidMount() {
+		let { setPath } = ENVIRONMENT;
 
 		Object.assign(ENVIRONMENT, {
 			[SetPath]: setPath,
@@ -100,66 +100,71 @@ export default createReactClass({
 				let continueSetPath = () => {
 					ENVIRONMENT[SetPath](...args);
 
-					if (routerHistory && routerHistory.location && routerHistory.location.pathname !== path) {
+					if (
+						routerHistory &&
+						routerHistory.location &&
+						routerHistory.location.pathname !== path
+					) {
 						routerHistory.replace(path);
 					}
 				};
 
-				if (options.isPopState || !this.maybeBlockNavigation(continueSetPath)) {
+				if (
+					options.isPopState ||
+					!this.maybeBlockNavigation(continueSetPath)
+				) {
 					continueSetPath();
 				}
-			}
+			},
 		});
 
-		this.removeRouterHistoryListener = routerHistory.listen((...args) => this.onRouterHistoryChange(...args));
+		this.removeRouterHistoryListener = routerHistory.listen((...args) =>
+			this.onRouterHistoryChange(...args)
+		);
 	},
 
-
-	onRouterHistoryChange (location) {
+	onRouterHistoryChange(location) {
 		const currentPath = ENVIRONMENT.path;
 		const newPath = createPath(location);
 
 		if (currentPath !== newPath) {
-			ENVIRONMENT.setPath(newPath, {isPopState: false, replace: true});
+			ENVIRONMENT.setPath(newPath, { isPopState: false, replace: true });
 		}
 	},
 
-
-	maybeBlockNavigation (cb) {
+	maybeBlockNavigation(cb) {
 		if (NavStore.getGuardMessage) {
-
 			Prompt.areYouSure(NavStore.getGuardMessage(), 'Attention!', {
 				confirmButtonLabel: 'Leave',
-				cancelButtonLabel: 'Stay'})
-				.then(cb, ()=> {});
+				cancelButtonLabel: 'Stay',
+			}).then(cb, () => {});
 
 			return true;
 		}
 	},
 
-
-	onBeforeNavigation () {
+	onBeforeNavigation() {
 		let action = this.props.onBeforeNavigation;
 		if (action) {
 			action();
 		}
 	},
 
-	[SendGAEvent] () {
-		const {ga, location} = global;
+	[SendGAEvent]() {
+		const { ga, location } = global;
 
 		if (!ga) {
 			// logger.warn('Router requires ga to be available in global scope. Aborting attempt to send google analytics navigation event');
 			return;
 		}
 
-		const {href, origin} = location;
+		const { href, origin } = location;
 
 		ga('set', 'page', href.replace(origin, ''));
 		ga('send', 'pageview');
 	},
 
-	onNavigation () {
+	onNavigation() {
 		if (global.scrollTo) {
 			global.scrollTo(0, 0);
 		}
@@ -171,43 +176,49 @@ export default createReactClass({
 
 		this[SendGAEvent]();
 
-
 		// We can get the title and set it here.
 	},
 
-
-	render () {
-		return React.createElement(Locations, {
-			ref: 'router',
-			path: this.props.path,
-			onBeforeNavigation: this.onBeforeNavigation,
-			onNavigation: this.onNavigation,
-			urlPatternOptions: {segmentValueCharset: 'a-zA-Z0-9-_ %.:(),'}
-		},
-		...this.getRoutes());
+	render() {
+		return React.createElement(
+			Locations,
+			{
+				ref: 'router',
+				path: this.props.path,
+				onBeforeNavigation: this.onBeforeNavigation,
+				onNavigation: this.onNavigation,
+				urlPatternOptions: {
+					segmentValueCharset: 'a-zA-Z0-9-_ %.:(),',
+				},
+			},
+			...this.getRoutes()
+		);
 	},
 
-
-	getRoutes () {
-		function lookupHandler (route) {
+	getRoutes() {
+		function lookupHandler(route) {
 			let view = HANDLER_BY_NAME[route.handler];
 			if (!view) {
 				route.disabled = true;
-				logger.error('Handler not defined for %s: %o', route.path, route);
+				logger.error(
+					'Handler not defined for %s: %o',
+					route.path,
+					route
+				);
 			}
 			return view;
 		}
 
 		let basePath = this.getBasePath();
-		let routes = RouteMap.filter(x=>!x.disabled).map(r=>
+		let routes = RouteMap.filter(x => !x.disabled).map(r =>
 			React.createElement(Location, {
 				path: (basePath + r.path).replace(/\/\//g, '/'),
-				handler: lookupHandler(r)
-			}));
+				handler: lookupHandler(r),
+			})
+		);
 
-		routes.push(React.createElement(NotFound, {handler: NotFoundPage}));
+		routes.push(React.createElement(NotFound, { handler: NotFoundPage }));
 
-		return routes.filter(r=>r.props.handler);
-	}
-
+		return routes.filter(r => r.props.handler);
+	},
 });

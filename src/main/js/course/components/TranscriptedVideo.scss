@@ -6,7 +6,9 @@
 	min-height: 100vh;
 	min-height: calc(100vh - 2.8125rem);
 
-	.nti-video { margin-bottom: 0; }
+	.nti-video {
+		margin-bottom: 0;
+	}
 
 	&.light-mode {
 		background: white;
@@ -21,7 +23,12 @@
 			}
 
 			.cues a.active {
-				background-color: rgba(63, 179, 246, 0.25); /* 25% primary blue */
+				background-color: rgba(
+					63,
+					179,
+					246,
+					0.25
+				); /* 25% primary blue */
 				box-shadow: 0 0 0 4px rgba(63, 179, 246, 0.25);
 				color: var(--secondary-grey);
 			}

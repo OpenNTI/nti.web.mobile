@@ -7,77 +7,77 @@ export default {
 		hours: '%(count)s Hour',
 		minutes: '%(count)s Minute',
 		seconds: '%(count)s Second',
-		milliseconds: '%(count)s Millisecond'
+		milliseconds: '%(count)s Millisecond',
 	},
 
 	credits: {
 		one: '%(count)s Credit',
-		other: '%(count)s Credits'
+		other: '%(count)s Credits',
 	},
 	years: {
 		one: '%(count)s Year',
-		other: '%(count)s Years'
+		other: '%(count)s Years',
 	},
 	months: {
 		one: '%(count)s Month',
-		other: '%(count)s Months'
+		other: '%(count)s Months',
 	},
 	weeks: {
 		one: '%(count)s Week',
-		other: '%(count)s Weeks'
+		other: '%(count)s Weeks',
 	},
 	days: {
 		one: '%(count)s Day',
-		other: '%(count)s Days'
+		other: '%(count)s Days',
 	},
 	hours: {
 		one: '%(count)s Hour',
-		other: '%(count)s Hours'
+		other: '%(count)s Hours',
 	},
 	minutes: {
 		one: '%(count)s Minute',
-		other: '%(count)s Minutes'
+		other: '%(count)s Minutes',
 	},
 	seconds: {
 		one: '%(count)s Second',
-		other: '%(count)s Seconds'
+		other: '%(count)s Seconds',
 	},
 	milliseconds: {
 		one: '%(count)s Millisecond',
-		other: '%(count)s Milliseconds'
+		other: '%(count)s Milliseconds',
 	},
 
 	assignments: {
 		zero: 'No assignments',
 		one: '%(count)s assignment',
-		other: '%(count)s assignments'
+		other: '%(count)s assignments',
 	},
 
 	comments: {
 		one: '%(count)s Comment',
-		other: '%(count)s Comments'
+		other: '%(count)s Comments',
 	},
 
 	messages: {
 		one: '%(count)s message',
-		other: '%(count)s messages'
+		other: '%(count)s messages',
 	},
 
 	questions: {
 		zero: '',
 		one: '%(count)s question',
-		other: '%(count)s questions'
+		other: '%(count)s questions',
 	},
 
 	submissions: {
 		zero: 'No responses yet.',
 		one: '%(count)s response',
-		other: '%(count)s responses'
+		other: '%(count)s responses',
 	},
 
 	others: {
 		zero: 'No Others',
 		one: '%(count)s Other',
-		other: '%(count)s Others'
-	}
+		other: '%(count)s Others',
+	},
 };

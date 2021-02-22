@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {DateTime} from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -12,20 +12,20 @@ export default createReactClass({
 	mixins: [NoteableMixin],
 
 	statics: {
-		noteableType: 'forums.personalblogentry'
+		noteableType: 'forums.personalblogentry',
 	},
 
-	render () {
+	render() {
 		let blogName = this.state.item.title;
 		return (
 			<li className="notification-item">
-				<Avatar entity={this.state.username} width="32" height="32"/>
+				<Avatar entity={this.state.username} width="32" height="32" />
 				<div className="wrap">
-					<DisplayName entity={this.state.username}/>
+					<DisplayName entity={this.state.username} />
 					{' created a thought: ' + blogName}
-					<DateTime date={this.getEventTime()} relative/>
+					<DateTime date={this.getEventTime()} relative />
 				</div>
 			</li>
 		);
-	}
+	},
 });

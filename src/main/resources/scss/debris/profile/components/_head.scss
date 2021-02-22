@@ -1,4 +1,3 @@
-
 .profile-head {
 	// margin: 1rem 0.625rem;
 	background: var(--primary-grey);
@@ -40,8 +39,6 @@
 			font-family: var(--body-font-family);
 		}
 	}
-
-
 
 	.profile-avatar-container {
 		max-width: 3rem;
@@ -138,7 +135,7 @@
 	width: 100%;
 	flex-wrap: wrap;
 
-	& > li, {
+	& > li {
 		flex: 1 1 auto;
 		display: inline-block;
 		text-align: center;
@@ -167,7 +164,7 @@
 	font-weight: 600;
 	background-color: rgba(0, 0, 0, 0.15);
 
-	& > li, {
+	& > li {
 		color: var(--tertiary-grey);
 		text-transform: uppercase;
 		overflow: hidden;
@@ -204,7 +201,8 @@
 .profile .empty-list.user-details {
 	margin: 0.25rem 0;
 
-	&, h1 {
+	&,
+	h1 {
 		font-family: var(--body-font-family);
 		color: var(--tertiary-grey);
 	}

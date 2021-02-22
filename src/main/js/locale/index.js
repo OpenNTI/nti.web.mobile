@@ -1,4 +1,4 @@
-import {registerTranslations} from '@nti/lib-locale';
+import { registerTranslations } from '@nti/lib-locale';
 
 import english from './en'; //app defaults
 

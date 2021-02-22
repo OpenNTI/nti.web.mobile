@@ -1,6 +1,8 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
-.app-container { opacity: 1; } //unhides the UI once styles load.
+.app-container {
+	opacity: 1;
+} //unhides the UI once styles load.
 
 .left-off-canvas-menu,
 .right-off-canvas-menu {
@@ -20,7 +22,7 @@ ul.off-canvas-list {
 	}
 }
 
-aside[class*=off-canvas-menu] {
+aside[class*='off-canvas-menu'] {
 	backface-visibility: visible;
 	transition: transform 500ms ease 0s;
 	z-index: 1004;
@@ -35,7 +37,7 @@ aside[class*=off-canvas-menu] {
 		margin: 3rem 0;
 	}
 
-	div[class*=offcanvas-overlap] & {
+	div[class*='offcanvas-overlap'] & {
 		box-shadow: 0 0 5px 0 black;
 	}
 }
@@ -51,7 +53,7 @@ aside[class*=off-canvas-menu] {
 }
 
 .main-section {
-	min-height: 50rem;//Not every device supports vh... so lets specify a fallback
+	min-height: 50rem; //Not every device supports vh... so lets specify a fallback
 	min-height: 100vh;
 	position: relative;
 }
@@ -60,37 +62,61 @@ aside[class*=off-canvas-menu] {
 
 /** iPad with portrait orientation. */
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation: portrait) {
-	aside[class*=off-canvas-menu] { height: 1024px; }
-	.main-section { min-height: 1024px; }
+	aside[class*='off-canvas-menu'] {
+		height: 1024px;
+	}
+	.main-section {
+		min-height: 1024px;
+	}
 }
 
 /** iPad with landscape orientation. */
 @media all and (device-width: 768px) and (device-height: 1024px) and (orientation: landscape) {
-	aside[class*=off-canvas-menu] { height: 768px; }
-	.main-section { min-height: 768px; }
+	aside[class*='off-canvas-menu'] {
+		height: 768px;
+	}
+	.main-section {
+		min-height: 768px;
+	}
 }
 
 /** iPhone 1-4 with portrait orientation. */
 @media all and (device-width: 320px) and (device-height: 480px) and (orientation: portrait) {
-	aside[class*=off-canvas-menu] { height: 480px; }
-	.main-section { min-height: 480px; }
+	aside[class*='off-canvas-menu'] {
+		height: 480px;
+	}
+	.main-section {
+		min-height: 480px;
+	}
 }
 
 /** iPhone 1-4 with landscape orientation. */
 @media all and (device-width: 320px) and (device-height: 480px) and (orientation: landscape) {
-	aside[class*=off-canvas-menu] { height: 320px; }
-	.main-section { min-height: 320px; }
+	aside[class*='off-canvas-menu'] {
+		height: 320px;
+	}
+	.main-section {
+		min-height: 320px;
+	}
 }
 
 /** iPhone5 with portrait orientation. */
 @media all and (device-width: 320px) and (device-height: 568px) and (orientation: portrait) {
-	aside[class*=off-canvas-menu] { height: 568px; }
-	.main-section { min-height: 568px; }
+	aside[class*='off-canvas-menu'] {
+		height: 568px;
+	}
+	.main-section {
+		min-height: 568px;
+	}
 }
 
 /** iPhone5 with landscape orientation. */
 @media all and (device-width: 320px) and (device-height: 568px) and (orientation: landscape) {
-	aside[class*=off-canvas-menu] { height: 320px; }
-	.main-section { min-height: 320px; }
+	aside[class*='off-canvas-menu'] {
+		height: 320px;
+	}
+	.main-section {
+		min-height: 320px;
+	}
 }
 //iPhone 6's never had iOS7 on them.

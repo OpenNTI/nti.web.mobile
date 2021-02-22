@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .aggregated-free-response {
 	.toolbar {
@@ -17,7 +17,8 @@
 			color: var(--tertiary-grey);
 		}
 
-		a.next, a.prev {
+		a.next,
+		a.prev {
 			flex: 0 0 auto;
 			display: block;
 			width: 2rem;

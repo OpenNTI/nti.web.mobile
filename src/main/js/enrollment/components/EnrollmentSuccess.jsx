@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Loading, Mixins} from '@nti/web-commons';
+import { Loading, Mixins } from '@nti/web-commons';
 
 import LibraryAccessor from 'library/mixins/LibraryAccessor';
 
 import ThankYou from './ThankYou';
 
-function getLastEnrolledCourseTitle (library) {
+function getLastEnrolledCourseTitle(library) {
 	return (library.getLastEnrolledCourse() || {}).title;
 }
 
@@ -17,11 +17,14 @@ export default createReactClass({
 	mixins: [Mixins.BasePath, LibraryAccessor],
 
 	propTypes: {
-		courseTitle: PropTypes.string
+		courseTitle: PropTypes.string,
 	},
 
-	render () {
-		const {props: {courseTitle}, state: {loading}} = this;
+	render() {
+		const {
+			props: { courseTitle },
+			state: { loading },
+		} = this;
 
 		const verbiage = 'Go to my courses';
 		const href = this.getBasePath() + 'library/courses/';
@@ -29,7 +32,7 @@ export default createReactClass({
 
 		//If the library is loading, or reloading this will be true.
 		if (loading || !library) {
-			return ( <Loading.Mask /> );
+			return <Loading.Mask />;
 		}
 
 		const label = courseTitle || getLastEnrolledCourseTitle(library);
@@ -40,10 +43,12 @@ export default createReactClass({
 					<div>You are enrolled{label ? ' in ' + label : ''}.</div>
 				</figure>
 
-				<ThankYou/>
+				<ThankYou />
 
-				<a className="button tiny" href={href}>{verbiage}</a>
+				<a className="button tiny" href={href}>
+					{verbiage}
+				</a>
 			</div>
 		);
-	}
+	},
 });

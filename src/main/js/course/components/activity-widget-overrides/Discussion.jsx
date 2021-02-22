@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function Discussion () {
-	return <div/>;
+export default function Discussion() {
+	return <div />;
 }

@@ -1,48 +1,41 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {HOC} from '@nti/lib-commons';
+import { HOC } from '@nti/lib-commons';
 
 export class Provider extends React.Component {
-	static connect (component) {
+	static connect(component) {
 		class cmp extends React.Component {
-			render () {
-				return (
-					<Provider _component={component} {...this.props}/>
-				);
+			render() {
+				return <Provider _component={component} {...this.props} />;
 			}
 		}
 
 		return HOC.hoistStatics(cmp, component, 'ShowAvatarProvider');
 	}
 
-
 	static propTypes = {
 		_component: PropTypes.any,
 		children: PropTypes.any,
-	}
-
+	};
 
 	static childContextTypes = {
 		showAvatars: PropTypes.bool,
-		setShowAvatars: PropTypes.func
-	}
-
+		setShowAvatars: PropTypes.func,
+	};
 
 	state = {
-		showAvatars: true
-	}
+		showAvatars: true,
+	};
 
-
-	getChildContext () {
+	getChildContext() {
 		return {
 			showAvatars: this.state.showAvatars,
-			setShowAvatars: (bool) => this.setState({showAvatars: bool})
+			setShowAvatars: bool => this.setState({ showAvatars: bool }),
 		};
 	}
 
-
-	render () {
-		const {children, _component, ...props} = this.props;
+	render() {
+		const { children, _component, ...props } = this.props;
 
 		return _component
 			? React.createElement(_component, props, children)
@@ -50,33 +43,29 @@ export class Provider extends React.Component {
 	}
 }
 
-
 export class Receiver extends React.Component {
-	static connect (component) {
+	static connect(component) {
 		class cmp extends React.Component {
-			render () {
-				return (
-					<Receiver _component={component} {...this.props}/>
-				);
+			render() {
+				return <Receiver _component={component} {...this.props} />;
 			}
 		}
 
 		return HOC.hoistStatics(cmp, component, 'ShowAvatarReceiver');
 	}
 
-
 	static propTypes = {
 		_component: PropTypes.any,
-		children: PropTypes.any
-	}
+		children: PropTypes.any,
+	};
 
 	static contextTypes = {
 		showAvatars: PropTypes.bool,
-		setShowAvatars: PropTypes.func
-	}
+		setShowAvatars: PropTypes.func,
+	};
 
-	render () {
-		const {children, _component, ...props} = this.props;
+	render() {
+		const { children, _component, ...props } = this.props;
 
 		Object.assign(props, this.context);
 

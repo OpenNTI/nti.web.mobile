@@ -2,7 +2,7 @@ import './MultipleChoice.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {rawContent, Array as ArrayUtils} from '@nti/lib-commons';
+import { rawContent, Array as ArrayUtils } from '@nti/lib-commons';
 
 import Mixin from './Mixin';
 
@@ -18,27 +18,25 @@ export default createReactClass({
 			'MultipleChoice',
 			'MultipleChoiceMultipleAnswer',
 			'RandomizedMultipleChoice',
-			'RandomizedMultipleChoiceMultipleAnswer'
-		]
+			'RandomizedMultipleChoiceMultipleAnswer',
+		],
 	},
-
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-	render () {
+	render() {
 		let ex = this.state.explanation || '';
 		return (
 			<div className="multiple-choice solutions">
 				{this.renderSolution()}
-				<div className="explanation" {...rawContent(ex)}/>
+				<div className="explanation" {...rawContent(ex)} />
 			</div>
 		);
 	},
 
-
-	renderSolution () {
+	renderSolution() {
 		let item = this.props.item;
 		let choices = (item || {}).choices || [];
 		let solution = this.state.solution;
@@ -49,14 +47,14 @@ export default createReactClass({
 
 		solution = ArrayUtils.ensure(solution.value);
 
-		return solution.map(x=> {
+		return solution.map(x => {
 			let numeral = String.fromCharCode(65 + x);
 			return (
 				<div className="solution" key={x}>
 					<span className="numeral">{numeral}</span>
-					<div {...rawContent(choices[x])}/>
+					<div {...rawContent(choices[x])} />
 				</div>
 			);
 		});
-	}
+	},
 });

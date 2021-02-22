@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .add.annotation.toolbar {
 	display: flex;
@@ -78,9 +78,15 @@
 			border: 0;
 			box-shadow: inset 0 0 0 1px currentColor;
 
-			&.yellow { background: #ede619; }
-			&.green { background: #4ce67f; }
-			&.blue { background: var(--primary-blue); }
+			&.yellow {
+				background: #ede619;
+			}
+			&.green {
+				background: #4ce67f;
+			}
+			&.blue {
+				background: var(--primary-blue);
+			}
 
 			&.blackout {
 				background: #000;
@@ -88,11 +94,12 @@
 			}
 
 			&::after {
-				content: " " attr(data-color);
+				content: ' ' attr(data-color);
 			}
 
 			&.selected {
-				box-shadow: inset 0 0 0 1px #0003, 0 0 0 3px #e2e2e2, 0 0 0 4px #bfbfbf;
+				box-shadow: inset 0 0 0 1px #0003, 0 0 0 3px #e2e2e2,
+					0 0 0 4px #bfbfbf;
 
 				&::before {
 					content: '';
@@ -106,7 +113,8 @@
 					overflow: hidden;
 					left: 50%;
 					top: 55%;
-					transform: translate3d(-50%, 50%, 0) translate3d(0.5px, -13.5px, 0) rotate(45deg) skewY(5deg);
+					transform: translate3d(-50%, 50%, 0)
+						translate3d(0.5px, -13.5px, 0) rotate(45deg) skewY(5deg);
 					box-sizing: border-box;
 					border-radius: 1px;
 				}

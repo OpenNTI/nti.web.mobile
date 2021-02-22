@@ -6,17 +6,15 @@ export default class extends React.Component {
 
 	static propTypes = {
 		onClick: PropTypes.func.isRequired,
-		index: PropTypes.number.isRequired
+		index: PropTypes.number.isRequired,
 	};
 
 	onClick = () => {
-		const {onClick, index} = this.props;
-		onClick && (index > -1) && onClick(index);
+		const { onClick, index } = this.props;
+		onClick && index > -1 && onClick(index);
 	};
 
-	render () {
-		return (
-			<b onClick={this.onClick} className="remove icon-bold-x" />
-		);
+	render() {
+		return <b onClick={this.onClick} className="remove icon-bold-x" />;
 	}
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import Tabs from './Tabs';
 
-export default function AssignmentsPageFrame (props) {
+export default function AssignmentsPageFrame(props) {
 	let Content = props.pageContent;
 
 	return (
@@ -18,5 +18,5 @@ export default function AssignmentsPageFrame (props) {
 }
 
 AssignmentsPageFrame.propTypes = {
-	pageContent: PropTypes.any.isRequired
+	pageContent: PropTypes.any.isRequired,
 };

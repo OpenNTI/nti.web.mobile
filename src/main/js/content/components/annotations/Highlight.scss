@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .application-highlight {
 	// &.suppressed {
@@ -7,7 +7,8 @@
 
 	& + li.part,
 	& + li.exercise {
-		&::before, &::after {
+		&::before,
+		&::after {
 			z-index: 1;
 			color: #076da7;
 		}
@@ -16,7 +17,8 @@
 	&.plain {
 		overflow: hidden;
 
-		&, * {
+		&,
+		* {
 			position: relative;
 		}
 
@@ -54,13 +56,18 @@
 			}
 
 			&.blackout.blackout {
-				&, &::selection {
+				&,
+				&::selection {
 					background: var(--primary-grey);
 					color: rgba(0, 0, 0, 0) !important;
 					box-shadow: none;
 				}
 
-				img, a, a:link, a[href], * {
+				img,
+				a,
+				a:link,
+				a[href],
+				* {
 					visibility: hidden;
 				}
 
@@ -71,14 +78,17 @@
 		}
 
 		&:not(.colored) {
-			&, .math {
+			&,
+			.math {
 				background: none;
 				color: var(--primary-grey);
 				border-bottom: 1px solid #9fd9fa;
 			}
 
-			& & {//the "& &" is intentional
-				&, .math {
+			& & {
+				//the "& &" is intentional
+				&,
+				.math {
 					border-bottom: none;
 				}
 			}

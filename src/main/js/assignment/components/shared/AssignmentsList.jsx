@@ -1,29 +1,28 @@
 import './AssignmentsList.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {decorate} from '@nti/lib-commons';
-import {Loading, EmptyList} from '@nti/web-commons';
+import { decorate } from '@nti/lib-commons';
+import { Loading, EmptyList } from '@nti/web-commons';
 
 import AssignmentGroups from '../bindings/AssignmentGroups';
 
 import AssignmentGroup from './AssignmentGroup';
 
 class AssignmentsList extends React.Component {
-
 	static propTypes = {
 		store: PropTypes.any,
 		sort: PropTypes.any,
-		search: PropTypes.string
-	}
+		search: PropTypes.string,
+	};
 
-	render () {
-		const {store} = this.props;
+	render() {
+		const { store } = this.props;
 
-		if(!store || store.loading) {
+		if (!store || store.loading) {
 			return <Loading.Mask />;
 		}
 
-		if(store.length === 0) {
+		if (store.length === 0) {
 			return <EmptyList type="assignments" />;
 		}
 
@@ -31,7 +30,7 @@ class AssignmentsList extends React.Component {
 			<ul className="assignments-list">
 				{store.map((group, index) => (
 					<li key={index}>
-						<AssignmentGroup group={group}/>
+						<AssignmentGroup group={group} />
 					</li>
 				))}
 			</ul>
@@ -39,6 +38,4 @@ class AssignmentsList extends React.Component {
 	}
 }
 
-export default decorate(AssignmentsList, [
-	AssignmentGroups.connect
-]);
+export default decorate(AssignmentsList, [AssignmentGroups.connect]);

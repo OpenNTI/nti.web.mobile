@@ -1,21 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 
 import Placeholder from './Placeholder';
 
 const t = scoped('mobile.assessment.components.SubmissionMaskedPlaceholder', {
-	header: 'You\'re all set!',
-	message: 'Your answers have been submitted.'
+	header: "You're all set!",
+	message: 'Your answers have been submitted.',
 });
 
 TimeLockedPlaceholder.propTypes = {
-	assignment: PropTypes.object
+	assignment: PropTypes.object,
 };
 
-export default function TimeLockedPlaceholder ({assignment}) {
-
-	const onConfirm = React.useCallback((e) => {
+export default function TimeLockedPlaceholder({ assignment }) {
+	const onConfirm = React.useCallback(e => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();

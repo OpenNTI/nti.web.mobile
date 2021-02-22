@@ -1,42 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {decodeFromURI} from '@nti/lib-ntiids';
-import {Loading} from '@nti/web-commons';
+import { decodeFromURI } from '@nti/lib-ntiids';
+import { Loading } from '@nti/web-commons';
 
 import NotFound from 'notfound/components/View';
-import {Component as ContextSender} from 'common/mixins/ContextSender';
+import { Component as ContextSender } from 'common/mixins/ContextSender';
 import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
-import {getCatalogEntry} from 'enrollment/Api';
+import { getCatalogEntry } from 'enrollment/Api';
 import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
 
 import Detail from './Detail';
 
 export default class EntryDetail extends React.Component {
-
 	static propTypes = {
-		entryId: PropTypes.string
-	}
+		entryId: PropTypes.string,
+	};
 
-	state = { loading: true }
+	state = { loading: true };
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.getDataIfNeeded(this.props);
 	}
 
+	componentWillUnmount() {}
 
-	componentWillUnmount () {}
-
-
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (prevProps.entryId !== this.props.entryId) {
 			this.getDataIfNeeded(this.props);
 		}
 	}
 
-
-	async getDataIfNeeded (props) {
-		this.setState({loading: true});
+	async getDataIfNeeded(props) {
+		this.setState({ loading: true });
 		const entryId = decodeFromURI(props.entryId);
 		let entry = null;
 		let error = null;
@@ -49,37 +44,41 @@ export default class EntryDetail extends React.Component {
 			error = e;
 		}
 
-		this.setState({entry, loading: false, error});
+		this.setState({ entry, loading: false, error });
 	}
 
-
-	render () {
-		const {state: {entry, loading}, props: {entryId}} = this;
+	render() {
+		const {
+			state: { entry, loading },
+			props: { entryId },
+		} = this;
 
 		if (loading) {
-			return (<Loading.Mask />);
+			return <Loading.Mask />;
 		}
 
 		if (!entry) {
-			return (<NotFound/>);
+			return <NotFound />;
 		}
 
 		return (
 			<div className="course-info">
-				<ContextSender getContext={getContext} entry={entry} entryId={entryId} />
-				<Detail {...this.props} entry={entry}/>
+				<ContextSender
+					getContext={getContext}
+					entry={entry}
+					entryId={entryId}
+				/>
+				<Detail {...this.props} entry={entry} />
 				<EnrollmentStatus catalogEntry={entry} />
 				<GiftOptions catalogEntry={entry} />
 			</div>
 		);
 	}
-
 }
 
-
-async function getContext () {
+async function getContext() {
 	const context = this;
-	const {entry, entryId} = context.props;
+	const { entry, entryId } = context.props;
 	const ntiid = decodeFromURI(entryId);
 	const href = context.getNavigable().makeHref('item/' + entryId);
 
@@ -89,6 +88,6 @@ async function getContext () {
 		ref: ntiid,
 		ntiid,
 		label,
-		href
+		href,
 	};
 }

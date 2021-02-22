@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .question-part .solutions .ordering {
 	border: 0;
@@ -38,24 +38,29 @@
 		vertical-align: middle;
 		border-top-width: 0;
 
-		&:nth-child(2n+1) { //left cell
+		&:nth-child(2n + 1) {
+			//left cell
 			border-right-width: 1px;
 			border-left-width: 0;
 		}
 
-		&:nth-child(2n) { //right cell
+		&:nth-child(2n) {
+			//right cell
 			border-right-width: 0;
 			border-left-width: 0;
 		}
 
-		p:last-of-type { margin-bottom: 0; }
+		p:last-of-type {
+			margin-bottom: 0;
+		}
 
 		.draggable {
 			touch-action: none;
 			cursor: grab;
 
 			&.dragging {
-				&, .hamburger {
+				&,
+				.hamburger {
 					cursor: grabbing;
 				}
 
@@ -74,7 +79,8 @@
 			padding: 1rem;
 			padding-right: 3rem;
 
-			&.correct, &.incorrect {
+			&.correct,
+			&.incorrect {
 				padding-left: 2rem;
 
 				&::before {
@@ -121,7 +127,9 @@
 		}
 	}
 
-	.over .ordinal { background: rgba(var(--panel-background-rgb), 0.6); }
+	.over .ordinal {
+		background: rgba(var(--panel-background-rgb), 0.6);
+	}
 
 	.ordinal {
 		background: var(--panel-background);

@@ -51,7 +51,8 @@
 	}
 
 	&.disabled {
-		input, textarea {
+		input,
+		textarea {
 			opacity: 0.6;
 		}
 	}
@@ -63,7 +64,9 @@
 		.line {
 			display: flex;
 
-			input, div.box, & > span {
+			input,
+			div.box,
+			& > span {
 				position: relative;
 				margin: 0 0.4rem 0 0;
 
@@ -72,7 +75,8 @@
 				}
 			}
 
-			& > input, & > span {
+			& > input,
+			& > span {
 				flex: 1 1 33.33%;
 			}
 

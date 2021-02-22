@@ -1,10 +1,10 @@
 import './PopUp.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getService} from '@nti/web-client';
-import {rawContent} from '@nti/lib-commons';
-import {Loading, Error} from '@nti/web-commons';
-import {parseHTML} from '@nti/lib-content-processing';
+import { getService } from '@nti/web-client';
+import { rawContent } from '@nti/lib-commons';
+import { Loading, Error } from '@nti/web-commons';
+import { parseHTML } from '@nti/lib-content-processing';
 
 export default class extends React.Component {
 	static displayName = 'PopUp';
@@ -12,53 +12,56 @@ export default class extends React.Component {
 	static propTypes = {
 		onClose: PropTypes.func.isRequired,
 		download: PropTypes.string,
-		source: PropTypes.string.isRequired
+		source: PropTypes.string.isRequired,
 	};
 
 	state = {
-		loading: true
+		loading: true,
 	};
 
-	componentDidMount () {
+	componentDidMount() {
 		this.load();
 	}
 
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (this.props.source !== prevProps.source) {
 			this.load();
 		}
 	}
 
-	getBody = (htmlStr) => {
+	getBody = htmlStr => {
 		const dom = parseHTML(htmlStr);
 		return dom.getElementsByTagName('body')[0];
 	};
 
 	load = (props = this.props) => {
-		let {source} = props;
+		let { source } = props;
 		getService()
 			.then(service => service.get(source))
-			.catch(error => this.setState({error}))
+			.catch(error => this.setState({ error }))
 			.then(result => {
 				const body = this.getBody(result);
 				this.setState({
 					html: body.innerHTML,
-					loading: false
+					loading: false,
 				});
 			});
 	};
 
-	render () {
-
-		const {loading, html, error} = this.state;
+	render() {
+		const { loading, html, error } = this.state;
 		return (
 			<div className="popup" {...this.props}>
-				<div onClick={this.props.onClose} className="close"><i className="icon-light-x" /></div>
-				{error ? <Error error={error} /> :
-					loading ?
-						<Loading.Mask /> :
-						<div className="content" {...rawContent(html)} />
-				}
+				<div onClick={this.props.onClose} className="close">
+					<i className="icon-light-x" />
+				</div>
+				{error ? (
+					<Error error={error} />
+				) : loading ? (
+					<Loading.Mask />
+				) : (
+					<div className="content" {...rawContent(html)} />
+				)}
 			</div>
 		);
 	}

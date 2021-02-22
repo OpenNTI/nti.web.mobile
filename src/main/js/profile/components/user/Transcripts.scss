@@ -2,13 +2,15 @@
 
 .profile-transcripts-container {
 	table {
-		tfoot, thead {
+		tfoot,
+		thead {
 			background: none;
 		}
 	}
 }
 
-.user-awarded-credits, .transcript-row-detail {
+.user-awarded-credits,
+.transcript-row-detail {
 	.label {
 		background: none;
 		padding: 0;

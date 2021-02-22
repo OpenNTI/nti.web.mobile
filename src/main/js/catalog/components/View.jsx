@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Locations, Location} from 'react-router-component';
-import {Mixins} from '@nti/web-commons';
+import { Locations, Location } from 'react-router-component';
+import { Mixins } from '@nti/web-commons';
 
 import Page from 'common/components/Page';
 import ContextMixin from 'common/mixins/ContextContributor';
@@ -21,11 +21,11 @@ export default createReactClass({
 	displayName: 'CatalogBody',
 	mixins: [Mixins.BasePath, ContextMixin],
 
+	shouldComponentUpdate(_, newState) {
+		let newCatalog =
+			(this.state || {}).catalog !== (newState || {}).catalog;
 
-	shouldComponentUpdate (_, newState) {
-		let newCatalog = (this.state || {}).catalog !== (newState || {}).catalog;
-
-		let {enrollment} = this;
+		let { enrollment } = this;
 
 		if (newCatalog && enrollment && enrollment.isMounted()) {
 			return false;
@@ -34,16 +34,29 @@ export default createReactClass({
 		return true;
 	},
 
-	attachRouter (x) { this.router = x; },
-	attachPaymentComplete (x) { this.paymentcomplete = x; },
-	attachEnrollmentEntry (x) { this.enroll = x; },
-	attachEnrollment (x) { this.enrollment = x; },
-	attachGift (x) { this.gift = x; },
+	attachRouter(x) {
+		this.router = x;
+	},
+	attachPaymentComplete(x) {
+		this.paymentcomplete = x;
+	},
+	attachEnrollmentEntry(x) {
+		this.enroll = x;
+	},
+	attachEnrollment(x) {
+		this.enrollment = x;
+	},
+	attachGift(x) {
+		this.gift = x;
+	},
 
-
-	render () {
+	render() {
 		return (
-			<Locations contextual ref={this.attachRouter} component={renderCatalogPage}>
+			<Locations
+				contextual
+				ref={this.attachRouter}
+				component={renderCatalogPage}
+			>
 				<Location
 					ref={this.attachPaymentComplete}
 					path="/enroll/:enrollmentType/paymentcomplete/"
@@ -59,23 +72,14 @@ export default createReactClass({
 					path="/gift/purchase/:entryId(/*)"
 					handler={GiftPurchaseView}
 				/>
-				<Location
-					path="/item/:entryId/redeem"
-					handler={Redeem}
-				/>
+				<Location path="/item/:entryId/redeem" handler={Redeem} />
 				<Location
 					ref={this.attachEnrollment}
 					path="/item/:entryId/enrollment(/*)"
 					handler={Enroll}
 				/>
-				<Location
-					path="/item/:entryId(/*)"
-					handler={EntryDetail}
-				/>
-				<Location
-					path="/code/(:code)(/*)"
-					handler={AcceptInvitation}
-				/>
+				<Location path="/item/:entryId(/*)" handler={EntryDetail} />
+				<Location path="/code/(:code)(/*)" handler={AcceptInvitation} />
 				<Location
 					path="/enrollment/success/"
 					handler={EnrollmentSuccess}
@@ -84,16 +88,12 @@ export default createReactClass({
 					path="/:category/item/:entryId(/*)"
 					handler={EntryDetail}
 				/>
-				<Location
-					path="*"
-					handler={ListView}
-				/>
+				<Location path="*" handler={ListView} />
 			</Locations>
 		);
 	},
 
-
-	getContext () {
+	getContext() {
 		/*
 			This instance of getContext and the instance within the Collection component
 			is are interesting cases.  Because the catalog does not literally drill in
@@ -105,29 +105,28 @@ export default createReactClass({
 			anything to add.
 		 */
 		let path = this.getBasePath();
-		return Promise.resolve([{
-			label: 'Library',
-			href: path + 'library/'
-		}, {
-			label: 'Catalog',
-			href: path + 'catalog/'
-		}]);
-	}
+		return Promise.resolve([
+			{
+				label: 'Library',
+				href: path + 'library/',
+			},
+			{
+				label: 'Catalog',
+				href: path + 'catalog/',
+			},
+		]);
+	},
 });
 
 renderCatalogPage.propTypes = {
-	children: PropTypes.any
+	children: PropTypes.any,
 };
-function renderCatalogPage ({children}) {
+function renderCatalogPage({ children }) {
 	const child = React.Children.only(children);
 
 	if (child.type === ListView) {
 		return child;
 	}
 
-	return (
-		<Page title="Catalog">
-			{child}
-		</Page>
-	);
+	return <Page title="Catalog">{child}</Page>;
 }

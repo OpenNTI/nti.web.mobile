@@ -3,9 +3,8 @@ import StorePrototype from '@nti/lib-store';
 import {
 	SET_CONTEXT,
 	SET_PAGE_SOURCE,
-
 	CLEAR_NAV_GUARDED,
-	SET_NAV_GUARDED
+	SET_NAV_GUARDED,
 } from './Constants';
 
 const SetData = Symbol('Set Data');
@@ -13,26 +12,23 @@ const SetData = Symbol('Set Data');
 const data = Symbol();
 
 class Store extends StorePrototype {
-
-	constructor () {
+	constructor() {
 		super();
 		this.registerHandlers({
 			[SET_CONTEXT]: SetData,
 			[SET_PAGE_SOURCE]: SetData,
 
 			[CLEAR_NAV_GUARDED]: CLEAR_NAV_GUARDED,
-			[SET_NAV_GUARDED]: SET_NAV_GUARDED
+			[SET_NAV_GUARDED]: SET_NAV_GUARDED,
 		});
 	}
 
-
-	[CLEAR_NAV_GUARDED] () {
+	[CLEAR_NAV_GUARDED]() {
 		delete this.getGuardMessage;
 	}
 
-
-	[SET_NAV_GUARDED] (payload) {
-		let {response} = payload.action;
+	[SET_NAV_GUARDED](payload) {
+		let { response } = payload.action;
 		if (typeof response !== 'function') {
 			throw new Error('Expected a function.');
 		}
@@ -40,19 +36,20 @@ class Store extends StorePrototype {
 		this.getGuardMessage = response;
 	}
 
-
-	[SetData] (payload) {
-		let {response, type} = payload.action;
-		this[data] = {path: null,
+	[SetData](payload) {
+		let { response, type } = payload.action;
+		this[data] = {
+			path: null,
 			pageSource: null,
 			currentPage: null,
-			context: null, ...response};
+			context: null,
+			...response,
+		};
 
-		this.emitChange({type});
+		this.emitChange({ type });
 	}
 
-
-	getData () {
+	getData() {
 		return this[data];
 	}
 }

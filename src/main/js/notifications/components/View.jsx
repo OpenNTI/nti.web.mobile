@@ -1,78 +1,79 @@
 import './View.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Loading} from '@nti/web-commons';
-import {StoreEventsMixin} from '@nti/lib-store';
+import { Loading } from '@nti/web-commons';
+import { StoreEventsMixin } from '@nti/lib-store';
 import cx from 'classnames';
 
 import Store from '../Store';
-import {load, loadMore} from '../Actions';
+import { load, loadMore } from '../Actions';
 
-import {getNotificationItem} from './kinds';
+import { getNotificationItem } from './kinds';
 import Empty from './Empty';
 import LoadMore from './LoadMore';
-
 
 export default createReactClass({
 	displayName: 'NotificationsView',
 	mixins: [StoreEventsMixin],
 
-	getInitialState () { return {}; },
+	getInitialState() {
+		return {};
+	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		default: 'synchronizeFromStore'
+		default: 'synchronizeFromStore',
 	},
 
+	componentDidMount() {
+		this.ensureLoaded();
+	},
 
-	componentDidMount () { this.ensureLoaded(); },
-
-
-	ensureLoaded () {
-		if(!Store.isLoaded) {
+	ensureLoaded() {
+		if (!Store.isLoaded) {
 			load();
 		}
 		this.synchronizeFromStore();
 	},
 
-	onLoadMore () {
+	onLoadMore() {
 		loadMore(this.state.notifications);
 		this.forceUpdate();
 	},
 
-
-	synchronizeFromStore () {
+	synchronizeFromStore() {
 		let list = Store.getData();
 		this.setState({
 			length: list && list.length,
-			notifications: list
+			notifications: list,
 		});
 	},
 
-
-	getItems () {
-		let {state} = this;
+	getItems() {
+		let { state } = this;
 		return (state || {}).notifications || {};
 	},
 
-
-	render () {
+	render() {
 		let list = this.getItems();
 		const loading = !list.map;
 		const empty = !list.length;
 
 		return (
-			<div className={cx('notifications', {loading, empty})}>
-				{loading
-					? <Loading.Spinner />
-					: empty ? <Empty /> : (
-						<ul className="off-canvas-list">
-							{ !empty && list.map(getNotificationItem) }
-							{ list.hasMore && <LoadMore onClick={this.onLoadMore} store={list}/> }
-						</ul>
-					)
-				}
+			<div className={cx('notifications', { loading, empty })}>
+				{loading ? (
+					<Loading.Spinner />
+				) : empty ? (
+					<Empty />
+				) : (
+					<ul className="off-canvas-list">
+						{!empty && list.map(getNotificationItem)}
+						{list.hasMore && (
+							<LoadMore onClick={this.onLoadMore} store={list} />
+						)}
+					</ul>
+				)}
 			</div>
 		);
-	}
+	},
 });

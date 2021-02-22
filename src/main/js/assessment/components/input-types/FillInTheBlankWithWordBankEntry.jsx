@@ -8,17 +8,15 @@ export default class extends React.Component {
 
 	static propTypes = {
 		input: PropTypes.object.isRequired,
-		onReset: PropTypes.func
+		onReset: PropTypes.func,
 	};
 
 	onReset = (entry, cmp) => {
-		const {onReset, input} = this.props;
+		const { onReset, input } = this.props;
 		onReset && onReset(input, entry, cmp);
 	};
 
-	render () {
-		return (
-			<WordBankEntry {...this.props} onReset={this.onReset}/>
-		);
+	render() {
+		return <WordBankEntry {...this.props} onReset={this.onReset} />;
 	}
 }

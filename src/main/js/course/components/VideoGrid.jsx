@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {encodeForURI} from '@nti/lib-ntiids';
-import {EmptyList, Mixins} from '@nti/web-commons';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { EmptyList, Mixins } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -15,27 +15,27 @@ const VideoCell = createReactClass({
 	mixins: [Mixins.NavigatableMixin],
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.fillIn();
 	},
 
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (this.props.item !== prevProps.item) {
 			this.fillIn();
 		}
 	},
 
-	async fillIn (props = this.props) {
+	async fillIn(props = this.props) {
 		const { item } = props || {};
 
-		function fallback (x) {
+		function fallback(x) {
 			let s = x && ((x.sources || [])[0] || {});
 			return s.thumbnail || s.poster;
 		}
@@ -54,16 +54,19 @@ const VideoCell = createReactClass({
 		}
 	},
 
-	render () {
-		const {state: {poster}, props: {item}} = this;
+	render() {
+		const {
+			state: { poster },
+			props: { item },
+		} = this;
 		const style = poster && { backgroundImage: `url(${poster})` };
-		const thumbnail = cx('thumbnail', {resolving: !poster});
+		const thumbnail = cx('thumbnail', { resolving: !poster });
 		const link = this.makeHref(encodeForURI(item.ntiid)) + '/';
 
 		return (
 			<li className="thumbnail-grid-item">
 				<a title="Play" href={link}>
-					<div className={thumbnail} style={style}/>
+					<div className={thumbnail} style={style} />
 					<h3>{item.title}</h3>
 				</a>
 			</li>
@@ -71,30 +74,31 @@ const VideoCell = createReactClass({
 	},
 });
 
-
 export default createReactClass({
 	displayName: 'VideoGrid',
 	mixins: [ContextSender],
 
 	propTypes: {
-		MediaIndex: PropTypes.object
+		MediaIndex: PropTypes.object,
 	},
 
-	getContext () { return Promise.resolve([]); },
+	getContext() {
+		return Promise.resolve([]);
+	},
 
-	render () {
-		const {MediaIndex} = this.props;
+	render() {
+		const { MediaIndex } = this.props;
 
-		if(!MediaIndex || MediaIndex.length === 0) {
-			return <EmptyList type="videos"/>;
+		if (!MediaIndex || MediaIndex.length === 0) {
+			return <EmptyList type="videos" />;
 		}
 
 		return (
 			<ul className="small-block-grid-1 medium-block-grid-2">
-				{MediaIndex.filter(x => x.isVideo).map((v) => (
-					<VideoCell index={MediaIndex} item={v} key={v.ntiid}/>
+				{MediaIndex.filter(x => x.isVideo).map(v => (
+					<VideoCell index={MediaIndex} item={v} key={v.ntiid} />
 				))}
 			</ul>
 		);
-	}
+	},
 });

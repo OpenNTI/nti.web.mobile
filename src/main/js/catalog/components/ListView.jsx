@@ -2,26 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Catalog from '@nti/web-catalog';
-import {encodeForURI} from '@nti/lib-ntiids';
-import {scoped} from '@nti/lib-locale';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { scoped } from '@nti/lib-locale';
 
 const t = scoped('library.sections', {
-	courses: 'Courses'
+	courses: 'Courses',
 });
-
 
 import Page from 'common/components/Page';
 import ContextSender from 'common/mixins/ContextSender';
 
-import {load as loadLibrary} from '../../library/Actions';
+import { load as loadLibrary } from '../../library/Actions';
 
 const CATALOG_MIME_TYPES = {
 	'application/vnd.nextthought.courses.catalogentry': true,
 	'application/vnd.nextthought.courses.coursecataloglegacyentry': true,
-	'application/vnd.nextthought.courseware.coursecataloglegacyentry': true
+	'application/vnd.nextthought.courseware.coursecataloglegacyentry': true,
 };
 
-function getRouteFor (obj) {
+function getRouteFor(obj) {
 	if (CATALOG_MIME_TYPES[obj.MimeType]) {
 		return `./item/${encodeForURI(obj.getID())}`;
 	}
@@ -37,48 +36,49 @@ export default createReactClass({
 	mixins: [ContextSender],
 
 	contextTypes: {
-		router: PropTypes.object
+		router: PropTypes.object,
 	},
-
 
 	childContextTypes: {
-		router: PropTypes.object
+		router: PropTypes.object,
 	},
 
-	getChildContext () {
+	getChildContext() {
 		return {
 			router: {
 				...(this.context.router || {}),
 				baseroute: '/mobile/catalog/',
-				getRouteFor
-			}
+				getRouteFor,
+			},
 		};
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		if (this.dirty) {
 			loadLibrary(true);
 		}
 	},
 
-
-	markDirty () {
+	markDirty() {
 		this.dirty = true;
 	},
 
-
 	availableSections: [
-		{label: t('courses'), href: '/'},
-		{label: 'History', href: '/purchased/'},
-		{label: 'Redeem', href: '/redeem/'}
+		{ label: t('courses'), href: '/' },
+		{ label: 'History', href: '/purchased/' },
+		{ label: 'Redeem', href: '/redeem/' },
 	],
 
-
-	render () {
+	render() {
 		return (
-			<Page title="Catalog" availableSections={this.availableSections} supportsSearch border>
-				<Catalog markDirty={this.markDirty}/>
+			<Page
+				title="Catalog"
+				availableSections={this.availableSections}
+				supportsSearch
+				border
+			>
+				<Catalog markDirty={this.markDirty} />
 			</Page>
 		);
-	}
+	},
 });

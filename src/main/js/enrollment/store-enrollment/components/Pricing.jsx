@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {scoped} from '@nti/lib-locale';
-import {DateTime} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { DateTime } from '@nti/web-commons';
 
 import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
 
 import Store from '../Store';
-import {updateCoupon} from '../Actions';
+import { updateCoupon } from '../Actions';
 import * as Constants from '../Constants';
 
 const t = scoped('enrollment.gift.pricing', {
@@ -25,10 +25,10 @@ const t = scoped('enrollment.gift.pricing', {
 	subType: 'Enrollment Type',
 	total: 'total',
 	validCoupon: 'Coupon Accepted: %(discount)s off',
-	'x_creditHours': {
+	x_creditHours: {
 		one: '%(count)s Credit Hour',
-		other: '%(count)s Credit Hours'
-	}
+		other: '%(count)s Credit Hours',
+	},
 });
 
 const getDiscountString = 'Pricing:getDiscountString';
@@ -41,14 +41,14 @@ export default createReactClass({
 
 	propTypes: {
 		purchasable: PropTypes.object.isRequired,
-		locked: PropTypes.bool
+		locked: PropTypes.bool,
 	},
 
+	attachCouponRef(x) {
+		this.coupon = x;
+	},
 
-	attachCouponRef (x) { this.coupon = x; },
-
-
-	getInitialState () {
+	getInitialState() {
 		const { props } = this;
 		const pricing = this.getCouponPricing();
 		const state = {
@@ -56,13 +56,12 @@ export default createReactClass({
 			currentPrice: props.purchasable.amount,
 			triedCoupon: false,
 			couponDiscount: false,
-			checkingCoupon: false
+			checkingCoupon: false,
 		};
 
 		if (props.locked) {
 			state.coupon = t('noCoupon');
 		}
-
 
 		if (pricing && pricing.coupon) {
 			state.coupon = pricing.coupon.getCode();
@@ -75,50 +74,50 @@ export default createReactClass({
 		return state;
 	},
 
-
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (this.props.purchasable !== prevProps.purchasable) {
 			this.resetState();
 		}
 	},
 
-	resetState () {
+	resetState() {
 		this.setState(this.getInitialState());
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		Store.addChangeListener(this[onChange]);
 	},
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		Store.removeChangeListener(this[onChange]);
 	},
 
-
-	getCouponPricing () {
+	getCouponPricing() {
 		return Store.getCouponPricing();
 	},
 
-
-	[getDiscountString] (coupon) {
+	[getDiscountString](coupon) {
 		let discount = '';
 
 		if (coupon.percentOff) {
 			discount = coupon.percentOff + '%';
 		} else if (coupon.amountOff) {
-			discount = this.getFormattedPrice(coupon.currency, coupon.amountOff / 100);
+			discount = this.getFormattedPrice(
+				coupon.currency,
+				coupon.amountOff / 100
+			);
 		}
 
 		return discount;
 	},
 
-
-	[onChange] (e) {
-		let {pricing} = e;
+	[onChange](e) {
+		let { pricing } = e;
 		let discount;
 
-		if (this.props.locked) { return; }
+		if (this.props.locked) {
+			return;
+		}
 
 		if (e.type === Constants.VALID_COUPON) {
 			discount = this[getDiscountString](pricing.coupon);
@@ -128,7 +127,7 @@ export default createReactClass({
 				oldPrice: pricing.amount,
 				triedCoupon: true,
 				couponDiscount: discount,
-				checkingCoupon: false
+				checkingCoupon: false,
 			});
 		} else if (e.type === Constants.INVALID_COUPON) {
 			if (e.coupon === '') {
@@ -137,7 +136,7 @@ export default createReactClass({
 					couponDiscount: '',
 					oldPrice: null,
 					currentPrice: this.props.purchasable.amount,
-					checkingCoupon: false
+					checkingCoupon: false,
 				});
 			} else {
 				this.setState({
@@ -145,24 +144,22 @@ export default createReactClass({
 					couponDiscount: '',
 					oldPrice: null,
 					currentPrice: this.props.purchasable.amount,
-					checkingCoupon: false
+					checkingCoupon: false,
 				});
 			}
 		}
 	},
 
-
-	getData () {
-		let use = this.state.triedCoupon && this.state.couponDiscount || null;
+	getData() {
+		let use = (this.state.triedCoupon && this.state.couponDiscount) || null;
 
 		return {
 			coupon: use && this.state.coupon,
-			expectedPrice: this.state.currentPrice
+			expectedPrice: this.state.currentPrice,
 		};
 	},
 
-
-	onCouponChanged () {
+	onCouponChanged() {
 		if (this.props.locked) {
 			return this.setState({ coupon: this.state.coupon });
 		}
@@ -171,24 +168,30 @@ export default createReactClass({
 
 		this.setState({
 			coupon: coupon,
-			checkingCoupon: true
+			checkingCoupon: true,
 		});
 
 		updateCoupon(this.props.purchasable, coupon);
 	},
 
-
-	render () {
-		const {props: {locked, purchasable}} = this;
+	render() {
+		const {
+			props: { locked, purchasable },
+		} = this;
 
 		const type = 'One-Time Purchase';
-		const {vendorInfo} = purchasable;
+		const { vendorInfo } = purchasable;
 		const startDate = vendorInfo && vendorInfo.getStartDate();
 		const endDate = vendorInfo && vendorInfo.getEndDate();
 		// const creditHours = 'No College Credit';//t('x_creditHours', {count: (vendorInfo && vendorInfo.Hours) || 0});
 
-		const oldTotal = this.state.oldPrice && this.getFormattedPrice(this.state.currency, this.state.oldPrice);
-		const total = this.getFormattedPrice(this.state.currency, this.state.currentPrice || 0);
+		const oldTotal =
+			this.state.oldPrice &&
+			this.getFormattedPrice(this.state.currency, this.state.oldPrice);
+		const total = this.getFormattedPrice(
+			this.state.currency,
+			this.state.currentPrice || 0
+		);
 		const discount = this.state.couponDiscount || '';
 		let couponLabel = t('coupon');
 		let couponLabelCls = '';
@@ -202,7 +205,7 @@ export default createReactClass({
 		} else if (this.state.triedCoupon) {
 			if (this.state.couponDiscount) {
 				couponLabelCls = 'valid';
-				couponLabel = t('validCoupon', {discount: discount});
+				couponLabel = t('validCoupon', { discount: discount });
 			} else {
 				couponLabelCls = 'invalid';
 				couponLabel = t('invalidCoupon');
@@ -217,22 +220,26 @@ export default createReactClass({
 				</div>
 				<div className="info">
 					<div className="row">
-
 						<div className="dates small-6 medium-4 columns">
 							{startDate && (
 								<div className="cell">
 									<span className="label">{t('begins')}</span>
-									<DateTime className="value" date={startDate} />
+									<DateTime
+										className="value"
+										date={startDate}
+									/>
 								</div>
 							)}
 							{endDate && (
 								<div className="cell">
 									<span className="label">{t('ends')}</span>
-									<DateTime className="value" date={endDate} />
+									<DateTime
+										className="value"
+										date={endDate}
+									/>
 								</div>
 							)}
 						</div>
-
 
 						{/*<div className="credits-and-refunds small-6 medium-4 columns">
 							<div className="credits cell">
@@ -241,30 +248,37 @@ export default createReactClass({
 							</div>
 						</div>*/}
 
-
 						<div className="price-and-coupon small-12 medium-4 columns">
 							<div className="cell total">
 								<span className="label">{t('total')}</span>
 								<span className="value">
-									{oldTotal ? <span className="old-amount">{oldTotal}</span> : null}
+									{oldTotal ? (
+										<span className="old-amount">
+											{oldTotal}
+										</span>
+									) : null}
 									<span className="amount">{total}</span>
 								</span>
 							</div>
 							<div className="cell coupon">
-								<span className={'label ' + couponLabelCls}>{couponLabel}</span>
-								<input type="text"
+								<span className={'label ' + couponLabelCls}>
+									{couponLabel}
+								</span>
+								<input
+									type="text"
 									ref={this.attachCouponRef}
 									name="coupon"
-									disabled={locked} readOnly={locked}
+									disabled={locked}
+									readOnly={locked}
 									placeholder={t('couponPlaceholder')}
 									onChange={this.onCouponChanged}
-									value={this.state.coupon}/>
+									value={this.state.coupon}
+								/>
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
 		);
-	}
+	},
 });

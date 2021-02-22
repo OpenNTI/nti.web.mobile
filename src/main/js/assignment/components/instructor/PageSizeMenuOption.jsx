@@ -7,17 +7,16 @@ export default class extends React.Component {
 	static propTypes = {
 		value: PropTypes.string,
 		onClick: PropTypes.func,
-		className: PropTypes.any
+		className: PropTypes.any,
 	};
 
 	onClick = () => {
-		const {value, onClick} = this.props;
+		const { value, onClick } = this.props;
 		onClick && onClick(value);
 	};
 
-	render () {
-
-		const {value, className} = this.props;
+	render() {
+		const { value, className } = this.props;
 
 		return (
 			<li className={className} onClick={this.onClick}>

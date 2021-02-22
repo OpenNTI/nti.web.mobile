@@ -30,7 +30,7 @@ const WIDGETS = [
 	RecentReplies,
 ];
 
-export default function select (item, index, props = {}) {
+export default function select(item, index, props = {}) {
 	let Item = Unknown;
 
 	for (let Type of WIDGETS) {
@@ -43,7 +43,8 @@ export default function select (item, index, props = {}) {
 	Object.assign(props, {
 		ref: 'input',
 		key: 'activity-' + (index || item.OID),
-		index, item
+		index,
+		item,
 	});
 
 	return React.createElement(Item, props);

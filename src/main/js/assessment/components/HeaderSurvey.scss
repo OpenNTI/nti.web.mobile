@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .header.assessment.common.survey {
 	display: block;
@@ -14,7 +14,7 @@
 
 	&.submitted::before {
 		color: var(--secondary-green);
-		content: "\221a";
+		content: '\221a';
 		border: 0;
 		border-radius: 40px;
 		box-shadow: 0 0 0 1px var(--secondary-green);
@@ -25,7 +25,9 @@
 	.links {
 		font-size: 0.8rem;
 		text-align: right;
-		span.icon-report { margin-right: 0.5em; }
+		span.icon-report {
+			margin-right: 0.5em;
+		}
 
 		a:not(:last-child) {
 			margin-right: 0.5em;

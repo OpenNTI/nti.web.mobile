@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {buffer} from '@nti/lib-commons';
+import { buffer } from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
-import {Pager, Mixins, Navigation, DateTime} from '@nti/web-commons';
-import {StoreEventsMixin} from '@nti/lib-store';
-import {Input} from '@nti/web-search';
-import {LinkTo, getHistory} from '@nti/web-routing';
+import { Pager, Mixins, Navigation, DateTime } from '@nti/web-commons';
+import { StoreEventsMixin } from '@nti/lib-store';
+import { Input } from '@nti/web-search';
+import { LinkTo, getHistory } from '@nti/web-routing';
 
 import NavStore from '../Store';
 
@@ -19,16 +19,21 @@ import Menu from './Menu';
 import UserMenu from './UserMenu';
 import ReturnTo from './ReturnTo';
 
-const Transition = (props) => ( <CSSTransition classNames="nav-menu" timeout={350} {...props}/> );
+const Transition = props => (
+	<CSSTransition classNames="nav-menu" timeout={350} {...props} />
+);
 
 const logger = Logger.get('NavigationBar');
 const menuOpenBodyClass = 'nav-menu-open';
 
+function getPageSourceInfo(pageSource, currentPage) {
+	if (!pageSource || !currentPage) {
+		return null;
+	}
 
-function getPageSourceInfo (pageSource, currentPage) {
-	if (!pageSource || !currentPage) { return null; }
-
-	const id = pageSource && (pageSource.id || (pageSource.root && pageSource.root.getID()));
+	const id =
+		pageSource &&
+		(pageSource.id || (pageSource.root && pageSource.root.getID()));
 	const root = pageSource && pageSource.root;
 	const toc = root && root.toc;
 	const isRealPages = (toc && !!toc.realPageIndex) || false;
@@ -37,13 +42,14 @@ function getPageSourceInfo (pageSource, currentPage) {
 	let total;
 
 	if (isRealPages) {
-		const {realPageIndex} = toc || {};
+		const { realPageIndex } = toc || {};
 		const allPages = realPageIndex && realPageIndex.NTIIDs[root.getID()];
 
 		total = allPages && allPages[allPages.length - 1];
 		current = realPageIndex && realPageIndex.NTIIDs[currentPage][0];
 	} else {
-		const pages = pageSource && pageSource.getPagesAround(currentPage, root);
+		const pages =
+			pageSource && pageSource.getPagesAround(currentPage, root);
 
 		current = pages ? pages.index + 1 : 0;
 		total = pages ? pages.total : 0;
@@ -52,33 +58,31 @@ function getPageSourceInfo (pageSource, currentPage) {
 	return {
 		id,
 		current,
-		total
+		total,
 	};
 }
 
-function getPagerPropsInfo (pagerProps) {
+function getPagerPropsInfo(pagerProps) {
 	return {
 		id: pagerProps.root,
 		current: (pagerProps.currentIndex || 0) + 1,
-		total: pagerProps.total || 0
+		total: pagerProps.total || 0,
 	};
 }
 
-
-function ensureSlash (str) {
+function ensureSlash(str) {
 	const split = /[?#]/.exec(str);
 	let args = '';
 	if (split) {
-		let {index} = split;
+		let { index } = split;
 		args = str.substr(index);
 		str = str.substr(0, index);
 	}
 
-	str = /\/$/.test(str) ? str : (str + '/');
+	str = /\/$/.test(str) ? str : str + '/';
 
 	return str + args;
 }
-
 
 export default createReactClass({
 	displayName: 'NavigationBar',
@@ -86,19 +90,21 @@ export default createReactClass({
 
 	contextTypes: {
 		router: PropTypes.object,
-		triggerRightMenu: PropTypes.func.isRequired
+		triggerRightMenu: PropTypes.func.isRequired,
 	},
 
 	childContextTypes: {
-		router: PropTypes.object
+		router: PropTypes.object,
 	},
 
 	propTypes: {
 		branding: PropTypes.bool,
-		menuItems: PropTypes.arrayOf(PropTypes.shape({
-			label: PropTypes.string,
-			href: PropTypes.string
-		})),
+		menuItems: PropTypes.arrayOf(
+			PropTypes.shape({
+				label: PropTypes.string,
+				href: PropTypes.string,
+			})
+		),
 		title: PropTypes.string,
 		className: PropTypes.string,
 		children: PropTypes.any,
@@ -109,12 +115,12 @@ export default createReactClass({
 		useCommonTabs: PropTypes.bool,
 		menuInitialState: PropTypes.oneOf(['open', 'closed']),
 		searchTerm: PropTypes.string,
-		theme: PropTypes.object
+		theme: PropTypes.object,
 	},
 
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
-			menuInitialState: 'closed'
+			menuInitialState: 'closed',
 		};
 	},
 
@@ -123,102 +129,113 @@ export default createReactClass({
 		default: buffer(100, function () {
 			let o = NavStore.getData();
 			logger.debug('Set Context: %o', o);
-			this.setState({resolving: true, ...o},
-				()=> this.fillIn(o));
-		})
+			this.setState({ resolving: true, ...o }, () => this.fillIn(o));
+		}),
 	},
 
+	componentDidUpdate(prevProps) {
+		const { searchTerm } = this.props;
+		const { searchOpen } = this.state;
 
-	componentDidUpdate (prevProps) {
-		const {searchTerm} = this.props;
-		const {searchOpen} = this.state;
-
-		if(!searchOpen && searchTerm) {
+		if (!searchOpen && searchTerm) {
 			this.launchSearch(null, true);
 		} else if (prevProps.searchTerm && searchTerm == null && searchOpen) {
 			this.setState({
-				searchOpen: false
+				searchOpen: false,
 			});
 		}
 
 		this.maybeFlashPages();
 	},
 
-
-	attachSearchRef (x) { this.search = x; },
+	attachSearchRef(x) {
+		this.search = x;
+	},
 	commonTabsRef: React.createRef(),
 
-
-	getChildContext () {
-		if (!this.props.useCommonTabs) { return {}; }
+	getChildContext() {
+		if (!this.props.useCommonTabs) {
+			return {};
+		}
 
 		return {
 			router: {
 				...this.context.router,
-				history: getHistory()
-			}
+				history: getHistory(),
+			},
 		};
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
 			resolving: true,
-			menuOpen: this.props.menuInitialState === 'open'
+			menuOpen: this.props.menuInitialState === 'open',
 		};
 	},
 
-	maybeFlashPages () {
-		const {pageSource, pagerProps, currentPage, flashPage, showFlash: wasShowing} = this.state;
-		const info = pagerProps ? getPagerPropsInfo(pagerProps) : getPageSourceInfo(pageSource, currentPage);
+	maybeFlashPages() {
+		const {
+			pageSource,
+			pagerProps,
+			currentPage,
+			flashPage,
+			showFlash: wasShowing,
+		} = this.state;
+		const info = pagerProps
+			? getPagerPropsInfo(pagerProps)
+			: getPageSourceInfo(pageSource, currentPage);
 
 		if (!info) {
 			if (wasShowing) {
 				this.setState({
 					showFlash: false,
-					flashPage: null
+					flashPage: null,
 				});
 			}
 
 			return;
 		}
 
-		const {id, current, total} = info;
-		const {id:prevId, current:prevPage, total:prevTotal} = flashPage || {};
+		const { id, current, total } = info;
+		const { id: prevId, current: prevPage, total: prevTotal } =
+			flashPage || {};
 
-		const sameFlash = prevId === id && prevPage === current && prevTotal === total;
+		const sameFlash =
+			prevId === id && prevPage === current && prevTotal === total;
 
 		if (sameFlash) {
 			return;
 		}
 
 		const show = id === prevId && current !== prevPage;
-		const newFlash = {id, current, total};
+		const newFlash = { id, current, total };
 
 		if (wasShowing && show) {
-			this.setState({
-				showFlash: false,
-				flashPage: newFlash
-			}, () => {
-				this.setState({
-					showFlash: true
-				});
-			});
+			this.setState(
+				{
+					showFlash: false,
+					flashPage: newFlash,
+				},
+				() => {
+					this.setState({
+						showFlash: true,
+					});
+				}
+			);
 		} else {
 			this.setState({
 				showFlash: show,
-				flashPage: newFlash
+				flashPage: newFlash,
 			});
 		}
 	},
 
-
-	fillIn (state = this.state) {
-		const {supportsSearch} = this.props;
-		const {path: contextPath = []} = state;
+	fillIn(state = this.state) {
+		const { supportsSearch } = this.props;
+		const { path: contextPath = [] } = state;
 		const [current, returnTo] = contextPath.slice().reverse();
 
-		const {searchOpen} = this.state;
+		const { searchOpen } = this.state;
 		const willSupportSearch = supportsSearch || current.supportsSearch;
 		const shouldClearSearch = searchOpen && !willSupportSearch;
 
@@ -226,121 +243,132 @@ export default createReactClass({
 			this.search?.clear();
 		}
 
-		logger.debug('Context Path: %s', contextPath.map(a=> a ? a.label : void 0).join(', '));
+		logger.debug(
+			'Context Path: %s',
+			contextPath.map(a => (a ? a.label : void 0)).join(', ')
+		);
 		this.setState({
 			current,
-			returnTo: current && current.returnOverride ?
-				current.returnOverride :
-				(returnTo && (returnTo.returnOverride || returnTo) ),
-			pagerProps: (current && current.pagerProps) || (returnTo && returnTo.pagerProps),
+			returnTo:
+				current && current.returnOverride
+					? current.returnOverride
+					: returnTo && (returnTo.returnOverride || returnTo),
+			pagerProps:
+				(current && current.pagerProps) ||
+				(returnTo && returnTo.pagerProps),
 			resolving: false,
-			searchOpen: shouldClearSearch ? false : searchOpen
+			searchOpen: shouldClearSearch ? false : searchOpen,
 		});
 	},
 
-
-	getChildForSide (side) {
-		let {children} = this.props;
+	getChildForSide(side) {
+		let { children } = this.props;
 
 		if (!Array.isArray(children)) {
 			children = children ? [children] : [];
 		}
 
-		let is = x=> ((x && x.props) || {}).position === side ? x : null;
+		let is = x => (((x && x.props) || {}).position === side ? x : null);
 
-		return children.reduce((x, a)=>x || is(a), null);
+		return children.reduce((x, a) => x || is(a), null);
 	},
 
-
-	getLeft () {
-		let {returnTo} = this.state || {};
+	getLeft() {
+		let { returnTo } = this.state || {};
 		if (returnTo) {
-			return <section><ReturnTo {...returnTo}/></section>;
+			return (
+				<section>
+					<ReturnTo {...returnTo} />
+				</section>
+			);
 		}
 
 		return this.getChildForSide('left');
 	},
 
-	userMenuClicked () {
-		let {triggerRightMenu} = this.context;
+	userMenuClicked() {
+		let { triggerRightMenu } = this.context;
 		this.closeMenu();
 		triggerRightMenu();
 	},
 
-	getRight () {
-		return this.getChildForSide('right') || <UserMenu onClick={this.userMenuClicked}/>;
-	},
-
-
-	renderTab (tabCmp, tab) {
+	getRight() {
 		return (
-			<LinkTo.Path to={tab.route}>
-				{tabCmp}
-			</LinkTo.Path>
+			this.getChildForSide('right') || (
+				<UserMenu onClick={this.userMenuClicked} />
+			)
 		);
 	},
 
+	renderTab(tabCmp, tab) {
+		return <LinkTo.Path to={tab.route}>{tabCmp}</LinkTo.Path>;
+	},
 
-	renderCommonTabs () {
-		if (this.state.resolving && !this.commonTabsRef.current) { return null; }
+	renderCommonTabs() {
+		if (this.state.resolving && !this.commonTabsRef.current) {
+			return null;
+		}
 
-		const {CatalogEntry} = this.props.course || {};
+		const { CatalogEntry } = this.props.course || {};
 
 		let inPreview = false;
 
-		if(CatalogEntry && CatalogEntry.Preview) {
+		if (CatalogEntry && CatalogEntry.Preview) {
 			inPreview = true;
 		}
 
 		let label = 'In Preview';
 
-		if(CatalogEntry && CatalogEntry.getStartDate()) {
-			label += ' - Starts ' + DateTime.format(CatalogEntry.getStartDate(), DateTime.MONTH_ABBR_DAY_YEAR);
+		if (CatalogEntry && CatalogEntry.getStartDate()) {
+			label +=
+				' - Starts ' +
+				DateTime.format(
+					CatalogEntry.getStartDate(),
+					DateTime.MONTH_ABBR_DAY_YEAR
+				);
 		}
 
 		return (
 			<div className="common-tabs" ref={this.commonTabsRef}>
-				<Navigation renderTab={this.renderTab}/>
+				<Navigation renderTab={this.renderTab} />
 				{inPreview && <div className="preview">{label}</div>}
 			</div>
 		);
 	},
 
-	getCenter () {
+	getCenter() {
 		if (this.props.useCommonTabs) {
 			return this.renderCommonTabs();
 		}
 
 		let css = cx({
-			'title': true,
-			'branding': !!this.props.branding
+			title: true,
+			branding: !!this.props.branding,
 		});
 
-		let {current} = this.state;
+		let { current } = this.state;
 
 		let title = (current || {}).label || this.props.title;
 
-		return this.getChildForSide('center')
-			|| this.getMenu()
-			|| (title ? (
-
+		return (
+			this.getChildForSide('center') ||
+			this.getMenu() ||
+			(title ? (
 				<a href={this.getBasePath()}>
 					<h1 className={css}>{title}</h1>
 				</a>
-
-			) : null);
+			) : null)
+		);
 	},
 
-
-	getMenu () {
-		let {availableSections} = this.props;
+	getMenu() {
+		let { availableSections } = this.props;
 
 		if (!availableSections) {
 			return;
 		}
 
-
-		let {label = 'Menu'} = this.getActiveSection() || {};
+		let { label = 'Menu' } = this.getActiveSection() || {};
 
 		return (
 			<a href="#" onClick={this.toggleMenu} className="menu">
@@ -349,81 +377,75 @@ export default createReactClass({
 		);
 	},
 
-
-	getActiveSection () {
+	getActiveSection() {
 		let candidate;
 		let ref = ensureSlash(this.makeHref(this.getPath()));
 
-		let {availableSections} = this.props;
+		let { availableSections } = this.props;
 
 		if (availableSections) {
-
-			for(let x of availableSections) {
+			for (let x of availableSections) {
 				if (ref.indexOf(path.normalize(this.makeHref(x.href))) === 0) {
 					if (!candidate || candidate.href.length < x.href.length) {
 						candidate = x;
 					}
 				}
 			}
-
 		}
 
 		return candidate;
 	},
 
-
-	toggleMenu (e) {
+	toggleMenu(e) {
 		e.preventDefault();
 		e.stopPropagation();
 
 		let s = !this.state.menuOpen;
 		this.updateBodyClassForMenu(s);
-		this.setState({menuOpen: s});
+		this.setState({ menuOpen: s });
 	},
 
-
-	updateBodyClassForMenu (isOpen) {
+	updateBodyClassForMenu(isOpen) {
 		// video elements interfere with the menu interaction. adding a class to body
 		// when the menu is open allows us to use css to get the videos out of the way.
 		if (isOpen) {
 			document.body.classList.add(menuOpenBodyClass);
-		}
-		else {
+		} else {
 			document.body.classList.remove(menuOpenBodyClass);
 		}
 	},
 
-
-	closeMenu (e) {
+	closeMenu(e) {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 		this.updateBodyClassForMenu(false);
-		this.setState({menuOpen: false});
+		this.setState({ menuOpen: false });
 	},
 
-
-	onSelect () {
+	onSelect() {
 		this.closeMenu();
 	},
 
-	launchSearch (e, backAction) {
+	launchSearch(e, backAction) {
 		e?.stopPropagation();
 		e?.preventDefault();
 
-		this.setState({
-			searchOpen: true,
-			menuOpen: false
-		}, () => {
-			if (this.search && !backAction) {
-				this.search.focus();
+		this.setState(
+			{
+				searchOpen: true,
+				menuOpen: false,
+			},
+			() => {
+				if (this.search && !backAction) {
+					this.search.focus();
+				}
 			}
-		});
+		);
 	},
 
-
-	closeSearch (e) {
+	closeSearch(e) {
 		e.preventDefault();
 
 		if (this.search) {
@@ -431,16 +453,15 @@ export default createReactClass({
 		}
 
 		this.setState({
-			searchOpen: false
+			searchOpen: false,
 		});
 	},
 
-
-	render () {
-		let {menuOpen} = this.state;
+	render() {
+		let { menuOpen } = this.state;
 
 		let css = cx({
-			'nav-menu-open': menuOpen
+			'nav-menu-open': menuOpen,
 		});
 
 		return (
@@ -448,7 +469,11 @@ export default createReactClass({
 				<TransitionGroup>
 					{menuOpen && (
 						<Transition key="mask">
-							<a href="#" className="nav-menu-mask" onClick={this.closeMenu} />
+							<a
+								href="#"
+								className="nav-menu-mask"
+								onClick={this.closeMenu}
+							/>
 						</Transition>
 					)}
 					{this.renderMenu()}
@@ -458,29 +483,67 @@ export default createReactClass({
 		);
 	},
 
-
-	renderBar () {
-		const {supportsSearch, border, className, useCommonTabs, theme} = this.props;
-		let {pageSource, current, currentPage, context, resolving, searchOpen, pagerProps} = this.state;
+	renderBar() {
+		const {
+			supportsSearch,
+			border,
+			className,
+			useCommonTabs,
+			theme,
+		} = this.props;
+		let {
+			pageSource,
+			current,
+			currentPage,
+			context,
+			resolving,
+			searchOpen,
+			pagerProps,
+		} = this.state;
 		const root = pageSource && pageSource.root;
 		const toc = root && root.toc;
 		const isRealPages = (toc && !!toc.realPageIndex) || false;
 
 		return (
 			<nav
-				className={cx('nav-bar', {border, 'use-common-tabs': useCommonTabs}, className)}
-				style={{background: theme && theme.backgroundColor}}
+				className={cx(
+					'nav-bar',
+					{ border, 'use-common-tabs': useCommonTabs },
+					className
+				)}
+				style={{ background: theme && theme.backgroundColor }}
 			>
 				{this.getLeft()}
-				<section className={cx('middle', {'has-pager': pageSource, resolving})}>
+				<section
+					className={cx('middle', {
+						'has-pager': pageSource,
+						resolving,
+					})}
+				>
 					{this.getCenter()}
 				</section>
 				<section className={cx('right-section')}>
-					{pageSource && !pagerProps && <Pager pageSource={pageSource} current={currentPage} navigatableContext={context}  isRealPages={isRealPages} toc={toc} />}
-					{pagerProps && (<Pager {...pagerProps} navigatableContext={context} />)}
-					{(supportsSearch || (current && current.supportsSearch)) && (
+					{pageSource && !pagerProps && (
+						<Pager
+							pageSource={pageSource}
+							current={currentPage}
+							navigatableContext={context}
+							isRealPages={isRealPages}
+							toc={toc}
+						/>
+					)}
+					{pagerProps && (
+						<Pager {...pagerProps} navigatableContext={context} />
+					)}
+					{(supportsSearch ||
+						(current && current.supportsSearch)) && (
 						<a href="#" onClick={this.launchSearch}>
-							<i className={cx('icon-search launch-search', theme && theme.icon)}  />
+							<i
+								className={cx(
+									'icon-search launch-search',
+									theme && theme.icon
+								)}
+							/>
 						</a>
 					)}
 					{this.getRight()}
@@ -491,13 +554,14 @@ export default createReactClass({
 		);
 	},
 
+	renderFlashPage() {
+		const { showFlash, flashPage: page } = this.state;
 
-	renderFlashPage () {
-		const {showFlash, flashPage: page} = this.state;
+		if (!showFlash || !page || !page.total) {
+			return null;
+		}
 
-		if (!showFlash || !page || !page.total) { return null; }
-
-		const {current, total} = page;
+		const { current, total } = page;
 
 		return (
 			<div className="flash-page-bar">
@@ -508,20 +572,25 @@ export default createReactClass({
 		);
 	},
 
-
-	renderMenu () {
-		let {menuOpen} = this.state;
-		let {availableSections} = this.props;
+	renderMenu() {
+		let { menuOpen } = this.state;
+		let { availableSections } = this.props;
 		let props = {
 			className: 'title-bar-menu',
 		};
 
 		let active = this.getActiveSection();
 
-		let sectionProps = x=> {
+		let sectionProps = x => {
 			let title = x.label;
 			let href = path.normalize(this.makeHref(x.href));
-			return {children: title, ...x, title, href, className: cx(x.className, {active: active === x})};
+			return {
+				children: title,
+				...x,
+				title,
+				href,
+				className: cx(x.className, { active: active === x }),
+			};
 		};
 
 		if (!availableSections) {
@@ -530,31 +599,39 @@ export default createReactClass({
 
 		let sections = availableSections.map(sectionProps);
 
-		return menuOpen && (
-			<Transition key="menu">
-				<Menu {...props}>
-					{sections.map((x,i)=>
-						<li key={i} {...x}><a onClick={this.onSelect} {...x}/></li>
-					)}
-				</Menu>
-			</Transition>
+		return (
+			menuOpen && (
+				<Transition key="menu">
+					<Menu {...props}>
+						{sections.map((x, i) => (
+							<li key={i} {...x}>
+								<a onClick={this.onSelect} {...x} />
+							</li>
+						))}
+					</Menu>
+				</Transition>
+			)
 		);
 	},
 
-
-	renderSearch () {
-		const {theme} = this.props;
+	renderSearch() {
+		const { theme } = this.props;
 		const icon = theme && theme.icon;
 
 		return (
-			<div className="search-container" style={{backgroundColor: theme && theme.backgroundColor}} >
+			<div
+				className="search-container"
+				style={{ backgroundColor: theme && theme.backgroundColor }}
+			>
 				<i className={cx('icon-search', icon)} />
-				<Input className={cx(theme && theme.search)} ref={this.attachSearchRef} />
+				<Input
+					className={cx(theme && theme.search)}
+					ref={this.attachSearchRef}
+				/>
 				<a href="#" className="close-search" onClick={this.closeSearch}>
-					<i className={cx('icon-bold-x', icon)}/>
+					<i className={cx('icon-bold-x', icon)} />
 				</a>
 			</div>
 		);
-	}
-
+	},
 });

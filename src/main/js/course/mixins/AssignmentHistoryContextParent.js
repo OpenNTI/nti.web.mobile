@@ -1,34 +1,35 @@
 import PropTypes from 'prop-types';
 
 const noHistory = {
-	getItem: () => null
+	getItem: () => null,
 };
 
 export default {
-
 	childContextTypes: {
-		assignmentsHistory: PropTypes.object
+		assignmentsHistory: PropTypes.object,
 	},
 
-	getChildContext () {
+	getChildContext() {
 		return {
-			assignmentsHistory: this.state.assignmentsHistory
+			assignmentsHistory: this.state.assignmentsHistory,
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.loadAssignmentHistory();
 	},
 
-	loadAssignmentHistory () {
-		let {course} = this.props;
-		course.getAssignments()
-			.then(assignments => assignments.getHistory ? assignments.getHistory() : noHistory)
+	loadAssignmentHistory() {
+		let { course } = this.props;
+		course
+			.getAssignments()
+			.then(assignments =>
+				assignments.getHistory ? assignments.getHistory() : noHistory
+			)
 			.then(assignmentsHistory => {
 				this.setState({
-					assignmentsHistory
+					assignmentsHistory,
 				});
 			});
-	}
-
+	},
 };

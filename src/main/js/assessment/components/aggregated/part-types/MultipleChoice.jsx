@@ -9,20 +9,18 @@ export default createReactClass({
 	mixins: [CommonParts],
 
 	statics: {
-		partType: [
-			'MultipleChoice',
-			'MultipleChoiceMultipleAnswer'
-		]
+		partType: ['MultipleChoice', 'MultipleChoiceMultipleAnswer'],
 	},
 
-
-	render () {
-		const {state: {results}} = this;
+	render() {
+		const {
+			state: { results },
+		} = this;
 
 		return (
 			<div>
-				<BarChart data={results}/>
+				<BarChart data={results} />
 			</div>
 		);
-	}
+	},
 });

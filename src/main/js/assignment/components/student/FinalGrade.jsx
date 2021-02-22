@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
-export default function FinalGrade ({grade}) {
+export default function FinalGrade({ grade }) {
 	const classes = cx('final-grade', {
-		'unspecified': !grade
+		unspecified: !grade,
 	});
 
 	if (!grade) {
@@ -26,6 +26,6 @@ export default function FinalGrade ({grade}) {
 FinalGrade.propTypes = {
 	grade: PropTypes.shape({
 		getValue: PropTypes.func,
-		getLetter: PropTypes.func
-	})
+		getLetter: PropTypes.func,
+	}),
 };

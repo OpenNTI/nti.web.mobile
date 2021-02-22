@@ -9,37 +9,36 @@ import ReactDOM from 'react-dom';
 
 import Button from '../Button';
 
-describe('FooBar', ()=> {
+describe('FooBar', () => {
 	let container;
 	let component;
 
-	beforeEach(()=> {
+	beforeEach(() => {
 		container = document.createElement('div');
 		container.id = 'content';
 		document.body.appendChild(container);
 
 		//TODO: update example to use ref callback since render()'s return value is deprecated.
-		component = ReactDOM.render(//eslint-disable-line
-			React.createElement(Button, {href: '#'}, 'Test'),
+		//eslint-disable-next-line react/no-render-return-value
+		component = ReactDOM.render(
+			React.createElement(Button, { href: '#' }, 'Test'),
 			container
 		);
-
 	});
 
-	afterEach(()=> {
+	afterEach(() => {
 		ReactDOM.unmountComponentAtNode(container);
 		document.body.removeChild(container);
 	});
 
-	test('should create a new instance of Button', ()=> {
+	test('should create a new instance of Button', () => {
 		expect(component).toBeDefined();
 		expect(container.textContent).toBe('Test');
 	});
 
-
-	test('should call preventDefault onClick', ()=> {
+	test('should call preventDefault onClick', () => {
 		let event = {
-			preventDefault: ()=> {}
+			preventDefault: () => {},
 		};
 
 		spyOn(event, 'preventDefault');
@@ -47,6 +46,5 @@ describe('FooBar', ()=> {
 		component.onClick(event);
 
 		expect(event.preventDefault).toHaveBeenCalled();
-
 	});
 });

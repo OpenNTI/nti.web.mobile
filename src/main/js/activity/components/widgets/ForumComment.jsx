@@ -2,9 +2,9 @@ import './ForumComment.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {DateTime, LuckyCharms} from '@nti/web-commons';
+import { DateTime, LuckyCharms } from '@nti/web-commons';
 
-import {Panel as ModeledContent} from 'modeled-content';
+import { Panel as ModeledContent } from 'modeled-content';
 import Avatar from 'common/components/Avatar';
 import Breadcrumb from 'common/components/BreadcrumbPath';
 import DisplayName from 'common/components/DisplayName';
@@ -16,16 +16,15 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	statics: {
-		mimeType: /forums\.(.+)forumcomment/i
+		mimeType: /forums\.(.+)forumcomment/i,
 	},
 
 	propTypes: {
-		item: PropTypes.any.isRequired
+		item: PropTypes.any.isRequired,
 	},
 
-	render () {
-
-		let {item} = this.props;
+	render() {
+		let { item } = this.props;
 		if (!item) {
 			return null;
 		}
@@ -36,14 +35,16 @@ export default createReactClass({
 				<div className="body">
 					<LuckyCharms item={item} />
 					<div className="wrap">
-						<Avatar entity={item.creator} /> <DisplayName entity={item.creator} /> commented on this discussion.
+						<Avatar entity={item.creator} />{' '}
+						<DisplayName entity={item.creator} /> commented on this
+						discussion.
 						<div className="meta">
-							<DateTime date={item.getCreatedTime()} relative/>
+							<DateTime date={item.getCreatedTime()} relative />
 						</div>
 					</div>
 					<ModeledContent body={item.body} />
 				</div>
 			</div>
 		);
-	}
+	},
 });

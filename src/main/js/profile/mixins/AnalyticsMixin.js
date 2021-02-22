@@ -3,18 +3,16 @@ import { addHistory, getHistory } from '@nti/lib-analytics';
 const getEntityId = 'Profile:getEntityId';
 
 export default {
-
-	[getEntityId] () {
-		let {entity} = this.props;
+	[getEntityId]() {
+		let { entity } = this.props;
 		return entity && entity.getID();
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		addHistory(this[getEntityId]());
 	},
 
-
-	getAnalyticsData () {
+	getAnalyticsData() {
 		const analyticsContext = () => {
 			let h = getHistory() || [];
 			if (h.length > 0 && h[h.length - 1] === this[getEntityId]()) {
@@ -27,8 +25,7 @@ export default {
 			context: analyticsContext(),
 			resourceId: this[getEntityId](),
 			rootContextId: this[getEntityId](),
-			type: this.getAnalyticsType()
+			type: this.getAnalyticsType(),
 		};
-	}
-
+	},
 };

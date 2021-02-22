@@ -1,44 +1,44 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {getService} from '@nti/web-client';
-import {decodeFromURI} from '@nti/lib-ntiids';
-import {Event} from '@nti/web-calendar';
+import { getService } from '@nti/web-client';
+import { decodeFromURI } from '@nti/lib-ntiids';
+import { Event } from '@nti/web-calendar';
 
 import Redirect from 'navigation/components/Redirect';
 
 export default class EventView extends React.Component {
 	static propTypes = {
-		eventId: PropTypes.string
-	}
+		eventId: PropTypes.string,
+	};
 
-	componentDidMount () {
+	componentDidMount() {
 		this.loadEvent();
 	}
 
-	async loadEvent () {
-		const {eventId} = this.props;
+	async loadEvent() {
+		const { eventId } = this.props;
 
 		const service = await getService();
 		const event = await service.getObject(decodeFromURI(eventId));
 
-		this.setState({event});
+		this.setState({ event });
 	}
 
-	state = {}
+	state = {};
 
 	goBack = () => {
-		this.setState({close: true});
-	}
+		this.setState({ close: true });
+	};
 
-	render () {
-		const {event, close} = this.state;
+	render() {
+		const { event, close } = this.state;
 
-		if(close) {
-			return <Redirect location="/calendar"/>;
-		}
-		else if(event) {
+		if (close) {
+			return <Redirect location="/calendar" />;
+		} else if (event) {
 			return (
-				<Event.View event={event}
+				<Event.View
+					event={event}
 					getAvailableCalendars={() => []}
 					onCancel={this.goBack}
 					onSuccess={this.goBack}

@@ -1,9 +1,9 @@
-import {decodeFromURI} from '@nti/lib-ntiids';
+import { decodeFromURI } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
 
-import {getForumContents} from '../Api';
+import { getForumContents } from '../Api';
 import Store from '../Store';
-import {ITEM_CONTENTS_CHANGED} from '../Constants';
+import { ITEM_CONTENTS_CHANGED } from '../Constants';
 
 import paging from './Paging';
 
@@ -13,10 +13,11 @@ const LoadData = 'LoadForum:LoadData';
 const logger = Logger.get('forums:mixins:LoadForum');
 
 export default {
-	// eslint-disable-next-line camelcase
-	UNSAFE_componentWillMount () {
+	UNSAFE_componentWillMount() {
 		if (!this.registerStoreEventHandler) {
-			logger.warn('this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)');
+			logger.warn(
+				'this.registerStoreEventHandler is undefined. (Forgot to include the StoreEvents mixin?)'
+			);
 			return;
 		}
 		this.registerStoreEventHandler(ITEM_CONTENTS_CHANGED, ChangedHandler);
@@ -29,35 +30,46 @@ export default {
 		this[LoadData](this.props.forumId);
 	},
 
-	componentDidUpdate (prevProps, prevState) {
-		if (prevProps.forumId !== this.props.forumId || paging.batchStart() !== prevState.batchStart) {
+	componentDidUpdate(prevProps, prevState) {
+		if (
+			prevProps.forumId !== this.props.forumId ||
+			paging.batchStart() !== prevState.batchStart
+		) {
 			this[LoadData](this.props.forumId);
 			this.setState({
 				loading: true,
-				batchStart: paging.batchStart()
+				batchStart: paging.batchStart(),
 			});
 		}
 	},
 
-	[ChangedHandler] (event) {
-		let {forumId} = this.props;
+	[ChangedHandler](event) {
+		let { forumId } = this.props;
 		if (decodeFromURI(event.itemId) === decodeFromURI(forumId)) {
 			this.setState({
-				loading: false
+				loading: false,
 			});
 		}
 	},
 
-	[LoadData] (forumId) {
-		getForumContents(forumId, paging.batchStart(), paging.getPageSize())
-			.then(
-				result => {
-					Store.setForumItem(forumId, result.item);
-					Store.setForumItemContents(forumId, result.contents, result.params);
-				},
-				reason => {
-					Store.setForumItem(forumId, reason);
-					Store.setForumItemContents(forumId, reason);
-				});
-	}
+	[LoadData](forumId) {
+		getForumContents(
+			forumId,
+			paging.batchStart(),
+			paging.getPageSize()
+		).then(
+			result => {
+				Store.setForumItem(forumId, result.item);
+				Store.setForumItemContents(
+					forumId,
+					result.contents,
+					result.params
+				);
+			},
+			reason => {
+				Store.setForumItem(forumId, reason);
+				Store.setForumItemContents(forumId, reason);
+			}
+		);
+	},
 };

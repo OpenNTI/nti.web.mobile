@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 
 import PropTypes from 'prop-types';
 
-function emit (o, event, ...data) {
+function emit(o, event, ...data) {
 	let e = o.state.dndEventEmitter;
 	e.emit.apply(e, [event].concat(data));
 }
@@ -14,14 +14,12 @@ const onDragOver = 'dnd:mixin:onDragOver';
 const onDrop = 'dnd:mixin:onDrop';
 
 export default {
-
-	getInitialState () {
+	getInitialState() {
 		return {
 			currentDragItem: null,
-			dndEventEmitter: new EventEmitter()
+			dndEventEmitter: new EventEmitter(),
 		};
 	},
-
 
 	childContextTypes: {
 		//Common:
@@ -36,11 +34,10 @@ export default {
 		//For Droppable
 		lastDragOver: PropTypes.object,
 		onDragOver: PropTypes.func,
-		onDrop: PropTypes.func
+		onDrop: PropTypes.func,
 	},
 
-
-	getChildContext () {
+	getChildContext() {
 		let s = this.state;
 		return {
 			dndEvents: s.dndEventEmitter,
@@ -52,12 +49,11 @@ export default {
 			onDrag: this[onDrag],
 
 			onDragOver: this[onDragOver],
-			onDrop: this[onDrop]
+			onDrop: this[onDrop],
 		};
 	},
 
-
-	getNewUniqueToken () {
+	getNewUniqueToken() {
 		// This looks confusing, I know. This `token`
 		// object is passed as a value to the DragTarget
 		// accepts prop. Its also set to the type prop
@@ -71,31 +67,29 @@ export default {
 		// an anonymouse object will test if the argument
 		// passed to it is the exact same object as `token`.
 
-		let token = { accepts: (t)=> t === token };
+		let token = { accepts: t => t === token };
 
 		return token;
 	},
 
-
-	getNewCombinationToken (...tokens) {
+	getNewCombinationToken(...tokens) {
 		return {
-			accepts: (t)=> tokens.filter(x=> x === t || x.accepts(t)).length > 0
+			accepts: t =>
+				tokens.filter(x => x === t || x.accepts(t)).length > 0,
 		};
 	},
 
-
-	[onDragStart] (item) {
+	[onDragStart](item) {
 		this.setState({
 			currentDragItem: item,
-			lastDragOver: null
+			lastDragOver: null,
 		});
 		emit(this, 'dragStart');
 	},
 
-
-	[onDragEnd] () {
+	[onDragEnd]() {
 		let lastOver = this.state.lastDragOver || {};
-		let {target} = lastOver;
+		let { target } = lastOver;
 		let dropped = false;
 
 		if (target) {
@@ -103,20 +97,18 @@ export default {
 		}
 
 		this.setState({
-			currentDragItem: null
+			currentDragItem: null,
 		});
 
 		emit(this, 'dragEnd');
 		return dropped;
 	},
 
-
-	[onDrag] (draggable, event, data) {
+	[onDrag](draggable, event, data) {
 		emit(this, 'drag', data);
 	},
 
-
-	[onDragOver] (target, sender) {
+	[onDragOver](target, sender) {
 		let last = this.state.lastDragOver || {};
 		let lastTarget = last.target;
 
@@ -127,20 +119,19 @@ export default {
 		this.setState({
 			lastDragOver: {
 				source: this.state.currentDragItem,
-				target: target
-			}
+				target: target,
+			},
 		});
 	},
 
-
-	[onDrop] (target) {
+	[onDrop](target) {
 		let drop = {
 			source: this.state.currentDragItem,
-			target: target
+			target: target,
 		};
 
 		this.setState({
-			lastDragOver: null
+			lastDragOver: null,
 		});
 
 		emit(this, 'drop', drop);
@@ -148,5 +139,5 @@ export default {
 		if (this.onDrop) {
 			this.onDrop(drop);
 		}
-	}
+	},
 };

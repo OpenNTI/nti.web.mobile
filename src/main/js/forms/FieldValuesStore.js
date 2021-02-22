@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 
-import {CHANGE_EVENT} from '@nti/lib-store';
+import { CHANGE_EVENT } from '@nti/lib-store';
 
 import * as Constants from './Constants';
 
@@ -8,49 +8,58 @@ import * as Constants from './Constants';
 
 // store field values outside of component state
 // so we can update without triggering a re-render.
-export default ({ ...EventEmitter.prototype, fieldValues: {},
+export default {
+	...EventEmitter.prototype,
+	fieldValues: {},
 	availableFields: new Set(),
 	autopopulator: null,
 
-	addChangeListener (callback) {
+	addChangeListener(callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	removeChangeListener (callback) {
+	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	emitChange (evt) {
+	emitChange(evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-	getValues (stripEmpty = false) {
-		let vals = this.preprocess({ ...this.fieldValues});
+	getValues(stripEmpty = false) {
+		let vals = this.preprocess({ ...this.fieldValues });
 		return stripEmpty ? this.stripEmptyValues(vals) : vals;
 	},
 
-	stripEmptyValues (values) {
+	stripEmptyValues(values) {
 		return Object.keys(values || {}).reduce((previous, current) => {
-			if (typeof values[current] !== 'string' || values[current].trim().length > 0) {
+			if (
+				typeof values[current] !== 'string' ||
+				values[current].trim().length > 0
+			) {
 				previous[current] = values[current];
 			}
 			return previous;
 		}, {});
 	},
 
-	setValue (name, value) {
+	setValue(name, value) {
 		this.fieldValues[name] = value;
 	},
 
-	preprocess (values) {
-		return this.autopopulator && this.autopopulator.preprocess ? this.autopopulator.preprocess(values) : values;
+	preprocess(values) {
+		return this.autopopulator && this.autopopulator.preprocess
+			? this.autopopulator.preprocess(values)
+			: values;
 	},
 
-	autopopulatedValue (name) {
-		return this.autopopulator ? this.autopopulator.valueFor(name) : undefined;
+	autopopulatedValue(name) {
+		return this.autopopulator
+			? this.autopopulator.valueFor(name)
+			: undefined;
 	},
 
-	getValue (name) {
+	getValue(name) {
 		let v = this.fieldValues[name];
 		if (!v && v !== '') {
 			v = this.autopopulatedValue(name);
@@ -61,15 +70,15 @@ export default ({ ...EventEmitter.prototype, fieldValues: {},
 		return v;
 	},
 
-	setAutopopulator (autopop) {
+	setAutopopulator(autopop) {
 		this.autopopulator = autopop;
 	},
 
-	clearValue (name) {
+	clearValue(name) {
 		delete this.fieldValues[name];
 	},
 
-	setAvailableFields (fieldNames) {
+	setAvailableFields(fieldNames) {
 		let oldFields = this.availableFields;
 		this.availableFields = new Set(fieldNames);
 		// only emit change if the fields actually changed.
@@ -79,23 +88,25 @@ export default ({ ...EventEmitter.prototype, fieldValues: {},
 			this.pruneValues(fieldNames);
 			this.emitChange({
 				type: Constants.AVAILABLE_FIELDS_CHANGED,
-				fields: new Set(this.availableFields)
+				fields: new Set(this.availableFields),
 			});
 		}
 	},
 
-	updateFieldValue (event) {
-		let {target} = event;
-		let {name, value} = target;
+	updateFieldValue(event) {
+		let { target } = event;
+		let { name, value } = target;
 
 		if (typeof value === 'string') {
 			value = value.trim();
 		}
 
-		if(target.type === 'checkbox' && !target.checked) {
+		if (target.type === 'checkbox' && !target.checked) {
 			delete this.fieldValues[name];
-		}
-		else if (value || Object.prototype.hasOwnProperty.call(this.fieldValues,name)) {
+		} else if (
+			value ||
+			Object.prototype.hasOwnProperty.call(this.fieldValues, name)
+		) {
 			// ^ don't set an empty value if there's not already
 			// an entry for this field in this.state.fieldValues
 			this.setValue(name, value);
@@ -104,7 +115,7 @@ export default ({ ...EventEmitter.prototype, fieldValues: {},
 			type: Constants.FIELD_VALUE_CHANGE,
 			fieldName: name,
 			fieldValue: value,
-			target
+			target,
 		});
 
 		// if (isFunction(this.props.onFieldValuesChange)) {
@@ -118,9 +129,9 @@ export default ({ ...EventEmitter.prototype, fieldValues: {},
 	 * @param {Set} keep The set of field names to keep.
 	 * @returns {void}
 	 */
-	pruneValues (keep) {
+	pruneValues(keep) {
 		let removed = [];
-		let {fieldValues} = this;
+		let { fieldValues } = this;
 		Object.keys(fieldValues).forEach(key => {
 			if (!keep.has(key)) {
 				delete fieldValues[key];
@@ -128,17 +139,19 @@ export default ({ ...EventEmitter.prototype, fieldValues: {},
 			}
 		});
 
-		if(removed.length > 0) {
+		if (removed.length > 0) {
 			this.emitChange({
 				type: Constants.FIELD_VALUES_REMOVED,
-				removed: removed
+				removed: removed,
 			});
 		}
-	}});
+	},
+};
 
-function setsAreEquivalent (set1, set2) {
-	if(set1 instanceof Set && set2 instanceof Set && set1.size === set2.size) {
-		let val, v = set1.values();
+function setsAreEquivalent(set1, set2) {
+	if (set1 instanceof Set && set2 instanceof Set && set1.size === set2.size) {
+		let val,
+			v = set1.values();
 		do {
 			val = v.next();
 			if (val.done) {
@@ -147,7 +160,7 @@ function setsAreEquivalent (set1, set2) {
 			if (!set2.has(val.value)) {
 				return false;
 			}
-		} while(!val.done);
+		} while (!val.done);
 	}
 	return false;
 }

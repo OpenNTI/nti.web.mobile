@@ -1,51 +1,55 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {encodeForURI} from '@nti/lib-ntiids';
-import {getModel} from '@nti/lib-interfaces';
-import {Mixins, Presentation} from '@nti/web-commons';
-
+import { encodeForURI } from '@nti/lib-ntiids';
+import { getModel } from '@nti/lib-interfaces';
+import { Mixins, Presentation } from '@nti/web-commons';
 
 const PackageClass = getModel('ContentPackage');
-
 
 export default createReactClass({
 	displayName: 'Package',
 	mixins: [Mixins.BasePath],
 
 	statics: {
-		handles (item) {
+		handles(item) {
 			return item instanceof PackageClass;
-		}
+		},
 	},
 
 	propTypes: {
-		item: PropTypes.object.isRequired
+		item: PropTypes.object.isRequired,
 	},
 
+	getItem() {
+		return this.props.item;
+	},
 
-	getItem () {return this.props.item; },
+	itemChanged() {
+		this.forceUpdate();
+	},
 
-	itemChanged () { this.forceUpdate(); },
-
-	componentDidMount () {
+	componentDidMount() {
 		this.getItem().addListener('change', this.itemChanged);
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		this.getItem().removeListener('change', this.itemChanged);
 	},
 
-
-	render () {
+	render() {
 		let item = this.getItem();
 		let id = encodeForURI(item.getID());
-		let {author, title} = item;
+		let { author, title } = item;
 
 		return (
 			<div className="library-item-old package">
 				<a href={this.getBasePath() + 'content/' + id + '/'}>
-					<Presentation.Asset contentPackage={item} propName="src" type="landing">
+					<Presentation.Asset
+						contentPackage={item}
+						propName="src"
+						type="landing"
+					>
 						<img />
 					</Presentation.Asset>
 					<label>
@@ -55,5 +59,5 @@ export default createReactClass({
 				</a>
 			</div>
 		);
-	}
+	},
 });

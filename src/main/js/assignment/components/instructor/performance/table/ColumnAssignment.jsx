@@ -1,16 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {encodeForURI} from '@nti/lib-ntiids';
-import {scoped} from '@nti/lib-locale';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { scoped } from '@nti/lib-locale';
 
-const t = scoped('nti-web-mobile.assignment.components.instructor.performance.table.ColumnAssignment', {
-	label: 'Assignment'
-});
+const t = scoped(
+	'nti-web-mobile.assignment.components.instructor.performance.table.ColumnAssignment',
+	{
+		label: 'Assignment',
+	}
+);
 
 export default class extends React.Component {
 	static displayName = 'GradebookColumnAssignment';
 
-	static label () {
+	static label() {
 		return t('label');
 	}
 
@@ -18,17 +21,14 @@ export default class extends React.Component {
 	static sort = 'title';
 
 	static propTypes = {
-		item: PropTypes.object.isRequired
+		item: PropTypes.object.isRequired,
 	};
 
-	render () {
-
-		const {item} = this.props;
+	render() {
+		const { item } = this.props;
 
 		const href = encodeForURI(item.assignmentId);
 
-		return (
-			<a href={href}>{item.title}</a>
-		);
+		return <a href={href}>{item.title}</a>;
 	}
 }

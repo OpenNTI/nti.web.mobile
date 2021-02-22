@@ -4,7 +4,6 @@
 }
 
 .profile-card {
-
 	$card-padding: 0.625rem;
 
 	position: relative;
@@ -68,7 +67,7 @@
 .profile-event-body,
 .professional-position,
 .educational-experience {
-	&:nth-child(1n+2) {
+	&:nth-child(1n + 2) {
 		margin-top: 1rem;
 	}
 

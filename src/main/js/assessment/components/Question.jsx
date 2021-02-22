@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
-import {StoreEventsMixin} from '@nti/lib-store';
-import {isFlag} from '@nti/web-client';
+import { StoreEventsMixin } from '@nti/lib-store';
+import { isFlag } from '@nti/web-client';
 
-import {Mixin as DragDropOrchestrator} from 'common/dnd';
+import { Mixin as DragDropOrchestrator } from 'common/dnd';
 
 import Store from '../Store';
 
@@ -16,9 +16,9 @@ import WordBank from './WordBank';
 import Part from './Part';
 
 const STATUS_MAP = {
-	'true': 'Correct',
-	'false': 'Incorrect',
-	'null': ''
+	true: 'Correct',
+	false: 'Incorrect',
+	null: '',
 };
 
 export default createReactClass({
@@ -27,51 +27,43 @@ export default createReactClass({
 
 	propTypes: {
 		question: PropTypes.object.isRequired,
-		number: PropTypes.string
+		number: PropTypes.string,
 	},
-
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		default: 'synchronizeFromStore'
+		default: 'synchronizeFromStore',
 	},
 
-	synchronizeFromStore () {
+	synchronizeFromStore() {
 		this.forceUpdate();
 	},
 
-
 	childContextTypes: {
-		QuestionUniqueDNDToken: PropTypes.object
+		QuestionUniqueDNDToken: PropTypes.object,
 	},
 
-
-	getChildContext () {
+	getChildContext() {
 		return {
-			QuestionUniqueDNDToken: this.state.QuestionUniqueDNDToken
+			QuestionUniqueDNDToken: this.state.QuestionUniqueDNDToken,
 		};
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
-			QuestionUniqueDNDToken: this.getNewUniqueToken()
+			QuestionUniqueDNDToken: this.getNewUniqueToken(),
 		};
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.maybeSetupSubmission(null, this.props.question);
 	},
 
-
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		this.maybeSetupSubmission(prevProps.question, this.props.question);
 	},
 
-
-	maybeSetupSubmission (prev, next) {
-
+	maybeSetupSubmission(prev, next) {
 		if ((next && next.getID()) !== (prev && prev.getID())) {
 			if (prev && prev.individual) {
 				Store.teardownAssessment(prev);
@@ -83,10 +75,8 @@ export default createReactClass({
 		}
 	},
 
-
-
-	render () {
-		let {question, number} = this.props;
+	render() {
+		let { question, number } = this.props;
 
 		let admin = Store.isAdministrative(question);
 		const isAvailable = Store.isAvailable(question);
@@ -96,8 +86,8 @@ export default createReactClass({
 		let title = '';
 
 		//correct, incorrect, blank
-		let status = (Store.isSubmitted(question) && a) ?
-			STATUS_MAP[a.isCorrect()] : '';
+		let status =
+			Store.isSubmitted(question) && a ? STATUS_MAP[a.isCorrect()] : '';
 
 		//Ripped from the WebApp:
 		if (isFlag('mathcounts-question-number-hack')) {
@@ -106,24 +96,39 @@ export default createReactClass({
 		}
 
 		let css = cx('question', status.toLowerCase(), {
-			'unavailable': !isAvailable,
+			unavailable: !isAvailable,
 			administrative: admin,
-			'not-assessed': !a
+			'not-assessed': !a,
 		});
 
 		return (
-			<div className={css} data-ntiid={question.getID()} type={question.MimeType}>
+			<div
+				className={css}
+				data-ntiid={question.getID()}
+				type={question.MimeType}
+			>
 				<h3 className="question-title">
-					{number && <span className="question-number">{number}.</span>}
+					{number && (
+						<span className="question-number">{number}.</span>
+					)}
 					{title}
 					<span className="status">{status}</span>
 				</h3>
-				<Content className="question-content" content={question.content}/>
+				<Content
+					className="question-content"
+					content={question.content}
+				/>
 				{question.wordbank && (
-					<WordBank record={question.wordbank} disabled={admin}/>
+					<WordBank record={question.wordbank} disabled={admin} />
 				)}
 				{parts.map((part, i) => (
-					<Part key={`part-${i}`} part={part} index={i} partCount={parts.length} viewerIsAdministrative={admin} >
+					<Part
+						key={`part-${i}`}
+						part={part}
+						index={i}
+						partCount={parts.length}
+						viewerIsAdministrative={admin}
+					>
 						{this.renderSubmission(i)}
 					</Part>
 				))}
@@ -132,10 +137,10 @@ export default createReactClass({
 		);
 	},
 
-
-	renderSubmission (index) {
-		let {question} = this.props;
-		if (!question || //no question
+	renderSubmission(index) {
+		let { question } = this.props;
+		if (
+			!question || //no question
 			!question.individual || //the question is part of a set
 			(index != null && question.parts.length > 1) || //The index is set, but the question has multiple parts
 			(index == null && question.parts.length <= 1) //The index is not set, but the question only has one part, so we rendered already
@@ -143,8 +148,6 @@ export default createReactClass({
 			return;
 		}
 
-		return (
-			<QuestionSubmission question={question}/>
-		);
-	}
+		return <QuestionSubmission question={question} />;
+	},
 });

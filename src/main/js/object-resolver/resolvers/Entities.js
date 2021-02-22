@@ -1,22 +1,19 @@
-import {profileHref} from 'profile/mixins/ProfileLink';
+import { profileHref } from 'profile/mixins/ProfileLink';
 
 export default class EntityPathResolver {
-
-	static handles (o) {
+	static handles(o) {
 		return o.isCommunity || o.isGroup || o.isUser;
 	}
 
-
-	static resolve (o) {
+	static resolve(o) {
 		return new EntityPathResolver(o).getPath();
 	}
 
-
-	constructor (o) {
+	constructor(o) {
 		this.entity = o;
 	}
 
-	getPath () {
+	getPath() {
 		return Promise.resolve(profileHref(this.entity));
 	}
 }

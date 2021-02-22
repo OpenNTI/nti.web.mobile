@@ -1,26 +1,28 @@
-import {getService, getAppUser} from '@nti/web-client';
-import {decodeFromURI} from '@nti/lib-ntiids';
+import { getService, getAppUser } from '@nti/web-client';
+import { decodeFromURI } from '@nti/lib-ntiids';
 
-import {USERS, GROUPS, LISTS} from './Constants';
+import { USERS, GROUPS, LISTS } from './Constants';
 
 const storeGetters = {
-	[USERS]: ()=> getService().then(service => service.getContacts()),
-	[GROUPS]: ()=> getService().then(service => service.getGroups()),
-	[LISTS]: ()=> getService().then(service => service.getLists())
+	[USERS]: () => getService().then(service => service.getContacts()),
+	[GROUPS]: () => getService().then(service => service.getGroups()),
+	[LISTS]: () => getService().then(service => service.getLists()),
 };
 
-
-export function getStore (type) {
+export function getStore(type) {
 	return storeGetters[type]();
 }
 
-export function getSuggestedContacts () {
-	return getAppUser()
-		.then(user => user.fetchLinkParsed('SuggestedContacts'));
+export function getSuggestedContacts() {
+	return getAppUser().then(user => user.fetchLinkParsed('SuggestedContacts'));
 }
 
-export function getDistributionList (id) {
+export function getDistributionList(id) {
 	const listId = decodeFromURI(id);
-	return getStore(LISTS).then(store =>
-		store.getLists().find(list => decodeFromURI(list.getID()) === listId) || null);
+	return getStore(LISTS).then(
+		store =>
+			store
+				.getLists()
+				.find(list => decodeFromURI(list.getID()) === listId) || null
+	);
 }

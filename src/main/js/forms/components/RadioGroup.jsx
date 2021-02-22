@@ -10,20 +10,21 @@ export default class extends React.Component {
 		defaultValue: PropTypes.any,
 
 		field: PropTypes.shape({
-			label: PropTypes.string
+			label: PropTypes.string,
 		}).isRequired,
 
 		options: PropTypes.arrayOf(
 			PropTypes.shape({
 				label: PropTypes.string,
-				value: PropTypes.string
-			})),
+				value: PropTypes.string,
+			})
+		),
 
 		name: PropTypes.string,
 
 		className: PropTypes.string,
 
-		value: PropTypes.any
+		value: PropTypes.any,
 	};
 
 	renderOptions = () => {
@@ -33,20 +34,22 @@ export default class extends React.Component {
 			let id = [this.props.name, option.value].join(':');
 			return (
 				<label className="radio" key={'option' + index} htmlFor={id}>
-					<input {...this.props} type="radio"
+					<input
+						{...this.props}
+						type="radio"
 						id={id}
 						name={this.props.name}
 						checked={checked}
-						value={option.value} />
+						value={option.value}
+					/>
 					<span className="htmlLabel">{option.label}</span>
 				</label>
 			);
 		});
 	};
 
-	render () {
-
-		const {field, className} = this.props;
+	render() {
+		const { field, className } = this.props;
 
 		let classes = cx('radiogroup', className);
 

@@ -8,11 +8,11 @@ import ContentIcon from './ContentIcon';
 import Highlight from './Highlight';
 
 HighlightGroup.propTypes = {
-	items: PropTypes.array.isRequired
+	items: PropTypes.array.isRequired,
 };
 
-export default function HighlightGroup (props) {
-	const {items = []} = props;
+export default function HighlightGroup(props) {
+	const { items = [] } = props;
 
 	if (items.length === 0) {
 		return null;
@@ -22,11 +22,9 @@ export default function HighlightGroup (props) {
 		<div className="highlight-group">
 			<ContentIcon item={items[0]} />
 			<Breadcrumb item={items[0]} />
-			{ items.map((item, index) =>(
-
+			{items.map((item, index) => (
 				<Highlight item={item} key={'highlight' + index} />
-
-			) ) }
+			))}
 		</div>
 	);
 }

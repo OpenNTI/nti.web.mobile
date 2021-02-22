@@ -3,20 +3,15 @@ import StorePrototype from '@nti/lib-store';
 import {
 	EDIT,
 	RESET,
-
 	PRICED_ITEM_RECEIVED,
-
 	LOCK_SUBMIT,
 	UNLOCK_SUBMIT,
-
 	CHECKING_COUPON,
 	INVALID_COUPON,
 	VALID_COUPON,
-
 	STRIPE_PAYMENT_SUCCESS,
 	STRIPE_PAYMENT_FAILURE,
 	POLLING_ERROR,
-
 	BILLING_INFO_VERIFIED,
 	BILLING_INFO_REJECTED,
 } from './Constants';
@@ -27,32 +22,31 @@ const HandlePurchase = Symbol();
 const HandleError = Symbol();
 
 class Store extends StorePrototype {
-
-	constructor () {
+	constructor() {
 		super();
 		this.registerHandlers({
-
-			[EDIT] (data) {
+			[EDIT](data) {
 				this.emitChange({ type: EDIT, mode: data.action.payload.mode });
 			},
 
-			[RESET] (data) {
+			[RESET](data) {
 				this.clear();
 				this.emitChange({
 					type: RESET,
-					options: (data.action.payload || {}).options
+					options: (data.action.payload || {}).options,
 				});
 			},
 
-			[PRICED_ITEM_RECEIVED] (data) {
-				this.emitChange(
-					{
-						type: PRICED_ITEM_RECEIVED,
-						...data.action.payload});
+			[PRICED_ITEM_RECEIVED](data) {
+				this.emitChange({
+					type: PRICED_ITEM_RECEIVED,
+					...data.action.payload,
+				});
 			},
 
-
-			[CHECKING_COUPON] () { this.emitChange({type: LOCK_SUBMIT}); },
+			[CHECKING_COUPON]() {
+				this.emitChange({ type: LOCK_SUBMIT });
+			},
 			[VALID_COUPON]: HandleCoupon,
 			[INVALID_COUPON]: HandleCoupon,
 
@@ -61,86 +55,88 @@ class Store extends StorePrototype {
 
 			[STRIPE_PAYMENT_SUCCESS]: HandlePurchase,
 			[STRIPE_PAYMENT_FAILURE]: HandlePurchase,
-			[POLLING_ERROR]: HandleError
+			[POLLING_ERROR]: HandleError,
 		});
 
 		this.clear(); //setup data
 	}
 
-
-	[HandleCoupon] (data) {
-		const {payload, type} = data.action;
-		const {coupon, pricing = null} = payload;
+	[HandleCoupon](data) {
+		const { payload, type } = data.action;
+		const { coupon, pricing = null } = payload;
 
 		Object.assign(this.data, {
 			couponPricing: pricing,
-			coupon
+			coupon,
 		});
 
-		this.emitChange({type, coupon, pricing});
-		this.emitChange({type: UNLOCK_SUBMIT});
+		this.emitChange({ type, coupon, pricing });
+		this.emitChange({ type: UNLOCK_SUBMIT });
 	}
 
+	[HandleBillingInfo](data) {
+		const { payload, type } = data.action;
 
-	[HandleBillingInfo] (data) {
-		const {payload, type} = data.action;
-
-		const {stripeToken, stripePublicKey, formData, giftInfo, couponInfo} = payload;
+		const {
+			stripeToken,
+			stripePublicKey,
+			formData,
+			giftInfo,
+			couponInfo,
+		} = payload;
 
 		Object.assign(this.data, {
 			stripePublicKey,
 			stripeToken,
 			formData,
 			giftInfo,
-			couponInfo
+			couponInfo,
 		});
 
-		this.emitChange({type});
+		this.emitChange({ type });
 	}
 
-
-	[HandlePurchase] (data) {
-		const {payload, type} = data.action;
-		const {purchaseAttempt} = payload;
+	[HandlePurchase](data) {
+		const { payload, type } = data.action;
+		const { purchaseAttempt } = payload;
 
 		Object.assign(this.data, {
-			purchaseAttempt
+			purchaseAttempt,
 		});
 
-		this.emitChange({type, purchaseAttempt});
+		this.emitChange({ type, purchaseAttempt });
 	}
 
-	[HandleError] (data) {
-		const { payload: { purchaseAttempt } , type } = data.action;
+	[HandleError](data) {
+		const {
+			payload: { purchaseAttempt },
+			type,
+		} = data.action;
 
-		this.emitChange({type, purchaseAttempt});
+		this.emitChange({ type, purchaseAttempt });
 	}
 
-	getStripeToken () {
-		if(!this.data.stripeToken) {
-			throw new Error('Store doesn\'t currently have a stripe token.');
+	getStripeToken() {
+		if (!this.data.stripeToken) {
+			throw new Error("Store doesn't currently have a stripe token.");
 		}
-		return { ...this.data.stripeToken};
+		return { ...this.data.stripeToken };
 	}
 
-
-	getCouponInfo () {
+	getCouponInfo() {
 		return this.data.couponInfo;
 	}
 
-
-	getCouponPricing () {
+	getCouponPricing() {
 		return this.data.couponPricing;
 	}
 
-
-	getGiftInfo () {
+	getGiftInfo() {
 		return this.data.giftInfo;
 	}
 
-
-	getPaymentFormData () {
-		let data = { ...this.data.formData};
+	getPaymentFormData() {
+		let data = { ...this.data.formData };
 
 		// don't repopulate credit card number
 		delete data.number;
@@ -150,13 +146,11 @@ class Store extends StorePrototype {
 		return data;
 	}
 
-
-	getPaymentResult () {
+	getPaymentResult() {
 		return this.data.purchaseAttempt;
 	}
 
-
-	clear () {
+	clear() {
 		this.data = {};
 	}
 }

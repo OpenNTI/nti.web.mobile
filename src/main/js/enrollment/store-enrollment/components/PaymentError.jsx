@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {PanelButton, Mixins} from '@nti/web-commons';
+import { PanelButton, Mixins } from '@nti/web-commons';
 
 import Store from '../Store';
-import {resetProcess} from '../Actions';
+import { resetProcess } from '../Actions';
 
 export default createReactClass({
 	displayName: 'PaymentError',
@@ -12,48 +12,45 @@ export default createReactClass({
 
 	propTypes: {
 		courseTitle: PropTypes.string,
-		isGift: PropTypes.bool
+		isGift: PropTypes.bool,
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {};
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		let error = (Store.getPaymentResult() || {}).Error;
 		let message = (error || {}).Message;
 		if (message) {
 			this.setState({
-				message: message
+				message: message,
 			});
 		}
 	},
 
-
-	errorMessage () {
+	errorMessage() {
 		return this.state.message ? <p>{this.state.message}</p> : null;
 	},
 
-
-	onClick () {
+	onClick() {
 		resetProcess({ gift: !!this.props.isGift });
 	},
 
-
-	render () {
+	render() {
 		let courseTitle = this.props.courseTitle;
 
 		return (
 			<div className="small-12 columns">
 				<PanelButton className="error" onClick={this.onClick}>
-					<p>We were unable to process your enrollment for ’{courseTitle}’.</p>
+					<p>
+						We were unable to process your enrollment for ’
+						{courseTitle}’.
+					</p>
 					{this.errorMessage()}
 					<p>If this issue persists contact support.</p>
 				</PanelButton>
 			</div>
 		);
-	}
-
+	},
 });

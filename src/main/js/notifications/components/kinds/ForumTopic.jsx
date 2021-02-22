@@ -1,7 +1,7 @@
 //TODO
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {DateTime} from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
@@ -18,25 +18,25 @@ export default createReactClass({
 			'forums.headlinetopic',
 			'forums.communityheadlinetopic',
 			'forums.contentheadlinetopic',
-			'forums.dflheadlinetopic'
-		]
+			'forums.dflheadlinetopic',
+		],
 	},
 
-	render () {
-		let {item, username, url} = this.state;
+	render() {
+		let { item, username, url } = this.state;
 		let date = this.getEventTime(item.headline);
 
 		return (
 			<li className="notification-item">
 				<a href={url}>
-					<Avatar entity={username} width="32" height="32"/>
+					<Avatar entity={username} width="32" height="32" />
 					<div className="wrap">
-						<DisplayName entity={username}/>
+						<DisplayName entity={username} />
 						{` created a discussion: ${item.title}`}
-						<DateTime date={date} relative/>
+						<DateTime date={date} relative />
 					</div>
 				</a>
 			</li>
 		);
-	}
+	},
 });

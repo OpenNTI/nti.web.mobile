@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 li.discussion-item-action {
 	display: block;
@@ -16,7 +16,8 @@ li.discussion-item-action {
 		weight: 700;
 	}
 
-	i[class^="icon-"], i[class*=" icon-"] {
+	i[class^='icon-'],
+	i[class*=' icon-'] {
 		position: absolute;
 		top: 0;
 		bottom: 0;

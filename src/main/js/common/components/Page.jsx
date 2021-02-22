@@ -8,50 +8,57 @@ export default class extends React.Component {
 
 	static propTypes = {
 		pageContent: PropTypes.any,
-		children: PropTypes.any
+		children: PropTypes.any,
 	};
 
 	static childContextTypes = {
-		PageWrapped: PropTypes.bool
+		PageWrapped: PropTypes.bool,
 	};
 
 	static contextTypes = {
-		PageWrapped: PropTypes.bool
+		PageWrapped: PropTypes.bool,
 	};
 
-	getChildContext () {
-		return {PageWrapped: true};
+	getChildContext() {
+		return { PageWrapped: true };
 	}
 
-	render () {
-		let {children} = this.props;
+	render() {
+		let { children } = this.props;
 
-		let props = { ...this.props, children: null};
+		let props = { ...this.props, children: null };
 
-		return React.createElement('div', {},
-			this.context.PageWrapped ?
-				null :
-				React.createElement(NavigationBar, props),
+		return React.createElement(
+			'div',
+			{},
+			this.context.PageWrapped
+				? null
+				: React.createElement(NavigationBar, props),
 			...this.renderChildren(children)
 		);
 	}
 
-	renderChildren = (c) => {
-		let {pageContent} = this.props;
-		let props = { ...this.props, availableSections: null,
+	renderChildren = c => {
+		let { pageContent } = this.props;
+		let props = {
+			...this.props,
+			availableSections: null,
 			children: null,
-			title: null};
+			title: null,
+		};
 
 		if (pageContent) {
 			return [React.createElement(pageContent, props)];
 		}
 
-		if (!c) { return []; }
+		if (!c) {
+			return [];
+		}
 
 		if (!Array.isArray(c)) {
 			c = [c];
 		}
 
-		return c.map(x=>React.cloneElement(x));
+		return c.map(x => React.cloneElement(x));
 	};
 }

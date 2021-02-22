@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .markupframe {
 	position: relative;
@@ -20,7 +20,8 @@
 			}
 		}
 
-		img[id], .bar {
+		img[id],
+		.bar {
 			//This is for anchors
 			visibility: hidden;
 			position: absolute;

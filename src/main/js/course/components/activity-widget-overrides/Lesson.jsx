@@ -2,7 +2,7 @@ import './Lesson.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {DateTime} from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
 
 import ObjectLink from 'common/mixins/ObjectLink';
 
@@ -11,25 +11,24 @@ export default createReactClass({
 	mixins: [ObjectLink],
 
 	statics: {
-		handles (item) {
+		handles(item) {
 			return /courseoutline(content|calendar)node/i.test(item.MimeType);
-		}
+		},
 	},
 
 	propTypes: {
 		item: PropTypes.any.isRequired,
-		dateFormat: PropTypes.string
+		dateFormat: PropTypes.string,
 	},
 
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
-			dateFormat: DateTime.WEEKDAY_MONTH_NAME_DAY
+			dateFormat: DateTime.WEEKDAY_MONTH_NAME_DAY,
 		};
 	},
 
-	render () {
-
-		let {item} = this.props;
+	render() {
+		let { item } = this.props;
 		if (!item) {
 			return null;
 		}
@@ -41,9 +40,14 @@ export default createReactClass({
 				<a href={href}>
 					<div className="path">Lessons</div>
 					<div className="card-title">{item.title}</div>
-					<div className="footer"><DateTime date={item.getAvailableBeginning()} format={this.props.dateFormat}/></div>
+					<div className="footer">
+						<DateTime
+							date={item.getAvailableBeginning()}
+							format={this.props.dateFormat}
+						/>
+					</div>
 				</a>
 			</div>
 		);
-	}
+	},
 });

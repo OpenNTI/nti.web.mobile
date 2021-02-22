@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .community-item {
 	display: inline-block;
@@ -19,7 +19,9 @@
 		overflow: hidden;
 		white-space: normal;
 
-		&, &:hover, &:focus {
+		&,
+		&:hover,
+		&:focus {
 			color: var(--tertiary-grey);
 		}
 	}

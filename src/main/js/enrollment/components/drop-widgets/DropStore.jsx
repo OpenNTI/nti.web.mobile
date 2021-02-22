@@ -1,8 +1,7 @@
 import React from 'react';
-import {PanelButton} from '@nti/web-commons';
+import { PanelButton } from '@nti/web-commons';
 
-
-export default function DropStore () {
+export default function DropStore() {
 	return (
 		<div className="column">
 			<PanelButton linkText="Okay" href="../../">

@@ -3,38 +3,35 @@ import cx from 'classnames';
 import Logger from '@nti/util-logger';
 import * as Anchors from '@nti/lib-anchors';
 import * as RangeUtils from '@nti/lib-ranges';
-import {mixin} from '@nti/lib-commons';
+import { mixin } from '@nti/lib-commons';
 
-import Annotation, {RENDERED} from './Annotation';
+import Annotation, { RENDERED } from './Annotation';
 import RangeWrapperMixin from './RangeWrapperMixin';
 
 const logger = Logger.get('content:components:annotations:Highlight');
 const RANGE = Symbol('cached range');
 
 export default class Highlight extends Annotation {
-	static handles (item) {
+	static handles(item) {
 		return /highlight$/i.test(item.MimeType);
 	}
 
-
-	static createFrom (data, color) {
-
+	static createFrom(data, color) {
 		const base = {
 			MimeType: 'application/vnd.nextthought.highlight',
 			style: 'plain',
 			presentationProperties: {
-				highlightColorName: color
-			}
+				highlightColorName: color,
+			},
 		};
 
 		return {
 			...base,
-			...data
+			...data,
 		};
 	}
 
-
-	constructor (...args) {
+	constructor(...args) {
 		super(...args);
 
 		mixin(this, RangeWrapperMixin);
@@ -42,30 +39,33 @@ export default class Highlight extends Annotation {
 		this.setupDomClassNames();
 	}
 
-
-	setupDomClassNames () {
-		let {highlightColorName} = this.getRecordField('presentationProperties') || {};
+	setupDomClassNames() {
+		let { highlightColorName } =
+			this.getRecordField('presentationProperties') || {};
 		let style = this.getRecordField('style') || 'plain';
 
-		this.highlightCls = cx('application-highlight', highlightColorName, style, {
-			'shared-with-me': !this.isModifiable,
-			'colored': highlightColorName
-		});
+		this.highlightCls = cx(
+			'application-highlight',
+			highlightColorName,
+			style,
+			{
+				'shared-with-me': !this.isModifiable,
+				colored: highlightColorName,
+			}
+		);
 
 		Object.assign(this, {
-			highlightColorName
+			highlightColorName,
 		});
 	}
 
-
-	createNonAnchorableSpan () {
+	createNonAnchorableSpan() {
 		let span = super.createNonAnchorableSpan();
 		span.setAttribute('class', this.highlightCls);
 		return span;
 	}
 
-
-	updateColor (newColor) {
+	updateColor(newColor) {
 		let rec = this.getRecord();
 		let p = rec.presentationProperties;
 
@@ -73,33 +73,30 @@ export default class Highlight extends Annotation {
 
 		p.highlightColorName = newColor;
 
-		return rec.save({presentationProperties: p})
-			.then(() => {
-				this.setupDomClassNames();
-				for (let el of this[RENDERED]) {
-					try {
-						el.setAttribute('class', this.highlightCls);
-					}
-					catch(e) { logger.warn(e); }
+		return rec.save({ presentationProperties: p }).then(() => {
+			this.setupDomClassNames();
+			for (let el of this[RENDERED]) {
+				try {
+					el.setAttribute('class', this.highlightCls);
+				} catch (e) {
+					logger.warn(e);
 				}
-			});
+			}
+		});
 	}
 
-
-	remove () {
+	remove() {
 		let nodes = this[RENDERED];
 		let rec = this.getRecord();
-		return rec.delete()
-			.then(() => {
-				delete this[RENDERED];
-				for (let el of nodes) {
-					this.unwrap(el);
-				}
-			});
+		return rec.delete().then(() => {
+			delete this[RENDERED];
+			for (let el of nodes) {
+				this.unwrap(el);
+			}
+		});
 	}
 
-
-	buildRange () {
+	buildRange() {
 		let doc = this.getDocument();
 		let range = doc && doc.createRange();
 
@@ -112,36 +109,34 @@ export default class Highlight extends Annotation {
 			try {
 				range.setStartBefore(a);
 				range.setEndAfter(b);
-			}
-			catch (e) {
-				logger.error('Error building range: %o', e.stack || e.message || e);
+			} catch (e) {
+				logger.error(
+					'Error building range: %o',
+					e.stack || e.message || e
+				);
 			}
 		}
 
 		return range;
 	}
 
-
-	hadValidRange () {
-		let {reader} = this;
+	hadValidRange() {
+		let { reader } = this;
 		let range = this[RANGE];
 		let contentNode = reader.getContentNode();
 
 		return range && !RangeUtils.isValidRange(range, contentNode);
 	}
 
-
-	getRange () {
-		let {reader} = this;
+	getRange() {
+		let { reader } = this;
 		let range = this[RANGE];
 		let hadRange = !!range;
 		let contentNode = reader.getContentNode();
 
 		if (RangeUtils.isValidRange(range, contentNode)) {
 			return range;
-		}
-
-		else if (range) {
+		} else if (range) {
 			range = this.buildRange();
 			if (!RangeUtils.isValidRange(range, contentNode)) {
 				range = null;
@@ -173,8 +168,7 @@ export default class Highlight extends Annotation {
 		return range;
 	}
 
-
-	shouldRender () {
+	shouldRender() {
 		let n = this.reader.getContentNode();
 		let elements = this[RENDERED];
 		if (n && (!elements || elements.some(e => !n.contains(e)))) {
@@ -186,9 +180,10 @@ export default class Highlight extends Annotation {
 		}
 	}
 
-
-	render () {
-		if (!this.shouldRender()) { return; }
+	render() {
+		if (!this.shouldRender()) {
+			return;
+		}
 
 		const r = this.getRange();
 		if (!r) {
@@ -196,7 +191,10 @@ export default class Highlight extends Annotation {
 		}
 
 		const rec = this.getRecord();
-		const rendered = this[RENDERED] = this.wrapRange(r.commonAncestorContainer, r);
+		const rendered = (this[RENDERED] = this.wrapRange(
+			r.commonAncestorContainer,
+			r
+		));
 		if (rendered && rendered.length > 0) {
 			rendered[0].setAttribute('name', rec.getID());
 		}

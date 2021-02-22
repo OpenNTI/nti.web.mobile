@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {PointerEvents} from '@nti/util-detection-touch';
+import { PointerEvents } from '@nti/util-detection-touch';
 import {
 	isMultiTouch,
 	addEventListener as _addEventListener,
@@ -9,13 +9,12 @@ import {
 	getElementRect,
 	getViewportHeight,
 	matches,
-	getScrollParent
+	getScrollParent,
 } from '@nti/lib-dom';
 
 import SafariHack from '../util/ios-11-touchmove-hack';
 
-import Base, {TYPE_SHAPE} from './Base';
-
+import Base, { TYPE_SHAPE } from './Base';
 
 const addListeners = 'dnd:behaviours:draggable:addListeners';
 const removeListeners = 'dnd:behaviours:draggable:removeListeners';
@@ -24,48 +23,44 @@ const eventFor = {
 	start: PointerEvents.pointerDown,
 	move: PointerEvents.pointerMove,
 	end: PointerEvents.pointerUp,
-	abort: PointerEvents.pointerOut
+	abort: PointerEvents.pointerOut,
 };
 
 const DIRECTIONS = {
-	'1': 1,
+	1: 1,
 	'-1': -1,
-	'Infinity': 1,
+	Infinity: 1,
 	'-Infinity': -1,
-	'NaN': 0
+	NaN: 0,
 };
 
-
-function canDrag (x) {
+function canDrag(x) {
 	return function () {
-		let {axis} = this.props;
+		let { axis } = this.props;
 		return axis === 'both' || axis === x;
 	};
 }
 
-
-function getDragPoint (e) {
-	e = (!e.touches ? e : e.touches[0]);
-	let {clientX, clientY} = e;
+function getDragPoint(e) {
+	e = !e.touches ? e : e.touches[0];
+	let { clientX, clientY } = e;
 	return {
 		x: clientX,
-		y: clientY
+		y: clientY,
 	};
 }
 
-
-function isDirection (dir, key, a, b) {
+function isDirection(dir, key, a, b) {
 	if (!a || !b) {
 		return null;
 	}
 
 	let dx = a[key] - b[key];
 
-	dx = (dx / Math.abs(dx));
+	dx = dx / Math.abs(dx);
 
 	return DIRECTIONS[dx] === dir;
 }
-
 
 export default {
 	mixins: [Base, SafariHack],
@@ -73,19 +68,15 @@ export default {
 	canDragY: canDrag('y'),
 	canDragX: canDrag('x'),
 
-
 	propTypes: {
 		type: PropTypes.oneOfType([
 			PropTypes.string,
-			PropTypes.shape(TYPE_SHAPE)
+			PropTypes.shape(TYPE_SHAPE),
 		]).isRequired,
-
 
 		restoreOnStop: PropTypes.bool,
 
-
 		locked: PropTypes.bool,
-
 
 		/**
 		 * `axis` - which axis to update.
@@ -102,7 +93,6 @@ export default {
 		 */
 		cancel: PropTypes.string,
 
-
 		/**
 		 * `constrain` - Limit the dragging to the confines of a parent element.
 		 */
@@ -118,25 +108,23 @@ export default {
 		 */
 		start: PropTypes.shape({
 			x: PropTypes.number,
-			y: PropTypes.number
+			y: PropTypes.number,
 		}),
 
 		/**
 		 * `zIndex` - the z-index to use while dragging.
 		 */
-		zIndex: PropTypes.number
+		zIndex: PropTypes.number,
 	},
-
 
 	contextTypes: {
 		currentDragItem: PropTypes.object,
 		onDragStart: PropTypes.func.isRequired,
 		onDragEnd: PropTypes.func.isRequired,
-		onDrag: PropTypes.func
+		onDrag: PropTypes.func,
 	},
 
-
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
 			restoreOnStop: true,
 			axis: 'both',
@@ -145,51 +133,49 @@ export default {
 			grid: null,
 			start: {
 				x: 0,
-				y: 0
+				y: 0,
 			},
-			zIndex: 9999
+			zIndex: 9999,
 		};
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
 			dragging: false,
 			restoring: false,
-			startX: 0, startY: 0,
-			offsetX: 0, offsetY: 0,
-			x: 0, y: 0,
+			startX: 0,
+			startY: 0,
+			offsetX: 0,
+			offsetY: 0,
+			x: 0,
+			y: 0,
 			startingScrollPosition: null,
-			lastDragPoint: null
+			lastDragPoint: null,
 		};
 	},
 
-
-	getPosition () {
-		let {x, y} = this.state;
+	getPosition() {
+		let { x, y } = this.state;
 		return {
 			top: y,
-			left: x
+			left: x,
 		};
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.scrollParent = getScrollParent(this.getDOMNode());
 	},
 
-
-	// eslint-disable-next-line camelcase
-	UNSAFE_componentWillMount () {
-		let {x, y} = this.props.start;
-		this.setState({x: x, y: y});
+	UNSAFE_componentWillMount() {
+		let { x, y } = this.props.start;
+		this.setState({ x: x, y: y });
 	},
 
+	componentWillUnmount() {
+		this[removeListeners]();
+	},
 
-	componentWillUnmount () {this[removeListeners](); },
-
-
-	[addListeners] () {
+	[addListeners]() {
 		_addEventListener(this.scrollParent, 'scroll', this.handleScroll);
 		_addEventListener(global, 'scroll', this.handleScroll);
 		_addEventListener(global, eventFor.move, this.handleDrag);
@@ -197,8 +183,7 @@ export default {
 		_addEventListener(global, eventFor.abort, this.handleDragEnd);
 	},
 
-
-	[removeListeners] () {
+	[removeListeners]() {
 		_removeEventListener(this.scrollParent, 'scroll', this.handleScroll);
 		_removeEventListener(global, 'scroll', this.handleScroll);
 		_removeEventListener(global, eventFor.move, this.handleDrag);
@@ -206,17 +191,18 @@ export default {
 		_removeEventListener(global, eventFor.abort, this.handleDragEnd);
 	},
 
-
-	handleDragStart (e) {
+	handleDragStart(e) {
 		let node = this.getDOMNode();
 		let dragPoint = getDragPoint(e);
-		let {onDragStart} = this.context;
-		let {handle, cancel} = this.props;
-		let {scrollParent} = this;
+		let { onDragStart } = this.context;
+		let { handle, cancel } = this.props;
+		let { scrollParent } = this;
 
-		if (this.props.locked ||
+		if (
+			this.props.locked ||
 			(handle && !matches(e.target, handle)) ||
-			(cancel && matches(e.target, cancel))) {
+			(cancel && matches(e.target, cancel))
+		) {
 			return;
 		}
 
@@ -242,7 +228,7 @@ export default {
 			offsetX: parseInt(dragPoint.x, 10),
 			offsetY: parseInt(dragPoint.y, 10),
 			startX: parseInt(node.style.left, 10) || 0,
-			startY: parseInt(node.style.top, 10) || 0
+			startY: parseInt(node.style.top, 10) || 0,
 		});
 
 		if (onDragStart) {
@@ -252,9 +238,8 @@ export default {
 		this[addListeners]();
 	},
 
-
-	handleDragEnd (e) {
-		const {onDragEnd} = this.context;
+	handleDragEnd(e) {
+		const { onDragEnd } = this.context;
 
 		if (!this.state.dragging || this.props.locked) {
 			return;
@@ -271,34 +256,37 @@ export default {
 			return;
 		}
 
-		const dragStopResultedInDrop = onDragEnd && onDragEnd(this, e, this.getPosition());
+		const dragStopResultedInDrop =
+			onDragEnd && onDragEnd(this, e, this.getPosition());
 
-		this.setState(
-			{dragging: false,
-				startX: 0,
-				startY: 0,
-				...(this.props.restoreOnStop ? {
-					restoring: dragStopResultedInDrop,
-					x: 0,
-					y: 0
-				} : {
-				})
-			});
+		this.setState({
+			dragging: false,
+			startX: 0,
+			startY: 0,
+			...(this.props.restoreOnStop
+				? {
+						restoring: dragStopResultedInDrop,
+						x: 0,
+						y: 0,
+				  }
+				: {}),
+		});
 
 		this[removeListeners]();
 	},
 
-
-	handleDrag (e) {
-		if (this.props.locked) { return; }
+	handleDrag(e) {
+		if (this.props.locked) {
+			return;
+		}
 
 		let s = this.state;
-		let {onDrag} = this.context;
+		let { onDrag } = this.context;
 		let dragPoint = getDragPoint(e);
-		let {lastDragPoint} = s;
+		let { lastDragPoint } = s;
 
-		let x = (s.startX + (dragPoint.x - s.offsetX));
-		let y = (s.startY + (dragPoint.y - s.offsetY));
+		let x = s.startX + (dragPoint.x - s.offsetX);
+		let y = s.startY + (dragPoint.y - s.offsetY);
 
 		// Snap to grid?
 		if (Array.isArray(this.props.grid)) {
@@ -309,7 +297,7 @@ export default {
 		this.setState({
 			lastDragPoint: dragPoint,
 			x: x,
-			y: y
+			y: y,
 		});
 
 		if (onDrag) {
@@ -319,39 +307,38 @@ export default {
 		this.maybeScrollParent(dragPoint, lastDragPoint);
 	},
 
-
-	handleScroll () {
-		let {scrollParent} = this;
-		let {
-			startingScrollPosition,
-			startX,
-			startY
-		} = this.state;
+	handleScroll() {
+		let { scrollParent } = this;
+		let { startingScrollPosition, startX, startY } = this.state;
 		let currentScrollPosition = getScrollPosition(scrollParent);
 
-		let dX = (startingScrollPosition.left - currentScrollPosition.left) * -1;
+		let dX =
+			(startingScrollPosition.left - currentScrollPosition.left) * -1;
 		let dY = (startingScrollPosition.top - currentScrollPosition.top) * -1;
 
 		this.setState({
 			startX: startX + dX,
 			startY: startY + dY,
-			startingScrollPosition: currentScrollPosition
+			startingScrollPosition: currentScrollPosition,
 		});
 	},
 
-
-	maybeScrollParent (point, lastPoint) {
+	maybeScrollParent(point, lastPoint) {
 		let y, x;
 		const region = 50;
-		const {scrollParent} = this;
+		const { scrollParent } = this;
 		const boundingRect = getElementRect(scrollParent);
 		const viewportBottom = getViewportHeight();
 
 		const topBoundry = Math.max(0, boundingRect.top);
 		const bottomBoundry = Math.min(viewportBottom, boundingRect.bottom);
 
-		const top = (point.y - topBoundry) < region && isDirection(-1, 'y', point, lastPoint);
-		const bottom = (bottomBoundry - point.y) < region && isDirection(1, 'y', point, lastPoint);
+		const top =
+			point.y - topBoundry < region &&
+			isDirection(-1, 'y', point, lastPoint);
+		const bottom =
+			bottomBoundry - point.y < region &&
+			isDirection(1, 'y', point, lastPoint);
 
 		// scroll: Vertical
 		if (top || bottom) {
@@ -364,31 +351,28 @@ export default {
 		// }
 
 		if (x || y) {
-
 			//TODO: implement nested scroll-zones
 			// if (scrollParentIsAtLimit and parent can scroll) {
 			// }
 
 			scrollElementBy(scrollParent, x, y);
-
 		}
 	},
 
-
-	snapTo (initial, axis) {
-		let {props, state} = this;
-		let {grid} = props;
+	snapTo(initial, axis) {
+		let { props, state } = this;
+		let { grid } = props;
 
 		let axisInt = parseInt(state[axis], 10);
 		let axId = axis === 'x' ? 0 : 1;
 		let direction = initial < axisInt ? -1 : 1;
 
-		return Math.abs(initial - axisInt) >= grid[axId] ?
-			(axisInt + (grid[axId] * direction)) : state[axis];
+		return Math.abs(initial - axisInt) >= grid[axId]
+			? axisInt + grid[axId] * direction
+			: state[axis];
 	},
 
-
-	computeStyle () {
+	computeStyle() {
 		let s = this.state;
 		let z = this.props.zIndex;
 		let y = this.canDragY(this) ? s.y : s.startY;
@@ -398,7 +382,7 @@ export default {
 			WebkitTransform: translation,
 			MozTransform: translation,
 			msTransform: translation,
-			transform: translation
+			transform: translation,
 		};
 
 		if (s.dragging && !isNaN(z)) {
@@ -408,14 +392,13 @@ export default {
 		return style;
 	},
 
-
-	getHandlers () {
+	getHandlers() {
 		return {
 			onMouseDown: this.handleDragStart,
 			onTouchStart: this.handleDragStart,
 
 			onMouseUp: this.handleDragEnd,
-			onTouchEnd: this.handleDragEnd
+			onTouchEnd: this.handleDragEnd,
 		};
-	}
+	},
 };

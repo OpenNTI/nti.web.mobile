@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .assignment.status-label-wrapper {
 	position: relative;
@@ -32,7 +32,8 @@
 		}
 
 		@media screen and (min-width: 365px) {
-			&.time-limit, &.required {
+			&.time-limit,
+			&.required {
 				display: inline;
 
 				&::after {
@@ -47,7 +48,10 @@
 			color: var(--secondary-green);
 		}
 
-		.link { color: var(--primary-blue); cursor: pointer; }
+		.link {
+			color: var(--primary-blue);
+			cursor: pointer;
+		}
 
 		.over {
 			cursor: pointer;
@@ -57,7 +61,9 @@
 		.over,
 		.state,
 		time {
-			&::after { content: ' '; }
+			&::after {
+				content: ' ';
+			}
 		}
 
 		.over,
@@ -66,12 +72,17 @@
 			display: none;
 		}
 
-		&.overtime, &.overdue {
-			.over { display: inline; }
+		&.overtime,
+		&.overdue {
+			.over {
+				display: inline;
+			}
 		}
 
 		&.overtime .overtime,
-		&.overdue .overdue { display: inline; }
+		&.overdue .overdue {
+			display: inline;
+		}
 
 		&.overtime.overdue {
 			.overtime::after {

@@ -1,17 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {rawContent} from '@nti/lib-commons';
+import { rawContent } from '@nti/lib-commons';
 
 import Content from '../Content';
 
 import Mixin from './Mixin';
 
-
 const strategies = {
-	'input[type=blankfield]': (x)=>({name: x.getAttribute('name')})
+	'input[type=blankfield]': x => ({ name: x.getAttribute('name') }),
 };
-
 
 /**
  * This solution type represents Fill in the Blank - WordBank
@@ -21,16 +19,14 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	statics: {
-		inputType: [
-			'FillInTheBlankShortAnswer'
-		]
+		inputType: ['FillInTheBlankShortAnswer'],
 	},
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-	render () {
+	render() {
 		let ex = this.state.explanation || '';
 
 		return (
@@ -40,14 +36,13 @@ export default createReactClass({
 					strategies={strategies}
 					renderCustomWidget={this.renderInput}
 				/>
-				<div className="explanation" {...rawContent(ex)}/>
+				<div className="explanation" {...rawContent(ex)} />
 			</div>
 		);
 	},
 
-
-	renderInput (tag, props) {
-		let {name} = props;//eslint-disable-line react/prop-types
+	renderInput(tag, props) {
+		let { name } = props; //eslint-disable-line react/prop-types
 		let solution = (this.state.solution || {}).value;
 		let v = (solution || {})[name];
 
@@ -60,5 +55,5 @@ export default createReactClass({
 				<span className="blank">{v}</span>
 			</span>
 		);
-	}
+	},
 });

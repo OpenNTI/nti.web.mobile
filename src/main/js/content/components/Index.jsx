@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import {Mixins} from '@nti/web-commons';
+import { Mixins } from '@nti/web-commons';
 
 import ContextContributor from 'common/mixins/ContextContributor';
 
@@ -10,8 +10,8 @@ import Content from './Viewer';
 import TableOfContents from './TableOfContentsView';
 
 const ROUTES = [
-	{path: '/:rootId(/*)',	handler: Content },
-	{path: '(/*)',			handler: TableOfContents }
+	{ path: '/:rootId(/*)', handler: Content },
+	{ path: '(/*)', handler: TableOfContents },
 ];
 
 export default createReactClass({
@@ -19,12 +19,11 @@ export default createReactClass({
 	mixins: [ContextContributor, Mixins.NavigatableMixin],
 
 	propTypes: {
-		contentPackage: PropTypes.object.isRequired
+		contentPackage: PropTypes.object.isRequired,
 	},
 
-
-	getContext () {
-		let {contentPackage} = this.props;
+	getContext() {
+		let { contentPackage } = this.props;
 		// let {title} = contentPackage;
 
 		let href = this.makeHref('o/');
@@ -34,19 +33,23 @@ export default createReactClass({
 			// label: title + ' Contents',
 			label: 'Contents',
 			ntiid,
-			href
+			href,
 		});
 	},
 
+	render() {
+		let { contentPackage } = this.props;
 
-	render () {
-		let {contentPackage} = this.props;
-
-		return React.createElement(Router.Locations, {contextual: true},
-			...ROUTES.map(route=> (
-				<Router.Location key={route.path} {...route}
+		return React.createElement(
+			Router.Locations,
+			{ contextual: true },
+			...ROUTES.map(route => (
+				<Router.Location
+					key={route.path}
+					{...route}
 					contentPackage={contentPackage}
 				/>
-			)));
-	}
+			))
+		);
+	},
 });

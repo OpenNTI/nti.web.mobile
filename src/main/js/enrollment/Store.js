@@ -1,55 +1,59 @@
 import EventEmitter from 'events';
 
 import AppDispatcher from '@nti/lib-dispatcher';
-import {CHANGE_EVENT} from '@nti/lib-store';
-import {getService} from '@nti/web-client';
+import { CHANGE_EVENT } from '@nti/lib-store';
+import { getService } from '@nti/web-client';
 
 import * as Constants from './Constants';
 import * as Api from './Api';
 
-
 let enrollmentStatus = {};
 
-let Store = { ...EventEmitter.prototype, displayName: 'enrollment.Store',
+let Store = {
+	...EventEmitter.prototype,
+	displayName: 'enrollment.Store',
 
-	emitChange (evt) {
+	emitChange(evt) {
 		this.emit(CHANGE_EVENT, evt);
 	},
 
-
-	addChangeListener (callback) {
+	addChangeListener(callback) {
 		this.on(CHANGE_EVENT, callback);
 	},
 
-	flushEnrollmentStatus () {
+	flushEnrollmentStatus() {
 		enrollmentStatus = {};
 	},
 
-	removeChangeListener (callback) {
+	removeChangeListener(callback) {
 		this.removeListener(CHANGE_EVENT, callback);
 	},
 
-	loadEnrollmentStatus (courseId) {
+	loadEnrollmentStatus(courseId) {
 		return getService().then(service => {
-			service.getEnrollment().isEnrolled(courseId).then(result => {
-				enrollmentStatus[courseId] = result;
-				this.emitChange({
-					action: {
-						type: Constants.LOAD_ENROLLMENT_STATUS,
-						courseId: courseId,
-						result: result
-					}
+			service
+				.getEnrollment()
+				.isEnrolled(courseId)
+				.then(result => {
+					enrollmentStatus[courseId] = result;
+					this.emitChange({
+						action: {
+							type: Constants.LOAD_ENROLLMENT_STATUS,
+							courseId: courseId,
+							result: result,
+						},
+					});
 				});
-			});
 		});
 	},
 
-	isEnrolled (courseId) {
-		if (Object.prototype.hasOwnProperty.call(enrollmentStatus,courseId)) {
+	isEnrolled(courseId) {
+		if (Object.prototype.hasOwnProperty.call(enrollmentStatus, courseId)) {
 			return enrollmentStatus[courseId];
 		}
 		return false;
-	}};
+	},
+};
 
 const handlers = {
 	[Constants.DROP_COURSE]: action => {
@@ -59,7 +63,7 @@ const handlers = {
 				Store.flushEnrollmentStatus();
 				Store.emitChange({ action, result });
 			});
-	}
+	},
 };
 
 AppDispatcher.register(function (payload) {
@@ -68,6 +72,5 @@ AppDispatcher.register(function (payload) {
 	handler && handler(action);
 	return true;
 });
-
 
 export default Store;

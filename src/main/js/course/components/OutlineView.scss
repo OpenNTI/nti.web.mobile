@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 .course-outline {
 	background: #fff;
@@ -11,15 +11,20 @@
 	ul {
 		position: relative;
 
-		&, ul {
+		&,
+		ul {
 			list-style: none;
 			margin-left: 0;
 		}
 	}
 
-	li ul { margin-left: 0; }
+	li ul {
+		margin-left: 0;
+	}
 
-	li, h1, h3 {
+	li,
+	h1,
+	h3 {
 		position: relative; // to get the chevron on the anchor below to line up.
 		overflow: hidden; // to get the margins to be contained within.
 	}
@@ -43,7 +48,9 @@
 				font-size: inherit;
 				right: 0.5em;
 				top: 50%;
-				transform: translateY(-44%); // 50% pulls it up a bit too high relative to the text.
+				transform: translateY(
+					-44%
+				); // 50% pulls it up a bit too high relative to the text.
 			}
 		}
 	}

@@ -1,5 +1,5 @@
-@import "~@nti/style-common";
-@import "utils/placeholders";
+@import '~@nti/style-common';
+@import 'utils/placeholders';
 
 %scroller-heights {
 	max-height: 70vh;
@@ -32,7 +32,8 @@
 		margin: 0 -0.625rem;
 		overflow: hidden;
 
-		&::before, &::after {
+		&::before,
+		&::after {
 			content: '';
 			z-index: 10;
 			position: absolute;

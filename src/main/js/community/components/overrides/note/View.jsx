@@ -9,13 +9,15 @@ import Styles from './View.css';
 import Note from './Note';
 
 const cx = classnames.bind(Styles);
-const handles = (obj) => obj && obj.isNote;
+const handles = obj => obj && obj.isNote;
 
 const cleanPath = (path, community) => {
 	const parts = path.split('/');
 	let communityPartIndex = parts.indexOf('community');
 
-	if (parts[communityPartIndex + 1] === encodeURIComponent(community.Username)) {
+	if (
+		parts[communityPartIndex + 1] === encodeURIComponent(community.Username)
+	) {
 		communityPartIndex += 1;
 	}
 
@@ -29,44 +31,43 @@ export default class NTIMobileCommunityTopic extends React.Component {
 		community: PropTypes.object,
 		topic: PropTypes.object.isRequired,
 		channel: PropTypes.object,
-	}
+	};
 
 	static contextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
 	static childContextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
-
-	getChildContext () {
+	getChildContext() {
 		return {
 			router: {
 				...(this.context.router || {}),
-				history: null
-			}
+				history: null,
+			},
 		};
 	}
-
 
 	getExtraRouterProps = () => {
-		const {community} = this.props;
-		const {router} = this.context;
-		const {route} = router || {};
-		const {location} = route || {};
-		const {pathname} = location || {};
+		const { community } = this.props;
+		const { router } = this.context;
+		const { route } = router || {};
+		const { location } = route || {};
+		const { pathname } = location || {};
 
-		if (!pathname) { return null; }
+		if (!pathname) {
+			return null;
+		}
 
 		return {
-			path: cleanPath(pathname, community)
+			path: cleanPath(pathname, community),
 		};
-	}
+	};
 
-
-	render () {
-		const {topic, channel} = this.props;
+	render() {
+		const { topic, channel } = this.props;
 
 		return (
 			<Page {...this.props}>

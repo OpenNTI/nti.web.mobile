@@ -15,10 +15,10 @@ const KINDS = [
 	MultipleChoice,
 	// MultipleChoiceMultipleAnswer,
 	// Matching,
-	Ordering
+	Ordering,
 ];
 
-export function renderWidget (item, index, questionPart) {
+export function renderWidget(item, index, questionPart) {
 	let Item = Unknown;
 
 	for (let Type of KINDS) {
@@ -31,6 +31,8 @@ export function renderWidget (item, index, questionPart) {
 	return React.createElement(Item, {
 		ref: 'input',
 		key: 'aggregated-type-' + index,
-		index, item, questionPart
+		index,
+		item,
+		questionPart,
 	});
 }

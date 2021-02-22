@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Mixins} from '@nti/web-commons';
+import { Mixins } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -13,18 +13,22 @@ export default createReactClass({
 	mixins: [ContextSender, Mixins.NavigatableMixin],
 
 	propTypes: {
-		id: PropTypes.string
+		id: PropTypes.string,
 	},
 
-	getContext () {
+	getContext() {
 		return Promise.resolve({
 			href: this.makeHref('/lists/'),
-			label: 'Distribution Lists'
+			label: 'Distribution Lists',
 		});
 	},
 
-	render () {
-		let {id} = this.props;
-		return id ? <ListDetail id={id} {...this.props} /> : <DistributionLists {...this.props} />;
-	}
+	render() {
+		let { id } = this.props;
+		return id ? (
+			<ListDetail id={id} {...this.props} />
+		) : (
+			<DistributionLists {...this.props} />
+		);
+	},
 });

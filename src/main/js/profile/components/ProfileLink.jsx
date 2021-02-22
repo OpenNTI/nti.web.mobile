@@ -9,21 +9,16 @@ export default createReactClass({
 	mixins: [ProfileLink],
 
 	propTypes: {
-		entity: PropTypes.oneOfType([
-			PropTypes.object,
-			PropTypes.string
-		])
+		entity: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 	},
 
-	render () {
-		let {entity, ...props} = this.props;
+	render() {
+		let { entity, ...props } = this.props;
 
 		props = Object.assign(props, {
-			onClick: (...args) => this.navigateToProfile(entity, ...args)
+			onClick: (...args) => this.navigateToProfile(entity, ...args),
 		});
 
-		return (
-			<span {...props}/>
-		);
-	}
+		return <span {...props} />;
+	},
 });

@@ -5,25 +5,25 @@ export default class extends React.Component {
 	static displayName = 'Grade';
 
 	static propTypes = {
-		value: PropTypes.any.isRequired
+		value: PropTypes.any.isRequired,
 	};
 
 	state = {
-		grade: ''
+		grade: '',
 	};
 
-	componentDidMount () {
+	componentDidMount() {
 		this.parseGrade(this.props.value);
 	}
 
-	componentDidUpdate (props) {
-		const {value} = this.props;
+	componentDidUpdate(props) {
+		const { value } = this.props;
 		if (props.value !== value) {
 			this.parseGrade(value);
 		}
 	}
 
-	parseGrade = (grade) => {
+	parseGrade = grade => {
 		let n;
 		if (typeof grade === 'number') {
 			n = grade.toFixed(1);
@@ -36,15 +36,12 @@ export default class extends React.Component {
 
 		this.setState({
 			grade: parts[0],
-			letter: parts.slice(1).join(' ')
+			letter: parts.slice(1).join(' '),
 		});
-
 	};
 
-	render () {
-		let {grade} = this.state;
-		return (
-			<div className="grade">{grade}</div>
-		);
+	render() {
+		let { grade } = this.state;
+		return <div className="grade">{grade}</div>;
 	}
 }

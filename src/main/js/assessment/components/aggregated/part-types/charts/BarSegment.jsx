@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
-import {rawContent} from '@nti/lib-commons';
+import { rawContent } from '@nti/lib-commons';
 
 export default class extends React.Component {
 	static displayName = 'BarSegment';
@@ -11,7 +11,7 @@ export default class extends React.Component {
 		label: PropTypes.string,
 		count: PropTypes.number,
 		percent: PropTypes.number,
-		total: PropTypes.number
+		total: PropTypes.number,
 	};
 
 	isTipVisible = () => {
@@ -22,20 +22,27 @@ export default class extends React.Component {
 		this.setState({ showTip: !this.isTipVisible() });
 	};
 
-	render () {
-		const {props: {colors, label, count, percent}} = this;
+	render() {
+		const {
+			props: { colors, label, count, percent },
+		} = this;
 
 		const css = {
 			width: `${percent}%`,
-			background: colors[label]
+			background: colors[label],
 		};
 
 		const cls = cx('bar-series-segment', {
-			'small': (percent < 8 && count > 19) || percent < 5
+			small: (percent < 8 && count > 19) || percent < 5,
 		});
 
 		return (
-			<div className={cls} style={css} data-count={count} onClick={this.toggleTip}>
+			<div
+				className={cls}
+				style={css}
+				data-count={count}
+				onClick={this.toggleTip}
+			>
 				{count}
 				{this.renderTooltip()}
 			</div>
@@ -43,7 +50,9 @@ export default class extends React.Component {
 	}
 
 	renderTooltip = () => {
-		const {props: {label, count, percent, total}} = this;
+		const {
+			props: { label, count, percent, total },
+		} = this;
 		if (!this.isTipVisible()) {
 			return null;
 		}
@@ -52,8 +61,10 @@ export default class extends React.Component {
 
 		return (
 			<div className="bar-tool-tip">
-				<span {...rawContent(label)}/>
-				<div>{count} of {total} ({percentString}%)</div>
+				<span {...rawContent(label)} />
+				<div>
+					{count} of {total} ({percentString}%)
+				</div>
 			</div>
 		);
 	};

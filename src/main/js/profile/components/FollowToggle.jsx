@@ -2,28 +2,29 @@ import './FollowToggle.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {Prompt} from '@nti/web-commons';
-
+import { Prompt } from '@nti/web-commons';
 
 export default class FollowToggle extends React.Component {
-
 	static propTypes = {
-		entity: PropTypes.object.isRequired
-	}
+		entity: PropTypes.object.isRequired,
+	};
 
-	static getDerivedStateFromProps ({entity}) {
+	static getDerivedStateFromProps({ entity }) {
 		return {
-			following: entity && entity.following
+			following: entity && entity.following,
 		};
 	}
 
-	state = {}
+	state = {};
 
-	toggleFollow = async (e) => {
+	toggleFollow = async e => {
 		e.preventDefault();
 		e.stopPropagation();
 
-		const {state: {following}, props: {entity}} = this;
+		const {
+			state: { following },
+			props: { entity },
+		} = this;
 
 		try {
 			if (following) {
@@ -32,30 +33,32 @@ export default class FollowToggle extends React.Component {
 
 			this.setState({ loading: true });
 			await entity.follow();
-
-		}
-		catch (er) {
+		} catch (er) {
 			//derp
-		}
-
-		finally {
+		} finally {
 			this.setState({
 				following: entity.following,
-				loading: false
+				loading: false,
 			});
 		}
-	}
+	};
 
-	render () {
-		const {props: {entity}, state: {following, loading}} = this;
+	render() {
+		const {
+			props: { entity },
+			state: { following, loading },
+		} = this;
 		const classes = cx('old-follow-widget', {
-			'follow': !following,
-			'unfollow': following,
-			'loading': loading
+			follow: !following,
+			unfollow: following,
+			loading: loading,
 		});
 
-		return (!entity || !entity.follow) ? null : (
-			<div className={classes} onClick={loading ? null : this.toggleFollow} />
+		return !entity || !entity.follow ? null : (
+			<div
+				className={classes}
+				onClick={loading ? null : this.toggleFollow}
+			/>
 		);
 	}
 }

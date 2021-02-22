@@ -1,6 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {rawContent} from '@nti/lib-commons';
+import { rawContent } from '@nti/lib-commons';
 
 import Mixin from './Mixin';
 
@@ -16,22 +16,21 @@ export default createReactClass({
 			'FreeResponse',
 			'ModeledContent',
 			'NumericMath',
-			'SymbolicMath'//probably needs its own.
-		]
+			'SymbolicMath', //probably needs its own.
+		],
 	},
 
-	render () {
+	render() {
 		let ex = this.state.explanation || '';
 		return (
 			<div className="solutions">
 				{this.renderSolution()}
-				<div className="explanation" {...rawContent(ex)}/>
+				<div className="explanation" {...rawContent(ex)} />
 			</div>
 		);
 	},
 
-
-	renderSolution () {
+	renderSolution() {
 		let solution = this.state.solution;
 
 		if (!solution) {
@@ -39,7 +38,10 @@ export default createReactClass({
 		}
 
 		return (
-			<div className="solution" {...rawContent(solution.value || solution)}/>
+			<div
+				className="solution"
+				{...rawContent(solution.value || solution)}
+			/>
 		);
-	}
+	},
 });

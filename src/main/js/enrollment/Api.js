@@ -1,35 +1,33 @@
-import {getService} from '@nti/web-client';
+import { getService } from '@nti/web-client';
 import AppDispatcher from '@nti/lib-dispatcher';
 
-import {RELOAD as RELOAD_LIBRARY} from 'library/Constants';
+import { RELOAD as RELOAD_LIBRARY } from 'library/Constants';
 
-export async function getEnrollmentService () {
+export async function getEnrollmentService() {
 	const service = await getService();
 	return service.getEnrollment();
 }
 
-export async function enrollOpen (catalogId) {
+export async function enrollOpen(catalogId) {
 	const enrollmentService = await getEnrollmentService();
 	const response = await enrollmentService.enrollOpen(catalogId);
 
-	AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
+	AppDispatcher.handleViewAction({ type: RELOAD_LIBRARY });
 
 	return {
 		serviceResponse: response,
-		success: true
+		success: true,
 	};
 }
 
-
-export async function dropCourse (courseId) {
+export async function dropCourse(courseId) {
 	const enrollmentService = await getEnrollmentService();
 	const response = await enrollmentService.dropCourse(courseId);
-	AppDispatcher.handleViewAction({type: RELOAD_LIBRARY});
+	AppDispatcher.handleViewAction({ type: RELOAD_LIBRARY });
 	return response;
 }
 
-
-export async function getCatalogEntry (id) {
+export async function getCatalogEntry(id) {
 	const service = await getService();
 	let entry;
 	try {

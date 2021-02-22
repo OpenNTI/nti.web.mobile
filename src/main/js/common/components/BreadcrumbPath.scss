@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .breadcrumb {
 	padding-bottom: 0;
@@ -18,7 +18,9 @@
 				overflow: hidden;
 				line-height: 0;
 
-				&::before { content: 'WWWWWW'; }
+				&::before {
+					content: 'WWWWWW';
+				}
 			}
 
 			&.last span {
@@ -52,7 +54,8 @@
 			padding: 0 0.3em;
 		}
 
-		&, span {
+		&,
+		span {
 			flex: 0 1 auto;
 			white-space: nowrap;
 			overflow: hidden;

@@ -1,13 +1,12 @@
 import React from 'react';
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 
 const t = scoped('common.comingSoon');
 
-
-export default function Unknown () {
+export default function Unknown() {
 	return (
 		<div className="unknown solution">
-			<h4>{t('singular', {subject: 'This solution type'})}</h4>
+			<h4>{t('singular', { subject: 'This solution type' })}</h4>
 		</div>
 	);
 }

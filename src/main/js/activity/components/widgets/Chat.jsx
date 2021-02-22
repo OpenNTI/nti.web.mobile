@@ -2,8 +2,8 @@ import './Chat.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {DateTime, Loading} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { DateTime, Loading } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import DisplayName from 'common/components/DisplayName';
 import Transcript from 'chat/components/Transcript';
@@ -18,53 +18,67 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	statics: {
-		mimeType: /transcriptsummary$/i
+		mimeType: /transcriptsummary$/i,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {};
 	},
 
 	propTypes: {
-		item: PropTypes.any.isRequired
+		item: PropTypes.any.isRequired,
 	},
 
-
-	hideTranscript () {
-		this.setState({hideTranscript: true});
+	hideTranscript() {
+		this.setState({ hideTranscript: true });
 	},
 
-
-	showTranscript () {
-		let {item} = this.props;
-		let {transcript} = this.state;
+	showTranscript() {
+		let { item } = this.props;
+		let { transcript } = this.state;
 
 		if (!transcript) {
-			this.setState({loading: true}, () => {
-				item.getTranscript()
-					.then(x => this.setState({transcript: x, loading: false}));
+			this.setState({ loading: true }, () => {
+				item.getTranscript().then(x =>
+					this.setState({ transcript: x, loading: false })
+				);
 			});
 		} else {
-			this.setState({hideTranscript: false});
+			this.setState({ hideTranscript: false });
 		}
 	},
 
-
-	render () {
-		let {loading, transcript, hideTranscript} = this.state;
-		let {item} = this.props;
-		let {contributorsWithoutOriginator, originator} = item;
+	render() {
+		let { loading, transcript, hideTranscript } = this.state;
+		let { item } = this.props;
+		let { contributorsWithoutOriginator, originator } = item;
 		let others = contributorsWithoutOriginator;
 
 		return (
 			<div className="chat avatar-heading">
-				{(!loading && (!transcript || hideTranscript)) && (
+				{!loading && (!transcript || hideTranscript) && (
 					<div className="wrap" onClick={this.showTranscript}>
-						<h1><DisplayName entity={originator} usePronoun/> had a chat with {others.map(this.renderOthers)}</h1>
+						<h1>
+							<DisplayName entity={originator} usePronoun /> had a
+							chat with {others.map(this.renderOthers)}
+						</h1>
 						<ul className="meta">
-							<li><DateTime date={item.getCreatedTime()}/></li>
-							<li>Lasted <DateTime suffix={false} relativeTo={item.getLastModified()} date={item.getCreatedTime()} /></li>
-							<li>{ t('messages', {count: item.RoomInfo.messageCount}) }</li>
+							<li>
+								<DateTime date={item.getCreatedTime()} />
+							</li>
+							<li>
+								Lasted{' '}
+								<DateTime
+									suffix={false}
+									relativeTo={item.getLastModified()}
+									date={item.getCreatedTime()}
+								/>
+							</li>
+							<li>
+								{t('messages', {
+									count: item.RoomInfo.messageCount,
+								})}
+							</li>
 						</ul>
 					</div>
 				)}
@@ -75,26 +89,23 @@ export default createReactClass({
 					</div>
 				)}
 
-				{(!loading && !!transcript && !hideTranscript) && (
+				{!loading && !!transcript && !hideTranscript && (
 					<div className="wrap" onClick={this.hideTranscript}>
 						<Transcript transcript={transcript} />
 					</div>
 				)}
-
 			</div>
 		);
 	},
 
-
-	renderOthers (name, i, a) {
-		let suffix = (a.length === 1)
-			? ''
-			: (i === (a.length - 1))
-				? ' and '
-				: ', ';
+	renderOthers(name, i, a) {
+		let suffix = a.length === 1 ? '' : i === a.length - 1 ? ' and ' : ', ';
 
 		return (
-			<span key={i}><DisplayName entity={name} usePronoun/>{suffix}</span>
+			<span key={i}>
+				<DisplayName entity={name} usePronoun />
+				{suffix}
+			</span>
 		);
-	}
+	},
 });

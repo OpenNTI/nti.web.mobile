@@ -1,17 +1,13 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
-import {scoped} from '@nti/lib-locale';
-import {
-	EmptyList,
-	Error as Err,
-	Loading
-} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { EmptyList, Error as Err, Loading } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
 import mixin from '../mixins/Mixin';
-import {GROUPS} from '../Constants';
+import { GROUPS } from '../Constants';
 
 import GroupsListItem from './GroupsListItem';
 
@@ -29,66 +25,77 @@ export default createReactClass({
 	storeType: GROUPS,
 	listName: 'Groups',
 
-	attachCreationFieldRef (x) { this.creationfield = x; },
+	attachCreationFieldRef(x) {
+		this.creationfield = x;
+	},
 
-	getContext () {
+	getContext() {
 		return Promise.resolve({
-			label: 'Groups'
+			label: 'Groups',
 		});
 	},
 
-	addGroup () {
-		const {creationfield, state: {store}} = this;
+	addGroup() {
+		const {
+			creationfield,
+			state: { store },
+		} = this;
 		if (!store) {
 			return;
 		}
 
 		let name = creationfield.value.trim();
-		if(name.length === 0) {
+		if (name.length === 0) {
 			return;
 		}
 
 		this.setState({ loading: true });
 
-		store.createGroup(name)
-			.then(() => {
-				this.setState({
-					loading: false
-				});
+		store.createGroup(name).then(() => {
+			this.setState({
+				loading: false,
 			});
+		});
 	},
 
-
-	beforeList () {
+	beforeList() {
 		return this.creationField();
 	},
 
-	creationField () {
+	creationField() {
 		return (
 			<div className="inline-creation-form">
-				<input type="text" ref={this.attachCreationFieldRef} placeholder={t('newGroupPlaceholder')}/>
-				<button className="tiny add-button" onClick={this.addGroup}>Add</button>
+				<input
+					type="text"
+					ref={this.attachCreationFieldRef}
+					placeholder={t('newGroupPlaceholder')}
+				/>
+				<button className="tiny add-button" onClick={this.addGroup}>
+					Add
+				</button>
 			</div>
 		);
 	},
 
-	deleteGroup (group) {
-		return group.delete()
-			.catch(reason => {
-				logger.error('There was an error while trying to delete a group: error: %o, group: %o', reason, group);
+	deleteGroup(group) {
+		return group.delete().catch(reason => {
+			logger.error(
+				'There was an error while trying to delete a group: error: %o, group: %o',
+				reason,
+				group
+			);
 
-				//Continue the error.
-				return Promise.reject(reason);
-			});
+			//Continue the error.
+			return Promise.reject(reason);
+		});
 	},
 
-	renderListItem (item) {
+	renderListItem(item) {
 		return <GroupsListItem item={item} onRightClick={this.deleteGroup} />;
 	},
 
-	render () {
-
-		let {error, search, store} = this.state;
+	render() {
+		let { error, search, store } = this.state;
 
 		if (error) {
 			return <Err error={error} />;
@@ -99,8 +106,11 @@ export default createReactClass({
 		}
 
 		let items = [];
-		for(let item of store) {
-			if(!store.entityMatchesQuery || store.entityMatchesQuery(item, search)) {
+		for (let item of store) {
+			if (
+				!store.entityMatchesQuery ||
+				store.entityMatchesQuery(item, search)
+			) {
 				items.push(this.renderListItem(item));
 			}
 		}
@@ -111,7 +121,9 @@ export default createReactClass({
 				<div>
 					{this.listName && <h2>{this.listName}</h2>}
 					{items.length > 0 ? (
-						<ul className={'contacts-list groups avatar-grid'}>{items}</ul>
+						<ul className={'contacts-list groups avatar-grid'}>
+							{items}
+						</ul>
 					) : (
 						<EmptyList type="dynamicfriendslists" />
 					)}
@@ -119,5 +131,5 @@ export default createReactClass({
 				{this.afterList && this.afterList()}
 			</div>
 		);
-	}
+	},
 });

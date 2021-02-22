@@ -99,7 +99,8 @@
 			text-align: right;
 		}
 
-		.button, button {
+		.button,
+		button {
 			letter-spacing: normal;
 			padding: 0.75rem 1rem 0.8625rem;
 			margin: 0;
@@ -131,9 +132,9 @@
 			bottom: 3rem;
 			left: 0;
 			right: 0;
-			box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.8);//inset 1px 1px 0 rgba(255,255,255,0.3);
+			box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.8); //inset 1px 1px 0 rgba(255,255,255,0.3);
 			border: 0 solid var(--secondary-red);
-			border-radius: 0;//.3rem;
+			border-radius: 0; //.3rem;
 			background: var(--primary-red);
 			color: var(--secondary-red);
 			padding: 1rem 4rem 1rem 1rem;
@@ -167,7 +168,7 @@
 					background: {
 						position: 0 0;
 						repeat: no-repeat;
-					};
+					}
 				}
 			}
 		}

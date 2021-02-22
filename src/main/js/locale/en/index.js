@@ -4,9 +4,8 @@ import login from './partials/login';
 import comingSoon from './partials/coming-soon';
 
 export default {
-
 	app: {
-		login
+		login,
 	},
 
 	common: {
@@ -14,7 +13,7 @@ export default {
 			ok: 'Okay',
 			cancel: 'Cancel',
 			save: 'Save',
-			post: 'Post'
+			post: 'Post',
 		},
 
 		comingSoon,

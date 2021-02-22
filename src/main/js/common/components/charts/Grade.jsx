@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class Grade extends React.Component {
-
 	static propTypes = {
 		/**
 		 * The color to fill the segment(s) with.
@@ -15,7 +14,7 @@ export default class Grade extends React.Component {
 			//Draw only one segement
 			PropTypes.string,
 			//Draw both segments
-			PropTypes.arrayOf(PropTypes.string)
+			PropTypes.arrayOf(PropTypes.string),
 		]),
 
 		/**
@@ -48,22 +47,21 @@ export default class Grade extends React.Component {
 		 */
 		pixelDensity: PropTypes.number,
 
-
-		withLetter: PropTypes.bool
-	}
+		withLetter: PropTypes.bool,
+	};
 
 	static defaultProps = {
 		grade: 90,
-		color: '#40b450',//#a5c959
+		color: '#40b450', //#a5c959
 		pixelDensity: (global.devicePixelRatio || 1) * 2,
 		width: 200,
-		height: 200
-	}
+		height: 200,
+	};
 
-	attachRef = x => this.canvas = x
+	attachRef = x => (this.canvas = x);
 
-	componentDidMount () {
-		const {canvas} = this;
+	componentDidMount() {
+		const { canvas } = this;
 		let context = canvas.getContext('2d');
 
 		context.imageSmoothingEnabled = true;
@@ -71,32 +69,39 @@ export default class Grade extends React.Component {
 		this.paint(context);
 	}
 
-	componentDidUpdate () {
+	componentDidUpdate() {
 		this.paint(this.canvas.getContext('2d'));
 	}
 
-	render () {
+	render() {
 		let p = this.props;
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
 		let style = {
 			width: p.width,
-			height: p.height
+			height: p.height,
 		};
 
 		return (
-			<canvas ref={this.attachRef} {...this.props} className="grade" style={style} width={width} height={height} />
+			<canvas
+				ref={this.attachRef}
+				{...this.props}
+				className="grade"
+				style={style}
+				width={width}
+				height={height}
+			/>
 		);
 	}
 
-	paint = (context) => {
+	paint = context => {
 		context.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 
 		this.drawCircle(context);
 		if (this.props.withLetter) {
 			this.drawDot(context);
 		}
-	}
+	};
 
 	getColor = () => {
 		let c = this.props.color;
@@ -104,7 +109,7 @@ export default class Grade extends React.Component {
 			c = c[0];
 		}
 		return c;
-	}
+	};
 
 	getSecondaryColor = () => {
 		let c = this.props.color;
@@ -112,9 +117,9 @@ export default class Grade extends React.Component {
 			c = [];
 		}
 		return c[1];
-	}
+	};
 
-	drawCircle = (ctx) => {
+	drawCircle = ctx => {
 		let node = ctx.canvas,
 			stroke = node.width * (1 / 112),
 			centerX = node.width / 2,
@@ -124,7 +129,7 @@ export default class Grade extends React.Component {
 			grade = (this.props.grade || 0).toString(10),
 			font = {
 				size: Math.floor(radius * 0.8),
-				weight: '300'
+				weight: '300',
 			};
 
 		ctx.save();
@@ -133,7 +138,7 @@ export default class Grade extends React.Component {
 			ctx.translate(centerX, centerY);
 			ctx.rotate(-Math.PI / 2);
 			ctx.beginPath();
-			ctx.arc(0, 0, radius, 0, (2 * Math.PI) * (grade / 100), false);
+			ctx.arc(0, 0, radius, 0, 2 * Math.PI * (grade / 100), false);
 			ctx.lineWidth = stroke;
 			ctx.fillStyle = this.getColor();
 			ctx.strokeStyle = this.props.strokeColor || this.getColor();
@@ -159,12 +164,12 @@ export default class Grade extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	}
+	};
 
-	drawDot = (ctx) => {
+	drawDot = ctx => {
 		let node = ctx.canvas,
 			slope = node.height / node.width,
-			centerY = (node.height / 2) + (node.width / 4),
+			centerY = node.height / 2 + node.width / 4,
 			centerX = centerY / slope,
 			radius = Math.floor(node.width * 0.09),
 			textbox,
@@ -172,12 +177,11 @@ export default class Grade extends React.Component {
 			nudge = this.props.pixelDensity,
 			font = {
 				size: Math.floor(radius),
-				weight: 'bold'
+				weight: 'bold',
 			};
 
 		ctx.save();
 		try {
-
 			ctx.setTransform(1, 0, 0, 1, centerX, centerY);
 			ctx.beginPath();
 			ctx.arc(0, 0, radius, 0, 2 * Math.PI, false);
@@ -199,24 +203,28 @@ export default class Grade extends React.Component {
 			//ctx.shadowOffsetX = -1;
 			//ctx.shadowOffsetY = -1;
 
-			ctx.fillText(grade, Math.floor(-textbox.width / 2) + nudge, font.size / 3);
+			ctx.fillText(
+				grade,
+				Math.floor(-textbox.width / 2) + nudge,
+				font.size / 3
+			);
 		} finally {
 			ctx.restore();
 		}
-	}
+	};
 }
 
-
-function setFont (context, font) {
+function setFont(context, font) {
 	context.font = [
 		font.style || 'normal',
 		font.variant || 'normal',
-		font.weight || 'normal', (font.size || 10) + 'px',
-		font.family || '"Open Sans"'
+		font.weight || 'normal',
+		(font.size || 10) + 'px',
+		font.family || '"Open Sans"',
 	].join(' ');
 }
 
-function getGradeLetter (g) {
+function getGradeLetter(g) {
 	if (g >= 90) {
 		g = 'A';
 	} else if (g >= 80) {

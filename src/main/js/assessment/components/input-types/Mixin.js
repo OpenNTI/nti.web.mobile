@@ -1,6 +1,6 @@
 import Store from '../../Store';
-import {partInteracted} from '../../Actions';
-import {SYNC} from '../../Constants';
+import { partInteracted } from '../../Actions';
+import { SYNC } from '../../Constants';
 
 const inputTypeCleaned = Symbol();
 
@@ -9,16 +9,15 @@ const onStoreChange = 'input-types:mixin:OnStoreChange';
 export const stopEvent = e => (e.preventDefault(), e.stopPropagation());
 
 export default {
-
 	statics: {
-		handles (item) {
+		handles(item) {
 			if (!this[inputTypeCleaned]) {
 				//ensure event type:
 				if (!Array.isArray(this.inputType)) {
 					this.inputType = [this.inputType];
 				}
 				//ensure shape:
-				this.inputType.forEach((s, i, a)=>a[i] = s.toLowerCase());
+				this.inputType.forEach((s, i, a) => (a[i] = s.toLowerCase()));
 
 				//prevent re-entry:
 				this[inputTypeCleaned] = true;
@@ -26,75 +25,76 @@ export default {
 
 			//Perform actual test...
 			return this.testType(item);
-
 		},
 
-
-		testType (item) {
-			let type = item && item.MimeType
-				.replace('application/vnd.nextthought.assessment.', '')
-				.replace(/part$/i, '')
-				.toLowerCase();
-			return (this.inputType.indexOf(type) !== -1);
-		}
+		testType(item) {
+			let type =
+				item &&
+				item.MimeType.replace(
+					'application/vnd.nextthought.assessment.',
+					''
+				)
+					.replace(/part$/i, '')
+					.toLowerCase();
+			return this.inputType.indexOf(type) !== -1;
+		},
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return {
-			interacted: false
+			interacted: false,
 		};
 	},
 
-
-	// eslint-disable-next-line camelcase
-	UNSAFE_componentWillMount () {
+	UNSAFE_componentWillMount() {
 		const storeValue = Store.getPartValue(this.props.item);
-		const defaultValue = (this.getDefaultValue && storeValue === void 0) ? this.getDefaultValue() : void 0;
+		const defaultValue =
+			this.getDefaultValue && storeValue === void 0
+				? this.getDefaultValue()
+				: void 0;
 
-		this.setValue(typeof storeValue === 'undefined' ? defaultValue : storeValue);
+		this.setValue(
+			typeof storeValue === 'undefined' ? defaultValue : storeValue
+		);
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		Store.addChangeListener(this[onStoreChange]);
 	},
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		Store.removeChangeListener(this[onStoreChange]);
 	},
 
-
-	[onStoreChange] (event) {
+	[onStoreChange](event) {
 		this.shouldUpdate = event && event.type === SYNC;
 		if (this.shouldUpdate) {
-			let {item} = this.props;
+			let { item } = this.props;
 			this.setValue(Store.getPartValue(item));
 			this.setState({
-				busy: Store.getBusyState(item)
+				busy: Store.getBusyState(item),
 			});
 		}
 	},
 
-
-	isAssessed () {
-		const {item} = this.props;
+	isAssessed() {
+		const { item } = this.props;
 		return !!Store.getAssessedQuestion(item, item.parent().getID());
 	},
 
-
 	// This should be renamed to "isReadOnly"
-	isSubmitted () {
-		const {item} = this.props;
-		return Store.isSubmitted(item) || Store.isAdministrative(item) || !Store.isAvailable(item);
+	isSubmitted() {
+		const { item } = this.props;
+		return (
+			Store.isSubmitted(item) ||
+			Store.isAdministrative(item) ||
+			!Store.isAvailable(item)
+		);
 	},
 
-
-	getSolution () {
+	getSolution() {
 		return Store.getSolution(this.props.item);
 	},
-
 
 	// getAssessedPart () {
 	// 	let item = this.props.item;
@@ -107,26 +107,22 @@ export default {
 	// 	return parts[item.getPartIndex()];
 	// },
 
-
-	setValue (value) {
+	setValue(value) {
 		if (this.processValue) {
 			value = this.processValue(value);
 		}
-		this.setState({value: value});
+		this.setState({ value: value });
 	},
 
-
-	hasInteracted () {
+	hasInteracted() {
 		return this.state.interacted;
 	},
 
-
-	handleInteraction () {
+	handleInteraction() {
 		this.saveProgress(this.saveBuffer || 750);
 	},
 
-
-	saveProgress (delay = 0) {
+	saveProgress(delay = 0) {
 		let locked = this.isSubmitted();
 		let p = this.props;
 		let v = locked ? this.state.value : this.getValue();
@@ -135,5 +131,5 @@ export default {
 		if (!locked) {
 			partInteracted(p.item, v, delay, this.onProgressSaved);
 		}
-	}
+	},
 };

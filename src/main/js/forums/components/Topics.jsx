@@ -4,13 +4,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import {Link} from 'react-router-component';
-import {addHistory} from '@nti/lib-analytics';
-import {scoped} from '@nti/lib-locale';
+import { Link } from 'react-router-component';
+import { addHistory } from '@nti/lib-analytics';
+import { scoped } from '@nti/lib-locale';
 import { decodeFromURI } from '@nti/lib-ntiids';
-import {StoreEventsMixin} from '@nti/lib-store';
-import {Forums} from '@nti/web-discussions';
-import { Error as Err, Loading, Mixins, Prompt} from '@nti/web-commons';
+import { StoreEventsMixin } from '@nti/lib-store';
+import { Forums } from '@nti/web-discussions';
+import { Error as Err, Loading, Mixins, Prompt } from '@nti/web-commons';
 
 import * as Actions from '../Actions';
 import paging from '../mixins/Paging';
@@ -24,11 +24,13 @@ import ViewHeader from './widgets/ViewHeader';
 const DEFAULT_TEXT = {
 	create: 'Create a discussion',
 	deletePrompt: 'Delete this forum?',
-	deleteError: 'Forum cannot be deleted'
+	deleteError: 'Forum cannot be deleted',
 };
 
 const t = scoped('forums.topic', DEFAULT_TEXT);
-const Transition = x => <CSSTransition appear classNames="fade-out-in" timeout={500} {...x}/>;
+const Transition = x => (
+	<CSSTransition appear classNames="fade-out-in" timeout={500} {...x} />
+);
 
 const ERROR_CODE = '404 Not Found';
 
@@ -41,42 +43,47 @@ const Topics = createReactClass({
 		forumId: PropTypes.string,
 		forum: PropTypes.object,
 		contentPackage: PropTypes.shape({
-			getID: PropTypes.func
-		})
+			getID: PropTypes.func,
+		}),
 	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[FORUM_DELETION_ERROR] (event) {
-			setTimeout(() => { Prompt.alert(t('deleteError')); }, 1000);
+		[FORUM_DELETION_ERROR](event) {
+			setTimeout(() => {
+				Prompt.alert(t('deleteError'));
+			}, 1000);
 		},
 
-		[FORUM_DELETED] (event) {
-			const discussions = path.resolve(this.getNavigable().getEnvironment().getPath(), '..');
+		[FORUM_DELETED](event) {
+			const discussions = path.resolve(
+				this.getNavigable().getEnvironment().getPath(),
+				'..'
+			);
 			this.navigateRoot(`${discussions}/`);
-		}
+		},
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
-			loading: true
+			loading: true,
 		};
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		addHistory(decodeFromURI(this.props.forumId));
 	},
 
-	getForum () {
+	getForum() {
 		return Store.getForum(this.props.forumId);
 	},
 
-	canCreateTopic () {
+	canCreateTopic() {
 		let forum = this.getForum();
 		return !!(forum && forum.hasLink('add'));
 	},
 
-	createTopicLink () {
+	createTopicLink() {
 		if (!this.canCreateTopic()) {
 			return null;
 		}
@@ -87,7 +94,7 @@ const Topics = createReactClass({
 		);
 	},
 
-	deleteForum () {
+	deleteForum() {
 		Prompt.areYouSure(t('deletePrompt')).then(
 			() => {
 				Actions.deleteForum(this.getForum());
@@ -96,22 +103,22 @@ const Topics = createReactClass({
 		);
 	},
 
-	editForum () {
-		this.setState({showEditor: true});
+	editForum() {
+		this.setState({ showEditor: true });
 	},
 
-	hideEditor () {
-		this.setState({showEditor: false});
+	hideEditor() {
+		this.setState({ showEditor: false });
 	},
 
-	saveForum (payload) {
+	saveForum(payload) {
 		this.getForum().edit(payload);
 
 		this.hideEditor();
 	},
 
-	render () {
-		const {showEditor} = this.state;
+	render() {
+		const { showEditor } = this.state;
 
 		if (this.state.loading) {
 			return <Loading.Mask />;
@@ -119,7 +126,9 @@ const Topics = createReactClass({
 
 		let { forumId, forum } = this.props;
 		let batchStart = paging.batchStart();
-		let forumContents = Store.getForumContents(forumId, batchStart, paging.getPageSize()) || forum;
+		let forumContents =
+			Store.getForumContents(forumId, batchStart, paging.getPageSize()) ||
+			forum;
 		const canEdit = forum.hasLink && forum.hasLink('edit');
 
 		if (
@@ -169,10 +178,17 @@ const Topics = createReactClass({
 						</div>
 					</Transition>
 				</TransitionGroup>
-				{showEditor && <Forums.Editor title={this.getForum().title} onBeforeDismiss={this.hideEditor} onSubmit={this.saveForum} isEditing/>}
+				{showEditor && (
+					<Forums.Editor
+						title={this.getForum().title}
+						onBeforeDismiss={this.hideEditor}
+						onSubmit={this.saveForum}
+						isEditing
+					/>
+				)}
 			</div>
 		);
-	}
+	},
 });
 
 export default Topics;

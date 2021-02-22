@@ -1,43 +1,44 @@
 import './UserAgreement.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {getServer} from '@nti/web-client';
-import {rawContent} from '@nti/lib-commons';
-import {Error as ErrorWidget, Loading, Mixins} from '@nti/web-commons';
+import { getServer } from '@nti/web-client';
+import { rawContent } from '@nti/lib-commons';
+import { Error as ErrorWidget, Loading, Mixins } from '@nti/web-commons';
 
 export default createReactClass({
 	displayName: 'UserAgreement',
 
 	mixins: [Mixins.BasePath],
 
-	getInitialState () {
+	getInitialState() {
 		return {
-			loading: true
+			loading: true,
 		};
 	},
 
-	componentDidMount () {
-		this.getUserAgreement(this.getBasePath())
-			.then(this.setContent, this.setError);
+	componentDidMount() {
+		this.getUserAgreement(this.getBasePath()).then(
+			this.setContent,
+			this.setError
+		);
 	},
 
-
-	getUserAgreement (basePath) {
+	getUserAgreement(basePath) {
 		let url = basePath + 'api/user-agreement/';
 
-		return getServer().get(url)
+		return getServer()
+			.get(url)
 			.catch(er =>
-				Promise.reject(er.responseJSON ? er.responseJSON.message : er));
+				Promise.reject(er.responseJSON ? er.responseJSON.message : er)
+			);
 	},
 
-
-	setError (error) {
+	setError(error) {
 		this.setState({ error, loading: false });
 	},
 
-
-	setContent (result) {
-		const {body, styles = ''} = result;
+	setContent(result) {
+		const { body, styles = '' } = result;
 
 		const alteredStyles = styles
 			//do not import other sheets.
@@ -48,30 +49,34 @@ export default createReactClass({
 		this.setState({
 			styles: alteredStyles,
 			content: body,
-			loading: false
+			loading: false,
 		});
 	},
 
-
-	render () {
-		const {state: {loading, error, content, styles}} = this;
+	render() {
+		const {
+			state: { loading, error, content, styles },
+		} = this;
 
 		return (
 			<div className="agreement-wrapper">
-
-				{ loading ? (
+				{loading ? (
 					<Loading.Mask />
 				) : error ? (
 					<ErrorWidget error={error} />
-				) : (content && (
-					<div className="agreement">
-						<style type="text/css" scoped {...rawContent(styles)}/>
-						<div {...rawContent(content)}/>
-					</div>
-				))}
-
+				) : (
+					content && (
+						<div className="agreement">
+							<style
+								type="text/css"
+								scoped
+								{...rawContent(styles)}
+							/>
+							<div {...rawContent(content)} />
+						</div>
+					)
+				)}
 			</div>
 		);
-	}
-
+	},
 });

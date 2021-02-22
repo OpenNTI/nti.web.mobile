@@ -3,7 +3,9 @@
 	align-items: center;
 	position: relative;
 
-	&, &:focus, &:hover {
+	&,
+	&:focus,
+	&:hover {
 		color: inherit;
 	}
 

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 //See http://jsfiddle.net/jsg2021/6yfw8/ for a demo
 export default class GradePerformance extends React.Component {
-
 	static propTypes = {
 		averageColor: PropTypes.string,
 		averageWidth: PropTypes.number,
@@ -15,9 +14,8 @@ export default class GradePerformance extends React.Component {
 		pixelDensity: PropTypes.number,
 
 		width: PropTypes.number,
-		height: PropTypes.number
-
-	}
+		height: PropTypes.number,
+	};
 
 	static defaultProps = {
 		averageColor: '#b8b8b8',
@@ -27,19 +25,18 @@ export default class GradePerformance extends React.Component {
 		store: null,
 		topMargin: 30,
 		bottomMargin: 10,
-		pixelDensity: (global.devicePixelRatio || 1) * 2
-	}
+		pixelDensity: (global.devicePixelRatio || 1) * 2,
+	};
 
 	state = {
 		dashOffset: 0,
-		canAnimate: this.testAnimationProperties()
-	}
+		canAnimate: this.testAnimationProperties(),
+	};
 
+	attachRef = x => (this.canvas = x);
 
-	attachRef = x => this.canvas = x
-
-	componentDidMount () {
-		const {canvas} = this;
+	componentDidMount() {
+		const { canvas } = this;
 		let context = canvas.getContext('2d');
 
 		canvas.width = this.props.width * this.props.pixelDensity;
@@ -52,20 +49,19 @@ export default class GradePerformance extends React.Component {
 			animateTask: {
 				run: this.redraw,
 				interval: 50,
-				start () {
+				start() {
 					if (this.id) {
 						return;
 					}
 					this.id = setInterval(this.run, this.interval);
 				},
 
-				stop () {
+				stop() {
 					clearInterval(this.id);
 					delete this.id;
-				}
-			}
+				},
+			},
 		});
-
 
 		if (!context.setLineDash) {
 			context.setLineDash = () => {};
@@ -74,28 +70,35 @@ export default class GradePerformance extends React.Component {
 		this.paint(context);
 	}
 
-	componentDidUpdate () {
+	componentDidUpdate() {
 		let ctx = this.canvasContext;
 		if (ctx) {
 			this.paint(ctx);
 		}
 	}
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		this.stopAnimation();
 	}
 
-	render () {
+	render() {
 		let p = this.props;
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
 		let style = {
 			width: p.width,
-			height: p.height
+			height: p.height,
 		};
 
 		return (
-			<canvas ref={this.attachRef} {...this.props} className="grade" style={style} width={width} height={height} />
+			<canvas
+				ref={this.attachRef}
+				{...this.props}
+				className="grade"
+				style={style}
+				width={width}
+				height={height}
+			/>
 		);
 	}
 
@@ -107,43 +110,45 @@ export default class GradePerformance extends React.Component {
 		}
 
 		let ctx = document.createElement('canvas').getContext('2d'),
-			hasDashOffset = has(ctx, 'lineDashOffset') || has(ctx, 'mozDashOffset'),
+			hasDashOffset =
+				has(ctx, 'lineDashOffset') || has(ctx, 'mozDashOffset'),
 			hasSetLineDash = !!ctx.setLineDash;
 
 		return hasDashOffset && hasSetLineDash;
-	}
+	};
 
 	startAnimation = () => {
 		let canAnimate = this.testAnimationProperties();
 		if (canAnimate) {
-			this.animateTask.start();//safe to call repeatedly (will noop if already started)
+			this.animateTask.start(); //safe to call repeatedly (will noop if already started)
 		}
-	}
+	};
 
 	stopAnimation = () => {
 		if (this.animateTask) {
 			this.animateTask.stop();
 		}
-	}
+	};
 
 	repaint = () => {
-		let {dashOffset = 0} = this.state || {};
+		let { dashOffset = 0 } = this.state || {};
 
 		dashOffset--;
 
-		this.setState({dashOffset});
-	}
+		this.setState({ dashOffset });
+	};
 
-	paint = (ctx) => {
-		if (!ctx) { return; }
+	paint = ctx => {
+		if (!ctx) {
+			return;
+		}
 
 		ctx.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 		this.drawAverages(ctx);
 		this.drawGrades(ctx);
-	}
+	};
 
-	drawAverages = (ctx) => {
-
+	drawAverages = ctx => {
 		ctx.save();
 		try {
 			ctx.lineDashOffset = this.state.dashOffset;
@@ -162,9 +167,9 @@ export default class GradePerformance extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	}
+	};
 
-	drawGrades = (ctx) => {
+	drawGrades = ctx => {
 		ctx.save();
 		try {
 			ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -180,7 +185,7 @@ export default class GradePerformance extends React.Component {
 		} finally {
 			ctx.restore();
 		}
-	}
+	};
 
 	drawLine = (ctx, property) => {
 		if (!this.store || !this.store.length) {
@@ -188,9 +193,11 @@ export default class GradePerformance extends React.Component {
 			return;
 		}
 
-		let pointDistance = (ctx.canvas.width / (this.store.length - 1)),
+		let pointDistance = ctx.canvas.width / (this.store.length - 1),
 			t = this.props.topMargin * this.props.pixelDensity,
-			h = ctx.canvas.height - (t + (this.props.bottomMargin * this.props.pixelDensity)),
+			h =
+				ctx.canvas.height -
+				(t + this.props.bottomMargin * this.props.pixelDensity),
 			currentX = 0;
 
 		ctx.translate(0, t);
@@ -202,5 +209,5 @@ export default class GradePerformance extends React.Component {
 		});
 
 		ctx.stroke();
-	}
+	};
 }

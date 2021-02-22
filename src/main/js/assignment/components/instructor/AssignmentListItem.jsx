@@ -2,9 +2,9 @@ import './AssignmentListItem.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {decorate} from '@nti/lib-commons';
-import {scoped} from '@nti/lib-locale';
-import {encodeForURI} from '@nti/lib-ntiids';
+import { decorate } from '@nti/lib-commons';
+import { scoped } from '@nti/lib-locale';
+import { encodeForURI } from '@nti/lib-ntiids';
 
 import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
 
@@ -14,22 +14,29 @@ import TotalPointsLabel from '../shared/TotalPointsLabel';
 import CompletionRatio from './CompletionRatio';
 
 const DEFAULT_TEXT = {
-	emptyTitle: '(No Title)'
+	emptyTitle: '(No Title)',
 };
 
 const t = scoped('assessment.assignments.list.item', DEFAULT_TEXT);
 
 class AssignmentListItem extends React.Component {
-
 	static propTypes = {
 		assignment: PropTypes.object.isRequired,
-		course: PropTypes.object.isRequired
-	}
+		course: PropTypes.object.isRequired,
+	};
 
-	render () {
-		const {props: {assignment, course}} = this;
-		const late = assignment && !assignment.isNonSubmit() && assignment.isLate(new Date());
-		const classes = cx('assignment-item', { complete: assignment.hasSubmission, late });
+	render() {
+		const {
+			props: { assignment, course },
+		} = this;
+		const late =
+			assignment &&
+			!assignment.isNonSubmit() &&
+			assignment.isLate(new Date());
+		const classes = cx('assignment-item', {
+			complete: assignment.hasSubmission,
+			late,
+		});
 
 		const href = assignment.hasLink('GradeBookByAssignment')
 			? `./${encodeForURI(assignment.getID())}/students/`
@@ -40,7 +47,7 @@ class AssignmentListItem extends React.Component {
 				<div>
 					<div className="title">
 						{assignment.title || t('emptyTitle')}
-						<TotalPointsLabel assignment={assignment}/>
+						<TotalPointsLabel assignment={assignment} />
 					</div>
 					<AssignmentStatusLabel assignment={assignment} />
 				</div>
@@ -50,6 +57,4 @@ class AssignmentListItem extends React.Component {
 	}
 }
 
-export default decorate(AssignmentListItem, [
-	Assignments.connect
-]);
+export default decorate(AssignmentListItem, [Assignments.connect]);

@@ -2,7 +2,7 @@ import './ItemAction.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {scoped} from '@nti/lib-locale';
+import { scoped } from '@nti/lib-locale';
 
 const DEFAULT_TEXT = {
 	reply: 'Reply',
@@ -10,26 +10,23 @@ const DEFAULT_TEXT = {
 	edit: 'Edit',
 	flag: 'Report',
 	flagged: 'Reported',
-	delete: 'Delete'
+	delete: 'Delete',
 };
 
 const t = scoped('discussions.actions', DEFAULT_TEXT);
 
 const ICON_MAP = {
-	'delete': 'trash',
-	'flag.metoo': 'flag'
+	delete: 'trash',
+	'flag.metoo': 'flag',
 };
 
-const getIconClass = x => (x = ICON_MAP[x] || x, `icon-${x} small`);
+const getIconClass = x => ((x = ICON_MAP[x] || x), `icon-${x} small`);
 
 export default class extends React.Component {
 	static displayName = 'Action';
 
 	static propTypes = {
-		onClick: PropTypes.oneOfType([
-			PropTypes.bool,
-			PropTypes.func
-		]),
+		onClick: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
 
 		criteria: PropTypes.any,
 
@@ -39,37 +36,39 @@ export default class extends React.Component {
 
 		className: PropTypes.string,
 
-		iconOnly: PropTypes.bool
+		iconOnly: PropTypes.bool,
 	};
 
 	static defaultProps = {
-		onClick () {}
+		onClick() {},
 	};
 
-	onClick = (e) => {
+	onClick = e => {
 		e.preventDefault();
 		e.stopPropagation();
 
 		this.props.onClick();
 	};
 
-	render () {
-		let {criteria, inList} = this.props;
+	render() {
+		let { criteria, inList } = this.props;
 
 		if (criteria === false) {
 			return null;
 		}
 
 		let button = this.renderButton();
-		return inList ? (<li>{button}</li>) : button;
+		return inList ? <li>{button}</li> : button;
 	}
 
 	renderButton = () => {
-		let {className, name, iconOnly} = this.props;
-		let css = cx('discussion-item-action', name, className, {'icon-only': iconOnly});
+		let { className, name, iconOnly } = this.props;
+		let css = cx('discussion-item-action', name, className, {
+			'icon-only': iconOnly,
+		});
 		return (
 			<a className={css} href="#" onClick={this.onClick}>
-				<i className={getIconClass(name)}/>
+				<i className={getIconClass(name)} />
 				{iconOnly ? null : t(name)}
 			</a>
 		);

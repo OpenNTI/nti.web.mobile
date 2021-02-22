@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {Card, Mixins} from '@nti/web-commons';
-import {isNTIID, encodeForURI} from '@nti/lib-ntiids';
+import { Card, Mixins } from '@nti/web-commons';
+import { isNTIID, encodeForURI } from '@nti/lib-ntiids';
 
 import ContextAccessor from 'common/mixins/ContextAccessor';
 
@@ -16,31 +16,26 @@ export default createReactClass({
 	statics: {
 		itemType: /relatedworkref$|nticard$|externallink$/i,
 
-		interactiveInContext: true
+		interactiveInContext: true,
 	},
-
 
 	propTypes: {
 		item: PropTypes.object,
-		contentPackage: PropTypes.object
+		contentPackage: PropTypes.object,
 	},
-
 
 	contextTypes: {
-		analyticsManager: PropTypes.object.isRequired
+		analyticsManager: PropTypes.object.isRequired,
 	},
 
-
-	componentWillUnmount () {
+	componentWillUnmount() {
 		this.setState = () => {};
 	},
 
-
-	async componentDidMount () {
-		let {item} = this.props;
+	async componentDidMount() {
+		let { item } = this.props;
 		let el;
 		if (item) {
-
 			if (!item.desc && item.dom) {
 				//Because the item was interpreted from a DOM element, the
 				//content of the element is the description.
@@ -57,44 +52,40 @@ export default createReactClass({
 				el = item.dom.querySelector('img');
 				item.icon = el && el.getAttribute('src');
 			}
-
 		}
 
 		this.setState({
-			context: await this.resolveContext()
+			context: await this.resolveContext(),
 		});
 	},
 
-
-	handleClick (e) {
-		const {props: {item}, state: {context = []}} = this;
-		const {analyticsManager} = this.context;
+	handleClick(e) {
+		const {
+			props: { item },
+			state: { context = [] },
+		} = this;
+		const { analyticsManager } = this.context;
 		const resourceId = item.ntiid; //Cards built from DOM have lowercase.
 
 		if (this.isExternal()) {
 			analyticsManager.ExternalResourceView.send(resourceId, {
-				context: analyticsManager.toAnalyticsPath(context, resourceId)
+				context: analyticsManager.toAnalyticsPath(context, resourceId),
 			});
 		}
 	},
 
-
-	getHref () {
-		const {item} = this.props;
-		return this.isExternal()
-			? item.href
-			: encodeForURI(item.href);
+	getHref() {
+		const { item } = this.props;
+		return this.isExternal() ? item.href : encodeForURI(item.href);
 	},
 
-
-	isExternal () {
-		const {item} = this.props;
+	isExternal() {
+		const { item } = this.props;
 		return !isNTIID(item.href);
 	},
 
-
-	render () {
-		const {item, contentPackage} = this.props;
+	render() {
+		const { item, contentPackage } = this.props;
 		const href = this.getHref();
 
 		if (!href) {
@@ -102,9 +93,14 @@ export default createReactClass({
 		}
 
 		return (
-			<a href={href} onClick={this.handleClick} rel="noreferrer" target={this.isExternal() ? '_blank' : null}>
+			<a
+				href={href}
+				onClick={this.handleClick}
+				rel="noreferrer"
+				target={this.isExternal() ? '_blank' : null}
+			>
 				<Card item={item} contentPackage={contentPackage} />
 			</a>
 		);
-	}
+	},
 });

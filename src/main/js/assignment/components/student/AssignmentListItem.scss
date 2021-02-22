@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .assignment-item {
 	display: block;
@@ -7,7 +7,9 @@
 	font-size: 0.875rem;
 	margin-bottom: 1em;
 
-	&, &:focus, &:hover {
+	&,
+	&:focus,
+	&:hover {
 		color: inherit;
 	}
 

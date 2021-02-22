@@ -1,11 +1,11 @@
 export default {
-	requiredField: '\'%(field)s\' is a required field.',
+	requiredField: "'%(field)s' is a required field.",
 
 	fieldNames: {
-		companyName: 'Company Name'
+		companyName: 'Company Name',
 	},
 
 	codes: {
-		TooLong: 'The %(field)s was too long.'
-	}
+		TooLong: 'The %(field)s was too long.',
+	},
 };

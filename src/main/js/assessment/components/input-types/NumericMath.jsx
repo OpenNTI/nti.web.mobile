@@ -2,8 +2,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { isEmpty } from '@nti/lib-commons';
 
-import Mixin, {stopEvent} from './Mixin';
-
+import Mixin, { stopEvent } from './Mixin';
 
 const isValid = /^[0-9\-/\\,.*¼-¾]*$/;
 
@@ -15,31 +14,37 @@ export default createReactClass({
 	mixins: [Mixin],
 
 	statics: {
-		inputType: [
-			'NumericMath'
-		]
+		inputType: ['NumericMath'],
 	},
 
-	attachRef (x) { this.input = x; },
+	attachRef(x) {
+		this.input = x;
+	},
 
-	render () {
-		let {value} = this.state;
+	render() {
+		let { value } = this.state;
 		let submitted = this.isSubmitted();
 
 		return (
 			<form className="free-response" onSubmit={stopEvent}>
-				<input ref={this.attachRef} value={value} onChange={this.handleInteraction} readOnly={submitted}/>
+				<input
+					ref={this.attachRef}
+					value={value}
+					onChange={this.handleInteraction}
+					readOnly={submitted}
+				/>
 			</form>
 		);
 	},
 
+	getValue() {
+		const { input } = this;
+		const { value } = input || {};
 
-	getValue () {
-		const {input} = this;
-		const {value} = input || {};
-
-		return isEmpty(value) ? null :
-			!isValid.test(value) ?
-				(this.state.value || null) : value;
-	}
+		return isEmpty(value)
+			? null
+			: !isValid.test(value)
+			? this.state.value || null
+			: value;
+	},
 });

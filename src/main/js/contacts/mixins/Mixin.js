@@ -1,19 +1,18 @@
-import {getStore} from '../Api';
+import { getStore } from '../Api';
 
 export default {
-
-	getInitialState () {
+	getInitialState() {
 		return {
 			store: null,
-			search: ''
+			search: '',
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setUpStore();
 	},
 
-	async componentDidUpdate (_, {store}) {
+	async componentDidUpdate(_, { store }) {
 		const nextStore = await this.setUpStore();
 
 		if (store && store !== nextStore) {
@@ -24,23 +23,22 @@ export default {
 		}
 	},
 
-	componentWillUnmount () {
-		let {store} = this.state;
+	componentWillUnmount() {
+		let { store } = this.state;
 		if (store) {
 			store.removeListener('change', this.onStoreChange);
 		}
 	},
 
-	onStoreChange () {
+	onStoreChange() {
 		this.forceUpdate();
 	},
 
-	async setUpStore () {
+	async setUpStore() {
 		const store = await getStore(this.storeType);
 		if (this.state.store !== store) {
-			this.setState({store});
+			this.setState({ store });
 		}
 		return store;
-	}
-
+	},
 };

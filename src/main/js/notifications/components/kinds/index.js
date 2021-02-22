@@ -15,7 +15,6 @@ import Grade from './Grade';
 import Note from './Note';
 import Unknown from './Unknown';
 
-
 const KINDS = [
 	Badge,
 	BlogComment,
@@ -32,7 +31,7 @@ const KINDS = [
 	Note,
 ];
 
-export function getNotificationItem (item, index) {
+export function getNotificationItem(item, index) {
 	let Item = Unknown;
 
 	for (let Type of KINDS) {
@@ -42,5 +41,9 @@ export function getNotificationItem (item, index) {
 		}
 	}
 
-	return React.createElement(Item, { key: 'notifications-' + item.OID, item, index });
+	return React.createElement(Item, {
+		key: 'notifications-' + item.OID,
+		item,
+		index,
+	});
 }

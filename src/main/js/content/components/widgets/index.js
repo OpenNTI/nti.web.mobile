@@ -25,7 +25,7 @@ const WIDGETS = [
 	VideoRoll,
 ];
 
-export function getWidget (item, page, ownerProps) {
+export function getWidget(item, page, ownerProps) {
 	let Item = Unknown;
 
 	for (let Type of WIDGETS) {
@@ -37,5 +37,5 @@ export function getWidget (item, page, ownerProps) {
 
 	const key = `widget-${item.guid}`;
 
-	return React.createElement(Item, {key, ...ownerProps, item, page});
+	return React.createElement(Item, { key, ...ownerProps, item, page });
 }

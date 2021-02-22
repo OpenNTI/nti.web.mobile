@@ -1,7 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {scoped} from '@nti/lib-locale';
-import {Mixins} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { Mixins } from '@nti/web-commons';
 
 import ContextSender from 'common/mixins/ContextSender';
 
@@ -16,22 +16,22 @@ export default createReactClass({
 
 	mixins: [Mixins.BasePath, ContextSender],
 
-	getContext () {
+	getContext() {
 		const path = this.getBasePath();
 		const href = '/accept/';
 		return Promise.resolve([
 			{
-				href: path, label: 'Library'
-			}, {
+				href: path,
+				label: 'Library',
+			},
+			{
 				href,
-				label: t('title')
-			}
+				label: t('title'),
+			},
 		]);
 	},
 
-	render () {
-		return (
-			<AcceptInvitation {...this.props}/>
-		);
-	}
+	render() {
+		return <AcceptInvitation {...this.props} />;
+	},
 });

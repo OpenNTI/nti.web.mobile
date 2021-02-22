@@ -27,7 +27,9 @@
 		color: var(--secondary-grey);
 		margin: 0 0 0 $m;
 
-		.meta > * { margin-right: 0.5em; }
+		.meta > * {
+			margin-right: 0.5em;
+		}
 
 		.name {
 			color: var(--primary-blue);

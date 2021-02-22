@@ -4,14 +4,14 @@ import React from 'react';
 import { Info } from '@nti/web-course';
 
 Detail.propTypes = {
-	entry: PropTypes.object
+	entry: PropTypes.object,
 };
 
-export default function Detail ({entry}) {
+export default function Detail({ entry }) {
 	return (
 		<div className="course-detail-view">
-			<Info.Inline catalogEntry={entry}/>
-			<div className="footer"/>
+			<Info.Inline catalogEntry={entry} />
+			<div className="footer" />
 		</div>
 	);
 }

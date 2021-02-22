@@ -18,18 +18,15 @@ const handlers = [
 
 const logger = Logger.get('object-resolver:resolvers');
 
-export function getHandler (o) {
-
+export function getHandler(o) {
 	for (let handler of handlers) {
 		if (handler.handles && handler.handles(o)) {
 			return handler;
 		}
 	}
-
 }
 
-
-export function resolve (object) {
+export function resolve(object) {
 	let handler = getHandler(object);
 	if (!handler) {
 		logger.warn('No Handler for object: ', object);

@@ -1,63 +1,65 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Router, Route} from '@nti/web-routing';
-import {Navigation} from '@nti/web-content';
-import {getAppUserScopedStorage, isFlag} from '@nti/web-client';
-import {encodeForURI} from '@nti/lib-ntiids';
+import { Router, Route } from '@nti/web-routing';
+import { Navigation } from '@nti/web-content';
+import { getAppUserScopedStorage, isFlag } from '@nti/web-client';
+import { encodeForURI } from '@nti/lib-ntiids';
 
 const seen = 'seen';
 const key = 'nti-content-tabs-seen';
 const storage = getAppUserScopedStorage();
 
-function hasBeenSeen () {
+function hasBeenSeen() {
 	return storage.getItem(key) === seen;
 }
 
-function setSeen () {
+function setSeen() {
 	storage.setItem(key, seen);
 }
 
 class ContentNavigationTabs extends React.Component {
 	static propTypes = {
-		contentPackage: PropTypes.object.isRequired
-	}
+		contentPackage: PropTypes.object.isRequired,
+	};
 
 	static contextTypes = {
-		router: PropTypes.object
-	}
+		router: PropTypes.object,
+	};
 
 	static childContextTypes = {
 		router: PropTypes.shape({
-			getRouteFor: PropTypes.func
-		})
-	}
+			getRouteFor: PropTypes.func,
+		}),
+	};
 
-	getChildContext () {
+	getChildContext() {
 		return {
 			router: {
 				...this.context.router,
 				baseroute: this.getBaseRoute(),
-				getRouteFor: (...args) => this.getRouteFor(...args)
-			}
+				getRouteFor: (...args) => this.getRouteFor(...args),
+			},
 		};
 	}
 
-	getBaseRoute () {
-		const {contentPackage} = this.props;
-		
+	getBaseRoute() {
+		const { contentPackage } = this.props;
+
 		return `/mobile/content/${encodeForURI(contentPackage.getID())}/`;
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		setTimeout(() => {
 			setSeen();
 		}, 1000);
 	}
 
-	getRouteFor (obj, context) {
-		const {contentPackage:content} = this.props;
+	getRouteFor(obj, context) {
+		const { contentPackage: content } = this.props;
 
-		if (obj !== content) { return; }
+		if (obj !== content) {
+			return;
+		}
 
 		const base = `/mobile/content/${encodeForURI(content.getID())}/`;
 		let part = '';
@@ -75,9 +77,8 @@ class ContentNavigationTabs extends React.Component {
 		return `${base}${part}/`;
 	}
 
-
-	render () {
-		const {contentPackage} = this.props;
+	render() {
+		const { contentPackage } = this.props;
 
 		return (
 			<Navigation.BookTabs
@@ -90,6 +91,5 @@ class ContentNavigationTabs extends React.Component {
 }
 
 export default Router.for([
-	Route({path: '/', component: ContentNavigationTabs})
+	Route({ path: '/', component: ContentNavigationTabs }),
 ]);
-

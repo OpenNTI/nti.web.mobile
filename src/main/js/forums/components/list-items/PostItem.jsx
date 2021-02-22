@@ -2,18 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import classnames from 'classnames';
-import {DateTime, Loading, LuckyCharms, Mixins, Prompt} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
-import {encodeForURI} from '@nti/lib-ntiids';
-import {StoreEventsMixin} from '@nti/lib-store';
+import {
+	DateTime,
+	Loading,
+	LuckyCharms,
+	Mixins,
+	Prompt,
+} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { StoreEventsMixin } from '@nti/lib-store';
 
 import Avatar from 'common/components/Avatar';
 import DisplayName from 'common/components/DisplayName';
-import {Panel as ModeledContentPanel} from 'modeled-content';
+import { Panel as ModeledContentPanel } from 'modeled-content';
 
 import KeepItemInState from '../../mixins/KeepItemInState';
 import ToggleState from '../../mixins/ToggleState';
-import {mimeTypes, GOT_COMMENT_REPLIES, POST} from '../../Constants';
+import { mimeTypes, GOT_COMMENT_REPLIES, POST } from '../../Constants';
 import * as Actions from '../../Actions';
 import Store from '../../Store';
 import CommentForm from '../CommentForm';
@@ -21,22 +27,19 @@ import ActionsComp from '../Actions';
 
 import Mixin from './Mixin';
 
-
 const t = scoped('forums.topic', {
 	post: {
-		deletePrompt: 'Delete this comment?'
+		deletePrompt: 'Delete this comment?',
 	},
 	replies: {
 		one: '1 Comment',
-		other: '%(count)s Comments'
+		other: '%(count)s Comments',
 	},
 });
 
 const SHOW_REPLIES = 'showReplies';
 
 const gotCommentReplies = 'PostItem:gotCommentRepliesHandler';
-
-
 
 export default createReactClass({
 	displayName: 'list-items:PostItem',
@@ -46,98 +49,96 @@ export default createReactClass({
 		Mixin,
 		StoreEventsMixin,
 		KeepItemInState,
-		ToggleState
+		ToggleState,
 	],
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		[GOT_COMMENT_REPLIES]: gotCommentReplies
+		[GOT_COMMENT_REPLIES]: gotCommentReplies,
 	},
 
 	statics: {
-		inputType: mimeTypes[POST]
+		inputType: mimeTypes[POST],
 	},
-
 
 	propTypes: {
 		item: PropTypes.object,
 		topic: PropTypes.object.isRequired,
 		asHeadline: PropTypes.bool,
-		detailLink: PropTypes.bool
+		detailLink: PropTypes.bool,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			[SHOW_REPLIES]: false,
 			busy: false,
 			item: null,
 			editing: false,
-			deleted: false
+			deleted: false,
 		};
 	},
 
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
-			detailLink: true
+			detailLink: true,
 		};
 	},
 
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		if (this.props.item !== prevProps.item) {
 			this.setState({
 				busy: false,
-				item: this.props.item || prevProps.item //wtf? this doesn't allow blanking out?
+				item: this.props.item || prevProps.item, //wtf? this doesn't allow blanking out?
 			});
 		}
 	},
 
-	[gotCommentReplies] (event) {
-		if(event.comment === this.props.item) {
+	[gotCommentReplies](event) {
+		if (event.comment === this.props.item) {
 			this.setState({
-				replyCount: event.replies.length
+				replyCount: event.replies.length,
 			});
 		}
 	},
 
-	onEditClick () {
+	onEditClick() {
 		Store.startEdit();
 		this.setState({
-			editing: true
+			editing: true,
 		});
 	},
 
-	onDeleteComment () {
+	onDeleteComment() {
 		Prompt.areYouSure(t('post.deletePrompt')).then(
-			()=> {
+			() => {
 				this.setState({
-					busy: true
+					busy: true,
 				});
 				Actions.deleteComment(this.props.item);
 			},
-			()=> {}
+			() => {}
 		);
 	},
 
-
-	commentCompletion (event) {
+	commentCompletion(event) {
 		this.setState({
-			[SHOW_REPLIES]: true
+			[SHOW_REPLIES]: true,
 		});
 		this.hideForm(event);
 	},
 
-	onHideEditForm () {
+	onHideEditForm() {
 		Store.endEdit();
 		this.setState({
-			editing: false
+			editing: false,
 		});
 	},
 
-	getNumberOfComments () {
+	getNumberOfComments() {
 		return this.state.replyCount || this.props.item.ReferencedByCount || 0;
 	},
 
-	render () {
+	render() {
 		const item = this.getItem();
 		if (!item) {
 			return <div>No item?</div>;
@@ -148,21 +149,33 @@ export default createReactClass({
 		const modifiedOn = item.getLastModified();
 		const message = item.body;
 		const numComments = this.getNumberOfComments();
-		const href = this.makeHref('/discussions/' + encodeForURI(this.getItemId()) + '/', false);
+		const href = this.makeHref(
+			'/discussions/' + encodeForURI(this.getItemId()) + '/',
+			false
+		);
 
-		const edited = (Math.abs(modifiedOn - createdOn) > 0);
+		const edited = Math.abs(modifiedOn - createdOn) > 0;
 
-		const {state: {busy, editing}, props: {detailLink, asHeadline, topic}} = this;
+		const {
+			state: { busy, editing },
+			props: { detailLink, asHeadline, topic },
+		} = this;
 
 		if (busy) {
-			return <Loading.Ellipse className="post-item"/>;
+			return <Loading.Ellipse className="post-item" />;
 		}
-
 
 		if (item.Deleted) {
 			return (
 				<div className="postitem deleted">
-					{detailLink && <a href={href} className="threadlink"><span className="num-comments">{t('replies', {count: numComments})}</span><span className="arrow-right"/></a>}
+					{detailLink && (
+						<a href={href} className="threadlink">
+							<span className="num-comments">
+								{t('replies', { count: numComments })}
+							</span>
+							<span className="arrow-right" />
+						</a>
+					)}
 					<div className="post">
 						<div className="wrap">
 							<div className="message">
@@ -180,33 +193,45 @@ export default createReactClass({
 					topic={topic}
 					editItem={item}
 					onCompletion={this.onHideEditForm}
-					onCancel={this.onHideEditForm}/>
+					onCancel={this.onHideEditForm}
+				/>
 			);
 		}
 
-		let classes = classnames({
-			'headline': asHeadline
-		}, 'postitem');
+		let classes = classnames(
+			{
+				headline: asHeadline,
+			},
+			'postitem'
+		);
 
 		return (
 			<div className={classes}>
 				<LuckyCharms item={item} />
 				{detailLink && (
 					<a href={href} className="threadlink">
-						<span className="num-comments">{t('replies', {count: numComments})}</span>
-						<span className="arrow-right"/>
+						<span className="num-comments">
+							{t('replies', { count: numComments })}
+						</span>
+						<span className="arrow-right" />
 					</a>
 				)}
 				<div className="post">
 					<Avatar entity={createdBy} />
 					<div className="wrap">
 						<div className="meta">
-							<DisplayName entity={createdBy} className="name"/>
-							<DateTime date={createdOn} relative/>
+							<DisplayName entity={createdBy} className="name" />
+							<DateTime date={createdOn} relative />
 						</div>
 						<div className="message">
 							<ModeledContentPanel body={message} />
-							{edited && <DateTime date={modifiedOn} format={DateTime.MONTH_NAME_DAY_YEAR_TIME} prefix="Modified: "/>}
+							{edited && (
+								<DateTime
+									date={modifiedOn}
+									format={DateTime.MONTH_NAME_DAY_YEAR_TIME}
+									prefix="Modified: "
+								/>
+							)}
 						</div>
 						<ActionsComp
 							item={item}
@@ -218,7 +243,5 @@ export default createReactClass({
 				</div>
 			</div>
 		);
-
-	}
-
+	},
 });

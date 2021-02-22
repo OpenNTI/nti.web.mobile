@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import {scoped} from '@nti/lib-locale';
-import {StoreEventsMixin} from '@nti/lib-store';
-import {Report} from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { StoreEventsMixin } from '@nti/lib-store';
+import { Report } from '@nti/web-commons';
 
-import {COMMENT_FORM_ID, EDIT_STARTED, EDIT_ENDED} from '../Constants';
+import { COMMENT_FORM_ID, EDIT_STARTED, EDIT_ENDED } from '../Constants';
 import Store from '../Store';
 
 import ScrollLink from './ScrollLink';
-
 
 const DEFAULT_TEXT = {
 	placeholder: 'Add a Comment',
@@ -29,7 +28,7 @@ export default createReactClass({
 		numComments: PropTypes.number,
 
 		onDelete: PropTypes.func,
-		onEdit: PropTypes.func
+		onEdit: PropTypes.func,
 	},
 
 	mixins: [StoreEventsMixin],
@@ -37,30 +36,32 @@ export default createReactClass({
 	backingStore: Store,
 	backingStoreEventHandlers: {
 		[EDIT_STARTED]: 'onEditStarted',
-		[EDIT_ENDED]: 'onEditEnded'
+		[EDIT_ENDED]: 'onEditEnded',
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
-			editEnabled: true
+			editEnabled: true,
 		};
 	},
 
-	onEditStarted () {
+	onEditStarted() {
 		this.setState({
-			editEnabled: false
+			editEnabled: false,
 		});
 	},
 
-	onEditEnded () {
+	onEditEnded() {
 		this.setState({
-			editEnabled: true
+			editEnabled: true,
 		});
 	},
 
-	render () {
-		const {props: {item, canReply, onEdit, onDelete}} = this;
-		const {editEnabled} = this.state;
+	render() {
+		const {
+			props: { item, canReply, onEdit, onDelete },
+		} = this;
+		const { editEnabled } = this.state;
 
 		const canEdit = editEnabled && item.isModifiable;
 		const canDelete = item.isModifiable;
@@ -74,7 +75,9 @@ export default createReactClass({
 			<ul key="control-links" className="action-links">
 				{canReply && (
 					<li key="reply-link">
-						<ScrollLink componentId={COMMENT_FORM_ID}>{t('placeholder')}</ScrollLink>
+						<ScrollLink componentId={COMMENT_FORM_ID}>
+							{t('placeholder')}
+						</ScrollLink>
 					</li>
 				)}
 				{canEdit && onEdit && (
@@ -94,6 +97,5 @@ export default createReactClass({
 				)}
 			</ul>
 		);
-	}
-
+	},
 });

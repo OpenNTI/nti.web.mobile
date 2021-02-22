@@ -7,49 +7,43 @@ export const NOT_FOUND = -3;
 export const RETRY_AFTER_DOM_SETTLES = -4;
 
 export default class Annotation {
-	static handles (/*item*/) {
+	static handles(/*item*/) {
 		return false;
 	}
 
-
-	constructor (record, reader) {
+	constructor(record, reader) {
 		Object.assign(this, {
 			[RECORD]: record,
-			reader
+			reader,
 		});
 	}
 
-
-	get id () {
+	get id() {
 		return this[RECORD].getID();
 	}
 
-
-	get isModifiable () {
+	get isModifiable() {
 		return this[RECORD].isModifiable;
 	}
 
-
-	getRange () {
+	getRange() {
 		throw new Error('Not Implemented');
 	}
 
+	getRecord() {
+		return this[RECORD];
+	}
 
-	getRecord () { return this[RECORD]; }
-
-
-	getRecordField (field) {
+	getRecordField(field) {
 		return this[RECORD][field];
 	}
 
-
-	getDocument () {
+	getDocument() {
 		let node = this.reader.getContentNode();
 		return node && node.ownerDocument;
 	}
 
-
-	createNonAnchorableSpan () {
+	createNonAnchorableSpan() {
 		let span = this.getDocument().createElement('span');
 
 		span.setAttribute('data-non-anchorable', 'true');
@@ -57,19 +51,16 @@ export default class Annotation {
 		return span;
 	}
 
-
-	resolveVerticalLocation () {
+	resolveVerticalLocation() {
 		return HIDDEN;
 	}
 
-
-	ownsNode (node) {
+	ownsNode(node) {
 		let elements = this[RENDERED];
 		return elements && elements.indexOf(node) >= 0;
 	}
 
+	shouldRender() {}
 
-	shouldRender () {}
-
-	render () {}
+	render() {}
 }

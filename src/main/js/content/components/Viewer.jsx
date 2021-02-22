@@ -4,23 +4,26 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import cx from 'classnames';
-import {RouterMixin} from 'react-router-component';
+import { RouterMixin } from 'react-router-component';
 import Logger from '@nti/util-logger';
-import {equals} from '@nti/lib-commons';
-import {decodeFromURI} from '@nti/lib-ntiids';
-import {Loading, Error as Err, Pager } from '@nti/web-commons';
-import {StoreEventsMixin} from '@nti/lib-store';
-import {ViewEvent} from '@nti/web-session';
+import { equals } from '@nti/lib-commons';
+import { decodeFromURI } from '@nti/lib-ntiids';
+import { Loading, Error as Err, Pager } from '@nti/web-commons';
+import { StoreEventsMixin } from '@nti/lib-store';
+import { ViewEvent } from '@nti/web-session';
 import { PageDescriptor } from '@nti/lib-content-processing';
 
 import ContextSender from 'common/mixins/ContextSender';
 import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
 
 import Store from '../Store';
-import {loadPage, resolveNewContext} from '../Actions';
+import { loadPage, resolveNewContext } from '../Actions';
 
 import AnnotationFeature from './viewer-parts/annotations';
-import AssessmentFeature, {isAssignment, isSurvey} from './viewer-parts/assessment';
+import AssessmentFeature, {
+	isAssignment,
+	isSurvey,
+} from './viewer-parts/assessment';
 import RouterLikeBehavior from './viewer-parts/mock-router';
 import GlossaryFeature from './viewer-parts/glossary';
 import Interactions from './viewer-parts/interaction';
@@ -34,11 +37,17 @@ import BottomPager from './BottomPager';
 
 const logger = Logger.get('content:components:Viewer');
 
-const getCourse = x => (!x || x.isCourse) ? x : x.parent('isCourse');
+const getCourse = x => (!x || x.isCourse ? x : x.parent('isCourse'));
 
 const TRANSITION_TIMEOUT = 300;
 
-const Fade = (props) => ( <CSSTransition classNames="fade-out-in" timeout={TRANSITION_TIMEOUT} {...props}/> );
+const Fade = props => (
+	<CSSTransition
+		classNames="fade-out-in"
+		timeout={TRANSITION_TIMEOUT}
+		{...props}
+	/>
+);
 
 export default createReactClass({
 	displayName: 'content:Viewer',
@@ -51,9 +60,8 @@ export default createReactClass({
 		PopUpFeature,
 		RouterLikeBehavior,
 		RouterMixin,
-		StoreEventsMixin
+		StoreEventsMixin,
 	],
-
 
 	propTypes: {
 		rootId: PropTypes.string,
@@ -64,25 +72,24 @@ export default createReactClass({
 		onPageLoaded: PropTypes.func,
 
 		className: PropTypes.string,
-		noNavigation: PropTypes.bool
+		noNavigation: PropTypes.bool,
 	},
 
 	backingStore: Store,
 	backingStoreEventHandlers: {
-		default: 'onStoreChange'
+		default: 'onStoreChange',
 	},
 
-
-	getAnalyticsData () {
-		const {contentPackage} = this.props;
+	getAnalyticsData() {
+		const { contentPackage } = this.props;
 		const quiz = this.getAssessment();
-		const type = !quiz ? 'ResourceView' : (
-			isAssignment(quiz)
-				? 'AssignmentView'
-				: isSurvey(quiz)
-					? 'SurveyView'
-					: 'AssessmentView'
-		);
+		const type = !quiz
+			? 'ResourceView'
+			: isAssignment(quiz)
+			? 'AssignmentView'
+			: isSurvey(quiz)
+			? 'SurveyView'
+			: 'AssessmentView';
 
 		const assessmentId = quiz && quiz.getID();
 		const rootContextId = contentPackage.getID();
@@ -97,49 +104,47 @@ export default createReactClass({
 			resourceId: assessmentId || resourceId,
 			ContentID: resourceId,
 			rootContextId: courseId || rootContextId,
-			context: this.resolveContext() //<= async (Promise)
+			context: this.resolveContext(), //<= async (Promise)
 		};
 	},
 
-
-	getDefaultProps () {
+	getDefaultProps() {
 		return {
-			onPageLoaded: () => {}
+			onPageLoaded: () => {},
 		};
 	},
 
-
-	getResetState () {
+	getResetState() {
 		return {
 			loading: true,
 			page: null,
-			pageSource: null
+			pageSource: null,
 		};
 	},
 
-
-	getInitialState () {
+	getInitialState() {
 		return this.getResetState();
 	},
 
-
-	componentDidMount () {
+	componentDidMount() {
 		//The DOM Node will always be the loading dom at his point...
 		//we wait for the re-render of the actual data in componentDidUpdate()
 		this.getDataIfNeeded();
 	},
 
-
-	componentDidUpdate (prevProps, prevState) {
+	componentDidUpdate(prevProps, prevState) {
 		this.getDataIfNeeded();
 
-		const getComparable = ({pageSource, currentPage}) => ({currentPage, pageSource});
+		const getComparable = ({ pageSource, currentPage }) => ({
+			currentPage,
+			pageSource,
+		});
 
 		const current = getComparable(this.state);
 		const previous = getComparable(prevState);
 
 		if (!equals(current, previous) && !this.props.noNavigation) {
-			const {currentPage, pageSource} = this.state;
+			const { currentPage, pageSource } = this.state;
 			//We transition between discussions, NoteEditor and content...
 			//those transitions delay "componentWillUnmount" which is one of the
 			//places where context book-keeping is performed... wait for it to occur.
@@ -154,63 +159,69 @@ export default createReactClass({
 		}
 	},
 
-
-	loadDataNeeded (props = this.props) {
+	loadDataNeeded(props = this.props) {
 		const pageId = this.getPageID(props);
 		const rootId = this.getRootID(props);
 		const { currentPage, currentRoot } = this.state;
 
-		return pageId !== currentPage || rootId !== currentRoot || this.needsAssessmentUpdate(props);
+		return (
+			pageId !== currentPage ||
+			rootId !== currentRoot ||
+			this.needsAssessmentUpdate(props)
+		);
 	},
 
-
-	getDataIfNeeded (props = this.props) {
+	getDataIfNeeded(props = this.props) {
 		if (this.loadDataNeeded()) {
 			const pageId = this.getPageID(props);
 			const rootId = this.getRootID(props);
 
-			this.setState({
-				currentRoot: rootId,
-				currentPage: pageId,
-				...this.getResetState(),
-				...this.getAssessmentState(props)
-			}, () =>
-				loadPage(pageId, props.contentPackage, props)
+			this.setState(
+				{
+					currentRoot: rootId,
+					currentPage: pageId,
+					...this.getResetState(),
+					...this.getAssessmentState(props),
+				},
+				() => loadPage(pageId, props.contentPackage, props)
 			);
 		}
 	},
 
-
-	getRootID (props = this.props) {
+	getRootID(props = this.props) {
 		return decodeFromURI(props.rootId);
 	},
 
-
-	getPageID (props = this.props) {
-		if (props.pageId) { return props.pageId; }
+	getPageID(props = this.props) {
+		if (props.pageId) {
+			return props.pageId;
+		}
 
 		const h = this.getPropsFromRoute(props);
 		return decodeFromURI(h.pageId || props.rootId);
 	},
 
-	getPageInfoID () {
-		const {page} = this.state;
+	getPageInfoID() {
+		const { page } = this.state;
 
-		return page && page.pageInfo && page.pageInfo.getID && page.pageInfo.getID();
+		return (
+			page &&
+			page.pageInfo &&
+			page.pageInfo.getID &&
+			page.pageInfo.getID()
+		);
 	},
 
-
-	onStoreChange () {
+	onStoreChange() {
 		const id = this.getPageID();
 		let page = Store.getPageDescriptor(id);
-		let {pageSource, onPageLoaded} = this.props;
+		let { pageSource, onPageLoaded } = this.props;
 		let pageTitle, error;
 
-		if (!page) { //the event was not for this component.
+		if (!page) {
+			//the event was not for this component.
 			return;
 		}
-
-
 
 		if (page instanceof PageDescriptor) {
 			if (!pageSource) {
@@ -224,53 +235,53 @@ export default createReactClass({
 
 		let pageLoaded = Promise.resolve(page);
 		if (page) {
-			pageLoaded = this.verifyContentPackage(page.pageInfo)
-				.then(()=> onPageLoaded(page.pageInfo));
+			pageLoaded = this.verifyContentPackage(page.pageInfo).then(() =>
+				onPageLoaded(page.pageInfo)
+			);
 		}
 
-		pageLoaded.then(()=> {
-
+		pageLoaded.then(() => {
 			this.setState({
 				currentPage: id,
 				loading: false,
 				page,
 				pageSource,
 				pageTitle,
-				error
+				error,
 			});
-
 		});
 	},
 
-
-	verifyContentPackage (pageInfo) {
-		const {contentPackage} = this.props;
+	verifyContentPackage(pageInfo) {
+		const { contentPackage } = this.props;
 		const packageId = pageInfo.getPackageID();
 
 		const fallback = p => p.getID() === packageId;
-		const test = p => p.containsPackage ? p.containsPackage(packageId) : fallback(p);
+		const test = p =>
+			p.containsPackage ? p.containsPackage(packageId) : fallback(p);
 
 		if (!test(contentPackage)) {
-			logger.debug('Cross-Referenced... need to redirect to a new context that contains: %s', packageId);
+			logger.debug(
+				'Cross-Referenced... need to redirect to a new context that contains: %s',
+				packageId
+			);
 			return resolveNewContext(pageInfo);
 		}
 
 		return Promise.resolve();
 	},
 
-
-	setDiscussionFilter (selectedDiscussions) {
-		this.setState({selectedDiscussions});
+	setDiscussionFilter(selectedDiscussions) {
+		this.setState({ selectedDiscussions });
 	},
 
-
-	handleContentUpdate () {
+	handleContentUpdate() {
 		if (this.gutter) {
 			this.gutter.handleContentUpdate();
 		}
 	},
 
-	renderBottomPager () {
+	renderBottomPager() {
 		if (isAssignment(this.getAssessment()) || this.props.noNavigation) {
 			return null;
 		}
@@ -278,23 +289,38 @@ export default createReactClass({
 		const { contentPackage } = this.props;
 
 		if (contentPackage && contentPackage.getTablesOfContents) {
-			return <BottomPager contentPackage={contentPackage} rootId={this.getRootID()} currentPage={this.getPageID()} getAssessment={this.getAssessment} />;
+			return (
+				<BottomPager
+					contentPackage={contentPackage}
+					rootId={this.getRootID()}
+					currentPage={this.getPageID()}
+					getAssessment={this.getAssessment}
+				/>
+			);
 		} else {
-			return <Pager position="bottom" pageSource={this.state.pageSource} current={this.getPageID()} />;
+			return (
+				<Pager
+					position="bottom"
+					pageSource={this.state.pageSource}
+					current={this.getPageID()}
+				/>
+			);
 		}
 	},
 
-	renderGroupContents () {
-		const {contentPackage, userId} = this.props;
+	renderGroupContents() {
+		const { contentPackage, userId } = this.props;
 
 		const {
-			annotations, stagedNote, page,
-			selectedDiscussions
+			annotations,
+			stagedNote,
+			page,
+			selectedDiscussions,
 		} = this.state;
 
-		const {discussions} = this.getPropsFromRoute();
+		const { discussions } = this.getPropsFromRoute();
 
-		if(discussions) {
+		if (discussions) {
 			return (
 				<Fade key="discussions">
 					<Discussions
@@ -306,12 +332,8 @@ export default createReactClass({
 			);
 		}
 
-		if(stagedNote) {
-			return (
-				<Fade key="note-editor">
-					{this.renderNoteEditor()}
-				</Fade>
-			);
+		if (stagedNote) {
+			return <Fade key="note-editor">{this.renderNoteEditor()}</Fade>;
 		}
 
 		//Annotations cannot resolve their anchors if the
@@ -321,15 +343,19 @@ export default createReactClass({
 
 		return (
 			<Fade key="content">
-				<div ref={x => this.node = x}>
-					{analyticsData && analyticsData.resourceId ? (<ViewEvent {...analyticsData}/>) : null}
+				<div ref={x => (this.node = x)}>
+					{analyticsData && analyticsData.resourceId ? (
+						<ViewEvent {...analyticsData} />
+					) : null}
 					<div className="content-body">
 						{this.renderAssessmentHeader()}
 						<div className="coordinate-root">
 							<BodyContent
-								ref={x => this.content = x}
+								ref={x => (this.content = x)}
 								onClick={this.onContentClick}
-								onUserSelectionChange={this.maybeOfferAnnotations}
+								onUserSelectionChange={
+									this.maybeOfferAnnotations
+								}
 								onContentReady={this.handleContentUpdate}
 								contentPackage={contentPackage}
 								pageId={page.getCanonicalID()}
@@ -346,7 +372,7 @@ export default createReactClass({
 							{this.renderBottomPager()}
 
 							<Gutter
-								ref={x => this.gutter = x}
+								ref={x => (this.gutter = x)}
 								items={gutterItems}
 								selectFilter={this.setDiscussionFilter}
 							/>
@@ -358,30 +384,26 @@ export default createReactClass({
 		);
 	},
 
+	render() {
+		const { className } = this.props;
 
-	render () {
-		const {className} = this.props;
-
-		const {
-			stagedNote, error, loading, style
-		} = this.state;
+		const { stagedNote, error, loading, style } = this.state;
 
 		if (loading) {
-			return (<Loading.Mask />);
-		}
-		else if (error) {
+			return <Loading.Mask />;
+		} else if (error) {
 			if (ContentAcquirePrompt.shouldPrompt(error)) {
-				return ( <ContentAcquirePrompt data={error}/> );
+				return <ContentAcquirePrompt data={error} />;
 			}
 
-			return ( <Err error={error}/> );
+			return <Err error={error} />;
 		}
 
 		const props = {
 			className: cx('content-view', className, {
-				'note-editor-open': !!stagedNote
+				'note-editor-open': !!stagedNote,
 			}),
-			style
+			style,
 		};
 
 		return (
@@ -391,36 +413,37 @@ export default createReactClass({
 		);
 	},
 
-
-	renderDockedToolbar () {
+	renderDockedToolbar() {
 		const annotation = this.renderAnnotationToolbar();
 		const submission = this.renderAssessmentSubmission();
 
 		const key = annotation
 			? 'annotation'
 			: submission
-				? 'submission'
-				: 'none';
+			? 'submission'
+			: 'none';
 
 		const content = annotation || submission;
 
-		if(content) {
+		if (content) {
 			return (
 				<TransitionGroup className={`fixed-footer ${key}`}>
-					<CSSTransition appear classNames="toast" timeout={500} key={key}>
-						<div className={`the-fixed ${key}`}>
-							{content}
-						</div>
+					<CSSTransition
+						appear
+						classNames="toast"
+						timeout={500}
+						key={key}
+					>
+						<div className={`the-fixed ${key}`}>{content}</div>
 					</CSSTransition>
 				</TransitionGroup>
 			);
 		}
 	},
 
-
-	renderAnnotationToolbar () {
+	renderAnnotationToolbar() {
 		const None = void 0;
-		const {selected} = this.state;
+		const { selected } = this.state;
 		if (!selected || isAssignment(this.getAssessment())) {
 			return null;
 		}
@@ -433,29 +456,31 @@ export default createReactClass({
 			return null;
 		}
 
-		if (selected.isNote) { return null; } //don't deal with notes for now.
+		if (selected.isNote) {
+			return null;
+		} //don't deal with notes for now.
 
 		const props = {
 			item: isRange ? None : selected,
 			range: isRange ? selected : None,
-			onNewDiscussion: (isRange || isHighlight) ? this.createNote : None,
-			onSetHighlight: isRange ? this.createHighlight : isHighlight ? this.updateHighlight : None,
-			onRemoveHighlight: isHighlight ? this.removeHighlight : None
+			onNewDiscussion: isRange || isHighlight ? this.createNote : None,
+			onSetHighlight: isRange
+				? this.createHighlight
+				: isHighlight
+				? this.updateHighlight
+				: None,
+			onRemoveHighlight: isHighlight ? this.removeHighlight : None,
 		};
 
-		return (
-			<AnnotationBar {...props}/>
-		);
+		return <AnnotationBar {...props} />;
 	},
 
-
-	cancelNote () {
-		this.setState({stagedNote: void 0});
+	cancelNote() {
+		this.setState({ stagedNote: void 0 });
 	},
 
-
-	renderNoteEditor () {
-		const {stagedNote} = this.state;
+	renderNoteEditor() {
+		const { stagedNote } = this.state;
 
 		if (!stagedNote) {
 			return null;
@@ -466,16 +491,16 @@ export default createReactClass({
 				scope={this.props.contentPackage}
 				item={stagedNote}
 				onCancel={this.cancelNote}
-				onSave={this.saveNote}/>
+				onSave={this.saveNote}
+			/>
 		);
 	},
 
-
-	getContext () {
+	getContext() {
 		return Promise.resolve({
 			label: this.state.pageTitle,
 			ntiid: this.getPageID(),
-			href: this.makeHref('')
+			href: this.makeHref(''),
 		});
-	}
+	},
 });

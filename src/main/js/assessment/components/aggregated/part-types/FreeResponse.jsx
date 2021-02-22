@@ -11,49 +11,48 @@ export default createReactClass({
 	mixins: [CommonParts],
 
 	statics: {
-		partType: [
-			'FreeResponse'
-		]
+		partType: ['FreeResponse'],
 	},
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-
-	// eslint-disable-next-line camelcase
-	UNSAFE_componentWillMount () { this.setup(); },
-	componentDidUpdate (props) {
+	UNSAFE_componentWillMount() {
+		this.setup();
+	},
+	componentDidUpdate(props) {
 		if (this.props.item !== props.item) {
 			this.setup();
 		}
 	},
 
-	setup (props = this.props) {
-		const {item: {Results}} = props;
+	setup(props = this.props) {
+		const {
+			item: { Results },
+		} = props;
 		this.setState({
 			index: 0,
-			items: Object.keys(Results)
+			items: Object.keys(Results),
 		});
 	},
 
-
-	previous (e) {
+	previous(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		this.go(-1);
 	},
 
-
-	next (e) {
+	next(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		this.go(1);
 	},
 
-
-	go (direction) {
-		const {state: {items, index = 0}} = this;
+	go(direction) {
+		const {
+			state: { items, index = 0 },
+		} = this;
 		const total = items.length;
 
 		let newIndex = direction + index;
@@ -63,28 +62,35 @@ export default createReactClass({
 			newIndex = 0;
 		}
 
-		this.setState({index: newIndex});
+		this.setState({ index: newIndex });
 	},
 
-
-	render () {
-		const {state: {items, index = 0}} = this;
+	render() {
+		const {
+			state: { items, index = 0 },
+		} = this;
 
 		const page = index + 1;
 		const total = items.length;
 
-		const prev = cx('prev', {'disabled': total < 2});
-		const next = cx('next', {'disabled': total < 2});
+		const prev = cx('prev', { disabled: total < 2 });
+		const next = cx('next', { disabled: total < 2 });
 
 		return (
 			<div className="aggregated-free-response">
 				<div className="toolbar">
-					<a href="#" onClick={this.previous} className={prev}>&nbsp;</a>
-					<span className="page-info">{page} of {total}</span>
-					<a href="#" onClick={this.next} className={next}>&nbsp;</a>
+					<a href="#" onClick={this.previous} className={prev}>
+						&nbsp;
+					</a>
+					<span className="page-info">
+						{page} of {total}
+					</span>
+					<a href="#" onClick={this.next} className={next}>
+						&nbsp;
+					</a>
 				</div>
 				<div className="response">{items[index]}</div>
 			</div>
 		);
-	}
+	},
 });

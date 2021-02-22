@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Error as ErrorWidget} from '@nti/web-commons';
+import { Error as ErrorWidget } from '@nti/web-commons';
 
 import CourseContentLink from 'library/components/CourseContentLink';
 
 import EnrollmentSuccess from '../../components/EnrollmentSuccess';
-import {resetProcess} from '../Actions';
+import { resetProcess } from '../Actions';
 import Store from '../Store';
 
 import GiftSuccess from './GiftSuccess';
-
 
 export default class extends React.Component {
 	static displayName = 'PaymentSuccess';
@@ -18,26 +17,26 @@ export default class extends React.Component {
 		courseId: PropTypes.string,
 		purchasable: PropTypes.object.isRequired,
 		giftDoneLink: PropTypes.string,
-		onDone: PropTypes.func
+		onDone: PropTypes.func,
 	};
 
 	state = {
-		purchaseAttempt: null
+		purchaseAttempt: null,
 	};
 
-	constructor (props) {
+	constructor(props) {
 		super(props);
 
 		this.state = {
-			purchaseAttempt: Store.getPaymentResult()
+			purchaseAttempt: Store.getPaymentResult(),
 		};
 	}
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		resetProcess();
 	}
 
-	componentDidMount () {
+	componentDidMount() {
 		if (!this.state.purchaseAttempt) {
 			resetProcess();
 		}
@@ -47,19 +46,22 @@ export default class extends React.Component {
 		return (
 			<CourseContentLink
 				className="button tiny radius column"
-				courseId={this.props.courseId}>Go to course</CourseContentLink>
+				courseId={this.props.courseId}
+			>
+				Go to course
+			</CourseContentLink>
 		);
 	};
 
-	render () {
-		let {purchaseAttempt} = this.state;
-		let {giftDoneLink, onDone, purchasable} = this.props;
-		let {title = 'the course'} = purchasable || {};
+	render() {
+		let { purchaseAttempt } = this.state;
+		let { giftDoneLink, onDone, purchasable } = this.props;
+		let { title = 'the course' } = purchasable || {};
 
 		let isGift = (purchaseAttempt || {}).redemptionCode;
 
 		if (!purchaseAttempt) {
-			return <ErrorWidget error="No data"/>;
+			return <ErrorWidget error="No data" />;
 		}
 
 		return isGift ? (
@@ -67,7 +69,8 @@ export default class extends React.Component {
 				purchasable={purchasable}
 				purchaseattempt={purchaseAttempt}
 				onDone={onDone}
-				doneLink={giftDoneLink} />
+				doneLink={giftDoneLink}
+			/>
 		) : (
 			<EnrollmentSuccess courseTitle={title} />
 		);

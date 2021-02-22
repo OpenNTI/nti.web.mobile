@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .saving-progress {
 	position: fixed;
@@ -35,8 +35,16 @@
 }
 
 @keyframes loadingellipse {
-	25% { width: 0; }
-	50% { width: 0.466667em; }
-	75% { width: 0.933333em; }
-	100% { width: 1.4em; }
+	25% {
+		width: 0;
+	}
+	50% {
+		width: 0.466667em;
+	}
+	75% {
+		width: 0.933333em;
+	}
+	100% {
+		width: 1.4em;
+	}
 }

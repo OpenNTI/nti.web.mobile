@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .question-part .multiple-choice {
 	border: 1px solid var(--tertiary-grey);
@@ -17,7 +17,7 @@
 
 		input {
 			position: absolute !important;
-			opacity: 0;//Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
+			opacity: 0; //Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
 
 			& + div {
 				$pad: 1rem;
@@ -38,28 +38,38 @@
 			}
 		}
 
-		input:checked + div { box-shadow: inset 4px 0 0 0 var(--neutral); }
-		&.correct input:checked + div { box-shadow: inset 4px 0 0 0 var(--correct); }
-		&.incorrect input:checked + div { box-shadow: inset 4px 0 0 0 var(--incorrect); }
+		input:checked + div {
+			box-shadow: inset 4px 0 0 0 var(--neutral);
+		}
+		&.correct input:checked + div {
+			box-shadow: inset 4px 0 0 0 var(--correct);
+		}
+		&.incorrect input:checked + div {
+			box-shadow: inset 4px 0 0 0 var(--incorrect);
+		}
 
-		input[type=radio] + div::before {
+		input[type='radio'] + div::before {
 			background-image: url(./assets/radio-button-16.png);
 		}
 
-		input[type=radio]:checked + div::before {
+		input[type='radio']:checked + div::before {
 			background-image: url(./assets/radio-button-16_active.png);
 		}
 
-		html:not(.touch) &:hover input[type=radio],
-		input[type=radio]:focus,
-		input[type=radio]:active {
+		html:not(.touch) &:hover input[type='radio'],
+		input[type='radio']:focus,
+		input[type='radio']:active {
 			&:not(:checked):not(.disabled) + div::before {
 				background-image: url(./assets/radio-button-16_hover.png);
 			}
 		}
 
-		&.correct input[type]:checked + div::before { background-image: url(./assets/circle-check-green-18.png); }
-		&.incorrect input[type]:checked + div::before { background-image: url(./assets/circle-x-red-18.png); }
+		&.correct input[type]:checked + div::before {
+			background-image: url(./assets/circle-check-green-18.png);
+		}
+		&.incorrect input[type]:checked + div::before {
+			background-image: url(./assets/circle-x-red-18.png);
+		}
 
 		.numeral {
 			position: relative;

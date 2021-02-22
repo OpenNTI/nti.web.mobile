@@ -1,25 +1,25 @@
 import React from 'react';
-import {Link} from 'react-router-component';
-import {scoped} from '@nti/lib-locale';
+import { Link } from 'react-router-component';
+import { scoped } from '@nti/lib-locale';
 
 let t = scoped('app.login');
 
-export default function RecoveryLinks () {
+export default function RecoveryLinks() {
 	let username = {
 		id: 'login:forgot:username',
 		href: '/forgot/username',
-		children: t('forgot.username')
+		children: t('forgot.username'),
 	};
 
 	let password = {
 		id: 'login:forgot:password',
 		href: '/forgot/password',
-		children: t('forgot.password')
+		children: t('forgot.password'),
 	};
 
 	return (
 		<div className="recovery-links">
-			I forgot my	<Link {...username}/> or <Link {...password}/>.
+			I forgot my <Link {...username} /> or <Link {...password} />.
 		</div>
 	);
 }

@@ -2,10 +2,10 @@ import './AssignmentStatusLabel.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import {getModel} from '@nti/lib-interfaces';
-import {DateTime} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
-import {getEventTarget} from '@nti/lib-dom';
+import { getModel } from '@nti/lib-interfaces';
+import { DateTime } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
+import { getEventTarget } from '@nti/lib-dom';
 import * as Duration from 'iso8601-duration';
 import { isSameDay } from 'date-fns';
 
@@ -14,7 +14,7 @@ const toUnitSingularString = scoped('common.units.SINGULARS');
 
 const Assignment = getModel('assessment.assignment');
 
-const isToday = (d) => isSameDay(new Date(), d);
+const isToday = d => isSameDay(new Date(), d);
 
 const t = scoped('nti-web-mobile.assessment.components.AssignmentStatusLabel', {
 	available: 'Available',
@@ -26,19 +26,22 @@ const t = scoped('nti-web-mobile.assessment.components.AssignmentStatusLabel', {
 	submittedAt: 'Submitted at %(time)s',
 });
 
-const submittedAt = f => t('submittedAt', {time: f(DateTime.TIME_DATE_STAMP)});
+const submittedAt = f =>
+	t('submittedAt', { time: f(DateTime.TIME_DATE_STAMP) });
 
-function selectValue (values, context) {
-	const isNotted = selectValue.isNotted = (selectValue.isNotted || RegExp.prototype.test.bind(/^!/));
+function selectValue(values, context) {
+	const isNotted = (selectValue.isNotted =
+		selectValue.isNotted || RegExp.prototype.test.bind(/^!/));
 
 	let max = 1;
 	let result = void 0;
 
-	const evaluate = (key) => isNotted(key) ? !context[key.substring(1)] : context[key];
+	const evaluate = key =>
+		isNotted(key) ? !context[key.substring(1)] : context[key];
 
 	for (let selector of Object.keys(values)) {
 		let criteria = selector.split(/\s+/);
-		let matched = criteria.reduce((a, k) => (a + (evaluate(k) ? 1 : 0)), 0);
+		let matched = criteria.reduce((a, k) => a + (evaluate(k) ? 1 : 0), 0);
 		if (criteria.length === matched && matched >= max) {
 			max = matched;
 			result = values[selector];
@@ -50,24 +53,23 @@ function selectValue (values, context) {
 }
 
 export default class AssignmentStatusLabel extends React.Component {
-
 	static propTypes = {
 		assignment: PropTypes.instanceOf(Assignment),
 		historyItem: PropTypes.object,
 
-		showTimeWithDate: PropTypes.bool
+		showTimeWithDate: PropTypes.bool,
 	};
 
 	state = {
-		showDetail: null
+		showDetail: null,
 	};
 
-	getHistoryItem () {
-		const {historyItem: container} = this.props;
+	getHistoryItem() {
+		const { historyItem: container } = this.props;
 
 		let historyItem = container;
 
-		if(container && container.getMostRecentHistoryItem) {
+		if (container && container.getMostRecentHistoryItem) {
 			historyItem = container.getMostRecentHistoryItem();
 		}
 
@@ -76,9 +78,11 @@ export default class AssignmentStatusLabel extends React.Component {
 
 	isAvailable = () => {
 		const now = new Date();
-		const {props: {assignment: a}} = this;
+		const {
+			props: { assignment: a },
+		} = this;
 		const date = a.getAssignedDate();
-		return !date || (date <= now);
+		return !date || date <= now;
 	};
 
 	isOverDue = () => {
@@ -88,12 +92,16 @@ export default class AssignmentStatusLabel extends React.Component {
 	};
 
 	isOverTime = () => {
-		const {props: {assignment: a}} = this;
+		const {
+			props: { assignment: a },
+		} = this;
 		return Boolean(a.isOverTime && a.isOverTime());
 	};
 
 	isDueToday = () => {
-		const {props: {assignment: a}} = this;
+		const {
+			props: { assignment: a },
+		} = this;
 		return isToday(a.getDueDate());
 	};
 
@@ -109,21 +117,33 @@ export default class AssignmentStatusLabel extends React.Component {
 
 	isExcused = () => {
 		const historyItem = this.getHistoryItem();
-		return historyItem && historyItem.isGradeExcused && historyItem.isGradeExcused();
+		return (
+			historyItem &&
+			historyItem.isGradeExcused &&
+			historyItem.isGradeExcused()
+		);
 	};
 
 	isDraft = () => {
-		const {props: {assignment: a}} = this;
+		const {
+			props: { assignment: a },
+		} = this;
 		return a && !a.isPublished();
 	};
 
 	getCompletedDateTime = () => {
 		const historyItem = this.getHistoryItem();
-		return historyItem && historyItem.isSubmitted() && historyItem.getCreatedTime();
+		return (
+			historyItem &&
+			historyItem.isSubmitted() &&
+			historyItem.getCreatedTime()
+		);
 	};
 
 	getDuration = () => {
-		const {props: {assignment: a}} = this;
+		const {
+			props: { assignment: a },
+		} = this;
 		return a.getDuration && a.getDuration();
 	};
 
@@ -154,24 +174,23 @@ export default class AssignmentStatusLabel extends React.Component {
 		return Math.abs(max - dur);
 	};
 
-	getDurationFromMillis (duration) {
+	getDurationFromMillis(duration) {
 		const dateA = new Date();
 		const dateB = new Date(dateA.getTime() + duration);
-		const deltaDays = (dateB.getDate() - dateA.getDate()) || 0;
+		const deltaDays = dateB.getDate() - dateA.getDate() || 0;
 
 		return {
-			years: (dateB.getFullYear() - dateA.getFullYear()) || 0,
-			months: (dateB.getMonth() - dateA.getMonth()) || 0,
+			years: dateB.getFullYear() - dateA.getFullYear() || 0,
+			months: dateB.getMonth() - dateA.getMonth() || 0,
 			weeks: Math.floor(deltaDays / 7),
 			days: deltaDays % 7,
-			hours: (dateB.getHours() - dateA.getHours()) || 0,
-			minutes: (dateB.getMinutes() - dateA.getMinutes()) || 0,
-			seconds: (dateB.getSeconds() - dateA.getSeconds()) || 0,
+			hours: dateB.getHours() - dateA.getHours() || 0,
+			minutes: dateB.getMinutes() - dateA.getMinutes() || 0,
+			seconds: dateB.getSeconds() - dateA.getSeconds() || 0,
 		};
 	}
 
-
-	getParsedDuration (duration) {
+	getParsedDuration(duration) {
 		return typeof duration === 'string'
 			? Duration.parse(duration)
 			: this.getDurationFromMillis(duration);
@@ -183,10 +202,10 @@ export default class AssignmentStatusLabel extends React.Component {
 		let out = [];
 		let toString = singular ? toUnitSingularString : toUnitString;
 
-		function maybeAdd (unit) {
+		function maybeAdd(unit) {
 			let u = d[unit];
 			if (u > 0 && (!accuracy || out.length < accuracy)) {
-				out.push(toString(unit, {count: u}));
+				out.push(toString(unit, { count: u }));
 			}
 		}
 
@@ -199,36 +218,22 @@ export default class AssignmentStatusLabel extends React.Component {
 		maybeAdd('seconds');
 
 		if (out.length === 0) {
-			out.push(toString('seconds', {count: 0}));
+			out.push(toString('seconds', { count: 0 }));
 		}
 
 		return out.join(', ');
 	};
 
-	onCloseDetail = (e) => {
+	onCloseDetail = e => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
 		}
 
-		this.setState({showDetail: null});
+		this.setState({ showDetail: null });
 	};
 
-	onShowOverdueDetail = (e) => {
-		if (e) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
-
-		let c = (this.state.showDetail || {}).over;
-
-		//Change the state to show detail (or toggle it off if its already on)
-		this.setState({
-			showDetail: c === 'overdue' ? void 0 : {over: 'overdue'}
-		});
-	};
-
-	onShowOvertimeDetail = (e) => {
+	onShowOverdueDetail = e => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -238,19 +243,34 @@ export default class AssignmentStatusLabel extends React.Component {
 
 		//Change the state to show detail (or toggle it off if its already on)
 		this.setState({
-			showDetail: c === 'overtime' ? void 0 : {over: 'overtime'}
+			showDetail: c === 'overdue' ? void 0 : { over: 'overdue' },
 		});
 	};
 
-	onShowStatusDetail = (e) => {
+	onShowOvertimeDetail = e => {
+		if (e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+
+		let c = (this.state.showDetail || {}).over;
+
+		//Change the state to show detail (or toggle it off if its already on)
+		this.setState({
+			showDetail: c === 'overtime' ? void 0 : { over: 'overtime' },
+		});
+	};
+
+	onShowStatusDetail = e => {
 		let s = this.state;
 
-
-		if (this.isSubmitted() && getEventTarget(e, 'time, .overdue, .overtime')) {
+		if (
+			this.isSubmitted() &&
+			getEventTarget(e, 'time, .overdue, .overtime')
+		) {
 			return;
 		}
 
-
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -258,24 +278,26 @@ export default class AssignmentStatusLabel extends React.Component {
 
 		//Change the state to show detail (or toggle it off if its already on)
 		this.setState({
-			showDetail: s.showDetail === 'detail' ? void 0 : 'detail'
+			showDetail: s.showDetail === 'detail' ? void 0 : 'detail',
 		});
 	};
 
-	constructor (props) {
+	constructor(props) {
 		super(props);
 		this.getDifferenceBetween = {
 			overdue: this.getDifferenceBetweenSubmittedAndDue,
-			overtime: this.getDifferenceBetweenTimeSpentAndMaxTime
+			overtime: this.getDifferenceBetweenTimeSpentAndMaxTime,
 		};
 	}
 
-	render () {
-		const {props: {showTimeWithDate, assignment}} = this;
+	render() {
+		const {
+			props: { showTimeWithDate, assignment },
+		} = this;
 
 		const complete = this.isSubmitted();
 		const instructorCreatedSubmission = this.isSyntheticSubmission();
-		const available =  this.isAvailable(); //no start date, or start date is in past.
+		const available = this.isAvailable(); //no start date, or start date is in past.
 		const submittable = assignment.canBeSubmitted(); //aka !isNonSubmit()
 
 		const dateOpen = assignment.getAvailableForSubmissionBeginning();
@@ -300,35 +322,37 @@ export default class AssignmentStatusLabel extends React.Component {
 			// No Submit Assignment
 			'!submittable !complete !available !dateClose': AVAILABLE,
 			'!submittable !complete available !dateClose': AVAILABLE_NOW,
-			'!submittable !complete available dateClose': DUE
+			'!submittable !complete available dateClose': DUE,
 		};
 
-		const text = selectValue(map, {
-			available,
-			complete,
-			dateOpen,
-			dateClose,
-			submittable,
-			instructorCreatedSubmission
-		}) || '';
+		const text =
+			selectValue(map, {
+				available,
+				complete,
+				dateOpen,
+				dateClose,
+				submittable,
+				instructorCreatedSubmission,
+			}) || '';
 
-		const date = this.getCompletedDateTime()
-			|| (
-				text === DUE
-					? dateClose
-					: dateOpen
-			);
+		const date =
+			this.getCompletedDateTime() ||
+			(text === DUE ? dateClose : dateOpen);
 
-		const showOverdue = complete && submittable && this.isOverDue() && !instructorCreatedSubmission;
+		const showOverdue =
+			complete &&
+			submittable &&
+			this.isOverDue() &&
+			!instructorCreatedSubmission;
 		const showOvertime = complete && submittable && this.isOverTime();
 
 		const infoClasses = cx('info-part', text.toLowerCase(), {
 			'non-submit': !submittable,
 			'due-today': dueToday,
-			'overdue': showOverdue,
-			'late': this.isOverDue() && submittable,
-			'overtime': showOvertime,
-			'not-available': !available
+			overdue: showOverdue,
+			late: this.isOverDue() && submittable,
+			overtime: showOvertime,
+			'not-available': !available,
 		});
 
 		const dateFormat = showTimeWithDate
@@ -342,21 +366,44 @@ export default class AssignmentStatusLabel extends React.Component {
 		return this.isDraft() ? (
 			<div className="assignment status-label-wrapper">
 				<h6 className="assignment status-label draft">
-					{assignment.CompletionRequired && <span className="info-part required">Required</span>}
+					{assignment.CompletionRequired && (
+						<span className="info-part required">Required</span>
+					)}
 					<span>Draft</span>
 				</h6>
 			</div>
 		) : (
 			<div className="assignment status-label-wrapper">
 				<h6 className="assignment status-label">
-					{assignment.CompletionRequired && <span className="info-part required">Required</span>}
+					{assignment.CompletionRequired && (
+						<span className="info-part required">Required</span>
+					)}
 					{assignment.isTimed && this.renderTimeInfo()}
 					<span className={infoClasses}>
-						<span className="state" onClick={this.onShowStatusDetail}>{text}</span>
+						<span
+							className="state"
+							onClick={this.onShowStatusDetail}
+						>
+							{text}
+						</span>
 						<span className="over">
 							<span>(</span>
-							{showOvertime && <span className="overtime" onClick={this.onShowOvertimeDetail}>Overtime</span>}
-							{showOverdue && <span className="overdue" onClick={this.onShowOverdueDetail}>Overdue</span>}
+							{showOvertime && (
+								<span
+									className="overtime"
+									onClick={this.onShowOvertimeDetail}
+								>
+									Overtime
+								</span>
+							)}
+							{showOverdue && (
+								<span
+									className="overdue"
+									onClick={this.onShowOverdueDetail}
+								>
+									Overdue
+								</span>
+							)}
 							<span>)</span>
 						</span>
 
@@ -364,9 +411,16 @@ export default class AssignmentStatusLabel extends React.Component {
 							<DateTime
 								onClick={this.onShowStatusDetail}
 								date={date}
-								showToday={!complete/*only show today if we aren't submitted*/}
-								format={isToday(date) ? DateTime.TIME_WITH_ZONE : dateFormat}
-								todayText="Today at {time}"/>
+								showToday={
+									!complete /*only show today if we aren't submitted*/
+								}
+								format={
+									isToday(date)
+										? DateTime.TIME_WITH_ZONE
+										: dateFormat
+								}
+								todayText="Today at {time}"
+							/>
 						)}
 
 						{this.isExcused() && (
@@ -392,21 +446,36 @@ export default class AssignmentStatusLabel extends React.Component {
 			return;
 		}
 
-
-		dur = this.getDifferenceBetween[over] ? this.getDifferenceBetween[over]() : void 0;
+		dur = this.getDifferenceBetween[over]
+			? this.getDifferenceBetween[over]()
+			: void 0;
 
 		return (
-			<div className="assignment status-label-tip" onClick={this.onCloseDetail}>
+			<div
+				className="assignment status-label-tip"
+				onClick={this.onCloseDetail}
+			>
 				<div className="message">
-					{ !isSubmitted ? (
-						<span className="part">{this.getNaturalDuration(this.getTimeRemaining(), 2)} Remaining</span>
-
-					) : [
-						over && (
-							<span key="over" className="part">{this.getNaturalDuration(dur, 1)} {over}</span>
-						),
-						<span key="datetime" className="part"><DateTime date={date} format={submittedAt}/></span>
-					]}
+					{!isSubmitted ? (
+						<span className="part">
+							{this.getNaturalDuration(
+								this.getTimeRemaining(),
+								2
+							)}{' '}
+							Remaining
+						</span>
+					) : (
+						[
+							over && (
+								<span key="over" className="part">
+									{this.getNaturalDuration(dur, 1)} {over}
+								</span>
+							),
+							<span key="datetime" className="part">
+								<DateTime date={date} format={submittedAt} />
+							</span>,
+						]
+					)}
 				</div>
 			</div>
 		);
@@ -421,10 +490,17 @@ export default class AssignmentStatusLabel extends React.Component {
 
 		if (duration) {
 			return (
-				<span className={cx(baseCls, this.isOverTime() ? 'overtime' : 'ontime')}>{time}</span>
+				<span
+					className={cx(
+						baseCls,
+						this.isOverTime() ? 'overtime' : 'ontime'
+					)}
+				>
+					{time}
+				</span>
 			);
 		}
 
-		return (<span className={baseCls}>{time} Time Limit</span>);
+		return <span className={baseCls}>{time} Time Limit</span>;
 	};
 }

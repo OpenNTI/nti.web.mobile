@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .multiple-choice.solutions {
 	.solution {
@@ -6,7 +6,10 @@
 		display: block;
 		position: relative;
 		color: var(--correct);
-		&, p { line-height: 2; }
+		&,
+		p {
+			line-height: 2;
+		}
 
 		p:last-child {
 			margin-bottom: 0;

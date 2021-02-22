@@ -1,4 +1,4 @@
-@import "~@nti/style-common";
+@import '~@nti/style-common';
 
 .question {
 	margin: 2rem 0 2rem;
@@ -9,9 +9,9 @@
 	}
 
 	.page-contents & {
-		margin-left: -0.75rem;//-1.1875rem;
+		margin-left: -0.75rem; //-1.1875rem;
 		margin-right: -0.75rem;
-		padding-left: 0.75rem;//1.1875rem;
+		padding-left: 0.75rem; //1.1875rem;
 		padding-right: 0.75rem;
 	}
 
@@ -31,8 +31,12 @@
 		}
 	}
 
-	&.correct .question-title .status { color: var(--correct); }
-	&.incorrect .question-title .status { color: var(--incorrect); }
+	&.correct .question-title .status {
+		color: var(--correct);
+	}
+	&.incorrect .question-title .status {
+		color: var(--incorrect);
+	}
 
 	&.not-assessed.administrative {
 		opacity: 0.4;
@@ -85,7 +89,9 @@
 		a {
 			font-size: 0.8rem;
 			text-align: right;
-			span.icon-report { margin-right: 0.5em; }
+			span.icon-report {
+				margin-right: 0.5em;
+			}
 
 			white-space: nowrap;
 

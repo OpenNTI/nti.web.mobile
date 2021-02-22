@@ -21,8 +21,12 @@
 				height: 3px;
 			}
 
-			&::before { top: -6px; }
-			&::after { bottom: -6px; }
+			&::before {
+				top: -6px;
+			}
+			&::after {
+				bottom: -6px;
+			}
 		}
 	}
 
@@ -38,8 +42,12 @@
 				height: 5px;
 			}
 
-			&::before { top: -10px; }
-			&::after { bottom: -10px; }
+			&::before {
+				top: -10px;
+			}
+			&::after {
+				bottom: -10px;
+			}
 		}
 	}
 
@@ -63,8 +71,12 @@
 			}
 		}
 
-		&::before { top: -8px; }
-		&::after { bottom: -8px; }
+		&::before {
+			top: -8px;
+		}
+		&::after {
+			bottom: -8px;
+		}
 
 		&::before,
 		&::after {

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class Score extends React.Component {
-
 	static propTypes = {
 		title: PropTypes.string,
 		colors: PropTypes.arrayOf(PropTypes.string),
@@ -10,26 +9,26 @@ export default class Score extends React.Component {
 		score: PropTypes.number,
 		width: PropTypes.number,
 		height: PropTypes.number,
-		inlinePercent: PropTypes.bool
-	}
+		inlinePercent: PropTypes.bool,
+	};
 
 	static defaultProps = {
 		inlinePercent: true,
 		title: '',
 		colors: ['#40b450', '#b8b8b8'],
 		pixelDensity: (global.devicePixelRatio || 1) * 2,
-		score: 90
-	}
+		score: 90,
+	};
 
 	state = {
-		series: []
-	}
+		series: [],
+	};
 
-	canvas = React.createRef()
+	canvas = React.createRef();
 
 	getCanvas = () => {
 		return this.canvas.current;
-	}
+	};
 
 	getContext = () => {
 		const el = this.getCanvas();
@@ -39,7 +38,7 @@ export default class Score extends React.Component {
 		}
 
 		return ctx;
-	}
+	};
 
 	updateSeries = (props = this.props) => {
 		const score = Math.max(0, Math.min(100, parseInt(props.score, 10)));
@@ -47,42 +46,46 @@ export default class Score extends React.Component {
 			this.setState({
 				score,
 				series: [
-					{value: score, label: 'Score'},
-					{value: 100 - score, label: ''}
-				]
+					{ value: score, label: 'Score' },
+					{ value: 100 - score, label: '' },
+				],
 			});
 		}
-	}
+	};
 
-
-	componentDidMount () {
+	componentDidMount() {
 		this.updateSeries();
 		this.paint(this.getContext());
 	}
 
-	componentDidUpdate () {
+	componentDidUpdate() {
 		this.updateSeries();
 		this.paint(this.getContext());
 	}
 
-	render () {
+	render() {
 		let p = this.props;
 		let width = p.width * p.pixelDensity;
 		let height = p.height * p.pixelDensity;
 		let style = {
 			width: p.width + 'px',
-			height: p.height + 'px'
+			height: p.height + 'px',
 		};
 
 		return (
-			<canvas ref={this.canvas} style={style} width={width} height={height} />
+			<canvas
+				ref={this.canvas}
+				style={style}
+				width={width}
+				height={height}
+			/>
 		);
 	}
 
-	paint = (ctx) => {
+	paint = ctx => {
 		let centerX = ctx.canvas.width / 2;
 		let centerY = ctx.canvas.height / 2;
-		let {length} = this.state.series;
+		let { length } = this.state.series;
 
 		ctx.canvas.width += 0; //set the canvas dirty and make it clear on next draw.
 
@@ -104,32 +107,31 @@ export default class Score extends React.Component {
 			}
 
 			this.drawLabel(ctx);
-
 		} finally {
 			ctx.restore();
 		}
-	}
+	};
 
 	getTotal = () => {
 		return this.state.series.reduce((sum, i) => sum + i.value, 0);
-	}
+	};
 
-	getRadius = (ctx) => {
-		let {width, height} = ctx.canvas;
+	getRadius = ctx => {
+		let { width, height } = ctx.canvas;
 		let leg = Math.min(width, height) + this.getStrokeWidth();
 
 		return Math.ceil(leg / 2);
-	}
+	};
 
 	getStrokeWidth = () => {
-		let {pixelDensity} = this.props;
+		let { pixelDensity } = this.props;
 		return 3 * pixelDensity;
-	}
+	};
 
 	drawSegment = (ctx, i) => {
-		let {series} = this.state;
+		let { series } = this.state;
 		let radius = this.getRadius(ctx);
-		let {value} = series[i];
+		let { value } = series[i];
 		let total = this.getTotal();
 
 		let percent = value / total;
@@ -145,8 +147,10 @@ export default class Score extends React.Component {
 
 		ctx.beginPath();
 
-		ctx.moveTo(endingRadius * Math.cos(startingAngle),
-			endingRadius * Math.sin(startingAngle));
+		ctx.moveTo(
+			endingRadius * Math.cos(startingAngle),
+			endingRadius * Math.sin(startingAngle)
+		);
 
 		ctx.arc(0, 0, radius, startingAngle, endingAngle, false);
 		ctx.arc(0, 0, endingRadius, endingAngle, startingAngle, true);
@@ -162,9 +166,9 @@ export default class Score extends React.Component {
 		ctx.stroke();
 
 		ctx.restore();
-	}
+	};
 
-	drawLabel = (ctx) => {
+	drawLabel = ctx => {
 		const draw = (text, f, ...xy) => {
 			ctx.save();
 			setFont(ctx, f);
@@ -192,9 +196,9 @@ export default class Score extends React.Component {
 		};
 
 		try {
-			let {inlinePercent} = this.props;
-			let {score} = this.state;
-			let {width, height} = ctx.canvas;
+			let { inlinePercent } = this.props;
+			let { score } = this.state;
+			let { width, height } = ctx.canvas;
 			let centerX = width / 2;
 			let centerY = height / 2;
 			let radius = this.getRadius(ctx) * 0.68;
@@ -210,7 +214,7 @@ export default class Score extends React.Component {
 			if (inlinePercent) {
 				score = `${score}%`;
 			} else {
-				centerX -= (measureText('%', percent).width / 2);
+				centerX -= measureText('%', percent).width / 2;
 				ctx.setTransform(1, 0, 0, 1, centerX, centerY);
 			}
 
@@ -223,31 +227,31 @@ export default class Score extends React.Component {
 				xy = [textbox.width / 2, 0];
 				draw('%', percent, ...xy);
 			}
-		}
-		finally {
+		} finally {
 			ctx.restore();
 		}
-	}
+	};
 }
 
-
-function sumTo (data, i) {
-	let sum = 0, j = 0;
+function sumTo(data, i) {
+	let sum = 0,
+		j = 0;
 	for (j; j < i; j++) {
 		sum += data[j].value;
 	}
 	return sum;
 }
 
-function percentToRadians (percent) { return ((percent * 360) * Math.PI) / 180; }
+function percentToRadians(percent) {
+	return (percent * 360 * Math.PI) / 180;
+}
 
-
-function setFont (context, font) {
+function setFont(context, font) {
 	context.font = [
 		font.style || 'normal',
 		font.variant || 'normal',
 		font.weight || 'normal',
 		(font.size || 10) + 'px',
-		font.family || '"Open Sans"'
+		font.family || '"Open Sans"',
 	].join(' ');
 }

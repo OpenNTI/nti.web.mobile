@@ -10,10 +10,10 @@ import Card from '../Card';
 import Mixin from '../about/Mixin';
 
 const t = scoped('profile.about.sectiontitles', {
-	'about': 'About',
-	'education': 'Education',
-	'positions': 'Professional',
-	'interests': 'Interests'
+	about: 'About',
+	education: 'Education',
+	positions: 'Professional',
+	interests: 'Interests',
 });
 
 export default createReactClass({
@@ -22,21 +22,21 @@ export default createReactClass({
 	mixins: [Mixin, ProfileAnalytics],
 
 	propTypes: {
-		entity: PropTypes.object.isRequired
+		entity: PropTypes.object.isRequired,
 	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			canEdit: false,
-			sections: ['about', 'education', 'positions', 'interests']
+			sections: ['about', 'education', 'positions', 'interests'],
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setupFor(this.props);
 	},
 
-	componentDidUpdate (prevProps) {
+	componentDidUpdate(prevProps) {
 		const { entity } = this.props;
 
 		if (entity !== prevProps.entity) {
@@ -44,7 +44,7 @@ export default createReactClass({
 		}
 	},
 
-	async setupFor (props) {
+	async setupFor(props) {
 		const { entity } = props;
 
 		if (entity) {
@@ -53,26 +53,24 @@ export default createReactClass({
 				const isReadOnly = await entity.isAllReadOnly(schema);
 				this.setState({
 					canEdit: entity.isModifiable && !isReadOnly,
-					sections: this.state.sections.filter(section => schema[section])
+					sections: this.state.sections.filter(
+						section => schema[section]
+					),
 				});
-			}
-			catch (e) {
+			} catch (e) {
 				this.setState({
-					canEdit: false
+					canEdit: false,
 				});
 			}
 		}
 	},
 
-	getAnalyticsType () {
+	getAnalyticsType() {
 		return 'ProfileAboutView';
 	},
 
-
-
-	render () {
-
-		let {entity} = this.props;
+	render() {
+		let { entity } = this.props;
 		const { canEdit, sections } = this.state;
 
 		if (!entity) {
@@ -81,18 +79,28 @@ export default createReactClass({
 
 		return (
 			<div className="profile-view">
-				<ViewEvent {...this.getAnalyticsData()}/>
+				<ViewEvent {...this.getAnalyticsData()} />
 				<ul className="profile-cards">
 					{sections.map((s, index) => {
-						return ( <Card key={s} className={s} title={t(s)}><div>{this.renderItems(entity[s], index)}</div></Card> );
+						return (
+							<Card key={s} className={s} title={t(s)}>
+								<div>{this.renderItems(entity[s], index)}</div>
+							</Card>
+						);
 					})}
 				</ul>
 				{canEdit && (
 					<div className="controls buttons">
-						<ActiveState tag="a" href="/edit/" className="button tiny">Edit Profile</ActiveState>
+						<ActiveState
+							tag="a"
+							href="/edit/"
+							className="button tiny"
+						>
+							Edit Profile
+						</ActiveState>
 					</div>
 				)}
 			</div>
 		);
-	}
+	},
 });

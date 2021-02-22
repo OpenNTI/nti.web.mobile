@@ -1,12 +1,12 @@
 import './Accept.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Loading} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Loading } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import FormErrors from 'forms/components/FormErrors';
 
-import {accept} from '../Api';
+import { accept } from '../Api';
 
 import Success from './AcceptSuccess';
 
@@ -16,7 +16,6 @@ const t = scoped('invitations.accept', {
 	title: 'Accept Invitation',
 	placeholder: 'Enter invitation code',
 
-
 	successMessage: 'Enrollment Complete',
 });
 
@@ -24,50 +23,50 @@ export default class extends React.Component {
 	static displayName = 'Invitations:Accept';
 
 	static propTypes = {
-		code: PropTypes.string
+		code: PropTypes.string,
 	};
 
 	state = {
-		code: ''
+		code: '',
 	};
 
-	componentDidMount () {
+	componentDidMount() {
 		this.setup();
 	}
 
-	componentDidUpdate (prevProps) {
-		const {code} = this.props;
+	componentDidUpdate(prevProps) {
+		const { code } = this.props;
 		if (code !== prevProps.code) {
 			this.setup();
 		}
 	}
 
 	setup = (props = this.props) => {
-		const {code} = props;
+		const { code } = props;
 		this.setState({
-			code
+			code,
 		});
 	};
 
-	onChange = (e) => {
+	onChange = e => {
 		this.setState({
-			code: e.target.value
+			code: e.target.value,
 		});
 	};
 
-	onSuccess = (instance) => {
+	onSuccess = instance => {
 		this.setState({
 			loading: false,
 			success: true,
-			instance
+			instance,
 		});
 	};
 
-	onError = (error) => {
-		function getMessage () {
+	onError = error => {
+		function getMessage() {
 			let message = error.statusText || error.message || 'Unknown Error';
-			if(error.code) {
-				message = t(error.code, {fallback: message});
+			if (error.code) {
+				message = t(error.code, { fallback: message });
 			}
 			return message;
 		}
@@ -76,50 +75,56 @@ export default class extends React.Component {
 			loading: false,
 			error: {
 				message: getMessage(),
-				raw: error
-			}
+				raw: error,
+			},
 		});
 	};
 
-	onSubmit = (e) => {
+	onSubmit = e => {
 		e.preventDefault();
 
-		const {code} = this.state;
+		const { code } = this.state;
 
 		this.setState({
-			loading: true
+			loading: true,
 		});
 
-		accept(code)
-			.then(this.onSuccess)
-			.catch(this.onError);
+		accept(code).then(this.onSuccess).catch(this.onError);
 	};
 
 	form = () => {
-		const {error, code = ''} = this.state;
+		const { error, code = '' } = this.state;
 		const disabled = code.trim().length === 0;
 
 		return (
 			<div>
-				<form onSubmit={this.onSubmit} className="invitation-accept-form">
-					<input onChange={this.onChange} value={code} placeholder={t('placeholder')} />
+				<form
+					onSubmit={this.onSubmit}
+					className="invitation-accept-form"
+				>
+					<input
+						onChange={this.onChange}
+						value={code}
+						placeholder={t('placeholder')}
+					/>
 					<div className="button-row">
-						<input type="submit"
+						<input
+							type="submit"
 							key="submit"
 							disabled={disabled}
 							id="redeem-submit"
 							className="button tiny"
-							value={t('button')} />
+							value={t('button')}
+						/>
 					</div>
 				</form>
-				{error && <FormErrors errors={{'code': error}} />}
+				{error && <FormErrors errors={{ code: error }} />}
 			</div>
 		);
 	};
 
-	render () {
-
-		const {loading, success, instance} = this.state;
+	render() {
+		const { loading, success, instance } = this.state;
 
 		if (loading) {
 			return <Loading.Mask />;

@@ -4,7 +4,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
-import {Panel} from 'modeled-content';
+import { Panel } from 'modeled-content';
 
 import CommonParts from './CommonParts';
 
@@ -13,32 +13,32 @@ export default createReactClass({
 	mixins: [CommonParts],
 
 	statics: {
-		partType: [
-			'ModeledContent'
-		]
+		partType: ['ModeledContent'],
 	},
 
 	propTypes: {
-		item: PropTypes.object
+		item: PropTypes.object,
 	},
 
-
-	previous (e) {
+	previous(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		this.go(-1);
 	},
 
-
-	next (e) {
+	next(e) {
 		e.preventDefault();
 		e.stopPropagation();
 		this.go(1);
 	},
 
-
-	go (direction) {
-		const {props: {item: {Results: items}}, state: {index = 0}} = this;
+	go(direction) {
+		const {
+			props: {
+				item: { Results: items },
+			},
+			state: { index = 0 },
+		} = this;
 		const total = items.length;
 
 		let newIndex = direction + index;
@@ -48,28 +48,38 @@ export default createReactClass({
 			newIndex = 0;
 		}
 
-		this.setState({index: newIndex});
+		this.setState({ index: newIndex });
 	},
 
-
-	render () {
-		const {props: {item: {Results: items}}, state: {index = 0}} = this;
+	render() {
+		const {
+			props: {
+				item: { Results: items },
+			},
+			state: { index = 0 },
+		} = this;
 
 		const page = index + 1;
 		const total = items.length;
 
-		const prev = cx('prev', {'disabled': total < 2});
-		const next = cx('next', {'disabled': total < 2});
+		const prev = cx('prev', { disabled: total < 2 });
+		const next = cx('next', { disabled: total < 2 });
 
 		return (
 			<div className="aggregated-modeled-content">
 				<div className="toolbar">
-					<a href="#" onClick={this.previous} className={prev}>&nbsp;</a>
-					<span className="page-info">{page} of {total}</span>
-					<a href="#" onClick={this.next} className={next}>&nbsp;</a>
+					<a href="#" onClick={this.previous} className={prev}>
+						&nbsp;
+					</a>
+					<span className="page-info">
+						{page} of {total}
+					</span>
+					<a href="#" onClick={this.next} className={next}>
+						&nbsp;
+					</a>
 				</div>
-				<Panel body={items[index]}/>
+				<Panel body={items[index]} />
 			</div>
 		);
-	}
+	},
 });

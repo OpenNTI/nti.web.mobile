@@ -19,7 +19,11 @@
 	margin: 0.5rem 1rem;
 	max-width: 750px;
 
-	h1, h2, h3, h4, h5 {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5 {
 		color: var(--tertiary-grey);
 		font-family: var(--body-font-family);
 	}
@@ -103,7 +107,9 @@
 
 .access-code {
 	margin: 3rem 0 0;
-	& > input { margin: 0; }
+	& > input {
+		margin: 0;
+	}
 }
 
 /* min-width 641px, medium screens */

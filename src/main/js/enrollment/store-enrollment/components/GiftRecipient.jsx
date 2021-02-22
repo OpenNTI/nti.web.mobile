@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
-import {scoped} from '@nti/lib-locale';
-import {validate as isEmail} from 'email-validator';
+import { scoped } from '@nti/lib-locale';
+import { validate as isEmail } from 'email-validator';
 
 import Store from '../Store';
 
@@ -18,11 +18,10 @@ const t = scoped('enrollment.gift.recipient', {
 	message: 'Enter your message here...',
 	fromLabel: 'From:',
 	from: 'Your Name',
-	sendDate: 'This notification will be sent upon completion of purchase.'
+	sendDate: 'This notification will be sent upon completion of purchase.',
 });
 
 export default class Recipient extends React.Component {
-
 	state = {
 		valid: true,
 		enabled: false,
@@ -30,35 +29,43 @@ export default class Recipient extends React.Component {
 		receiver: null,
 		sender: null,
 		toFirstName: null,
-		toLastName: null
+		toLastName: null,
 	};
 
-	attachFormRef = x => this.elements.form = x
-	attachEmailRef = x => this.elements.email = x
+	attachFormRef = x => (this.elements.form = x);
+	attachEmailRef = x => (this.elements.email = x);
 
-	elements = {}
+	elements = {};
 
-	componentDidMount () {
-
+	componentDidMount() {
 		const prevState = Store.getGiftInfo();
 
 		if (prevState) {
-			let [toFirstName = '', toLastName = ''] = (prevState.to || '').split(' ');
+			let [toFirstName = '', toLastName = ''] = (
+				prevState.to || ''
+			).split(' ');
 			Object.assign(prevState, {
 				toFirstName,
-				toLastName
+				toLastName,
 			});
 
+			let enabled = [
+				'toFirstName',
+				'toLastName',
+				'receiver',
+				'message',
+				'sender',
+			].some(key => (prevState[key] || '').trim().length > 0);
 
-			let enabled = ['toFirstName', 'toLastName', 'receiver', 'message', 'sender']
-				.some(key => (prevState[key] || '').trim().length > 0);
-
-			this.setState({enabled, ...prevState});
+			this.setState({ enabled, ...prevState });
 		}
 	}
 
 	getData = () => {
-		const {state: {enabled}, elements: {form}} = this;
+		const {
+			state: { enabled },
+			elements: { form },
+		} = this;
 		const elements = Array.from(form.elements) || [];
 		let result = {};
 
@@ -94,28 +101,33 @@ export default class Recipient extends React.Component {
 	};
 
 	isEmpty = () => {
-		const {elements: {email: {value = ''} = {}}} = this;
+		const {
+			elements: { email: { value = '' } = {} },
+		} = this;
 		return value.trim().length === 0;
 	};
 
 	validate = () => {
-		const {state: {enabled}, elements: {email: {value = ''} = {}}} = this;
+		const {
+			state: { enabled },
+			elements: { email: { value = '' } = {} },
+		} = this;
 		const valid = !enabled || isEmail(value);
 
-		this.setState({valid});
+		this.setState({ valid });
 
 		return valid;
 	};
 
 	clearError = () => {
-		this.setState({valid: true}); //clear the error
+		this.setState({ valid: true }); //clear the error
 	};
 
 	fieldClicked = () => {
 		this.enable();
 	};
 
-	fieldChanged = (event) => {
+	fieldChanged = event => {
 		this.enable();
 		this.updateState(event);
 	};
@@ -124,12 +136,14 @@ export default class Recipient extends React.Component {
 		this.setState({ enabled: true });
 	};
 
-	onCheckedChange = (e) => {
-		const {target: {checked: enabled}} = e;
+	onCheckedChange = e => {
+		const {
+			target: { checked: enabled },
+		} = e;
 		this.setState({ enabled });
 	};
 
-	updateState = (e) => {
+	updateState = e => {
 		let input = e.target;
 		let state = {};
 
@@ -138,14 +152,24 @@ export default class Recipient extends React.Component {
 		this.setState(state);
 	};
 
-	render () {
-		const {state: {enabled, valid, toFirstName, toLastName, receiver, message, sender}} = this;
+	render() {
+		const {
+			state: {
+				enabled,
+				valid,
+				toFirstName,
+				toLastName,
+				receiver,
+				message,
+				sender,
+			},
+		} = this;
 
-		const css = cx('gift-info', {disabled: !enabled});
+		const css = cx('gift-info', { disabled: !enabled });
 
 		const requiredIfEnabled = cx({
 			required: enabled,
-			error: !valid
+			error: !valid,
 		});
 
 		return (
@@ -153,7 +177,8 @@ export default class Recipient extends React.Component {
 				<form ref={this.attachFormRef} className="">
 					<fieldset className="recipient-info">
 						<label>
-							<input name="enable_recipient"
+							<input
+								name="enable_recipient"
 								type="checkbox"
 								checked={enabled}
 								onChange={this.onCheckedChange}
@@ -161,14 +186,16 @@ export default class Recipient extends React.Component {
 							<span>{t('enable')}</span>
 						</label>
 						<div className="line">
-							<input name="toFirstName"
+							<input
+								name="toFirstName"
 								placeholder={t('firstName')}
 								onClick={this.fieldClicked}
 								onChange={this.fieldChanged}
 								value={toFirstName}
 								type="text"
 							/>
-							<input name="toLastName"
+							<input
+								name="toLastName"
 								placeholder={t('lastName')}
 								onClick={this.fieldClicked}
 								onChange={this.fieldChanged}
@@ -176,7 +203,8 @@ export default class Recipient extends React.Component {
 								type="text"
 							/>
 							<span>
-								<input name="receiver"
+								<input
+									name="receiver"
 									placeholder={t('email')}
 									onClick={this.fieldClicked}
 									onFocus={this.clearError}
@@ -188,12 +216,15 @@ export default class Recipient extends React.Component {
 								/>
 								{!valid && (
 									<span className="error message">
-										{this.isEmpty() ? t2('requiredField') : t('invalidRecipient')}
+										{this.isEmpty()
+											? t2('requiredField')
+											: t('invalidRecipient')}
 									</span>
 								)}
 							</span>
 						</div>
-						<textarea name="message"
+						<textarea
+							name="message"
 							placeholder={t('message')}
 							onClick={this.fieldClicked}
 							onChange={this.fieldChanged}
@@ -203,8 +234,14 @@ export default class Recipient extends React.Component {
 					<fieldset>
 						<label htmlFor="sender">{t('fromLabel')}</label>
 						<div className="line">
-							<input type="text" id="sender" name="sender" onChange={this.fieldChanged} value={sender}
-								placeholder={t('from')} />
+							<input
+								type="text"
+								id="sender"
+								name="sender"
+								onChange={this.fieldChanged}
+								value={sender}
+								placeholder={t('from')}
+							/>
 							<div className="box">{t('sendDate')}</div>
 						</div>
 					</fieldset>

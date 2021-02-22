@@ -2,8 +2,8 @@ import './FiveMinuteEnrollmentForm.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
-import {Loading} from '@nti/web-commons';
-import {scoped} from '@nti/lib-locale';
+import { Loading } from '@nti/web-commons';
+import { scoped } from '@nti/lib-locale';
 
 import Button from 'forms/components/Button';
 import FieldRender from 'forms/mixins/RenderFormConfigMixin';
@@ -12,25 +12,25 @@ import * as FormConstants from 'forms/Constants';
 import FormErrors from 'forms/components/FormErrors';
 import RelatedFormPanel from 'forms/components/RelatedFormPanel';
 
-
 import _formConfig from '../configs/FiveMinuteEnrollmentForm';
 import Autopopulator from '../Autopopulator';
-import {requestConcurrentEnrollment, preflightAndSubmit} from '../Actions';
+import { requestConcurrentEnrollment, preflightAndSubmit } from '../Actions';
 import Store from '../Store';
-import {
-	IS_CONCURRENT_FORM
-} from '../Constants';
+import { IS_CONCURRENT_FORM } from '../Constants';
 
-const logger = Logger.get('enrollment:five-minute:components:FiveMinuteEnrollmentForm');
+const logger = Logger.get(
+	'enrollment:five-minute:components:FiveMinuteEnrollmentForm'
+);
 const t = scoped('enrollment.forms.fiveminute', {
 	admissionTitle: 'Admission to OU Janux',
-	admissionDescription: 'Before you can earn college credit from the University of Oklahoma, we need you to answer some questions. Don’t worry, the admission process is free and should only take a few minutes.',
+	admissionDescription:
+		'Before you can earn college credit from the University of Oklahoma, we need you to answer some questions. Don’t worry, the admission process is free and should only take a few minutes.',
 	submit: 'Submit Application',
 });
 
 const arrayToMap = (arr, field) => {
 	let result = {};
-	for(let obj of arr) {
+	for (let obj of arr) {
 		let key = obj[field];
 		result[key] = obj;
 	}
@@ -41,39 +41,44 @@ export default createReactClass({
 	displayName: 'FiveMinuteEnrollmentForm',
 	mixins: [FieldRender],
 
-	attachFormPanelRef (x) { this.formPanel = x; },
+	attachFormPanelRef(x) {
+		this.formPanel = x;
+	},
 
-	getInitialState () {
+	getInitialState() {
 		return {
 			busy: false,
-			errors: []
+			errors: [],
 		};
 	},
 
-	componentDidMount () {
+	componentDidMount() {
 		Store.addChangeListener(this.onStoreChange);
 		FieldValuesStore.setAutopopulator(new Autopopulator());
 		FieldValuesStore.addChangeListener(this.fieldValuesStoreChange);
 	},
 
-	componentWillUnmount () {
+	componentWillUnmount() {
 		Store.removeChangeListener(this.onStoreChange);
 		FieldValuesStore.setAutopopulator(null);
 		FieldValuesStore.removeChangeListener(this.fieldValuesStoreChange);
 	},
 
-	onStoreChange (event) {
-		if(event.isError) {
+	onStoreChange(event) {
+		if (event.isError) {
 			const errs = [
 				...this.state.errors,
 				{
 					field: event.reason.field,
-					message: event.reason.Message || event.reason.message || event.reason.responseText
-				}
+					message:
+						event.reason.Message ||
+						event.reason.message ||
+						event.reason.responseText,
+				},
 			];
 			this.setState({
 				errors: errs,
-				busy: false
+				busy: false,
 			});
 			// this.state.errors.push({
 			// 	field: event.reason.field,
@@ -87,28 +92,32 @@ export default createReactClass({
 		logger.debug('fiveminute store event: %o', event);
 	},
 
-	fieldValuesStoreChange (event) {
-		switch(event.type) {
-		//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
+	fieldValuesStoreChange(event) {
+		switch (event.type) {
+			//TODO: remove all switch statements, replace with functional object literals. No new switch statements.
 
-		case FormConstants.FIELD_VALUE_CHANGE:
-			if ((/radio|checkbox/i).test((event.target || {}).type) || event.fieldName === 'signature' || event.fieldName === 'contactme') {
-				this.forceUpdate();
-			}
-			break;
+			case FormConstants.FIELD_VALUE_CHANGE:
+				if (
+					/radio|checkbox/i.test((event.target || {}).type) ||
+					event.fieldName === 'signature' ||
+					event.fieldName === 'contactme'
+				) {
+					this.forceUpdate();
+				}
+				break;
 
-		case FormConstants.AVAILABLE_FIELDS_CHANGED:
-			this.pruneErrors(event.fields);
-			break;
+			case FormConstants.AVAILABLE_FIELDS_CHANGED:
+				this.pruneErrors(event.fields);
+				break;
 		}
 	},
 
-	inputFocused (event) {
+	inputFocused(event) {
 		let ref = event.target.name;
 		this.removeError(ref);
 	},
 
-	removeError (ref) {
+	removeError(ref) {
 		let errors = this.state.errors;
 		let error = errors.find(entry => entry.field === ref);
 		let index = errors.indexOf(error);
@@ -117,14 +126,14 @@ export default createReactClass({
 				errors: [
 					//Immutable way of removing an item (and creating a new array without it)
 					...errors.slice(0, index),
-					...errors.slice(index + 1)
-				]
+					...errors.slice(index + 1),
+				],
 			});
 		}
 		return !!error;
 	},
 
-	pruneErrors (visibleFieldRefs) {
+	pruneErrors(visibleFieldRefs) {
 		let errs = this.state.errors;
 		let newErrs = [];
 		let anyRemoved = false;
@@ -137,59 +146,57 @@ export default createReactClass({
 		});
 		if (anyRemoved) {
 			this.setState({
-				errors: newErrs
+				errors: newErrs,
 			});
 		}
 	},
 
-	handleSubmit () {
+	handleSubmit() {
 		let fields = FieldValuesStore.getValues(true);
 
 		if (this.isValid()) {
 			this.setState({
-				busy: true
+				busy: true,
 			});
 			if (fields[IS_CONCURRENT_FORM]) {
 				requestConcurrentEnrollment(fields);
-			}
-			else {
+			} else {
 				preflightAndSubmit(fields);
 			}
 		}
 	},
 
-	isValid () {
+	isValid() {
 		let errors = [];
 		let fields = this.formPanel.getVisibleFields();
 		let values = FieldValuesStore.getValues();
 		fields.forEach(field => {
 			let value = values[field.ref];
-			if(field.required && !value) {
+			if (field.required && !value) {
 				errors.push({
 					field: field.ref,
-					message: 'Please complete all required fields'
+					message: 'Please complete all required fields',
 				});
 			}
 		});
 		this.setState({
-			errors: errors
+			errors: errors,
 		});
 		return errors.length === 0;
 	},
 
-	submitEnabled () {
+	submitEnabled() {
 		let values = FieldValuesStore.getValues();
 		return !!(values.signature || values.contactme);
 	},
 
-	render () {
-
+	render() {
 		if (this.state.busy) {
 			return <Loading.Mask />;
 		}
 
 		let title = t('admissionTitle');
-		let {errors} = this.state;
+		let { errors } = this.state;
 		let errorsByRef = arrayToMap(errors, 'field');
 		let errorRefs = new Set(errors.map(err => err.field));
 
@@ -206,17 +213,19 @@ export default createReactClass({
 							title={title}
 							formConfig={_formConfig}
 							errorFieldRefs={errorRefs}
-							translator={t} />
+							translator={t}
+						/>
 						<FormErrors errors={errorsByRef} />
-						<Button className="columns"
+						<Button
+							className="columns"
 							enabled={this.submitEnabled()}
-							onClick={this.handleSubmit}>
+							onClick={this.handleSubmit}
+						>
 							{t('submit')}
 						</Button>
 					</div>
 				</div>
 			</div>
 		);
-	}
-
+	},
 });

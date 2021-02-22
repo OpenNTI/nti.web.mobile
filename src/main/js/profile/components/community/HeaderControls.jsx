@@ -4,15 +4,15 @@ import React from 'react';
 import LeaveButton from './LeaveButton';
 import JoinButton from './JoinButton';
 
-function hasOptions (entity) {
+function hasOptions(entity) {
 	return entity.hasLink('hide');
 }
 
-function canLeave (entity) {
+function canLeave(entity) {
 	return entity.hasLink('leave');
 }
 
-function canJoin (entity) {
+function canJoin(entity) {
 	return entity.hasLink('join');
 }
 
@@ -20,38 +20,46 @@ export default class extends React.Component {
 	static displayName = 'GroupControls';
 
 	static propTypes = {
-		entity: PropTypes.object
+		entity: PropTypes.object,
 	};
 
-	render () {
-		let {entity} = this.props;
+	render() {
+		let { entity } = this.props;
 		let controls = [
 			hasOptions(entity) && this.renderOptions(entity),
 			canLeave(entity) && this.renderLeaveButton(entity),
-			canJoin(entity) && this.renderJoinButton(entity)
+			canJoin(entity) && this.renderJoinButton(entity),
 		];
 
-		return React.createElement('ul', {className: 'profile-top-controls-buttons'}, ...controls.filter(x=>x));
+		return React.createElement(
+			'ul',
+			{ className: 'profile-top-controls-buttons' },
+			...controls.filter(x => x)
+		);
 	}
 
 	renderOptions = () => {
 		return (
 			<li>
-				<a className="gear-button"/>
-				<ul className="menu"/>
+				<a className="gear-button" />
+				<ul className="menu" />
 			</li>
 		);
 	};
 
-	renderLeaveButton = (entity) => {
+	renderLeaveButton = entity => {
 		return (
-			<li><LeaveButton entity={entity}/></li>
+			<li>
+				<LeaveButton entity={entity} />
+			</li>
 		);
 	};
 
-	renderJoinButton = (entity) => {
+	renderJoinButton = entity => {
 		return (
-			<li><JoinButton entity={entity}/></li>
+			<li>
+				<JoinButton entity={entity} />
+			</li>
 		);
 	};
 }

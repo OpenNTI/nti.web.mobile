@@ -13,25 +13,24 @@ export default class extends React.Component {
 
 	static propTypes = {
 		item: PropTypes.object.isRequired,
-		onRightClick: PropTypes.func
+		onRightClick: PropTypes.func,
 	};
 
-	onRightClick = (e) => {
-		const {item, onRightClick} = this.props;
+	onRightClick = e => {
+		const { item, onRightClick } = this.props;
 		onRightClick && onRightClick(item, e);
 	};
 
-	render () {
-
-		const {item} = this.props;
+	render() {
+		const { item } = this.props;
 
 		const rightOptions = [];
-		if(item.isModifiable) {
+		if (item.isModifiable) {
 			rightOptions.push({
 				label: 'Delete',
 				class: cx('tiny button caution', {
-					'disabled': !item.delete
-				})
+					disabled: !item.delete,
+				}),
 			});
 		}
 
@@ -43,9 +42,9 @@ export default class extends React.Component {
 					onRightClick={this.onRightClick}
 				>
 					<a href={encodeURIComponent(item.getID())}>
-						<Avatar entity={item} suppressProfileLink/>
+						<Avatar entity={item} suppressProfileLink />
 						<div className="body">
-							<DisplayName entity={item} suppressProfileLink/>
+							<DisplayName entity={item} suppressProfileLink />
 							<ListMeta entity={item} />
 							{/*{item.delete && <div className="delete" onClick={this.deleteList.bind(this, item)}></div>}*/}
 						</div>

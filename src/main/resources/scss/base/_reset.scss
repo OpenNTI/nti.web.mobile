@@ -1,4 +1,4 @@
-@import "~normalize.css/normalize.css";
+@import '~normalize.css/normalize.css';
 
 // http://stackoverflow.com/a/2711132
 html {
@@ -10,7 +10,9 @@ html {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
 }
 
-address { font-style: normal; }
+address {
+	font-style: normal;
+}
 
 body {
 	height: auto;
@@ -18,7 +20,8 @@ body {
 	overflow-x: hidden;
 }
 
-html, body {
+html,
+body {
 	@extend %touch-scroll;
 
 	width: 100%;
@@ -28,7 +31,7 @@ img {
 	-webkit-touch-callout: none;
 }
 
-time[datetime~=Invalid] {
+time[datetime~='Invalid'] {
 	color: red !important;
 	border: 2px dashed red !important;
 	animation: fadeIn 0.6s ease-in-out 0s infinite alternate both;

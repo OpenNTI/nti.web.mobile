@@ -1,4 +1,3 @@
-
 .pricing-info {
 	color: var(--primary-grey);
 	margin-bottom: 2rem;
@@ -91,7 +90,7 @@
 			}
 		}
 
-		input[type=text] {
+		input[type='text'] {
 			max-width: 50vw;
 			position: relative;
 			height: auto;
@@ -102,10 +101,18 @@
 }
 
 @keyframes loadingellipse {
-	25% { width: 0; }
-	50% { width: 0.466667em; }
-	75% { width: 0.933333em; }
-	100% { width: 1.4em; }
+	25% {
+		width: 0;
+	}
+	50% {
+		width: 0.466667em;
+	}
+	75% {
+		width: 0.933333em;
+	}
+	100% {
+		width: 1.4em;
+	}
 }
 
 /* min-width 641px, medium screens */
