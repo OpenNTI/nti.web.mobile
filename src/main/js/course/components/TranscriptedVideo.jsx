@@ -344,7 +344,7 @@ export default createReactClass({
 	redrawGutter () {
 		const {gutter} = this;
 		if (gutter) {
-			gutter.handleResize();
+			gutter.handleContentUpdate?.();
 		}
 	},
 
