@@ -48,7 +48,7 @@
 				"server-host": "",
 				"server-path": "/dataserver2/",
 				"login": "/login/",
-				"unsupported": "/login/unsupported.html",
+				"unsupported": "./unsupported",
 
 				"corsSalt": "localhost",
 
