@@ -38,7 +38,8 @@ export default createReactClass({
 		return getAppUser()
 			.then(
 				u =>
-					u.getLink('RegistrationSurvey') || Promise.reject('No Link')
+					u.getLink('RegistrationSurvey') ||
+					Promise.reject(new Error('No Link'))
 			)
 			.then(link => Url.resolve(global.location.href, link))
 			.then(src => this.setState({ src }))

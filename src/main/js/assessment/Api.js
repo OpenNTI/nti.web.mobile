@@ -61,10 +61,12 @@ export function submit(assessment) {
 			) {
 				const loadHistoryFromSubmission = response.getHistory
 					? response.getHistory()
-					: Promise.reject('No Link');
+					: Promise.reject(new Error('No Link'));
 
 				return loadHistoryFromSubmission.catch(reason =>
-					reason === 'No Link' ? fallback() : Promise.reject(reason)
+					reason.message === 'No Link'
+						? fallback()
+						: Promise.reject(reason)
 				);
 			} else if (isSurvey(assessment)) {
 				return main.refresh().then(() => response);
