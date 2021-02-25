@@ -154,7 +154,7 @@ export default class CourseItems extends React.Component {
 				overrides={overrides}
 				returnPath={this.getReturnPath()}
 				noAside
-				noHeader
+				header={false}
 			/>
 		);
 	}
