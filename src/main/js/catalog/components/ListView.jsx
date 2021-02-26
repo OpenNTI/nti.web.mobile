@@ -26,6 +26,10 @@ const CATALOG_MIME_TYPES = {
 };
 
 function getRouteFor(obj) {
+	if (obj.isCourseCatalogEntry && obj.redeemed) {
+		return `./item/${encodeForURI(obj.getID())}?redeemed=1`;
+	}
+
 	if (CATALOG_MIME_TYPES[obj.MimeType]) {
 		return `./item/${encodeForURI(obj.getID())}`;
 	}
