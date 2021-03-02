@@ -55,9 +55,9 @@
 					);
 				}
 			};
-			// if (!new RegExp(<%= JSON.stringify(SUPPORTED_AGENTS) %>).test(navigator.userAgent)) {
-			// 	location.replace('./unsupported');
-			// }
+			if (!new RegExp(<%= JSON.stringify(SUPPORTED_AGENTS) %>).test(navigator.userAgent)) {
+				location.replace('./unsupported');
+			}
 		</script>
 		<div id="content">
 			<!--html:server-values-->
