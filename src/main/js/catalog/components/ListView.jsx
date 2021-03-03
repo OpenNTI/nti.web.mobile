@@ -37,6 +37,10 @@ function getRouteFor(obj) {
 	if (obj === 'contact-us') {
 		return '/mobile/contact-us';
 	}
+
+	if (obj.type === 'redeem-course-code') {
+		return '/mobile/catalog/redeem';
+	}
 }
 
 export default createReactClass({
