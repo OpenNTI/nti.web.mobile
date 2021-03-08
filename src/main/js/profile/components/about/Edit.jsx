@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { Link } from 'react-router-component';
+
 import { scoped } from '@nti/lib-locale';
 import { Loading } from '@nti/web-commons';
-
-import NavigationGuard from 'navigation/components/NavigationGuard';
+import NavigationGuard from 'internal/navigation/components/NavigationGuard';
 
 import RedirectToProfile from '../../mixins/RedirectToProfile';
 import Card from '../Card';

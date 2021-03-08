@@ -1,11 +1,11 @@
 import './UserCard.scss';
 import React from 'react';
+
 import { getAppUsername } from '@nti/web-client';
 import { scoped } from '@nti/lib-locale';
-
-import DisplayName from 'common/components/DisplayName';
-import Avatar from 'common/components/Avatar';
-import ProfileLink from 'profile/components/ProfileLink';
+import DisplayName from 'internal/common/components/DisplayName';
+import Avatar from 'internal/common/components/Avatar';
+import ProfileLink from 'internal/profile/components/ProfileLink';
 
 const t = scoped('app.user-overlay.user-card', {
 	viewProfile: 'View Profile',

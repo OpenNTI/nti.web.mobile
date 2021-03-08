@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
+
 import { scoped } from '@nti/lib-locale';
 import { User, getAppUser } from '@nti/web-client';
 import { Community } from '@nti/web-profiles';
 import { Loading } from '@nti/web-commons';
-
-import { Component as ContextSender } from 'common/mixins/ContextSender';
-import Page from 'common/components/Page';
-import NotFound from 'notfound/components/View';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
+import Page from 'internal/common/components/Page';
+import NotFound from 'internal/notfound/components/View';
 
 import Styles from './View.css';
 import { overrides } from './overrides';

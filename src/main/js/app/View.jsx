@@ -3,6 +3,7 @@ import URL from 'url';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { environment, CaptureClicks, Link } from 'react-router-component';
+
 import { Session } from '@nti/web-session';
 import { reportError, getConfig } from '@nti/web-client';
 import { Error, Loading, Layouts, Theme } from '@nti/web-commons';
@@ -12,9 +13,8 @@ import {
 	addChangeListener as addLocaleChangeListener,
 	removeChangeListener as removeLocaleChangeListener,
 } from '@nti/lib-locale';
-import 'locale';
-
-import * as NavigationActions from 'navigation/Actions';
+import 'internal/locale';
+import * as NavigationActions from 'internal/navigation/Actions';
 
 import Router from './Router';
 import AppContainer from './AppFrame';

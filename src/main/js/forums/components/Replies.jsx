@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { StoreEventsMixin } from '@nti/lib-store';
 
 import * as Actions from '../Actions';

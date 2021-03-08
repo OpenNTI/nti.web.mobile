@@ -2,13 +2,13 @@ import './BlogComment.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import { getService } from '@nti/web-client';
 import { DateTime, LuckyCharms } from '@nti/web-commons';
-
-import { Panel as ModeledContent } from 'modeled-content';
-import Avatar from 'common/components/Avatar';
-import Breadcrumb from 'common/components/BreadcrumbPath';
-import DisplayName from 'common/components/DisplayName';
+import { Panel as ModeledContent } from 'internal/modeled-content';
+import Avatar from 'internal/common/components/Avatar';
+import Breadcrumb from 'internal/common/components/BreadcrumbPath';
+import DisplayName from 'internal/common/components/DisplayName';
 
 import Mixin from './Mixin';
 

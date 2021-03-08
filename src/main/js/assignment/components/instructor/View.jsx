@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Router from 'react-router-component';
 
-import Redirect from 'navigation/components/Redirect';
+import Redirect from 'internal/navigation/components/Redirect';
 
 import Activity from '../shared/Activity';
 import Assignments from '../shared/Assignments';

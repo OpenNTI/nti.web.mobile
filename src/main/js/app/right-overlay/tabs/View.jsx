@@ -1,9 +1,10 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+import cx from 'classnames';
+
 import { Switch } from '@nti/web-commons';
 import Storage from '@nti/web-storage';
-import cx from 'classnames';
 
 import Filters from './Filters';
 import { getTabs } from './util';

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-component';
 import cx from 'classnames';
+
 import { Loading } from '@nti/web-commons';
 import { getServer } from '@nti/web-client';
 import { scoped } from '@nti/lib-locale';

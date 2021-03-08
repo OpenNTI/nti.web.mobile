@@ -1,10 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import { Mixins } from '@nti/web-commons';
 
-import ContextContributor from 'common/mixins/ContextContributor';
-import Redirect from 'navigation/components/Redirect';
+import { Mixins } from '@nti/web-commons';
+import ContextContributor from 'internal/common/mixins/ContextContributor';
+import Redirect from 'internal/navigation/components/Redirect';
 
 import Page from './PageFrame';
 import Groups from './Groups';

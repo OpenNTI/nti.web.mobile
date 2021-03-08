@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ForumView from 'forums/components/ForumView';
+import ForumView from 'internal/forums/components/ForumView';
 
 ProfileForumView.propTypes = {
 	entity: PropTypes.object.isRequired,

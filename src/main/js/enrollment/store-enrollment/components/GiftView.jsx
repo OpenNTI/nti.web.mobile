@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { scoped } from '@nti/lib-locale';
 import { StoreEventsMixin } from '@nti/lib-store';
 import {
@@ -10,11 +11,10 @@ import {
 } from '@nti/web-client';
 import { Error as Err, Loading } from '@nti/web-commons';
 import { rawContent } from '@nti/lib-commons';
-
-import { clearLoadingFlag } from 'common/utils/react-state';
-import FormPanel from 'forms/components/FormPanel';
-import FormErrors from 'forms/components/FormErrors';
-import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+import { clearLoadingFlag } from 'internal/common/utils/react-state';
+import FormPanel from 'internal/forms/components/FormPanel';
+import FormErrors from 'internal/forms/components/FormErrors';
+import FormattedPriceMixin from 'internal/enrollment/mixins/FormattedPriceMixin';
 
 const t = scoped('enrollment.gift', {
 	invalid: 'Please correct the errors above.',

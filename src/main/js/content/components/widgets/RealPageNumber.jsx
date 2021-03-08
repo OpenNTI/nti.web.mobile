@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { VisibleComponentTracker } from '@nti/web-commons';
 
-import ContextAccessor from 'common/mixins/ContextAccessor';
+import { VisibleComponentTracker } from '@nti/web-commons';
+import ContextAccessor from 'internal/common/mixins/ContextAccessor';
 
 import Mixin from './Mixin';
 

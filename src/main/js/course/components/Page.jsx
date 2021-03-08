@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Page from 'common/components/Page';
+import Page from 'internal/common/components/Page';
 
 import NavigationTabs from './NavigationTabs';
 

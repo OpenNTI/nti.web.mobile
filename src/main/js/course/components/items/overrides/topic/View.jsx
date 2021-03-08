@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Topic from 'forums/components/TopicView';
+import Topic from 'internal/forums/components/TopicView';
 
 import Page from '../Page';
 import Registry from '../Registry';

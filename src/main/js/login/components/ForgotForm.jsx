@@ -3,9 +3,10 @@ import Url from 'url';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-component';
+import classnames from 'classnames/bind';
+
 import { scoped } from '@nti/lib-locale';
 import { getServer } from '@nti/web-client';
-import classnames from 'classnames/bind';
 
 import styles from './ForgotForm.css';
 

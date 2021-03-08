@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
+
 import { Loading, Mixins } from '@nti/web-commons';
 import { StoreEventsMixin } from '@nti/lib-store';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import LoadForum from '../mixins/LoadForum';
 import Store from '../Store';

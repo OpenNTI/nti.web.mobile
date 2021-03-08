@@ -2,6 +2,7 @@ import './FollowToggle.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import { Prompt } from '@nti/web-commons';
 
 export default class FollowToggle extends React.Component {

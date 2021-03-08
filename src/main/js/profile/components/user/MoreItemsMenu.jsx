@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Flyout, ActiveState } from '@nti/web-commons';
 
 export default class MoreItemsMenu extends React.Component {

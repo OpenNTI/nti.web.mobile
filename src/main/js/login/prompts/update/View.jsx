@@ -1,5 +1,6 @@
 import './View.scss';
 import React from 'react';
+
 import { getAppUser } from '@nti/web-client';
 import { ProfileUpdate } from '@nti/web-profiles';
 

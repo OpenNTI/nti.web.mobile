@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Loading } from '@nti/web-commons';
 
-import Button from 'forms/components/Button';
+import { Loading } from '@nti/web-commons';
+import Button from 'internal/forms/components/Button';
 
 export default function LoadMore({ store, onClick }) {
 	return (

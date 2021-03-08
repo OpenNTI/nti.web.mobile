@@ -5,18 +5,18 @@ import cx from 'classnames';
 import createReactClass from 'create-react-class';
 /* See: https://github.com/mozilla/vtt.js#usage */
 import { WebVTT, VTTCue /*, VTTRegion*/ } from 'vtt.js';
+
 import { decodeFromURI } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
 import { DarkMode, Error, Loading, Mixins } from '@nti/web-commons';
 import { Component as Video } from '@nti/web-video';
-
-import Discussions from 'content/components/discussions';
-import Gutter from 'content/components/Gutter';
-import ContextSender from 'common/mixins/ContextSender';
+import Discussions from 'internal/content/components/discussions';
+import Gutter from 'internal/content/components/Gutter';
+import ContextSender from 'internal/common/mixins/ContextSender';
 import {
 	NOT_FOUND,
 	RETRY_AFTER_DOM_SETTLES,
-} from 'content/components/annotations/Annotation';
+} from 'internal/content/components/annotations/Annotation';
 
 import Transcript from './Transcript';
 

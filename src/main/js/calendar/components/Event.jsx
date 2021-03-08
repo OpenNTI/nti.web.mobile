@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { getService } from '@nti/web-client';
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { Event } from '@nti/web-calendar';
-
-import Redirect from 'navigation/components/Redirect';
+import Redirect from 'internal/navigation/components/Redirect';
 
 export default class EventView extends React.Component {
 	static propTypes = {

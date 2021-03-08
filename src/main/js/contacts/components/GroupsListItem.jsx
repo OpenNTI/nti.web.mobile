@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
-import SwipeToRevealOptions from 'common/components/SwipeToRevealOptions';
-import AvatarProfileLink from 'profile/components/AvatarProfileLink';
+import SwipeToRevealOptions from 'internal/common/components/SwipeToRevealOptions';
+import AvatarProfileLink from 'internal/profile/components/AvatarProfileLink';
 
 import ListMeta from './ListMeta';
 

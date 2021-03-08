@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Color } from '@nti/lib-whiteboard';
 
 import Bar from './Bar';

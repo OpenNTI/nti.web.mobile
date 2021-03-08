@@ -2,6 +2,7 @@ import './ColumnCompleted.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import { DateTime } from '@nti/web-commons';
 
 export default class GradebookColumnCompleted extends React.Component {

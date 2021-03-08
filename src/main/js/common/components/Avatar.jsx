@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Avatar } from '@nti/web-commons';
 
-import ProfileLink from 'profile/mixins/ProfileLink';
+import { Avatar } from '@nti/web-commons';
+import ProfileLink from 'internal/profile/mixins/ProfileLink';
 
 export default createReactClass({
 	displayName: 'Mobile:Avatar',

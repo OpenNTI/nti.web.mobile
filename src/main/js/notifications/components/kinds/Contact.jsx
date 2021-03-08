@@ -1,10 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { DateTime } from '@nti/web-commons';
 
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-import ProfileLink from 'profile/components/ProfileLink';
+import { DateTime } from '@nti/web-commons';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
+import ProfileLink from 'internal/profile/components/ProfileLink';
 
 import NoteableMixin from '../mixins/Noteable';
 

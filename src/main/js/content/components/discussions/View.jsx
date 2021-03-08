@@ -6,11 +6,11 @@ import {
 	Location,
 	NotFound as Default,
 } from 'react-router-component';
+
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { Mixins } from '@nti/web-commons';
-
-import ContextSender from 'common/mixins/ContextSender';
-import NotFound from 'notfound/components/View';
+import ContextSender from 'internal/common/mixins/ContextSender';
+import NotFound from 'internal/notfound/components/View';
 
 import Edit from './EditNote';
 import ViewComment from './ViewComment';

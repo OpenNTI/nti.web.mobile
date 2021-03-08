@@ -2,6 +2,7 @@ import './BillingAddressForm.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
+
 import { scoped } from '@nti/lib-locale';
 
 //These strings should probably move into a more generic place in the strings.

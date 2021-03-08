@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Loading, PanelButton } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import { rawContent } from '@nti/lib-commons';
-
-import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+import FormattedPriceMixin from 'internal/enrollment/mixins/FormattedPriceMixin';
 
 import { resetProcess, submitPayment } from '../Actions';
 import Store from '../Store';

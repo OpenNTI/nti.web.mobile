@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { User, getAppUser } from '@nti/web-client';
 import { getModel } from '@nti/lib-interfaces';
 import Logger from '@nti/util-logger';
 import { Loading } from '@nti/web-commons';
-
-import NotFound from 'notfound/components/View';
+import NotFound from 'internal/notfound/components/View';
 
 import CommunityView from './community/View';
 import GroupView from './group/View';

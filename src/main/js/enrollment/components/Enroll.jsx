@@ -2,6 +2,7 @@ import './Enroll.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Enrollment } from '@nti/web-course';
 import { getHistory } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
@@ -9,8 +10,7 @@ import { Mixins, Loading, Prompt } from '@nti/web-commons';
 import Logger from '@nti/util-logger';
 import { getAppUsername, User } from '@nti/web-client';
 import { Contact } from '@nti/web-help';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import { enrollOpen } from '../Api';
 import EnrollmentOptions from '../mixins/EnrollmentMixin';

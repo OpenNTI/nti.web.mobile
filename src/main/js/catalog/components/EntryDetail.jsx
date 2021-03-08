@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { Loading } from '@nti/web-commons';
-
-import NotFound from 'notfound/components/View';
-import { Component as ContextSender } from 'common/mixins/ContextSender';
-import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
-import { getCatalogEntry } from 'enrollment/Api';
-import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
+import NotFound from 'internal/notfound/components/View';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
+import EnrollmentStatus from 'internal/enrollment/components/EnrollmentStatus';
+import { getCatalogEntry } from 'internal/enrollment/Api';
+import GiftOptions from 'internal/enrollment/components/enrollment-option-widgets/GiftOptions';
 
 import Detail from './Detail';
 

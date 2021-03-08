@@ -1,4 +1,4 @@
-import { profileHref } from 'profile/mixins/ProfileLink';
+import { profileHref } from 'internal/profile/mixins/ProfileLink';
 
 export default class EntityPathResolver {
 	static handles(o) {

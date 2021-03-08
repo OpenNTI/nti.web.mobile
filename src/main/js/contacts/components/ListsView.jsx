@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Mixins } from '@nti/web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
+import { Mixins } from '@nti/web-commons';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import ListDetail from './ListDetail';
 import DistributionLists from './DistributionLists';

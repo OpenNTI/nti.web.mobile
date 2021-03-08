@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import { Link } from 'react-router-component';
+
 import { EmptyList, Error as Err, Loading } from '@nti/web-commons';
 
 import mixin from '../mixins/Mixin';

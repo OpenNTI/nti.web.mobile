@@ -2,11 +2,11 @@ import './Panel.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { encodeForURI } from '@nti/lib-ntiids';
 import { scoped } from '@nti/lib-locale';
 import { DateTime, Mixins } from '@nti/web-commons';
-
-import { Panel as Body } from 'modeled-content';
+import { Panel as Body } from 'internal/modeled-content';
 
 import ItemActions from './ItemActions';
 import ReplyEditor from './ReplyEditor';

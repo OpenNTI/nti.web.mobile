@@ -2,10 +2,10 @@ import './Detail.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Mixins } from '@nti/web-commons';
 import { Viewer } from '@nti/web-discussions';
-
-import { Panel as Body } from 'modeled-content';
+import { Panel as Body } from 'internal/modeled-content';
 
 import AuthorInfo from './AuthorInfo';
 import Context from './Context';

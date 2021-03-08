@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { HOC } from '@nti/lib-commons';
 
 export default class AssignmentsProvider extends React.Component {

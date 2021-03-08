@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { scoped } from '@nti/lib-locale';
 import { Event } from '@nti/web-calendar';
 import { Avatar, DisplayName, DateTime, Prompt } from '@nti/web-commons';

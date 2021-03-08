@@ -1,7 +1,7 @@
 import React from 'react';
 import { Locations, Location, NotFound } from 'react-router-component';
 
-import Calendar from 'calendar';
+import Calendar from 'internal/calendar';
 
 import DialogRouteHandler from './DialogRouteHandler';
 

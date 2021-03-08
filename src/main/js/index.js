@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import { addFeatureCheckClasses, Orientation } from '@nti/lib-dom';
 import { init as initLocale } from '@nti/lib-locale';
 import {
@@ -8,15 +9,14 @@ import {
 	getConfig,
 	initErrorReporter,
 } from '@nti/web-client';
-
-import { ensureTopFrame } from 'common/utils/iframe-buster';
+import { ensureTopFrame } from 'internal/common/utils/iframe-buster';
 /**
  * Login Store State Change listener.
  * This is only responsible for reloading the APP on the home url once logged in.
  * The node service is responsible for enforcing auth-required pages.
  */
-import { LOGIN_STATE_CHANGED } from 'login/Constants';
-import LoginStore from 'login/Store';
+import { LOGIN_STATE_CHANGED } from 'internal/login/Constants';
+import LoginStore from 'internal/login/Store';
 
 import AppView from './app/View';
 //webpack magic
@@ -25,9 +25,9 @@ import '@nti/style-common/variables.css';
 
 initLocale();
 
-const basePath = (x => (
-		(x = getConfig(x)), typeof x === 'string' ? x : '/'
-	))('basepath');
+const basePath = (x => ((x = getConfig(x)), typeof x === 'string' ? x : '/'))(
+	'basepath'
+);
 
 if (typeof document !== 'undefined') {
 	initErrorReporter();
@@ -37,8 +37,6 @@ if (typeof document !== 'undefined') {
 	overrideConfigAndForceCurrentHost();
 
 	// console.debug('Client is using host: %s', getServerURI()); //eslint-disable-line
-
-	
 
 	//After bundle CSS is injected, lets move this back down so it overrides the bundle.
 	// This is the Browser's entry point, we can assume the existence of "document".

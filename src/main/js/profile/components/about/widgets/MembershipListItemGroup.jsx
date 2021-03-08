@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
 
 import Link from '../../ProfileLink';
 

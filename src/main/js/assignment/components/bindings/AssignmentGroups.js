@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { HOC as HOCUtils } from '@nti/lib-commons';
 import { HOC } from '@nti/web-commons';
 

@@ -5,7 +5,7 @@ import {
 	NotFound as DefaultRoute,
 } from 'react-router-component';
 
-import Redirect from 'navigation/components/Redirect';
+import Redirect from 'internal/navigation/components/Redirect';
 
 import Terms from './terms/components/View';
 import Survey from './survey/components/View';

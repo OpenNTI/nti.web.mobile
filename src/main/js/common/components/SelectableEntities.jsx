@@ -1,6 +1,7 @@
 import './SelectableEntities.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Selection } from '@nti/lib-commons';
 
 import SelectableEntity from './SelectableEntity';

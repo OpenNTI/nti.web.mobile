@@ -4,8 +4,8 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
-import ContextSender from 'common/mixins/ContextSender';
-import NotFoundPage from 'notfound/components/View';
+import ContextSender from 'internal/common/mixins/ContextSender';
+import NotFoundPage from 'internal/notfound/components/View';
 
 import ProfileLink from '../../mixins/ProfileLink';
 

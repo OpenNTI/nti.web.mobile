@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import classnames from 'classnames/bind';
+
 import { Errors, Input } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-import classnames from 'classnames/bind';
 
 import InputType, { stopEvent } from '../Mixin';
 

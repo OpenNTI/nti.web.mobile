@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOMServer from 'react-dom/server';
 import cx from 'classnames';
+
 import Logger from '@nti/util-logger';
 import { getModel } from '@nti/lib-interfaces';
 import { Loading } from '@nti/web-commons';
@@ -14,9 +15,8 @@ import {
 	PageDescriptor,
 } from '@nti/lib-content-processing';
 import { Viewer } from '@nti/web-discussions';
-
-import GotoItem from 'common/components/GotoItem';
-import ContentAcquirePrompt from 'catalog/components/ContentAcquirePrompt';
+import GotoItem from 'internal/common/components/GotoItem';
+import ContentAcquirePrompt from 'internal/catalog/components/ContentAcquirePrompt';
 
 import { select as getAnnotation } from '../viewer-parts/annotations';
 import Content from '../Content';

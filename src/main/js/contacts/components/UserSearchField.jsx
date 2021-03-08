@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { Loading } from '@nti/web-commons';
 
-import SelectableEntity from 'common/components/SelectableEntity';
+import { Loading } from '@nti/web-commons';
+import SelectableEntity from 'internal/common/components/SelectableEntity';
 
 import { getStore, getSuggestedContacts } from '../Api';
 import { USERS } from '../Constants';

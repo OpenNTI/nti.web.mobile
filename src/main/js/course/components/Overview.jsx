@@ -4,14 +4,14 @@ import path from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
+
 import { addHistory } from '@nti/lib-analytics';
 import Logger from '@nti/util-logger';
 import { decodeFromURI, encodeForURI, isNTIID } from '@nti/lib-ntiids';
 import { Overview } from '@nti/web-course';
 import { Loading, Error as ErrorWidget, EmptyList } from '@nti/web-commons';
-
-import { Component as ContextSender } from 'common/mixins/ContextSender';
-import { getRouteFor as calendarRouteFor } from 'calendar/RouteHandler';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
+import { getRouteFor as calendarRouteFor } from 'internal/calendar/RouteHandler';
 
 import Items from './items';
 

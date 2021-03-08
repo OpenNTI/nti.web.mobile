@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { EmptyList, Error as Err, Loading } from '@nti/web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
+import { EmptyList, Error as Err, Loading } from '@nti/web-commons';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import mixin from '../mixins/Mixin';
 import { USERS } from '../Constants';

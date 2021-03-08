@@ -2,11 +2,11 @@ import './AssignmentListItem.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import { decorate } from '@nti/lib-commons';
 import { encodeForURI } from '@nti/lib-ntiids';
 import { HOC } from '@nti/web-commons';
-
-import AssignmentStatusLabel from 'assessment/components/AssignmentStatusLabel';
+import AssignmentStatusLabel from 'internal/assessment/components/AssignmentStatusLabel';
 
 import Assignments from '../bindings/Assignments';
 import TotalPointsLabel from '../shared/TotalPointsLabel';

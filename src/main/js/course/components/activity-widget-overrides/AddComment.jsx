@@ -2,9 +2,9 @@ import './AddComment.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { scoped } from '@nti/lib-locale';
 
-import ObjectLink from 'common/mixins/ObjectLink';
+import { scoped } from '@nti/lib-locale';
+import ObjectLink from 'internal/common/mixins/ObjectLink';
 
 const t = scoped('activity.item.replyable', {
 	placeholder: 'Add a comment',

@@ -1,11 +1,11 @@
 import './AssignmentViewStudentHeader.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { PropType as NTIID } from '@nti/lib-ntiids';
 import { decorate, equals } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
-
-import AvatarProfileLink from 'profile/components/AvatarProfileLink';
+import AvatarProfileLink from 'internal/profile/components/AvatarProfileLink';
 
 import Assignments from '../bindings/Assignments';
 

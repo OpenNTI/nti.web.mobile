@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-component';
 import createReactClass from 'create-react-class';
+
 import { DateTime, LuckyCharms } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import { encodeForURI } from '@nti/lib-ntiids';
 import { StoreEventsMixin } from '@nti/lib-store';
-
-import DisplayName from 'common/components/DisplayName';
-import Avatar from 'common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
+import Avatar from 'internal/common/components/Avatar';
 
 import KeepItemInState from '../../mixins/KeepItemInState';
 import { mimeTypes, TOPIC, POST } from '../../Constants';

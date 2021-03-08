@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { scoped } from '@nti/lib-locale';
 
-import Avatar from 'common/components/Avatar';
+import { scoped } from '@nti/lib-locale';
+import Avatar from 'internal/common/components/Avatar';
 
 import { mimeTypes, DELETED_ITEM_GROUP } from '../../Constants';
 import Collapsible from '../Collapsible';

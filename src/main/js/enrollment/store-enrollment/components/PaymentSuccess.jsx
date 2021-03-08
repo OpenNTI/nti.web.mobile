@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Error as ErrorWidget } from '@nti/web-commons';
 
-import CourseContentLink from 'library/components/CourseContentLink';
+import { Error as ErrorWidget } from '@nti/web-commons';
+import CourseContentLink from 'internal/library/components/CourseContentLink';
 
 import EnrollmentSuccess from '../../components/EnrollmentSuccess';
 import { resetProcess } from '../Actions';

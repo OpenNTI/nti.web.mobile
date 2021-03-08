@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Loading } from '@nti/web-commons';
 
-import Panel from 'content/components/discussions/Panel';
+import { Loading } from '@nti/web-commons';
+import Panel from 'internal/content/components/discussions/Panel';
 
 export default class RecentReplies extends React.Component {
 	static propTypes = {

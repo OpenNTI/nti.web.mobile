@@ -1,9 +1,9 @@
 import React from 'react';
-import t from '@nti/lib-locale';
 
-import radiogroup from 'forms/components/RadioGroup';
-import Select from 'forms/components/Select';
-import Checkbox from 'forms/components/Checkbox';
+import t from '@nti/lib-locale';
+import radiogroup from 'internal/forms/components/RadioGroup';
+import Select from 'internal/forms/components/Select';
+import Checkbox from 'internal/forms/components/Checkbox';
 
 import ToggleFieldset from '../components/ToggleFieldset';
 import { RENDERED_FORM_EVENT_HANDLERS as Events } from '../Constants';

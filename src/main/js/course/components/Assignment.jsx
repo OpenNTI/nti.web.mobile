@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decorate } from '@nti/lib-commons';
 import { Loading } from '@nti/web-commons';
 import { decodeFromURI } from '@nti/lib-ntiids';
-
-import AssignmentsProvider from 'assignment/components/bindings/AssignmentsProvider';
-import AssignmentView from 'assignment/components/shared/Assignments';
-import { Component as ContextContributor } from 'common/mixins/ContextContributor';
+import AssignmentsProvider from 'internal/assignment/components/bindings/AssignmentsProvider';
+import AssignmentView from 'internal/assignment/components/shared/Assignments';
+import { Component as ContextContributor } from 'internal/common/mixins/ContextContributor';
 
 // import Student from './student/View';
 // import Instructor from './instructor/View';

@@ -2,10 +2,10 @@ import './Matching.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { getEventTarget } from '@nti/lib-dom';
 //import { isEmpty } from '@nti/lib-commons';
-
-import { Mixin, Draggable, DropTarget } from 'common/dnd';
+import { Mixin, Draggable, DropTarget } from 'internal/common/dnd';
 
 import Content from '../Content';
 

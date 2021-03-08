@@ -1,11 +1,11 @@
 import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decorate } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
 import { HOC, Loading } from '@nti/web-commons';
-
-import { Avatar, DisplayName } from 'common';
+import { Avatar, DisplayName } from 'internal/common';
 
 import ErrorBoundary from '../ErrorBoundary';
 

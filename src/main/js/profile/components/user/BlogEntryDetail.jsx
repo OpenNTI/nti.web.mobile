@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TopicView from 'forums/components/TopicView';
+import TopicView from 'internal/forums/components/TopicView';
 
 export default function BlogEntryDetail({ id }) {
 	return (

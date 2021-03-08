@@ -1,10 +1,10 @@
 import './Accept.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import FormErrors from 'forms/components/FormErrors';
+import FormErrors from 'internal/forms/components/FormErrors';
 
 import { accept } from '../Api';
 

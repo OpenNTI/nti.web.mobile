@@ -1,14 +1,14 @@
 import './Notebook.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { getHistory, LinkTo } from '@nti/web-routing';
 import { Stream } from '@nti/web-profiles';
 import { getModel } from '@nti/lib-interfaces';
 import { User } from '@nti/web-client';
 import { encodeForURI } from '@nti/lib-ntiids';
-
-import { Component as ContextSender } from 'common/mixins/ContextSender';
-import { Component as ContextContributor } from 'common/mixins/ContextContributor';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
+import { Component as ContextContributor } from 'internal/common/mixins/ContextContributor';
 
 const HighLight = getModel('highlight');
 const Bookmark = getModel('bookmark');

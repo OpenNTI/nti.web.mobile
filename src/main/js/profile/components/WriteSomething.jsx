@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Error as Err } from '@nti/web-commons';
 import { Forums } from '@nti/web-discussions';
-
-import PostEditor from 'activity/components/PostEditor';
-import { Editor } from 'modeled-content';
+import PostEditor from 'internal/activity/components/PostEditor';
+import { Editor } from 'internal/modeled-content';
 
 export default class extends React.Component {
 	static displayName = 'WriteSomething';

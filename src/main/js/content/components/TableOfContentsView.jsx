@@ -2,12 +2,12 @@ import './TableOfContentsView.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { TableOfContents } from '@nti/web-content';
 import { Mixins } from '@nti/web-commons';
 import { Router, Route } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 // const TYPE_TAG_MAP = {
 // 	part: 'h1',

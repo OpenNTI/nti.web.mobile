@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
-import { Mixin, DropTarget } from 'common/dnd';
+import { Mixin, DropTarget } from 'internal/common/dnd';
 
 import Store from '../../Store';
 import Content from '../Content';

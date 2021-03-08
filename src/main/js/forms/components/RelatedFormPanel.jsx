@@ -2,13 +2,13 @@ import './RelatedFormPanel.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+import hash from 'object-hash';
+
 import t from '@nti/lib-locale';
 import { Notice } from '@nti/web-commons';
 import { rawContent } from '@nti/lib-commons';
-import hash from 'object-hash';
-
-import Select from 'forms/components/Select';
-import Checkbox from 'forms/components/Checkbox';
+import Select from 'internal/forms/components/Select';
+import Checkbox from 'internal/forms/components/Checkbox';
 
 import * as Constants from '../Constants';
 import FieldValuesStore from '../FieldValuesStore';

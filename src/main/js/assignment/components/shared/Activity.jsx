@@ -1,6 +1,7 @@
 import './Activity.scss';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+
 import { decorate } from '@nti/lib-commons';
 import {
 	EmptyList,
@@ -9,8 +10,7 @@ import {
 	ScrollTrigger,
 	HOC,
 } from '@nti/web-commons';
-
-import { Component as ContextSender } from 'common/mixins/ContextSender';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
 
 import Assignments from '../bindings/Assignments';
 

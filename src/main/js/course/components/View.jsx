@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'react-router-component';
+
 import { decodeFromURI } from '@nti/lib-ntiids';
 import {
 	Background,
@@ -8,13 +9,12 @@ import {
 	Loading,
 	Presentation,
 } from '@nti/web-commons';
-
-import Assignments from 'assignment/components/ViewLoader';
-import NotFound from 'notfound/components/View';
-import Redirect from 'navigation/components/Redirect';
-import { Component as ContextContributor } from 'common/mixins/ContextContributor';
-import Invite from 'invitations/components/Send';
-import Discussions from 'forums/components/View';
+import Assignments from 'internal/assignment/components/ViewLoader';
+import NotFound from 'internal/notfound/components/View';
+import Redirect from 'internal/navigation/components/Redirect';
+import { Component as ContextContributor } from 'internal/common/mixins/ContextContributor';
+import Invite from 'internal/invitations/components/Send';
+import Discussions from 'internal/forums/components/View';
 
 import { getCourse } from '../Actions';
 import { LESSONS, INFO, SCORMCONTENT } from '../Sections';

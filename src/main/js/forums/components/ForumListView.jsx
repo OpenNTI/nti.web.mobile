@@ -2,6 +2,7 @@ import './ForumListView.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
 import { LinkTo } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
 import { Forums } from '@nti/web-discussions';

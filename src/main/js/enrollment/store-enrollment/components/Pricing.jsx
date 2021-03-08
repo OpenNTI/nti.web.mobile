@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { scoped } from '@nti/lib-locale';
 import { DateTime } from '@nti/web-commons';
-
-import FormattedPriceMixin from 'enrollment/mixins/FormattedPriceMixin';
+import FormattedPriceMixin from 'internal/enrollment/mixins/FormattedPriceMixin';
 
 import Store from '../Store';
 import { updateCoupon } from '../Actions';

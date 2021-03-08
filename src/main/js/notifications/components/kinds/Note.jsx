@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import Logger from '@nti/util-logger';
 import { DateTime } from '@nti/web-commons';
-
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
 
 import NoteableMixin from '../mixins/Noteable';
 

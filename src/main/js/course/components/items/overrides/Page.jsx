@@ -3,7 +3,7 @@ import { resolve } from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Component as ContextSender } from 'common/mixins/ContextSender';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
 
 function isConstrained(next) {
 	const { item } = next || {};

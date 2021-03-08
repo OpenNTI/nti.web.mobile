@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { encodeForURI } from '@nti/lib-ntiids';
 import { getModel } from '@nti/lib-interfaces';
 import { Mixins, Presentation } from '@nti/web-commons';

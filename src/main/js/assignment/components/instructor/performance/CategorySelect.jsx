@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+
 import { SelectBox } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 

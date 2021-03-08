@@ -1,7 +1,7 @@
 import './Notifications.scss';
 import React from 'react';
 
-import List from 'notifications/components/View';
+import List from 'internal/notifications/components/View';
 
 export default function Notifications(props) {
 	return (

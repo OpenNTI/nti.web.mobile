@@ -1,6 +1,5 @@
 import { getService } from '@nti/web-client';
-
-import FieldValuesStore from 'forms/FieldValuesStore';
+import FieldValuesStore from 'internal/forms/FieldValuesStore';
 
 let valuesMap = {};
 

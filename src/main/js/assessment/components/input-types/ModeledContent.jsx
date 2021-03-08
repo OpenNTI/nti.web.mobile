@@ -2,7 +2,7 @@ import './ModeledContent.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
 
-import { Panel, Editor } from 'modeled-content';
+import { Panel, Editor } from 'internal/modeled-content';
 
 import Mixin, { stopEvent } from './Mixin';
 

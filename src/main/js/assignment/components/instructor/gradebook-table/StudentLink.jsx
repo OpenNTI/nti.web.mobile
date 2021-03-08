@@ -1,10 +1,10 @@
 import './StudentLink.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { decorate } from '@nti/lib-commons';
 
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import { decorate } from '@nti/lib-commons';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
 
 import { Receiver as ShowAvatars } from '../../bindings/ShowAvatars';
 

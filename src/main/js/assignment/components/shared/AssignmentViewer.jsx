@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { decorate } from '@nti/lib-commons';
 import { Error as Err, Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import { Component as ContextContributor } from 'common/mixins/ContextContributor';
-import ContentViewer from 'content/components/ViewerLoader';
-import { resetAssignment } from 'assessment/Actions';
+import { Component as ContextContributor } from 'internal/common/mixins/ContextContributor';
+import ContentViewer from 'internal/content/components/ViewerLoader';
+import { resetAssignment } from 'internal/assessment/Actions';
 
 import Assignments from '../bindings/Assignments';
 

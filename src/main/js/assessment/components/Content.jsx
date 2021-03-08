@@ -2,9 +2,10 @@ import './Content.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import htmlToReact from 'html-reactifier';
+
 import { getEventTarget } from '@nti/lib-dom';
 import { processContent } from '@nti/lib-content-processing';
-import htmlToReact from 'html-reactifier';
 
 const isFunction = f => typeof f === 'function';
 

@@ -2,6 +2,7 @@ import './EnrolledLifelongLearner.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Mixins } from '@nti/web-commons';
 
 import Mixin from './mixin';

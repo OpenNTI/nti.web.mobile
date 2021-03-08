@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NavigationBar from 'navigation/components/Bar';
+import NavigationBar from 'internal/navigation/components/Bar';
 
 import Communities from './containers/Communities';
 import Courses from './containers/Courses';

@@ -1,8 +1,8 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { Loading } from '@nti/web-commons';
 
-import LibraryAccessor from 'library/mixins/LibraryAccessor';
+import { Loading } from '@nti/web-commons';
+import LibraryAccessor from 'internal/library/mixins/LibraryAccessor';
 
 export default createReactClass({
 	displayName: 'ThankYou, No THANK YOU',

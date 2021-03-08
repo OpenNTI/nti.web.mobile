@@ -3,10 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
+
 import { scoped } from '@nti/lib-locale';
 import { Ellipsed } from '@nti/web-commons';
-
-import ObjectLink from 'common/mixins/ObjectLink';
+import ObjectLink from 'internal/common/mixins/ObjectLink';
 
 import AssignmentHistoryContextChild from '../../mixins/AssignmentHistoryContextChild';
 

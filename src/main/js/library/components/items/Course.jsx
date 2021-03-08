@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Ellipsed, Presentation } from '@nti/web-commons';
 
-import * as COURSE_SECTIONS from 'course/Sections';
-import getLabel from 'course/get-section-label';
+import { Ellipsed, Presentation } from '@nti/web-commons';
+import * as COURSE_SECTIONS from 'internal/course/Sections';
+import getLabel from 'internal/course/get-section-label';
 
 import CourseLinker from '../../mixins/CourseContentLink';
 import CourseContentLink from '../CourseContentLink';

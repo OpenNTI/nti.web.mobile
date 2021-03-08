@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Event } from '@nti/web-calendar';
 import classnames from 'classnames/bind';
+
+import { Event } from '@nti/web-calendar';
 
 import Page from '../Page';
 import Registry from '../Registry';

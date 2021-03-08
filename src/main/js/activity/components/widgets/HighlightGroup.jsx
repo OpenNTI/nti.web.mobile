@@ -2,7 +2,7 @@ import './HighlightGroup.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Breadcrumb from 'common/components/BreadcrumbPath';
+import Breadcrumb from 'internal/common/components/BreadcrumbPath';
 
 import ContentIcon from './ContentIcon';
 import Highlight from './Highlight';

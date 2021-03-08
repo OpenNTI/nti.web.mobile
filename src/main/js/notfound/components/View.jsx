@@ -2,9 +2,10 @@ import './View.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Mixins } from '@nti/web-commons';
 
-// import Page from 'common/components/Page';
+// import Page from 'internal/common/components/Page';
 
 export default createReactClass({
 	displayName: 'NotFound',

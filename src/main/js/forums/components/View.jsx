@@ -3,9 +3,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import { Banner, Mixins } from '@nti/web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
+import { Banner, Mixins } from '@nti/web-commons';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import ForumListView from './ForumListView';
 import ForumView from './ForumView';

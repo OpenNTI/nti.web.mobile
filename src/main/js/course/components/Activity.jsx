@@ -2,9 +2,9 @@ import './Activity.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Banner, ScrollTrigger, Loading, Mixins } from '@nti/web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
+import { Banner, ScrollTrigger, Loading, Mixins } from '@nti/web-commons';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import ContextParent from '../mixins/AssignmentHistoryContextParent';
 import { ACTIVITY } from '../Sections';

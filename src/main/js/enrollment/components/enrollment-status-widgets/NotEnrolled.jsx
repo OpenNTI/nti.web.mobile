@@ -2,6 +2,7 @@ import './NotEnrolled.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Enrollment } from '@nti/web-course';
 import { Mixins } from '@nti/web-commons';
 import { getHistory } from '@nti/web-routing';

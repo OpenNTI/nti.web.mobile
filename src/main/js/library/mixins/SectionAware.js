@@ -1,5 +1,6 @@
-import Logger from '@nti/util-logger';
 import { compare as naturalSort } from 'natural-orderby';
+
+import Logger from '@nti/util-logger';
 
 import Filters from '../Filters';
 

@@ -2,13 +2,13 @@ import './SymbolicMath.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { isEmpty } from '@nti/lib-commons';
 import { getEventTarget } from '@nti/lib-dom';
 import Logger from '@nti/util-logger';
 import { Error, Loading } from '@nti/web-commons';
 import { ExternalLibraryManager } from '@nti/web-client';
-
-import { clearLoadingFlag, setError } from 'common/utils/react-state';
+import { clearLoadingFlag, setError } from 'internal/common/utils/react-state';
 
 import Mixin, { stopEvent } from './Mixin';
 

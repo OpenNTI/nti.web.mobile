@@ -1,12 +1,12 @@
 import './Note.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { scoped } from '@nti/lib-locale';
 
-import Breadcrumb from 'common/components/BreadcrumbPath';
-import GotoItem from 'common/components/GotoItem';
-import Context from 'content/components/discussions/Context';
-import Detail from 'content/components/discussions/Detail';
+import { scoped } from '@nti/lib-locale';
+import Breadcrumb from 'internal/common/components/BreadcrumbPath';
+import GotoItem from 'internal/common/components/GotoItem';
+import Context from 'internal/content/components/discussions/Context';
+import Detail from 'internal/content/components/discussions/Detail';
 
 import AddComment from './AddComment';
 

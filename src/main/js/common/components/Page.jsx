@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import NavigationBar from 'navigation/components/Bar';
+import NavigationBar from 'internal/navigation/components/Bar';
 
 export default class extends React.Component {
 	static displayName = 'Page';

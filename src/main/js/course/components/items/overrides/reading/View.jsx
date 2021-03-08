@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
+
 import { encodeForURI } from '@nti/lib-ntiids';
 import { scoped } from '@nti/lib-locale';
-
-import ContentView from 'content/components/ViewerLoader';
+import ContentView from 'internal/content/components/ViewerLoader';
 
 import Page from '../Page';
 import Registry from '../Registry';

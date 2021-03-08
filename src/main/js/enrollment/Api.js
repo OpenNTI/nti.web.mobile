@@ -1,7 +1,6 @@
 import { getService } from '@nti/web-client';
 import AppDispatcher from '@nti/lib-dispatcher';
-
-import { RELOAD as RELOAD_LIBRARY } from 'library/Constants';
+import { RELOAD as RELOAD_LIBRARY } from 'internal/library/Constants';
 
 export async function getEnrollmentService() {
 	const service = await getService();

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
+
 import { SURVEY_REPORT_LINK } from '@nti/lib-interfaces';
 import { StoreEventsMixin } from '@nti/lib-store';
 

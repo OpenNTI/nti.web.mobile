@@ -1,13 +1,13 @@
 import './Calendar.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decorate } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
 import { NotableEvents } from '@nti/web-calendar';
 import { HOC } from '@nti/web-commons';
 import { Router, Route } from '@nti/web-routing';
-
-import { getRouteFor } from 'calendar/RouteHandler';
+import { getRouteFor } from 'internal/calendar/RouteHandler';
 
 import ErrorBoundary from './ErrorBoundary';
 

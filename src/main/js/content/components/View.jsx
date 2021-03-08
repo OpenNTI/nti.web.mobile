@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'react-router-component';
+
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { PACKAGE_NOT_FOUND, getPackage } from '@nti/lib-content-processing';
 import {
@@ -9,11 +10,10 @@ import {
 	Background,
 	Presentation,
 } from '@nti/web-commons';
-
-import { Component as ContextContributor } from 'common/mixins/ContextContributor';
-import Redirect from 'navigation/components/Redirect';
-import NotFound from 'notfound/components/View';
-import Discussions from 'forums/components/View';
+import { Component as ContextContributor } from 'internal/common/mixins/ContextContributor';
+import Redirect from 'internal/navigation/components/Redirect';
+import NotFound from 'internal/notfound/components/View';
+import Discussions from 'internal/forums/components/View';
 
 import Community from './community';
 import Index from './Index';

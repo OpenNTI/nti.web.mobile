@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Redirect from 'navigation/components/Redirect';
+import Redirect from 'internal/navigation/components/Redirect';
 
 export default function LoginView() {
 	const href = global.location?.href;

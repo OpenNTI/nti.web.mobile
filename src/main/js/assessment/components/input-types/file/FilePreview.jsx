@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AssetIcon, Utils } from '@nti/web-commons';
 import classnames from 'classnames/bind';
+
+import { AssetIcon, Utils } from '@nti/web-commons';
 
 import styles from './FilePreview.css';
 

@@ -2,6 +2,7 @@ import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Router from 'react-router-component';
+
 import Logger from '@nti/util-logger';
 import { Loading } from '@nti/web-commons';
 import { URL, isEmpty, equals } from '@nti/lib-commons';

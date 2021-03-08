@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
-import Detail from 'catalog/components/Detail';
-import InviteButton from 'invitations/components/InviteButton';
-import EnrollmentStatus from 'enrollment/components/EnrollmentStatus';
-import GiftOptions from 'enrollment/components/enrollment-option-widgets/GiftOptions';
-import ContextSender from 'common/mixins/ContextSender';
+import Detail from 'internal/catalog/components/Detail';
+import InviteButton from 'internal/invitations/components/InviteButton';
+import EnrollmentStatus from 'internal/enrollment/components/EnrollmentStatus';
+import GiftOptions from 'internal/enrollment/components/enrollment-option-widgets/GiftOptions';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 export default createReactClass({
 	displayName: 'CourseInfo',

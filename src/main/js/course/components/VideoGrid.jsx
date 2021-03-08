@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
+
 import { encodeForURI } from '@nti/lib-ntiids';
 import { EmptyList, Mixins } from '@nti/web-commons';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 //some notes: http://stackoverflow.com/questions/20870448/reactjs-modeling-bi-directional-infinite-scrolling
 //I want to turn this into a buffered list.

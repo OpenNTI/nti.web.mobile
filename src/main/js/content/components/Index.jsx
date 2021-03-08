@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
-import { Mixins } from '@nti/web-commons';
 
-import ContextContributor from 'common/mixins/ContextContributor';
+import { Mixins } from '@nti/web-commons';
+import ContextContributor from 'internal/common/mixins/ContextContributor';
 
 import Content from './Viewer';
 import TableOfContents from './TableOfContentsView';

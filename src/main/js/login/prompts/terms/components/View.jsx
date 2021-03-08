@@ -1,6 +1,7 @@
 import './View.scss';
 import React from 'react';
 import cx from 'classnames';
+
 import Logger from '@nti/util-logger';
 import { getAppUser, getReturnURL } from '@nti/web-client';
 

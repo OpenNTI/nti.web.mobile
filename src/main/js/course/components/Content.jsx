@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import Logger from '@nti/util-logger';
 import { decodeFromURI } from '@nti/lib-ntiids';
-
-import ContextContributor from 'common/mixins/ContextContributor';
-import ContentViewer from 'content/components/ViewerLoader';
-import CourseLinker from 'library/mixins/CourseContentLink';
+import ContextContributor from 'internal/common/mixins/ContextContributor';
+import ContentViewer from 'internal/content/components/ViewerLoader';
+import CourseLinker from 'internal/library/mixins/CourseContentLink';
 
 import { LESSONS } from '../Sections';
 

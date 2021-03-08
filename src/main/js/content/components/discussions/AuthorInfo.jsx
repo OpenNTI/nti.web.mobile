@@ -1,13 +1,13 @@
 import './AuthorInfo.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { DateTime, LuckyCharms } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-import RepliedTo from 'common/components/RepliedTo';
-import SharedWithList from 'common/components/SharedWithList';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
+import RepliedTo from 'internal/common/components/RepliedTo';
+import SharedWithList from 'internal/common/components/SharedWithList';
 
 const t = scoped('discussion.item', {
 	postedBy: 'Posted by %(name)s',

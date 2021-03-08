@@ -1,6 +1,7 @@
 import './BottomPager.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Pager } from '@nti/web-content';
 import { getHistory, LinkTo } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';

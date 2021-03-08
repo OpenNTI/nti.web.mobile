@@ -1,16 +1,16 @@
 import './FiveMinuteEnrollmentForm.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import Logger from '@nti/util-logger';
 import { Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import Button from 'forms/components/Button';
-import FieldRender from 'forms/mixins/RenderFormConfigMixin';
-import FieldValuesStore from 'forms/FieldValuesStore';
-import * as FormConstants from 'forms/Constants';
-import FormErrors from 'forms/components/FormErrors';
-import RelatedFormPanel from 'forms/components/RelatedFormPanel';
+import Button from 'internal/forms/components/Button';
+import FieldRender from 'internal/forms/mixins/RenderFormConfigMixin';
+import FieldValuesStore from 'internal/forms/FieldValuesStore';
+import * as FormConstants from 'internal/forms/Constants';
+import FormErrors from 'internal/forms/components/FormErrors';
+import RelatedFormPanel from 'internal/forms/components/RelatedFormPanel';
 
 import _formConfig from '../configs/FiveMinuteEnrollmentForm';
 import Autopopulator from '../Autopopulator';

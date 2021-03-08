@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
-import { DateTime, Loading, LuckyCharms } from '@nti/web-commons';
 
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-import { Panel as ModeledContentPanel } from 'modeled-content';
+import { DateTime, Loading, LuckyCharms } from '@nti/web-commons';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
+import { Panel as ModeledContentPanel } from 'internal/modeled-content';
 
 export default function TopicHeadline({ className, item }) {
 	if (!item) {

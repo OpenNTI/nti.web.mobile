@@ -3,12 +3,12 @@ import { join } from 'path';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Mixins } from '@nti/web-commons';
 import { getAppUsername, User } from '@nti/web-client';
-
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-import { logout } from 'login/Actions';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
+import { logout } from 'internal/login/Actions';
 
 import Impersonate from './right-overlay/Impersonate';
 

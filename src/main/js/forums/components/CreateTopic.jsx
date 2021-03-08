@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { encodeForURI } from '@nti/lib-ntiids';
 import { Loading, Mixins, Notice } from '@nti/web-commons';
-
-import ContextSender from 'common/mixins/ContextSender';
-import Breadcrumb from 'navigation/components/Breadcrumb';
+import ContextSender from 'internal/common/mixins/ContextSender';
+import Breadcrumb from 'internal/navigation/components/Breadcrumb';
 
 import * as Actions from '../Actions';
 import { TOPIC_CREATED, TOPIC_CREATION_ERROR } from '../Constants';

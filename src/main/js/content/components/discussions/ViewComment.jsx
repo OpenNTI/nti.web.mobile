@@ -2,10 +2,10 @@ import './ViewComment.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { decodeFromURI, encodeForURI } from '@nti/lib-ntiids';
 import { Error as Err, Loading, Mixins } from '@nti/web-commons';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import Edit from './EditComment';
 import Panel from './Panel';

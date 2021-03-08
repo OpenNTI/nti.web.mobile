@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { buffer, equals } from '@nti/lib-commons';
 import { ActiveState } from '@nti/web-commons';
 import { StoreEventsMixin } from '@nti/lib-store';

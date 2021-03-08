@@ -3,8 +3,7 @@ import { join } from 'path';
 // import {Models, Service} from '@nti/lib-interfaces';
 import Logger from '@nti/util-logger';
 import { encodeForURI as encode } from '@nti/lib-ntiids';
-
-import { profileHref } from 'profile/mixins/ProfileLink';
+import { profileHref } from 'internal/profile/mixins/ProfileLink';
 
 const logger = Logger.get('object:resolvers:LibraryPath');
 

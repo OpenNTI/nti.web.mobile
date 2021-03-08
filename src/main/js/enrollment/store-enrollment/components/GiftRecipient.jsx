@@ -1,7 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
-import { scoped } from '@nti/lib-locale';
 import { validate as isEmail } from 'email-validator';
+
+import { scoped } from '@nti/lib-locale';
 
 import Store from '../Store';
 

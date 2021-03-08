@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
+
 import { rawContent } from '@nti/lib-commons';
 
 export default class extends React.Component {

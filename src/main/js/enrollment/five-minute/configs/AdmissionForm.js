@@ -1,9 +1,8 @@
 //XXX: using the locale function this way will not pickup site string changes after loading...
 //FIXME: Move string uages `t()` to the component's render method.
 import { scoped } from '@nti/lib-locale';
-
-import * as Constants from 'forms/Constants';
-import { StateSelect, CountrySelect } from 'forms/fields';
+import * as Constants from 'internal/forms/Constants';
+import { StateSelect, CountrySelect } from 'internal/forms/fields';
 
 const t = scoped('enrollment.forms.fiveminute', {
 	first_name: 'First Name',

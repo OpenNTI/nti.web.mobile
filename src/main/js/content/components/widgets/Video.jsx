@@ -2,14 +2,14 @@ import './Video.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { getService } from '@nti/web-client';
 import { Progress } from '@nti/lib-interfaces';
 import { getScreenHeight, getScrollParent } from '@nti/lib-dom';
 import { Loading } from '@nti/web-commons';
 import { Component as Video } from '@nti/web-video';
 import { scoped } from '@nti/lib-locale';
-
-import ContextAccessor from 'common/mixins/ContextAccessor';
+import ContextAccessor from 'internal/common/mixins/ContextAccessor';
 
 import Mixin from './Mixin';
 

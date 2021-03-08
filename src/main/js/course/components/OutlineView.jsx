@@ -5,6 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
+
 import { isEmpty } from '@nti/lib-commons';
 import Logger from '@nti/util-logger';
 import {
@@ -17,10 +18,9 @@ import {
 } from '@nti/web-commons';
 import { Router } from '@nti/web-routing';
 import { Overview } from '@nti/web-course';
-
-import ContextSender from 'common/mixins/ContextSender';
-//import NavigationAware from 'common/mixins/NavigationAware';
-import CourseLinker from 'library/mixins/CourseContentLink';
+import ContextSender from 'internal/common/mixins/ContextSender';
+//import NavigationAware from 'internal/common/mixins/NavigationAware';
+import CourseLinker from 'internal/library/mixins/CourseContentLink';
 
 import { LESSONS } from '../Sections';
 

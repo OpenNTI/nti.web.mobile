@@ -1,9 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import { Loading, Mixins } from '@nti/web-commons';
 
-import Page from 'common/components/Page';
-import ContextSender from 'common/mixins/ContextSender';
+import { Loading, Mixins } from '@nti/web-commons';
+import Page from 'internal/common/components/Page';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import ContactsCommon from '../mixins/Mixin';
 import { LISTS } from '../Constants';

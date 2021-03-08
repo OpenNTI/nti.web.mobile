@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Avatar from 'common/components/Avatar';
+import Avatar from 'internal/common/components/Avatar';
 
 import HeadSummary from './HeadSummary';
 

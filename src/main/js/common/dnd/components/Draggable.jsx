@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
+
 import { getRefHandler } from '@nti/lib-commons';
 
 import DragBehavior from '../behaviors/Draggable';

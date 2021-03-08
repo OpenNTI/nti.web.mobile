@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
+
 import { equals } from '@nti/lib-commons';
 import { Error, Loading } from '@nti/web-commons';
 import { Component as Video } from '@nti/web-video';
-
-import ContextAccessor from 'common/mixins/ContextAccessor';
+import ContextAccessor from 'internal/common/mixins/ContextAccessor';
 
 import Mixin from '../Mixin';
 

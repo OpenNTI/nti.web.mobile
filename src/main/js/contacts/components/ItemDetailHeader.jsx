@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import createReactClass from 'create-react-class';
+import cx from 'classnames';
+
 import { Prompt, Mixins } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-import cx from 'classnames';
 
 const DEFAULT_TEXT = {
 	deleteListPrompt: 'Delete this list?',

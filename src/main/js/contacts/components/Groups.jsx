@@ -1,10 +1,10 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import Logger from '@nti/util-logger';
 import { scoped } from '@nti/lib-locale';
 import { EmptyList, Error as Err, Loading } from '@nti/web-commons';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import mixin from '../mixins/Mixin';
 import { GROUPS } from '../Constants';

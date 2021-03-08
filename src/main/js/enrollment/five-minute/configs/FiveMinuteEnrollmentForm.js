@@ -1,7 +1,7 @@
 import { isAfter, isSameDay, subYears } from 'date-fns';
-import { scoped } from '@nti/lib-locale';
 
-import * as Constants from 'forms/Constants';
+import { scoped } from '@nti/lib-locale';
+import * as Constants from 'internal/forms/Constants';
 
 import concurrentForm from './ConcurrentEnrollmentForm';
 import admissionForm from './AdmissionForm';

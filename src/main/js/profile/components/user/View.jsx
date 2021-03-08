@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { User } from '@nti/web-client';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';
 
-import ContextSender from 'common/mixins/ContextSender';
-import Redirect from 'navigation/components/Redirect';
+import { User } from '@nti/web-client';
+import ContextSender from 'internal/common/mixins/ContextSender';
+import Redirect from 'internal/navigation/components/Redirect';
 
 import ProfileLink from '../../mixins/ProfileLink';
 import Memberships from '../about/Memberships';

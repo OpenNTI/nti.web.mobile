@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from 'forms/components/Button';
+import Button from 'internal/forms/components/Button';
 
 import { logout } from '../Actions';
 

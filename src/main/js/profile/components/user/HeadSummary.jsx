@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { User } from '@nti/web-client';
 import { Loading } from '@nti/web-commons';
 import { Array as ArrayUtils } from '@nti/lib-commons';
-
-import { default as DisplayName } from 'common/components/DisplayName';
+import { default as DisplayName } from 'internal/common/components/DisplayName';
 
 import SocialLinks from './SocialLinks';
 

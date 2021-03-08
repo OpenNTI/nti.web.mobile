@@ -1,16 +1,16 @@
 import './ForumItem.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { DateTime, Report } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import Avatar from 'common/components/Avatar';
-import Breadcrumb from 'common/components/BreadcrumbPath';
-import DisplayName from 'common/components/DisplayName';
-import GotoItem from 'common/components/GotoItem';
-import TopicHeadline from 'forums/components/TopicHeadline';
-// import ActionsComp from 'forums/components/Actions';
-import { Panel as ModeledContentPanel } from 'modeled-content';
+import Avatar from 'internal/common/components/Avatar';
+import Breadcrumb from 'internal/common/components/BreadcrumbPath';
+import DisplayName from 'internal/common/components/DisplayName';
+import GotoItem from 'internal/common/components/GotoItem';
+import TopicHeadline from 'internal/forums/components/TopicHeadline';
+// import ActionsComp from 'internal/forums/components/Actions';
+import { Panel as ModeledContentPanel } from 'internal/modeled-content';
 
 import AddComment from './AddComment';
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decorate } from '@nti/lib-commons';
 import { Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import { Component as ContextContributor } from 'common/mixins/ContextContributor';
+import { Component as ContextContributor } from 'internal/common/mixins/ContextContributor';
 
 import AssignmentsProvider from './bindings/AssignmentsProvider';
 import Student from './student/View';

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { encodeForURI } from '@nti/lib-ntiids';
 import { scoped } from '@nti/lib-locale';
 

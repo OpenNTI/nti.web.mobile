@@ -1,9 +1,9 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import { Mixins, PanelButton } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 const t = scoped('enrollment.forms.fiveminute.prohibition', {
 	heading: 'Policy on Non-Academic Criteria in the Admission of Students',

@@ -2,13 +2,13 @@ import './Content.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+
 import Logger from '@nti/util-logger';
 import { declareCustomElement, getEventTarget } from '@nti/lib-dom';
 import isTouchDevice from '@nti/util-detection-touch';
 import { rawContent, buffer } from '@nti/lib-commons';
 import { Mixins, NTIContent } from '@nti/web-commons';
-
-import ContextAccessor from 'common/mixins/ContextAccessor';
+import ContextAccessor from 'internal/common/mixins/ContextAccessor';
 
 import { getWidget } from './widgets';
 

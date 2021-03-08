@@ -1,9 +1,10 @@
 import './View.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
+import cx from 'classnames';
+
 import { Loading } from '@nti/web-commons';
 import { StoreEventsMixin } from '@nti/lib-store';
-import cx from 'classnames';
 
 import Store from '../Store';
 import { load, loadMore } from '../Actions';

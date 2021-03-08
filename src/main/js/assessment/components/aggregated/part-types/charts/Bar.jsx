@@ -1,6 +1,7 @@
 import './Bar.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { rawContent } from '@nti/lib-commons';
 
 import Segment from './BarSegment';

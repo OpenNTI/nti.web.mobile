@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { Locations, Location } from 'react-router-component';
-import { Mixins } from '@nti/web-commons';
 
-import Page from 'common/components/Page';
-import ContextMixin from 'common/mixins/ContextContributor';
-import Enrollment from 'enrollment/components/View';
-import PaymentComplete from 'enrollment/five-minute/components/PaymentComplete';
-import Enroll from 'enrollment/components/Enroll';
-import GiftPurchaseView from 'enrollment/store-enrollment/components/GiftPurchaseView';
-import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
-import AcceptInvitation from 'invitations/components/View';
-import Redeem from 'enrollment/components/Redeem';
+import { Mixins } from '@nti/web-commons';
+import Page from 'internal/common/components/Page';
+import ContextMixin from 'internal/common/mixins/ContextContributor';
+import Enrollment from 'internal/enrollment/components/View';
+import PaymentComplete from 'internal/enrollment/five-minute/components/PaymentComplete';
+import Enroll from 'internal/enrollment/components/Enroll';
+import GiftPurchaseView from 'internal/enrollment/store-enrollment/components/GiftPurchaseView';
+import EnrollmentSuccess from 'internal/enrollment/components/EnrollmentSuccess';
+import AcceptInvitation from 'internal/invitations/components/View';
+import Redeem from 'internal/enrollment/components/Redeem';
 
 import ListView from './ListView';
 import EntryDetail from './EntryDetail';

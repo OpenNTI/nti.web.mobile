@@ -2,8 +2,9 @@ import './Impersonate.scss';
 import Url from 'url';
 
 import React from 'react';
-import { getAppUser } from '@nti/web-client';
 import QueryString from 'query-string';
+
+import { getAppUser } from '@nti/web-client';
 
 const isNextThoughtAccount = RegExp.prototype.test.bind(/@nextthought\.com$/);
 const LINK = 'logon.nti.impersonate';

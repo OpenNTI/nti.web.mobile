@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Store from 'assessment/Store';
+import Store from 'internal/assessment/Store';
 import {
 	areAssessmentsSupported,
 	isAssignment,
 	isSurvey,
-} from 'assessment/utils';
-import FeedbackWidget from 'assessment/components/Feedback';
-import SetHeaderWidget from 'assessment/components/Header';
-import SetSubmissionWidget from 'assessment/components/Submission';
+} from 'internal/assessment/utils';
+import FeedbackWidget from 'internal/assessment/components/Feedback';
+import SetHeaderWidget from 'internal/assessment/components/Header';
+import SetSubmissionWidget from 'internal/assessment/components/Submission';
 
 export { isAssignment, isSurvey };
 

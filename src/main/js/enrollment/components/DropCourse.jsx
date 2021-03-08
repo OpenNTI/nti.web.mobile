@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { decodeFromURI } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
 import { Loading, Mixins } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import { getCatalogEntry } from '../Api';
 import * as Actions from '../Actions';

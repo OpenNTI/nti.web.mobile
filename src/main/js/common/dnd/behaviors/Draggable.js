@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+
 import { PointerEvents } from '@nti/util-detection-touch';
 import {
 	isMultiTouch,

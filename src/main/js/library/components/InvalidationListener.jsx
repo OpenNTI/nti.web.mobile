@@ -1,11 +1,11 @@
 import React from 'react';
+
 import Logger from '@nti/util-logger';
 import AppDispatcher from '@nti/lib-dispatcher';
-
-import { STRIPE_PAYMENT_SUCCESS } from 'enrollment/store-enrollment/Constants';
-import EnrollmentStore from 'enrollment/Store';
-import StoreEnrollmentStore from 'enrollment/store-enrollment/Store';
-import { reload as reloadNotifications } from 'notifications/Actions';
+import { STRIPE_PAYMENT_SUCCESS } from 'internal/enrollment/store-enrollment/Constants';
+import EnrollmentStore from 'internal/enrollment/Store';
+import StoreEnrollmentStore from 'internal/enrollment/store-enrollment/Store';
+import { reload as reloadNotifications } from 'internal/notifications/Actions';
 
 import { reload as reloadLibrary } from '../Actions';
 import { RELOAD } from '../Constants';

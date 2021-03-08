@@ -1,6 +1,7 @@
 import './UserAgreement.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import { getServer } from '@nti/web-client';
 import { rawContent } from '@nti/lib-commons';
 import { Error as ErrorWidget, Loading, Mixins } from '@nti/web-commons';

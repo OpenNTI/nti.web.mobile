@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Background } from '@nti/web-commons';
 
-import Page from 'common/components/Page';
-import ContextSender from 'common/mixins/ContextSender';
+import { Background } from '@nti/web-commons';
+import Page from 'internal/common/components/Page';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import Header from './Header';
 

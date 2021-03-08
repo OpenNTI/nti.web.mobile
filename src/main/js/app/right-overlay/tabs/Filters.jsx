@@ -1,5 +1,6 @@
 import './Filters.scss';
 import React from 'react';
+
 import { decorate } from '@nti/lib-commons';
 import { HOC } from '@nti/web-commons';
 

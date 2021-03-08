@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-import SwipeToRevealOptions from 'common/components/SwipeToRevealOptions';
-import ProfileLink from 'profile/components/ProfileLink';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
+import SwipeToRevealOptions from 'internal/common/components/SwipeToRevealOptions';
+import ProfileLink from 'internal/profile/components/ProfileLink';
 
 export default class extends React.Component {
 	static displayName = 'SwipeEntity';

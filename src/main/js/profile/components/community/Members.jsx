@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Loading, Mixins, PromiseButton } from '@nti/web-commons';
 
-import ContextSender from 'common/mixins/ContextSender';
+import { Loading, Mixins, PromiseButton } from '@nti/web-commons';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import AvatarGrid from '../AvatarGrid';
 import { profileHref } from '../../mixins/ProfileLink';

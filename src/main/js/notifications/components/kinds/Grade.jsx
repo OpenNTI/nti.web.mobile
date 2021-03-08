@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { DateTime, Presentation } from '@nti/web-commons';
 import { getService } from '@nti/web-client';
 import { scoped } from '@nti/lib-locale';
-
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
 
 import NoteableMixin from '../mixins/Noteable';
 

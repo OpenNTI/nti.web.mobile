@@ -2,6 +2,7 @@ import './Transcript.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import { rawContent } from '@nti/lib-commons';
 
 export default class Transcript extends React.Component {

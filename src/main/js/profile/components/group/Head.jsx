@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import DisplayName from 'common/components/DisplayName';
+import DisplayName from 'internal/common/components/DisplayName';
 
 import Subhead from './Subhead';
 import Description from './Description';

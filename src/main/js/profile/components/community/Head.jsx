@@ -4,8 +4,8 @@ import { Link } from 'react-router-component';
 
 //import cx from 'classnames';
 
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
 
 export default class extends React.Component {
 	static displayName = 'Community:Head';

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { rawContent } from '@nti/lib-commons';
 
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
+import { rawContent } from '@nti/lib-commons';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
 
 import FollowToggle from './FollowToggle';
 import ProfileLink from './ProfileLink';

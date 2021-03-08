@@ -1,10 +1,10 @@
 import './HeaderScoreboard.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { DateTime } from '@nti/web-commons';
 import { getEventTarget } from '@nti/lib-dom';
-
-import Score from 'common/components/charts/Score';
+import Score from 'internal/common/components/charts/Score';
 
 import Store from '../Store';
 import { clearAssessmentAnswers } from '../Actions';

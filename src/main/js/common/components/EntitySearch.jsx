@@ -1,6 +1,7 @@
 import './EntitySearch.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { getService } from '@nti/web-client';
 import { Selection } from '@nti/lib-commons';
 import { EmptyList as Empty, Error as Err, Loading } from '@nti/web-commons';

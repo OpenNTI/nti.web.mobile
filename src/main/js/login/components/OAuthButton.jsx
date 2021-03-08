@@ -5,6 +5,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
+
 import { scoped } from '@nti/lib-locale';
 import { getReturnURL } from '@nti/web-client';
 import { Mixins } from '@nti/web-commons';

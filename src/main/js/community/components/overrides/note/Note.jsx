@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'react-router-component';
-import { encodeForURI } from '@nti/lib-ntiids';
 
-import { Component as ContextSender } from 'common/mixins/ContextSender';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
 
 import Edit from '../../../../content/components/discussions/EditNote';
 import ViewComment from '../../../../content/components/discussions/ViewComment';

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
 import classnames from 'classnames/bind';
+
 import { Card } from '@nti/web-commons';
 
 import Page from '../Page';

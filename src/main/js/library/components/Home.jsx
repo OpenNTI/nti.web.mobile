@@ -3,14 +3,14 @@ import path from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decorate } from '@nti/lib-commons';
 import { searchable, contextual } from '@nti/web-search';
 import { View as SearchableLibrary } from '@nti/web-library';
 import { encodeForURI } from '@nti/lib-ntiids';
 import { Theme } from '@nti/web-commons';
 import { Navigation } from '@nti/web-content';
-
-import NavigationBar from 'navigation/components/Bar';
+import NavigationBar from 'internal/navigation/components/Bar';
 
 function getRememberedRoute(obj) {
 	return Navigation.RememberedRoutes.getRememberedRoute([

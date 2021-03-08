@@ -4,7 +4,7 @@ import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
-import { Panel } from 'modeled-content';
+import { Panel } from 'internal/modeled-content';
 
 import CommonParts from './CommonParts';
 

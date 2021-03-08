@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Router from 'react-router-component';
+
 import { Error, Loading } from '@nti/web-commons';
 
 import Page from '../Page';

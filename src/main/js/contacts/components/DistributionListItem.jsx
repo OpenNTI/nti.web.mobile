@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-import SwipeToRevealOptions from 'common/components/SwipeToRevealOptions';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
+import SwipeToRevealOptions from 'internal/common/components/SwipeToRevealOptions';
 
 import ListMeta from './ListMeta';
 

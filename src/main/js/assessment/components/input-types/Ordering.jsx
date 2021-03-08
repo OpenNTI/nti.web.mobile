@@ -2,9 +2,9 @@ import './Ordering.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import Logger from '@nti/util-logger';
 
-import { Mixin, Draggable, DropTarget } from 'common/dnd';
+import Logger from '@nti/util-logger';
+import { Mixin, Draggable, DropTarget } from 'internal/common/dnd';
 
 import Content from '../Content';
 

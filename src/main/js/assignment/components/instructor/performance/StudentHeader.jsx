@@ -2,7 +2,7 @@ import './StudentHeader.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import AvatarProfileLink from 'profile/components/AvatarProfileLink';
+import AvatarProfileLink from 'internal/profile/components/AvatarProfileLink';
 
 export default function StudentHeader({ userId }) {
 	return (

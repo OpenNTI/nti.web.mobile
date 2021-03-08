@@ -2,11 +2,11 @@ import './Send.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Banner, Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import CourseContentLink from 'library/mixins/CourseContentLink';
-import ContextSender from 'common/mixins/ContextSender';
+import CourseContentLink from 'internal/library/mixins/CourseContentLink';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import SendForm from './SendForm';
 

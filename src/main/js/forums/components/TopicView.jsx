@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { encodeForURI, isNTIID } from '@nti/lib-ntiids';
 import Router, { Location, NotFound } from 'react-router-component';
+
+import { encodeForURI, isNTIID } from '@nti/lib-ntiids';
 import { Error as Err, Loading, Mixins } from '@nti/web-commons';
 import { StoreEventsMixin } from '@nti/lib-store';
-
-import ContextSender from 'common/mixins/ContextSender';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 import KeepItemInState from '../mixins/KeepItemInState';
 import ToggleState from '../mixins/ToggleState';

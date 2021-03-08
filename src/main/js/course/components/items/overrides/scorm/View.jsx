@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Content } from '@nti/web-course';
 
 import Page from '../Page';

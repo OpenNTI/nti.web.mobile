@@ -2,11 +2,11 @@ import './NoteEditor.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+
 import { Loading, HideNavigation } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-
-import { Editor } from 'modeled-content';
-import ShareWith from 'common/components/ShareWith';
+import { Editor } from 'internal/modeled-content';
+import ShareWith from 'internal/common/components/ShareWith';
 
 const t = scoped('common.buttons');
 

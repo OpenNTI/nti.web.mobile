@@ -1,6 +1,8 @@
 import './AppFrame.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
+import cx from 'classnames';
+
 import { addClass, removeClass } from '@nti/lib-dom';
 import {
 	Footer,
@@ -8,9 +10,7 @@ import {
 	ConflictResolutionHandler,
 	Updates,
 } from '@nti/web-commons';
-import cx from 'classnames';
-
-import LibraryInvalidationListener from 'library/components/InvalidationListener';
+import LibraryInvalidationListener from 'internal/library/components/InvalidationListener';
 
 import RightDrawerContent from './right-overlay';
 import DialogsRouter from './DialogsRouter';

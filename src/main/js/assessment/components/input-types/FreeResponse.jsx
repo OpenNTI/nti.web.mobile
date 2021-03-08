@@ -1,6 +1,7 @@
 import './FreeResponse.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import { isEmpty } from '@nti/lib-commons';
 
 import Mixin, { stopEvent } from './Mixin';

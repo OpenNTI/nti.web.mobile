@@ -6,13 +6,13 @@ import {
 	Location,
 	NotFound as Default,
 } from 'react-router-component';
+
 // import Logger from '@nti/util-logger';
 import { getModel } from '@nti/lib-interfaces';
 import { Paging } from '@nti/lib-commons';
 // import {decodeFromURI} from '@nti/lib-ntiids';
 import { Loading } from '@nti/web-commons';
-
-import ContextMixin from 'common/mixins/ContextSender';
+import ContextMixin from 'internal/common/mixins/ContextSender';
 
 import List from './List';
 import View from './View';

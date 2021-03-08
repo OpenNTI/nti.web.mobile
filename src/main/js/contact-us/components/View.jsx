@@ -1,12 +1,12 @@
 import './View.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import { Contact } from '@nti/web-help';
 import { Mixins } from '@nti/web-commons';
 import { getHistory } from '@nti/web-routing';
-
-import Page from 'common/components/Page';
-import ContextSender from 'common/mixins/ContextSender';
+import Page from 'internal/common/components/Page';
+import ContextSender from 'internal/common/mixins/ContextSender';
 
 const routerHistory = getHistory();
 

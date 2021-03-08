@@ -3,13 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
+
 import Logger from '@nti/util-logger';
 import { DateTime } from '@nti/web-commons';
 import { getAppUsername } from '@nti/web-client';
-
-import Avatar from 'common/components/Avatar';
-import DisplayName from 'common/components/DisplayName';
-import { Panel as Body } from 'modeled-content';
+import Avatar from 'internal/common/components/Avatar';
+import DisplayName from 'internal/common/components/DisplayName';
+import { Panel as Body } from 'internal/modeled-content';
 
 const logger = Logger.get('chat:components:MessageInfo');
 

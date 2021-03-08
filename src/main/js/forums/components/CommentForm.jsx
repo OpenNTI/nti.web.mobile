@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import { Notice, OkCancelButtons, Loading } from '@nti/web-commons';
 import { StoreEventsMixin } from '@nti/lib-store';
 import { scoped } from '@nti/lib-locale';
-
-import { Editor } from 'modeled-content';
+import { Editor } from 'internal/modeled-content';
 
 import * as Actions from '../Actions';
 import Store from '../Store';

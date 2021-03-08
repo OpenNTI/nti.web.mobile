@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decorate } from '@nti/lib-commons';
 import { Loading } from '@nti/web-commons';
-
-import { Component as ContextSender } from 'common/mixins/ContextSender';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
 
 import { Provider as ShowAvatars } from '../bindings/ShowAvatars';
 import AssignmentSummary from '../bindings/AssignmentSummary';

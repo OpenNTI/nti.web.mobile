@@ -1,6 +1,7 @@
 import './ScormContent.scss';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import { Scorm } from '@nti/web-course';
 
 import { Component as ContextSender } from '../../common/mixins/ContextSender';

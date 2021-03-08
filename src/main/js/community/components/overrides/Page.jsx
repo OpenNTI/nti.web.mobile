@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { encodeForURI } from '@nti/lib-ntiids';
 
-import { Component as ContextSender } from 'common/mixins/ContextSender';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
 
 export default class CommunityOverridePage extends React.Component {
 	static propTypes = {

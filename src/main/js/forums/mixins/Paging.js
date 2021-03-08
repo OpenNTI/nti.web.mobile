@@ -1,4 +1,5 @@
 import QueryString from 'query-string';
+
 import { getConfig } from '@nti/web-client';
 
 let pageSize;

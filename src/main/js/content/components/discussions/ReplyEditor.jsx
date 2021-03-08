@@ -3,12 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
+
 import Logger from '@nti/util-logger';
 import { Loading } from '@nti/web-commons';
 import t from '@nti/lib-locale';
-
-import ContextAccessor from 'common/mixins/ContextAccessor';
-import { Editor } from 'modeled-content';
+import ContextAccessor from 'internal/common/mixins/ContextAccessor';
+import { Editor } from 'internal/modeled-content';
 
 const logger = Logger.get('content:components:discussions:ReplyEditor');
 const getBody = x => (Array.isArray(x) ? x : [x]);

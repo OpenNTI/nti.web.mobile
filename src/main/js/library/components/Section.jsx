@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import { Link } from 'react-router-component';
-import { EmptyList } from '@nti/web-commons';
 
-import NavigationBar from 'navigation/components/Bar';
-import NotFound from 'notfound/components/View';
+import { EmptyList } from '@nti/web-commons';
+import NavigationBar from 'internal/navigation/components/Bar';
+import NotFound from 'internal/notfound/components/View';
 
 import SectionMixin from '../mixins/SectionAware';
 

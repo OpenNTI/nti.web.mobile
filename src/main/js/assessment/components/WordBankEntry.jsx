@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { Draggable } from 'common/dnd';
+import { Draggable } from 'internal/common/dnd';
 
 import Content from './Content';
 

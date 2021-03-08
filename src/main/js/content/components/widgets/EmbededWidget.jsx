@@ -2,6 +2,7 @@ import './EmbededWidget.scss';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+
 import { Widgets } from '@nti/web-content';
 import { getViewportWidth } from '@nti/lib-dom';
 

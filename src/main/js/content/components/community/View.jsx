@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
+
 import { scoped } from '@nti/lib-locale';
 import { Community } from '@nti/web-content';
-
-import { Component as ContextSender } from 'common/mixins/ContextSender';
-import { overrides } from 'community/components/overrides';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
+import { overrides } from 'internal/community/components/overrides';
 
 import Styles from '../../../community/components/View.css';
 

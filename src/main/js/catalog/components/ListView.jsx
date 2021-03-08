@@ -1,23 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import CatalogView from '@nti/web-catalog';
 import { Router, Route } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
 import { scoped } from '@nti/lib-locale';
+import Page from 'internal/common/components/Page';
+import ContextSender from 'internal/common/mixins/ContextSender';
+
+import { load as loadLibrary } from '../../library/Actions';
 
 const t = scoped('library.sections', {
 	courses: 'Courses',
 });
 
-import Page from 'common/components/Page';
-import ContextSender from 'common/mixins/ContextSender';
-
-import { load as loadLibrary } from '../../library/Actions';
-
-const Catalog = Router.for([
-	Route({path: '/', component: CatalogView})
-]);
+const Catalog = Router.for([Route({ path: '/', component: CatalogView })]);
 
 const CATALOG_MIME_TYPES = {
 	'application/vnd.nextthought.courses.catalogentry': true,
@@ -84,13 +82,8 @@ export default createReactClass({
 
 	render() {
 		return (
-			<Page
-				title="Catalog"
-				useCommonTabs
-				supportsSearch
-				border
-			>
-				<Catalog markDirty={this.markDirty}/>
+			<Page title="Catalog" useCommonTabs supportsSearch border>
+				<Catalog markDirty={this.markDirty} />
 			</Page>
 		);
 	},

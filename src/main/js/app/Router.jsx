@@ -1,34 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import { Prompt, Mixins } from '@nti/web-commons';
-import { encodeForURI } from '@nti/lib-ntiids';
-import { getHistory, createPath, Router } from '@nti/web-routing';
 import {
 	environment,
 	Locations,
 	Location,
 	NotFound,
 } from 'react-router-component';
-import Logger from '@nti/util-logger';
 
+import { Prompt, Mixins } from '@nti/web-commons';
+import { encodeForURI } from '@nti/lib-ntiids';
+import { getHistory, createPath, Router } from '@nti/web-routing';
+import Logger from '@nti/util-logger';
 //Main View Handlers
-import Calendar from 'calendar';
-import Catalog from 'catalog/components/ViewLoader';
-import Community from 'community/components/ViewLoader';
-import ContactUs from 'contact-us/components/View';
-import Contacts from 'contacts/components/ViewLoader';
-import Content from 'content/components/ViewLoader';
-import Course from 'course/components/ViewLoader';
-import Enrollment from 'enrollment/components/ViewLoader';
-import Home from 'home/components/View';
-import Library from 'library/components/ViewLoader';
-import Login from 'login/components/ViewLoader';
-import Profile from 'profile/components/ViewLoader';
-import NotFoundPage from 'notfound/components/View';
-import ObjectResolver from 'object-resolver/components/View';
-import Welcome from 'login/prompts/View';
-import NavStore from 'navigation/Store';
+import Calendar from 'internal/calendar';
+import Catalog from 'internal/catalog/components/ViewLoader';
+import Community from 'internal/community/components/ViewLoader';
+import ContactUs from 'internal/contact-us/components/View';
+import Contacts from 'internal/contacts/components/ViewLoader';
+import Content from 'internal/content/components/ViewLoader';
+import Course from 'internal/course/components/ViewLoader';
+import Enrollment from 'internal/enrollment/components/ViewLoader';
+import Home from 'internal/home/components/View';
+import Library from 'internal/library/components/ViewLoader';
+import Login from 'internal/login/components/ViewLoader';
+import Profile from 'internal/profile/components/ViewLoader';
+import NotFoundPage from 'internal/notfound/components/View';
+import ObjectResolver from 'internal/object-resolver/components/View';
+import Welcome from 'internal/login/prompts/View';
+import NavStore from 'internal/navigation/Store';
 
 import { profileHref } from '../profile/mixins/ProfileLink';
 

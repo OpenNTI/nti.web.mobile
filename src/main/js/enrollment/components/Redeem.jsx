@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { decodeFromURI } from '@nti/lib-ntiids';
 
-import { Component as ContextSender } from 'common/mixins/ContextSender';
+import { decodeFromURI } from '@nti/lib-ntiids';
+import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
 
 import GiftRedeem from '../store-enrollment/components/GiftRedeem';
 

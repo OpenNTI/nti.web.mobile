@@ -1,6 +1,7 @@
+import { compare as naturalSort } from 'natural-orderby';
+
 import Logger from '@nti/util-logger';
 import { scoped } from '@nti/lib-locale';
-import { compare as naturalSort } from 'natural-orderby';
 
 export const CURRENT = 'current';
 export const UPCOMING = 'upcoming';

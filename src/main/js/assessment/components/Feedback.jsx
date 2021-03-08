@@ -2,6 +2,7 @@ import './Feedback.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
+
 import Logger from '@nti/util-logger';
 import { scoped } from '@nti/lib-locale';
 import { StoreEventsMixin } from '@nti/lib-store';

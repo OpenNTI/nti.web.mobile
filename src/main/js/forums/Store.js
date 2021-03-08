@@ -1,7 +1,8 @@
+import hash from 'object-hash';
+
 import Logger from '@nti/util-logger';
 import { decodeFromURI } from '@nti/lib-ntiids';
 import StorePrototype from '@nti/lib-store';
-import hash from 'object-hash';
 import { Models } from '@nti/lib-interfaces';
 
 import * as Constants from './Constants';

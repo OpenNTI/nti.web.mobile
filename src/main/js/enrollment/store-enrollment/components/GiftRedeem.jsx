@@ -1,14 +1,14 @@
 import './GiftRedeem.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import { getService } from '@nti/web-client';
-
-import EnrollmentSuccess from 'enrollment/components/EnrollmentSuccess';
-import FormPanel from 'forms/components/FormPanel';
-import FormErrors from 'forms/components/FormErrors';
+import EnrollmentSuccess from 'internal/enrollment/components/EnrollmentSuccess';
+import FormPanel from 'internal/forms/components/FormPanel';
+import FormErrors from 'internal/forms/components/FormErrors';
 
 import { getCatalogEntry } from '../../Api';
 

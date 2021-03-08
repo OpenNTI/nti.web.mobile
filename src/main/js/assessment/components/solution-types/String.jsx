@@ -1,5 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
+
 import { rawContent } from '@nti/lib-commons';
 
 import Mixin from './Mixin';
