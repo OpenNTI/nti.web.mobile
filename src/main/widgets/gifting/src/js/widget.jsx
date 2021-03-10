@@ -7,16 +7,16 @@ import Router, {
 	NotFound as DefaultRoute,
 } from 'react-router-component';
 import CaptureClicks from 'react-router-component/lib/CaptureClicks';
+
 import { getService } from '@nti/web-client';
 import { Loading, Error as ErrorComponent } from '@nti/web-commons';
-
-import * as Constants from 'enrollment/store-enrollment/Constants';
-import { priceItem } from 'enrollment/store-enrollment/Actions';
-import Store from 'enrollment/store-enrollment/Store';
-import Form from 'enrollment/store-enrollment/components/GiftView';
-import Confirm from 'enrollment/store-enrollment/components/PaymentConfirm';
-import Success from 'enrollment/store-enrollment/components/PaymentSuccess';
-import PaymentError from 'enrollment/store-enrollment/components/PaymentError';
+import * as Constants from 'internal/enrollment/store-enrollment/Constants';
+import { priceItem } from 'internal/enrollment/store-enrollment/Actions';
+import Store from 'internal/enrollment/store-enrollment/Store';
+import Form from 'internal/enrollment/store-enrollment/components/GiftView';
+import Confirm from 'internal/enrollment/store-enrollment/components/PaymentConfirm';
+import Success from 'internal/enrollment/store-enrollment/components/PaymentSuccess';
+import PaymentError from 'internal/enrollment/store-enrollment/components/PaymentError';
 
 export default class GiftingWidget extends React.Component {
 	static propTypes = {

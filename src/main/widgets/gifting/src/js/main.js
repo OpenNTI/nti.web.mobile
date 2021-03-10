@@ -6,6 +6,7 @@ import '../../../../resources/scss/app.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import QueryString from 'query-string';
+
 import { addFeatureCheckClasses } from '@nti/lib-dom';
 import {
 	overrideConfigAndForceCurrentHost,
