@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
+import { reportError } from '@nti/web-client';
 import Logger from '@nti/util-logger';
 import { declareCustomElement, getEventTarget } from '@nti/lib-dom';
 import isTouchDevice from '@nti/util-detection-touch';
@@ -34,8 +35,13 @@ function getContextWrapper(context) {
 			return context;
 		}
 
+		componentDidCatch(error) {
+			reportError(error);
+			this.setState({ error });
+		}
+
 		render() {
-			return this.props.children;
+			return this.state?.error ? null : this.props.children;
 		}
 	};
 }
