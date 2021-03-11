@@ -92,14 +92,14 @@ export default class Content extends React.Component {
 	}
 
 	onContentMaybeReady(shouldUpdate) {
-		if (this.updatingPrestine) {
+		if (this.updatingPristine) {
 			return;
 		}
 		//See if we need to re-mount/render our components...
 		let widgets = this.getPageWidgets();
 		let widgetCount = Object.keys(widgets).length;
 		shouldUpdate =
-			shouldUpdate || (widgetCount === 0 && !this.state.prestine);
+			shouldUpdate || (widgetCount === 0 && !this.state.pristine);
 
 		if (widgets && this.content) {
 			logger.debug('mounting widgets: %o', widgets);
@@ -171,8 +171,8 @@ export default class Content extends React.Component {
 	}
 
 	getPageWidgets() {
-		let { pageWidgets } = this.state;
-		let { pageId } = this.props;
+		const { pageWidgets } = this.state;
+		const { pageId } = this.props;
 
 		if (pageWidgets && !pageWidgets[pageId]) {
 			logger.debug('Creating bin for PageWidgets for %s', pageId);
@@ -184,22 +184,22 @@ export default class Content extends React.Component {
 
 	getCurrent = () => this.content;
 
-	getPristine = () => this.state.prestine;
+	getPristine = () => this.state.pristine;
 
-	updatePrestine() {
+	updatePristine() {
 		if (this.unmounted) {
 			return;
 		}
 
-		let current = this.getCurrent();
-		let prestine = current && current.cloneNode(true);
-		this.updatingPrestine = true;
-		this.setState({ prestine }, () => delete this.updatingPrestine);
-		// logger.debug('Updated Prestine', prestine);
+		const current = this.getCurrent();
+		const pristine = current?.cloneNode(true);
+		this.updatingPristine = true;
+		this.setState({ pristine }, () => delete this.updatingPristine);
+		// logger.debug('Updated Pristine', pristine);
 	}
 
 	scheduleUpdate = buffer(100, () => {
-		this.updatePrestine();
+		this.updatePristine();
 		this.props.onContentReady();
 	});
 
