@@ -91,7 +91,8 @@ class Activity extends React.Component {
 		if (error || (activity && activity.error)) {
 			return (
 				<Error
-					error={error || 'There was an error loading activity.'}
+					error={error}
+					message="There was an error loading activity."
 				/>
 			);
 		}

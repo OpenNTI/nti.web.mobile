@@ -162,7 +162,12 @@ export default createReactClass({
 		}
 
 		if (error) {
-			return <Error error="There was an error loading this question." />;
+			return (
+				<Error
+					error={error}
+					message="There was an error loading this question."
+				/>
+			);
 		}
 
 		return (
