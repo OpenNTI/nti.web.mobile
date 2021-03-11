@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { reportError } from '@nti/web-client';
+
 const errFn = () => 'An error occurred.';
 
 export default function (getMessage = errFn) {
@@ -7,7 +9,10 @@ export default function (getMessage = errFn) {
 		return class ErrorBoundary extends React.Component {
 			state = {};
 
-			componentDidCatch = error => this.setState({ error });
+			componentDidCatch = error => {
+				reportError(error);
+				this.setState({ error });
+			};
 
 			render() {
 				const {

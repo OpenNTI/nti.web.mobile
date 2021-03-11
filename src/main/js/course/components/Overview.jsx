@@ -5,6 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
 
+import { reportError } from '@nti/web-client';
 import { addHistory } from '@nti/lib-analytics';
 import Logger from '@nti/util-logger';
 import { decodeFromURI, encodeForURI, isNTIID } from '@nti/lib-ntiids';
@@ -174,7 +175,10 @@ export default class CourseLessonOverview extends React.Component {
 		return route;
 	};
 
-	componentDidCatch() {}
+	componentDidCatch(error) {
+		reportError(error);
+		this.onError(error);
+	}
 
 	componentDidMount() {
 		this.getDataIfNeeded(this.props);
@@ -204,6 +208,7 @@ export default class CourseLessonOverview extends React.Component {
 	}
 
 	onError(error) {
+		reportError(error);
 		logger.error(
 			'Error loading Overview: ',
 			error.stack || error.message || error
