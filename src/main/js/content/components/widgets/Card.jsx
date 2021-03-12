@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
+import { rawContent } from '@nti/lib-commons';
 import { Card, Mixins } from '@nti/web-commons';
 import { isNTIID, encodeForURI } from '@nti/lib-ntiids';
 import ContextAccessor from 'internal/common/mixins/ContextAccessor';
@@ -44,13 +45,13 @@ export default createReactClass({
 				//a HTML style "fallback" to allow us flexibility and all,
 				//but we still split "data points" into it... hmm...
 				el = item.dom.querySelector('span.description');
-				item.description = el && el.innerHTML;
+				item.description = el && <div {...rawContent(el.innerHTML)} />;
 			}
 
 			if (!item.icon && item.dom) {
 				//See comment above... sigh...
 				el = item.dom.querySelector('img');
-				item.icon = el && el.getAttribute('src');
+				item.icon = el?.getAttribute('src');
 			}
 		}
 
