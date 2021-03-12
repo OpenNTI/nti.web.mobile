@@ -134,7 +134,9 @@ export default createReactClass({
 								icon={item.src}
 								item={{
 									title,
-									desc: caption,
+									description: (
+										<div {...rawContent(caption)} />
+									),
 									icon: item.src,
 								}}
 							/>
