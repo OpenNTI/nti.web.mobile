@@ -95,7 +95,9 @@ nti\:content {
 	table.tabular {
 		border-collapse: collapse;
 		// table-layout: fixed;
-		zoom: 0.8;
+		transform: scale(0.8);
+		transform-origin: 0 0;
+		// zoom: 0.8;
 
 		* {
 			word-break: normal;
