@@ -38,10 +38,10 @@ export default class extends React.Component {
 
 		return (
 			<ul className="selectable-entities" {...props}>
-				{Array.from(entities).map(entity => (
+				{Array.from(entities).map((entity, index) => (
 					<SelectableEntity
 						linkToProfile={linkToProfile}
-						key={entity.getID()}
+						key={index + entity.getID()}
 						entity={entity}
 						selected={selection.isSelected(entity)}
 						labels={labels}

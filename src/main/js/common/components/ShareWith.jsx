@@ -1,4 +1,4 @@
-import './ShareWith.scss';
+import './ShareWith.scss?test';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -19,6 +19,7 @@ const KEY = 'defaultValue';
 const EVENTS = ['focus', 'focusin', 'click', 'touchstart'];
 
 const trim = x => (typeof x === 'string' ? x.trim() : x);
+const nullEmpty = x => (!x?.length ? null : x);
 
 export default class ShareWith extends React.Component {
 	static propTypes = {
@@ -73,25 +74,21 @@ export default class ShareWith extends React.Component {
 
 		this.setState({ focused: false });
 	}
+	Whats;
 
-	setup = (props = this.props) => {
+	setup = async (props = this.props) => {
 		const stillValid = () => props[KEY] === this.props[KEY];
 		const { scope } = props;
 
-		function getSuggestions() {
+		async function getSuggestions() {
 			try {
-				return scope
-					.getSharingSuggestions()
-					.catch(e => {
-						logger.error(
-							'Error getting suggestions: ',
-							e.stack || e.message || e
-						);
-						return null;
-					})
-					.then(v => (v && v.length > 0 ? v : null));
+				return nullEmpty(await scope.getSharingSuggestions());
 			} catch (e) {
-				return Promise.resolve(null);
+				logger.error(
+					'Error getting suggestions: ',
+					e.stack || e.message || e
+				);
+				return null;
 			}
 		}
 
@@ -101,51 +98,44 @@ export default class ShareWith extends React.Component {
 
 		this.setState({ value, selection });
 
-		getService()
-			.then(service => [
-				service.getCommunities(),
-				service.getGroups(),
-				service.getLists(),
-				service.getContacts(),
-			])
+		const service = await getService();
+		const stores = [
+			service.getCommunities(),
+			service.getGroups(),
+			service.getLists(),
+			service.getContacts(),
+		];
 
-			.then(stores =>
-				Promise.all(stores.map(store => store.waitForPending())).then(
-					() => stores
-				)
-			)
+		const [suggestionsResults] = await Promise.allSettled([
+			getSuggestions(),
+			...stores.map(store => store?.waitForPending?.()),
+		]);
 
-			.then(stores => Promise.all([getSuggestions(), ...stores]))
+		if (stillValid()) {
+			const { value: suggestions = null } = suggestionsResults;
 
-			.then(all => {
-				let [suggestions, ...stores] = all;
+			const toArray = o =>
+				nullEmpty(
+					o &&
+						Array.from(o).filter(
+							x =>
+								x &&
+								!suggestions?.find(_ => x.getID() === _.getID())
+						)
+				);
 
-				if (stillValid()) {
-					const filter = x =>
-						!suggestions
-							? x
-							: x &&
-							  !suggestions.find(o => x.getID() === o.getID());
-					const toArray = o => {
-						let a = o ? Array.from(o).filter(filter) : [];
-						return a.length ? a : null;
-					};
+			const [communities, groups, lists, contacts] = stores.map(toArray);
 
-					let [communities, groups, lists, contacts] = stores.map(s =>
-						toArray(s)
-					);
-
-					this.setState({
-						suggestionGroups: {
-							suggestions,
-							communities,
-							groups,
-							lists,
-							contacts,
-						},
-					});
-				}
+			this.setState({
+				suggestionGroups: {
+					suggestions,
+					communities,
+					groups,
+					lists,
+					contacts,
+				},
 			});
+		}
 	};
 
 	maybeCloseDrawer = e => {
@@ -161,8 +151,8 @@ export default class ShareWith extends React.Component {
 		}
 
 		if (!el.contains(e.target)) {
-			clearTimeout(this.maybeCloseDrawerTimout);
-			this.maybeCloseDrawerTimout = setTimeout(() => {
+			clearTimeout(this.maybeCloseDrawerTimeout);
+			this.maybeCloseDrawerTimeout = setTimeout(() => {
 				let dy = el.offsetHeight - entry.offsetHeight;
 
 				this.setState({ focused: false }, onBlur);
@@ -206,12 +196,12 @@ export default class ShareWith extends React.Component {
 			scroller.focus();
 		}
 
-		clearTimeout(this.maybeCloseDrawerTimout);
+		clearTimeout(this.maybeCloseDrawerTimeout);
 		this.setState({ focused: true, inputFocused: false });
 	};
 
 	onInputFocus = () => {
-		clearTimeout(this.maybeCloseDrawerTimout);
+		clearTimeout(this.maybeCloseDrawerTimeout);
 		this.setState({ focused: true, inputFocused: true });
 	};
 
@@ -317,9 +307,9 @@ export default class ShareWith extends React.Component {
 					className="share-with-entry"
 					onClick={this.onFocus}
 				>
-					{selection.getItems().map(e => (
+					{selection.getItems().map((e, index) => (
 						<ShareTarget
-							key={e.getID ? e.getID() : e}
+							key={e.getID?.() || index}
 							entity={e}
 							selected={pendingRemove === e}
 							onClick={this.onTokenTap}
@@ -373,10 +363,10 @@ export default class ShareWith extends React.Component {
 									restrict: inputFocused,
 								})}
 							>
-								{groupings.map(o => (
+								{groupings.map((o, index) => (
 									<div
 										className="suggestion-group"
-										key={o.label}
+										key={index}
 									>
 										<h3>{o.label}</h3>
 										<SelectableEntities
