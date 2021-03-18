@@ -19,7 +19,7 @@ class GradeBox extends React.Component {
 		userId: PropTypes.string.isRequired,
 		assignmentId: NTIID.isRequired,
 		showLetter: PropTypes.bool,
-		assignments: PropTypes.arrayOf(PropTypes.object),
+		assignments: PropTypes.object,
 		course: PropTypes.object,
 	};
 
