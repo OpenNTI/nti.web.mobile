@@ -90,8 +90,9 @@ export default class ContentView extends React.Component {
 			const contentPackage = await getPackage(contentId);
 			this.setState({ contentPackage, loading: false });
 		} catch (error) {
+			const message = error?.message || error;
 			this.setState(
-				error === PACKAGE_NOT_FOUND
+				message === PACKAGE_NOT_FOUND
 					? { contentPackage: null }
 					: { error }
 			);
