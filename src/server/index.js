@@ -2,9 +2,6 @@
 'use strict';
 const path = require('path');
 
-const redirects = require('./lib/redirects');
-const sessionSetup = require('./lib/session-setup');
-
 let dev;
 let assets = path.resolve(__dirname, '../client');
 
@@ -19,6 +16,9 @@ try {
 
 exports = module.exports = {
 	async register(expressApp, config) {
+		const redirects = await import('./lib/redirects.mjs');
+		const { sessionSetup } = await import('./lib/session-setup.mjs');
+
 		const devmode = dev ? await dev.setupDeveloperMode(config) : false;
 
 		redirects.register(expressApp, config);

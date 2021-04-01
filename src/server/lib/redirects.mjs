@@ -1,12 +1,7 @@
 /*eslint strict:0, import/no-commonjs:0, import/order:0*/
-'use strict';
-const path = require('path');
-const {
-	HREF,
-	isNTIID,
-	encodeForURI,
-	decodeFromURI,
-} = require('@nti/lib-ntiids');
+import path from 'path';
+import { Base64 } from 'js-base64/base64.mjs';
+import { HREF, isNTIID, encodeForURI, decodeFromURI } from '@nti/lib-ntiids';
 
 const SEGMENT_HANDLERS = {
 	redeem: (catalogId, segments) =>
@@ -31,8 +26,8 @@ const HANDLERS = {
 	handleCommunityPathRedirect: /^\/[^/]+\/community/i,
 };
 
-exports = module.exports = {
-	register(express, config) {
+class Redirects {
+	constructor(express, config) {
 		this.basepath = config.basepath;
 
 		express.use((req, res, next) => {
@@ -60,7 +55,7 @@ exports = module.exports = {
 
 			return res.redirect(this.basepath);
 		});
-	},
+	}
 
 	handleProfileRedirects(query, res, next) {
 		/*
@@ -81,7 +76,7 @@ exports = module.exports = {
 		const url = path.join(this.basepath, 'profile', rest);
 		// console.debug('redirecting to: %s', url);
 		res.redirect(url);
-	},
+	}
 
 	handleInvitationRedirects(query, res, next) {
 		/*
@@ -104,7 +99,7 @@ exports = module.exports = {
 		}
 
 		next();
-	},
+	}
 
 	handleCatalogPathRedirects(query, res, next) {
 		/* From:
@@ -131,7 +126,7 @@ exports = module.exports = {
 
 		const url = path.join(this.basepath, 'catalog', 'item', id);
 		res.redirect(url);
-	},
+	}
 
 	handleLibraryPathRedirects(query, res, next) {
 		/* From:
@@ -151,7 +146,7 @@ exports = module.exports = {
 		}
 
 		next();
-	},
+	}
 
 	handleLibraryRedirects(query, res, next) {
 		let url = query;
@@ -178,7 +173,7 @@ exports = module.exports = {
 		}
 
 		next();
-	},
+	}
 
 	handleBundlePathRedirect(query, res, next, fragment) {
 		const partMap = {
@@ -200,7 +195,7 @@ exports = module.exports = {
 		}
 
 		res.redirect(url);
-	},
+	}
 
 	handleCommunityPathRedirect(query, res, next) {
 		const partMap = {
@@ -213,7 +208,7 @@ exports = module.exports = {
 			.filter(Boolean);
 
 		res.redirect(path.join(this.basepath, ...fixed));
-	},
+	}
 
 	handleObjectRedirects(query, res, next) {
 		/* From:
@@ -243,8 +238,8 @@ exports = module.exports = {
 		}
 
 		next();
-	},
-};
+	}
+}
 
 function translatePath(catalogId, trailingPath) {
 	let segments = (trailingPath || '').split('/');
@@ -257,9 +252,13 @@ function translatePath(catalogId, trailingPath) {
 function translateCatalogId(input) {
 	let catalogId = input.replace(/-/g, '+').replace(/_/g, '/');
 
-	catalogId = new Buffer(catalogId, 'base64').toString();
+	catalogId = Base64.encode(catalogId);
 	catalogId = catalogId.replace(/^!@/, ''); //strip off the WebApp's 'salt'
 	catalogId = encodeForURI(catalogId);
 
 	return catalogId;
+}
+
+export function register(express, config) {
+	return new Redirects(express, config);
 }

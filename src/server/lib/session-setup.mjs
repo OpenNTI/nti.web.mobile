@@ -7,7 +7,7 @@
 
 const needsAttention = route => Promise.reject({ isLoginAction: true, route });
 
-module.exports = function sessionSetup(service) {
+export function sessionSetup(service) {
 	return (
 		service
 			.getAppUser()
@@ -47,4 +47,4 @@ module.exports = function sessionSetup(service) {
 				])
 			)
 	);
-};
+}
