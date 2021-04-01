@@ -1,5 +1,4 @@
 /*eslint import/no-commonjs:0*/
-const logger = require('./logger');
 // const {
 // 	// Catalog,
 // 	Library,
@@ -15,7 +14,7 @@ module.exports = function sessionSetup(service) {
 
 			.then(user => {
 				if (user.acceptTermsOfService) {
-					logger.debug('User needs to accept terms of service.');
+					// console.debug('User needs to accept terms of service.');
 					return needsAttention('onboarding/tos');
 				}
 				return user;
@@ -23,7 +22,7 @@ module.exports = function sessionSetup(service) {
 
 			.then(user => {
 				if (user.hasLink('RegistrationSurvey')) {
-					logger.debug('User needs to submit registration survey.');
+					// console.debug('User needs to submit registration survey.');
 					return needsAttention('onboarding/survey');
 				}
 
@@ -32,7 +31,7 @@ module.exports = function sessionSetup(service) {
 
 			.then(user => {
 				if (user.hasLink('user_profile_update')) {
-					logger.debug('User needs to update their profile');
+					// console.debug('User needs to update their profile');
 					return needsAttention('onboarding/update');
 				}
 			})
