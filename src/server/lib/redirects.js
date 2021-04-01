@@ -7,7 +7,6 @@ const {
 	encodeForURI,
 	decodeFromURI,
 } = require('@nti/lib-ntiids');
-const logger = require('./logger');
 
 const SEGMENT_HANDLERS = {
 	redeem: (catalogId, segments) =>
@@ -45,7 +44,7 @@ exports = module.exports = {
 				return next();
 			}
 
-			logger.info('TESTING FOR REDIRECT: ', redirectParam);
+			// console.debug('TESTING FOR REDIRECT: ', redirectParam);
 
 			for (let handlerName of Object.keys(HANDLERS)) {
 				let test = HANDLERS[handlerName];
@@ -80,7 +79,7 @@ exports = module.exports = {
 		}
 
 		const url = path.join(this.basepath, 'profile', rest);
-		logger.info('redirecting to: %s', url);
+		// console.debug('redirecting to: %s', url);
 		res.redirect(url);
 	},
 
@@ -99,7 +98,7 @@ exports = module.exports = {
 		let parts = query.match(/(?:accept|redeem)\/([^/]*)/);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'redeem', parts[1]);
-			logger.info('redirecting to: %s', url);
+			// console.debug('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
@@ -146,7 +145,7 @@ exports = module.exports = {
 		let parts = query.match(pattern);
 		if (parts) {
 			let url = path.join(this.basepath, 'catalog', 'item', parts[1]);
-			logger.info('redirecting to: %s', url);
+			// console.debug('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
@@ -173,7 +172,7 @@ exports = module.exports = {
 
 			url = path.join(this.basepath, trailingPath);
 
-			logger.info('redirecting to: %s', url);
+			// console.debug('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}
@@ -225,7 +224,7 @@ exports = module.exports = {
 		 * 	<basepath>/object/unknown-OID-0x021cae18:5573657273:V0wWNR9EBJd
 		 */
 
-		logger.debug('\n\n\nTesting %s\n\n\n', query);
+		// console.debug('\n\n\nTesting %s\n\n\n', query);
 		let object = /(?:(?:id|object\/ntiid|object)\/)([^/\n\r]*)\/?(.*)/;
 		let match = decodeURIComponent(query).match(object);
 
@@ -238,7 +237,7 @@ exports = module.exports = {
 				encodeForURI(decodeFromURI(ntiid))
 			);
 
-			logger.info('redirecting to: %s', url);
+			// console.debug('redirecting to: %s', url);
 			res.redirect(url);
 			return;
 		}

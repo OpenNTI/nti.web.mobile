@@ -89,7 +89,6 @@
     "zpad": "^0.5.0"
   },
   "bundleDependencies": [
-    "@nti/lib-ntiids",
-    "@nti/util-logger"
+    "@nti/lib-ntiids"
   ]
 }
