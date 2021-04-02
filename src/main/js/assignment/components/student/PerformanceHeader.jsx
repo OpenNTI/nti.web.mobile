@@ -32,10 +32,14 @@ export default function PerformanceHeader({ assignments }) {
 	return (
 		<div className="performance-header">
 			<div className="course-grade">
-				<span className="label">{t('courseGrade')}</span>
-				<span className="value">
-					<FinalGrade grade={grade} />
-				</span>
+				{grade && (
+					<>
+						<span className="label">{t('courseGrade')}</span>
+						<span className="value">
+							<FinalGrade grade={grade} />
+						</span>
+					</>
+				)}
 			</div>
 			<div className="completed-assignments">
 				<span className="label">{t('assignmentsCompleted')}</span>
