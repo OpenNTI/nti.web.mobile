@@ -91,43 +91,31 @@ export default createReactClass({
 		);
 	},
 
-	fillIn(props) {
+	async fillIn(props) {
 		this.setState({ loading: true });
-		let { item } = props;
-		let resolvingOutline = item
-			? item.getOutline({ force: true })
-			: Promise.reject();
+		const { item } = props;
 
-		let depthMap = ['h1', 'div'];
+		const depthMap = ['h1', 'div'];
 
-		let prefix = this.courseHref(item.getID(), LESSONS);
+		const prefix = this.courseHref(item.getID(), LESSONS);
 
-		resolvingOutline.then(
-			outline => {
-				if (outline && outline.maxDepth > 2) {
-					depthMap.splice(1, 0, 'h3');
-				}
+		let outline;
 
-				this.setState({
-					depthMap,
-					loading: false,
-					outline,
-					prefix,
-				});
-			},
-			error => {
-				logger.error(
-					'There was an error resolving the outline: %o',
-					error
-				);
-				this.setState({
-					depthMap,
-					loading: false,
-					outline: {},
-					prefix,
-				});
+		try {
+			outline = await item?.getOutline({ force: true });
+			if (outline?.maxDepth > 2) {
+				depthMap.splice(1, 0, 'h3');
 			}
-		);
+		} catch (error) {
+			logger.error('There was an error resolving the outline: %o', error);
+		} finally {
+			this.setState({
+				depthMap,
+				loading: false,
+				outline: outline || {},
+				prefix,
+			});
+		}
 	},
 
 	render() {
