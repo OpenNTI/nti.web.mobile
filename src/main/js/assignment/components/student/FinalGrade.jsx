@@ -9,7 +9,7 @@ export default function FinalGrade({ grade }) {
 	});
 
 	if (!grade) {
-		return <span className={classes}>Not yet entered</span>;
+		return null;
 	}
 
 	const value = grade.getValue();
