@@ -1,6 +1,6 @@
 import './PerformanceHeader.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import { scoped } from '@nti/lib-locale';
 
@@ -15,58 +15,45 @@ const t = scoped(
 	}
 );
 
-export default class PerformanceHeader extends React.Component {
-	static propTypes = {
-		assignments: PropTypes.object.isRequired,
-	};
+const reducer = (s, action) => ({ ...s, ...action });
 
-	state = {};
+PerformanceHeader.propTypes = {
+	assignments: PropTypes.object.isRequired,
+};
+export default function PerformanceHeader({ assignments }) {
+	const [{ grade, id }, setState] = useReducer(reducer, {});
 
-	componentDidMount() {
-		this.getFinalGrade();
-	}
-
-	componentDidUpdate() {
-		const {
-			props: { assignments },
-			state: { id },
-		} = this;
+	useEffect(() => {
 		if (assignments?.getFinalGradeAssignmentId() !== id) {
-			this.getFinalGrade();
+			getFinalGrade(assignments, setState);
 		}
-	}
+	}, [assignments, id]);
 
-	getFinalGrade = async (props = this.props) => {
-		const { assignments } = props;
-		const id = assignments?.getFinalGradeAssignmentId();
-		if (id) {
-			const container = await assignments.getHistoryItem(id);
-			const historyItem = container?.getMostRecentHistoryItem?.();
-			if (historyItem) {
-				this.setState({ id, grade: historyItem.grade });
-			}
-		}
-	};
-
-	render() {
-		const { assignments } = this.props;
-		const { grade } = this.state;
-
-		return (
-			<div className="performance-header">
-				<div className="course-grade">
-					<span className="label">{t('courseGrade')}</span>
-					<span className="value">
-						<FinalGrade grade={grade} />
-					</span>
-				</div>
-				<div className="completed-assignments">
-					<span className="label">{t('assignmentsCompleted')}</span>
-					<span className="value">
-						<CompletionRatio assignments={assignments} />
-					</span>
-				</div>
+	return (
+		<div className="performance-header">
+			<div className="course-grade">
+				<span className="label">{t('courseGrade')}</span>
+				<span className="value">
+					<FinalGrade grade={grade} />
+				</span>
 			</div>
-		);
+			<div className="completed-assignments">
+				<span className="label">{t('assignmentsCompleted')}</span>
+				<span className="value">
+					<CompletionRatio assignments={assignments} />
+				</span>
+			</div>
+		</div>
+	);
+}
+
+async function getFinalGrade(assignments, setState) {
+	const id = assignments?.getFinalGradeAssignmentId();
+	if (id) {
+		const container = await assignments.getHistoryItem(id);
+		const historyItem = container?.getMostRecentHistoryItem?.();
+		if (historyItem) {
+			setState({ id, grade: historyItem.grade });
+		}
 	}
 }
