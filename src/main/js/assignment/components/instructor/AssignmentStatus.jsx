@@ -32,16 +32,12 @@ class AssignmentStatus extends React.Component {
 			return null;
 		}
 
-		let history = container;
-
-		if (container && container.getMostRecentHistoryItem) {
-			history = container.getMostRecentHistoryItem();
-		}
+		const history = container?.getMostRecentHistoryItem?.() || container;
 
 		const due = assignment.getDueDate();
-		const submitted = history && history.getCreatedTime();
-		const synthetic = history && history.isSyntheticSubmission();
-		const isExcused = history && history.isGradeExcused();
+		const submitted = history?.getCreatedTime();
+		const synthetic = history?.isSyntheticSubmission();
+		const isExcused = history?.isGradeExcused();
 		const isLate = due && submitted > due;
 
 		let status;

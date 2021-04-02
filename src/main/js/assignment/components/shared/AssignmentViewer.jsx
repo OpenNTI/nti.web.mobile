@@ -86,25 +86,17 @@ class AssignmentViewer extends React.Component {
 				? await assignments.getHistoryItem(id, userId)
 				: await getAssignmentHistory(initAssignment, assignments);
 			const historyItem =
-				history && history.getMostRecentHistoryItem
-					? history.getMostRecentHistoryItem()
-					: history;
+				history?.getMostRecentHistoryItem?.() || history;
 			// const [initAssignment,history] = await Promise.all([
 			// 	ensureNotSummary(assignments.getAssignment(id)),
 			// 	assignments.getHistoryItem(id, userId)
 			// ]);
 
-			const maybeAutoStart =
-				initAssignment.shouldAutoStart &&
-				initAssignment.shouldAutoStart();
+			const maybeAutoStart = initAssignment.shouldAutoStart?.();
 			let assignment = initAssignment;
 
 			if (historyItem) {
-				if (
-					historyItem &&
-					historyItem.MetadataAttemptItem &&
-					historyItem.MetadataAttemptItem.hasLink('Assignment')
-				) {
+				if (historyItem?.MetadataAttemptItem?.hasLink('Assignment')) {
 					const historicalAssignment = await historyItem.MetadataAttemptItem.fetchLink(
 						'Assignment'
 					);

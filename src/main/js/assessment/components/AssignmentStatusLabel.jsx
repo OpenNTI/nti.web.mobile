@@ -68,11 +68,8 @@ export default class AssignmentStatusLabel extends React.Component {
 	getHistoryItem() {
 		const { historyItem: container } = this.props;
 
-		let historyItem = container;
-
-		if (container && container.getMostRecentHistoryItem) {
-			historyItem = container.getMostRecentHistoryItem();
-		}
+		const historyItem =
+			container?.getMostRecentHistoryItem?.() || container;
 
 		return historyItem;
 	}
