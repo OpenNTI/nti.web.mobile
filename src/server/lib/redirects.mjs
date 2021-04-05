@@ -252,7 +252,7 @@ function translatePath(catalogId, trailingPath) {
 function translateCatalogId(input) {
 	let catalogId = input.replace(/-/g, '+').replace(/_/g, '/');
 
-	catalogId = Base64.encode(catalogId);
+	catalogId = Base64.decode(catalogId);
 	catalogId = catalogId.replace(/^!@/, ''); //strip off the WebApp's 'salt'
 	catalogId = encodeForURI(catalogId);
 
