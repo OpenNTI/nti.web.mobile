@@ -16,12 +16,12 @@ try {
 
 exports = module.exports = {
 	async register(expressApp, config) {
-		const redirects = await import('./lib/redirects.mjs');
-		const { sessionSetup } = await import('./lib/session-setup.mjs');
+		// const redirects = await import('./lib/redirects.mjs');
+		const { sessionSetup } = require('./lib/session-setup.js');
 
 		const devmode = dev ? await dev.setupDeveloperMode(config) : false;
 
-		redirects.register(expressApp, config);
+		// redirects.register(expressApp, config);
 
 		if (devmode) {
 			expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets

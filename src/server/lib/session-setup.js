@@ -7,7 +7,9 @@
 
 const needsAttention = route => Promise.reject({ isLoginAction: true, route });
 
-export function sessionSetup(service) {
+Object.assign(exports, { sessionSetup });
+
+function sessionSetup(service) {
 	return (
 		service
 			.getAppUser()
