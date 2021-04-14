@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Router from 'react-router-component';
 
 import { decodeFromURI } from '@nti/lib-ntiids';
-import { PACKAGE_NOT_FOUND, getPackage } from '@nti/lib-content-processing';
+import { getService } from '@nti/web-client';
+// import { PACKAGE_NOT_FOUND, getPackage } from '@nti/lib-content-processing';
 import {
 	Error as ErrorWidget,
 	Loading,
@@ -87,15 +88,11 @@ export default class ContentView extends React.Component {
 		this.setState({ loading: true, contentPackage: null, error: null });
 
 		try {
-			const contentPackage = await getPackage(contentId);
+			const service = await getService();
+			const contentPackage = await service.getObject(contentId);
 			this.setState({ contentPackage, loading: false });
 		} catch (error) {
-			const message = error?.message || error;
-			this.setState(
-				message === PACKAGE_NOT_FOUND
-					? { contentPackage: null }
-					: { error }
-			);
+			this.setState({ error });
 		}
 	}
 
