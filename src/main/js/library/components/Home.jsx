@@ -6,10 +6,14 @@ import PropTypes from 'prop-types';
 
 import { decorate } from '@nti/lib-commons';
 import { searchable, contextual } from '@nti/web-search';
-import { View as SearchableLibrary } from '@nti/web-library';
+import {
+	View as SearchableLibrary,
+	ViewSortable as SortableLibrary,
+} from '@nti/web-library';
 import { encodeForURI } from '@nti/lib-ntiids';
 import { Theme } from '@nti/web-commons';
 import { Navigation } from '@nti/web-content';
+import { isFlag } from '@nti/web-client';
 import NavigationBar from 'internal/navigation/components/Bar';
 
 function getRememberedRoute(obj) {
@@ -91,6 +95,9 @@ class Home extends React.Component {
 
 	render() {
 		const { searchTerm } = this.props;
+		const Library = isFlag('library-sorting')
+			? SortableLibrary
+			: SearchableLibrary;
 
 		return (
 			<>
@@ -99,7 +106,7 @@ class Home extends React.Component {
 					className="searchable-library"
 					searchTerm={searchTerm}
 				/>
-				<SearchableLibrary />
+				<Library />
 			</>
 		);
 	}
