@@ -26,7 +26,7 @@ export default createReactClass({
 		/**
 		 * Turns off a lot of things for activity views.
 		 *
-		 * @type {bool}
+		 * @type {boolean}
 		 */
 		lite: PropTypes.bool,
 	},

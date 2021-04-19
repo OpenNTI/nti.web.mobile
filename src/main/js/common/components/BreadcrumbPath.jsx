@@ -31,7 +31,7 @@ export default createReactClass({
 		 * You can pass an array of strings (display) or
 		 * objects with `title`, `Title` or `displayName` properties.
 		 *
-		 * @type {array}
+		 * @type {Array}
 		 */
 		breadcrumb: PropTypes.array,
 

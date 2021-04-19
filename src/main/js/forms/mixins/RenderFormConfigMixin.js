@@ -34,7 +34,8 @@ export default {
 
 	/**
 	 * Renders an html form field from a config object.
-	 * @param {function} translator localization function for placeholders.
+	 *
+	 * @param {Function} translator localization function for placeholders.
 	 * @param {Object} values field values indexed by field.ref
 	 * @param {Object} field field config, e.g.
 	 *	{
@@ -44,7 +45,7 @@ export default {
 	 *		placeholder: 'Your Name'
 	 *	}
 	 *
-	 * @returns {ReactElement} The Rendered Field
+	 * @returns {React.ReactElement} The Rendered Field
 	 */
 	renderField(translator, values, field) {
 		let state = this.state;

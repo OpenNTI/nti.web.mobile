@@ -1,8 +1,6 @@
 /**
- *
  * @event LOADED_LIBRARY
- * @type String
- * @final
+ * @type {string}
  */
 export const LOADED_LIBRARY = 'library:LOADED';
 

@@ -11,6 +11,7 @@ export default class ForumListView extends React.Component {
 	static propTypes = {
 		/**
 		 * Any model that implements getDiscussions() and getID()
+		 *
 		 * @type {object}
 		 */
 		bundle: PropTypes.shape({

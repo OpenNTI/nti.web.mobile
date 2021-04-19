@@ -9,6 +9,8 @@ import * as Constants from './Constants';
 import indexForums from './utils/index-forums';
 import { getForumItem, DEFAULT_PAGING_PARAMS } from './Api';
 
+/** @typedef {import('@nti/lib-interfaces').Models.forums.Post} Post */
+
 const logger = Logger.get('forums:store');
 
 const keyForItem = 'ForumStore:keyForItem';

@@ -17,7 +17,7 @@ class Store extends EventEmitter {
 	}
 
 	/**
-	 * @param {function} callback Event Handler
+	 * @param {Function} callback Event Handler
 	 * @returns {void}
 	 */
 	addChangeListener(callback) {
@@ -25,7 +25,7 @@ class Store extends EventEmitter {
 	}
 
 	/**
-	 * @param {function} callback Event Handler
+	 * @param {Function} callback Event Handler
 	 * @returns {void}
 	 */
 	removeChangeListener(callback) {
@@ -35,6 +35,7 @@ class Store extends EventEmitter {
 
 /**
  * Fetch a link with the given rel.
+ *
  * @param {string} linkRel link to fetch
  * @returns {Promise} response promise.
  */

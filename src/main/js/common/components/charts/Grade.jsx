@@ -8,6 +8,7 @@ export default class Grade extends React.Component {
 		 *
 		 * Specifying a singular color will result in drawing only one segment.
 		 * Adding a second color will make this draw the second segment.
+		 *
 		 * @type {string|string[]}
 		 */
 		color: PropTypes.oneOfType([
@@ -19,30 +20,35 @@ export default class Grade extends React.Component {
 
 		/**
 		 * Optional stroke color.
+		 *
 		 * @type {string}
 		 */
 		strokeColor: PropTypes.string,
 
 		/**
 		 * The Value to chart. Default: 90
+		 *
 		 * @type {number}
 		 */
 		grade: PropTypes.number.isRequired,
 
 		/**
 		 * Width of the graph. Default: 200
+		 *
 		 * @type {number}
 		 */
 		width: PropTypes.number,
 
 		/**
 		 * Height of the graph. Default: 200
+		 *
 		 * @type {number}
 		 */
 		height: PropTypes.number,
 
 		/**
 		 * The pixel density to render at.  Default: 2
+		 *
 		 * @type {number}
 		 */
 		pixelDensity: PropTypes.number,

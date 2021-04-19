@@ -59,6 +59,7 @@ export default class ContentView extends React.Component {
 	static propTypes = {
 		/**
 		 * The NTIID of the content Package/Bundle/Thing to view.
+		 *
 		 * @type {string}
 		 */
 		contentId: PropTypes.string.isRequired,

@@ -19,6 +19,9 @@ import {
 import Saving from './Saving';
 import SubmissionError from './SubmissionError';
 
+/** @typedef {import('@nti/lib-interfaces').Models.assessment.QuestionSet} QuestionSet */
+/** @typedef {import('@nti/lib-interfaces').Models.assessment.assignment.Assignment} Assignment */
+
 const t = scoped('assessment.submission', {
 	submit: "I'm Finished!",
 	reset: 'Cancel',
@@ -41,7 +44,7 @@ export default class extends React.Component {
 		/**
 		 * The QuestionSet or Assignment to be submitted.
 		 *
-		 * @type {QuestionSet/Assignment}
+		 * @type {QuestionSet|Assignment}
 		 */
 		assessment: PropTypes.object.isRequired,
 	};

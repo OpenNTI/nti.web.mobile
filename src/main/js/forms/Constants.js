@@ -13,7 +13,7 @@ export const AVAILABLE_FIELDS_CHANGED = 'forms:Available Fields Changed';
 	[ON_CHANGE] (event) { ... }
 	[ON_BLUR] (event) { ... }
 	[ON_FOCUS] (event) { ... }
-*/
+ */
 const prefix = 'FormConstants:';
 const ON_BLUR = prefix + 'ON_BLUR';
 const ON_CHANGE = prefix + 'ON_CHANGE';

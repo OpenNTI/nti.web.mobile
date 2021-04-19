@@ -14,11 +14,13 @@ import {
 	TOGGLE_AGGREGATED_VIEW,
 } from './Constants';
 
+/** @typedef {import('@nti/lib-interfaces').Models.assessment.Part} Part */
+
 /**
  * @param {Part} part      Question Part model.
  * @param {any} value      The value
  * @param {number} [savepointBuffer] The optional delay to buffer the save point call by.
- * @param {function} [progressSaveCb] The optional callback to invoke after saving progress. If provided it will be invoked with the resulting SavepointItem and the QuestionSubmission.
+ * @param {Function} [progressSaveCb] The optional callback to invoke after saving progress. If provided it will be invoked with the resulting SavepointItem and the QuestionSubmission.
  * @returns {void}
  */
 export function partInteracted(part, value, savepointBuffer, progressSaveCb) {

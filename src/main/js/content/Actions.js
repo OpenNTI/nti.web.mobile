@@ -12,6 +12,10 @@ import {
 	registerGenerator,
 } from '@nti/lib-content-processing';
 
+/** @typedef {import('@nti/lib-interfaces').Models.content.Package} Package */
+/** @typedef {import('@nti/lib-interfaces').Models.content.Bundle} Bundle */
+/** @typedef {import('@nti/lib-interfaces').Models.courses.Instance} Instance */
+
 const logger = Logger.get('content:actions');
 
 const SurveyRefModel = getModel('surveyref');
