@@ -66,10 +66,11 @@ export default class AssignmentStatusLabel extends React.Component {
 	};
 
 	getHistoryItem() {
-		const { historyItem: container } = this.props;
+		let { historyItem } = this.props;
 
-		const historyItem =
-			container?.getMostRecentHistoryItem?.() || container;
+		if (historyItem?.getMostRecentHistoryItem) {
+			historyItem = historyItem.getMostRecentHistoryItem();
+		}
 
 		return historyItem;
 	}
@@ -104,22 +105,15 @@ export default class AssignmentStatusLabel extends React.Component {
 	};
 
 	isSubmitted = () => {
-		const historyItem = this.getHistoryItem();
-		return historyItem && historyItem.isSubmitted();
+		return this.getHistoryItem()?.isSubmitted();
 	};
 
 	isSyntheticSubmission = () => {
-		const historyItem = this.getHistoryItem();
-		return historyItem && historyItem.isSyntheticSubmission();
+		return this.getHistoryItem()?.isSyntheticSubmission();
 	};
 
 	isExcused = () => {
-		const historyItem = this.getHistoryItem();
-		return (
-			historyItem &&
-			historyItem.isGradeExcused &&
-			historyItem.isGradeExcused()
-		);
+		return this.getHistoryItem()?.isGradeExcused?.();
 	};
 
 	isDraft = () => {
@@ -131,11 +125,7 @@ export default class AssignmentStatusLabel extends React.Component {
 
 	getCompletedDateTime = () => {
 		const historyItem = this.getHistoryItem();
-		return (
-			historyItem &&
-			historyItem.isSubmitted() &&
-			historyItem.getCreatedTime()
-		);
+		return historyItem?.isSubmitted() && historyItem?.getCreatedTime();
 	};
 
 	getDuration = () => {
