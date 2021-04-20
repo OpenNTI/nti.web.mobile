@@ -22,7 +22,7 @@
     "build": "app-scripts build",
     "clean": "app-scripts clean",
     "check": "app-scripts check",
-    "release": "app-scripts release",
+    "release": "npx @nti/release",
     "snapshot": "app-scripts snapshot"
   },
   "main": "dist/server/index.js",
