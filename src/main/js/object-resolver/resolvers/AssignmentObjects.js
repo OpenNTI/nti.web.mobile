@@ -1,12 +1,26 @@
 import { join } from 'path';
 
-import { getService } from '@nti/web-client';
+import { getService, getAppUsername } from '@nti/web-client';
 import { encodeForURI } from '@nti/lib-ntiids';
 
 const isAssignmentRelated = RegExp.prototype.test.bind(
 	/\.(grade|userscourseassignmenthistoryitemfeedback)/i
 );
 const isAssignment = RegExp.prototype.test.bind(/\.assignment/i);
+const isFeedback = RegExp.prototype.test.bind(/\.(userscourseassignmenthistoryitemfeedback)/i);
+
+const SubPaths = [
+	{
+		handles: (o) => isFeedback(o.MimeType),
+		getPath: (o) => {
+			if (o.SubmissionCreator === getAppUsername()) {
+				return '#feedback'
+			} else {
+				return `/students/${o.SubmissionCreator}/#feedback`;
+			}
+		}
+	}
+];
 
 export default class AssignmentsResolver {
 	static handles(o) {
@@ -46,13 +60,17 @@ export default class AssignmentsResolver {
 		//append:
 		//	/students/<userid>
 
+		const sub = SubPaths.find(s => s.handles(this.object));
+		const path = sub?.getPath(this.object, this.course) ?? '';
+
 		return this.getCourse().then(course =>
 			join(
 				'course',
 				encodeForURI(course.getID()),
 				'assignments',
 				encodeForURI(this.getAssignmentId()),
-				'/'
+				'/',
+				path
 			)
 		);
 	}
