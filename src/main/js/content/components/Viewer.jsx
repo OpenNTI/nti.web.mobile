@@ -489,6 +489,7 @@ export default createReactClass({
 		return (
 			<NoteEditor
 				scope={this.props.contentPackage}
+				page={this.state.page}
 				item={stagedNote}
 				onCancel={this.cancelNote}
 				onSave={this.saveNote}
