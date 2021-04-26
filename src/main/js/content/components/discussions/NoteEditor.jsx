@@ -52,6 +52,7 @@ export default function NoteEditor ({item, scope, page, onCancel, onSubmit, onSa
 
 				_doSave={doSave}
 				onCancel={onCancel}
+				onClose={onCancel}
 			/>
 		</div>
 	)
