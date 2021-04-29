@@ -17,8 +17,6 @@ NoteEditor.propTypes = {
 	afterSave: PropTypes.func
 };
 export default function NoteEditor ({item, scope, page, onCancel, afterSave}) {
-	debugger;
-
 	const {pageInfo} = page;
 
 	return (
