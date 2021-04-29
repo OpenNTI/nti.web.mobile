@@ -492,7 +492,7 @@ export default createReactClass({
 				page={this.state.page}
 				item={stagedNote}
 				onCancel={this.cancelNote}
-				onSave={this.saveNote}
+				afterSave={this.afterSaveNote}
 			/>
 		);
 	},

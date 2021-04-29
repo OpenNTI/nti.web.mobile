@@ -250,6 +250,15 @@ export default {
 		return result;
 	},
 
+	afterSaveNote () {
+		setTimeout(() => (
+			this.setState({
+				scrollPosition: void 0,
+				stagedNote: void 0
+			})
+		), 1);
+	},
+
 	createNote(range) {
 		const { contentPackage } = this.props;
 		const { selected, page } = this.state;
