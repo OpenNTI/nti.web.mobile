@@ -57,7 +57,8 @@
 			}
 		],
 		"flags": {
-			"library-searchable": true
+			"library-searchable": true,
+			"library-sorting": true
 		}
 	}
 }
