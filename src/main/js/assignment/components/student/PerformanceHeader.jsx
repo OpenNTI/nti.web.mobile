@@ -21,13 +21,10 @@ PerformanceHeader.propTypes = {
 	assignments: PropTypes.object.isRequired,
 };
 export default function PerformanceHeader({ assignments }) {
-	const [{ grade, id }, setState] = useReducer(reducer, {});
-
+	const [{ grade }, setState] = useReducer(reducer, {});
 	useEffect(() => {
-		if (assignments?.getFinalGradeAssignmentId() !== id) {
-			getFinalGrade(assignments, setState);
-		}
-	}, [assignments, id]);
+			getGrade(assignments, setState);
+	}, [assignments]);
 
 	return (
 		<div className="performance-header">
@@ -51,13 +48,32 @@ export default function PerformanceHeader({ assignments }) {
 	);
 }
 
-async function getFinalGrade(assignments, setState) {
-	const id = assignments?.getFinalGradeAssignmentId();
-	if (id) {
-		const container = await assignments.getHistoryItem(id);
+async function getGrade (assignments, setState) {
+	const finalGrade = await getFinalAssignmentGrade(assignments);
+
+	if (finalGrade) {
+		setState({grade: finalGrade, predicted: false});
+	}
+
+	try {
+		const currentGrade = await assignments.parent('getCurrentGrade')?.getCurrentGrade();
+
+		setState({grade: currentGrade});
+	} catch (e) {
+		setState({grade: null});
+	}
+
+
+}
+
+async function getFinalAssignmentGrade(assignments) {
+	try {
+		const id = assignments?.getFinalGradeAssignmentId();
+		const container = id && await assignments.getHistoryItem(id);
 		const historyItem = container?.getMostRecentHistoryItem?.();
-		if (historyItem) {
-			setState({ id, grade: historyItem.grade });
-		}
+
+		return historyItem?.grade;
+	} catch (e) {
+		return null;
 	}
 }
