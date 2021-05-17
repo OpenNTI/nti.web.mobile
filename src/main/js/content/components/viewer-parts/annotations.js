@@ -204,7 +204,6 @@ export default {
 	 * All Notes and highlights have these fields in common.
 	 *
 	 * @param {Range} range DOM Range.
-	 *
 	 * @returns {Object} The common applicable fields.
 	 */
 	selectionToCommonUGD(range) {
@@ -250,13 +249,15 @@ export default {
 		return result;
 	},
 
-	afterSaveNote () {
-		setTimeout(() => (
-			this.setState({
-				scrollPosition: void 0,
-				stagedNote: void 0
-			})
-		), 1);
+	afterSaveNote() {
+		setTimeout(
+			() =>
+				this.setState({
+					scrollPosition: void 0,
+					stagedNote: void 0,
+				}),
+			1
+		);
 	},
 
 	createNote(range) {
@@ -270,11 +271,8 @@ export default {
 				'Using (editing) previously existing record: %o',
 				selected
 			);
-			const {
-				applicableRange,
-				selectedText,
-				ContainerId,
-			} = selected.getRecord();
+			const { applicableRange, selectedText, ContainerId } =
+				selected.getRecord();
 			properties = {
 				applicableRange,
 				selectedText,

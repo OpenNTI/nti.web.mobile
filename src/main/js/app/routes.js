@@ -3,6 +3,10 @@
  * The structure is:
  * 		Array[Object{handler:String, path:String[, navIndex:Number]}]
  *
+ * The order of the array matters. The more specific paths must be earlier in the
+ * array than the less specific routes.
+ *
+ *
  * @namespace
  * @property {object} Object				A route in the array.
  * @property {string} Object.handler		The name of the handler to handle this route. The name comes from a map
@@ -16,10 +20,6 @@
  *                                       	property should have a simple path value. (No ':value' keys) This
  *                                       	path will be turned into an href. The asterisk and parenthesis will
  *                                       	be removed and the result is the href.
- *
- * The order of the array matters. The more specific paths must be earlier in the array
- * than the less specific routes.
- *
  */
 export default [
 	{ handler: 'Welcome', path: '/onboarding(/*)' },

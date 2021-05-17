@@ -11,7 +11,7 @@ import { RENDERED_FORM_EVENT_HANDLERS as Events } from '../Constants';
 const prefix = 'RenderFormConfig:';
 const stashedTranslator = prefix + 'translator';
 
-/** Constants for private methods **/
+/** Constants for private methods */
 const blurhandler = prefix + 'onblur';
 const focushandler = prefix + 'onfocus';
 const radiochangehandler = prefix + 'radiochange';
@@ -44,7 +44,6 @@ export default {
 	 *		required: true,
 	 *		placeholder: 'Your Name'
 	 *	}
-	 *
 	 * @returns {React.ReactElement} The Rendered Field
 	 */
 	renderField(translator, values, field) {
