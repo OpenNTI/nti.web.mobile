@@ -1,7 +1,6 @@
 import Registry from './Registry';
 
 import './assignment';
-import './calendar-event';
 import './reading';
 import './scorm';
 import './timeline';
