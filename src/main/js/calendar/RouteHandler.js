@@ -31,7 +31,7 @@ function modalEventView(event, context) {
 			<Event.View
 				getAvailableCalendars={() => []}
 				event={event}
-				nonDialog
+				dialog={false}
 			/>
 		);
 }
@@ -43,7 +43,7 @@ function webinarHandler(webinar, context) {
 				<GotoWebinar.Registration
 					item={{ webinar }}
 					onBeforeDismiss={() => {}}
-					nonDialog
+					dialog={false}
 				/>
 			);
 		} else if (webinar.hasLink('JoinWebinar')) {

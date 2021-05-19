@@ -39,7 +39,7 @@ export default createReactClass({
 			<Event.View
 				getAvailableCalendars={() => []}
 				event={item}
-				nonDialog
+				dialog={false}
 			/>
 		);
 	},

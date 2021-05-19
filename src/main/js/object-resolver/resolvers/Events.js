@@ -16,7 +16,7 @@ const HANDLERS = {
 			<Event.View
 				getAvailableCalendars={() => []}
 				event={event}
-				nonDialog
+				dialog={false}
 			/>
 		);
 
