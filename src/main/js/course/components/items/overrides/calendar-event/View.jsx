@@ -39,7 +39,7 @@ export default class CourseItemCalendarEvent extends React.Component {
 					event={event}
 					className={cx('course-item-event')}
 					dialog={false}
-					noControls
+					controls={false}
 				/>
 			</Page>
 		);
