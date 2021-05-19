@@ -154,7 +154,7 @@ export default class CourseItems extends React.Component {
 				requiredOnly={Overview.isFilteredToRequired()}
 				overrides={overrides}
 				returnPath={this.getReturnPath()}
-				noAside
+				aside={false}
 				header={false}
 			/>
 		);
