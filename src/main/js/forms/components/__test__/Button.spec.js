@@ -1,4 +1,3 @@
-/* globals spyOn */
 /* eslint-env jest */
 /**
  * This is an example unit test for a React component. Tests should be placed in __test__ folders
@@ -41,7 +40,7 @@ describe('FooBar', () => {
 			preventDefault: () => {},
 		};
 
-		spyOn(event, 'preventDefault');
+		jest.spyOn(event, 'preventDefault');
 
 		component.onClick(event);
 
