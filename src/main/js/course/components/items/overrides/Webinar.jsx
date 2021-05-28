@@ -18,7 +18,7 @@ const handles = obj => {
 	return item && MIME_TYPES[item.MimeType];
 };
 
-export default class CourseItemAssignment extends React.Component {
+export default class CourseItemWebinar extends React.Component {
 	render() {
 		return (
 			<Page {...this.props}>
@@ -28,4 +28,4 @@ export default class CourseItemAssignment extends React.Component {
 	}
 }
 
-Registry.register(handles)(CourseItemAssignment);
+Registry.register(handles)(CourseItemWebinar);
