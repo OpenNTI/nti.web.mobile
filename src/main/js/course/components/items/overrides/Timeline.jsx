@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import QueryString from 'query-string';
-import classnames from 'classnames/bind';
 
 import { Card } from '@nti/web-commons';
 
-import Page from '../Page';
-import Registry from '../Registry';
+import Page from './Page';
+import Registry from './Registry';
 
-import Styles from './View.css';
-
-const cx = classnames.bind(Styles);
+const Link = styled.a`
+	padding: 0 1rem;
+	display: block;
+`;
 
 const MIME_TYPE = 'application/vnd.nextthought.ntitimeline';
 const handles = obj => {
@@ -37,8 +37,8 @@ export default class CourseItemTimeline extends React.Component {
 
 		return (
 			<Page {...this.props}>
-				<a
-					className={cx('course-items-timeline')}
+				<Link
+					className="course-items-timeline"
 					href={href}
 					target="_blank"
 					rel="noopener noreferrer"
@@ -49,7 +49,7 @@ export default class CourseItemTimeline extends React.Component {
 						contentPackage={course}
 						internalOverride
 					/>
-				</a>
+				</Link>
 			</Page>
 		);
 	}

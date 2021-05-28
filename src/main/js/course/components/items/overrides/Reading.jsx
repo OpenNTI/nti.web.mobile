@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames/bind';
 
 import { encodeForURI } from '@nti/lib-ntiids';
 import { scoped } from '@nti/lib-locale';
 import ContentView from 'internal/content/components/ViewerLoader';
 
-import Page from '../Page';
-import Registry from '../Registry';
+import Page from './Page';
+import Registry from './Registry';
 
-import Styles from './View.css';
-
-const cx = classnames.bind(Styles);
+const Wrapper = styled.div`
+	font: normal 700 0.625rem/1.3 var(--body-font-family);
+	color: var(--secondary-grey);
+	text-transform: uppercase;
+	padding: 0.75rem 0.75rem 0;
+`;
 
 const t = scoped('mobile.course.items.overrides.reading.View', {
 	page: 'Page %(current)s of %(total)s',
@@ -91,11 +93,7 @@ export default class CourseItemReading extends React.Component {
 			return null;
 		}
 
-		return (
-			<div className={cx('page')}>
-				{t('page', { current: current + 1, total })}
-			</div>
-		);
+		return <Wrapper>{t('page', { current: current + 1, total })}</Wrapper>;
 	}
 }
 

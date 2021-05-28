@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames/bind';
 
 import { Event } from '@nti/web-calendar';
 
-import Page from '../Page';
-import Registry from '../Registry';
-
-import Styles from './View.css';
-
-const cx = classnames.bind(Styles);
+import Page from './Page';
+import Registry from './Registry';
 
 const MIME_TYPES = {
 	'application/vnd.nextthought.nticalendareventref': true,
@@ -35,12 +30,7 @@ export default class CourseItemCalendarEvent extends React.Component {
 
 		return (
 			<Page {...this.props}>
-				<Event.View
-					event={event}
-					className={cx('course-item-event')}
-					dialog={false}
-					controls={false}
-				/>
+				<Event.View event={event} dialog={false} controls={false} />
 			</Page>
 		);
 	}

@@ -1,12 +1,12 @@
 import Registry from './Registry';
 
-import './assignment';
-import './calendar-event';
-import './reading';
-import './scorm';
-import './timeline';
-import './topic';
-import './video';
-import './webinar';
+import './Assignment';
+import './CalendarEvent';
+import './Reading';
+import './Scorm';
+import './Timeline';
+import './Topic';
+import './Video';
+import './Webinar';
 
 export default Registry.getInstance();

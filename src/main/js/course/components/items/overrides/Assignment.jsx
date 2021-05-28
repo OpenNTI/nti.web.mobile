@@ -7,8 +7,8 @@ import { Loading } from '@nti/web-commons';
 import AssignmentsProvider from 'internal/assignment/components/bindings/AssignmentsProvider';
 import AssignmentViewer from 'internal/assignment/components/shared/AssignmentViewer';
 
-import Page from '../Page';
-import Registry from '../Registry';
+import Page from './Page';
+import Registry from './Registry';
 
 function getAssignmentId(location) {
 	const { item } = location || {};

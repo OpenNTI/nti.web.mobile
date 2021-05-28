@@ -4,9 +4,10 @@ import Router from 'react-router-component';
 
 import { Error, Loading } from '@nti/web-commons';
 
-import Page from '../Page';
-import Registry from '../Registry';
-import TranscriptedVideo from '../../../TranscriptedVideo';
+import TranscriptedVideo from '../../TranscriptedVideo';
+
+import Page from './Page';
+import Registry from './Registry';
 
 const MIME_TYPES = {
 	'application/vnd.nextthought.ntivideo': true,

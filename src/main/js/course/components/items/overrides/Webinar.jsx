@@ -2,8 +2,8 @@ import React from 'react';
 
 import { Content } from '@nti/web-course';
 
-import Page from '../Page';
-import Registry from '../Registry';
+import Page from './Page';
+import Registry from './Registry';
 
 const { Webinar } = Content.Viewer.ContentTypes;
 
