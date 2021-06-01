@@ -9,7 +9,8 @@ import { WebVTT, VTTCue /*, VTTRegion*/ } from 'vtt.js';
 import { decodeFromURI } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
 import { DarkMode, Error, Loading, Mixins } from '@nti/web-commons';
-import { Component as Video } from '@nti/web-video';
+import { Component as Video, VideoContext } from '@nti/web-video';
+import { ControlBar, Resume, WatchedSegments } from '@nti/web-video/controls';
 import Discussions from 'internal/content/components/discussions';
 import Gutter from 'internal/content/components/Gutter';
 import ContextSender from 'internal/common/mixins/ContextSender';
@@ -23,6 +24,10 @@ import Transcript from './Transcript';
 const logger = Logger.get('course:transcripted-video');
 
 const None = void 0;
+
+const Controls = styled(ControlBar)`
+	padding: 0.5rem 0.25rem;
+`;
 
 class Annotation {
 	constructor(item, ownerCmp) {
@@ -400,16 +405,24 @@ export default createReactClass({
 				})}
 			>
 				{!lightMode && <DarkMode />}
-				{!video ? (
-					None
-				) : (
-					<Video
-						ref={this.attachVideoRef}
-						src={video}
-						onTimeUpdate={this.onVideoTimeTick}
-						analyticsData={this.getAnalyticsData()}
-					/>
-				)}
+				<VideoContext>
+					{!video ? (
+						None
+					) : (
+						<>
+							<Video
+								ref={this.attachVideoRef}
+								src={video}
+								onTimeUpdate={this.onVideoTimeTick}
+								analyticsData={this.getAnalyticsData()}
+							/>
+							<Controls>
+								<Resume />
+								<WatchedSegments.Trigger />
+							</Controls>
+						</>
+					)}
+				</VideoContext>
 				<div className="transcript">
 					{error ? (
 						<div>Transcript not available</div>
