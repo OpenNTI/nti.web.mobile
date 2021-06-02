@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import '~@nti/style-common';
 
 .ugd.heading {
@@ -103,8 +105,8 @@ ul.activity {
 	.breadcrumb {
 		border-bottom: 1px solid var(--quad-grey);
 		padding-left: 0;
-		padding-bottom: $item-padding / 2;
-		margin: #{- ($item-padding / 2)} #{-$item-padding} 0;
+		padding-bottom: math.div($item-padding, 2);
+		margin: #{- (math.div($item-padding, 2))} #{-$item-padding} 0;
 	}
 
 	.heading {

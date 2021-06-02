@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import '~@nti/style-common';
 
 .activity-item {
@@ -5,7 +7,7 @@
 		&.avatar-heading {
 			$avatarsize: 60px;
 			$iconsize: 32px;
-			$position: ($avatarsize - $iconsize)/2; // center in the 60x60 avatar space
+			$position: math.div($avatarsize - $iconsize, 2); // center in the 60x60 avatar space
 
 			background: {
 				image: url(./assets/chat-32-blue.png);

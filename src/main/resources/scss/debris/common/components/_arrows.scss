@@ -1,10 +1,12 @@
+@use "sass:math";
+
 $arrow-color: var(--tertiary-grey);
 
 @mixin arrow($direction: right, $size: 0.5rem) {
 	content: '';
 	position: absolute;
 	top: 50%;
-	margin-top: -$size/2;
+	margin-top: math.div(-$size, 2);
 
 	@include _direction($direction, $size);
 
@@ -61,13 +63,13 @@ $arrow-color: var(--tertiary-grey);
 		content: '';
 		width: 0;
 		height: 0;
-		border: $size/2 solid transparent;
+		border: math.div($size, 2) solid transparent;
 		position: absolute;
 		border-left-color: $arrow-color;
 		left: 0;
 		top: 50%;
-		margin-top: -$size/2;
-		transform-origin: $size/8 50%;
+		margin-top: math.div(-$size, 2);
+		transform-origin: math.div($size, 8) 50%;
 		transition-property: all;
 		transition-duration: 0.3s;
 	}

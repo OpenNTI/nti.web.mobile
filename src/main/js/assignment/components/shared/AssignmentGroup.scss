@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import '~@nti/style-common';
 @import 'utils/placeholders';
 
@@ -5,8 +7,8 @@
 	$vertical-spacing: 1.5rem;
 
 	// padding-bottom: $vertical-spacing/2;
-	margin: 0 -1rem #{$vertical-spacing/2} -1rem;
-	padding: 0 1rem #{$vertical-spacing/2} 1rem;
+	margin: 0 -1rem #{math.div($vertical-spacing, 2)} -1rem;
+	padding: 0 1rem #{math.div($vertical-spacing, 2)} 1rem;
 	box-shadow: 0 1px 0 var(--panel-background-alt);
 
 	&.instructor {
