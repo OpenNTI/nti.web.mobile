@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@nti/app-scripts": "^2.31.8",
-    "@nti/foundation-sites-fork": "5.5.3-patch.1",
+    "@nti/foundation-sites-fork": "5.5.3-patch.2",
     "@nti/lib-analytics": "NextThought/nti.lib.analytics",
     "@nti/lib-anchors": "NextThought/nti.lib.anchors",
     "@nti/lib-commons": "NextThought/nti.lib.commons",
