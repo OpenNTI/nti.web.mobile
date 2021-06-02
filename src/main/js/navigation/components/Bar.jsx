@@ -129,7 +129,7 @@ export default createReactClass({
 	backingStoreEventHandlers: {
 		default: buffer(100, function () {
 			let o = NavStore.getData();
-			logger.debug('Set Context: %o', o);
+			logger.trace('Set Context: %o', o);
 			this.setState({ resolving: true, ...o }, () => this.fillIn(o));
 		}),
 	},
@@ -198,8 +198,11 @@ export default createReactClass({
 		}
 
 		const { id, current, total } = info;
-		const { id: prevId, current: prevPage, total: prevTotal } =
-			flashPage || {};
+		const {
+			id: prevId,
+			current: prevPage,
+			total: prevTotal,
+		} = flashPage || {};
 
 		const sameFlash =
 			prevId === id && prevPage === current && prevTotal === total;
@@ -485,13 +488,8 @@ export default createReactClass({
 	},
 
 	renderBar() {
-		const {
-			supportsSearch,
-			border,
-			className,
-			useCommonTabs,
-			theme,
-		} = this.props;
+		const { supportsSearch, border, className, useCommonTabs, theme } =
+			this.props;
 		let {
 			pageSource,
 			current,
