@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import '~@nti/style-common';
 
 .performance {
@@ -73,7 +75,7 @@
 			}
 
 			&.desc::after {
-				bottom: ($bordersize + $cellpadding)/2;
+				bottom: math.div($bordersize + $cellpadding, 2);
 				top: auto;
 				border-top-color: $arrowcolor;
 			}

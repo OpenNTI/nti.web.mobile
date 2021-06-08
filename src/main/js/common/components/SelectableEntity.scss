@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import '~@nti/style-common';
 
 .selectable-entity {
@@ -100,7 +102,7 @@
 						rgba(var(--primary-blue-rgb), 0.4) 21%
 					)
 					white;
-				margin-top: -($iconsize/2); // the rotation overwrites our transform for vertical centering.
+				margin-top: -(math.div($iconsize, 2)); // the rotation overwrites our transform for vertical centering.
 			}
 		}
 

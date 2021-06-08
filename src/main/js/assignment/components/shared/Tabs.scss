@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import '~@nti/style-common';
 
 .assignments-nav {
@@ -52,11 +54,11 @@
 				$arrowsize: 1em;
 
 				content: '';
-				border: ($arrowsize/2) solid transparent;
+				border: math.div($arrowsize, 2) solid transparent;
 				position: absolute;
 				bottom: 4px;
 				left: 50%;
-				margin-left: -($arrowsize/2);
+				margin-left: -(math.div($arrowsize, 2));
 				border-bottom-color: $color;
 				opacity: $opacity;
 			}

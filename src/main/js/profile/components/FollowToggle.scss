@@ -1,3 +1,5 @@
+@use "sass:math";
+
 @import '~@nti/style-common';
 
 .old-follow-widget {
@@ -35,7 +37,7 @@
 		height: $size;
 		line-height: 1;
 		animation: rotation 0.9s infinite linear;
-		margin-top: -$size/2; // the animation uses transform, which overwrites our translateY, so use margin to get vertical centering since we know the size
+		margin-top: math.div(-$size, 2); // the animation uses transform, which overwrites our translateY, so use margin to get vertical centering since we know the size
 
 		&::after {
 			content: none;
