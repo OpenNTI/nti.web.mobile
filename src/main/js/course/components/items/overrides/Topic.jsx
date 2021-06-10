@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Router from 'react-router-component';
 
-import { Error, Loading } from '@nti/web-commons';
-
-import TranscriptedVideo from '../../TranscriptedVideo';
+import Topic from 'internal/forums/components/TopicView';
 
 import Page from './Page';
 import Registry from './Registry';
 
-const MIME_TYPES = {
-	'application/vnd.nextthought.ntivideo': true,
-};
+function getTopicId(location) {
+	const { item } = location || {};
 
+	return item && item.target;
+}
+
+const MIME_TYPES = {
+	'application/vnd.nextthought.discussionref': true,
+	'application/vnd.nextthought.discussion': true,
+};
 const handles = obj => {
 	const { location } = obj || {};
 	const { item } = location || {};
@@ -20,80 +23,58 @@ const handles = obj => {
 	return item && MIME_TYPES[item.MimeType];
 };
 
-export default class CourseItemTopic extends React.Component {
+export default class CourseItemDiscussion extends React.Component {
 	static propTypes = {
-		course: PropTypes.object,
 		location: PropTypes.object,
-		outlineId: PropTypes.string,
+		course: PropTypes.object,
+		lessonInfo: PropTypes.object,
 	};
 
-	state = {};
+	static contextTypes = {
+		router: PropTypes.object,
+	};
 
-	componentDidMount() {
-		this.setup();
-	}
-
-	componentDidUpdate(prevProps) {
+	getContextOverride() {
 		const { location } = this.props;
-		const { location: prevLocation } = prevProps;
+		const { router } = this.context;
 
-		if (location !== prevLocation) {
-			this.setup();
-		}
+		return {
+			href: router.makeHref(
+				router.getPath().replace(/\/discussions.*$/g, '/')
+			),
+			label: location && location.item && location.item.title,
+		};
 	}
 
-	async setup(props = this.props) {
-		const { course } = this.props;
+	getAnalyticsData = () => {
+		const { course, lessonInfo } = this.props;
+		const context = [
+			course && course.getID(),
+			lessonInfo && lessonInfo.outlineNodeId,
+		];
 
-		try {
-			const mediaIndex = await course.getMediaIndex();
-
-			this.setState({
-				mediaIndex,
-			});
-		} catch (e) {
-			this.setState({
-				mediaIndex: null,
-				error: e,
-			});
-		}
-	}
+		return {
+			context: context.filter(Boolean),
+			rootContextId: course && course.getID(),
+		};
+	};
 
 	render() {
-		const { location, course, outlineId } = this.props;
-		const { item: video } = location || {};
-		const { mediaIndex, error } = this.state;
-
-		const transcriptProps = {
-			MediaIndex: mediaIndex,
-			videoId: video.getID(),
-			course,
-			outlineId,
-			lightMode: true,
-			gutterPrefix: '',
-		};
+		const { location } = this.props;
+		const topicId = getTopicId(location);
 
 		return (
 			<Page {...this.props}>
-				{!mediaIndex && !error && <Loading.Spinner.Large />}
-				{error && <Error error={error} />}
-				{mediaIndex && !error && (
-					<Router.Locations className="course-item-video" contextual>
-						<Router.Location
-							path="/discussions(/*)"
-							handler={TranscriptedVideo}
-							{...transcriptProps}
-							showDiscussions
-						/>
-						<Router.NotFound
-							handler={TranscriptedVideo}
-							{...transcriptProps}
-						/>
-					</Router.Locations>
-				)}
+				<div className="forums-wrapper">
+					<Topic
+						topicId={topicId}
+						contextOverride={this.getContextOverride()}
+						analyticsData={this.getAnalyticsData()}
+					/>
+				</div>
 			</Page>
 		);
 	}
 }
 
-Registry.register(handles)(CourseItemTopic);
+Registry.register(handles)(CourseItemDiscussion);
