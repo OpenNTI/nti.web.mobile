@@ -83,7 +83,7 @@ export default createReactClass({
 	render() {
 		return (
 			<Page title="Catalog" useCommonTabs supportsSearch border>
-				<Catalog markDirty={this.markDirty} />
+				<Catalog suppressDetails markDirty={this.markDirty} />
 			</Page>
 		);
 	},
