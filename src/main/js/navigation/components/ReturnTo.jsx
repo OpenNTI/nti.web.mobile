@@ -1,5 +1,7 @@
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
+
+import { NavigationStackContext } from '@nti/web-routing';
 
 ReturnTo.propTypes = {
 	href: PropTypes.string,
@@ -7,12 +9,23 @@ ReturnTo.propTypes = {
 };
 
 export default function ReturnTo({ href, label }) {
-	const props = {
-		className: 'return-to',
-		href,
-		title: label,
-		children: label,
+	const { pop } = useContext(NavigationStackContext);
+
+	const doPop = e => {
+		if (!pop) return;
+
+		e.preventDefault();
+		e.stopPropagation();
+		pop();
 	};
 
-	return <a {...props} />;
+	if (pop) {
+		label = 'Back';
+	}
+
+	return (
+		<a className="return-to" href={href} title={label} onClick={doPop}>
+			{label}
+		</a>
+	);
 }

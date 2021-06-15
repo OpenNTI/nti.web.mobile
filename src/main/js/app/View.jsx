@@ -4,6 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { environment, CaptureClicks, Link } from 'react-router-component';
 
+import { NavigationStackManager } from '@nti/web-routing';
 import { Session } from '@nti/web-session';
 import { reportError, getConfig } from '@nti/web-client';
 import { Error, Loading, Layouts, Theme } from '@nti/web-commons';
@@ -105,9 +106,10 @@ export default class App extends React.Component {
 		const branding = getConfig('branding');
 		const themeProperties = Theme.buildTheme.DefaultProperties;
 
-		themeProperties.assets.fullLogo.href = Theme.buildTheme.makeAssetHREFFallbacks(
-			'/site-assets/shared/brand_mobile.png'
-		);
+		themeProperties.assets.fullLogo.href =
+			Theme.buildTheme.makeAssetHREFFallbacks(
+				'/site-assets/shared/brand_mobile.png'
+			);
 
 		const theme = Theme.buildTheme(themeProperties);
 
@@ -167,10 +169,12 @@ export default class App extends React.Component {
 				<Session>
 					<CaptureClicks gotoURL={this.gotoURL}>
 						<Wrapper ref={this.attachRef}>
-							<Router
-								path={path}
-								onBeforeNavigation={this.onBeforeNavigation}
-							/>
+							<NavigationStackManager>
+								<Router
+									path={path}
+									onBeforeNavigation={this.onBeforeNavigation}
+								/>
+							</NavigationStackManager>
 						</Wrapper>
 					</CaptureClicks>
 				</Session>
