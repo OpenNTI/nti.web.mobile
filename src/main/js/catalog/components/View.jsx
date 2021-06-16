@@ -72,20 +72,37 @@ export default createReactClass({
 					path="/gift/purchase/:entryId(/*)"
 					handler={GiftPurchaseView}
 				/>
+
 				<Location path="/item/:entryId/redeem" handler={Redeem} />
+				<Location
+					path="/tag/:category/item/:entryId/redeem"
+					handler={Redeem}
+				/>
+
 				<Location
 					ref={this.attachEnrollment}
 					path="/item/:entryId/enrollment(/*)"
 					handler={Enroll}
 				/>
+				<Location
+					ref={this.attachEnrollment}
+					path="/tag/:category/item/:entryId/enrollment(/*)"
+					handler={Enroll}
+				/>
+
 				<Location path="/item/:entryId(/*)" handler={EntryDetail} />
+				<Location
+					path="/tag/:category/item/:entryId(/*)"
+					handler={EntryDetail}
+				/>
+
 				<Location path="/code/(:code)(/*)" handler={AcceptInvitation} />
 				<Location
 					path="/enrollment/success/"
 					handler={EnrollmentSuccess}
 				/>
 				<Location
-					path="/:category/item/:entryId(/*)"
+					path="/tag/:category/item/:entryId(/*)"
 					handler={EntryDetail}
 				/>
 				<Location path="*" handler={ListView} />

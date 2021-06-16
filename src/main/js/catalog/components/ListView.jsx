@@ -4,7 +4,6 @@ import createReactClass from 'create-react-class';
 
 import CatalogView from '@nti/web-catalog';
 import { Router, Route } from '@nti/web-routing';
-import { encodeForURI } from '@nti/lib-ntiids';
 import { scoped } from '@nti/lib-locale';
 import Page from 'internal/common/components/Page';
 import ContextSender from 'internal/common/mixins/ContextSender';
@@ -17,21 +16,7 @@ const t = scoped('library.sections', {
 
 const Catalog = Router.for([Route({ path: '/', component: CatalogView })]);
 
-const CATALOG_MIME_TYPES = {
-	'application/vnd.nextthought.courses.catalogentry': true,
-	'application/vnd.nextthought.courses.coursecataloglegacyentry': true,
-	'application/vnd.nextthought.courseware.coursecataloglegacyentry': true,
-};
-
 function getRouteFor(obj) {
-	if (obj.isCourseCatalogEntry && obj.redeemed) {
-		return `./item/${encodeForURI(obj.getID())}?redeemed=1`;
-	}
-
-	if (CATALOG_MIME_TYPES[obj.MimeType]) {
-		return `./item/${encodeForURI(obj.getID())}`;
-	}
-
 	if (obj === 'contact-us') {
 		return '/mobile/contact-us';
 	}
@@ -83,7 +68,7 @@ export default createReactClass({
 	render() {
 		return (
 			<Page title="Catalog" useCommonTabs supportsSearch border>
-				<Catalog suppressDetails markDirty={this.markDirty} />
+				<Catalog markDirty={this.markDirty} suppressDetails />
 			</Page>
 		);
 	},
