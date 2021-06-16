@@ -215,7 +215,7 @@ export default createReactClass({
 
 	loadTranscript(video) {
 		return video
-			.getTranscript('en')
+			.getTranscript('en', 'normal')
 			.then(vtt => {
 				const parser = new WebVTT.Parser(
 					global,
