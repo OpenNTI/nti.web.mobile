@@ -1,2 +1,6 @@
 /lib
 /reports
+/src/server/index.js
+/src/server/rollup.config.js
+/src/server/redirects*.js
+/src/server/session*.js
