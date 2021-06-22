@@ -3,7 +3,11 @@
 import path from 'path';
 import { createRequire } from 'module';
 
-const require = createRequire(import.meta.url);
+
+if (typeof require === 'undefined') {
+	// eslint-disable-next-line no-global-assign
+	require = createRequire(import.meta.ul);
+}
 
 let dev;
 let assets = path.resolve(__dirname, '../client');

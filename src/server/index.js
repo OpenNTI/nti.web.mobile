@@ -9,7 +9,11 @@ var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
 
 /*eslint-disable no-console, strict, import/no-commonjs*/
 
-const require$1 = module$1.createRequire((typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('index.js', document.baseURI).href)));
+
+if (typeof require === 'undefined') {
+	// eslint-disable-next-line no-global-assign
+	require = module$1.createRequire(undefined);
+}
 
 let dev;
 let assets = path__default['default'].resolve(__dirname, '../client');
@@ -17,8 +21,8 @@ let assets = path__default['default'].resolve(__dirname, '../client');
 
 try {
 	if (!/dist\/server/i.test(__dirname)) {
-		dev = require$1('@nti/app-scripts/server/lib/devmode');
-		assets = require$1('@nti/app-scripts/config/paths').assetsRoot;
+		dev = require('@nti/app-scripts/server/lib/devmode');
+		assets = require('@nti/app-scripts/config/paths').assetsRoot;
 	}
 } catch (e) {
 	console.error(e.stack || e.message || e);
