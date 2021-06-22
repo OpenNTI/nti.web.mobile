@@ -1,9 +1,13 @@
 /*eslint-disable no-console, strict, import/no-commonjs*/
 'use strict';
-const path = require('path');
+import path from 'path';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
 
 let dev;
 let assets = path.resolve(__dirname, '../client');
+
 
 try {
 	if (!/dist\/server/i.test(__dirname)) {
@@ -16,12 +20,12 @@ try {
 
 exports = module.exports = {
 	async register(expressApp, config) {
-		// const redirects = await import('./lib/redirects.mjs');
-		const { sessionSetup } = require('./lib/session-setup.js');
+		const redirects = await import('./lib/redirects.mjs');
+		const { sessionSetup } = await import ('./lib/session-setup.js');
 
 		const devmode = dev ? await dev.setupDeveloperMode(config) : false;
 
-		// redirects.register(expressApp, config);
+		redirects.register(expressApp, config);
 
 		if (devmode) {
 			expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets
