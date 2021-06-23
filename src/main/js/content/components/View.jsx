@@ -10,6 +10,7 @@ import {
 	Loading,
 	Background,
 	Presentation,
+	Hooks,
 } from '@nti/web-commons';
 import { Component as ContextContributor } from 'internal/common/mixins/ContextContributor';
 import Redirect from 'internal/navigation/components/Redirect';
@@ -21,16 +22,23 @@ import Index from './Index';
 import Page from './Page';
 import Notebook from './Notebook';
 
+const { useResolver } = Hooks;
+const { isPending } = useResolver;
+
 FindPage.propTypes = {
 	contentPackage: PropTypes.object,
 };
 function FindPage({ contentPackage }) {
+	const resolver = useResolver(async () => {
+		const packages = await contentPackage.getContentPackages();
+
+		return packages[0];
+	}, [contentPackage]);
+
+	const pack = isPending(resolver) ? null : resolver;
+
 	const path = global.location && global.location.pathname;
 	const hash = global.location && global.location.hash;
-	const pack =
-		contentPackage &&
-		contentPackage.ContentPackages &&
-		contentPackage.ContentPackages[0];
 
 	if (!path || !pack) {
 		return null;
