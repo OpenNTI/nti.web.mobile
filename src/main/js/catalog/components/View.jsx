@@ -78,6 +78,10 @@ export default createReactClass({
 					path="/tag/:category/item/:entryId/redeem"
 					handler={Redeem}
 				/>
+				<Location
+					path="/redeem/item/:entryId/redeem"
+					handler={Redeem}
+				/>
 
 				<Location
 					ref={this.attachEnrollment}
@@ -89,10 +93,19 @@ export default createReactClass({
 					path="/tag/:category/item/:entryId/enrollment(/*)"
 					handler={Enroll}
 				/>
+				<Location
+					ref={this.attachEnrollment}
+					path="/redeem/item/:entryId/enrollment(/*)"
+					handler={Enroll}
+				/>
 
 				<Location path="/item/:entryId(/*)" handler={EntryDetail} />
 				<Location
 					path="/tag/:category/item/:entryId(/*)"
+					handler={EntryDetail}
+				/>
+				<Location
+					path="/redeem/item/:entryId(/*)"
 					handler={EntryDetail}
 				/>
 
@@ -101,10 +114,7 @@ export default createReactClass({
 					path="/enrollment/success/"
 					handler={EnrollmentSuccess}
 				/>
-				<Location
-					path="/tag/:category/item/:entryId(/*)"
-					handler={EntryDetail}
-				/>
+
 				<Location path="*" handler={ListView} />
 			</Locations>
 		);
