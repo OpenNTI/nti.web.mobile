@@ -1,7 +1,7 @@
 /*eslint strict:0, import/no-commonjs:0, import/order:0*/
 import path from 'path';
 import { Base64 } from 'js-base64/base64.mjs';
-import { HREF, isNTIID, encodeForURI, decodeFromURI } from '@nti/lib-ntiids';
+import { encodeForURI, decodeFromURI } from '@nti/lib-ntiids';
 
 const SEGMENT_HANDLERS = {
 	redeem: (catalogId, segments) =>
@@ -21,7 +21,7 @@ const HANDLERS = {
 	handleProfileRedirects: /\/(user|group)/i,
 	//the path may not always start with /app/ but it will always be have one path segment in front.
 	handleLibraryPathRedirects: /^\/[^/]+\/library/i,
-	handleCatalogPathRedirects: /^\/[^/]+\/catalog\/nti-course-catalog-entry/i,
+	handleCatalogPathRedirects: /^\/[^/]+\/catalog\//i,
 	handleBundlePathRedirect: /^\/[^/]+\/bundle/i,
 	handleCommunityPathRedirect: /^\/[^/]+\/community/i,
 };
@@ -103,28 +103,15 @@ class Redirects {
 
 	handleCatalogPathRedirects(query, res, next) {
 		/* From:
-		 *  /app/catalog/nti-course-catalog-entry/<id>
+		 *  /app/catalog/...
 		 *
 		 * To:
-		 *  <basepath>/catalog/item/<id>
+		 *  <basepath>/catalog/...
 		 */
-		const pattern = /catalog\/nti-course-catalog-entry\/([^/]*)/;
-		let [, id] = query.match(pattern) || [];
+		const pattern = /catalog\/(.*)/;
+		let [, route] = query.match(pattern) || [];
 
-		if (!id) {
-			return next();
-		}
-
-		if (/^uri/i.test(id)) {
-			id = decodeURIComponent(id).replace(/^uri:/i, '');
-			id = encodeForURI(HREF.encodeIdFrom(id));
-		}
-
-		if (isNTIID(id)) {
-			id = encodeForURI(id);
-		}
-
-		const url = path.join(this.basepath, 'catalog', 'item', id);
+		const url = path.join(this.basepath, 'catalog', route);
 		res.redirect(url);
 	}
 

@@ -30,7 +30,7 @@ try {
 
 exports = module.exports = {
 	async register(expressApp, config) {
-		const redirects = await Promise.resolve().then(function () { return require('./redirects-57e215a2.js'); });
+		const redirects = await Promise.resolve().then(function () { return require('./redirects-904a8e8e.js'); });
 		const { sessionSetup } = await Promise.resolve().then(function () { return require('./session-setup-2daea1b3.js'); });
 
 		const devmode = dev ? await dev.setupDeveloperMode(config) : false;
