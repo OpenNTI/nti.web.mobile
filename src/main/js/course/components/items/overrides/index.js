@@ -2,6 +2,7 @@ import Registry from './Registry';
 import Page from './Page';
 
 import './Assignment';
+import './CalendarEvent';
 import './Reading';
 import './Timeline';
 import './Topic';
