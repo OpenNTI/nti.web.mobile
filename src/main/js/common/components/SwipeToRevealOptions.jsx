@@ -16,158 +16,6 @@ function translateStyle(x, measure, y) {
 	};
 }
 
-class Swipeable extends React.Component {
-	static propTypes = {
-		onSwiped: PropTypes.func,
-		onSwipingUp: PropTypes.func,
-		onSwipingRight: PropTypes.func,
-		onSwipingDown: PropTypes.func,
-		onSwipingLeft: PropTypes.func,
-		onSwipedUp: PropTypes.func,
-		onSwipedRight: PropTypes.func,
-		onSwipedDown: PropTypes.func,
-		onSwipedLeft: PropTypes.func,
-		flickThreshold: PropTypes.number,
-		delta: PropTypes.number,
-	};
-
-	static defaultProps = {
-		flickThreshold: 0.6,
-		delta: 10,
-	};
-
-	state = {
-		x: null,
-		y: null,
-		swiping: false,
-		start: 0,
-	};
-
-	calculatePos(e) {
-		let x = e.changedTouches[0].clientX;
-		let y = e.changedTouches[0].clientY;
-
-		let xd = this.state.x - x;
-		let yd = this.state.y - y;
-
-		let axd = Math.abs(xd);
-		let ayd = Math.abs(yd);
-
-		return {
-			deltaX: xd,
-			deltaY: yd,
-			absX: axd,
-			absY: ayd,
-		};
-	}
-
-	touchStart = e => {
-		if (e.touches.length > 1) {
-			return;
-		}
-		this.setState({
-			start: Date.now(),
-			x: e.touches[0].clientX,
-			y: e.touches[0].clientY,
-			swiping: false,
-		});
-	};
-
-	touchMove = e => {
-		if (!this.state.x || !this.state.y || e.touches.length > 1) {
-			return;
-		}
-
-		let cancelPageSwipe = false;
-		let pos = this.calculatePos(e);
-
-		if (pos.absX < this.props.delta && pos.absY < this.props.delta) {
-			return;
-		}
-
-		if (pos.absX > pos.absY) {
-			if (pos.deltaX > 0) {
-				if (this.props.onSwipingLeft) {
-					this.props.onSwipingLeft(e, pos.absX);
-					cancelPageSwipe = true;
-				}
-			} else {
-				if (this.props.onSwipingRight) {
-					this.props.onSwipingRight(e, pos.absX);
-					cancelPageSwipe = true;
-				}
-			}
-		} else {
-			if (pos.deltaY > 0) {
-				if (this.props.onSwipingUp) {
-					this.props.onSwipingUp(e, pos.absY);
-					cancelPageSwipe = true;
-				}
-			} else {
-				if (this.props.onSwipingDown) {
-					this.props.onSwipingDown(e, pos.absY);
-					cancelPageSwipe = true;
-				}
-			}
-		}
-
-		this.setState({ swiping: true });
-
-		if (cancelPageSwipe) {
-			e.preventDefault();
-		}
-	};
-
-	touchEnd = ev => {
-		if (this.state.swiping) {
-			let pos = this.calculatePos(ev);
-
-			let time = Date.now() - this.state.start;
-			let velocity =
-				Math.sqrt(pos.absX * pos.absX + pos.absY * pos.absY) / time;
-			let isFlick = velocity > this.props.flickThreshold;
-
-			this.props.onSwiped &&
-				this.props.onSwiped(ev, pos.deltaX, pos.deltaY, isFlick);
-
-			if (pos.absX > pos.absY) {
-				if (pos.deltaX > 0) {
-					this.props.onSwipedLeft &&
-						this.props.onSwipedLeft(ev, pos.deltaX);
-				} else {
-					this.props.onSwipedRight &&
-						this.props.onSwipedRight(ev, pos.deltaX);
-				}
-			} else {
-				if (pos.deltaY > 0) {
-					this.props.onSwipedUp &&
-						this.props.onSwipedUp(ev, pos.deltaY);
-				} else {
-					this.props.onSwipedDown &&
-						this.props.onSwipedDown(ev, pos.deltaY);
-				}
-			}
-		}
-
-		this.setState(this.getInitialState());
-	};
-
-	render() {
-		const props = {
-			...this.props,
-			onTouchStart: this.touchStart,
-			onTouchMove: this.touchMove,
-			onTouchEnd: this.touchEnd,
-		};
-
-		for (let prop of Object.keys(Swipeable.propTypes)) {
-			delete props[prop];
-		}
-
-		return <div {...props} />;
-	}
-}
-
 export default class SwipeToRevealOptions extends React.Component {
 	static propTypes = {
 		rightOptions: PropTypes.array,
@@ -606,4 +454,163 @@ export default class SwipeToRevealOptions extends React.Component {
 		this.props.closeOthers();
 		this.transitionBack();
 	};
+}
+
+class Swipeable extends React.Component {
+	static propTypes = {
+		onSwiped: PropTypes.func,
+		onSwipingUp: PropTypes.func,
+		onSwipingRight: PropTypes.func,
+		onSwipingDown: PropTypes.func,
+		onSwipingLeft: PropTypes.func,
+		onSwipedUp: PropTypes.func,
+		onSwipedRight: PropTypes.func,
+		onSwipedDown: PropTypes.func,
+		onSwipedLeft: PropTypes.func,
+		flickThreshold: PropTypes.number,
+		delta: PropTypes.number,
+	};
+
+	static defaultProps = {
+		flickThreshold: 0.6,
+		delta: 10,
+	};
+
+	initialState = {
+		x: null,
+		y: null,
+		swiping: false,
+		start: 0,
+	};
+
+	state = this.initialState;
+
+	calculatePos(e) {
+		let x = e.changedTouches[0].clientX;
+		let y = e.changedTouches[0].clientY;
+
+		let xd = this.state.x - x;
+		let yd = this.state.y - y;
+
+		let axd = Math.abs(xd);
+		let ayd = Math.abs(yd);
+
+		return {
+			deltaX: xd,
+			deltaY: yd,
+			absX: axd,
+			absY: ayd,
+		};
+	}
+
+	touchStart = e => {
+		if (e.touches.length > 1) {
+			return;
+		}
+		this.setState({
+			start: Date.now(),
+			x: e.touches[0].clientX,
+			y: e.touches[0].clientY,
+			swiping: false,
+		});
+	};
+
+	touchMove = e => {
+		if (!this.state.x || !this.state.y || e.touches.length > 1) {
+			return;
+		}
+
+		let cancelPageSwipe = false;
+		let pos = this.calculatePos(e);
+
+		if (pos.absX < this.props.delta && pos.absY < this.props.delta) {
+			return;
+		}
+
+		if (pos.absX > pos.absY) {
+			if (pos.deltaX > 0) {
+				if (this.props.onSwipingLeft) {
+					this.props.onSwipingLeft(e, pos.absX);
+					cancelPageSwipe = true;
+				}
+			} else {
+				if (this.props.onSwipingRight) {
+					this.props.onSwipingRight(e, pos.absX);
+					cancelPageSwipe = true;
+				}
+			}
+		} else {
+			if (pos.deltaY > 0) {
+				if (this.props.onSwipingUp) {
+					this.props.onSwipingUp(e, pos.absY);
+					cancelPageSwipe = true;
+				}
+			} else {
+				if (this.props.onSwipingDown) {
+					this.props.onSwipingDown(e, pos.absY);
+					cancelPageSwipe = true;
+				}
+			}
+		}
+
+		this.setState({ swiping: true });
+
+		if (cancelPageSwipe) {
+			e.preventDefault();
+		}
+	};
+
+	touchEnd = ev => {
+		if (this.state.swiping) {
+			let pos = this.calculatePos(ev);
+
+			let time = Date.now() - this.state.start;
+			let velocity =
+				Math.sqrt(pos.absX * pos.absX + pos.absY * pos.absY) / time;
+			let isFlick = velocity > this.props.flickThreshold;
+
+			this.props.onSwiped &&
+				this.props.onSwiped(ev, pos.deltaX, pos.deltaY, isFlick);
+
+			if (pos.absX > pos.absY) {
+				if (pos.deltaX > 0) {
+					this.props.onSwipedLeft &&
+						this.props.onSwipedLeft(ev, pos.deltaX);
+				} else {
+					this.props.onSwipedRight &&
+						this.props.onSwipedRight(ev, pos.deltaX);
+				}
+			} else {
+				if (pos.deltaY > 0) {
+					this.props.onSwipedUp &&
+						this.props.onSwipedUp(ev, pos.deltaY);
+				} else {
+					this.props.onSwipedDown &&
+						this.props.onSwipedDown(ev, pos.deltaY);
+				}
+			}
+		}
+
+		this.setState(this.initialState);
+	};
+
+	render() {
+		const props = {
+			...this.props,
+			onTouchStart: this.touchStart,
+			onTouchMove: this.touchMove,
+			onTouchEnd: this.touchEnd,
+		};
+
+		for (let prop of [
+			...Object.keys(Swipeable.propTypes),
+			...Object.keys(SwipeToRevealOptions.propTypes).filter(
+				x => x !== 'className'
+			),
+		]) {
+			delete props[prop];
+		}
+
+		return <div {...props} />;
+	}
 }
