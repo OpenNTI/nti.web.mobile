@@ -82,7 +82,8 @@ function ContactsView({ basePath }) {
 function ContactsList() {
 	const store = useService().getContacts();
 	const { loading } = store;
-	const empty = store.length === 0;
+	const contacts = Array.from(store).slice(0, 8);
+	const empty = contacts.length === 0;
 
 	useChanges(store);
 
@@ -92,14 +93,12 @@ function ContactsList() {
 		<Empty />
 	) : (
 		<List>
-			{Array.from(store)
-				.slice(0, 8)
-				.map(c => (
-					<ListItem key={c.getID()}>
-						<Avatar entity={c} />
-						<DisplayName entity={c} />
-					</ListItem>
-				))}
+			{contacts.map(c => (
+				<ListItem key={c.getID()}>
+					<Avatar entity={c} />
+					<DisplayName entity={c} />
+				</ListItem>
+			))}
 		</List>
 	);
 }
