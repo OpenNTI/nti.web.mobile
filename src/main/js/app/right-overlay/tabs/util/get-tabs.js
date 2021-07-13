@@ -5,7 +5,7 @@ import { DateIcon } from '@nti/web-calendar';
 
 import Notifications from '../Notifications';
 import Calendar from '../Calendar';
-import Contacts from '../contacts';
+import Contacts from '../Contacts';
 import Footer from '../Footer';
 import NotificationsTab from '../NotificationsTab';
 
