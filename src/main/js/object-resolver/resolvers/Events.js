@@ -12,13 +12,7 @@ const {
 
 const HANDLERS = {
 	[CourseEventType]: event => {
-		Prompt.modal(
-			<Event.View
-				getAvailableCalendars={() => []}
-				event={event}
-				dialog={false}
-			/>
-		);
+		Prompt.modal(<Event.View event={event} dialog={false} />);
 
 		return '/';
 	},

@@ -26,14 +26,7 @@ const UNKNOWN = ({ MimeType } = {}) =>
 	logger.warn(`No handler for MimeType: '${MimeType}'`);
 
 function modalEventView(event, context) {
-	return () =>
-		Prompt.modal(
-			<Event.View
-				getAvailableCalendars={() => []}
-				event={event}
-				dialog={false}
-			/>
-		);
+	return () => Prompt.modal(<Event.View event={event} dialog={false} />);
 }
 
 function webinarHandler(webinar, context) {

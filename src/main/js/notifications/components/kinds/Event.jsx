@@ -35,13 +35,7 @@ export default createReactClass({
 		const { item } = this.state;
 
 		//TODO: once we get a library path for events use it to navigate
-		Prompt.modal(
-			<Event.View
-				getAvailableCalendars={() => []}
-				event={item}
-				dialog={false}
-			/>
-		);
+		Prompt.modal(<Event.View event={item} dialog={false} />);
 	},
 
 	render() {

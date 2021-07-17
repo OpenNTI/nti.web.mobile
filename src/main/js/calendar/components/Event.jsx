@@ -39,7 +39,6 @@ export default class EventView extends React.Component {
 			return (
 				<Event.View
 					event={event}
-					getAvailableCalendars={() => []}
 					onCancel={this.goBack}
 					onSuccess={this.goBack}
 				/>
