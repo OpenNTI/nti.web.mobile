@@ -1,50 +1,23 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 
-import { getService } from '@nti/web-client';
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { Event } from '@nti/web-calendar';
-import Redirect from 'internal/navigation/components/Redirect';
+import { Loading, NTObject } from '@nti/web-commons';
 
-export default class EventView extends React.Component {
-	static propTypes = {
-		eventId: PropTypes.string,
+EventView.propTypes = {
+	eventId: PropTypes.string,
+};
+export default function EventView({ eventId }) {
+	const goBack = () => {
+		window.history.back();
 	};
 
-	componentDidMount() {
-		this.loadEvent();
-	}
-
-	async loadEvent() {
-		const { eventId } = this.props;
-
-		const service = await getService();
-		const event = await service.getObject(decodeFromURI(eventId));
-
-		this.setState({ event });
-	}
-
-	state = {};
-
-	goBack = () => {
-		this.setState({ close: true });
-	};
-
-	render() {
-		const { event, close } = this.state;
-
-		if (close) {
-			return <Redirect location="/calendar" />;
-		} else if (event) {
-			return (
-				<Event.View
-					event={event}
-					onCancel={this.goBack}
-					onSuccess={this.goBack}
-				/>
-			);
-		}
-
-		return null;
-	}
+	return (
+		<Suspense fallback={<Loading.Spinner />}>
+			<NTObject prop="event" id={decodeFromURI(eventId)}>
+				<Event.View onCancel={goBack} onSuccess={goBack} />
+			</NTObject>
+		</Suspense>
+	);
 }

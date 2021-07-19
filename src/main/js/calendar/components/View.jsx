@@ -3,27 +3,6 @@ import React from 'react';
 
 import CalendarRouter from './CalendarRouter';
 
-export default class CalendarView extends React.Component {
-	// static contextTypes: {
-	// 	router: PropTypes.object
-	// }
-	//
-	//
-	// static childContextTypes: {
-	// 	router: PropTypes.object
-	// }
-	//
-	// getChildContext () {
-	// 	return {
-	// 		router: {
-	// 			...(this.context.router || {}),
-	// 			baseroute: '/mobile/calendar/',
-	// 			// getRouteFor: () => {}
-	// 		}
-	// 	};
-	// }
-
-	render() {
-		return <CalendarRouter />;
-	}
+export default function CalendarView({ eventId }) {
+	return <CalendarRouter {...{ eventId }} />;
 }

@@ -22,7 +22,7 @@ export default function DialogsRouter(props) {
 			childProps={childProps}
 		>
 			<Location
-				path="/calendar(/*)"
+				path="/calendar(/:eventId)(/*)"
 				handler={DialogRouteHandler}
 				component={Calendar}
 			/>

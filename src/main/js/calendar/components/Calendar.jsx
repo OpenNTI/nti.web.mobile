@@ -5,12 +5,15 @@ import { DarkMode } from '@nti/web-commons';
 import { Calendar } from '@nti/web-calendar';
 
 import BackButton from './BackButton';
+import Event from './Event';
 
-export default class CalendarContainer extends React.Component {
-	render() {
-		return (
-			<div className="nti-mobile-calendar-view">
-				<DarkMode />
+export default function CalendarContainer({ eventId }) {
+	return (
+		<div className="nti-mobile-calendar-view">
+			<DarkMode />
+			{eventId ? (
+				<Event eventId={eventId} />
+			) : (
 				<Calendar
 					additionalControls={BackButton}
 					className="nti-mobile-calendar"
@@ -19,7 +22,7 @@ export default class CalendarContainer extends React.Component {
 					}}
 					readOnly
 				/>
-			</div>
-		);
-	}
+			)}
+		</div>
+	);
 }
