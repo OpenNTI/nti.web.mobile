@@ -1,6 +1,5 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
-import QueryString from 'query-string';
 import cx from 'classnames';
 import { Link } from 'react-router-component';
 
@@ -75,11 +74,16 @@ export default createReactClass({
 	componentDidMount() {
 		const { location } = global;
 		if (typeof location !== 'undefined' && location.search) {
-			let query = QueryString.parse(location.search);
-			if (query.error) {
-				this.setError(query.error);
-			} else if (query.failed && query.message) {
-				this.setError(query.message);
+			const query = new URLSearchParams(location.search);
+
+			const error = query.get('error');
+			const failed = query.get('failed');
+			const message = query.get('message');
+
+			if (error) {
+				this.setError(error);
+			} else if (failed && message) {
+				this.setError(message);
 			}
 		}
 

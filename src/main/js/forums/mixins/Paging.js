@@ -1,16 +1,13 @@
-import QueryString from 'query-string';
-
 import { getConfig } from '@nti/web-client';
 
 let pageSize;
 
 const mixin = {
 	currentPage() {
-		let loc = global.location || {};
-		let search = QueryString.parse(loc.search);
+		const search = new URLSearchParams(global.location?.search);
+		const page = search.get('p') || search.get('page') || 1;
 
-		let cp = parseInt(search.p || search.page || 1, 10);
-		return cp;
+		return parseInt(page, 10);
 	},
 
 	getPageSize() {

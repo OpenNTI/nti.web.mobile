@@ -1,7 +1,6 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import QueryString from 'query-string';
 
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { Loading, Mixins } from '@nti/web-commons';
@@ -40,12 +39,9 @@ export default createReactClass({
 	},
 
 	componentDidMount() {
-		let { search = '' } = global.location || {};
-		let query = QueryString.parse(search);
+		const state = new URLSearchParams(global.location?.search).get('State');
 
-		let paymentState = /true/i.test(query.State || '');
-
-		this.setState({ paymentState });
+		this.setState({ paymentState: state && /true/i.test(state) });
 		this.resolveCatalogEntry();
 	},
 

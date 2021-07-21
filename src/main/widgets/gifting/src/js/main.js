@@ -5,7 +5,6 @@ import '../../../../resources/scss/app.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import QueryString from 'query-string';
 
 import { addFeatureCheckClasses } from '@nti/lib-dom';
 import {
@@ -21,13 +20,13 @@ addFeatureCheckClasses();
 overrideConfigAndForceCurrentHost(); //ensures we talk back to our current host instead of anything else.
 installAnonymousService(); //fakes a service doc.
 
-const props = QueryString.parse(global.location.search);
+const props = new URLSearchParams(global.location.search);
 
 const WidgetView = React.createFactory(Widget);
 ReactDOM.render(
 	WidgetView({
-		purchasableId: props.purchasableId,
-		headerImage: props.header,
+		purchasableId: props.get('purchasableId'),
+		headerImage: props.get('header'),
 	}),
 	document.getElementById('content')
 );

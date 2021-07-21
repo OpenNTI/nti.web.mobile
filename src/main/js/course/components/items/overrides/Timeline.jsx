@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import QueryString from 'query-string';
 
+import { Url } from '@nti/lib-commons';
 import { Card } from '@nti/web-commons';
 
 import Page from './Page';
@@ -29,7 +29,7 @@ export default class CourseItemTimeline extends React.Component {
 	render() {
 		const { course, location } = this.props;
 		const { item } = location || {};
-		const params = QueryString.stringify({
+		const params = Url.stringifyQuery({
 			title: item.label,
 			source: item.href,
 		}).replace(/%2F/gi, '/'); //TimelineJS is not correctly decoding the URI params

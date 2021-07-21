@@ -3,11 +3,11 @@ import path from 'path';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import QueryString from 'query-string';
 
+import Logger from '@nti/util-logger';
 import { reportError } from '@nti/web-client';
 import { addHistory } from '@nti/lib-analytics';
-import Logger from '@nti/util-logger';
+import { Url } from '@nti/lib-commons';
 import { decodeFromURI, encodeForURI, isNTIID } from '@nti/lib-ntiids';
 import { Overview } from '@nti/web-course';
 import { Loading, Error as ErrorWidget, EmptyList } from '@nti/web-commons';
@@ -153,7 +153,7 @@ export default class CourseLessonOverview extends React.Component {
 					  ) + '/';
 		} else if (/ntitimeline/i.test(type)) {
 			const { label: title } = obj;
-			const params = QueryString.stringify({
+			const params = Url.stringifyQuery({
 				title,
 				source: obj.href,
 			}).replace(/%2F/gi, '/'); //TimelineJS is not correctly decoding the URI params

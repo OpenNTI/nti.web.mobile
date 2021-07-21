@@ -1,10 +1,8 @@
-import Path from 'path';
-import Url from 'url';
+import path from 'path';
 
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import QueryString from 'query-string';
 
 import { scoped } from '@nti/lib-locale';
 import { getReturnURL } from '@nti/web-client';
@@ -30,18 +28,12 @@ export default createReactClass({
 		let base = this.getBasePath();
 		let service = getServiceName(rel);
 
-		href = Url.parse(href);
-		href.search = QueryString.stringify(
-			Object.assign(QueryString.parse(href.search), {
-				success: getReturnURL() || base,
-				failure: Path.join(base, 'login/'),
-			})
-		);
-
-		href = href.format();
+		const url = new URL(href, global.location);
+		url.searchParams.set('success', getReturnURL() || base);
+		url.searchParams.set('failure', path.join(base, 'login/'));
 
 		Object.assign(props, {
-			href,
+			href: url.toString(),
 			className: 'oauth-button ' + service.toLowerCase(),
 		});
 

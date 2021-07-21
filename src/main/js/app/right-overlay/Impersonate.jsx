@@ -1,8 +1,6 @@
 import './Impersonate.scss';
-import Url from 'url';
 
 import React from 'react';
-import QueryString from 'query-string';
 
 import { getAppUser } from '@nti/web-client';
 
@@ -30,15 +28,11 @@ export default class Impersonate extends React.Component {
 			link && prompt('What username do you want to impersonate?');
 
 		if (username) {
-			let url = Url.parse(link);
-			url.search = QueryString.stringify(
-				Object.assign(QueryString.parse(url.search), {
-					username,
-					success: global.location.pathname,
-				})
-			);
+			let url = new URL(link, global.location);
+			url.searchParams.set('username', username);
+			url.searchParams.set('success', global.location.pathname);
 
-			global.location.replace(url.format());
+			global.location.replace(url.toString());
 		}
 	};
 
