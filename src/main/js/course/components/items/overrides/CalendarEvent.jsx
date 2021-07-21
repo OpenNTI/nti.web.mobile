@@ -16,6 +16,17 @@ const styles = stylesheet`
 	}
 `;
 
+// because this overrides the course view wrapper we have to duplicate this nonsense here too
+const View = styled(Event.View)`
+	& :global(.calendar-event-editor) {
+		width: auto;
+	}
+
+	[event-details-header] {
+		display: none;
+	}
+`;
+
 const handles = obj => {
 	const { location } = obj || {};
 	const { item } = location || {};
@@ -33,11 +44,7 @@ export default function CourseItemCalendarEvent({ location: { item } = {} }) {
 	return (
 		<>
 			{Header && <Header item={item} className={styles.padding} />}
-			<Event.View
-				event={item?.CalendarEvent}
-				dialog={false}
-				controls={false}
-			/>
+			<View event={item?.CalendarEvent} dialog={false} controls={false} />
 		</>
 	);
 }
