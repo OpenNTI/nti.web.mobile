@@ -52,7 +52,12 @@ function webinarUnavailable(obj) {
 
 const HANDLERS = {
 	[CourseEventType]: (obj, context) =>
-		window.location.pathname + '#/calendar/' + encodeForURI(obj.getID()),
+		join(
+			context === 'goto'
+				? join('/', 'object')
+				: window.location.pathname + '#/calendar/',
+			encodeForURI(obj.getID())
+		),
 
 	[CalendarEventRefType]: (obj, context) =>
 		HANDLERS[CourseEventType](obj.CalendarEvent, context),
