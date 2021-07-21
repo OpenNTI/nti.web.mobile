@@ -1,8 +1,10 @@
-import React from 'react';
-// import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+
+import { BasePathContext } from '@nti/web-routing';
 
 import CalendarRouter from './CalendarRouter';
 
 export default function CalendarView({ eventId }) {
-	return <CalendarRouter {...{ eventId }} />;
+	const baseroute = useContext(BasePathContext);
+	return <CalendarRouter {...{ baseroute, eventId }} />;
 }

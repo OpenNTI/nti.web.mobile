@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { environment, CaptureClicks, Link } from 'react-router-component';
 
-import { NavigationStackManager } from '@nti/web-routing';
+import { BasePath, NavigationStackManager } from '@nti/web-routing';
 import { Session } from '@nti/web-session';
 import { reportError, getConfig } from '@nti/web-client';
 import { Error, Loading, Layouts, Theme } from '@nti/web-commons';
@@ -144,7 +144,7 @@ export default class App extends React.Component {
 	render() {
 		const {
 			state: { hasError, mask, theme },
-			props: { path },
+			props: { basePath, path },
 		} = this;
 		const isGated = /\/(login|onboarding)/i.test(
 			path || global.location.href
@@ -152,33 +152,33 @@ export default class App extends React.Component {
 
 		const Wrapper = isGated ? 'div' : AppContainer;
 
-		if (hasError) {
-			return <Error {...this.state} />;
-		}
-
-		if (mask) {
-			return (
-				<Loading.Mask
-					message={typeof mask === 'string' ? mask : void 0}
-				/>
-			);
-		}
-
 		return (
-			<Theme.Apply theme={theme}>
-				<Session>
-					<CaptureClicks gotoURL={this.gotoURL}>
-						<Wrapper ref={this.attachRef}>
-							<NavigationStackManager>
-								<Router
-									path={path}
-									onBeforeNavigation={this.onBeforeNavigation}
-								/>
-							</NavigationStackManager>
-						</Wrapper>
-					</CaptureClicks>
-				</Session>
-			</Theme.Apply>
+			<BasePath path={basePath}>
+				<Theme.Apply theme={theme}>
+					{hasError ? (
+						<Error {...this.state} />
+					) : mask ? (
+						<Loading.Mask
+							message={typeof mask === 'string' ? mask : void 0}
+						/>
+					) : (
+						<Session>
+							<CaptureClicks gotoURL={this.gotoURL}>
+								<Wrapper ref={this.attachRef}>
+									<NavigationStackManager>
+										<Router
+											path={path}
+											onBeforeNavigation={
+												this.onBeforeNavigation
+											}
+										/>
+									</NavigationStackManager>
+								</Wrapper>
+							</CaptureClicks>
+						</Session>
+					)}
+				</Theme.Apply>
+			</BasePath>
 		);
 	}
 }
