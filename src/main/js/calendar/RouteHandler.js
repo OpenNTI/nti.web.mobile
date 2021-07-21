@@ -1,3 +1,5 @@
+import { join } from 'path';
+
 import React from 'react';
 
 import Logger from '@nti/util-logger';
@@ -55,11 +57,14 @@ const HANDLERS = {
 	[CalendarEventRefType]: (obj, context) =>
 		HANDLERS[CourseEventType](obj.CalendarEvent, context),
 
-	[AssignmentEventType]: ({ AssignmentNTIID }, { courseNTIID }) => {
-		return `mobile/course/${encodeForURI(
-			courseNTIID
-		)}/assignments/${encodeForURI(AssignmentNTIID)}`;
-	},
+	[AssignmentEventType]: ({ AssignmentNTIID }, { courseNTIID }) =>
+		join(
+			'/',
+			'course',
+			encodeForURI(courseNTIID),
+			'assignments',
+			encodeForURI(AssignmentNTIID)
+		),
 
 	[WebinarType]: (webinar, context) =>
 		webinarUnavailable(webinar) || webinarHandler(webinar, context),
