@@ -67,6 +67,16 @@ const MIME_TYPES = {
 		return `/${encode(o.getID())}/`;
 	},
 
+	['courseware.coursecalendar'](o, prev, next) {
+		let p = '/#calendar';
+		if (next) {
+			p = join(p, encode(next.getID()));
+			next[IGNORE] = true;
+		}
+		return p;
+	},
+
+	nticalendareventref: '--lessonItemRef',
 	assignmentref: '--lessonItemRef',
 	questionsetref: '--lessonItemRef',
 	pollref: '--lessonItemRef',
