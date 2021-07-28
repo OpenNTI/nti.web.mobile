@@ -54,7 +54,7 @@ const HANDLERS = {
 	[CourseEventType]: (obj, context) =>
 		join(
 			context === 'goto'
-				? join('/', 'object')
+				? 'object'
 				: window.location.pathname + '#/calendar/',
 			encodeForURI(obj.getID())
 		),
@@ -64,7 +64,6 @@ const HANDLERS = {
 
 	[AssignmentEventType]: ({ AssignmentNTIID }, { courseNTIID }) =>
 		join(
-			'/',
 			'course',
 			encodeForURI(courseNTIID),
 			'assignments',

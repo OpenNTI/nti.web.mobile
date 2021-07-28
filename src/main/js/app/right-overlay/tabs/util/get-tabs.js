@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { scoped } from '@nti/lib-locale';
 import { DateIcon } from '@nti/web-calendar';
+import { BasePathContext } from '@nti/web-routing';
 
 import Notifications from '../Notifications';
 import Calendar from '../Calendar';
@@ -17,16 +18,13 @@ const NOTIFICATIONS = 'notifications';
 const CALENDAR = 'calendar';
 const CONTACTS = 'contacts';
 
-const withFooter = Cmp => {
-	return function FooterJoiner(props) {
-		return (
-			<>
-				<Cmp {...props} />
-				<Footer />
-			</>
-		);
-	};
-};
+const withFooter = Cmp => props =>
+	(
+		<>
+			<Cmp {...props} baseroute={useContext(BasePathContext)} />
+			<Footer />
+		</>
+	);
 
 const t = scoped('app.user-overlay.tabs', {
 	[NOTIFICATIONS]: 'Notifications',

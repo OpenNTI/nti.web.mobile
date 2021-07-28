@@ -1,11 +1,8 @@
 import './Calendar.scss';
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import { decorate } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
 import { NotableEvents } from '@nti/web-calendar';
-import { HOC } from '@nti/web-commons';
 import { Router, Route } from '@nti/web-routing';
 import { getRouteFor } from 'internal/calendar/RouteHandler';
 
@@ -21,35 +18,22 @@ const getErrorMessage = e => (
 	<div className="calendar-display-error">{t('error')}</div>
 );
 
-class Events extends React.PureComponent {
-	static propTypes = {
-		basePath: PropTypes.string,
-	};
-
-	render() {
-		// const {basePath} = this.props;
-
-		return (
-			<div className="upcoming-calendar-events">
-				<h3>Upcoming Events</h3>
-				<NotableEvents />
-				<a className="all-events-link" href="#calendar">
-					{t('allEvents')}
-				</a>
-			</div>
-		);
-	}
+function Events() {
+	return (
+		<div className="upcoming-calendar-events">
+			<h3>Upcoming Events</h3>
+			<NotableEvents />
+			<a className="all-events-link" href="#calendar">
+				{t('allEvents')}
+			</a>
+		</div>
+	);
 }
-
-const EventsConnected = decorate(Events, [
-	HOC.BasePath.connect,
-	ErrorBoundary(getErrorMessage),
-]);
 
 export default Router.for([
 	Route({
 		path: '/',
 		getRouteFor,
-		component: EventsConnected,
+		component: ErrorBoundary(getErrorMessage)(Events),
 	}),
 ]);
