@@ -416,7 +416,7 @@ export default createReactClass({
 								onTimeUpdate={this.onVideoTimeTick}
 								analyticsData={this.getAnalyticsData()}
 							/>
-							<Controls dark>
+							<Controls dark={!lightMode}>
 								<Resume />
 								<WatchedSegments.Trigger />
 							</Controls>
