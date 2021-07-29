@@ -155,7 +155,7 @@ export default class LibraryPathResolver {
 	lessonItems = new Set();
 
 	static handles(o) {
-		return o.hasLink && o.hasLink('LibraryPath');
+		return o.hasLink?.('LibraryPath') || !o.Links?.length;
 	}
 
 	static resolve(o) {
@@ -199,7 +199,7 @@ export default class LibraryPathResolver {
 
 	async getPath() {
 		const { object } = this;
-		const [result] = await object.getContextPath();
+		const [result] = (await object.getContextPath?.()) ?? [];
 
 		if (!result) {
 			return Promise.reject('Not Found');
