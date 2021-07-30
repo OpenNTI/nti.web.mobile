@@ -51,6 +51,7 @@ const MIME_TYPES = {
 		return '/discussions/';
 	},
 
+	'forums.contentforum': 'forums.communityforum',
 	'forums.communityforum'(o, prev) {
 		if (prev && /community$/i.test(prev.MimeType)) {
 			return `/${o.ID}/`;
