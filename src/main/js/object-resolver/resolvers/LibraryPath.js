@@ -99,10 +99,7 @@ const MIME_TYPES = {
 		let c = '/content/';
 
 		if (o.isExternal) {
-			c = `/external-content/${encode(o.getID())}`;
-			if (next) {
-				next[IGNORE] = true;
-			}
+			c = `/items/${encode(o.getID())}/discussions/`;
 		} else if (!next || !isPageInfo(next.MimeType)) {
 			logger.error(
 				'Unexpected Path sequence. Internal RelatedWorkReferences should be followed by a pageInfo'
@@ -156,7 +153,7 @@ export default class LibraryPathResolver {
 	lessonItems = new Set();
 
 	static handles(o) {
-		return o.hasLink?.('LibraryPath') || !o.Links?.length;
+		return !isPageInfo(o) && o?.getID?.();
 	}
 
 	static resolve(o) {
