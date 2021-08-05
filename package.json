@@ -23,7 +23,7 @@
     "clean": "app-scripts clean",
     "check": "app-scripts check",
     "release": "npx @nti/release",
-    "snapshot": "app-scripts snapshot"
+    "snapshot": "npx @nti/snapshot"
   },
   "main": "dist/server/index.js",
   "publishConfig": {
