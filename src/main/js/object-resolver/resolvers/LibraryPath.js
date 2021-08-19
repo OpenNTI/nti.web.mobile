@@ -95,11 +95,19 @@ const MIME_TYPES = {
 		}
 		return MIME_TYPES.relatedworkref.apply(this, arguments);
 	},
-	relatedworkref(o, prev, next) {
+	relatedworkref(o, prev, next, target) {
 		let c = '/content/';
 
 		if (o.isExternal) {
-			c = `/items/${encode(o.getID())}/discussions/`;
+			c = `/items/${encode(o.getID())}/`;
+
+			if (next && isPageInfo(next.MimeType)) {
+				next[IGNORE] = true;
+			}
+
+			if (target && target.body) {
+				c += 'discussions/';
+			}
 		} else if (!next || !isPageInfo(next.MimeType)) {
 			logger.error(
 				'Unexpected Path sequence. Internal RelatedWorkReferences should be followed by a pageInfo'
