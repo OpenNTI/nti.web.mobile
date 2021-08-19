@@ -3,7 +3,6 @@
 import path from 'path';
 import { createRequire } from 'module';
 
-
 if (typeof require === 'undefined') {
 	// eslint-disable-next-line no-global-assign
 	require = createRequire(import.meta.ul);
@@ -11,7 +10,6 @@ if (typeof require === 'undefined') {
 
 let dev;
 let assets = path.resolve(__dirname, '../client');
-
 
 try {
 	if (!/dist\/server/i.test(__dirname)) {
@@ -25,15 +23,13 @@ try {
 exports = module.exports = {
 	async register(expressApp, config) {
 		const redirects = await import('./lib/redirects.mjs');
-		const { sessionSetup } = await import ('./lib/session-setup.js');
+		const { sessionSetup } = await import('./lib/session-setup.js');
 
-		const devmode = dev ? await dev.setupDeveloperMode(config) : false;
+		const devmode = dev
+			? await dev.setupDeveloperMode(config, expressApp)
+			: false;
 
 		redirects.register(expressApp, config);
-
-		if (devmode) {
-			expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets
-		}
 
 		return {
 			devmode,
