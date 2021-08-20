@@ -9,7 +9,6 @@ var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
 
 /*eslint-disable no-console, strict, import/no-commonjs*/
 
-
 if (typeof require === 'undefined') {
 	// eslint-disable-next-line no-global-assign
 	require = module$1.createRequire(undefined);
@@ -17,7 +16,6 @@ if (typeof require === 'undefined') {
 
 let dev;
 let assets = path__default['default'].resolve(__dirname, '../client');
-
 
 try {
 	if (!/dist\/server/i.test(__dirname)) {
@@ -33,13 +31,11 @@ exports = module.exports = {
 		const redirects = await Promise.resolve().then(function () { return require('./redirects-904a8e8e.js'); });
 		const { sessionSetup } = await Promise.resolve().then(function () { return require('./session-setup-2daea1b3.js'); });
 
-		const devmode = dev ? await dev.setupDeveloperMode(config) : false;
+		const devmode = dev
+			? await dev.setupDeveloperMode(config, expressApp)
+			: false;
 
 		redirects.register(expressApp, config);
-
-		if (devmode) {
-			expressApp.use(devmode.middleware); //serve in-memory compiled sources/assets
-		}
 
 		return {
 			devmode,
