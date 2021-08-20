@@ -188,7 +188,7 @@ export default createReactClass({
 				onBeforeNavigation: this.onBeforeNavigation,
 				onNavigation: this.onNavigation,
 				urlPatternOptions: {
-					segmentValueCharset: 'a-zA-Z0-9-_ %.:(),',
+					segmentValueCharset: "a-zA-Z0-9-_ %.:(),'",
 				},
 			},
 			...this.getRoutes()

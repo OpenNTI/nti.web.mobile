@@ -18,7 +18,7 @@ export default function DialogsRouter(props) {
 		<Locations
 			hash
 			component={null}
-			urlPatternOptions={{ segmentValueCharset: 'a-zA-Z0-9-_ %.:(),' }}
+			urlPatternOptions={{ segmentValueCharset: "a-zA-Z0-9-_ %.:(),'" }}
 			childProps={childProps}
 		>
 			<Location
