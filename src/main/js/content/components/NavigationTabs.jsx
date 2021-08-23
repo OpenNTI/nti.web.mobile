@@ -85,7 +85,6 @@ class ContentNavigationTabs extends React.Component {
 			<Navigation.BookTabs
 				content={contentPackage}
 				expandTabs={!hasBeenSeen()}
-				excludeTabs={isFlag('show-notebook-tab') ? [] : ['notebook']}
 			/>
 		);
 	}
