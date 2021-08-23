@@ -89,12 +89,6 @@ export default createReactClass({
 		let status =
 			Store.isSubmitted(question) && a ? STATUS_MAP[a.isCorrect()] : '';
 
-		//Ripped from the WebApp:
-		if (isFlag('mathcounts-question-number-hack')) {
-			//HACK: there should be a more correct way to get the problem name/number...
-			title = question.getID().split('.').pop() + '. ';
-		}
-
 		let css = cx('question', status.toLowerCase(), {
 			unavailable: !isAvailable,
 			administrative: admin,
