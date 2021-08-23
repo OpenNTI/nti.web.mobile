@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Router, Route } from '@nti/web-routing';
 import { Navigation } from '@nti/web-content';
-import { getAppUserScopedStorage, isFlag } from '@nti/web-client';
+import { getAppUserScopedStorage } from '@nti/web-client';
 import { encodeForURI } from '@nti/lib-ntiids';
 
 const seen = 'seen';
