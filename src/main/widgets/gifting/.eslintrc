@@ -1,6 +1,0 @@
-{
-	"extends": "@nti/eslint-config-app-scripts",
-	"rules": {
-		"import/no-extraneous-dependencies": 0
-	}
-}
