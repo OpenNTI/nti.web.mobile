@@ -2,7 +2,6 @@ import './Note.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { isFlag } from '@nti/web-client';
 import Breadcrumb from 'internal/common/components/BreadcrumbPath';
 import Detail from 'internal/content/components/discussions/Detail';
 import Context from 'internal/content/components/discussions/Context';
