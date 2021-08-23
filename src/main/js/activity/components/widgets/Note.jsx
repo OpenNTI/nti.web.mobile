@@ -38,9 +38,7 @@ export default class Note extends React.Component {
 					{item.isReply() ? null : (
 						<div className="ugd note heading">
 							<ContentIcon item={item} />
-							{isFlag('disable-context-in-activity') !== true && (
-								<Context item={item} className="activity" />
-							)}
+							<Context item={item} className="activity" />
 						</div>
 					)}
 					<Detail item={item} lite />
