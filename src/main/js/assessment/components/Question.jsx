@@ -5,7 +5,6 @@ import createReactClass from 'create-react-class';
 import cx from 'classnames';
 
 import { StoreEventsMixin } from '@nti/lib-store';
-import { isFlag } from '@nti/web-client';
 import { Mixin as DragDropOrchestrator } from 'internal/common/dnd';
 
 import Store from '../Store';
