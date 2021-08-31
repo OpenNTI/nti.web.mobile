@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 import {
 	environment,
 	Locations,
@@ -8,9 +7,15 @@ import {
 	NotFound,
 } from 'react-router-component';
 
-import { Prompt, Mixins } from '@nti/web-commons';
+import { Prompt } from '@nti/web-commons';
 import { encodeForURI } from '@nti/lib-ntiids';
-import { getHistory, createPath, Router } from '@nti/web-routing';
+import {
+	createPath,
+	getHistory,
+	BasePathContext,
+	BrowserRouter,
+	Router,
+} from '@nti/web-routing';
 import Logger from '@nti/util-logger';
 //Main View Handlers
 import Calendar from 'internal/calendar';
@@ -70,15 +75,12 @@ Router.setGlobalGetRouteFor(obj => {
 	}
 });
 
-export default createReactClass({
-	displayName: 'Router',
-	mixins: [Mixins.BasePath],
-
-	propTypes: {
+export default class MobileRouter extends React.Component {
+	static propTypes = {
 		onBeforeNavigation: PropTypes.func,
 		onNavigation: PropTypes.func,
 		path: PropTypes.string,
-	},
+	};
 
 	componentWillUnmount() {
 		//reset back to normal.
@@ -88,7 +90,7 @@ export default createReactClass({
 		if (this.removeRouterHistoryListener) {
 			this.removeRouterHistoryListener();
 		}
-	},
+	}
 
 	componentDidMount() {
 		let { setPath } = ENVIRONMENT;
@@ -121,7 +123,13 @@ export default createReactClass({
 		this.removeRouterHistoryListener = routerHistory.listen((...args) =>
 			this.onRouterHistoryChange(...args)
 		);
-	},
+	}
+
+	static contextType = BasePathContext;
+
+	getBasePath() {
+		return this.context;
+	}
 
 	onRouterHistoryChange(location) {
 		const currentPath = ENVIRONMENT.path;
@@ -130,7 +138,7 @@ export default createReactClass({
 		if (currentPath !== newPath) {
 			ENVIRONMENT.setPath(newPath, { isPopState: false, replace: true });
 		}
-	},
+	}
 
 	maybeBlockNavigation(cb) {
 		if (NavStore.getGuardMessage) {
@@ -141,14 +149,11 @@ export default createReactClass({
 
 			return true;
 		}
-	},
+	}
 
-	onBeforeNavigation() {
-		let action = this.props.onBeforeNavigation;
-		if (action) {
-			action();
-		}
-	},
+	onBeforeNavigation = () => {
+		this.props.onBeforeNavigation?.();
+	};
 
 	[SendGAEvent]() {
 		const { ga, location } = global;
@@ -162,38 +167,39 @@ export default createReactClass({
 
 		ga('set', 'page', href.replace(origin, ''));
 		ga('send', 'pageview');
-	},
+	}
 
-	onNavigation() {
+	onNavigation = () => {
 		if (global.scrollTo) {
 			global.scrollTo(0, 0);
 		}
 
-		let action = this.props.onNavigation;
-		if (action) {
-			action();
-		}
+		this.props.onNavigation?.();
 
 		this[SendGAEvent]();
 
 		// We can get the title and set it here.
-	},
+	};
 
 	render() {
-		return React.createElement(
-			Locations,
-			{
-				ref: 'router',
-				path: this.props.path,
-				onBeforeNavigation: this.onBeforeNavigation,
-				onNavigation: this.onNavigation,
-				urlPatternOptions: {
-					segmentValueCharset: "a-zA-Z0-9-_ %.:(),'",
-				},
-			},
-			...this.getRoutes()
+		return (
+			<BrowserRouter>
+				{React.createElement(
+					Locations,
+					{
+						ref: 'router',
+						path: this.props.path,
+						onBeforeNavigation: this.onBeforeNavigation,
+						onNavigation: this.onNavigation,
+						urlPatternOptions: {
+							segmentValueCharset: "a-zA-Z0-9-_ %.:(),'",
+						},
+					},
+					...this.getRoutes()
+				)}
+			</BrowserRouter>
 		);
-	},
+	}
 
 	getRoutes() {
 		function lookupHandler(route) {
@@ -220,5 +226,5 @@ export default createReactClass({
 		routes.push(React.createElement(NotFound, { handler: NotFoundPage }));
 
 		return routes.filter(r => r.props.handler);
-	},
-});
+	}
+}
