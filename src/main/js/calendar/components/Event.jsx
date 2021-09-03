@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 import { decodeFromURI } from '@nti/lib-ntiids';
 import { Event } from '@nti/web-calendar';
-import { Loading, NTObject } from '@nti/web-commons';
+import { Loading } from '@nti/web-commons';
+import { NTObject } from '@nti/web-core';
 
 EventView.propTypes = {
 	eventId: PropTypes.string,
