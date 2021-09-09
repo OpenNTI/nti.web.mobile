@@ -1,8 +1,8 @@
 import React, { Suspense } from 'react';
 
 import { scoped } from '@nti/lib-locale';
-import { HOC, Loading, useChanges } from '@nti/web-commons';
-import { useService } from '@nti/web-core';
+import { HOC, Loading } from '@nti/web-commons';
+import { useChanges, useService } from '@nti/web-core';
 import {
 	Avatar as AvatarBase,
 	DisplayName as DisplayNameBase,

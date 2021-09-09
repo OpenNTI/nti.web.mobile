@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import { encodeForURI } from '@nti/lib-ntiids';
-import { DateTime, Hooks } from '@nti/web-commons';
+import { DateTime } from '@nti/web-commons';
+import { useChanges } from '@nti/web-core';
 
 const DATE_FORMAT = DateTime.MONTH_DAY_PADDED;
 
@@ -12,7 +13,7 @@ PerformanceItem.propTypes = {
 	sortedOn: PropTypes.string,
 };
 export default function PerformanceItem({ item, sortedOn }) {
-	Hooks.useChanges(item);
+	useChanges(item);
 
 	const { completed, grade } = item;
 
