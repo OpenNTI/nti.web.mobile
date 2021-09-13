@@ -1,6 +1,6 @@
 /*eslint strict:0, import/no-commonjs:0, import/order:0*/
 import path from 'path';
-import { Base64 } from 'js-base64/base64.mjs';
+import { Base64 } from 'js-base64';
 import { encodeForURI, decodeFromURI } from '@nti/lib-ntiids';
 
 const SEGMENT_HANDLERS = {
