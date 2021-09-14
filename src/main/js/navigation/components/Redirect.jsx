@@ -5,7 +5,7 @@ import Router from 'react-router-component';
 
 import Logger from '@nti/util-logger';
 import { Loading } from '@nti/web-commons';
-import { URL, isEmpty, equals } from '@nti/lib-commons';
+import { url, isEmpty, equals } from '@nti/lib-commons';
 
 const logger = Logger.get('app:components:Redirect');
 const join = (a, b) => (a + '/' + b).replace(/\/{2,}/g, '/');
@@ -34,7 +34,7 @@ export default createReactClass({
 		absolute = absolute || loc.startsWith(basePath);
 
 		if (loc && absolute) {
-			loc = loc.startsWith(basePath) ? loc : URL.join(basePath, loc);
+			loc = loc.startsWith(basePath) ? loc : url.join(basePath, loc);
 		}
 
 		if (force) {

@@ -1,10 +1,9 @@
-import Url from 'url';
-
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-component';
 import classnames from 'classnames/bind';
 
+import { url } from '@nti/lib-commons';
 import { scoped } from '@nti/lib-locale';
 import { getServer } from '@nti/web-client';
 
@@ -56,7 +55,7 @@ export default class ForgotForm extends React.Component {
 		let { email, username } = this.getFieldValues();
 
 		this.setState({ busy: true, success: void 0, error: void 0 }, () => {
-			let returnUrl = Url.resolve(
+			let returnUrl = url.resolve(
 				document.URL,
 				'/login/passwordrecover.html'
 			);

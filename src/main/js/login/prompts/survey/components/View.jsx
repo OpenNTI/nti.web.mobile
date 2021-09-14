@@ -1,9 +1,9 @@
 import './View.scss';
-import Url from 'url';
 
 import React from 'react';
 import createReactClass from 'create-react-class';
 
+import { url } from '@nti/lib-commons';
 import { Error, Loading, Mixins } from '@nti/web-commons';
 import { WindowMessageListener as Messages } from '@nti/lib-dom';
 import { getAppUser, getReturnURL } from '@nti/web-client';
@@ -42,7 +42,7 @@ export default createReactClass({
 					u.getLink('RegistrationSurvey') ||
 					Promise.reject(new Error('No Link'))
 			)
-			.then(link => Url.resolve(global.location.href, link))
+			.then(link => url.resolve(global.location.href, link))
 			.then(src => this.setState({ src }))
 			.catch(error => this.setState({ error }))
 			.then(() => this.setState({ busy: false }));
