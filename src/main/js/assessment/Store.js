@@ -32,8 +32,7 @@ const t = scoped('nti-web-mobile.assessment.Store', {
 		errors: {
 			alreadySubmitted: {
 				title: 'This assignment has already been submitted',
-				msg:
-					'Clicking OK will reload the assignment and show the submission',
+				msg: 'Clicking OK will reload the assignment and show the submission',
 				button: 'OK',
 			},
 		},
@@ -442,7 +441,11 @@ class Store extends StorePrototype {
 			.then(submission => this[ApplySubmission](assessment, submission))
 
 			.catch(reason => {
-				if (reason && reason.statusCode !== 404) {
+				if (
+					reason &&
+					reason.statusCode !== 404 &&
+					!/no link/i.test(reason.message)
+				) {
 					logger.error('Could not load previous state: %o', reason);
 				}
 
