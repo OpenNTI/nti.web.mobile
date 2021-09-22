@@ -28,7 +28,7 @@ try {
 
 exports = module.exports = {
 	async register(expressApp, config) {
-		const redirects = await Promise.resolve().then(function () { return require('./redirects-a03cd778.js'); });
+		const redirects = await Promise.resolve().then(function () { return require('./redirects-34c76f16.js'); });
 		const { sessionSetup } = await Promise.resolve().then(function () { return require('./session-setup-2daea1b3.js'); });
 
 		const devmode = dev

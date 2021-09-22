@@ -17,7 +17,7 @@ var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
  *
  * @author Dan Kogai (https://github.com/dankogai)
  */
-const version = '3.7.0';
+const version = '3.7.1';
 /**
  * @deprecated use lowercase `version`.
  */
