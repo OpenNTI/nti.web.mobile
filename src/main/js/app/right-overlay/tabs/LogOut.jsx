@@ -1,7 +1,7 @@
 import './LogOut.scss';
 import React from 'react';
 
-import { Button } from '@nti/web-commons';
+import { Button } from '@nti/web-core';
 import { logout } from 'internal/login/Actions';
 
 export default function LogOut(props) {
