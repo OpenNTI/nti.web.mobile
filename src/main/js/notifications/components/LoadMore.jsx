@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Loading } from '@nti/web-commons';
-import Button from 'internal/forms/components/Button';
+import { Button } from '@nti/web-core';
 
 export default function LoadMore({ store, onClick }) {
 	return (

@@ -7,7 +7,7 @@ import { EmptyList, Loading, Mixins, ScrollTrigger } from '@nti/web-commons';
 import { ViewEvent } from '@nti/web-session';
 import ItemsMixin from 'internal/activity/RenderItemsMixin';
 import Joined from 'internal/activity/components/widgets/Joined';
-import Button from 'internal/forms/components/Button';
+import { Button } from '@nti/web-core';
 
 import ProfileAnalytics from '../mixins/AnalyticsMixin';
 

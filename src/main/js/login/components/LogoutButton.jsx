@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from 'internal/forms/components/Button';
+import { Button } from '@nti/web-core';
 
 import { logout } from '../Actions';
 

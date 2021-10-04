@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
 import { Mixins } from '@nti/web-commons';
-import Button from 'internal/forms/components/Button';
+import { Button } from '@nti/web-core';
 import { profileHref } from 'internal/profile/mixins/ProfileLink';
 
 export default createReactClass({

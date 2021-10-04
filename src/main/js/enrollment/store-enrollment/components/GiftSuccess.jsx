@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { DateTime } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import { rawContent } from '@nti/lib-commons';
-import Button from 'internal/forms/components/Button';
+import { Button } from '@nti/web-core';
 
 import { resetProcess } from '../Actions';
 
@@ -13,15 +13,13 @@ import Pricing from './Pricing';
 const siteString = scoped('course.contactInfo');
 const t = scoped('enrollment.gift.success', {
 	title: 'Gift Purchase Successful',
-	info:
-		'<strong>%(courseTitle)s</strong> starts on <strong>%(startDate)s</strong> and will be conducted fully online.',
+	info: '<strong>%(courseTitle)s</strong> starts on <strong>%(startDate)s</strong> and will be conducted fully online.',
 	infoNoDate:
 		'<strong>%(courseTitle)s</strong> will be conducted fully online.',
 	toSender:
 		'We’ve sent an email of this transaction to you at <a>%(sender)s</a>. ' +
 		'We’ve also sent a separate email that contains instructions on how to redeem this gift.',
-	alert:
-		'Please be sure to pass this information along to the gift recipient in time to take advantage of the course.',
+	alert: 'Please be sure to pass this information along to the gift recipient in time to take advantage of the course.',
 	toRecipient:
 		'We’ve sent an email of this transaction to you at <a>%(sender)s</a>. ' +
 		'We’ve also sent you a copy of the gift notification that was sent to <a>%(receiver)s</a> ' +

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Notice } from '@nti/web-commons';
-import Button from 'internal/forms/components/Button';
+import { Button } from '@nti/web-core';
 
 export default class extends React.Component {
 	static displayName = 'DropFive';

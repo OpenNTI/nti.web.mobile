@@ -5,7 +5,7 @@ import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
 import { Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
-import Button from 'internal/forms/components/Button';
+import { Button } from '@nti/web-core';
 import FieldRender from 'internal/forms/mixins/RenderFormConfigMixin';
 import FieldValuesStore from 'internal/forms/FieldValuesStore';
 import * as FormConstants from 'internal/forms/Constants';
