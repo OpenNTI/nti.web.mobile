@@ -4,6 +4,7 @@ import cx from 'classnames';
 
 import Logger from '@nti/util-logger';
 import { getAppUser, getReturnURL } from '@nti/web-client';
+import { Button } from '@nti/web-core';
 
 import UserAgreement from './UserAgreement';
 
@@ -62,13 +63,13 @@ export default class extends React.Component {
 							Policy.
 						</span>
 					</label>
-					<button
+					<Button
 						className={cx({ disabled })}
 						disabled={disabled}
 						onClick={this.acceptTermsOfService}
 					>
 						I Agree
-					</button>
+					</Button>
 				</footer>
 			</div>
 		);
