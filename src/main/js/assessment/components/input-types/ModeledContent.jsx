@@ -23,7 +23,7 @@ export default createReactClass({
 	},
 
 	shouldComponentUpdate() {
-		return this.shouldUpdate;
+		return !!this.shouldUpdate;
 	},
 
 	render() {
