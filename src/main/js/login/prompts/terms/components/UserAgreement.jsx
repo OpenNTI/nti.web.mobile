@@ -1,83 +1,42 @@
 import './UserAgreement.scss';
 import React from 'react';
-import createReactClass from 'create-react-class';
 
 import { getServer } from '@nti/web-client';
 import { rawContent } from '@nti/lib-commons';
-import { Error as ErrorWidget, Loading, Mixins } from '@nti/web-commons';
+import { useAsyncValue } from '@nti/web-core';
+import { useBasePath } from '@nti/web-routing';
 
-export default createReactClass({
-	displayName: 'UserAgreement',
-
-	mixins: [Mixins.BasePath],
-
-	getInitialState() {
-		return {
-			loading: true,
-		};
-	},
-
-	componentDidMount() {
-		this.getUserAgreement(this.getBasePath()).then(
-			this.setContent,
-			this.setError
+const getUserAgreement = url => {
+	return getServer()
+		.get(url)
+		.catch(er =>
+			Promise.reject(er.responseJSON ? er.responseJSON.message : er)
 		);
-	},
+};
 
-	getUserAgreement(basePath) {
-		let url = basePath + 'api/user-agreement/';
+export default function UserAgreement() {
+	const basePath = useBasePath();
+	const url = basePath + '/api/user-agreement/';
+	const { body, styles = '' } = useAsyncValue(url, () =>
+		getUserAgreement(url)
+	);
 
-		return getServer()
-			.get(url)
-			.catch(er =>
-				Promise.reject(er.responseJSON ? er.responseJSON.message : er)
-			);
-	},
+	const alteredStyles = styles
+		//do not import other sheets.
+		.replace(/@import[^;]*;/g, '')
+		//do not allow margin rules:
+		.replace(/(margin)([^:]*):([^;]*);/g, '');
 
-	setError(error) {
-		this.setState({ error, loading: false });
-	},
+	if (!body) {
+		throw new Error(`Could not load user agreement from ${url}`);
+	}
 
-	setContent(result) {
-		const { body, styles = '' } = result;
-
-		const alteredStyles = styles
-			//do not import other sheets.
-			.replace(/@import[^;]*;/g, '')
-			//do not allow margin rules:
-			.replace(/(margin)([^:]*):([^;]*);/g, '');
-
-		this.setState({
-			styles: alteredStyles,
-			content: body,
-			loading: false,
-		});
-	},
-
-	render() {
-		const {
-			state: { loading, error, content, styles },
-		} = this;
-
-		return (
-			<div className="agreement-wrapper">
-				{loading ? (
-					<Loading.Mask />
-				) : error ? (
-					<ErrorWidget error={error} />
-				) : (
-					content && (
-						<div className="agreement">
-							<style
-								type="text/css"
-								scoped
-								{...rawContent(styles)}
-							/>
-							<div {...rawContent(content)} />
-						</div>
-					)
-				)}
+	return (
+		<div className="agreement-wrapper">
+			<div className="agreement">
+				<style type="text/css" scoped {...rawContent(alteredStyles)} />
+				<div {...rawContent(body)} />
 			</div>
-		);
-	},
-});
+		</div>
+	);
+}
