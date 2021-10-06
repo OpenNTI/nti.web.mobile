@@ -1,32 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 
-import { Mixins } from '@nti/web-commons';
+import { useBasePath } from '@nti/web-routing';
 
-import Mixin from './mixin';
+import { enrollmentHref } from './utils';
 
-export default createReactClass({
-	displayName: 'EnrolledOpen',
-
-	mixins: [Mixins.BasePath, Mixin],
-
-	propTypes: {
-		catalogEntry: PropTypes.object.isRequired,
-	},
-
-	render() {
-		const { catalogEntry } = this.props;
-		const href = this.enrollmentHref(this.getBasePath(), catalogEntry);
-		return (
-			<div className="enrollment-status-open">
-				<div className="status">
-					<span className="registered">You are registered</span>
-					<a href={href} className="edit">
-						Edit
-					</a>
-				</div>
+export default function EnrolledOpen({ catalogEntry }) {
+	const basePath = useBasePath();
+	const href = enrollmentHref(basePath, catalogEntry);
+	return (
+		<div className="enrollment-status-open">
+			<div className="status">
+				<span className="registered">You are registered</span>
+				<a href={href} className="edit">
+					Edit
+				</a>
 			</div>
-		);
-	},
-});
+		</div>
+	);
+}
