@@ -6,6 +6,7 @@ import { decodeFromURI } from '@nti/lib-ntiids';
 import Logger from '@nti/util-logger';
 import { Loading, Mixins } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
+import { Button } from '@nti/web-core';
 import ContextSender from 'internal/common/mixins/ContextSender';
 
 import { getCatalogEntry } from '../Api';
@@ -153,9 +154,12 @@ export default createReactClass({
 		const result = [];
 
 		const widgetMap = {
-			'application/vnd.nextthought.courseware.openenrollmentoption': DropOpen,
-			'application/vnd.nextthought.courseware.storeenrollmentoption': DropStore,
-			'application/vnd.nextthought.courseware.fiveminuteenrollmentoption': DropFive,
+			'application/vnd.nextthought.courseware.openenrollmentoption':
+				DropOpen,
+			'application/vnd.nextthought.courseware.storeenrollmentoption':
+				DropStore,
+			'application/vnd.nextthought.courseware.fiveminuteenrollmentoption':
+				DropFive,
 		};
 
 		if (!entry) {
@@ -196,14 +200,15 @@ export default createReactClass({
 	renderPanel(body) {
 		const catalogHref = this.getBasePath() + 'catalog/';
 		return (
-			<div className="enrollment-dropped">
-				<figure className="notice">
-					<div>{body}</div>
-				</figure>
+			<div
+				className="enrollment-dropped"
+				css={css`
+					text-align: center;
+				`}
+			>
+				<figure className="notice">{body}</figure>
 
-				<a className="button tiny" href={catalogHref}>
-					{t('viewCatalog')}
-				</a>
+				<Button href={catalogHref}>{t('viewCatalog')}</Button>
 			</div>
 		);
 	},

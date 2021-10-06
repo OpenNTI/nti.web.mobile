@@ -1,4 +1,3 @@
-import './DropOpen.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -7,9 +6,7 @@ import { Button } from '@nti/web-core';
 
 import { dropCourse } from '../../Actions';
 
-export default class extends React.Component {
-	static displayName = 'DropOpen';
-
+export default class DropOpen extends React.Component {
 	static propTypes = {
 		courseId: PropTypes.string.isRequired,
 		courseTitle: PropTypes.string.isRequired,
@@ -37,13 +34,22 @@ export default class extends React.Component {
 		return (
 			<div>
 				<Notice>Drop {this.props.courseTitle}?</Notice>
-				<div className="small-12 columns">
-					<Button onClick={this.onCancel} className="small-5 columns">
-						Cancel
-					</Button>
+				<div
+					css={css`
+						display: flex;
+						justify-content: space-between;
+						margin: 0 0.9375rem;
+
+						& > * {
+							flex: 0 1 41%;
+						}
+					`}
+				>
+					<Button onClick={this.onCancel}>Cancel</Button>
 					<Button
+						destructive
 						onClick={this.onConfirm}
-						className="small-5 columns drop-course-confirmation"
+						className="drop-course-confirmation"
 					>
 						Drop course
 					</Button>
