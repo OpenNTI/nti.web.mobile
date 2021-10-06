@@ -1,27 +1,34 @@
-import './NotEnrolled.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
-import createReactClass from 'create-react-class';
 
 import { Enrollment } from '@nti/web-course';
-import { Mixins } from '@nti/web-commons';
-import { getHistory } from '@nti/web-routing';
+import { Button } from '@nti/web-core';
+import { getHistory, useBasePath } from '@nti/web-routing';
 import { encodeForURI } from '@nti/lib-ntiids';
 
-import Mixin from './mixin';
+import { enrollmentHref } from './utils';
 
-export default createReactClass({
-	displayName: 'NotEnrolled',
+const hasOptions = catalogEntry =>
+	Object.values(catalogEntry?.getEnrollmentOptions?.()?.Items || []).some(
+		option => (option || {}).available
+	);
 
-	mixins: [Mixins.BasePath, Mixin],
+const NoStatus = styled.div`
+	padding: 0;
+	box-shadow: none;
 
-	propTypes: {
+	:global(.nti-course-enrollment-options .enrollment-container) {
+		box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+	}
+`;
+export default class NotEnrolled extends React.Component {
+	static propTypes = {
 		catalogEntry: PropTypes.object.isRequired,
-	},
+	};
 
-	childContextTypes: {
+	static childContextTypes = {
 		router: PropTypes.object,
-	},
+	};
 
 	getChildContext() {
 		return {
@@ -32,7 +39,7 @@ export default createReactClass({
 				history: getHistory(),
 			},
 		};
-	},
+	}
 
 	getRouteFor(object, context) {
 		const isEnrolled =
@@ -47,36 +54,31 @@ export default createReactClass({
 				object.getCourseID ? object.getCourseID() : object.NTIID
 			)}/`;
 		}
-	},
-
-	hasOptions(catalogEntry) {
-		function available(option) {
-			return (option || {}).available;
-		}
-		return (
-			catalogEntry &&
-			Object.values(catalogEntry.getEnrollmentOptions().Items).some(
-				available
-			)
-		);
-	},
+	}
 
 	render() {
-		const { catalogEntry } = this.props;
-		const hasOptions = this.hasOptions(catalogEntry);
-		const href = this.enrollmentHref(this.getBasePath(), catalogEntry);
+		return <Content {...this.props} />;
+	}
+}
 
-		return (
-			<div className="enrollment-status-none">
-				{!hasOptions && (
-					<Enrollment.Options catalogEntry={catalogEntry} />
-				)}
-				{hasOptions && (
-					<a className="button" href={href}>
-						CONTINUE TO ENROLLMENT
-					</a>
-				)}
-			</div>
-		);
-	},
-});
+function Content({ catalogEntry }) {
+	const basePath = useBasePath();
+	const href = enrollmentHref(basePath, catalogEntry);
+
+	return (
+		<NoStatus className="enrollment-status-none">
+			{!hasOptions(catalogEntry) ? (
+				<Enrollment.Options catalogEntry={catalogEntry} />
+			) : (
+				<Button
+					href={href}
+					css={css`
+						width: 100%;
+					`}
+				>
+					CONTINUE TO ENROLLMENT
+				</Button>
+			)}
+		</NoStatus>
+	);
+}
