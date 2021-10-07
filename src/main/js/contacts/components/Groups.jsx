@@ -81,6 +81,7 @@ export default createReactClass({
 					css={css`
 						border: 1px solid var(--primary-grey);
 						border-right: 0;
+						border-radius: 0;
 						padding: 0 0.5em;
 					`}
 				/>
