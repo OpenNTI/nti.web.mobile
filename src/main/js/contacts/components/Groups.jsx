@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import Logger from '@nti/util-logger';
 import { scoped } from '@nti/lib-locale';
 import { EmptyList, Error as Err, Loading } from '@nti/web-commons';
+import { Button } from '@nti/web-core';
 import ContextSender from 'internal/common/mixins/ContextSender';
 
 import mixin from '../mixins/Mixin';
@@ -64,15 +65,28 @@ export default createReactClass({
 
 	creationField() {
 		return (
-			<div className="inline-creation-form">
+			<div
+				className="inline-creation-form"
+				css={css`
+					display: flex;
+					input {
+						flex: 1 1 auto;
+					}
+				`}
+			>
 				<input
 					type="text"
 					ref={this.attachCreationFieldRef}
 					placeholder={t('newGroupPlaceholder')}
+					css={css`
+						border: 1px solid var(--primary-grey);
+						border-right: 0;
+						padding: 0 0.5em;
+					`}
 				/>
-				<button className="tiny add-button" onClick={this.addGroup}>
+				<Button className="add-button" onClick={this.addGroup}>
 					Add
-				</button>
+				</Button>
 			</div>
 		);
 	},

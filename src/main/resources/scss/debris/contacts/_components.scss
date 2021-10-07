@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 @import 'components/distribution-list-item';
 @import 'components/distribution-list-detail';
@@ -6,7 +6,6 @@
 @import 'components/create-button';
 @import 'components/create-list';
 @import 'components/delete-button';
-@import 'components/inline-creation-form';
 @import 'components/user-search-field';
 @import 'components/item-detail-header';
 @import 'components/swipe-to-reveal';
@@ -59,7 +58,10 @@
 	height: $size;
 	line-height: 1;
 	animation: rotation 0.9s infinite linear;
-	margin-top: math.div(-$size, 2); // the animation uses transform, which overwrites our translateY, so use margin to get vertical centering since we know the size
+	margin-top: math.div(
+		-$size,
+		2
+	); // the animation uses transform, which overwrites our translateY, so use margin to get vertical centering since we know the size
 }
 
 .contacts-page {
@@ -77,11 +79,6 @@
 		font-weight: 700;
 		color: var(--tertiary-grey);
 		margin-bottom: 2rem;
-	}
-
-	.contacts-page-content .inline-creation-form .add-button {
-		color: white;
-		height: 100%;
 	}
 }
 
