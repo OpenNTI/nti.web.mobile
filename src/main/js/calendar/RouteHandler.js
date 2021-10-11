@@ -86,7 +86,7 @@ const HANDLERS = {
 
 		if (webinarId) {
 			return async () => {
-				const webinar = await obj.fetchLinkParsed('Webinar');
+				const webinar = await obj.fetchLink('Webinar');
 				return webinarHandler(webinar, context)();
 			};
 		}

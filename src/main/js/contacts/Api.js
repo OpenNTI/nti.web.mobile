@@ -14,7 +14,7 @@ export function getStore(type) {
 }
 
 export function getSuggestedContacts() {
-	return getAppUser().then(user => user.fetchLinkParsed('SuggestedContacts'));
+	return getAppUser().then(user => user.fetchLink('SuggestedContacts'));
 }
 
 export function getDistributionList(id) {

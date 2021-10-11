@@ -10,7 +10,10 @@ const isHistoryItem = RegExp.prototype.test.bind(/AssignmentHistoryItem/i);
 
 async function syncAssignmentWithResponse(assignment, resp) {
 	try {
-		const raw = await resp.MetadataAttemptItem.fetchLink('Assignment');
+		const raw = await resp.MetadataAttemptItem.fetchLink({
+			mode: 'raw',
+			rel: 'Assignment',
+		});
 
 		return assignment.refresh(raw);
 	} catch (e) {

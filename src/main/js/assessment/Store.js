@@ -286,16 +286,17 @@ class Store extends StorePrototype {
 
 			await main.refresh();
 
-			const history = await main.fetchLinkParsed('History');
+			const history = await main.fetchLink('History');
 
 			if (
 				history &&
 				history.MetadataAttemptItem &&
 				history.MetadataAttemptItem.hasLink('Assignment')
 			) {
-				const raw = await history.MetadataAttemptItem.fetchLink(
-					'Assignment'
-				);
+				const raw = await history.MetadataAttemptItem.fetchLink({
+					mode: 'raw',
+					rel: 'Assignment',
+				});
 
 				await main.refresh(raw);
 			}

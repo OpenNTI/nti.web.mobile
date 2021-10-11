@@ -97,9 +97,11 @@ class AssignmentViewer extends React.Component {
 
 			if (historyItem) {
 				if (historyItem?.MetadataAttemptItem?.hasLink('Assignment')) {
-					const historicalAssignment = await historyItem.MetadataAttemptItem.fetchLink(
-						'Assignment'
-					);
+					const historicalAssignment =
+						await historyItem.MetadataAttemptItem.fetchLink({
+							mode: 'raw',
+							rel: 'Assignment',
+						});
 					await initAssignment.refresh(historicalAssignment);
 					assignment = initAssignment;
 				}
