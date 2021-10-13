@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { scoped } from '@nti/lib-locale';
@@ -15,7 +15,7 @@ TimeLockedPlaceholder.propTypes = {
 };
 
 export default function TimeLockedPlaceholder({ assignment }) {
-	const onConfirm = React.useCallback(e => {
+	const onConfirm = useCallback(e => {
 		if (e) {
 			e.preventDefault();
 			e.stopPropagation();
