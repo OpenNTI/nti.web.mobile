@@ -1,5 +1,4 @@
 import './HeaderSurvey.scss';
-import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';

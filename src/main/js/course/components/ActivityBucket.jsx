@@ -1,5 +1,4 @@
 import './ActivityBucket.scss';
-import React from 'react';
 import createReactClass from 'create-react-class';
 
 import Logger from '@nti/util-logger';

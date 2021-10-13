@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { PanelButton } from '@nti/web-commons';
 

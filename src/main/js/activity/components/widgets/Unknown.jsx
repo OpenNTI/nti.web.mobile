@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 export default function Unknown(props) {
 	let { MimeType } = props.item || {};

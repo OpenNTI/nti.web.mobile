@@ -1,6 +1,5 @@
 import path from 'path';
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';

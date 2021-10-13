@@ -1,6 +1,5 @@
 import './FormErrors.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 FormErrors.propTypes = {

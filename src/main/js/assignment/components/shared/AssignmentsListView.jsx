@@ -1,5 +1,4 @@
 import './AssignmentsListView.scss';
-import React from 'react';
 
 import { Component as ContextSender } from 'internal/common/mixins/ContextSender';
 

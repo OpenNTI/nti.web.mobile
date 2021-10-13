@@ -1,5 +1,4 @@
 import './BackButton.scss';
-import React from 'react';
 
 import { closeDialog } from '../../util';
 

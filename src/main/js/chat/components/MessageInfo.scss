@@ -8,9 +8,11 @@
 	&.me {
 		.message-body {
 			order: 0;
+
 			.modeled-content {
 				order: 1;
 			}
+
 			.spacer {
 				order: 0;
 			}

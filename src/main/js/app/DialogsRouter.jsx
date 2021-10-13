@@ -1,4 +1,3 @@
-import React from 'react';
 import { Locations, Location, NotFound } from 'react-router-component';
 
 import Calendar from 'internal/calendar';

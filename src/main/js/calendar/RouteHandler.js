@@ -1,6 +1,5 @@
 import { join } from 'path';
 
-import React from 'react';
 
 import Logger from '@nti/util-logger';
 import { Models } from '@nti/lib-interfaces';

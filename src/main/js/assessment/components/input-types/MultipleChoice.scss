@@ -41,9 +41,11 @@
 		input:checked + div {
 			box-shadow: inset 4px 0 0 0 var(--neutral);
 		}
+
 		&.correct input:checked + div {
 			box-shadow: inset 4px 0 0 0 var(--correct);
 		}
+
 		&.incorrect input:checked + div {
 			box-shadow: inset 4px 0 0 0 var(--incorrect);
 		}
@@ -67,6 +69,7 @@
 		&.correct input[type]:checked + div::before {
 			background-image: url(./assets/circle-check-green-18.png);
 		}
+
 		&.incorrect input[type]:checked + div::before {
 			background-image: url(./assets/circle-x-red-18.png);
 		}

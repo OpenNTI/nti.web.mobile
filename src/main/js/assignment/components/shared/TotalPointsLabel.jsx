@@ -1,6 +1,5 @@
 import './TotalPointsLabel.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 TotalPointsLabel.propTypes = {
 	assignment: PropTypes.object,

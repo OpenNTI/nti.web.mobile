@@ -1,6 +1,6 @@
 import './PerformanceHeader.scss';
 import PropTypes from 'prop-types';
-import React, { useEffect, useReducer } from 'react';
+import { useEffect, useReducer } from 'react';
 
 import { scoped } from '@nti/lib-locale';
 

@@ -1,6 +1,5 @@
 import './View.scss';
 
-import React from 'react';
 import createReactClass from 'create-react-class';
 
 import { url } from '@nti/lib-commons';

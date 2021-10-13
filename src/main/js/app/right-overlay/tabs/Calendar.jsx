@@ -1,5 +1,4 @@
 import './Calendar.scss';
-import React from 'react';
 
 import { scoped } from '@nti/lib-locale';
 import { NotableEvents } from '@nti/web-calendar';

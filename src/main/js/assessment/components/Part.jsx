@@ -1,6 +1,5 @@
 import './Part.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';
 

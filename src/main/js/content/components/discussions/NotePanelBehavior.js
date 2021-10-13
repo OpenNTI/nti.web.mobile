@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { Error as Err, Loading, Mixins } from '@nti/web-commons';
 

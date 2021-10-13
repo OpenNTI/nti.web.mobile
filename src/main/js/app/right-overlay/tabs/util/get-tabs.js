@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import { scoped } from '@nti/lib-locale';
 import { DateIcon } from '@nti/web-calendar';

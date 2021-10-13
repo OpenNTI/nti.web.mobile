@@ -1,6 +1,5 @@
 import './Placeholder.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 Placeholder.propTypes = {
 	assignment: PropTypes.object,

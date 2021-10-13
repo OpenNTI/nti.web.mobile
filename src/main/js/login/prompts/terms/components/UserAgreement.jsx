@@ -1,5 +1,4 @@
 import './UserAgreement.scss';
-import React from 'react';
 
 import { getServer } from '@nti/web-client';
 import { rawContent } from '@nti/lib-commons';

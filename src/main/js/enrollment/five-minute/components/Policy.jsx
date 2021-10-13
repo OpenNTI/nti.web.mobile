@@ -1,4 +1,3 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
 
 import { Mixins, PanelButton } from '@nti/web-commons';

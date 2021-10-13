@@ -1,5 +1,4 @@
 import './UserCard.scss';
-import React from 'react';
 
 import { getAppUsername } from '@nti/web-client';
 import { scoped } from '@nti/lib-locale';

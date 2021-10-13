@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import SectionTitle from './SectionTitle';
 import AddButton from './AddButton';

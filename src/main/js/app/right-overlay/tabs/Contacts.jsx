@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 
 import { scoped } from '@nti/lib-locale';
 import { HOC, Loading } from '@nti/web-commons';

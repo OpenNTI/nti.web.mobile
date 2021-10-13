@@ -1,6 +1,5 @@
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Router from 'react-router-component';
 
 import Logger from '@nti/util-logger';

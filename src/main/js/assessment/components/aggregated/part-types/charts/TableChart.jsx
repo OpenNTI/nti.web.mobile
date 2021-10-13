@@ -1,6 +1,5 @@
 import './TableChart.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import { rawContent } from '@nti/lib-commons';
 

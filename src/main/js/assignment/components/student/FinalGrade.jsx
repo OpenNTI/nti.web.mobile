@@ -1,6 +1,5 @@
 import './FinalGrade.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 import cx from 'classnames';
 
 export default function FinalGrade({ grade }) {

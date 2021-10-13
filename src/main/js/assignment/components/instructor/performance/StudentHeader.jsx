@@ -1,6 +1,5 @@
 import './StudentHeader.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import AvatarProfileLink from 'internal/profile/components/AvatarProfileLink';
 

@@ -1,6 +1,5 @@
 import './HighlightGroup.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import Breadcrumb from 'internal/common/components/BreadcrumbPath';
 

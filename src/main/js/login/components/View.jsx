@@ -1,4 +1,3 @@
-import React from 'react';
 
 import Redirect from 'internal/navigation/components/Redirect';
 

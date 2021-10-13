@@ -1,7 +1,6 @@
 import './Gutter.scss';
 import { join } from 'path';
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import createReactClass from 'create-react-class';

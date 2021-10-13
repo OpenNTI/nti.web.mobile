@@ -1,6 +1,5 @@
 import './Detail.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import { Info } from '@nti/web-course';
 

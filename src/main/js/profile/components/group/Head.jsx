@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import DisplayName from 'internal/common/components/DisplayName';
 

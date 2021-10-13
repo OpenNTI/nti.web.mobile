@@ -1,4 +1,3 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
 import cx from 'classnames';
 import { Link } from 'react-router-component';

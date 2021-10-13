@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
@@ -49,7 +48,7 @@ export default createReactClass({
 	},
 
 	renderInput(tag, props) {
-		let { name } = props; //eslint-disable-line react/prop-types
+		let { name } = props;  
 		return (
 			<span className="drop target">
 				<span className="match blank dropzone" data-dnd>

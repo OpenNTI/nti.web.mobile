@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { useBasePath } from '@nti/web-routing';
 

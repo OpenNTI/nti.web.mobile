@@ -1,5 +1,5 @@
 import './View.scss';
-import React, { Suspense, useState } from 'react';
+import { Suspense, useState } from 'react';
 import cx from 'classnames';
 
 import Logger from '@nti/util-logger';

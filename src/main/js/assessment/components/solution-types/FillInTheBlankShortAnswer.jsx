@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
@@ -43,7 +42,7 @@ export default createReactClass({
 	},
 
 	renderInput(tag, props) {
-		let { name } = props; //eslint-disable-line react/prop-types
+		let { name } = props;  
 		let solution = (this.state.solution || {}).value;
 		let v = (solution || {})[name];
 

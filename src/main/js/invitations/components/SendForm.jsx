@@ -1,5 +1,4 @@
 import './SendForm.scss';
-import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import { validate as isEmail } from 'email-validator';

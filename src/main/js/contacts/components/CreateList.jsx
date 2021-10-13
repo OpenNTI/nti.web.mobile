@@ -1,4 +1,3 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
 
 import { Loading, Mixins } from '@nti/web-commons';

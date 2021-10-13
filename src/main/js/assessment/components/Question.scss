@@ -34,6 +34,7 @@
 	&.correct .question-title .status {
 		color: var(--correct);
 	}
+
 	&.incorrect .question-title .status {
 		color: var(--incorrect);
 	}
@@ -89,6 +90,7 @@
 		a {
 			font-size: 0.8rem;
 			text-align: right;
+
 			span.icon-report {
 				margin-right: 0.5em;
 			}

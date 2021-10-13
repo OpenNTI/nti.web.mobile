@@ -1,5 +1,4 @@
 import './Media.scss';
-import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 import Router from 'react-router-component';

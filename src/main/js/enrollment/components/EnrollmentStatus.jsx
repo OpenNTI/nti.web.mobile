@@ -1,6 +1,5 @@
 import './EnrollmentStatus.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 
 import getWidget from './enrollment-status-widgets/';
 

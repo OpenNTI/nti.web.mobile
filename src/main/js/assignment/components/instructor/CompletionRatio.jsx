@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import React from 'react';
 
 const AorB = (a, b) => (typeof a === 'number' ? a : b);
 

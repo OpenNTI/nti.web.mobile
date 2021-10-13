@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
@@ -57,7 +56,7 @@ export default createReactClass({
 	},
 
 	renderInput(tag, props) {
-		let { name, maxLength } = props; //eslint-disable-line react/prop-types
+		let { name, maxLength } = props;  
 		let value = (this.state.value || {})[name] || '';
 		let submitted = this.isSubmitted();
 

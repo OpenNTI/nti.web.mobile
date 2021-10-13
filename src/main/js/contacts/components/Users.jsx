@@ -1,4 +1,3 @@
-import React from 'react';
 import createReactClass from 'create-react-class';
 
 import { EmptyList, Error as Err, Loading } from '@nti/web-commons';

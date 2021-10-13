@@ -1,5 +1,4 @@
 import './AuthorInfo.scss';
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import { DateTime, LuckyCharms } from '@nti/web-commons';
