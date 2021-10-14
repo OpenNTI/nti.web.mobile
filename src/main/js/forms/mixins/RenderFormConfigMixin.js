@@ -44,7 +44,7 @@ export default {
 	 *		required: true,
 	 *		placeholder: 'Your Name'
 	 *	}
-	 * @returns {React.ReactElement} The Rendered Field
+	 * @returns {JSX.Element} The Rendered Field
 	 */
 	renderField(translator, values, field) {
 		let state = this.state;
