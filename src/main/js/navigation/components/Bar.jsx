@@ -140,12 +140,8 @@ export default createReactClass({
 		const { searchTerm } = this.props;
 		const { searchOpen } = this.state;
 
-		if (!searchOpen && searchTerm) {
+		if (!searchOpen && searchTerm && !prevProps.searchTerm) {
 			this.launchSearch(null, true);
-		} else if (prevProps.searchTerm && searchTerm == null && searchOpen) {
-			this.setState({
-				searchOpen: false,
-			});
 		}
 
 		this.maybeFlashPages();
