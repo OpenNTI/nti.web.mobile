@@ -12,7 +12,7 @@ import Logger from '@nti/util-logger';
 import { Pager, Mixins, Navigation, DateTime } from '@nti/web-commons';
 import { StoreEventsMixin } from '@nti/lib-store';
 import { Input } from '@nti/web-search';
-import { LinkTo, getHistory } from '@nti/web-routing';
+import { LinkTo, getHistory, useBasePath } from '@nti/web-routing';
 
 import NavStore from '../Store';
 
@@ -23,6 +23,8 @@ import ReturnTo from './ReturnTo';
 const Transition = props => (
 	<CSSTransition classNames="nav-menu" timeout={350} {...props} />
 );
+
+const GoHome = props => <a href={useBasePath()} {...props} />;
 
 const logger = Logger.get('NavigationBar');
 const menuOpenBodyClass = 'nav-menu-open';
@@ -87,7 +89,7 @@ function ensureSlash(str) {
 
 export default createReactClass({
 	displayName: 'NavigationBar',
-	mixins: [StoreEventsMixin, Mixins.BasePath, Mixins.NavigatableMixin],
+	mixins: [StoreEventsMixin, Mixins.NavigatableMixin],
 
 	contextTypes: {
 		router: PropTypes.object,
@@ -358,9 +360,9 @@ export default createReactClass({
 			this.getChildForSide('center') ||
 			this.getMenu() ||
 			(title ? (
-				<a href={this.getBasePath()}>
+				<GoHome>
 					<h1 className={css}>{title}</h1>
-				</a>
+				</GoHome>
 			) : null)
 		);
 	},
@@ -452,9 +454,7 @@ export default createReactClass({
 	closeSearch(e) {
 		e.preventDefault();
 
-		if (this.search) {
-			this.search.clear();
-		}
+		this.search?.clear();
 
 		this.setState({
 			searchOpen: false,
