@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Loading, Notice } from '@nti/web-commons';
-import { Button } from '@nti/web-core';
+import { Loading } from '@nti/web-commons';
+import { Button, NoticePanel as Notice } from '@nti/web-core';
 
 import { dropCourse } from '../../Actions';
 

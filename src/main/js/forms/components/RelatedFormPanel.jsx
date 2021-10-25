@@ -5,7 +5,7 @@ import createReactClass from 'create-react-class';
 import hash from 'object-hash';
 
 import t from '@nti/lib-locale';
-import { Notice } from '@nti/web-commons';
+import { NoticePanel as Notice } from '@nti/web-core';
 import { rawContent } from '@nti/lib-commons';
 import Select from 'internal/forms/components/Select';
 import Checkbox from 'internal/forms/components/Checkbox';

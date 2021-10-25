@@ -4,13 +4,8 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import { addHistory, getHistory } from '@nti/lib-analytics';
 import { decodeFromURI } from '@nti/lib-ntiids';
-import {
-	Error as Err,
-	Loading,
-	Mixins,
-	Notice,
-	Prompt,
-} from '@nti/web-commons';
+import { Error as Err, Loading, Mixins, Prompt } from '@nti/web-commons';
+import { NoticePanel as Notice } from '@nti/web-core';
 import { scoped } from '@nti/lib-locale';
 import { StoreEventsMixin } from '@nti/lib-store';
 import { ViewEvent } from '@nti/web-session';

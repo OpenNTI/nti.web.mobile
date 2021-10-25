@@ -4,7 +4,8 @@ import createReactClass from 'create-react-class';
 import { validate as isEmail } from 'email-validator';
 
 import { scoped } from '@nti/lib-locale';
-import { Loading, Notice } from '@nti/web-commons';
+import { Loading } from '@nti/web-commons';
+import { NoticePanel as Notice } from '@nti/web-core';
 import FormPanel from 'internal/forms/components/FormPanel';
 import FormErrors from 'internal/forms/components/FormErrors';
 

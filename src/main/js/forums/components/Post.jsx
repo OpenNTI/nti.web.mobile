@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
 import { decodeFromURI, encodeForURI } from '@nti/lib-ntiids';
-import { Error as Err, Loading, Mixins, Notice } from '@nti/web-commons';
+import { Error as Err, Loading, Mixins } from '@nti/web-commons';
+import { NoticePanel as Notice } from '@nti/web-core';
 import { StoreEventsMixin } from '@nti/lib-store';
 import ContextSender from 'internal/common/mixins/ContextSender';
 

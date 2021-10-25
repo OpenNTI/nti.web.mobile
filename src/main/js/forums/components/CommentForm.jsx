@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
-import { Notice, OkCancelButtons, Loading } from '@nti/web-commons';
+import { OkCancelButtons, Loading } from '@nti/web-commons';
+import { NoticePanel as Notice } from '@nti/web-core';
 import { StoreEventsMixin } from '@nti/lib-store';
 import { scoped } from '@nti/lib-locale';
 import { Editor } from 'internal/modeled-content';

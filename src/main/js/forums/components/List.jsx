@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import hash from 'object-hash';
 
-import { Notice } from '@nti/web-commons';
+import { NoticePanel as Notice } from '@nti/web-core';
 import { scoped } from '@nti/lib-locale';
 
 import groupDeletedItems from '../utils/group-deleted-items';

@@ -3,7 +3,8 @@ import createReactClass from 'create-react-class';
 import { Link } from 'react-router-component';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { Error as Err, Loading, Notice } from '@nti/web-commons';
+import { Error as Err, Loading } from '@nti/web-commons';
+import { NoticePanel as Notice } from '@nti/web-core';
 import { StoreEventsMixin } from '@nti/lib-store';
 
 import Paging from '../mixins/Paging';

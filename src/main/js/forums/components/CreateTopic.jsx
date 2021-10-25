@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
 
 import { encodeForURI } from '@nti/lib-ntiids';
-import { Loading, Mixins, Notice } from '@nti/web-commons';
+import { Loading, Mixins } from '@nti/web-commons';
+import { NoticePanel as Notice } from '@nti/web-core';
 import ContextSender from 'internal/common/mixins/ContextSender';
 import Breadcrumb from 'internal/navigation/components/Breadcrumb';
 
