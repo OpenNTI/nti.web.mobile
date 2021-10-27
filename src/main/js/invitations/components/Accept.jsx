@@ -1,10 +1,10 @@
-import './Accept.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Loading } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
 import FormErrors from 'internal/forms/components/FormErrors';
+import { Button, Input } from '@nti/web-core';
 
 import { accept } from '../Api';
 
@@ -50,7 +50,7 @@ export default class extends React.Component {
 
 	onChange = e => {
 		this.setState({
-			code: e.target.value,
+			code: e,
 		});
 	};
 
@@ -100,22 +100,21 @@ export default class extends React.Component {
 			<div>
 				<form
 					onSubmit={this.onSubmit}
-					className="invitation-accept-form"
+					css={css`
+						display: flex;
+						align-items: baseline;
+					`}
 				>
-					<input
+					<Input.Text
 						onChange={this.onChange}
 						value={code}
 						placeholder={t('placeholder')}
 					/>
+
 					<div className="button-row">
-						<input
-							type="submit"
-							key="submit"
-							disabled={disabled}
-							id="redeem-submit"
-							className="button tiny"
-							value={t('button')}
-						/>
+						<Button type="submit" disabled={disabled}>
+							{t('button')}
+						</Button>
 					</div>
 				</form>
 				{error && <FormErrors errors={{ code: error }} />}
@@ -133,7 +132,12 @@ export default class extends React.Component {
 		const heading = success ? t('successMessage') : t('title');
 
 		return (
-			<div className="invitation-accept">
+			<div
+				css={css`
+					padding: 0;
+					margin: 0.625rem;
+				`}
+			>
 				<h3>{heading}</h3>
 				{success ? <Success instance={instance} /> : this.form()}
 			</div>

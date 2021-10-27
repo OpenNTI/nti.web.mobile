@@ -5,7 +5,7 @@ import { validate as isEmail } from 'email-validator';
 
 import { scoped } from '@nti/lib-locale';
 import { Loading } from '@nti/web-commons';
-import { NoticePanel as Notice } from '@nti/web-core';
+import { Button, Input, NoticePanel as Notice } from '@nti/web-core';
 import FormPanel from 'internal/forms/components/FormPanel';
 import FormErrors from 'internal/forms/components/FormErrors';
 
@@ -64,9 +64,9 @@ export default createReactClass({
 		send(course, email, message).then(this.onSuccess).catch(this.onError);
 	},
 
-	onEmailChange(e) {
+	onEmailChange(email) {
 		this.setState({
-			email: e.target.value,
+			email,
 		});
 	},
 
@@ -87,8 +87,22 @@ export default createReactClass({
 		const disabled = !this.validate();
 
 		return (
-			<FormPanel title={heading} onSubmit={this.onSubmit}>
-				<input
+			<FormPanel
+				title={heading}
+				onSubmit={this.onSubmit}
+				css={css`
+					form {
+						display: flex;
+						flex-flow: column nowrap;
+						gap: 1em;
+
+						& > * {
+							flex: 1 1 auto;
+						}
+					}
+				`}
+			>
+				<Input.Text
 					className="required"
 					required
 					type="email"
@@ -104,14 +118,9 @@ export default createReactClass({
 				/>
 				{error && <FormErrors errors={{ code: error }} />}
 				<div className="button-row">
-					<input
-						type="submit"
-						key="submit"
-						disabled={disabled}
-						id="redeem-submit"
-						className="button"
-						value={t('button')}
-					/>
+					<Button type="submit" disabled={disabled}>
+						{t('button')}
+					</Button>
 				</div>
 			</FormPanel>
 		);
@@ -126,7 +135,7 @@ export default createReactClass({
 			<div className="success">
 				<Notice>{t('successMessage')}</Notice>
 				<div className="button-row">
-					<button onClick={this.reset}>Send Another</button>
+					<Button onClick={this.reset}>Send Another</Button>
 				</div>
 			</div>
 		);

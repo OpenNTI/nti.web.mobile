@@ -1,4 +1,3 @@
-import './FormErrors.scss';
 import PropTypes from 'prop-types';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
@@ -10,7 +9,11 @@ export default function FormErrors({ errors }) {
 	const messages = new Set();
 
 	return (
-		<TransitionGroup className="errors">
+		<TransitionGroup
+			css={css`
+				text-align: center;
+			`}
+		>
 			{Object.keys(errors).map(ref => {
 				const error = errors[ref];
 
@@ -22,7 +25,15 @@ export default function FormErrors({ errors }) {
 							timeout={500}
 							key={ref}
 						>
-							<small className="error">{error.message}</small>
+							<small
+								className="error"
+								css={css`
+									border-radius: 2px;
+									color: var(--color-error);
+								`}
+							>
+								{error.message}
+							</small>
 						</CSSTransition>
 					);
 				}
