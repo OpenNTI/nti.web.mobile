@@ -1,6 +1,7 @@
 import createReactClass from 'create-react-class';
 import { Link } from 'react-router-component';
 
+import { Button } from '@nti/web-core';
 import { EmptyList, Error as Err, Loading } from '@nti/web-commons';
 
 import mixin from '../mixins/Mixin';
@@ -19,7 +20,7 @@ export default createReactClass({
 			event.preventDefault();
 		}
 		// Prompt.areYouSure(t('deleteListPrompt')).then(() => {
-		// 	this.setState({
+		// 	this.setState({Link
 		// 		loading: true
 		// 	});
 		item.delete().then(() => {
@@ -59,9 +60,9 @@ export default createReactClass({
 
 		return (
 			<div>
-				<Link href="/lists/new/" className="button tiny create-button">
+				<Button as={Link} href="/lists/new/" constructive rounded>
 					Create new list
-				</Link>
+				</Button>
 				<div>
 					{items.length > 0 ? (
 						<ul className={'contacts-list lists avatar-grid'}>

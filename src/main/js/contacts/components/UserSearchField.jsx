@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import { Loading } from '@nti/web-commons';
+import { Button } from '@nti/web-core';
 import SelectableEntity from 'internal/common/components/SelectableEntity';
 
 import { getStore, getSuggestedContacts } from '../Api';
@@ -256,20 +257,8 @@ export default class UserSearchField extends React.Component {
 			props,
 			state: { selectedUsers = [] },
 		} = this;
-		const {
-			onCancel,
-			onSave,
-			placeholder,
-			saveButtonText,
-			saveDisabled,
-		} = props;
-
-		const saveButtonClasses = cx('primary button', {
-			disabled:
-				'saveDisabled' in props
-					? saveDisabled
-					: selectedUsers.length === 0,
-		});
+		const { onCancel, onSave, placeholder, saveButtonText, saveDisabled } =
+			props;
 
 		return (
 			<div className="user-search">
@@ -296,12 +285,19 @@ export default class UserSearchField extends React.Component {
 				{this.results()}
 				<div className="button-spacer">
 					<div className="buttons">
-						<button className="secondary button" onClick={onCancel}>
+						<Button onClick={onCancel} plain>
 							Cancel
-						</button>
-						<button className={saveButtonClasses} onClick={onSave}>
+						</Button>
+						<Button
+							onClick={onSave}
+							disabled={
+								'saveDisabled' in props
+									? saveDisabled
+									: !selectedUsers?.length
+							}
+						>
 							{saveButtonText}
-						</button>
+						</Button>
 					</div>
 				</div>
 			</div>
