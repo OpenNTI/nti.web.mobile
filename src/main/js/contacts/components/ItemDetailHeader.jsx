@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import createReactClass from 'create-react-class';
-import cx from 'classnames';
 
 import { Prompt, Mixins } from '@nti/web-commons';
 import { scoped } from '@nti/lib-locale';
+import { Button, Icons } from '@nti/web-core';
 
 const DEFAULT_TEXT = {
 	deleteListPrompt: 'Delete this list?',
@@ -90,15 +90,12 @@ export default createReactClass({
 			state: { renaming, saveDisabled },
 		} = this;
 
-		let saveRenameClasses = cx('primary tiny button', {
-			disabled: saveDisabled,
-		});
-
 		return (
 			<header className="item-detail-header">
 				<h1>
 					{renaming ? (
 						<input
+							autoFocus
 							type="text"
 							ref={this.attachRef}
 							defaultValue={list.displayName}
@@ -109,31 +106,57 @@ export default createReactClass({
 					)}
 				</h1>
 				{renaming ? (
-					<div className="rename controls">
-						<button
-							className="secondary tiny button"
-							onClick={this.toggleRename}
-						>
+					<div
+						css={css`
+							position: absolute;
+							left: 0;
+							bottom: 0;
+							width: 100%;
+							background: rgba(255 255 255 / 20%);
+							gap: 1em;
+							display: flex;
+							justify-content: flex-end;
+						`}
+					>
+						<Button plain onClick={this.toggleRename}>
 							Cancel
-						</button>
-						<button
-							className={saveRenameClasses}
+						</Button>
+						<Button
+							disabled={saveDisabled}
 							onClick={this.saveRename}
 						>
 							Save Name
-						</button>
+						</Button>
 					</div>
 				) : (
 					<div>
-						<button
-							className="delete-icon"
+						<Button
 							onClick={this.deleteList}
+							destructive
+							rounded
+							ph="sm"
+							pv="xs"
+							css={css`
+								position: absolute;
+								top: 1rem;
+								right: 1rem;
+								--icon-size: 1.7rem;
+							`}
 						>
-							Delete
-						</button>
-						<button className="rename" onClick={this.toggleRename}>
-							<i className="icon-pencil" /> Rename
-						</button>
+							<Icons.TrashCan />
+						</Button>
+						<Button
+							onClick={this.toggleRename}
+							plain
+							css={css`
+								/* background: none;
+								font-size: 0.75rem;
+								letter-spacing: 0.1em;
+								padding: 0; */
+							`}
+						>
+							<Icons.Pencil /> Rename
+						</Button>
 					</div>
 				)}
 			</header>
