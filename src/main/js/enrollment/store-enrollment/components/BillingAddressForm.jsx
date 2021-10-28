@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import cx from 'classnames';
 
+import { Input } from '@nti/web-core';
 import { scoped } from '@nti/lib-locale';
 
 //These strings should probably move into a more generic place in the strings.
@@ -18,9 +19,7 @@ const t = scoped('enrollment.forms.storeenrollment', {
 
 const FIELDS = ['line1', 'line2', 'city', 'state', 'country', 'zip'];
 
-export default class extends React.Component {
-	static displayName = 'BillingAddressForm';
-
+export default class BillingAddressForm extends React.Component {
 	static propTypes = {
 		className: PropTypes.string,
 		required: PropTypes.object,
@@ -80,7 +79,7 @@ export default class extends React.Component {
 		}
 	};
 
-	onChange = e => {
+	onChange = (value, e) => {
 		this.onFieldEventClearError(e);
 		let { onChange } = this.props;
 		if (onChange) {
@@ -112,7 +111,7 @@ export default class extends React.Component {
 				<legend>Billing Address</legend>
 				{FIELDS.map(field => (
 					<div className={`address_${field}`} key={field}>
-						<input
+						<Input.Text
 							name={`address_${field}`}
 							ref={this.getFieldRefAttachment(field)}
 							placeholder={t(`address_${field}`)}
@@ -120,7 +119,6 @@ export default class extends React.Component {
 								required: required[field],
 								error: errors[field],
 							})}
-							type="text"
 							defaultValue={defaultValues[`address_${field}`]}
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
