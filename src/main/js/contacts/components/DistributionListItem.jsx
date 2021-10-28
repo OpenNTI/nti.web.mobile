@@ -35,7 +35,7 @@ export default class extends React.Component {
 		}
 
 		return (
-			<li className="has-swipe-controls" key={item.getID()}>
+			<li className="has-swipe-controls">
 				<SwipeToRevealOptions
 					rightOptions={rightOptions}
 					callActionWhenSwipingFarRight={false}

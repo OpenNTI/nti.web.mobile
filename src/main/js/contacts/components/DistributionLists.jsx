@@ -33,7 +33,11 @@ export default createReactClass({
 
 	renderListItem(item) {
 		return (
-			<DistributionListItem item={item} onRightClick={this.deleteList} />
+			<DistributionListItem
+				key={item.getID()}
+				item={item}
+				onRightClick={this.deleteList}
+			/>
 		);
 	},
 

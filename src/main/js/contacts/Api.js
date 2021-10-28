@@ -6,7 +6,7 @@ import { USERS, GROUPS, LISTS } from './Constants';
 const storeGetters = {
 	[USERS]: async () => (await getService()).getContacts(),
 	[GROUPS]: async () => (await getService()).getGroups(),
-	[LISTS]: async () => (await getService()).getContacts(),
+	[LISTS]: async () => (await getService()).getLists(),
 };
 
 export async function getStore(type) {
