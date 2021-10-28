@@ -4,25 +4,22 @@ import { decodeFromURI } from '@nti/lib-ntiids';
 import { USERS, GROUPS, LISTS } from './Constants';
 
 const storeGetters = {
-	[USERS]: () => getService().then(service => service.getContacts()),
-	[GROUPS]: () => getService().then(service => service.getGroups()),
-	[LISTS]: () => getService().then(service => service.getLists()),
+	[USERS]: async () => (await getService()).getContacts(),
+	[GROUPS]: async () => (await getService()).getGroups(),
+	[LISTS]: async () => (await getService()).getContacts(),
 };
 
-export function getStore(type) {
-	return storeGetters[type]();
+export async function getStore(type) {
+	return (await storeGetters[type]()).waitForPending();
 }
 
-export function getSuggestedContacts() {
-	return getAppUser().then(user => user.fetchLink('SuggestedContacts'));
+export async function getSuggestedContacts() {
+	return (await getAppUser()).fetchLink('SuggestedContacts');
 }
 
-export function getDistributionList(id) {
+export async function getDistributionList(id) {
 	const listId = decodeFromURI(id);
-	return getStore(LISTS).then(
-		store =>
-			store
-				.getLists()
-				.find(list => decodeFromURI(list.getID()) === listId) || null
-	);
+	const store = await getStore(LISTS);
+	const lists = store.getLists();
+	return lists.find(list => decodeFromURI(list.getID()) === listId) || null;
 }
