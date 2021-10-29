@@ -122,6 +122,9 @@ export default class BillingAddressForm extends React.Component {
 							defaultValue={defaultValues[`address_${field}`]}
 							onFocus={this.onFieldEventClearError}
 							onChange={this.onChange}
+							css={css`
+								width: 100%;
+							`}
 						/>
 						{errors[field] && (
 							<div className="error message">
