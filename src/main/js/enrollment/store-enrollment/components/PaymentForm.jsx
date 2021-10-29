@@ -12,6 +12,7 @@ import { StoreEventsMixin } from '@nti/lib-store';
 import FormPanel from 'internal/forms/components/FormPanel';
 import FormErrors from 'internal/forms/components/FormErrors';
 import { clearLoadingFlag } from 'internal/common/utils/react-state';
+import { Button } from '@nti/web-core';
 
 import Store from '../Store';
 import { verifyBillingInfo } from '../Actions';
@@ -160,7 +161,7 @@ export default createReactClass({
 
 	render() {
 		const {
-			props: { purchasable: purch },
+			props: { purchasable },
 			state: { busy, errors, defaultValues, loading, termsChecked },
 		} = this;
 
@@ -168,17 +169,16 @@ export default createReactClass({
 			return <Loading.Mask />;
 		}
 
-		const title = purch.name || null;
+		const title = purchasable.name || null;
 
 		return (
-			<FormPanel
-				onSubmit={this.handleSubmit}
-				title={title}
-				className="payment-form"
-			>
-				<Pricing ref={this.attachPricingRef} purchasable={purch} />
+			<FormPanel onSubmit={this.handleSubmit} title={title}>
+				<Pricing
+					ref={this.attachPricingRef}
+					purchasable={purchasable}
+				/>
 				<CreditCardForm
-					purchasable={purch}
+					purchasable={purchasable}
 					defaultValues={defaultValues}
 					ref={this.attachCardRef}
 					onChange={this.onCreditCardChange}
@@ -194,13 +194,16 @@ export default createReactClass({
 						<Loading.Ellipse />
 					</div>
 				) : (
-					<input
+					<Button
 						type="submit"
-						id="storeenroll:submit"
 						disabled={!termsChecked}
-						className="small-12 columns tiny button radius"
-						value="Continue"
-					/>
+						rounded
+						css={css`
+							width: 100%;
+						`}
+					>
+						Continue
+					</Button>
 				)}
 			</FormPanel>
 		);
