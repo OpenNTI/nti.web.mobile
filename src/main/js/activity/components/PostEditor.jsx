@@ -7,6 +7,11 @@ import t from '@nti/lib-locale';
 import ShareWith from 'internal/common/components/ShareWith';
 import { Editor } from 'internal/modeled-content';
 
+// The styling of this component is dependent on the NoteEditor even
+// though it does not use any of its code or logic.
+// TODO: rebuild using css modules and share NoteEditor sub-components
+import 'internal/content/components/discussions/NoteEditor';
+
 const PUBLISH = { publish: true };
 
 const preventSubmit = e => e.preventDefault() && false;
