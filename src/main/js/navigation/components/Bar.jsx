@@ -506,7 +506,7 @@ export default createReactClass({
 					{ border, 'use-common-tabs': useCommonTabs },
 					className
 				)}
-				style={{ background: theme && theme.backgroundColor }}
+				style={{ background: theme?.backgroundColor }}
 			>
 				{this.getLeft()}
 				<section
@@ -522,13 +522,13 @@ export default createReactClass({
 						<Pager
 							pageSource={pageSource}
 							current={currentPage}
-							navigatableContext={context}
+							navigableContext={context}
 							isRealPages={isRealPages}
 							toc={toc}
 						/>
 					)}
 					{pagerProps && (
-						<Pager {...pagerProps} navigatableContext={context} />
+						<Pager {...pagerProps} navigableContext={context} />
 					)}
 					{(supportsSearch ||
 						(current && current.supportsSearch)) && (
