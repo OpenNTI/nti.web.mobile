@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 
 import { Loading } from '@nti/web-commons';
@@ -11,161 +11,127 @@ const PUBLISH = { publish: true };
 
 const preventSubmit = e => e.preventDefault() && false;
 
-export default class PostEditor extends React.Component {
-	static propTypes = {
-		onSubmit: PropTypes.func.isRequired,
-		onCancel: PropTypes.func.isRequired,
-		title: PropTypes.string,
-		value: PropTypes.any,
+export default function PostEditor({
+	busy,
+	error,
+	value,
+	title,
+	onCancel,
+	onSubmit,
+	showSharing,
+	warning,
+}) {
+	const [disabled, setDisabled] = useState(true);
+	const _editor = useRef();
+	const _sharing = useRef();
+	const _title = useRef();
 
-		error: PropTypes.object,
-		busy: PropTypes.bool,
+	useEffect(() => {
+		setDisabled(busy || Editor.isEmpty(value) || Editor.isEmpty(title));
+	}, [busy, value, title]);
 
-		showSharing: PropTypes.bool,
-
-		warning: PropTypes.node,
+	const _doChange = () => {
+		const value = _editor.current?.getValue();
+		const title = _title.current?.value;
+		setDisabled(busy || Editor.isEmpty(value) || Editor.isEmpty(title));
 	};
 
-	state = {};
-
-	componentDidMount() {
-		const { busy, value, title } = this.props;
-		this.setState({
-			disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title),
-		});
-	}
-
-	componentDidUpdate(prevProps) {
-		if (
-			['busy', 'value', 'title'].some(x => this.props[x] !== prevProps[x])
-		) {
-			const { busy, value, title } = this.props;
-			this.setState({
-				disabled:
-					busy || Editor.isEmpty(value) || Editor.isEmpty(title),
-			});
-		}
-	}
-
-	attachEditor = x => (this.editor = x);
-	attachSharing = x => (this.sharing = x);
-	attachTitle = x => (this.title = x);
-
-	onChange = () => {
-		let { busy } = this.props;
-		let value = this.editor.getValue();
-		let title = (this.title || {}).value;
-
-		this.setState({
-			disabled: busy || Editor.isEmpty(value) || Editor.isEmpty(title),
-		});
+	const _doCancel = e => {
+		e?.preventDefault();
+		e?.stopPropagation();
+		onCancel(e);
 	};
 
-	onCancel = e => {
-		if (e) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
+	const _doSubmit = e => {
+		e?.preventDefault();
+		e?.stopPropagation();
 
-		this.props.onCancel(e);
+		const titleValue = _title.current?.value;
+		const body = _editor.current?.getValue();
+		const shareWith = _sharing.current?.getValue(o => o.NTIID);
+
+		onSubmit?.(titleValue, body, shareWith);
 	};
 
-	doSubmit = e => {
-		if (e) {
-			e.preventDefault();
-			e.stopPropagation();
-		}
+	return (
+		<div className="note-editor-frame editor">
+			<form onSubmit={preventSubmit}>
+				<div className="error-message">
+					{error
+						? t(`common.errorMessages.codes.${error.code}`, error)
+						: null}
+				</div>
 
-		const {
-			props: { onSubmit },
-			title,
-			editor,
-			sharing,
-		} = this;
-		let { value: titleValue } = title;
-		let body = editor.getValue();
+				{warning || null}
 
-		let shareWith = sharing && sharing.getValue(o => o.NTIID);
+				{showSharing && (
+					<ShareWith
+						ref={_sharing}
+						getSharingSuggestions={getSharingSuggestions}
+					/>
+				)}
 
-		if (typeof onSubmit === 'function') {
-			onSubmit(titleValue, body, shareWith);
-		}
-	};
-
-	getSharingSuggestions = () => {
-		return Promise.resolve([
-			{
-				MimeType: 'application/vnd.nextthought.community',
-				publish: true,
-				displayName: 'Public',
-				displayType: 'Community',
-				NTIID: PUBLISH,
-				getID: () => PUBLISH,
-			},
-		]);
-	};
-
-	render() {
-		let { error, busy, showSharing, warning } = this.props;
-		let { disabled } = this.state;
-
-		return (
-			<div className="note-editor-frame editor">
-				<form onSubmit={preventSubmit}>
-					<div className="error-message">
-						{error
-							? t(
-									`common.errorMessages.codes.${error.code}`,
-									error
-							  )
-							: null}
-					</div>
-
-					{warning || null}
-
-					{showSharing && (
-						<ShareWith ref={this.attachSharing} scope={this} />
-					)}
-
-					<div className="title">
-						<input
-							type="text"
-							ref={this.attachTitle}
-							placeholder="Title"
-							className={cx({
-								error: error && error.field === 'title',
-							})}
-							onChange={this.onChange}
-							defaultValue={this.props.title}
-						/>
-					</div>
-
-					<Editor
-						ref={this.attachEditor}
-						allowInsertVideo
+				<div className="title">
+					<input
+						type="text"
+						ref={_title}
+						placeholder="Title"
 						className={cx({
-							error: error && error.field === 'body',
+							error: error?.field === 'title',
 						})}
-						onChange={this.onChange}
-						onBlur={this.onChange}
-						initialValue={this.props.value}
+						onChange={_doChange}
+						defaultValue={title}
+					/>
+				</div>
+
+				<Editor
+					ref={_editor}
+					allowInsertVideo
+					className={cx({
+						error: error?.field === 'body',
+					})}
+					onChange={_doChange}
+					onBlur={_doChange}
+					initialValue={value}
+				>
+					<button onClick={_doCancel} className="cancel">
+						{t('common.buttons.cancel')}
+					</button>
+					<button
+						onClick={_doSubmit}
+						className={cx('save', { disabled })}
 					>
-						<button onClick={this.onCancel} className={'cancel'}>
-							{t('common.buttons.cancel')}
-						</button>
-						<button
-							onClick={this.doSubmit}
-							className={cx('save', { disabled })}
-						>
-							{busy ? (
-								<Loading.Ellipse />
-							) : (
-								t('common.buttons.save')
-							)}
-						</button>
-					</Editor>
-				</form>
-			</div>
-		);
-	}
+						{busy ? <Loading.Ellipse /> : t('common.buttons.save')}
+					</button>
+				</Editor>
+			</form>
+		</div>
+	);
+}
+
+PostEditor.propTypes = {
+	onSubmit: PropTypes.func.isRequired,
+	onCancel: PropTypes.func.isRequired,
+	title: PropTypes.string,
+	value: PropTypes.any,
+
+	error: PropTypes.object,
+	busy: PropTypes.bool,
+
+	showSharing: PropTypes.bool,
+
+	warning: PropTypes.node,
+};
+
+async function getSharingSuggestions() {
+	return [
+		{
+			MimeType: 'application/vnd.nextthought.community',
+			publish: true,
+			displayName: 'Public',
+			displayType: 'Community',
+			NTIID: PUBLISH,
+			getID: () => PUBLISH,
+		},
+	];
 }

@@ -1,4 +1,4 @@
-import './ShareWith.scss?test';
+import './ShareWith.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -25,7 +25,7 @@ export default class ShareWith extends React.Component {
 	static propTypes = {
 		defaultValue: PropTypes.array,
 
-		scope: PropTypes.object,
+		getSharingSuggestions: PropTypes.func,
 
 		onBlur: PropTypes.func,
 
@@ -74,15 +74,14 @@ export default class ShareWith extends React.Component {
 
 		this.setState({ focused: false });
 	}
-	Whats;
 
 	setup = async (props = this.props) => {
 		const stillValid = () => props[KEY] === this.props[KEY];
-		const { scope } = props;
+		const { getSharingSuggestions } = props;
 
 		async function getSuggestions() {
 			try {
-				return nullEmpty(await scope.getSharingSuggestions());
+				return nullEmpty(await getSharingSuggestions?.());
 			} catch (e) {
 				logger.error(
 					'Error getting suggestions: ',
