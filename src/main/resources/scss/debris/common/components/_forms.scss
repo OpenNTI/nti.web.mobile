@@ -1,11 +1,16 @@
-input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='range']):not(.nti-text-input),
+input:where(:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type='range']):not(.nti-text-input)),
 select,
 textarea {
 	outline: none;
 	appearance: none;
+	border-width: 1px;
 	border-style: solid;
 	border-color: var(--border-grey);
 	box-shadow: inset 0 0 0 0 var(--border-grey);
+	padding: 8px;
+	margin: 0 0 16px;
+	display: block;
+	width: 100%;
 
 	&.required {
 		box-shadow: inset 4px 0 0 0 var(--border-grey);
