@@ -7,10 +7,11 @@ textarea {
 	border-style: solid;
 	border-color: var(--border-grey);
 	box-shadow: inset 0 0 0 0 var(--border-grey);
-	padding: 8px;
-	margin: 0 0 16px;
 	display: block;
 	width: 100%;
+	padding: 8px;
+
+	// margin: 0 0 16px;
 
 	&.required {
 		box-shadow: inset 4px 0 0 0 var(--border-grey);
