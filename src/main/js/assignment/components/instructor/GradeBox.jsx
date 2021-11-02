@@ -1,4 +1,3 @@
-import './GradeBox.scss';
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
@@ -12,6 +11,22 @@ import { HOC } from '@nti/web-commons';
 import Assignments from '../bindings/Assignments';
 
 const logger = Logger.get('assignment:components:instructor:GradeBox');
+
+const Box = styled.div`
+	display: flex;
+	opacity: 100%;
+	transition: opacity 0.3s;
+
+	& > * {
+		flex: 1 1 50px;
+		max-width: 100%;
+		min-width: 50%;
+	}
+
+	&.busy {
+		opacity: 40%;
+	}
+`;
 
 class GradeBox extends React.Component {
 	static propTypes = {
@@ -116,7 +131,10 @@ class GradeBox extends React.Component {
 		const { grade, showLetter } = this.props;
 		const { busy, value } = this.state;
 		return (
-			<div className={cx('grade-box', { busy, letter: showLetter })}>
+			<Box
+				className={cx('grade-box', { letter: showLetter })}
+				busy={busy}
+			>
 				<input
 					value={value}
 					onBlur={this.onBlur}
@@ -137,7 +155,7 @@ class GradeBox extends React.Component {
 						)}
 					</select>
 				)}
-			</div>
+			</Box>
 		);
 	}
 }
