@@ -42,7 +42,7 @@ export default class extends React.Component {
 						checked={checked}
 						value={option.value}
 					/>
-					<span className="htmlLabel">{option.label}</span>
+					<span className="html-label">{option.label}</span>
 				</label>
 			);
 		});

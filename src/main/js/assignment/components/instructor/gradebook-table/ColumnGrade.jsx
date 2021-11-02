@@ -31,20 +31,15 @@ class ColumnGrade extends React.Component {
 			},
 		} = this;
 
-		const userId = user && user.getID();
-		const finalGradeId = assignments.getFinalGradeAssignmentId();
+		const finalGradeId = assignments?.getFinalGradeAssignmentId();
 
-		return (
-			<div className="grade">
-				{hasFinalGrade && finalGradeId && (
-					<GradeBox
-						assignmentId={finalGradeId}
-						grade={grade}
-						userId={userId}
-						showLetter
-					/>
-				)}
-			</div>
+		return !hasFinalGrade || !finalGradeId ? null : (
+			<GradeBox
+				assignmentId={finalGradeId}
+				grade={grade}
+				userId={user?.getID()}
+				showLetter
+			/>
 		);
 	}
 }

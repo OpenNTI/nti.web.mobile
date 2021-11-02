@@ -23,13 +23,11 @@ export default class extends React.Component {
 		const { grade, assignmentId } = item;
 
 		return (
-			<div>
-				<GradeBox
-					assignmentId={assignmentId}
-					userId={userId}
-					grade={grade}
-				/>
-			</div>
+			<GradeBox
+				assignmentId={assignmentId}
+				userId={userId}
+				grade={grade}
+			/>
 		);
 	}
 }

@@ -45,7 +45,7 @@ class GradeBox extends React.Component {
 	}
 
 	onItemChanged = (grade = this.props.grade) => {
-		const value = grade && grade.getValue();
+		const value = grade?.getValue();
 
 		this.setState({ value: value || '' });
 	};
@@ -90,8 +90,8 @@ class GradeBox extends React.Component {
 			userId,
 			grade,
 		} = this.props;
-		const currentValue = grade && grade.value;
-		const currentLetter = grade && grade.letter;
+		const currentValue = grade?.value;
+		const currentLetter = grade?.letter;
 
 		if (
 			currentValue === newValue ||
@@ -125,7 +125,7 @@ class GradeBox extends React.Component {
 				/>
 				{showLetter && (
 					<select
-						defaultValue={(grade && grade.letter) || ''}
+						defaultValue={grade?.letter || ''}
 						onChange={this.onLetterChange}
 					>
 						{Models.courses.Grade.getPossibleGradeLetters().map(

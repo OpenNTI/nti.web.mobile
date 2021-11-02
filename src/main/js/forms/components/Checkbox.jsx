@@ -9,7 +9,7 @@ export default function Checkbox(props) {
 			<input {...props} />
 			{config.htmlLabel ? (
 				<span
-					className="htmlLabel"
+					className="html-label"
 					{...rawContent(config.label || '')}
 				/>
 			) : (
