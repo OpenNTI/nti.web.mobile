@@ -2,7 +2,7 @@ input:not([type='checkbox']):not([type='radio']):not([type='hidden']):not([type=
 select,
 textarea {
 	outline: none;
-	-webkit-appearance: none;
+	appearance: none;
 	border-style: solid;
 	border-color: var(--border-grey);
 	box-shadow: inset 0 0 0 0 var(--border-grey);
@@ -37,17 +37,15 @@ select.error {
 }
 
 %labelspan {
-	//iOS tab bug fix.
+	// iOS tab bug fix.
 	pointer-events: none;
 
 	a {
 		pointer-events: all;
 	}
 }
-// css3unsupported is not a class we use, but the :not() isn't supported in IE8 ..we're using it as a feature test.
-// so this block of style will not apply at all in IE8. (or android 2.x)
-// so the system default checkbox will be left as is.
-label:not(.css3unsupported) {
+
+label {
 	&.radio {
 		span {
 			@extend %labelspan;
@@ -62,7 +60,7 @@ label:not(.css3unsupported) {
 
 	& > input[type='checkbox'] {
 		position: absolute !important;
-		opacity: 0 !important; //Cannot "display:none" nor "visibilitiy:hidden" or you cannot access it with tab/keyboard.
+		opacity: 0% !important; // Cannot "display:none" nor "visibility:hidden" or you cannot access it with tab/keyboard.
 
 		& + span {
 			@extend %labelspan;
@@ -74,7 +72,7 @@ label:not(.css3unsupported) {
 
 			&::before {
 				content: '';
-				background-image: url(../../../../images/icons/checkbox-14.png);
+				background-image: url('../../../../images/icons/checkbox-14.png');
 				background-size: 14px;
 				background-repeat: no-repeat;
 				background-position: center;
@@ -85,14 +83,14 @@ label:not(.css3unsupported) {
 				height: 18px;
 			}
 
-			&.htmlLabel {
+			&.html-label {
 				// the signature in the five-minute enrollment form wraps and we want consistent leading.
 				line-height: inherit;
 			}
 		}
 
 		&:checked + span::before {
-			background-image: url(../../../../images/icons/checkbox-14_active.png);
+			background-image: url('../../../../images/icons/checkbox-14_active.png');
 		}
 	}
 
@@ -100,7 +98,7 @@ label:not(.css3unsupported) {
 	& > input[type='checkbox']:focus,
 	& > input[type='checkbox']:active {
 		&:not(:checked):not(.disabled) + span::before {
-			background-image: url(../../../../images/icons/checkbox-14_hover.png);
+			background-image: url('../../../../images/icons/checkbox-14_hover.png');
 		}
 	}
 }
