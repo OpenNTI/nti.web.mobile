@@ -1,25 +1,24 @@
-import './ColumnFeedback.scss';
 import PropTypes from 'prop-types';
-import React from 'react';
 
-export default class GradebookColumnFeedback extends React.Component {
-	static propTypes = {
-		item: PropTypes.object.isRequired, // UserGradeBookSummary object
-	};
-
-	static label = () => 'Feedback';
-	static className = 'col-feedback';
-	static sort = 'feedbackCount';
-
-	render() {
-		const {
-			props: {
-				item: { HistoryItemSummary: item },
-			},
-		} = this;
-
-		return (
-			<div>{item && item.feedbackCount > 0 && item.feedbackCount}</div>
-		);
-	}
+/**
+ *
+ * @param {object} props
+ * @param {import('@nti/lib-interfaces').Models.courses.GradeBookUserSummary} props.item
+ * @returns {JSX.Element}
+ */
+function GradebookColumnFeedback({ item }) {
+	return <div>{item?.feedbackCount > 0 && item.feedbackCount}</div>;
 }
+
+export default Object.assign(GradebookColumnFeedback, {
+	className:
+		'col-feedback ' +
+		css`
+			text-align: center;
+		`,
+	label: () => 'Feedback',
+	propTypes: {
+		item: PropTypes.object.isRequired, // UserGradeBookSummary object
+	},
+	sort: 'feedbackCount',
+});
