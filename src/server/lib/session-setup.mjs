@@ -1,5 +1,3 @@
-'use strict';
-
 /*eslint import/no-commonjs:0*/
 // const {
 // 	// Catalog,
@@ -9,9 +7,7 @@
 
 const needsAttention = route => Promise.reject({ isLoginAction: true, route });
 
-Object.assign(exports, { sessionSetup });
-
-function sessionSetup(service) {
+export function sessionSetup(service) {
 	return (
 		service
 			.getAppUser()

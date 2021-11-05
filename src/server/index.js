@@ -1,21 +1,9 @@
-'use strict';
-
-var path = require('path');
-var module$1 = require('module');
-
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
-
 /*eslint-disable no-console, strict, import/no-commonjs*/
-
-if (typeof require === 'undefined') {
-	// eslint-disable-next-line no-global-assign
-	require = module$1.createRequire(undefined);
-}
+'use strict';
+const path = require('path');
 
 let dev;
-let assets = path__default['default'].resolve(__dirname, '../client');
+let assets = path.resolve(__dirname, '../client');
 
 try {
 	if (!/dist\/server/i.test(__dirname)) {
@@ -28,8 +16,8 @@ try {
 
 exports = module.exports = {
 	async register(expressApp, config) {
-		const redirects = await Promise.resolve().then(function () { return require('./redirects-34c76f16.js'); });
-		const { sessionSetup } = await Promise.resolve().then(function () { return require('./session-setup-2daea1b3.js'); });
+		const redirects = await import('./lib/redirects.mjs');
+		const { sessionSetup } = await import('./lib/session-setup.mjs');
 
 		const devmode = dev
 			? await dev.setupDeveloperMode(config, expressApp)
