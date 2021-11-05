@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import cx from 'classnames';
 
 /**
  *
@@ -11,11 +12,12 @@ function GradebookColumnFeedback({ item }) {
 }
 
 export default Object.assign(GradebookColumnFeedback, {
-	className:
-		'col-feedback ' +
+	className: cx(
+		'col-feedback',
 		css`
 			text-align: center;
-		`,
+		`
+	),
 	label: () => 'Feedback',
 	propTypes: {
 		item: PropTypes.object.isRequired, // UserGradeBookSummary object

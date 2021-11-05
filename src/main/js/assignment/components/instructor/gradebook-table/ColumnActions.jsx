@@ -1,23 +1,32 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import cx from 'classnames';
 
 import ActionsMenu from '../ActionsMenu';
 
-export default class GradebookColumnActions extends React.Component {
-	static propTypes = {
-		item: PropTypes.object.isRequired, // UserGradeBookSummary object
-	};
-
-	static label = () => '';
-	static className = 'col-actions';
-	static sort = '';
-
-	render() {
-		const { item } = this.props;
-		if (!item.grade) {
-			return null;
-		}
-
-		return <ActionsMenu {...this.props} userId={item.username} />;
+/**
+ *
+ * @param {object} props
+ * @param {import('@nti/lib-interfaces').Models.courses.GradeBookUserSummary} props.item
+ * @returns {JSX.Element}
+ */
+function GradebookColumnActions({ item, ...props }) {
+	if (!item.grade) {
+		return null;
 	}
+
+	return <ActionsMenu {...props} item={item} userId={item.username} />;
 }
+
+export default Object.assign(GradebookColumnActions, {
+	className: cx(
+		'col-actions',
+		css`
+			text-align: right;
+		`
+	),
+	label: () => '',
+	propTypes: {
+		item: PropTypes.object.isRequired,
+	},
+	sort: '',
+});
