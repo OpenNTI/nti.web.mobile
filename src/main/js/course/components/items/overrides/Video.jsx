@@ -84,10 +84,12 @@ export default class CourseItemVideo extends React.Component {
 							handler={TranscriptedVideo}
 							{...transcriptProps}
 							showDiscussions
+							noPager
 						/>
 						<Router.NotFound
 							handler={TranscriptedVideo}
 							{...transcriptProps}
+							noPager
 						/>
 					</Router.Locations>
 				)}

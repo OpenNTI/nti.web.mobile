@@ -81,6 +81,7 @@ export default createReactClass({
 		lightMode: PropTypes.bool,
 		gutterPrefix: PropTypes.string,
 		noNavigation: PropTypes.bool,
+		noPager: PropTypes.bool,
 	},
 
 	attachVideoRef(x) {
@@ -112,7 +113,8 @@ export default createReactClass({
 	},
 
 	componentDidUpdate(prevProps, prevState) {
-		let { outlineId, MediaIndex, videoId, showDiscussions } = this.props;
+		let { outlineId, MediaIndex, videoId, showDiscussions, noPager } =
+			this.props;
 		let { currentTime, video } = this.state;
 
 		if (prevProps.videoId !== videoId) {
@@ -123,7 +125,7 @@ export default createReactClass({
 			this.setState({ returnTime: currentTime });
 		}
 
-		if (video !== prevState.video) {
+		if (video !== prevState.video && !noPager) {
 			logger.debug('Updating Pager...');
 			let pageSource =
 				video && MediaIndex.filter(x => x.isVideo).getPageSource(video);
