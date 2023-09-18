@@ -93,7 +93,7 @@
     "object-hash": "^2.0.3",
     "react-router-component": ">=0.40.0 <1.0.0",
     "react-transition-group": "^4.2.2",
-    "uuid": "^8.3.0",
+    "uuid": "^9.0.1",
     "vtt.js": "^0.13.0",
     "zpad": "^0.5.0"
   },
